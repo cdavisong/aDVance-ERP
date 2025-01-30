@@ -1,0 +1,17 @@
+﻿using Manigest.Core.MVP.Modelos.Plantillas;
+
+namespace Manigest.Core.MVP.Modelos.Repositorios.Plantillas {
+    public interface IRepositorioDatos<O, C>
+        where O : class, IObjetoUnico
+        where C : Enum {
+        List<O> Objetos {  get; }
+
+        long Cantidad();
+        long Adicionar(O objeto);
+        bool Editar(O objeto, long nuevoId = 0);
+        bool Eliminar(long id);
+        IEnumerable<O> Obtener(string textoComando = "", int limite = 0, int desplazamiento = 0);
+        IEnumerable<O> Obtener(C criterio, string dato, int limite = 0, int desplazamiento = 0);
+        bool Existe(string dato);
+    }
+}
