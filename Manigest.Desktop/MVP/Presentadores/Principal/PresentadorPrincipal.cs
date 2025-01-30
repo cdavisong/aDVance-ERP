@@ -13,18 +13,19 @@ namespace Manigest.Desktop.MVP.Presentadores.Principal {
             #region Contenedores
 
             //InicializarVistaContenedorAutenticacionRegistro();
-            //InicializarVistaContenedorModulos();
+            InicializarVistaContenedorModulos();
 
             #endregion
 
             // Otros
             //MostrarVistaContenedorAutenticacionRegistro(this, EventArgs.Empty);
+            MostrarVistaContenedorModulos(this, EventArgs.Empty);
         }
 
         public IVistaPrincipal Vista { get; }
 
         private void DisponerModulos(object? sender, EventArgs e) {
-            //_contenedorModulos.Vista.Vistas.Cerrar(true);
+            _contenedorModulos.Vista.Vistas.Cerrar(true);
         }
     }
 }

@@ -27,16 +27,17 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaConfServidorFTP));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -148,14 +149,14 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             // 
             btnAlmacenarConfiguracion.Animated = true;
             btnAlmacenarConfiguracion.BorderRadius = 18;
-            btnAlmacenarConfiguracion.CustomizableEdges = customizableEdges11;
+            btnAlmacenarConfiguracion.CustomizableEdges = customizableEdges1;
             btnAlmacenarConfiguracion.Dock = DockStyle.Fill;
             btnAlmacenarConfiguracion.FillColor = Color.FromArgb(  217,   211,   204);
             btnAlmacenarConfiguracion.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAlmacenarConfiguracion.ForeColor = Color.FromArgb(  40,   37,   35);
             btnAlmacenarConfiguracion.Location = new Point(23, 435);
             btnAlmacenarConfiguracion.Name = "btnAlmacenarConfiguracion";
-            btnAlmacenarConfiguracion.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnAlmacenarConfiguracion.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnAlmacenarConfiguracion.Size = new Size(392, 39);
             btnAlmacenarConfiguracion.TabIndex = 6;
             btnAlmacenarConfiguracion.Text = "Almacenar la configuración";
@@ -193,7 +194,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldPassword.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldPassword.BorderRadius = 16;
             fieldPassword.Cursor = Cursors.IBeam;
-            fieldPassword.CustomizableEdges = customizableEdges13;
+            fieldPassword.CustomizableEdges = customizableEdges3;
             fieldPassword.DefaultText = "";
             fieldPassword.DisabledState.BorderColor = Color.FromArgb(  208,   208,   208);
             fieldPassword.DisabledState.FillColor = Color.FromArgb(  226,   226,   226);
@@ -205,6 +206,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldPassword.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldPassword.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldPassword.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
+            fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
             fieldPassword.IconLeftOffset = new Point(10, 0);
             fieldPassword.Location = new Point(23, 357);
             fieldPassword.Margin = new Padding(3, 7, 3, 7);
@@ -213,7 +215,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldPassword.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
             fieldPassword.PlaceholderText = "Contraseña";
             fieldPassword.SelectedText = "";
-            fieldPassword.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldPassword.ShadowDecoration.CustomizableEdges = customizableEdges4;
             fieldPassword.Size = new Size(392, 31);
             fieldPassword.TabIndex = 3;
             fieldPassword.TextOffset = new Point(5, 0);
@@ -226,7 +228,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldNombreUsuario.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldNombreUsuario.BorderRadius = 16;
             fieldNombreUsuario.Cursor = Cursors.IBeam;
-            fieldNombreUsuario.CustomizableEdges = customizableEdges15;
+            fieldNombreUsuario.CustomizableEdges = customizableEdges5;
             fieldNombreUsuario.DefaultText = "";
             fieldNombreUsuario.DisabledState.BorderColor = Color.FromArgb(  208,   208,   208);
             fieldNombreUsuario.DisabledState.FillColor = Color.FromArgb(  226,   226,   226);
@@ -238,6 +240,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldNombreUsuario.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreUsuario.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombreUsuario.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
+            fieldNombreUsuario.IconLeft = (Image) resources.GetObject("fieldNombreUsuario.IconLeft");
             fieldNombreUsuario.IconLeftOffset = new Point(10, 0);
             fieldNombreUsuario.Location = new Point(23, 302);
             fieldNombreUsuario.Margin = new Padding(3, 7, 3, 7);
@@ -246,7 +249,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldNombreUsuario.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombreUsuario.PlaceholderText = "Nombre de usuario";
             fieldNombreUsuario.SelectedText = "";
-            fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges6;
             fieldNombreUsuario.Size = new Size(392, 31);
             fieldNombreUsuario.TabIndex = 2;
             fieldNombreUsuario.TextOffset = new Point(5, 0);
@@ -258,7 +261,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldServidor.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldServidor.BorderRadius = 16;
             fieldServidor.Cursor = Cursors.IBeam;
-            fieldServidor.CustomizableEdges = customizableEdges17;
+            fieldServidor.CustomizableEdges = customizableEdges7;
             fieldServidor.DefaultText = "";
             fieldServidor.DisabledState.BorderColor = Color.FromArgb(  208,   208,   208);
             fieldServidor.DisabledState.FillColor = Color.FromArgb(  226,   226,   226);
@@ -270,6 +273,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldServidor.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldServidor.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldServidor.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
+            fieldServidor.IconLeft = (Image) resources.GetObject("fieldServidor.IconLeft");
             fieldServidor.IconLeftOffset = new Point(10, 0);
             fieldServidor.Location = new Point(23, 247);
             fieldServidor.Margin = new Padding(3, 7, 3, 7);
@@ -278,7 +282,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldServidor.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
             fieldServidor.PlaceholderText = "Servidor";
             fieldServidor.SelectedText = "";
-            fieldServidor.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            fieldServidor.ShadowDecoration.CustomizableEdges = customizableEdges8;
             fieldServidor.Size = new Size(392, 31);
             fieldServidor.TabIndex = 9;
             fieldServidor.TextOffset = new Point(5, 0);
@@ -302,7 +306,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             btnSalir.BorderColor = Color.FromArgb(  217,   211,   204);
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges19;
+            btnSalir.CustomizableEdges = customizableEdges9;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.FromArgb(  250,   250,   250);
             btnSalir.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -312,7 +316,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             btnSalir.HoverState.ForeColor = Color.FromArgb(  40,   37,   35);
             btnSalir.Location = new Point(23, 490);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnSalir.Size = new Size(392, 39);
             btnSalir.TabIndex = 13;
             btnSalir.Text = "Salir";

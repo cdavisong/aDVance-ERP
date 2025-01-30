@@ -26,6 +26,7 @@
             components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaPrincipal));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -83,13 +84,13 @@
             btnMensajes.BackColor = Color.FromArgb(  248,   244,   242);
             btnMensajes.BackgroundImageLayout = ImageLayout.Center;
             btnMensajes.Cursor = Cursors.Hand;
+            btnMensajes.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnMensajes.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnMensajes.CustomizableEdges = customizableEdges3;
             btnMensajes.Dock = DockStyle.Fill;
             btnMensajes.FillColor = Color.FromArgb(  248,   244,   242);
             btnMensajes.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnMensajes.ForeColor = Color.White;
-            btnMensajes.HoverState.BorderColor = Color.Transparent;
-            btnMensajes.HoverState.FillColor = Color.Transparent;
             btnMensajes.Location = new Point(1107, 1);
             btnMensajes.Margin = new Padding(1);
             btnMensajes.Name = "btnMensajes";
@@ -116,13 +117,13 @@
             btnNotificaciones.BackColor = Color.FromArgb(  248,   244,   242);
             btnNotificaciones.BackgroundImageLayout = ImageLayout.Center;
             btnNotificaciones.Cursor = Cursors.Hand;
+            btnNotificaciones.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnNotificaciones.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnNotificaciones.CustomizableEdges = customizableEdges1;
             btnNotificaciones.Dock = DockStyle.Fill;
             btnNotificaciones.FillColor = Color.FromArgb(  248,   244,   242);
             btnNotificaciones.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnNotificaciones.ForeColor = Color.White;
-            btnNotificaciones.HoverState.BorderColor = Color.Transparent;
-            btnNotificaciones.HoverState.FillColor = Color.Transparent;
             btnNotificaciones.Location = new Point(1057, 1);
             btnNotificaciones.Margin = new Padding(1);
             btnNotificaciones.Name = "btnNotificaciones";
@@ -213,7 +214,8 @@
             // 
             // fieldIcono
             // 
-            fieldIcono.BackgroundImageLayout = ImageLayout.Zoom;
+            fieldIcono.BackgroundImage = (Image) resources.GetObject("fieldIcono.BackgroundImage");
+            fieldIcono.BackgroundImageLayout = ImageLayout.Center;
             fieldIcono.Dock = DockStyle.Fill;
             fieldIcono.Location = new Point(3, 3);
             fieldIcono.Name = "fieldIcono";
@@ -269,6 +271,7 @@
             btnSubMenuUsuario.Cursor = Cursors.Hand;
             btnSubMenuUsuario.Dock = DockStyle.Fill;
             btnSubMenuUsuario.FillColor = Color.FromArgb(  248,   244,   242);
+            btnSubMenuUsuario.Image = (Image) resources.GetObject("btnSubMenuUsuario.Image");
             btnSubMenuUsuario.ImageRotate = 0F;
             btnSubMenuUsuario.Location = new Point(1157, 1);
             btnSubMenuUsuario.Margin = new Padding(1);
@@ -276,6 +279,7 @@
             btnSubMenuUsuario.ShadowDecoration.CustomizableEdges = customizableEdges9;
             btnSubMenuUsuario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnSubMenuUsuario.Size = new Size(48, 48);
+            btnSubMenuUsuario.SizeMode = PictureBoxSizeMode.CenterImage;
             btnSubMenuUsuario.TabIndex = 0;
             btnSubMenuUsuario.TabStop = false;
             btnSubMenuUsuario.Visible = false;

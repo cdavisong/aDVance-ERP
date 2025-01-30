@@ -30,6 +30,7 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaConfServidorMySQL));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -209,6 +210,7 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             fieldPassword.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldPassword.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldPassword.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
+            fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
             fieldPassword.IconLeftOffset = new Point(10, 0);
             fieldPassword.Location = new Point(23, 412);
             fieldPassword.Margin = new Padding(3, 7, 3, 7);
@@ -242,6 +244,7 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             fieldNombreUsuario.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreUsuario.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombreUsuario.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
+            fieldNombreUsuario.IconLeft = (Image) resources.GetObject("fieldNombreUsuario.IconLeft");
             fieldNombreUsuario.IconLeftOffset = new Point(10, 0);
             fieldNombreUsuario.Location = new Point(23, 357);
             fieldNombreUsuario.Margin = new Padding(3, 7, 3, 7);
@@ -274,6 +277,7 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             fieldServidor.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldServidor.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldServidor.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
+            fieldServidor.IconLeft = (Image) resources.GetObject("fieldServidor.IconLeft");
             fieldServidor.IconLeftOffset = new Point(10, 0);
             fieldServidor.Location = new Point(23, 247);
             fieldServidor.Margin = new Padding(3, 7, 3, 7);
@@ -306,6 +310,7 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             fieldBaseDatos.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldBaseDatos.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldBaseDatos.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
+            fieldBaseDatos.IconLeft = (Image) resources.GetObject("fieldBaseDatos.IconLeft");
             fieldBaseDatos.IconLeftOffset = new Point(10, 0);
             fieldBaseDatos.Location = new Point(23, 302);
             fieldBaseDatos.Margin = new Padding(3, 7, 3, 7);
