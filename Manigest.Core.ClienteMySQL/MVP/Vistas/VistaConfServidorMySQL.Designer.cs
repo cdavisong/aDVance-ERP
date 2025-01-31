@@ -1,4 +1,5 @@
 ﻿using Guna.UI2.WinForms;
+
 using System.ComponentModel;
 
 namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
@@ -205,22 +206,22 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             fieldPassword.DisabledState.ForeColor = Color.FromArgb(  138,   138,   138);
             fieldPassword.DisabledState.PlaceholderForeColor = Color.FromArgb(  138,   138,   138);
             fieldPassword.Dock = DockStyle.Fill;
-            fieldPassword.FillColor = Color.FromArgb(  250,   250,   250);
+            fieldPassword.FillColor = Color.FromArgb(  254,   254,   253);
             fieldPassword.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
             fieldPassword.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldPassword.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldPassword.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
             fieldPassword.IconLeftOffset = new Point(10, 0);
-            fieldPassword.Location = new Point(23, 412);
-            fieldPassword.Margin = new Padding(3, 7, 3, 7);
+            fieldPassword.Location = new Point(25, 410);
+            fieldPassword.Margin = new Padding(5);
             fieldPassword.Name = "fieldPassword";
             fieldPassword.PasswordChar = '●';
             fieldPassword.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
             fieldPassword.PlaceholderText = "Contraseña";
             fieldPassword.SelectedText = "";
             fieldPassword.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            fieldPassword.Size = new Size(392, 31);
+            fieldPassword.Size = new Size(388, 35);
             fieldPassword.TabIndex = 3;
             fieldPassword.TextOffset = new Point(5, 0);
             fieldPassword.UseSystemPasswordChar = true;
@@ -239,22 +240,22 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             fieldNombreUsuario.DisabledState.ForeColor = Color.FromArgb(  138,   138,   138);
             fieldNombreUsuario.DisabledState.PlaceholderForeColor = Color.FromArgb(  138,   138,   138);
             fieldNombreUsuario.Dock = DockStyle.Fill;
-            fieldNombreUsuario.FillColor = Color.FromArgb(  250,   250,   250);
+            fieldNombreUsuario.FillColor = Color.FromArgb(  254,   254,   253);
             fieldNombreUsuario.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
             fieldNombreUsuario.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreUsuario.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombreUsuario.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldNombreUsuario.IconLeft = (Image) resources.GetObject("fieldNombreUsuario.IconLeft");
             fieldNombreUsuario.IconLeftOffset = new Point(10, 0);
-            fieldNombreUsuario.Location = new Point(23, 357);
-            fieldNombreUsuario.Margin = new Padding(3, 7, 3, 7);
+            fieldNombreUsuario.Location = new Point(25, 355);
+            fieldNombreUsuario.Margin = new Padding(5);
             fieldNombreUsuario.Name = "fieldNombreUsuario";
             fieldNombreUsuario.PasswordChar = '\0';
             fieldNombreUsuario.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombreUsuario.PlaceholderText = "Nombre de usuario";
             fieldNombreUsuario.SelectedText = "";
             fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            fieldNombreUsuario.Size = new Size(392, 31);
+            fieldNombreUsuario.Size = new Size(388, 35);
             fieldNombreUsuario.TabIndex = 2;
             fieldNombreUsuario.TextOffset = new Point(5, 0);
             // 
@@ -272,22 +273,22 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             fieldServidor.DisabledState.ForeColor = Color.FromArgb(  138,   138,   138);
             fieldServidor.DisabledState.PlaceholderForeColor = Color.FromArgb(  138,   138,   138);
             fieldServidor.Dock = DockStyle.Fill;
-            fieldServidor.FillColor = Color.FromArgb(  250,   250,   250);
+            fieldServidor.FillColor = Color.FromArgb(  254,   254,   253);
             fieldServidor.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
             fieldServidor.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldServidor.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldServidor.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldServidor.IconLeft = (Image) resources.GetObject("fieldServidor.IconLeft");
             fieldServidor.IconLeftOffset = new Point(10, 0);
-            fieldServidor.Location = new Point(23, 247);
-            fieldServidor.Margin = new Padding(3, 7, 3, 7);
+            fieldServidor.Location = new Point(25, 245);
+            fieldServidor.Margin = new Padding(5);
             fieldServidor.Name = "fieldServidor";
             fieldServidor.PasswordChar = '\0';
             fieldServidor.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
             fieldServidor.PlaceholderText = "Servidor";
             fieldServidor.SelectedText = "";
             fieldServidor.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldServidor.Size = new Size(392, 31);
+            fieldServidor.Size = new Size(388, 35);
             fieldServidor.TabIndex = 9;
             fieldServidor.TextOffset = new Point(5, 0);
             // 
@@ -305,22 +306,22 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             fieldBaseDatos.DisabledState.ForeColor = Color.FromArgb(  138,   138,   138);
             fieldBaseDatos.DisabledState.PlaceholderForeColor = Color.FromArgb(  138,   138,   138);
             fieldBaseDatos.Dock = DockStyle.Fill;
-            fieldBaseDatos.FillColor = Color.FromArgb(  250,   250,   250);
+            fieldBaseDatos.FillColor = Color.FromArgb(  254,   254,   253);
             fieldBaseDatos.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
             fieldBaseDatos.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldBaseDatos.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldBaseDatos.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldBaseDatos.IconLeft = (Image) resources.GetObject("fieldBaseDatos.IconLeft");
             fieldBaseDatos.IconLeftOffset = new Point(10, 0);
-            fieldBaseDatos.Location = new Point(23, 302);
-            fieldBaseDatos.Margin = new Padding(3, 7, 3, 7);
+            fieldBaseDatos.Location = new Point(25, 300);
+            fieldBaseDatos.Margin = new Padding(5);
             fieldBaseDatos.Name = "fieldBaseDatos";
             fieldBaseDatos.PasswordChar = '\0';
             fieldBaseDatos.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
             fieldBaseDatos.PlaceholderText = "Base de datos";
             fieldBaseDatos.SelectedText = "";
             fieldBaseDatos.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            fieldBaseDatos.Size = new Size(392, 31);
+            fieldBaseDatos.Size = new Size(388, 35);
             fieldBaseDatos.TabIndex = 10;
             fieldBaseDatos.TextOffset = new Point(5, 0);
             // 
@@ -345,7 +346,7 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
             btnSalir.BorderThickness = 1;
             btnSalir.CustomizableEdges = customizableEdges11;
             btnSalir.Dock = DockStyle.Fill;
-            btnSalir.FillColor = Color.FromArgb(  250,   250,   250);
+            btnSalir.FillColor = Color.FromArgb(  254,   254,   253);
             btnSalir.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnSalir.ForeColor = Color.FromArgb(  217,   211,   204);
             btnSalir.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);

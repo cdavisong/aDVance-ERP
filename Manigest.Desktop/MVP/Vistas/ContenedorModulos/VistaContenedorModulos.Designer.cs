@@ -30,6 +30,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaContenedorModulos));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
@@ -39,8 +40,9 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             layoutModulos = new FlowLayoutPanel();
             btnInicio = new Guna2CircleButton();
             btnModuloEstadisticas = new Guna2CircleButton();
-            btnModuloAlmacen = new Guna2CircleButton();
+            btnModuloInventario = new Guna2CircleButton();
             contenedorVistas = new Panel();
+            btnModuloContactos = new Guna2CircleButton();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
             layoutMenuLateral.SuspendLayout();
@@ -126,7 +128,8 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             layoutModulos.BackColor = Color.FromArgb(  243,   243,   243);
             layoutModulos.Controls.Add(btnInicio);
             layoutModulos.Controls.Add(btnModuloEstadisticas);
-            layoutModulos.Controls.Add(btnModuloAlmacen);
+            layoutModulos.Controls.Add(btnModuloContactos);
+            layoutModulos.Controls.Add(btnModuloInventario);
             layoutModulos.Dock = DockStyle.Top;
             layoutModulos.Location = new Point(0, 0);
             layoutModulos.Margin = new Padding(0);
@@ -174,22 +177,22 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             // 
             // btnModuloAlmacen
             // 
-            btnModuloAlmacen.BackColor = Color.FromArgb(  243,   243,   243);
-            btnModuloAlmacen.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            btnModuloAlmacen.CheckedState.FillColor = Color.FromArgb(  217,   211,   204);
-            btnModuloAlmacen.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
-            btnModuloAlmacen.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnModuloAlmacen.CustomImages.ImageSize = new Size(24, 24);
-            btnModuloAlmacen.FillColor = Color.FromArgb(  243,   243,   243);
-            btnModuloAlmacen.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            btnModuloAlmacen.ForeColor = Color.White;
-            btnModuloAlmacen.ImageSize = new Size(24, 24);
-            btnModuloAlmacen.Location = new Point(3, 103);
-            btnModuloAlmacen.Name = "btnModuloAlmacen";
-            btnModuloAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnModuloAlmacen.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            btnModuloAlmacen.Size = new Size(44, 44);
-            btnModuloAlmacen.TabIndex = 2;
+            btnModuloInventario.BackColor = Color.FromArgb(  243,   243,   243);
+            btnModuloInventario.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnModuloInventario.CheckedState.FillColor = Color.FromArgb(  217,   211,   204);
+            btnModuloInventario.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
+            btnModuloInventario.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnModuloInventario.CustomImages.ImageSize = new Size(24, 24);
+            btnModuloInventario.FillColor = Color.FromArgb(  243,   243,   243);
+            btnModuloInventario.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnModuloInventario.ForeColor = Color.White;
+            btnModuloInventario.ImageSize = new Size(24, 24);
+            btnModuloInventario.Location = new Point(3, 153);
+            btnModuloInventario.Name = "btnModuloAlmacen";
+            btnModuloInventario.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            btnModuloInventario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            btnModuloInventario.Size = new Size(44, 44);
+            btnModuloInventario.TabIndex = 2;
             // 
             // contenedorVistas
             // 
@@ -200,6 +203,25 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             contenedorVistas.Name = "contenedorVistas";
             contenedorVistas.Size = new Size(1306, 608);
             contenedorVistas.TabIndex = 1;
+            // 
+            // btnModuloContactos
+            // 
+            btnModuloContactos.BackColor = Color.FromArgb(  243,   243,   243);
+            btnModuloContactos.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnModuloContactos.CheckedState.FillColor = Color.FromArgb(  217,   211,   204);
+            btnModuloContactos.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
+            btnModuloContactos.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnModuloContactos.CustomImages.ImageSize = new Size(24, 24);
+            btnModuloContactos.FillColor = Color.FromArgb(  243,   243,   243);
+            btnModuloContactos.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnModuloContactos.ForeColor = Color.White;
+            btnModuloContactos.ImageSize = new Size(24, 24);
+            btnModuloContactos.Location = new Point(3, 103);
+            btnModuloContactos.Name = "btnModuloContactos";
+            btnModuloContactos.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnModuloContactos.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            btnModuloContactos.Size = new Size(44, 44);
+            btnModuloContactos.TabIndex = 3;
             // 
             // VistaContenedorModulos
             // 
@@ -232,7 +254,8 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
         private Panel contenedorVistas;
         private Guna2CircleButton btnInicio;
         private Guna2CircleButton btnModuloEstadisticas;
-        private Guna2CircleButton btnModuloAlmacen;
+        private Guna2CircleButton btnModuloInventario;
         private Guna2CircleButton btnAyuda;
+        private Guna2CircleButton btnModuloContactos;
     }
 }

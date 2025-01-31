@@ -236,7 +236,7 @@
             // fieldNombreApp
             // 
             fieldNombreApp.Dock = DockStyle.Left;
-            fieldNombreApp.Font = new Font("Microsoft PhagsPa", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreApp.Font = new Font("Microsoft PhagsPa", 12F, FontStyle.Bold, GraphicsUnit.Point);
             fieldNombreApp.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombreApp.ImeMode = ImeMode.NoControl;
             fieldNombreApp.Location = new Point(0, 0);

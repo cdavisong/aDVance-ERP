@@ -1,5 +1,6 @@
 ﻿using Manigest.Core.ClienteMySQL.MVP.Presentadores;
 using Manigest.Core.ClienteMySQL.MVP.Vistas.Plantillas;
+using Manigest.Core.Utiles;
 
 namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
     public partial class VistaConfServidorMySQL : Form, IVistaConfServidorMySQL {
@@ -63,15 +64,15 @@ namespace Manigest.Core.ClienteMySQL.MVP.Vistas {
         }
 
         public void Restaurar() {
-            var confServidorMySQL = PresentadorConfServidorMySQL.ObtenerConfiguracion();
+            var confServidorMySQL = UtilesConfServidores.ObtenerConfServidorMySQL();
 
             if (confServidorMySQL == null)
                 return;
 
-            Servidor = confServidorMySQL.Servidor;
-            BaseDatos = confServidorMySQL.BaseDatos;
-            Usuario = confServidorMySQL.Usuario;
-            Password = confServidorMySQL.Password;
+            Servidor = confServidorMySQL.ElementAt(0);
+            BaseDatos = confServidorMySQL.ElementAt(1);
+            Usuario = confServidorMySQL.ElementAt(2);
+            Password = confServidorMySQL.ElementAt(3);
         }
 
         public void Ocultar() {

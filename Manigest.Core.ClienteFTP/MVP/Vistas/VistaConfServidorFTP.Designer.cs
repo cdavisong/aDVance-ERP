@@ -192,7 +192,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldPassword.Animated = true;
             fieldPassword.BackColor = Color.FromArgb(  254,   254,   253);
             fieldPassword.BorderColor = Color.FromArgb(  217,   211,   204);
-            fieldPassword.BorderRadius = 16;
+            fieldPassword.BorderRadius = 14;
             fieldPassword.Cursor = Cursors.IBeam;
             fieldPassword.CustomizableEdges = customizableEdges3;
             fieldPassword.DefaultText = "";
@@ -226,7 +226,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldNombreUsuario.Animated = true;
             fieldNombreUsuario.BackColor = Color.FromArgb(  254,   254,   253);
             fieldNombreUsuario.BorderColor = Color.FromArgb(  217,   211,   204);
-            fieldNombreUsuario.BorderRadius = 16;
+            fieldNombreUsuario.BorderRadius = 14;
             fieldNombreUsuario.Cursor = Cursors.IBeam;
             fieldNombreUsuario.CustomizableEdges = customizableEdges5;
             fieldNombreUsuario.DefaultText = "";
@@ -259,7 +259,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldServidor.Animated = true;
             fieldServidor.BackColor = Color.FromArgb(  254,   254,   253);
             fieldServidor.BorderColor = Color.FromArgb(  217,   211,   204);
-            fieldServidor.BorderRadius = 16;
+            fieldServidor.BorderRadius = 14;
             fieldServidor.Cursor = Cursors.IBeam;
             fieldServidor.CustomizableEdges = customizableEdges7;
             fieldServidor.DefaultText = "";

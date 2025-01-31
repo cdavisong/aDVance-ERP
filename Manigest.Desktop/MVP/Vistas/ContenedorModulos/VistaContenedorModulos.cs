@@ -37,8 +37,11 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
 
         public event EventHandler? MostrarVistaInicio;
         public event EventHandler? MostrarMenuEstadisticas;
+        public event EventHandler? MostrarMenuContactos;
+        public event EventHandler? MostrarMenuInventario;
         public event EventHandler? CambioModulo;
         public event EventHandler? Salir;
+        
 
         public void Inicializar() {
             // Propiedades locales
@@ -54,7 +57,17 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
                 CambioModulo?.Invoke(sender, e);
                 MostrarMenuEstadisticas?.Invoke(sender, e);
             };
-            CambioModulo += delegate { Restaurar(); };
+            btnModuloContactos.Click += delegate (object? sender, EventArgs e) {
+                CambioModulo?.Invoke(sender, e);
+                MostrarMenuContactos?.Invoke(sender, e);
+            };
+            btnModuloInventario.Click += delegate (object? sender, EventArgs e) {
+                CambioModulo?.Invoke(sender, e);
+                MostrarMenuInventario?.Invoke(sender, e);
+            };
+            CambioModulo += delegate { 
+                Restaurar(); 
+            };
         }
 
         public void Mostrar() {

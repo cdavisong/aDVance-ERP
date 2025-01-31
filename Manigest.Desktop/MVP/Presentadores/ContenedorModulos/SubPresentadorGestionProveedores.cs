@@ -1,0 +1,22 @@
+﻿using Manigest.Modulos.Contactos.MVP.Presentadores;
+using Manigest.Modulos.Contactos.MVP.Vistas.Proveedor;
+
+namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
+    public partial class PresentadorContenedorModulos {
+        private PresentadorGestionProveedores _gestionProveedores;
+
+        private void InicializarVistaGestionProveedores() {
+            _gestionProveedores = new PresentadorGestionProveedores(new VistaGestionProveedor());
+            _gestionProveedores.EditarObjeto += MostrarVistaEdicionProveedor;
+            _gestionProveedores.Vista.RegistrarDatos += MostrarVistaRegistroProveedor;
+
+            Vista.Vistas.Registrar("vistaGestionProveedores", _gestionProveedores.Vista);
+        }
+
+        private void MostrarVistaGestionProveedores(object? sender, EventArgs e) {
+            _gestionProveedores.Vista.Mostrar();
+            _gestionProveedores.Vista.Restaurar();
+            _gestionProveedores.RefrescarListaObjetos();
+        }
+    }
+}

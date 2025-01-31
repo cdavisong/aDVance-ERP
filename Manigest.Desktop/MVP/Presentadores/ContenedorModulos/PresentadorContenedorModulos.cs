@@ -8,7 +8,16 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
             Vista = vista;
 
             // Eventos
-            // TODO: Mostrar vistas de módulos
+            Vista.MostrarMenuContactos += MostrarVistaMenuContacto;
+
+            #region Módulo : Contactos
+
+            InicializarVistaMenuContacto();
+            InicializarVistaGestionProveedores();
+            InicializarVistaGestionClientes();
+            InicializarVistaGestionContactos();
+
+            #endregion
         }
 
         private IVistaPrincipal VistaPrincipal { get; }

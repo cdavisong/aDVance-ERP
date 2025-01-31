@@ -12,9 +12,7 @@ namespace Manigest.Core.MVP.Presentadores {
         where C : Enum {
         protected O _objeto;
 
-        protected PresentadorRegistroBase(Vr vista, O objeto) : base(vista) {
-            _objeto = objeto;
-
+        protected PresentadorRegistroBase(Vr vista) : base(vista) {
             Vista.RegistrarDatos += RegistrarDatosObjeto;
             Vista.EditarDatos += EditarDatosObjeto;
             Vista.Salir += delegate (object? sender, EventArgs e) {

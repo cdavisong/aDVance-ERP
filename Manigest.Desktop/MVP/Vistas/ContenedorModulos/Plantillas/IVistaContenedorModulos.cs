@@ -4,8 +4,10 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos.Plantillas {
     public interface IVistaContenedorModulos : IVistaContenedor {
         //bool BtnModuloAdministracionVisible { get; set; }
 
-        event EventHandler MostrarVistaInicio;
-        event EventHandler MostrarMenuEstadisticas;
-        event EventHandler CambioModulo;
+        event EventHandler? MostrarVistaInicio;
+        event EventHandler? MostrarMenuEstadisticas;
+        event EventHandler? MostrarMenuContactos;
+        event EventHandler? MostrarMenuInventario;
+        event EventHandler? CambioModulo;
     }
 }

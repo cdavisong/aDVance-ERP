@@ -1,5 +1,6 @@
 ﻿using Manigest.Core.ClienteFTP.MVP.Presentadores;
 using Manigest.Core.ClienteFTP.MVP.Vistas.Plantillas;
+using Manigest.Core.Utiles;
 
 namespace Manigest.Core.ClienteFTP.MVP.Vistas {
     public partial class VistaConfServidorFTP : Form, IVistaConfServidorFTP {
@@ -58,14 +59,14 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
         }
 
         public void Restaurar() {
-            var confServidorFTP = PresentadorConfServidorFTP.ObtenerConfiguracion();
+            var confServidorFTP = UtilesConfServidores.ObtenerConfServidorFTP();
 
             if (confServidorFTP == null)
                 return;
 
-            Servidor = confServidorFTP.Servidor;
-            Usuario = confServidorFTP.Usuario;
-            Password = confServidorFTP.Password;
+            Servidor = confServidorFTP.ElementAt(0);
+            Usuario = confServidorFTP.ElementAt(1);
+            Password = confServidorFTP.ElementAt(2);
         }
 
         public void Ocultar() {
