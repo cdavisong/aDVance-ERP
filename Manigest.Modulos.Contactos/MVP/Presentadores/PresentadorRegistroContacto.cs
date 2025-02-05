@@ -1,4 +1,5 @@
 ﻿using Manigest.Core.MVP.Presentadores;
+using Manigest.Core.Utiles.Datos;
 using Manigest.Modulos.Contactos.MVP.Modelos;
 using Manigest.Modulos.Contactos.MVP.Modelos.Repositorios;
 using Manigest.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas;
@@ -11,30 +12,10 @@ namespace Manigest.Modulos.Contactos.MVP.Presentadores {
         public PresentadorRegistroContacto(IVistaRegistroContacto vista) : base(vista) {
         }
 
-        public override void PopularVistaDesdeObjeto(Contacto objeto) {
-            var datosTelefonoContacto = new DatosTelefonoContacto();
-            var telefonosContacto = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, objeto.Id.ToString());
-
+        public override void PopularVistaDesdeObjeto(Contacto objeto) { 
             Vista.Nombre = objeto.Nombre;
-
-            try {
-                var telefonoMovil = telefonosContacto.FirstOrDefault(t => t.Categoria == CategoriaTelefonoContacto.Movil);
-
-                Vista.TelefonoMovil = telefonoMovil.Numero;
-                _movil = telefonoMovil;
-            } catch (InvalidOperationException) {
-                Vista.TelefonoMovil = string.Empty;
-            }
-
-            try {
-                var telefonoFijo = telefonosContacto.FirstOrDefault(t => t.Categoria == CategoriaTelefonoContacto.Fijo);
-
-                Vista.TelefonoFijo = telefonoFijo.Numero;
-                _movil = telefonoFijo;
-            } catch (InvalidOperationException) {
-                Vista.TelefonoFijo = string.Empty;
-            }
-
+            Vista.TelefonoMovil = UtilesTelefonoContacto.ObtenerTelefonoContacto(objeto.Id, true) ?? string.Empty;
+            Vista.TelefonoFijo = UtilesTelefonoContacto.ObtenerTelefonoContacto(objeto.Id, false) ?? string.Empty;
             Vista.CorreoElectronico = objeto.DireccionCorreoElectronico;
             Vista.Direccion = objeto.Direccion;
             Vista.Notas = objeto.Notas;

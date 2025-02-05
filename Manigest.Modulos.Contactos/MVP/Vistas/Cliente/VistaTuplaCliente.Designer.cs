@@ -55,7 +55,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             // 
             // layoutBase
             // 
-            layoutBase.BackColor = Color.Gainsboro;
+            layoutBase.BackColor = Color.FromArgb(  217,   211,   204);
             layoutBase.ColumnCount = 1;
             layoutBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             layoutBase.Controls.Add(layoutVista, 0, 0);
@@ -73,8 +73,8 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             layoutVista.ColumnCount = 8;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
@@ -107,6 +107,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.FromArgb(  250,   250,   250);
             btnEliminar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEliminar.ForeColor = Color.White;
             btnEliminar.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);
             btnEliminar.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
             btnEliminar.HoverState.ForeColor = Color.White;
@@ -157,6 +158,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.FromArgb(  250,   250,   250);
             btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEditar.ForeColor = Color.White;
             btnEditar.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);
             btnEditar.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
             btnEditar.Location = new Point(1164, 3);
@@ -171,10 +173,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldNombreContacto.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreContacto.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombreContacto.ImeMode = ImeMode.NoControl;
-            fieldNombreContacto.Location = new Point(581, 1);
+            fieldNombreContacto.Location = new Point(531, 1);
             fieldNombreContacto.Margin = new Padding(1);
             fieldNombreContacto.Name = "fieldNombreContacto";
-            fieldNombreContacto.Size = new Size(298, 38);
+            fieldNombreContacto.Size = new Size(248, 38);
             fieldNombreContacto.TabIndex = 14;
             fieldNombreContacto.Text = "nombreContacto";
             fieldNombreContacto.TextAlign = ContentAlignment.MiddleLeft;
@@ -189,7 +191,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldRazonSocial.Location = new Point(281, 1);
             fieldRazonSocial.Margin = new Padding(1);
             fieldRazonSocial.Name = "fieldRazonSocial";
-            fieldRazonSocial.Size = new Size(298, 38);
+            fieldRazonSocial.Size = new Size(248, 38);
             fieldRazonSocial.TabIndex = 6;
             fieldRazonSocial.Text = "razonSocial";
             fieldRazonSocial.TextAlign = ContentAlignment.MiddleLeft;

@@ -4,8 +4,6 @@ using Manigest.Core.MVP.Presentadores.Plantillas;
 using Manigest.Core.MVP.Vistas.Plantillas;
 using Manigest.Core.Utiles;
 
-using System.Drawing;
-
 namespace Manigest.Core.MVP.Presentadores {
     public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : PresentadorBase<Vg>, IPresentadorGestion<Vg, Do, O, C>
         where Pt : IPresentadorTupla<Vt, O>

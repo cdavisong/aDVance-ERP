@@ -10,7 +10,7 @@ namespace Manigest.Core.MVP.Presentadores.Plantillas {
         where C : Enum {
         Do DatosObjeto { get; }
 
-        event EventHandler DatosRegistradosActualizados;
-        event EventHandler Salir;
+        event EventHandler? DatosRegistradosActualizados;
+        event EventHandler? Salir;
     }
 }

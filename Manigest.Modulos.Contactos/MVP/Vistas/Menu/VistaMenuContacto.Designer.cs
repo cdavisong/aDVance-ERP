@@ -192,7 +192,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
             // VistaMenuContacto
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb(  2,   52,   107);
+            BackColor = Color.FromArgb(  204,   204,   204);
             ClientSize = new Size(994, 50);
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);

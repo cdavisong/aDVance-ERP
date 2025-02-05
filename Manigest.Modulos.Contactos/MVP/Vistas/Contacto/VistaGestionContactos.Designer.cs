@@ -61,6 +61,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTituloId = new Label();
             fieldTituloDireccion = new Label();
             fieldTituloTelefonos = new Label();
+            fieldTiuloCorreoElectronico = new Label();
             contenedorVistas = new Panel();
             layoutControlesTabla = new TableLayoutPanel();
             btnPaginaAnterior = new Guna2Button();
@@ -70,7 +71,6 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             btnSincronizarDatos = new Guna2Button();
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
-            fieldTiuloCorreoElectronico = new Label();
             layoutVista.SuspendLayout();
             layoutTitulo.SuspendLayout();
             layoutDistribucionMenu.SuspendLayout();
@@ -145,7 +145,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             btnCerrar.BorderRadius = 18;
             btnCerrar.CustomizableEdges = customizableEdges1;
             btnCerrar.Dock = DockStyle.Fill;
-            btnCerrar.FillColor = Color.FromArgb(  250,   250,   250);
+            btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.FromArgb(  250,   250,   250);
@@ -282,7 +282,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 240F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
@@ -338,7 +338,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTituloDireccion.Location = new Point(771, 1);
             fieldTituloDireccion.Margin = new Padding(1);
             fieldTituloDireccion.Name = "fieldTituloDireccion";
-            fieldTituloDireccion.Size = new Size(298, 56);
+            fieldTituloDireccion.Size = new Size(248, 56);
             fieldTituloDireccion.TabIndex = 10;
             fieldTituloDireccion.Text = "Dirección";
             fieldTituloDireccion.TextAlign = ContentAlignment.MiddleCenter;
@@ -356,6 +356,20 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTituloTelefonos.TabIndex = 4;
             fieldTituloTelefonos.Text = "Teléfonos";
             fieldTituloTelefonos.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTiuloCorreoElectronico
+            // 
+            fieldTiuloCorreoElectronico.Dock = DockStyle.Fill;
+            fieldTiuloCorreoElectronico.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTiuloCorreoElectronico.ForeColor = Color.FromArgb(  40,   37,   35);
+            fieldTiuloCorreoElectronico.ImeMode = ImeMode.NoControl;
+            fieldTiuloCorreoElectronico.Location = new Point(531, 1);
+            fieldTiuloCorreoElectronico.Margin = new Padding(1);
+            fieldTiuloCorreoElectronico.Name = "fieldTiuloCorreoElectronico";
+            fieldTiuloCorreoElectronico.Size = new Size(238, 56);
+            fieldTiuloCorreoElectronico.TabIndex = 5;
+            fieldTiuloCorreoElectronico.Text = "Correo Electrónico";
+            fieldTiuloCorreoElectronico.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // contenedorVistas
             // 
@@ -546,20 +560,6 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldPaginasTotales.TabIndex = 6;
             fieldPaginasTotales.Text = "de 1";
             fieldPaginasTotales.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fieldTiuloCorreoElectronico
-            // 
-            fieldTiuloCorreoElectronico.Dock = DockStyle.Fill;
-            fieldTiuloCorreoElectronico.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTiuloCorreoElectronico.ForeColor = Color.FromArgb(  40,   37,   35);
-            fieldTiuloCorreoElectronico.ImeMode = ImeMode.NoControl;
-            fieldTiuloCorreoElectronico.Location = new Point(531, 1);
-            fieldTiuloCorreoElectronico.Margin = new Padding(1);
-            fieldTiuloCorreoElectronico.Name = "fieldTiuloCorreoElectronico";
-            fieldTiuloCorreoElectronico.Size = new Size(238, 56);
-            fieldTiuloCorreoElectronico.TabIndex = 5;
-            fieldTiuloCorreoElectronico.Text = "Correo Electrónico";
-            fieldTiuloCorreoElectronico.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // VistaGestionContactos
             // 

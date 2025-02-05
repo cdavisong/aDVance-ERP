@@ -144,7 +144,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             btnCerrar.BorderRadius = 18;
             btnCerrar.CustomizableEdges = customizableEdges1;
             btnCerrar.Dock = DockStyle.Fill;
-            btnCerrar.FillColor = Color.FromArgb(  250,   250,   250);
+            btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.FromArgb(  250,   250,   250);
@@ -279,8 +279,8 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             layoutEncabezadosTabla.ColumnCount = 8;
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
@@ -332,10 +332,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldTituloNombreContacto.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloNombreContacto.ForeColor = Color.Black;
             fieldTituloNombreContacto.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreContacto.Location = new Point(581, 1);
+            fieldTituloNombreContacto.Location = new Point(531, 1);
             fieldTituloNombreContacto.Margin = new Padding(1);
             fieldTituloNombreContacto.Name = "fieldTituloNombreContacto";
-            fieldTituloNombreContacto.Size = new Size(298, 56);
+            fieldTituloNombreContacto.Size = new Size(248, 56);
             fieldTituloNombreContacto.TabIndex = 10;
             fieldTituloNombreContacto.Text = "Nombre del contacto";
             fieldTituloNombreContacto.TextAlign = ContentAlignment.MiddleCenter;
@@ -349,7 +349,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldTituloRazonSocial.Location = new Point(281, 1);
             fieldTituloRazonSocial.Margin = new Padding(1);
             fieldTituloRazonSocial.Name = "fieldTituloRazonSocial";
-            fieldTituloRazonSocial.Size = new Size(298, 56);
+            fieldTituloRazonSocial.Size = new Size(248, 56);
             fieldTituloRazonSocial.TabIndex = 4;
             fieldTituloRazonSocial.Text = "Razón social";
             fieldTituloRazonSocial.TextAlign = ContentAlignment.MiddleCenter;

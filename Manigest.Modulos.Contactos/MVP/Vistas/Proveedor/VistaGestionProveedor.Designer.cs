@@ -28,23 +28,23 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionProveedor));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
             layoutTitulo = new TableLayoutPanel();
@@ -142,16 +142,16 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges17;
+            btnCerrar.CustomizableEdges = customizableEdges1;
             btnCerrar.Dock = DockStyle.Fill;
-            btnCerrar.FillColor = Color.FromArgb(  250,   250,   250);
+            btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.FromArgb(  250,   250,   250);
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(1239, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnCerrar.Size = new Size(44, 39);
             btnCerrar.TabIndex = 8;
             // 
@@ -191,7 +191,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldDatoBusqueda.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldDatoBusqueda.BorderRadius = 18;
             fieldDatoBusqueda.Cursor = Cursors.IBeam;
-            fieldDatoBusqueda.CustomizableEdges = customizableEdges19;
+            fieldDatoBusqueda.CustomizableEdges = customizableEdges3;
             fieldDatoBusqueda.DefaultText = "";
             fieldDatoBusqueda.DisabledState.BorderColor = Color.FromArgb(  208,   208,   208);
             fieldDatoBusqueda.DisabledState.FillColor = Color.FromArgb(  226,   226,   226);
@@ -213,7 +213,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldDatoBusqueda.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
             fieldDatoBusqueda.PlaceholderText = "Buscar proveedores";
             fieldDatoBusqueda.SelectedText = "";
-            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges4;
             fieldDatoBusqueda.Size = new Size(350, 35);
             fieldDatoBusqueda.TabIndex = 8;
             fieldDatoBusqueda.TextOffset = new Point(5, 0);
@@ -234,7 +234,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnRegistrarProveedor.Animated = true;
             btnRegistrarProveedor.BackColor = Color.FromArgb(  248,   244,   242);
             btnRegistrarProveedor.BorderRadius = 18;
-            btnRegistrarProveedor.CustomizableEdges = customizableEdges21;
+            btnRegistrarProveedor.CustomizableEdges = customizableEdges5;
             btnRegistrarProveedor.FillColor = Color.FromArgb(  217,   211,   204);
             btnRegistrarProveedor.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrarProveedor.ForeColor = Color.FromArgb(  40,   37,   35);
@@ -243,7 +243,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnRegistrarProveedor.Location = new Point(3, 3);
             btnRegistrarProveedor.Margin = new Padding(3, 3, 1, 3);
             btnRegistrarProveedor.Name = "btnRegistrarProveedor";
-            btnRegistrarProveedor.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            btnRegistrarProveedor.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnRegistrarProveedor.Size = new Size(320, 39);
             btnRegistrarProveedor.TabIndex = 7;
             btnRegistrarProveedor.Text = "Registrar un proveedor";
@@ -279,8 +279,8 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             layoutEncabezadosTabla.ColumnCount = 8;
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
@@ -332,10 +332,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldTituloNombreRepresentante.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloNombreRepresentante.ForeColor = Color.Black;
             fieldTituloNombreRepresentante.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreRepresentante.Location = new Point(581, 1);
+            fieldTituloNombreRepresentante.Location = new Point(531, 1);
             fieldTituloNombreRepresentante.Margin = new Padding(1);
             fieldTituloNombreRepresentante.Name = "fieldTituloNombreRepresentante";
-            fieldTituloNombreRepresentante.Size = new Size(298, 56);
+            fieldTituloNombreRepresentante.Size = new Size(248, 56);
             fieldTituloNombreRepresentante.TabIndex = 10;
             fieldTituloNombreRepresentante.Text = "Nombre del representante";
             fieldTituloNombreRepresentante.TextAlign = ContentAlignment.MiddleCenter;
@@ -349,7 +349,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldTituloRazonSocial.Location = new Point(281, 1);
             fieldTituloRazonSocial.Margin = new Padding(1);
             fieldTituloRazonSocial.Name = "fieldTituloRazonSocial";
-            fieldTituloRazonSocial.Size = new Size(298, 56);
+            fieldTituloRazonSocial.Size = new Size(248, 56);
             fieldTituloRazonSocial.TabIndex = 4;
             fieldTituloRazonSocial.Text = "Razón social";
             fieldTituloRazonSocial.TextAlign = ContentAlignment.MiddleCenter;
@@ -405,7 +405,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnPaginaAnterior.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnPaginaAnterior.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaAnterior.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaAnterior.CustomizableEdges = customizableEdges23;
+            btnPaginaAnterior.CustomizableEdges = customizableEdges7;
             btnPaginaAnterior.Dock = DockStyle.Fill;
             btnPaginaAnterior.FillColor = Color.FromArgb(  243,   243,   243);
             btnPaginaAnterior.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -416,7 +416,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnPaginaAnterior.Location = new Point(36, 1);
             btnPaginaAnterior.Margin = new Padding(1);
             btnPaginaAnterior.Name = "btnPaginaAnterior";
-            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnPaginaAnterior.Size = new Size(33, 33);
             btnPaginaAnterior.TabIndex = 1;
             // 
@@ -429,7 +429,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnPrimeraPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnPrimeraPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPrimeraPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnPrimeraPagina.CustomizableEdges = customizableEdges25;
+            btnPrimeraPagina.CustomizableEdges = customizableEdges9;
             btnPrimeraPagina.Dock = DockStyle.Fill;
             btnPrimeraPagina.FillColor = Color.FromArgb(  243,   243,   243);
             btnPrimeraPagina.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -440,7 +440,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnPrimeraPagina.Location = new Point(1, 1);
             btnPrimeraPagina.Margin = new Padding(1);
             btnPrimeraPagina.Name = "btnPrimeraPagina";
-            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnPrimeraPagina.Size = new Size(33, 33);
             btnPrimeraPagina.TabIndex = 0;
             // 
@@ -453,7 +453,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnPaginaSiguiente.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
             btnPaginaSiguiente.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaSiguiente.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaSiguiente.CustomizableEdges = customizableEdges27;
+            btnPaginaSiguiente.CustomizableEdges = customizableEdges11;
             btnPaginaSiguiente.Dock = DockStyle.Fill;
             btnPaginaSiguiente.FillColor = Color.FromArgb(  243,   243,   243);
             btnPaginaSiguiente.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -464,7 +464,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnPaginaSiguiente.Location = new Point(311, 1);
             btnPaginaSiguiente.Margin = new Padding(1);
             btnPaginaSiguiente.Name = "btnPaginaSiguiente";
-            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnPaginaSiguiente.Size = new Size(33, 33);
             btnPaginaSiguiente.TabIndex = 2;
             // 
@@ -477,7 +477,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnUltimaPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
             btnUltimaPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnUltimaPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnUltimaPagina.CustomizableEdges = customizableEdges29;
+            btnUltimaPagina.CustomizableEdges = customizableEdges13;
             btnUltimaPagina.Dock = DockStyle.Fill;
             btnUltimaPagina.FillColor = Color.FromArgb(  243,   243,   243);
             btnUltimaPagina.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -488,7 +488,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnUltimaPagina.Location = new Point(346, 1);
             btnUltimaPagina.Margin = new Padding(1);
             btnUltimaPagina.Name = "btnUltimaPagina";
-            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnUltimaPagina.Size = new Size(33, 33);
             btnUltimaPagina.TabIndex = 3;
             // 
@@ -501,7 +501,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnSincronizarDatos.CustomImages.Image = (Image) resources.GetObject("resource.Image4");
             btnSincronizarDatos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnSincronizarDatos.CustomImages.ImageSize = new Size(24, 24);
-            btnSincronizarDatos.CustomizableEdges = customizableEdges31;
+            btnSincronizarDatos.CustomizableEdges = customizableEdges15;
             btnSincronizarDatos.Dock = DockStyle.Fill;
             btnSincronizarDatos.FillColor = Color.FromArgb(  243,   243,   243);
             btnSincronizarDatos.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -512,7 +512,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnSincronizarDatos.Location = new Point(391, 1);
             btnSincronizarDatos.Margin = new Padding(1);
             btnSincronizarDatos.Name = "btnSincronizarDatos";
-            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnSincronizarDatos.Size = new Size(33, 33);
             btnSincronizarDatos.TabIndex = 4;
             // 
@@ -544,7 +544,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldPaginasTotales.Text = "de 1";
             fieldPaginasTotales.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // VistGestionProveedor
+            // VistaGestionProveedor
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1356, 608);
@@ -552,7 +552,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
-            Name = "VistGestionProveedor";
+            Name = "VistaGestionProveedor";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;

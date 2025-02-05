@@ -1,138 +1,31 @@
-﻿using Manigest.Core.Excepciones;
-using Manigest.Core.Utiles;
+﻿using Manigest.Core.MVP.Modelos.Repositorios;
 using Manigest.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
 namespace Manigest.Modulos.Contactos.MVP.Modelos.Repositorios {
-    public class DatosCliente : IRepositorioCliente {
+    public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaCliente>, IRepositorioCliente {
         public static DatosCliente Instance { get; } = new();
 
-        public DatosCliente() {
-            Objetos = new List<Cliente>();
+        public DatosCliente() : base() { }
+
+        public override string ComandoCantidad() {
+            return "SELECT COUNT(id_cliente) FROM mg__cliente;";
         }
 
-        public List<Cliente> Objetos { get; }
-
-        public long Longitud() {
-            long longitud = 0;
-
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                try {
-                    conexion.Open();
-                } catch (Exception) {
-                    throw new ExcepcionConexionServidorMySQL();
-                }
-
-                using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = "SELECT COUNT(id_cliente) FROM mg__cliente;";
-
-                    using (var lectorDatos = comando.ExecuteReader())
-                        if (lectorDatos != null && lectorDatos.Read())
-                            longitud = lectorDatos.GetUInt32(0);
-                }
-            }
-
-            return longitud;
+        public override string ComandoAdicionar(Cliente objeto) {
+            return $"INSERT INTO mg__cliente (numero, razon_social, id_contacto) VALUES ('{objeto.Numero}', '{objeto.RazonSocial}', '{objeto.Id}');";
         }
 
-        public long Adicionar(Cliente objeto) {
-            long ultimoIdInsertado = 0;
-
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                try {
-                    conexion.Open();
-                } catch (Exception) {
-                    throw new ExcepcionConexionServidorMySQL();
-                }
-
-                using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"INSERT INTO mg__cliente (numero, razon_social, id_contacto) VALUES ('{objeto.Numero}', '{objeto.RazonSocial}', '{objeto.Id}');";
-                    comando.ExecuteNonQuery();
-                }
-
-                using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = "SELECT LAST_INSERT_ID();";
-
-                    using (var lectorDatos = comando.ExecuteReader())
-                        if (lectorDatos != null && lectorDatos.Read())
-                            ultimoIdInsertado = lectorDatos.GetUInt32(0);
-                }
-            }
-
-            return ultimoIdInsertado;
+        public override string ComandoEditar(Cliente objeto) {
+            return $"UPDATE mg__cliente SET numero='{objeto.Numero}', razon_social='{objeto.RazonSocial}', id_contacto='{objeto.IdContacto}' WHERE id_cliente='{objeto.Id}';";
         }
 
-        public bool Editar(Cliente objeto, long nuevoId = 0) {
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                try {
-                    conexion.Open();
-                } catch (Exception) {
-                    throw new ExcepcionConexionServidorMySQL();
-                }
-
-                using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"UPDATE mg__cliente SET numero='{objeto.Numero}', razon_social='{objeto.RazonSocial}', id_cliente='{objeto.Id}' WHERE id_cliente='{objeto.Id}';";
-                    comando.ExecuteNonQuery();
-                }
-            }
-
-            return true;
+        public override string ComandoEliminar(long id) {
+            return $"DELETE FROM mg__cliente WHERE id_cliente={id};";
         }
 
-        public bool Eliminar(long id) {
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                try {
-                    conexion.Open();
-                } catch (Exception) {
-                    throw new ExcepcionConexionServidorMySQL();
-                }
-
-                using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"DELETE FROM mg__cliente WHERE id_cliente='{id}';";
-                    comando.ExecuteNonQuery();
-                }
-            }
-
-            return true;
-        }
-
-
-        public IEnumerable<Cliente> Obtener(string textoComando = "", int limite = 0, int desplazamiento = 0) {
-            Objetos.Clear();
-
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                using (var comando = conexion.CreateCommand()) {
-                    try {
-                        conexion.Open();
-                    } catch (Exception) {
-                        throw new ExcepcionConexionServidorMySQL();
-                    }
-
-                    comando.CommandText = string.IsNullOrEmpty(textoComando) ? "SELECT * FROM mg__cliente;" : textoComando;
-
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos == null)
-                            return Objetos;
-
-                        while (lectorDatos.Read()) {
-                            var cliente = new Cliente(
-                                idCliente: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
-                                numero: lectorDatos.GetString(lectorDatos.GetOrdinal("numero")),
-                                razonSocial: lectorDatos.GetString(lectorDatos.GetOrdinal("razon_social")),
-                                idContacto: long.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("id_contacto")).ToString(), out var idContacto) ? idContacto : 0
-                            );
-
-                            Objetos.Add(cliente);
-                        }
-                    }
-                }
-            }
-
-            return Objetos;
-        }
-
-        public IEnumerable<Cliente> Obtener(CriterioBusquedaCliente criterio, string dato, int limite = 0, int desplazamiento = 0) {
+        public override string ComandoObtener(CriterioBusquedaCliente criterio, string dato) {
             var comando = string.Empty;
 
             switch (criterio) {
@@ -145,17 +38,25 @@ namespace Manigest.Modulos.Contactos.MVP.Modelos.Repositorios {
                 case CriterioBusquedaCliente.Numero:
                     comando = $"SELECT * FROM mg__cliente WHERE numero='{dato}';";
                     break;
+                default:
+                    comando = "SELECT * FROM mg__cliente;";
+                    break;
             }
 
-            return Obtener(comando);
+            return comando;
         }
 
-        public bool Existe(string dato) {
-            return Obtener($"SELECT * FROM mg__cliente WHERE numero='{dato}';").Any();
+        public override Cliente ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+            return new Cliente(
+                idCliente: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
+                numero: lectorDatos.GetString(lectorDatos.GetOrdinal("numero")),
+                razonSocial: lectorDatos.GetString(lectorDatos.GetOrdinal("razon_social")),
+                idContacto: long.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("id_contacto")).ToString(), out var idContacto) ? idContacto : 0
+            );
         }
 
-        public long Cantidad() {
-            throw new NotImplementedException();
+        public override string ComandoExiste(string dato) {
+            return $"SELECT * FROM mg__cliente WHERE numero='{dato}';";
         }
     }
 }

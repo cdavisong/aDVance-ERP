@@ -212,7 +212,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             btnCerrar.BorderRadius = 18;
             btnCerrar.CustomizableEdges = customizableEdges3;
             btnCerrar.Dock = DockStyle.Fill;
-            btnCerrar.FillColor = Color.FromArgb(  250,   250,   250);
+            btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.FromArgb(  250,   250,   250);
