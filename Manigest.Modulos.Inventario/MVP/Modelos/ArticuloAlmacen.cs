@@ -2,8 +2,8 @@
 
 namespace Manigest.Modulos.Inventario.MVP.Modelos {
     public class ArticuloAlmacen : IObjetoUnico {
-        public ArticuloAlmacen(long id, long idArticulo, long idAlmacen, int stock) {
-            Id = id;
+        public ArticuloAlmacen(long idArticuloAlmacen, long idArticulo, long idAlmacen, int stock) {
+            Id = idArticuloAlmacen;
             IdArticulo = idArticulo;
             IdAlmacen = idAlmacen;
             Stock = stock;

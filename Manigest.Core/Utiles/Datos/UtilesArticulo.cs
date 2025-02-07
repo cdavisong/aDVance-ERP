@@ -74,8 +74,8 @@ namespace Manigest.Core.Utiles.Datos {
             return nombresArticulos.ToArray();
         }
 
-        public static int ObtenerCantidadInicialArticulo(string nombreArticulo) {
-            int cantidadInicial = 0;
+        public static int ObtenerStockTotalArticulo(long idArticulo) {
+            int stockTotal = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
@@ -85,18 +85,18 @@ namespace Manigest.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = "SELECT stock FROM mg__articulo WHERE nombre = @NombreArticulo;";
-                    comando.Parameters.AddWithValue("@NombreArticulo", nombreArticulo);
+                    comando.CommandText = "SELECT SUM(stock) as stock_total FROM mg__articulo_almacen WHERE id_articulo = @IdArticulo;";
+                    comando.Parameters.AddWithValue("@IdArticulo", idArticulo);
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos.Read()) {
-                            cantidadInicial = lectorDatos.GetInt32(lectorDatos.GetOrdinal("stock"));
+                            stockTotal = lectorDatos.GetInt32(lectorDatos.GetOrdinal("stock_total"));
                         }
                     }
                 }
             }
 
-            return cantidadInicial;
-        }       
+            return stockTotal;
+        }
     }
 }

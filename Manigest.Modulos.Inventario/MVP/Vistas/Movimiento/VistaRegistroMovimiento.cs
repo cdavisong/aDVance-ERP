@@ -87,9 +87,6 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
 
         public void Inicializar() {
             // Eventos
-            fieldNombreArticulo.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
-                CantidadInicial = UtilesArticulo.ObtenerCantidadInicialArticulo(fieldNombreArticulo.Text);
-            };
             fieldCantidadMovida.TextChanged += delegate (object? sender, EventArgs e) {
                 if (_movPositivo)
                     CantidadFinal = CantidadInicial + CantidadMovida;

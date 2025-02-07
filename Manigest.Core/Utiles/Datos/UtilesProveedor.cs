@@ -14,7 +14,7 @@ namespace Manigest.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT id_proveedor FROM mg__proveedor WHERE nombre='{nombreProveedor}';";
+                    comando.CommandText = $"SELECT id_proveedor FROM mg__proveedor WHERE razon_social='{nombreProveedor}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {

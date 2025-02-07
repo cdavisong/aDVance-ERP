@@ -6,6 +6,8 @@ using Manigest.Core.Utiles.Datos;
 
 namespace Manigest.Modulos.Inventario.MVP.Presentadores {
     public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegistroMovimiento, Movimiento, DatosMovimiento, CriterioBusquedaMovimiento> {
+        private Movimiento _movimiento;
+
         public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) {
         }
 
@@ -24,7 +26,7 @@ namespace Manigest.Modulos.Inventario.MVP.Presentadores {
         }
 
         protected override Movimiento ObtenerObjetoDesdeVista() {
-            var movimiento = new Movimiento(
+            _movimiento = new Movimiento(
                 id: _objeto?.Id ?? 0,
                 idArticulo: UtilesArticulo.ObtenerIdArticulo(Vista.NombreArticulo),
                 idAlmacenOrigen: UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen),
@@ -35,17 +37,14 @@ namespace Manigest.Modulos.Inventario.MVP.Presentadores {
                 motivo: Enum.Parse<MotivoMovimiento>(Vista.Motivo),
                 fecha: Vista.Fecha
             );
-
-            // Modificar stock en la base de datos según el movimiento entre almacenes o incremento / decremento
-            //UtilesArticulo.ModificarStockArticulo(
-            //        movimiento.IdArticulo, 
-            //        movimiento.CantidadMovida, 
-            //        movimiento.IdAlmacenOrigen, 
-            //        movimiento.IdAlmacenDestino, 
-            //        movPositivo: movimiento.CantidadFinal > movimiento.CantidadInicial
-            //    );
             
-            return movimiento;
+            return _movimiento;
+        }
+
+        protected override void RegistroAuxiliar() {
+            if (_movimiento != null) {
+                UtilesMovimientoArticuloAlmacen.ModificarStockArticuloAlmacen(_movimiento.IdArticulo, _movimiento.IdAlmacenOrigen, _movimiento.IdAlmacenDestino, _movimiento.CantidadMovida);
+            }
         }
     }
 

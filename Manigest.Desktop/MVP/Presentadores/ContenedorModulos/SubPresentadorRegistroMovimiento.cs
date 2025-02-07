@@ -1,6 +1,5 @@
 ﻿using Manigest.Core.Utiles;
 using Manigest.Core.Utiles.Datos;
-using Manigest.Modulos.Inventario.MVP.Modelos.Repositorios;
 using Manigest.Modulos.Inventario.MVP.Modelos;
 using Manigest.Modulos.Inventario.MVP.Presentadores;
 using Manigest.Modulos.Inventario.MVP.Vistas.Movimiento;

@@ -6,7 +6,7 @@
 
     public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen {
         public static DatosAlmacen Instance { get; } = new();
-
+        
         public DatosAlmacen() : base() { }
 
         public override string ComandoCantidad() {
