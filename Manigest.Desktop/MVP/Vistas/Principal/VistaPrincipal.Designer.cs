@@ -81,14 +81,14 @@
             // btnMensajes
             // 
             btnMensajes.Animated = true;
-            btnMensajes.BackColor = Color.FromArgb(  248,   244,   242);
+            btnMensajes.BackColor = Color.FromArgb(  243,   243,   243);
             btnMensajes.BackgroundImageLayout = ImageLayout.Center;
             btnMensajes.Cursor = Cursors.Hand;
             btnMensajes.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnMensajes.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnMensajes.CustomizableEdges = customizableEdges3;
             btnMensajes.Dock = DockStyle.Fill;
-            btnMensajes.FillColor = Color.FromArgb(  248,   244,   242);
+            btnMensajes.FillColor = Color.FromArgb(  243,   243,   243);
             btnMensajes.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnMensajes.ForeColor = Color.White;
             btnMensajes.Location = new Point(1107, 1);
@@ -121,7 +121,7 @@
             btnNotificaciones.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnNotificaciones.CustomizableEdges = customizableEdges1;
             btnNotificaciones.Dock = DockStyle.Fill;
-            btnNotificaciones.FillColor = Color.FromArgb(  248,   244,   242);
+            btnNotificaciones.FillColor = Color.FromArgb(  243,   243,   243);
             btnNotificaciones.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnNotificaciones.ForeColor = Color.White;
             btnNotificaciones.Location = new Point(1057, 1);
@@ -198,12 +198,12 @@
             // 
             // btnMinimizar
             // 
-            btnMinimizar.BackColor = Color.FromArgb(  248,   244,   242);
+            btnMinimizar.BackColor = Color.FromArgb(  243,   243,   243);
             btnMinimizar.BorderRadius = 5;
             btnMinimizar.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
             btnMinimizar.CustomizableEdges = customizableEdges5;
             btnMinimizar.Dock = DockStyle.Fill;
-            btnMinimizar.FillColor = Color.FromArgb(  248,   244,   242);
+            btnMinimizar.FillColor = Color.FromArgb(  243,   243,   243);
             btnMinimizar.IconColor = Color.Black;
             btnMinimizar.Location = new Point(1207, 1);
             btnMinimizar.Margin = new Padding(1);
@@ -236,7 +236,7 @@
             // fieldNombreApp
             // 
             fieldNombreApp.Dock = DockStyle.Left;
-            fieldNombreApp.Font = new Font("Microsoft PhagsPa", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldNombreApp.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             fieldNombreApp.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombreApp.ImeMode = ImeMode.NoControl;
             fieldNombreApp.Location = new Point(0, 0);
@@ -249,11 +249,11 @@
             // 
             // btnCerrar
             // 
-            btnCerrar.BackColor = Color.FromArgb(  248,   244,   242);
+            btnCerrar.BackColor = Color.FromArgb(  243,   243,   243);
             btnCerrar.BorderRadius = 5;
             btnCerrar.CustomizableEdges = customizableEdges7;
             btnCerrar.Dock = DockStyle.Fill;
-            btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
+            btnCerrar.FillColor = Color.FromArgb(  243,   243,   243);
             btnCerrar.HoverState.FillColor = Color.FromArgb(  192,   0,   0);
             btnCerrar.HoverState.IconColor = Color.White;
             btnCerrar.IconColor = Color.Black;
@@ -266,7 +266,7 @@
             // 
             // btnSubMenuUsuario
             // 
-            btnSubMenuUsuario.BackColor = Color.FromArgb(  248,   244,   242);
+            btnSubMenuUsuario.BackColor = Color.FromArgb(  243,   243,   243);
             btnSubMenuUsuario.BackgroundImageLayout = ImageLayout.Center;
             btnSubMenuUsuario.Cursor = Cursors.Hand;
             btnSubMenuUsuario.Dock = DockStyle.Fill;
@@ -286,12 +286,12 @@
             // 
             // btnMaximizarRestaurar
             // 
-            btnMaximizarRestaurar.BackColor = Color.FromArgb(  248,   244,   242);
+            btnMaximizarRestaurar.BackColor = Color.FromArgb(  243,   243,   243);
             btnMaximizarRestaurar.BorderRadius = 5;
             btnMaximizarRestaurar.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
             btnMaximizarRestaurar.CustomizableEdges = customizableEdges10;
             btnMaximizarRestaurar.Dock = DockStyle.Fill;
-            btnMaximizarRestaurar.FillColor = Color.FromArgb(  248,   244,   242);
+            btnMaximizarRestaurar.FillColor = Color.FromArgb(  243,   243,   243);
             btnMaximizarRestaurar.IconColor = Color.Black;
             btnMaximizarRestaurar.Location = new Point(1257, 1);
             btnMaximizarRestaurar.Margin = new Padding(1);
@@ -332,7 +332,7 @@
             ClientSize = new Size(1358, 685);
             Controls.Add(layoutBase);
             DoubleBuffered = true;
-            Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
             Name = "VistaPrincipal";

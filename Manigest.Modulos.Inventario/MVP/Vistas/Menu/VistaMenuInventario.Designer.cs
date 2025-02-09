@@ -26,21 +26,21 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Menu {
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuInventario));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuInventario));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
+            btnMovimientos = new Guna2Button();
             btnAlmacenes = new Guna2Button();
             fieldTitulo = new Label();
             panelRelleno = new Panel();
             btnArticulos = new Guna2Button();
-            btnMovimientos = new Guna2Button();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
             SuspendLayout();
@@ -69,6 +69,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Menu {
             // 
             // layoutDistribucion
             // 
+            layoutDistribucion.BackColor = Color.FromArgb(  243,   243,   243);
             layoutDistribucion.ColumnCount = 5;
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
@@ -89,21 +90,45 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Menu {
             layoutDistribucion.Size = new Size(994, 50);
             layoutDistribucion.TabIndex = 0;
             // 
+            // btnMovimientos
+            // 
+            btnMovimientos.Animated = true;
+            btnMovimientos.BackColor = Color.FromArgb(  243,   243,   243);
+            btnMovimientos.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnMovimientos.CheckedState.FillColor = Color.FromArgb(  248,   244,   242);
+            btnMovimientos.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnMovimientos.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
+            btnMovimientos.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnMovimientos.CustomImages.ImageOffset = new Point(0, 30);
+            btnMovimientos.CustomImages.ImageSize = new Size(131, 8);
+            btnMovimientos.CustomizableEdges = customizableEdges1;
+            btnMovimientos.Dock = DockStyle.Fill;
+            btnMovimientos.FillColor = Color.FromArgb(  243,   243,   243);
+            btnMovimientos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMovimientos.ForeColor = Color.FromArgb(  40,   37,   35);
+            btnMovimientos.Location = new Point(280, 0);
+            btnMovimientos.Margin = new Padding(0);
+            btnMovimientos.Name = "btnMovimientos";
+            btnMovimientos.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnMovimientos.Size = new Size(160, 50);
+            btnMovimientos.TabIndex = 8;
+            btnMovimientos.Text = "Movimientos";
+            // 
             // btnAlmacenes
             // 
             btnAlmacenes.Animated = true;
-            btnAlmacenes.BackColor = Color.FromArgb(  248,   244,   242);
+            btnAlmacenes.BackColor = Color.FromArgb(  243,   243,   243);
             btnAlmacenes.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             btnAlmacenes.CheckedState.FillColor = Color.FromArgb(  248,   244,   242);
-            btnAlmacenes.CheckedState.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAlmacenes.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnAlmacenes.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage1");
             btnAlmacenes.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnAlmacenes.CustomImages.ImageOffset = new Point(0, 30);
             btnAlmacenes.CustomImages.ImageSize = new Size(131, 8);
             btnAlmacenes.CustomizableEdges = customizableEdges3;
             btnAlmacenes.Dock = DockStyle.Fill;
-            btnAlmacenes.FillColor = Color.FromArgb(  248,   244,   242);
-            btnAlmacenes.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAlmacenes.FillColor = Color.FromArgb(  243,   243,   243);
+            btnAlmacenes.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnAlmacenes.ForeColor = Color.FromArgb(  40,   37,   35);
             btnAlmacenes.Location = new Point(440, 0);
             btnAlmacenes.Margin = new Padding(0);
@@ -115,9 +140,9 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Menu {
             // 
             // fieldTitulo
             // 
-            fieldTitulo.BackColor = Color.FromArgb(  248,   244,   242);
+            fieldTitulo.BackColor = Color.FromArgb(  243,   243,   243);
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Microsoft PhagsPa", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTitulo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(0, 0);
@@ -130,9 +155,9 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Menu {
             // 
             // panelRelleno
             // 
-            panelRelleno.BackColor = Color.FromArgb(  248,   244,   242);
+            panelRelleno.BackColor = Color.FromArgb(  243,   243,   243);
             panelRelleno.Dock = DockStyle.Fill;
-            panelRelleno.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             panelRelleno.Location = new Point(600, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
@@ -142,18 +167,18 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Menu {
             // btnArticulos
             // 
             btnArticulos.Animated = true;
-            btnArticulos.BackColor = Color.FromArgb(  248,   244,   242);
+            btnArticulos.BackColor = Color.FromArgb(  243,   243,   243);
             btnArticulos.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             btnArticulos.CheckedState.FillColor = Color.FromArgb(  248,   244,   242);
-            btnArticulos.CheckedState.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnArticulos.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnArticulos.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage2");
             btnArticulos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnArticulos.CustomImages.ImageOffset = new Point(0, 30);
             btnArticulos.CustomImages.ImageSize = new Size(131, 8);
             btnArticulos.CustomizableEdges = customizableEdges5;
             btnArticulos.Dock = DockStyle.Fill;
-            btnArticulos.FillColor = Color.FromArgb(  248,   244,   242);
-            btnArticulos.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnArticulos.FillColor = Color.FromArgb(  243,   243,   243);
+            btnArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnArticulos.ForeColor = Color.FromArgb(  40,   37,   35);
             btnArticulos.Location = new Point(120, 0);
             btnArticulos.Margin = new Padding(0);
@@ -163,34 +188,10 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Menu {
             btnArticulos.TabIndex = 9;
             btnArticulos.Text = "Articulos";
             // 
-            // btnMovimientos
-            // 
-            btnMovimientos.Animated = true;
-            btnMovimientos.BackColor = Color.FromArgb(  248,   244,   242);
-            btnMovimientos.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            btnMovimientos.CheckedState.FillColor = Color.FromArgb(  248,   244,   242);
-            btnMovimientos.CheckedState.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnMovimientos.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
-            btnMovimientos.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnMovimientos.CustomImages.ImageOffset = new Point(0, 30);
-            btnMovimientos.CustomImages.ImageSize = new Size(131, 8);
-            btnMovimientos.CustomizableEdges = customizableEdges1;
-            btnMovimientos.Dock = DockStyle.Fill;
-            btnMovimientos.FillColor = Color.FromArgb(  248,   244,   242);
-            btnMovimientos.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnMovimientos.ForeColor = Color.FromArgb(  40,   37,   35);
-            btnMovimientos.Location = new Point(280, 0);
-            btnMovimientos.Margin = new Padding(0);
-            btnMovimientos.Name = "btnMovimientos";
-            btnMovimientos.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnMovimientos.Size = new Size(160, 50);
-            btnMovimientos.TabIndex = 8;
-            btnMovimientos.Text = "Movimientos";
-            // 
             // VistaMenuInventario
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb(  204,   204,   204);
+            BackColor = Color.FromArgb(  243,   243,   243);
             ClientSize = new Size(994, 50);
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);

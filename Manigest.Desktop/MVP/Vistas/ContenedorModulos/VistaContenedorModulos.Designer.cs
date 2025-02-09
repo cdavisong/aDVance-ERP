@@ -113,7 +113,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             btnAyuda.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnAyuda.CustomImages.ImageSize = new Size(24, 24);
             btnAyuda.FillColor = Color.White;
-            btnAyuda.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAyuda.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnAyuda.ForeColor = Color.White;
             btnAyuda.ImageSize = new Size(24, 24);
             btnAyuda.Location = new Point(3, 561);
@@ -146,7 +146,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             btnInicio.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnInicio.CustomImages.ImageSize = new Size(24, 24);
             btnInicio.FillColor = Color.FromArgb(  243,   243,   243);
-            btnInicio.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnInicio.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnInicio.ForeColor = Color.White;
             btnInicio.ImageSize = new Size(24, 24);
             btnInicio.Location = new Point(3, 3);
@@ -165,7 +165,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloEstadisticas.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnModuloEstadisticas.CustomImages.ImageSize = new Size(24, 24);
             btnModuloEstadisticas.FillColor = Color.FromArgb(  243,   243,   243);
-            btnModuloEstadisticas.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnModuloEstadisticas.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnModuloEstadisticas.ForeColor = Color.White;
             btnModuloEstadisticas.ImageSize = new Size(24, 24);
             btnModuloEstadisticas.Location = new Point(3, 53);
@@ -184,7 +184,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloInventario.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnModuloInventario.CustomImages.ImageSize = new Size(24, 24);
             btnModuloInventario.FillColor = Color.FromArgb(  243,   243,   243);
-            btnModuloInventario.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnModuloInventario.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnModuloInventario.ForeColor = Color.White;
             btnModuloInventario.ImageSize = new Size(24, 24);
             btnModuloInventario.Location = new Point(3, 153);
@@ -213,7 +213,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloContactos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnModuloContactos.CustomImages.ImageSize = new Size(24, 24);
             btnModuloContactos.FillColor = Color.FromArgb(  243,   243,   243);
-            btnModuloContactos.Font = new Font("Microsoft PhagsPa", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnModuloContactos.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnModuloContactos.ForeColor = Color.White;
             btnModuloContactos.ImageSize = new Size(24, 24);
             btnModuloContactos.Location = new Point(3, 103);
@@ -229,7 +229,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             BackColor = Color.FromArgb(  250,   250,   250);
             ClientSize = new Size(1356, 608);
             Controls.Add(layoutBase);
-            Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaContenedorModulos";

@@ -70,7 +70,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             // 
             // layoutVista
             // 
-            layoutVista.BackColor = Color.FromArgb(  250,   250,   250);
+            layoutVista.BackColor = Color.FromArgb(  248,   244,   242);
             layoutVista.ColumnCount = 8;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
@@ -121,7 +121,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             // fieldNombre
             // 
             fieldNombre.Dock = DockStyle.Fill;
-            fieldNombre.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombre.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombre.ImeMode = ImeMode.NoControl;
             fieldNombre.Location = new Point(61, 1);
@@ -135,7 +135,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             // fieldId
             // 
             fieldId.Dock = DockStyle.Fill;
-            fieldId.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldId.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldId.ImeMode = ImeMode.NoControl;
             fieldId.Location = new Point(1, 1);
@@ -171,7 +171,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             // fieldNotas
             // 
             fieldNotas.Dock = DockStyle.Fill;
-            fieldNotas.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNotas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNotas.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNotas.ImeMode = ImeMode.NoControl;
             fieldNotas.Location = new Point(581, 1);
@@ -186,7 +186,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             // 
             fieldDireccion.AutoEllipsis = true;
             fieldDireccion.Dock = DockStyle.Fill;
-            fieldDireccion.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldDireccion.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldDireccion.ImeMode = ImeMode.NoControl;
             fieldDireccion.Location = new Point(281, 1);
@@ -200,9 +200,10 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             // VistaTuplaAlmacen
             // 
             AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.FromArgb(  248,   244,   242);
             ClientSize = new Size(1241, 42);
             Controls.Add(layoutBase);
-            Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaTuplaAlmacen";

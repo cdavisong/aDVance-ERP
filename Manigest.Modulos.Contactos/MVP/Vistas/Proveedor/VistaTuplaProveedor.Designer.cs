@@ -29,10 +29,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaProveedor));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -70,7 +70,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             // 
             // layoutVista
             // 
-            layoutVista.BackColor = Color.FromArgb(  250,   250,   250);
+            layoutVista.BackColor = Color.FromArgb(  248,   244,   242);
             layoutVista.ColumnCount = 8;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
@@ -104,7 +104,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
             btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges1;
+            btnEliminar.CustomizableEdges = customizableEdges5;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.FromArgb(  250,   250,   250);
             btnEliminar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -114,14 +114,14 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnEliminar.Size = new Size(34, 34);
             btnEliminar.TabIndex = 11;
             // 
             // fieldNumeroIdentificacionTributaria
             // 
             fieldNumeroIdentificacionTributaria.Dock = DockStyle.Fill;
-            fieldNumeroIdentificacionTributaria.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNumeroIdentificacionTributaria.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNumeroIdentificacionTributaria.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNumeroIdentificacionTributaria.ImeMode = ImeMode.NoControl;
             fieldNumeroIdentificacionTributaria.Location = new Point(61, 1);
@@ -135,7 +135,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             // fieldId
             // 
             fieldId.Dock = DockStyle.Fill;
-            fieldId.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldId.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldId.ImeMode = ImeMode.NoControl;
             fieldId.Location = new Point(1, 1);
@@ -155,7 +155,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
             btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges3;
+            btnEditar.CustomizableEdges = customizableEdges7;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.FromArgb(  250,   250,   250);
             btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -164,14 +164,14 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnEditar.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnEditar.Size = new Size(34, 34);
             btnEditar.TabIndex = 9;
             // 
             // fieldNombreRepresentante
             // 
             fieldNombreRepresentante.Dock = DockStyle.Fill;
-            fieldNombreRepresentante.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreRepresentante.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreRepresentante.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombreRepresentante.ImeMode = ImeMode.NoControl;
             fieldNombreRepresentante.Location = new Point(531, 1);
@@ -186,7 +186,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             // 
             fieldRazonSocial.AutoEllipsis = true;
             fieldRazonSocial.Dock = DockStyle.Fill;
-            fieldRazonSocial.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldRazonSocial.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldRazonSocial.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldRazonSocial.ImeMode = ImeMode.NoControl;
             fieldRazonSocial.Location = new Point(281, 1);
@@ -200,10 +200,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             // VistaTuplaProveedor
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb(  217,   211,   204);
+            BackColor = Color.FromArgb(  248,   244,   242);
             ClientSize = new Size(1241, 42);
             Controls.Add(layoutBase);
-            Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaTuplaProveedor";

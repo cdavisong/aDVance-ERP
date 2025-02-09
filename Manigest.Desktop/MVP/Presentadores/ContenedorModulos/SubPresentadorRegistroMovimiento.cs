@@ -17,27 +17,36 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroMovimiento.Salir += delegate { _gestionMovimientos.RefrescarListaObjetos(); };
         }
 
-        private void InicializarVistaRegistroMovimiento(string signo, Articulo objeto) {
+        private void InicializarVistaRegistroMovimiento(string signo) {
             InicializarVistaRegistroMovimiento();
 
+            if (string.IsNullOrEmpty(signo)) {
+                _registroMovimiento.Vista.CargarMotivos(UtilesMovimientoArticuloAlmacen.MotivoMovimientoPositivo);
+                _registroMovimiento.Vista.CargarMotivos(UtilesMovimientoArticuloAlmacen.MotivoMovimientoNegativo);                
+            } else
+                _registroMovimiento.Vista.CargarMotivos(signo.Equals("+") 
+                    ? UtilesMovimientoArticuloAlmacen.MotivoMovimientoPositivo 
+                    : UtilesMovimientoArticuloAlmacen.MotivoMovimientoNegativo);
+        }
+
+        private void InicializarVistaRegistroMovimiento(string signo, Articulo objeto) {
+            InicializarVistaRegistroMovimiento(signo);
+
             _registroMovimiento.Vista.NombreArticulo = objeto.Nombre;
-            // TODO: Crear mecanismo para identificar el almacen de origen del articulo
-            //_registroMovimiento.Vista.NombreAlmacenOrigen = 
-            _registroMovimiento.Vista.CargarMotivos(signo.Equals("+") ? UtilesMovimientoArticuloAlmacen.MotivoMovimientoPositivo : UtilesMovimientoArticuloAlmacen.MotivoMovimientoNegativo, signo.Equals("+"));            
         }
 
         private void MostrarVistaRegistroMovimiento(object? sender, EventArgs e) {
             if (sender is object[] objetoSigno)
                 InicializarVistaRegistroMovimiento(objetoSigno[0].ToString(), objetoSigno[1] as Articulo);
             else
-                InicializarVistaRegistroMovimiento();
+                InicializarVistaRegistroMovimiento(string.Empty);
 
             _registroMovimiento.Vista.Mostrar();
             _registroMovimiento = null;
         }
 
         private void MostrarVistaEdicionMovimiento(object? sender, EventArgs e) {
-            InicializarVistaRegistroMovimiento();
+            InicializarVistaRegistroMovimiento(string.Empty);
 
             _registroMovimiento.PopularVistaDesdeObjeto(sender as Movimiento);
             _registroMovimiento.Vista.Mostrar();

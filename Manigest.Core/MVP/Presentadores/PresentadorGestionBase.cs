@@ -26,7 +26,7 @@ namespace Manigest.Core.MVP.Presentadores {
         }
 
         public virtual Do DatosObjeto => new();
-        public abstract C CriterioBusquedaObjeto { get; }
+        public abstract C CriterioBusquedaObjeto { get; protected set; }
 
         public event EventHandler? EditarObjeto;
 
@@ -37,6 +37,9 @@ namespace Manigest.Core.MVP.Presentadores {
 
         protected virtual void AdicionarTuplaObjeto(O objeto) {
             var presentadorTupla = ObtenerValoresTupla(objeto);
+
+            if (presentadorTupla == null)
+                return;
 
             presentadorTupla.EditarObjeto += delegate (object? sender, EventArgs e) { 
                 EditarObjeto?.Invoke(sender, e); 

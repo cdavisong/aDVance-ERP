@@ -69,6 +69,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
             // 
             // layoutDistribucion
             // 
+            layoutDistribucion.BackColor = Color.FromArgb(  243,   243,   243);
             layoutDistribucion.ColumnCount = 5;
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
@@ -94,18 +95,18 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
             // btnContactos
             // 
             btnContactos.Animated = true;
-            btnContactos.BackColor = Color.FromArgb(  248,   244,   242);
+            btnContactos.BackColor = Color.FromArgb(  243,   243,   243);
             btnContactos.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             btnContactos.CheckedState.FillColor = Color.FromArgb(  248,   244,   242);
-            btnContactos.CheckedState.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnContactos.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnContactos.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
             btnContactos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnContactos.CustomImages.ImageOffset = new Point(0, 30);
             btnContactos.CustomImages.ImageSize = new Size(131, 8);
             btnContactos.CustomizableEdges = customizableEdges1;
             btnContactos.Dock = DockStyle.Fill;
-            btnContactos.FillColor = Color.FromArgb(  248,   244,   242);
-            btnContactos.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnContactos.FillColor = Color.FromArgb(  243,   243,   243);
+            btnContactos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnContactos.ForeColor = Color.FromArgb(  40,   37,   35);
             btnContactos.Location = new Point(440, 0);
             btnContactos.Margin = new Padding(0);
@@ -118,18 +119,18 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
             // btnClientes
             // 
             btnClientes.Animated = true;
-            btnClientes.BackColor = Color.FromArgb(  248,   244,   242);
+            btnClientes.BackColor = Color.FromArgb(  243,   243,   243);
             btnClientes.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             btnClientes.CheckedState.FillColor = Color.FromArgb(  248,   244,   242);
-            btnClientes.CheckedState.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnClientes.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnClientes.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage1");
             btnClientes.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnClientes.CustomImages.ImageOffset = new Point(0, 30);
             btnClientes.CustomImages.ImageSize = new Size(131, 8);
             btnClientes.CustomizableEdges = customizableEdges3;
             btnClientes.Dock = DockStyle.Fill;
-            btnClientes.FillColor = Color.FromArgb(  248,   244,   242);
-            btnClientes.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnClientes.FillColor = Color.FromArgb(  243,   243,   243);
+            btnClientes.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnClientes.ForeColor = Color.FromArgb(  40,   37,   35);
             btnClientes.Location = new Point(280, 0);
             btnClientes.Margin = new Padding(0);
@@ -141,9 +142,9 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
             // 
             // fieldTitulo
             // 
-            fieldTitulo.BackColor = Color.FromArgb(  248,   244,   242);
+            fieldTitulo.BackColor = Color.FromArgb(  243,   243,   243);
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Microsoft PhagsPa", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTitulo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(0, 0);
@@ -156,9 +157,9 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
             // 
             // panelRelleno
             // 
-            panelRelleno.BackColor = Color.FromArgb(  248,   244,   242);
+            panelRelleno.BackColor = Color.FromArgb(  243,   243,   243);
             panelRelleno.Dock = DockStyle.Fill;
-            panelRelleno.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             panelRelleno.Location = new Point(600, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
@@ -168,18 +169,18 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
             // btnProveedores
             // 
             btnProveedores.Animated = true;
-            btnProveedores.BackColor = Color.FromArgb(  248,   244,   242);
+            btnProveedores.BackColor = Color.FromArgb(  243,   243,   243);
             btnProveedores.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             btnProveedores.CheckedState.FillColor = Color.FromArgb(  248,   244,   242);
-            btnProveedores.CheckedState.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnProveedores.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnProveedores.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage2");
             btnProveedores.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnProveedores.CustomImages.ImageOffset = new Point(0, 30);
             btnProveedores.CustomImages.ImageSize = new Size(131, 8);
             btnProveedores.CustomizableEdges = customizableEdges5;
             btnProveedores.Dock = DockStyle.Fill;
-            btnProveedores.FillColor = Color.FromArgb(  248,   244,   242);
-            btnProveedores.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnProveedores.FillColor = Color.FromArgb(  243,   243,   243);
+            btnProveedores.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnProveedores.ForeColor = Color.FromArgb(  40,   37,   35);
             btnProveedores.Location = new Point(120, 0);
             btnProveedores.Margin = new Padding(0);
@@ -192,7 +193,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
             // VistaMenuContacto
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb(  204,   204,   204);
+            BackColor = Color.FromArgb(  243,   243,   243);
             ClientSize = new Size(994, 50);
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);

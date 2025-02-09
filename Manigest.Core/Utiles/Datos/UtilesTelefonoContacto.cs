@@ -14,7 +14,7 @@ namespace Manigest.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT nombre FROM mg__contacto WHERE id_contacto='{idContacto}' AND categoria='{(categoriaMovil ? "Movil" : "Fijo")}';";
+                    comando.CommandText = $"SELECT numero FROM mg__telefono_contacto WHERE id_contacto='{idContacto}' AND categoria='{(categoriaMovil ? "Movil" : "Fijo")}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {

@@ -69,7 +69,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             // 
             // layoutVista
             // 
-            layoutVista.BackColor = Color.FromArgb(  250,   250,   250);
+            layoutVista.BackColor = Color.FromArgb(  248,   244,   242);
             layoutVista.ColumnCount = 8;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
@@ -120,7 +120,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             // fieldNumero
             // 
             fieldNumero.Dock = DockStyle.Fill;
-            fieldNumero.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNumero.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNumero.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNumero.ImeMode = ImeMode.NoControl;
             fieldNumero.Location = new Point(61, 1);
@@ -134,7 +134,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             // fieldId
             // 
             fieldId.Dock = DockStyle.Fill;
-            fieldId.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldId.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldId.ImeMode = ImeMode.NoControl;
             fieldId.Location = new Point(1, 1);
@@ -170,7 +170,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             // fieldNombreContacto
             // 
             fieldNombreContacto.Dock = DockStyle.Fill;
-            fieldNombreContacto.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreContacto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreContacto.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombreContacto.ImeMode = ImeMode.NoControl;
             fieldNombreContacto.Location = new Point(531, 1);
@@ -185,7 +185,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             // 
             fieldRazonSocial.AutoEllipsis = true;
             fieldRazonSocial.Dock = DockStyle.Fill;
-            fieldRazonSocial.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldRazonSocial.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldRazonSocial.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldRazonSocial.ImeMode = ImeMode.NoControl;
             fieldRazonSocial.Location = new Point(281, 1);
@@ -199,9 +199,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             // VistaTuplaCliente
             // 
             AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.FromArgb(  248,   244,   242);
             ClientSize = new Size(1241, 42);
             Controls.Add(layoutBase);
-            Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaTuplaCliente";

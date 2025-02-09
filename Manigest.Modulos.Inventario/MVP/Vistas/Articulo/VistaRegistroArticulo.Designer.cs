@@ -172,7 +172,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldSubtitulo.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 70);
@@ -220,7 +220,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Microsoft PhagsPa", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTitulo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -262,7 +262,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldPrecioCesion.Dock = DockStyle.Fill;
             fieldPrecioCesion.FillColor = Color.FromArgb(  254,   254,   253);
             fieldPrecioCesion.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldPrecioCesion.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPrecioCesion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldPrecioCesion.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldPrecioCesion.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldPrecioCesion.IconLeft = (Image) resources.GetObject("fieldPrecioCesion.IconLeft");
@@ -298,7 +298,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldPrecioAdquisicion.Dock = DockStyle.Fill;
             fieldPrecioAdquisicion.FillColor = Color.FromArgb(  254,   254,   253);
             fieldPrecioAdquisicion.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldPrecioAdquisicion.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPrecioAdquisicion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldPrecioAdquisicion.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldPrecioAdquisicion.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldPrecioAdquisicion.IconLeft = (Image) resources.GetObject("fieldPrecioAdquisicion.IconLeft");
@@ -334,7 +334,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldDescripcion.Dock = DockStyle.Fill;
             fieldDescripcion.FillColor = Color.FromArgb(  254,   254,   253);
             fieldDescripcion.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldDescripcion.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDescripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldDescripcion.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldDescripcion.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldDescripcion.IconLeft = (Image) resources.GetObject("fieldDescripcion.IconLeft");
@@ -384,7 +384,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldPedidoMinimo.Dock = DockStyle.Fill;
             fieldPedidoMinimo.FillColor = Color.FromArgb(  254,   254,   253);
             fieldPedidoMinimo.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldPedidoMinimo.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPedidoMinimo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldPedidoMinimo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldPedidoMinimo.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldPedidoMinimo.IconLeft = (Image) resources.GetObject("fieldPedidoMinimo.IconLeft");
@@ -420,7 +420,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldStockMinimo.Dock = DockStyle.Fill;
             fieldStockMinimo.FillColor = Color.FromArgb(  254,   254,   253);
             fieldStockMinimo.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldStockMinimo.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldStockMinimo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldStockMinimo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldStockMinimo.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldStockMinimo.IconLeft = (Image) resources.GetObject("fieldStockMinimo.IconLeft");
@@ -456,7 +456,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldNombre.Dock = DockStyle.Fill;
             fieldNombre.FillColor = Color.FromArgb(  254,   254,   253);
             fieldNombre.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldNombre.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombre.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombre.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldNombre.IconLeft = (Image) resources.GetObject("fieldNombre.IconLeft");
@@ -488,7 +488,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldCodigo.Dock = DockStyle.Fill;
             fieldCodigo.FillColor = Color.FromArgb(  254,   254,   253);
             fieldCodigo.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldCodigo.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCodigo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldCodigo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldCodigo.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldCodigo.IconLeft = (Image) resources.GetObject("fieldCodigo.IconLeft");
@@ -508,7 +508,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             // fieldTituloNombreProveedor
             // 
             fieldTituloNombreProveedor.Dock = DockStyle.Fill;
-            fieldTituloNombreProveedor.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloNombreProveedor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTituloNombreProveedor.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldTituloNombreProveedor.Image = (Image) resources.GetObject("fieldTituloNombreProveedor.Image");
             fieldTituloNombreProveedor.ImageAlign = ContentAlignment.MiddleLeft;
@@ -534,7 +534,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldNombreProveedor.FillColor = Color.FromArgb(  254,   254,   253);
             fieldNombreProveedor.FocusedColor = Color.FromArgb(  2,   52,   107);
             fieldNombreProveedor.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldNombreProveedor.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreProveedor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreProveedor.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombreProveedor.ItemHeight = 29;
             fieldNombreProveedor.Location = new Point(55, 360);
@@ -574,7 +574,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             btnSalir.CustomizableEdges = customizableEdges19;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.FromArgb(  254,   254,   253);
-            btnSalir.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnSalir.ForeColor = Color.FromArgb(  217,   211,   204);
             btnSalir.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);
             btnSalir.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
@@ -593,7 +593,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             btnRegistrar.CustomizableEdges = customizableEdges21;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.FromArgb(  217,   211,   204);
-            btnRegistrar.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrar.ForeColor = Color.FromArgb(  40,   37,   35);
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
@@ -607,7 +607,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(500, 685);
             Controls.Add(layoutBase);
-            Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaRegistroArticulo";

@@ -10,7 +10,7 @@ namespace Manigest.Modulos.Inventario.MVP.Presentadores {
         public PresentadorGestionArticulos(IVistaGestionArticulos vista) : base(vista) {
         }
 
-        public override CriterioBusquedaArticulo CriterioBusquedaObjeto => CriterioBusquedaArticulo.Nombre;
+        public override CriterioBusquedaArticulo CriterioBusquedaObjeto { get; protected set; } = CriterioBusquedaArticulo.Nombre;
 
         public event EventHandler? MovimientoPositivoStock;
         public event EventHandler? MovimientoNegativoStock;

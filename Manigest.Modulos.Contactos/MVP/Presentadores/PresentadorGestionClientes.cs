@@ -9,7 +9,7 @@ namespace Manigest.Modulos.Contactos.MVP.Presentadores {
         public PresentadorGestionClientes(IVistaGestionClientes vista) : base(vista) {
         }
 
-        public override CriterioBusquedaCliente CriterioBusquedaObjeto => CriterioBusquedaCliente.Nombre;
+        public override CriterioBusquedaCliente CriterioBusquedaObjeto { get; protected set; } = CriterioBusquedaCliente.Nombre;
 
         protected override PresentadorTuplaCliente ObtenerValoresTupla(Cliente objeto) {
             var datosContacto = new DatosContacto();

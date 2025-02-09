@@ -152,7 +152,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             btnAlmacenarConfiguracion.CustomizableEdges = customizableEdges1;
             btnAlmacenarConfiguracion.Dock = DockStyle.Fill;
             btnAlmacenarConfiguracion.FillColor = Color.FromArgb(  217,   211,   204);
-            btnAlmacenarConfiguracion.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAlmacenarConfiguracion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAlmacenarConfiguracion.ForeColor = Color.FromArgb(  40,   37,   35);
             btnAlmacenarConfiguracion.Location = new Point(23, 435);
             btnAlmacenarConfiguracion.Name = "btnAlmacenarConfiguracion";
@@ -164,7 +164,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Microsoft PhagsPa", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTitulo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(23, 20);
@@ -177,7 +177,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             // fieldCopyright
             // 
             fieldCopyright.Dock = DockStyle.Fill;
-            fieldCopyright.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCopyright.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             fieldCopyright.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldCopyright.ImeMode = ImeMode.NoControl;
             fieldCopyright.Location = new Point(23, 665);
@@ -203,7 +203,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldPassword.Dock = DockStyle.Fill;
             fieldPassword.FillColor = Color.FromArgb(  250,   250,   250);
             fieldPassword.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldPassword.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPassword.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldPassword.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldPassword.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
@@ -237,7 +237,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldNombreUsuario.Dock = DockStyle.Fill;
             fieldNombreUsuario.FillColor = Color.FromArgb(  250,   250,   250);
             fieldNombreUsuario.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldNombreUsuario.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreUsuario.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreUsuario.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombreUsuario.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldNombreUsuario.IconLeft = (Image) resources.GetObject("fieldNombreUsuario.IconLeft");
@@ -270,7 +270,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldServidor.Dock = DockStyle.Fill;
             fieldServidor.FillColor = Color.FromArgb(  250,   250,   250);
             fieldServidor.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldServidor.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldServidor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldServidor.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldServidor.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldServidor.IconLeft = (Image) resources.GetObject("fieldServidor.IconLeft");
@@ -292,7 +292,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             fieldMensaje.AutoSize = false;
             fieldMensaje.BackColor = Color.FromArgb(  248,   244,   242);
             fieldMensaje.Dock = DockStyle.Fill;
-            fieldMensaje.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldMensaje.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldMensaje.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldMensaje.Location = new Point(23, 103);
             fieldMensaje.Name = "fieldMensaje";
@@ -309,7 +309,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             btnSalir.CustomizableEdges = customizableEdges9;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.FromArgb(  250,   250,   250);
-            btnSalir.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnSalir.ForeColor = Color.FromArgb(  217,   211,   204);
             btnSalir.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);
             btnSalir.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
@@ -327,7 +327,7 @@ namespace Manigest.Core.ClienteFTP.MVP.Vistas {
             ClientSize = new Size(440, 768);
             Controls.Add(layoutContenedor);
             Controls.Add(layoutBase);
-            Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaConfServidorFTP";

@@ -156,7 +156,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldSubtitulo.ForeColor = Color.Gray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 70);
@@ -181,7 +181,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldNombre.Dock = DockStyle.Fill;
             fieldNombre.FillColor = Color.FromArgb(  254,   254,   253);
             fieldNombre.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldNombre.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombre.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombre.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldNombre.IconLeft = (Image) resources.GetObject("fieldNombre.IconLeft");
@@ -236,7 +236,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Microsoft PhagsPa", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -261,7 +261,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldCorreoElectronico.Dock = DockStyle.Fill;
             fieldCorreoElectronico.FillColor = Color.FromArgb(  254,   254,   253);
             fieldCorreoElectronico.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldCorreoElectronico.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCorreoElectronico.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldCorreoElectronico.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldCorreoElectronico.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldCorreoElectronico.IconLeft = (Image) resources.GetObject("fieldCorreoElectronico.IconLeft");
@@ -295,7 +295,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTelefonoMovil.Dock = DockStyle.Fill;
             fieldTelefonoMovil.FillColor = Color.FromArgb(  254,   254,   253);
             fieldTelefonoMovil.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldTelefonoMovil.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTelefonoMovil.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTelefonoMovil.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTelefonoMovil.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldTelefonoMovil.IconLeft = (Image) resources.GetObject("fieldTelefonoMovil.IconLeft");
@@ -329,7 +329,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTelefonoFijo.Dock = DockStyle.Fill;
             fieldTelefonoFijo.FillColor = Color.FromArgb(  254,   254,   253);
             fieldTelefonoFijo.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldTelefonoFijo.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTelefonoFijo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTelefonoFijo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTelefonoFijo.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldTelefonoFijo.IconLeft = (Image) resources.GetObject("fieldTelefonoFijo.IconLeft");
@@ -361,7 +361,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldDireccion.Dock = DockStyle.Fill;
             fieldDireccion.FillColor = Color.FromArgb(  254,   254,   253);
             fieldDireccion.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldDireccion.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldDireccion.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldDireccion.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldDireccion.IconLeft = (Image) resources.GetObject("fieldDireccion.IconLeft");
@@ -394,7 +394,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldNotas.Dock = DockStyle.Fill;
             fieldNotas.FillColor = Color.FromArgb(  254,   254,   253);
             fieldNotas.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldNotas.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNotas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNotas.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNotas.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldNotas.IconLeft = (Image) resources.GetObject("fieldNotas.IconLeft");
@@ -441,7 +441,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             btnSalir.CustomizableEdges = customizableEdges15;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.FromArgb(  254,   254,   253);
-            btnSalir.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnSalir.ForeColor = Color.FromArgb(  217,   211,   204);
             btnSalir.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);
             btnSalir.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
@@ -460,7 +460,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             btnRegistrar.CustomizableEdges = customizableEdges17;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.FromArgb(  217,   211,   204);
-            btnRegistrar.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrar.ForeColor = Color.FromArgb(  40,   37,   35);
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
@@ -474,7 +474,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(500, 685);
             Controls.Add(layoutBase);
-            Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaRegistroContacto";

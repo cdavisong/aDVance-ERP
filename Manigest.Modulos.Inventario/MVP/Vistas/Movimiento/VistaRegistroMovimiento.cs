@@ -87,11 +87,12 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
 
         public void Inicializar() {
             // Eventos
+            fieldMotivo.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
+                ActualizarTipoMovimiento();
+                ActualizarCamposAlmacenes();
+            };
             fieldCantidadMovida.TextChanged += delegate (object? sender, EventArgs e) {
-                if (_movPositivo)
-                    CantidadFinal = CantidadInicial + CantidadMovida;
-                else
-                    CantidadFinal = CantidadInicial - CantidadMovida;
+                ActualizarStock();
             };
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);
@@ -122,11 +123,40 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenDestino.SelectedIndex = 0;
         }
 
-        public void CargarMotivos(string[] motivos, bool movPositivo) {
-            _movPositivo = movPositivo;
-
+        public void CargarMotivos(string[] motivos) {
             fieldMotivo.Items.AddRange(motivos);
             fieldMotivo.SelectedIndex = 0;
+        }
+
+        public void ActualizarCamposAlmacenes() {
+            if (_movPositivo && !Motivo.Equals("Devolucion")) {
+                fieldNombreAlmacenOrigen.SelectedIndex = 0;
+                fieldNombreAlmacenOrigen.Enabled = false;
+                fieldNombreAlmacenDestino.Enabled = true;
+            } else if (!_movPositivo && !Motivo.Equals("UsoInterno")) {
+                fieldNombreAlmacenDestino.SelectedIndex = 0;
+                fieldNombreAlmacenDestino.Enabled = false;
+                fieldNombreAlmacenOrigen.Enabled = true;
+            } else {
+                fieldNombreAlmacenOrigen.Enabled = true;
+                fieldNombreAlmacenDestino.Enabled = true;
+            }
+        }
+
+        public void ActualizarTipoMovimiento() {
+            if (UtilesMovimientoArticuloAlmacen.MotivoMovimientoPositivo.Contains(fieldMotivo.Text))
+                _movPositivo = true;
+            else if (UtilesMovimientoArticuloAlmacen.MotivoMovimientoNegativo.Contains(fieldMotivo.Text))
+                _movPositivo = false;
+
+            ActualizarStock();
+        }
+
+        public void ActualizarStock() {
+            if (_movPositivo)
+                CantidadFinal = CantidadInicial + CantidadMovida;
+            else
+                CantidadFinal = CantidadInicial - CantidadMovida;
         }
 
         public void Mostrar() {

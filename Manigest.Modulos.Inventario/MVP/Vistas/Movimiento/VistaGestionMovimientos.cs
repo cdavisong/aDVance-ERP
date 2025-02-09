@@ -50,6 +50,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
 
         public IRepositorioVista Vistas { get; private set; }
 
+        public event EventHandler? CambioAlmacenOrigen;
         public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? MostrarPrimeraPagina;
         public event EventHandler? MostrarPaginaAnterior;
@@ -60,13 +61,16 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
-        public event EventHandler? BuscarDatos;
+        public event EventHandler? BuscarDatos;        
 
         public void Inicializar() {
             // Variables locales
             Vistas = new RepositorioVistaBase(contenedorVistas);
 
             // Eventos
+            fieldNombreAlmacenOrigen.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
+                CambioAlmacenOrigen?.Invoke(fieldNombreAlmacenOrigen.Text, e);
+            };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(fieldDatoBusqueda.Text))
                     BuscarDatos?.Invoke(fieldDatoBusqueda.Text, e);
@@ -113,6 +117,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
 
         public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
             fieldNombreAlmacenOrigen.Items.Add("Todos");
+            fieldNombreAlmacenOrigen.Items.Add("Ninguno");
             fieldNombreAlmacenOrigen.Items.AddRange(nombresAlmacenes);
             fieldNombreAlmacenOrigen.SelectedIndex = 0;
         }

@@ -28,13 +28,13 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionMovimientos));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionMovimientos));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -59,10 +59,10 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutVista = new TableLayoutPanel();
             layoutAlmacenReportes = new TableLayoutPanel();
             layoutOpcionesReporte = new TableLayoutPanel();
-            btnImprimirReporte = new Guna2Button();
             fieldFechaFinal = new Guna2DateTimePicker();
             fieldFormatoReporte = new Guna2ComboBox();
             fieldFechaInicio = new Guna2DateTimePicker();
+            btnImprimirReporte = new Guna2Button();
             fieldNombreAlmacenOrigen = new Guna2ComboBox();
             layoutEncabezadosTabla = new TableLayoutPanel();
             fieldTituloNombreArticulo = new Label();
@@ -93,6 +93,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutTituloAlmacenReporte = new TableLayoutPanel();
             fieldTituloNombreAlmacenOrigen = new Label();
             fieldTituloNombreAlmacenDestino = new Label();
+            guna2Separator1 = new Guna2Separator();
             layoutVista.SuspendLayout();
             layoutAlmacenReportes.SuspendLayout();
             layoutOpcionesReporte.SuspendLayout();
@@ -130,6 +131,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutVista.Controls.Add(contenedorVistas, 2, 10);
             layoutVista.Controls.Add(layoutControlesTabla, 2, 11);
             layoutVista.Controls.Add(layoutTituloAlmacenReporte, 2, 3);
+            layoutVista.Controls.Add(guna2Separator1, 2, 5);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(1);
@@ -171,14 +173,14 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // 
             layoutOpcionesReporte.ColumnCount = 5;
             layoutOpcionesReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
-            layoutOpcionesReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
-            layoutOpcionesReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
-            layoutOpcionesReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutOpcionesReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 245F));
+            layoutOpcionesReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 245F));
             layoutOpcionesReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutOpcionesReporte.Controls.Add(btnImprimirReporte, 4, 0);
+            layoutOpcionesReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutOpcionesReporte.Controls.Add(fieldFechaFinal, 2, 0);
             layoutOpcionesReporte.Controls.Add(fieldFormatoReporte, 0, 0);
             layoutOpcionesReporte.Controls.Add(fieldFechaInicio, 1, 0);
+            layoutOpcionesReporte.Controls.Add(btnImprimirReporte, 3, 0);
             layoutOpcionesReporte.Dock = DockStyle.Fill;
             layoutOpcionesReporte.Location = new Point(320, 0);
             layoutOpcionesReporte.Margin = new Padding(0);
@@ -187,29 +189,6 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutOpcionesReporte.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutOpcionesReporte.Size = new Size(966, 45);
             layoutOpcionesReporte.TabIndex = 27;
-            // 
-            // btnImprimirReporte
-            // 
-            btnImprimirReporte.Animated = true;
-            btnImprimirReporte.BorderColor = Color.FromArgb(  217,   211,   204);
-            btnImprimirReporte.BorderRadius = 16;
-            btnImprimirReporte.BorderThickness = 1;
-            btnImprimirReporte.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
-            btnImprimirReporte.CustomImages.Image = (Image) resources.GetObject("resource.Image");
-            btnImprimirReporte.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnImprimirReporte.CustomizableEdges = customizableEdges1;
-            btnImprimirReporte.Dock = DockStyle.Fill;
-            btnImprimirReporte.FillColor = Color.FromArgb(  250,   250,   250);
-            btnImprimirReporte.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnImprimirReporte.ForeColor = Color.White;
-            btnImprimirReporte.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);
-            btnImprimirReporte.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
-            btnImprimirReporte.Location = new Point(929, 6);
-            btnImprimirReporte.Margin = new Padding(3, 6, 3, 6);
-            btnImprimirReporte.Name = "btnImprimirReporte";
-            btnImprimirReporte.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnImprimirReporte.Size = new Size(34, 33);
-            btnImprimirReporte.TabIndex = 10;
             // 
             // fieldFechaFinal
             // 
@@ -221,19 +200,19 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldFechaFinal.CheckedState.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldFechaFinal.CheckedState.FillColor = Color.FromArgb(  254,   254,   253);
             fieldFechaFinal.CheckedState.ForeColor = Color.FromArgb(  40,   37,   35);
-            fieldFechaFinal.CustomizableEdges = customizableEdges3;
+            fieldFechaFinal.CustomizableEdges = customizableEdges1;
             fieldFechaFinal.Dock = DockStyle.Fill;
             fieldFechaFinal.FillColor = Color.FromArgb(  254,   254,   253);
-            fieldFechaFinal.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldFechaFinal.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldFechaFinal.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldFechaFinal.Format = DateTimePickerFormat.Long;
-            fieldFechaFinal.Location = new Point(555, 5);
+            fieldFechaFinal.Location = new Point(550, 5);
             fieldFechaFinal.Margin = new Padding(5);
             fieldFechaFinal.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             fieldFechaFinal.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             fieldFechaFinal.Name = "fieldFechaFinal";
-            fieldFechaFinal.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            fieldFechaFinal.Size = new Size(240, 35);
+            fieldFechaFinal.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldFechaFinal.Size = new Size(235, 35);
             fieldFechaFinal.TabIndex = 6;
             fieldFechaFinal.Value = new DateTime(2022, 11, 24, 0, 0, 0, 0);
             // 
@@ -243,21 +222,21 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldFormatoReporte.BackColor = Color.Transparent;
             fieldFormatoReporte.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldFormatoReporte.BorderRadius = 16;
-            fieldFormatoReporte.CustomizableEdges = customizableEdges5;
+            fieldFormatoReporte.CustomizableEdges = customizableEdges3;
             fieldFormatoReporte.Dock = DockStyle.Fill;
             fieldFormatoReporte.DrawMode = DrawMode.OwnerDrawFixed;
             fieldFormatoReporte.DropDownStyle = ComboBoxStyle.DropDownList;
             fieldFormatoReporte.FillColor = Color.FromArgb(  254,   254,   253);
             fieldFormatoReporte.FocusedColor = Color.FromArgb(  217,   211,   204);
             fieldFormatoReporte.FocusedState.BorderColor = Color.FromArgb(  217,   211,   204);
-            fieldFormatoReporte.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldFormatoReporte.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldFormatoReporte.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldFormatoReporte.ItemHeight = 28;
             fieldFormatoReporte.Items.AddRange(new object[] { "PDF" });
             fieldFormatoReporte.Location = new Point(5, 5);
             fieldFormatoReporte.Margin = new Padding(5);
             fieldFormatoReporte.Name = "fieldFormatoReporte";
-            fieldFormatoReporte.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldFormatoReporte.ShadowDecoration.CustomizableEdges = customizableEdges4;
             fieldFormatoReporte.Size = new Size(290, 34);
             fieldFormatoReporte.StartIndex = 0;
             fieldFormatoReporte.TabIndex = 4;
@@ -273,10 +252,10 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldFechaInicio.CheckedState.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldFechaInicio.CheckedState.FillColor = Color.FromArgb(  254,   254,   253);
             fieldFechaInicio.CheckedState.ForeColor = Color.FromArgb(  40,   37,   35);
-            fieldFechaInicio.CustomizableEdges = customizableEdges7;
+            fieldFechaInicio.CustomizableEdges = customizableEdges5;
             fieldFechaInicio.Dock = DockStyle.Fill;
             fieldFechaInicio.FillColor = Color.FromArgb(  254,   254,   253);
-            fieldFechaInicio.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldFechaInicio.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldFechaInicio.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldFechaInicio.Format = DateTimePickerFormat.Long;
             fieldFechaInicio.Location = new Point(305, 5);
@@ -284,10 +263,33 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldFechaInicio.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             fieldFechaInicio.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             fieldFechaInicio.Name = "fieldFechaInicio";
-            fieldFechaInicio.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldFechaInicio.Size = new Size(240, 35);
+            fieldFechaInicio.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldFechaInicio.Size = new Size(235, 35);
             fieldFechaInicio.TabIndex = 5;
             fieldFechaInicio.Value = new DateTime(2022, 11, 24, 0, 0, 0, 0);
+            // 
+            // btnImprimirReporte
+            // 
+            btnImprimirReporte.Animated = true;
+            btnImprimirReporte.BorderColor = Color.FromArgb(  217,   211,   204);
+            btnImprimirReporte.BorderRadius = 16;
+            btnImprimirReporte.BorderThickness = 1;
+            btnImprimirReporte.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
+            btnImprimirReporte.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnImprimirReporte.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnImprimirReporte.CustomizableEdges = customizableEdges7;
+            btnImprimirReporte.Dock = DockStyle.Fill;
+            btnImprimirReporte.FillColor = Color.FromArgb(  250,   250,   250);
+            btnImprimirReporte.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnImprimirReporte.ForeColor = Color.White;
+            btnImprimirReporte.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);
+            btnImprimirReporte.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
+            btnImprimirReporte.Location = new Point(793, 6);
+            btnImprimirReporte.Margin = new Padding(3, 6, 3, 6);
+            btnImprimirReporte.Name = "btnImprimirReporte";
+            btnImprimirReporte.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnImprimirReporte.Size = new Size(34, 33);
+            btnImprimirReporte.TabIndex = 10;
             // 
             // fieldNombreAlmacenOrigen
             // 
@@ -302,7 +304,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenOrigen.FillColor = Color.FromArgb(  254,   254,   253);
             fieldNombreAlmacenOrigen.FocusedColor = Color.FromArgb(  217,   211,   204);
             fieldNombreAlmacenOrigen.FocusedState.BorderColor = Color.FromArgb(  217,   211,   204);
-            fieldNombreAlmacenOrigen.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreAlmacenOrigen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreAlmacenOrigen.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldNombreAlmacenOrigen.ItemHeight = 29;
             fieldNombreAlmacenOrigen.Location = new Point(5, 5);
@@ -348,7 +350,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTituloNombreArticulo
             // 
             fieldTituloNombreArticulo.Dock = DockStyle.Fill;
-            fieldTituloNombreArticulo.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloNombreArticulo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTituloNombreArticulo.ImeMode = ImeMode.NoControl;
             fieldTituloNombreArticulo.Location = new Point(61, 1);
@@ -362,7 +364,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTituloFecha
             // 
             fieldTituloFecha.Dock = DockStyle.Fill;
-            fieldTituloFecha.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloFecha.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloFecha.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTituloFecha.ImeMode = ImeMode.NoControl;
             fieldTituloFecha.Location = new Point(891, 1);
@@ -376,7 +378,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTituloMotivo
             // 
             fieldTituloMotivo.Dock = DockStyle.Fill;
-            fieldTituloMotivo.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloMotivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloMotivo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTituloMotivo.ImeMode = ImeMode.NoControl;
             fieldTituloMotivo.Location = new Point(671, 1);
@@ -390,7 +392,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTitulaCantidadMovida
             // 
             fieldTitulaCantidadMovida.Dock = DockStyle.Fill;
-            fieldTitulaCantidadMovida.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTitulaCantidadMovida.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTitulaCantidadMovida.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTitulaCantidadMovida.ImeMode = ImeMode.NoControl;
             fieldTitulaCantidadMovida.Location = new Point(561, 1);
@@ -404,7 +406,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTituloAlmacenDestino
             // 
             fieldTituloAlmacenDestino.Dock = DockStyle.Fill;
-            fieldTituloAlmacenDestino.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloAlmacenDestino.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloAlmacenDestino.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTituloAlmacenDestino.ImeMode = ImeMode.NoControl;
             fieldTituloAlmacenDestino.Location = new Point(441, 1);
@@ -418,7 +420,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTituloAlmacenOrigen
             // 
             fieldTituloAlmacenOrigen.Dock = DockStyle.Fill;
-            fieldTituloAlmacenOrigen.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloAlmacenOrigen.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloAlmacenOrigen.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTituloAlmacenOrigen.ImeMode = ImeMode.NoControl;
             fieldTituloAlmacenOrigen.Location = new Point(281, 1);
@@ -432,7 +434,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTituloId
             // 
             fieldTituloId.Dock = DockStyle.Fill;
-            fieldTituloId.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloId.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloId.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTituloId.ImeMode = ImeMode.NoControl;
             fieldTituloId.Location = new Point(1, 1);
@@ -481,7 +483,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Microsoft PhagsPa", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTitulo.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -523,7 +525,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldDatoBusqueda.Dock = DockStyle.Fill;
             fieldDatoBusqueda.FillColor = Color.FromArgb(  254,   254,   253);
             fieldDatoBusqueda.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldDatoBusqueda.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDatoBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldDatoBusqueda.ForeColor = Color.FromArgb(  28,   28,   28);
             fieldDatoBusqueda.HoverState.BorderColor = Color.FromArgb(  2,   52,   107);
             fieldDatoBusqueda.IconLeft = (Image) resources.GetObject("fieldDatoBusqueda.IconLeft");
@@ -559,7 +561,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnRegistrarProveedor.BorderRadius = 18;
             btnRegistrarProveedor.CustomizableEdges = customizableEdges15;
             btnRegistrarProveedor.FillColor = Color.FromArgb(  217,   211,   204);
-            btnRegistrarProveedor.Font = new Font("Microsoft PhagsPa", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrarProveedor.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrarProveedor.ForeColor = Color.FromArgb(  40,   37,   35);
             btnRegistrarProveedor.Image = (Image) resources.GetObject("btnRegistrarProveedor.Image");
             btnRegistrarProveedor.ImageOffset = new Point(-5, 0);
@@ -586,7 +588,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldSubtitulo.ForeColor = Color.Gray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 50);
@@ -761,7 +763,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldPaginaActual
             // 
             fieldPaginaActual.Dock = DockStyle.Fill;
-            fieldPaginaActual.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldPaginaActual.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldPaginaActual.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldPaginaActual.ImeMode = ImeMode.NoControl;
             fieldPaginaActual.Location = new Point(81, 1);
@@ -775,7 +777,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldPaginasTotales
             // 
             fieldPaginasTotales.Dock = DockStyle.Fill;
-            fieldPaginasTotales.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldPaginasTotales.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldPaginasTotales.ForeColor = Color.Black;
             fieldPaginasTotales.ImeMode = ImeMode.NoControl;
             fieldPaginasTotales.Location = new Point(200, 1);
@@ -805,7 +807,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTituloNombreAlmacenOrigen
             // 
             fieldTituloNombreAlmacenOrigen.Dock = DockStyle.Fill;
-            fieldTituloNombreAlmacenOrigen.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloNombreAlmacenOrigen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTituloNombreAlmacenOrigen.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldTituloNombreAlmacenOrigen.Image = (Image) resources.GetObject("fieldTituloNombreAlmacenOrigen.Image");
             fieldTituloNombreAlmacenOrigen.ImageAlign = ContentAlignment.MiddleLeft;
@@ -821,7 +823,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             // fieldTituloNombreAlmacenDestino
             // 
             fieldTituloNombreAlmacenDestino.Dock = DockStyle.Fill;
-            fieldTituloNombreAlmacenDestino.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloNombreAlmacenDestino.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTituloNombreAlmacenDestino.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldTituloNombreAlmacenDestino.Image = (Image) resources.GetObject("fieldTituloNombreAlmacenDestino.Image");
             fieldTituloNombreAlmacenDestino.ImageAlign = ContentAlignment.MiddleLeft;
@@ -834,12 +836,21 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloNombreAlmacenDestino.Text = "      Reporte :";
             fieldTituloNombreAlmacenDestino.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // guna2Separator1
+            // 
+            guna2Separator1.Dock = DockStyle.Fill;
+            guna2Separator1.FillColor = Color.FromArgb(  217,   211,   204);
+            guna2Separator1.Location = new Point(53, 193);
+            guna2Separator1.Name = "guna2Separator1";
+            guna2Separator1.Size = new Size(1280, 14);
+            guna2Separator1.TabIndex = 34;
+            // 
             // VistaGestionMovimientos
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1356, 608);
             Controls.Add(layoutVista);
-            Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaGestionMovimientos";
@@ -900,5 +911,6 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
         private Guna2DateTimePicker fieldFechaInicio;
         private Guna2Button btnImprimirReporte;
         private Label fieldTituloNombreArticulo;
+        private Guna2Separator guna2Separator1;
     }
 }

@@ -71,7 +71,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // 
             // layoutVista
             // 
-            layoutVista.BackColor = Color.FromArgb(  250,   250,   250);
+            layoutVista.BackColor = Color.FromArgb(  248,   244,   242);
             layoutVista.ColumnCount = 9;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
@@ -124,7 +124,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // fieldId
             // 
             fieldId.Dock = DockStyle.Fill;
-            fieldId.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldId.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldId.ImeMode = ImeMode.NoControl;
             fieldId.Location = new Point(1, 1);
@@ -160,7 +160,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // fieldDireccion
             // 
             fieldDireccion.Dock = DockStyle.Fill;
-            fieldDireccion.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldDireccion.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldDireccion.ImeMode = ImeMode.NoControl;
             fieldDireccion.Location = new Point(771, 1);
@@ -175,7 +175,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // 
             fieldTelefonos.AutoEllipsis = true;
             fieldTelefonos.Dock = DockStyle.Fill;
-            fieldTelefonos.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTelefonos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTelefonos.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldTelefonos.ImeMode = ImeMode.NoControl;
             fieldTelefonos.Location = new Point(281, 1);
@@ -189,7 +189,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // fieldNombre
             // 
             fieldNombre.Dock = DockStyle.Fill;
-            fieldNombre.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombre.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombre.ImeMode = ImeMode.NoControl;
             fieldNombre.Location = new Point(61, 1);
@@ -204,7 +204,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // 
             fieldCorreoElectronico.AutoEllipsis = true;
             fieldCorreoElectronico.Dock = DockStyle.Fill;
-            fieldCorreoElectronico.Font = new Font("Microsoft PhagsPa", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCorreoElectronico.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldCorreoElectronico.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldCorreoElectronico.ImeMode = ImeMode.NoControl;
             fieldCorreoElectronico.Location = new Point(531, 1);
@@ -218,10 +218,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // VistaTuplaContacto
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb(  217,   211,   204);
+            BackColor = Color.FromArgb(  248,   244,   242);
             ClientSize = new Size(1241, 42);
             Controls.Add(layoutBase);
-            Font = new Font("Microsoft PhagsPa", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaTuplaContacto";

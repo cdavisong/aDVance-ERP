@@ -13,6 +13,9 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas {
 
         void CargarNombresArticulos(string[] nombresArticulos);
         void CargarNombresAlmacenes(string[] nombresAlmacenes);
-        void CargarMotivos(string[] motivos, bool movPositivo);
+        void CargarMotivos(string[] motivos);
+        void ActualizarCamposAlmacenes();
+        void ActualizarTipoMovimiento();
+        void ActualizarStock();
     }
 }
