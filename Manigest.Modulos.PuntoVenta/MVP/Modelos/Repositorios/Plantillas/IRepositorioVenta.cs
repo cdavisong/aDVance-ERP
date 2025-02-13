@@ -1,0 +1,5 @@
+﻿using Manigest.Core.MVP.Modelos.Repositorios.Plantillas;
+
+namespace Manigest.Modulos.PuntoVenta.MVP.Modelos.Repositorios.Plantillas {
+    public interface IRepositorioVenta : IRepositorioDatos<Venta, CriterioBusquedaVenta> { }
+}
