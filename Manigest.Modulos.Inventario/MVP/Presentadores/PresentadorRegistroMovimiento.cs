@@ -8,7 +8,7 @@ namespace Manigest.Modulos.Inventario.MVP.Presentadores {
     public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegistroMovimiento, Movimiento, DatosMovimiento, CriterioBusquedaMovimiento> {
         private Movimiento _movimiento;
 
-        public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) {
+        public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) {            
         }
 
         public override void PopularVistaDesdeObjeto(Movimiento objeto) {

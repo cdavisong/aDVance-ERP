@@ -14,11 +14,11 @@
         }
 
         public override string ComandoAdicionar(Almacen objeto) {
-            return $"INSERT INTO mg__almacen (nombre, direccion, notas) VALUES ('{objeto.Nombre}', '{objeto.Direccion}', '{objeto.Notas}');";
+            return $"INSERT INTO mg__almacen (nombre, direccion, autorizo_venta, notas) VALUES ('{objeto.Nombre}', '{objeto.Direccion}', '{(objeto.AutorizoVenta ? 1 : 0)}', '{objeto.Notas}');";
         }
 
         public override string ComandoEditar(Almacen objeto) {
-            return $"UPDATE mg__almacen SET nombre='{objeto.Nombre}', direccion='{objeto.Direccion}', notas='{objeto.Notas}' WHERE id_almacen={objeto.Id};";
+            return $"UPDATE mg__almacen SET nombre='{objeto.Nombre}', direccion='{objeto.Direccion}', autorizo_venta='{(objeto.AutorizoVenta ? 1 : 0)}', notas='{objeto.Notas}' WHERE id_almacen={objeto.Id};";
         }
 
         public override string ComandoEliminar(long id) {
@@ -48,6 +48,7 @@
                 idAlmacen: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
                 nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
                 direccion: lectorDatos.GetString(lectorDatos.GetOrdinal("direccion")),
+                autorizoVenta: lectorDatos.GetBoolean(lectorDatos.GetOrdinal("autorizo_venta")),
                 notas: lectorDatos.GetString(lectorDatos.GetOrdinal("notas"))
             );
         }

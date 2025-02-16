@@ -16,6 +16,7 @@
     <ProjectReference Include="..\Manigest.Core\Manigest.Core.csproj" />
     <ProjectReference Include="..\Manigest.Modulos.Contactos\Manigest.Modulos.Contactos.csproj" />
     <ProjectReference Include="..\Manigest.Modulos.Inventario\Manigest.Modulos.Inventario.csproj" />
+    <ProjectReference Include="..\Manigest.Modulos.Ventas\Manigest.Modulos.Ventas.csproj" />
   </ItemGroup>
 
   <ItemGroup>

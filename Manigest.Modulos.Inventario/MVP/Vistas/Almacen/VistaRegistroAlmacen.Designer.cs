@@ -55,11 +55,15 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
+            layoutAutorizoVenta = new TableLayoutPanel();
+            fieldAutorizoVentaArticulos = new Guna2CheckBox();
+            fieldTituloAutorizoVentaArticulos = new Label();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutTitulo.SuspendLayout();
             layoutBotones.SuspendLayout();
+            layoutAutorizoVenta.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -103,12 +107,13 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutVista.Controls.Add(fieldNombre, 2, 4);
             layoutVista.Controls.Add(layoutTitulo, 2, 1);
             layoutVista.Controls.Add(fieldDireccion, 2, 6);
-            layoutVista.Controls.Add(fieldNotas, 2, 8);
+            layoutVista.Controls.Add(fieldNotas, 2, 10);
+            layoutVista.Controls.Add(layoutAutorizoVenta, 2, 8);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(13, 0);
             layoutVista.Margin = new Padding(3, 0, 0, 0);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 11;
+            layoutVista.RowCount = 13;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
@@ -116,11 +121,11 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(487, 620);
             layoutVista.TabIndex = 0;
@@ -283,7 +288,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldNotas.HoverState.BorderColor = Color.FromArgb(  94,   148,   255);
             fieldNotas.IconLeft = (Image) resources.GetObject("fieldNotas.IconLeft");
             fieldNotas.IconLeftOffset = new Point(10, -11);
-            fieldNotas.Location = new Point(55, 272);
+            fieldNotas.Location = new Point(55, 327);
             fieldNotas.Margin = new Padding(5);
             fieldNotas.Multiline = true;
             fieldNotas.Name = "fieldNotas";
@@ -353,6 +358,57 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Registrar almacén";
             // 
+            // layoutAutorizoVenta
+            // 
+            layoutAutorizoVenta.ColumnCount = 2;
+            layoutAutorizoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 26F));
+            layoutAutorizoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutAutorizoVenta.Controls.Add(fieldTituloAutorizoVentaArticulos, 1, 0);
+            layoutAutorizoVenta.Controls.Add(fieldAutorizoVentaArticulos, 0, 0);
+            layoutAutorizoVenta.Dock = DockStyle.Fill;
+            layoutAutorizoVenta.Location = new Point(65, 267);
+            layoutAutorizoVenta.Margin = new Padding(15, 0, 0, 0);
+            layoutAutorizoVenta.Name = "layoutAutorizoVenta";
+            layoutAutorizoVenta.RowCount = 1;
+            layoutAutorizoVenta.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutAutorizoVenta.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutAutorizoVenta.Size = new Size(402, 45);
+            layoutAutorizoVenta.TabIndex = 24;
+            // 
+            // fieldAutorizoVentaArticulos
+            // 
+            fieldAutorizoVentaArticulos.BackColor = Color.FromArgb(  248,   244,   242);
+            fieldAutorizoVentaArticulos.CheckedState.BorderColor = Color.FromArgb(  217,   211,   204);
+            fieldAutorizoVentaArticulos.CheckedState.BorderRadius = 4;
+            fieldAutorizoVentaArticulos.CheckedState.BorderThickness = 1;
+            fieldAutorizoVentaArticulos.CheckedState.FillColor = Color.FromArgb(  248,   244,   242);
+            fieldAutorizoVentaArticulos.CheckMarkColor = Color.FromArgb(  40,   37,   35);
+            fieldAutorizoVentaArticulos.Dock = DockStyle.Fill;
+            fieldAutorizoVentaArticulos.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldAutorizoVentaArticulos.Location = new Point(5, 5);
+            fieldAutorizoVentaArticulos.Margin = new Padding(5, 5, 5, 15);
+            fieldAutorizoVentaArticulos.Name = "fieldAutorizoVentaArticulos";
+            fieldAutorizoVentaArticulos.Size = new Size(16, 25);
+            fieldAutorizoVentaArticulos.TabIndex = 0;
+            fieldAutorizoVentaArticulos.UncheckedState.BorderColor = Color.FromArgb(  217,   211,   204);
+            fieldAutorizoVentaArticulos.UncheckedState.BorderRadius = 4;
+            fieldAutorizoVentaArticulos.UncheckedState.BorderThickness = 1;
+            fieldAutorizoVentaArticulos.UncheckedState.FillColor = Color.FromArgb(  217,   211,   204);
+            fieldAutorizoVentaArticulos.UseVisualStyleBackColor = false;
+            // 
+            // fieldTituloAutorizoVentaArticulos
+            // 
+            fieldTituloAutorizoVentaArticulos.Dock = DockStyle.Fill;
+            fieldTituloAutorizoVentaArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloAutorizoVentaArticulos.ForeColor = Color.FromArgb(  40,   37,   35);
+            fieldTituloAutorizoVentaArticulos.ImeMode = ImeMode.NoControl;
+            fieldTituloAutorizoVentaArticulos.Location = new Point(31, 5);
+            fieldTituloAutorizoVentaArticulos.Margin = new Padding(5, 5, 1, 1);
+            fieldTituloAutorizoVentaArticulos.Name = "fieldTituloAutorizoVentaArticulos";
+            fieldTituloAutorizoVentaArticulos.Size = new Size(370, 39);
+            fieldTituloAutorizoVentaArticulos.TabIndex = 1;
+            fieldTituloAutorizoVentaArticulos.Text = "Autorizar la venta de artículos en el almacén actual.";
+            // 
             // VistaRegistroAlmacen
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -371,6 +427,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutTitulo.ResumeLayout(false);
             layoutBotones.ResumeLayout(false);
+            layoutAutorizoVenta.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -390,5 +447,8 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
         private Guna2Button btnRegistrar;
         private Guna2TextBox fieldDireccion;
         private Guna2TextBox fieldNotas;
+        private TableLayoutPanel layoutAutorizoVenta;
+        private Label fieldTituloAutorizoVentaArticulos;
+        private Guna2CheckBox fieldAutorizoVentaArticulos;
     }
 }

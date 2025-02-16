@@ -68,7 +68,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
-                btnRegistrar.Text = value ? "Registrar artículo" : "Crear artículo";
+                btnRegistrar.Text = value ? "Actualizar artículo" : "Registrar artículo";
                 _modoEdicion = value;
             }
         }

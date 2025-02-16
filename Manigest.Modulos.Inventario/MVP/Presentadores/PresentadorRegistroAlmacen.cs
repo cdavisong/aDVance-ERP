@@ -11,6 +11,7 @@ namespace Manigest.Modulos.Inventario.MVP.Presentadores {
         public override void PopularVistaDesdeObjeto(Almacen objeto) {
             Vista.Nombre = objeto.Nombre;
             Vista.Direccion = objeto.Direccion;
+            Vista.AutorizoVenta = objeto.AutorizoVenta;
             Vista.Notas = objeto.Notas;
             Vista.ModoEdicionDatos = true;
 
@@ -22,6 +23,7 @@ namespace Manigest.Modulos.Inventario.MVP.Presentadores {
                 idAlmacen: _objeto?.Id ?? 0,
                 nombre: Vista.Nombre,
                 direccion: Vista.Direccion,
+                autorizoVenta: Vista.AutorizoVenta,
                 notas: Vista.Notas
             );
         }

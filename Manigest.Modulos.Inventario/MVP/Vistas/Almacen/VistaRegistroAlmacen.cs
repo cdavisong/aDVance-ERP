@@ -34,6 +34,11 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             set => fieldDireccion.Text = value;
         }
 
+        public bool AutorizoVenta {
+            get => fieldAutorizoVentaArticulos.Checked;
+            set => fieldAutorizoVentaArticulos.Checked = value;
+        }
+
         public string Notas {
             get => fieldNotas.Text;
             set => fieldNotas.Text = value;
@@ -77,6 +82,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
         public void Restaurar() {
             Nombre = string.Empty;
             Direccion = string.Empty;
+            AutorizoVenta = false;
             Notas = string.Empty;
             ModoEdicionDatos = false;
         }

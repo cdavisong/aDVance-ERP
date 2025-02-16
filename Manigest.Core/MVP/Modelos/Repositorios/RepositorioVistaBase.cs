@@ -46,7 +46,7 @@ namespace Manigest.Core.MVP.Modelos.Repositorios {
                     vista.Dimensiones = new Size(vista.Dimensiones.Width, _contenedorVistas.Size.Height);
                     break;
                 default:
-                    vista.Dimensiones = new Size(vista.Dimensiones.Width, vista.Dimensiones.Height);
+                    vista.Dimensiones = new Size(dimensiones.Width, dimensiones.Height);
                     break;
             }
 

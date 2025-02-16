@@ -1,11 +1,10 @@
 ﻿using Manigest.Core.Excepciones;
-
 using MySql.Data.MySqlClient;
 
 namespace Manigest.Core.Utiles.Datos {
-    public static class UtilesAlmacen {
-        public static long ObtenerIdAlmacen(string nombreAlmacen) {
-            var idAlmacen = 0;
+    public static class UtilesCliente {
+        public static long ObtenerIdCliente(string razonSocialCliente) {
+            var idCliente = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
@@ -15,21 +14,21 @@ namespace Manigest.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT id_almacen FROM mg__almacen WHERE LOWER(nombre) LIKE LOWER('%{nombreAlmacen}%');";
+                    comando.CommandText = $"SELECT id_cliente FROM mg__cliente WHERE razon_social='{razonSocialCliente}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {
-                            idAlmacen = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen"));
+                            idCliente = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente"));
                         }
                     }
                 }
             }
 
-            return idAlmacen;
+            return idCliente;
         }
 
-        public static string? ObtenerNombreAlmacen(long idAlmacen) {
-            var nombreAlmacen = string.Empty;
+        public static string? ObtenerRazonSocialCliente(long idCliente) {
+            var razonSocialCliente = string.Empty;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
@@ -39,21 +38,21 @@ namespace Manigest.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT nombre FROM mg__almacen WHERE id_almacen='{idAlmacen}';";
+                    comando.CommandText = $"SELECT razon_social FROM mg__cliente WHERE id_cliente='{idCliente}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {
-                            nombreAlmacen = lectorDatos.GetString(lectorDatos.GetOrdinal("nombre"));
+                            razonSocialCliente = lectorDatos.GetString(lectorDatos.GetOrdinal("razon_social"));
                         }
                     }
                 }
             }
 
-            return nombreAlmacen;
-        }        
+            return razonSocialCliente;
+        }
 
-        public static string[] ObtenerNombresAlmacenes(bool autorizoVenta = false) {
-            var nombresAlmacenes = new List<string>();
+        public static string[] ObtenerRazonesSocialesClientes() {
+            var razonesSocialesClientes = new List<string>();
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
@@ -63,22 +62,19 @@ namespace Manigest.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = autorizoVenta 
-                        ? "SELECT nombre FROM mg__almacen WHERE autorizo_venta='1';"
-                        : "SELECT nombre FROM mg__almacen;";
+                    comando.CommandText = "SELECT razon_social FROM mg__cliente;";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null) {
                             while (lectorDatos.Read()) {
-                                nombresAlmacenes.Add(lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")));
+                                razonesSocialesClientes.Add(lectorDatos.GetString(lectorDatos.GetOrdinal("razon_social")));
                             }
                         }
                     }
                 }
             }
 
-            return nombresAlmacenes.ToArray();
+            return razonesSocialesClientes.ToArray();
         }
     }
-
 }
