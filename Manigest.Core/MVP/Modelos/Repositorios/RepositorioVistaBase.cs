@@ -148,7 +148,7 @@ namespace Manigest.Core.MVP.Modelos.Repositorios {
                 }
             } else {
                 VistaActual?.Cerrar();
-                ((Control) VistaActual)?.Dispose();
+                (VistaActual as Control)?.Dispose();
             }
         }
     }

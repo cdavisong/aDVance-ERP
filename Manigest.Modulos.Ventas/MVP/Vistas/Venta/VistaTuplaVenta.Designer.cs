@@ -28,10 +28,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
         /// </summary>
         private void InitializeComponent() {
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaVenta));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
             fieldId = new Label();
@@ -39,7 +39,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldFecha = new Label();
             fieldNombreCliente = new Label();
             fieldCantidadProductos = new Label();
-            fieldTotal = new Label();
+            fieldMontoTotal = new Label();
             btnEditar = new Guna2Button();
             btnEliminar = new Guna2Button();
             symbolPeso = new Label();
@@ -81,7 +81,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             layoutVista.Controls.Add(fieldFecha, 1, 0);
             layoutVista.Controls.Add(fieldNombreCliente, 3, 0);
             layoutVista.Controls.Add(fieldCantidadProductos, 4, 0);
-            layoutVista.Controls.Add(fieldTotal, 5, 0);
+            layoutVista.Controls.Add(fieldMontoTotal, 5, 0);
             layoutVista.Controls.Add(btnEditar, 9, 0);
             layoutVista.Controls.Add(btnEliminar, 10, 0);
             layoutVista.Controls.Add(symbolPeso, 6, 0);
@@ -142,10 +142,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldNombreCliente.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreCliente.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombreCliente.ImeMode = ImeMode.NoControl;
-            fieldNombreCliente.Location = new Point(301, 1);
-            fieldNombreCliente.Margin = new Padding(1);
+            fieldNombreCliente.Location = new Point(305, 1);
+            fieldNombreCliente.Margin = new Padding(5, 1, 1, 1);
             fieldNombreCliente.Name = "fieldNombreCliente";
-            fieldNombreCliente.Size = new Size(218, 38);
+            fieldNombreCliente.Size = new Size(214, 38);
             fieldNombreCliente.TabIndex = 4;
             fieldNombreCliente.Text = "nombreCliente";
             fieldNombreCliente.TextAlign = ContentAlignment.MiddleLeft;
@@ -165,19 +165,19 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldCantidadProductos.Text = "cantidad";
             fieldCantidadProductos.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTotal
+            // fieldMontoTotal
             // 
-            fieldTotal.Dock = DockStyle.Fill;
-            fieldTotal.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTotal.ForeColor = Color.Black;
-            fieldTotal.ImeMode = ImeMode.NoControl;
-            fieldTotal.Location = new Point(631, 1);
-            fieldTotal.Margin = new Padding(1);
-            fieldTotal.Name = "fieldTotal";
-            fieldTotal.Size = new Size(108, 38);
-            fieldTotal.TabIndex = 20;
-            fieldTotal.Text = "total";
-            fieldTotal.TextAlign = ContentAlignment.MiddleRight;
+            fieldMontoTotal.Dock = DockStyle.Fill;
+            fieldMontoTotal.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldMontoTotal.ForeColor = Color.Black;
+            fieldMontoTotal.ImeMode = ImeMode.NoControl;
+            fieldMontoTotal.Location = new Point(631, 1);
+            fieldMontoTotal.Margin = new Padding(1);
+            fieldMontoTotal.Name = "fieldMontoTotal";
+            fieldMontoTotal.Size = new Size(108, 38);
+            fieldMontoTotal.TabIndex = 20;
+            fieldMontoTotal.Text = "total";
+            fieldMontoTotal.TextAlign = ContentAlignment.MiddleRight;
             // 
             // btnEditar
             // 
@@ -188,7 +188,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
             btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges1;
+            btnEditar.CustomizableEdges = customizableEdges5;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.FromArgb(  250,   250,   250);
             btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -197,7 +197,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnEditar.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnEditar.Size = new Size(34, 34);
             btnEditar.TabIndex = 21;
             // 
@@ -210,7 +210,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
             btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges3;
+            btnEliminar.CustomizableEdges = customizableEdges7;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.Enabled = false;
             btnEliminar.FillColor = Color.FromArgb(  250,   250,   250);
@@ -221,7 +221,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnEliminar.Size = new Size(34, 34);
             btnEliminar.TabIndex = 22;
             // 
@@ -269,7 +269,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
         private Label fieldFecha;
         private Label fieldNombreCliente;
         private Label fieldCantidadProductos;
-        private Label fieldTotal;
+        private Label fieldMontoTotal;
         private Guna2Button btnEditar;
         private Guna2Button btnEliminar;
         private Label symbolPeso;

@@ -1,0 +1,130 @@
+﻿using Manigest.Core.Excepciones;
+using MySql.Data.MySqlClient;
+
+namespace Manigest.Core.Utiles.Datos {
+    public static class UtilesCuenta {
+        public static string NumeroConfirmacion = string.Empty;
+
+        public static long ObtenerIdCuenta(string aliasCuenta) {
+            var idCuenta = 0;
+
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = $"SELECT id_cuenta FROM mg__cuenta WHERE alias='{aliasCuenta}';";
+
+                    using (var lectorDatos = comando.ExecuteReader()) {
+                        if (lectorDatos != null && lectorDatos.Read()) {
+                            idCuenta = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cuenta"));
+                        }
+                    }
+                }
+            }
+
+            return idCuenta;
+        }
+
+        public static string? ObtenerAliasCuenta(long idCuenta) {
+            var aliasCuenta = string.Empty;
+
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = $"SELECT alias FROM mg__cuenta WHERE id_cuenta='{idCuenta}';";
+
+                    using (var lectorDatos = comando.ExecuteReader()) {
+                        if (lectorDatos != null && lectorDatos.Read()) {
+                            aliasCuenta = lectorDatos.GetString(lectorDatos.GetOrdinal("alias"));
+                        }
+                    }
+                }
+            }
+
+            return aliasCuenta;
+        }
+
+        public static string[] ObtenerAliasesCuentas() {
+            var aliasesCuentas = new List<string>();
+
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = "SELECT alias FROM mg__cuenta;";
+
+                    using (var lectorDatos = comando.ExecuteReader()) {
+                        if (lectorDatos != null) {
+                            while (lectorDatos.Read()) {
+                                aliasesCuentas.Add(lectorDatos.GetString(lectorDatos.GetOrdinal("alias")));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return aliasesCuentas.ToArray();
+        }
+
+        public static string? ObtenerNumeroTarjeta(long idCuenta) {
+            var numeroTarjeta = string.Empty;
+
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = $"SELECT numero_tarjeta FROM mg__cuenta WHERE id_cuenta='{idCuenta}';";
+
+                    using (var lectorDatos = comando.ExecuteReader()) {
+                        if (lectorDatos != null && lectorDatos.Read()) {
+                            numeroTarjeta = lectorDatos.GetString(lectorDatos.GetOrdinal("numero_tarjeta"));
+                        }
+                    }
+                }
+            }
+
+            return numeroTarjeta;
+        }
+
+        public static long ObtenerIdPropietario(long idCuenta) {
+            var idPropietario = 0;
+
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = $"SELECT id_contacto FROM mg__cuenta WHERE id_cuenta='{idCuenta}';";
+
+                    using (var lectorDatos = comando.ExecuteReader()) {
+                        if (lectorDatos != null && lectorDatos.Read()) {
+                            idPropietario = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_contacto"));
+                        }
+                    }
+                }
+            }
+
+            return idPropietario;
+        }
+    }
+}

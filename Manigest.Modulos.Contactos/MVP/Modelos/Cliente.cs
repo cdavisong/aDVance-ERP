@@ -21,7 +21,16 @@ namespace Manigest.Modulos.Contactos.MVP.Modelos {
     public enum CriterioBusquedaCliente {
         Todos,
         Id,
-        Nombre,
-        Numero
+        Numero,
+        RazonSocial
+    }
+
+    public static class UtilesBusquedaCliente {
+        public static string[] CriterioBusquedaCliente = new string[] {
+            "Todos los clientes",
+            "Identificador de BD",
+            "Número del cliente",
+            "Razón Social"
+        };
     }
 }

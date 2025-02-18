@@ -18,6 +18,7 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaMenuInventario(object? sender, EventArgs e) {
             _menuInventario.Vista.Mostrar();
             _menuInventario.Vista.Restaurar();
+            _menuInventario.Vista.PresionarBotonSeleccion(2, e);
         }
     }
 }

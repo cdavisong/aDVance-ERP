@@ -27,4 +27,12 @@ namespace Manigest.Modulos.Contactos.MVP.Modelos {
         Id,
         Nombre
     }
+
+    public static class UtilesBusquedaContacto {
+        public static string[] CriterioBusquedaContacto = new string[] {
+            "Todos los contactos",
+            "Identificador de BD",
+            "Nombre del contacto"
+        };
+    }
 }

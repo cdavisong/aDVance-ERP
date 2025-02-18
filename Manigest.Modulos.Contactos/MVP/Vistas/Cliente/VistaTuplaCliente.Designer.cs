@@ -72,7 +72,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             layoutVista.BackColor = Color.FromArgb(  248,   244,   242);
             layoutVista.ColumnCount = 8;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -126,10 +126,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldNumero.Location = new Point(61, 1);
             fieldNumero.Margin = new Padding(1);
             fieldNumero.Name = "fieldNumero";
-            fieldNumero.Size = new Size(218, 38);
+            fieldNumero.Size = new Size(128, 38);
             fieldNumero.TabIndex = 4;
-            fieldNumero.Text = "numeroCliente";
-            fieldNumero.TextAlign = ContentAlignment.MiddleLeft;
+            fieldNumero.Text = "CTL-521-C-4313";
+            fieldNumero.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldId
             // 
@@ -173,7 +173,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldNombreContacto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreContacto.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombreContacto.ImeMode = ImeMode.NoControl;
-            fieldNombreContacto.Location = new Point(531, 1);
+            fieldNombreContacto.Location = new Point(441, 1);
             fieldNombreContacto.Margin = new Padding(1);
             fieldNombreContacto.Name = "fieldNombreContacto";
             fieldNombreContacto.Size = new Size(248, 38);
@@ -188,7 +188,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldRazonSocial.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldRazonSocial.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldRazonSocial.ImeMode = ImeMode.NoControl;
-            fieldRazonSocial.Location = new Point(281, 1);
+            fieldRazonSocial.Location = new Point(191, 1);
             fieldRazonSocial.Margin = new Padding(1);
             fieldRazonSocial.Name = "fieldRazonSocial";
             fieldRazonSocial.Size = new Size(248, 38);

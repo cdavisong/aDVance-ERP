@@ -45,23 +45,18 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
-            layoutTitulo = new TableLayoutPanel();
-            btnCerrar = new Guna2Button();
-            fieldTitulo = new Label();
-            layoutDistribucionMenu = new TableLayoutPanel();
+            layoutHerramientas = new TableLayoutPanel();
             fieldDatoBusqueda = new Guna2TextBox();
-            layoutBotones = new FlowLayoutPanel();
-            btnRegistrarAlmacen = new Guna2Button();
-            fieldIcono = new PictureBox();
-            fieldSubtitulo = new Label();
-            layoutEncabezadosTabla = new TableLayoutPanel();
-            fieldTituloNombre = new Label();
-            fieldTituloId = new Label();
-            fieldTituloNotas = new Label();
-            fieldTituloDireccion = new Label();
-            contenedorVistas = new Panel();
+            fieldCriterioBusqueda = new Guna2ComboBox();
+            layoutTituloHerramientas = new TableLayoutPanel();
+            fieldTituloFiltrosBusqueda = new Label();
+            panelBotonesGestion = new Panel();
+            btnRegistrar = new Guna2Button();
+            guna2Separator1 = new Guna2Separator();
             layoutControlesTabla = new TableLayoutPanel();
             btnPaginaAnterior = new Guna2Button();
             btnPrimeraPagina = new Guna2Button();
@@ -70,13 +65,25 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             btnSincronizarDatos = new Guna2Button();
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
+            layoutTitulo = new TableLayoutPanel();
+            btnCerrar = new Guna2Button();
+            fieldTitulo = new Label();
+            fieldIcono = new PictureBox();
+            fieldSubtitulo = new Label();
+            layoutEncabezadosTabla = new TableLayoutPanel();
+            fieldTituloNombre = new Label();
+            fieldTituloId = new Label();
+            fieldTituloNotas = new Label();
+            fieldTituloDireccion = new Label();
+            contenedorVistas = new Panel();
             layoutVista.SuspendLayout();
+            layoutHerramientas.SuspendLayout();
+            layoutTituloHerramientas.SuspendLayout();
+            panelBotonesGestion.SuspendLayout();
+            layoutControlesTabla.SuspendLayout();
             layoutTitulo.SuspendLayout();
-            layoutDistribucionMenu.SuspendLayout();
-            layoutBotones.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutEncabezadosTabla.SuspendLayout();
-            layoutControlesTabla.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -95,19 +102,25 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutVista.Controls.Add(layoutHerramientas, 2, 4);
+            layoutVista.Controls.Add(layoutTituloHerramientas, 2, 3);
+            layoutVista.Controls.Add(panelBotonesGestion, 2, 6);
+            layoutVista.Controls.Add(guna2Separator1, 2, 5);
+            layoutVista.Controls.Add(layoutControlesTabla, 2, 11);
             layoutVista.Controls.Add(layoutTitulo, 2, 0);
-            layoutVista.Controls.Add(layoutDistribucionMenu, 2, 3);
             layoutVista.Controls.Add(fieldIcono, 1, 0);
             layoutVista.Controls.Add(fieldSubtitulo, 2, 1);
-            layoutVista.Controls.Add(layoutEncabezadosTabla, 2, 5);
-            layoutVista.Controls.Add(contenedorVistas, 2, 7);
-            layoutVista.Controls.Add(layoutControlesTabla, 2, 8);
+            layoutVista.Controls.Add(layoutEncabezadosTabla, 2, 8);
+            layoutVista.Controls.Add(contenedorVistas, 2, 10);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(1);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 10;
+            layoutVista.RowCount = 13;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
@@ -120,69 +133,22 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutVista.Size = new Size(1356, 608);
             layoutVista.TabIndex = 4;
             // 
-            // layoutTitulo
+            // layoutHerramientas
             // 
-            layoutTitulo.ColumnCount = 2;
-            layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
-            layoutTitulo.Controls.Add(btnCerrar, 1, 0);
-            layoutTitulo.Controls.Add(fieldTitulo, 0, 0);
-            layoutTitulo.Dock = DockStyle.Fill;
-            layoutTitulo.Location = new Point(50, 0);
-            layoutTitulo.Margin = new Padding(0);
-            layoutTitulo.Name = "layoutTitulo";
-            layoutTitulo.RowCount = 1;
-            layoutTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutTitulo.Size = new Size(1286, 45);
-            layoutTitulo.TabIndex = 14;
-            // 
-            // btnCerrar
-            // 
-            btnCerrar.Animated = true;
-            btnCerrar.AutoRoundedCorners = true;
-            btnCerrar.BorderColor = Color.Gray;
-            btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges1;
-            btnCerrar.Dock = DockStyle.Fill;
-            btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCerrar.ForeColor = Color.Black;
-            btnCerrar.HoverState.FillColor = Color.FromArgb(  250,   250,   250);
-            btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
-            btnCerrar.Location = new Point(1239, 3);
-            btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnCerrar.Size = new Size(44, 39);
-            btnCerrar.TabIndex = 8;
-            // 
-            // fieldTitulo
-            // 
-            fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldTitulo.ForeColor = Color.Black;
-            fieldTitulo.ImeMode = ImeMode.NoControl;
-            fieldTitulo.Location = new Point(3, 0);
-            fieldTitulo.Name = "fieldTitulo";
-            fieldTitulo.Size = new Size(1230, 45);
-            fieldTitulo.TabIndex = 3;
-            fieldTitulo.Text = "Gestión de almacenes";
-            fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // layoutDistribucionMenu
-            // 
-            layoutDistribucionMenu.ColumnCount = 2;
-            layoutDistribucionMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutDistribucionMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 356F));
-            layoutDistribucionMenu.Controls.Add(fieldDatoBusqueda, 1, 0);
-            layoutDistribucionMenu.Controls.Add(layoutBotones, 0, 0);
-            layoutDistribucionMenu.Dock = DockStyle.Fill;
-            layoutDistribucionMenu.Location = new Point(50, 110);
-            layoutDistribucionMenu.Margin = new Padding(0);
-            layoutDistribucionMenu.Name = "layoutDistribucionMenu";
-            layoutDistribucionMenu.RowCount = 1;
-            layoutDistribucionMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutDistribucionMenu.Size = new Size(1286, 45);
-            layoutDistribucionMenu.TabIndex = 4;
+            layoutHerramientas.ColumnCount = 3;
+            layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
+            layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutHerramientas.Controls.Add(fieldDatoBusqueda, 1, 0);
+            layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 0, 0);
+            layoutHerramientas.Dock = DockStyle.Fill;
+            layoutHerramientas.Location = new Point(50, 145);
+            layoutHerramientas.Margin = new Padding(0);
+            layoutHerramientas.Name = "layoutHerramientas";
+            layoutHerramientas.RowCount = 1;
+            layoutHerramientas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutHerramientas.Size = new Size(1286, 45);
+            layoutHerramientas.TabIndex = 38;
             // 
             // fieldDatoBusqueda
             // 
@@ -191,7 +157,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldDatoBusqueda.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldDatoBusqueda.BorderRadius = 18;
             fieldDatoBusqueda.Cursor = Cursors.IBeam;
-            fieldDatoBusqueda.CustomizableEdges = customizableEdges3;
+            fieldDatoBusqueda.CustomizableEdges = customizableEdges1;
             fieldDatoBusqueda.DefaultText = "";
             fieldDatoBusqueda.DisabledState.BorderColor = Color.FromArgb(  208,   208,   208);
             fieldDatoBusqueda.DisabledState.FillColor = Color.FromArgb(  226,   226,   226);
@@ -206,162 +172,114 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldDatoBusqueda.IconLeft = (Image) resources.GetObject("fieldDatoBusqueda.IconLeft");
             fieldDatoBusqueda.IconLeftOffset = new Point(10, 1);
             fieldDatoBusqueda.IconRightOffset = new Point(10, 0);
-            fieldDatoBusqueda.Location = new Point(933, 5);
-            fieldDatoBusqueda.Margin = new Padding(3, 5, 3, 5);
+            fieldDatoBusqueda.Location = new Point(305, 5);
+            fieldDatoBusqueda.Margin = new Padding(5);
             fieldDatoBusqueda.Name = "fieldDatoBusqueda";
             fieldDatoBusqueda.PasswordChar = '\0';
             fieldDatoBusqueda.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
-            fieldDatoBusqueda.PlaceholderText = "Buscar almacenes";
+            fieldDatoBusqueda.PlaceholderText = "Datos complementarios de búsqueda";
             fieldDatoBusqueda.SelectedText = "";
-            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            fieldDatoBusqueda.Size = new Size(350, 35);
-            fieldDatoBusqueda.TabIndex = 8;
+            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldDatoBusqueda.Size = new Size(320, 35);
+            fieldDatoBusqueda.TabIndex = 9;
             fieldDatoBusqueda.TextOffset = new Point(5, 0);
+            fieldDatoBusqueda.Visible = false;
             // 
-            // layoutBotones
+            // fieldCriterioBusqueda
             // 
-            layoutBotones.BackColor = Color.FromArgb(  248,   244,   242);
-            layoutBotones.Controls.Add(btnRegistrarAlmacen);
-            layoutBotones.Dock = DockStyle.Fill;
-            layoutBotones.Location = new Point(0, 0);
-            layoutBotones.Margin = new Padding(0);
-            layoutBotones.Name = "layoutBotones";
-            layoutBotones.Size = new Size(930, 45);
-            layoutBotones.TabIndex = 3;
+            fieldCriterioBusqueda.Animated = true;
+            fieldCriterioBusqueda.BackColor = Color.Transparent;
+            fieldCriterioBusqueda.BorderColor = Color.FromArgb(  217,   211,   204);
+            fieldCriterioBusqueda.BorderRadius = 16;
+            fieldCriterioBusqueda.CustomizableEdges = customizableEdges3;
+            fieldCriterioBusqueda.Dock = DockStyle.Fill;
+            fieldCriterioBusqueda.DrawMode = DrawMode.OwnerDrawFixed;
+            fieldCriterioBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+            fieldCriterioBusqueda.FillColor = Color.FromArgb(  254,   254,   253);
+            fieldCriterioBusqueda.FocusedColor = Color.FromArgb(  217,   211,   204);
+            fieldCriterioBusqueda.FocusedState.BorderColor = Color.FromArgb(  217,   211,   204);
+            fieldCriterioBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCriterioBusqueda.ForeColor = Color.FromArgb(  40,   37,   35);
+            fieldCriterioBusqueda.ItemHeight = 29;
+            fieldCriterioBusqueda.Location = new Point(5, 5);
+            fieldCriterioBusqueda.Margin = new Padding(5);
+            fieldCriterioBusqueda.Name = "fieldCriterioBusqueda";
+            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            fieldCriterioBusqueda.Size = new Size(290, 35);
+            fieldCriterioBusqueda.TabIndex = 27;
+            fieldCriterioBusqueda.TextOffset = new Point(10, 0);
             // 
-            // btnRegistrarAlmacen
+            // layoutTituloHerramientas
             // 
-            btnRegistrarAlmacen.Animated = true;
-            btnRegistrarAlmacen.BackColor = Color.FromArgb(  248,   244,   242);
-            btnRegistrarAlmacen.BorderRadius = 18;
-            btnRegistrarAlmacen.CustomizableEdges = customizableEdges5;
-            btnRegistrarAlmacen.FillColor = Color.FromArgb(  217,   211,   204);
-            btnRegistrarAlmacen.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnRegistrarAlmacen.ForeColor = Color.FromArgb(  40,   37,   35);
-            btnRegistrarAlmacen.Image = (Image) resources.GetObject("btnRegistrarAlmacen.Image");
-            btnRegistrarAlmacen.ImageOffset = new Point(-5, 0);
-            btnRegistrarAlmacen.Location = new Point(3, 3);
-            btnRegistrarAlmacen.Margin = new Padding(3, 3, 1, 3);
-            btnRegistrarAlmacen.Name = "btnRegistrarAlmacen";
-            btnRegistrarAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnRegistrarAlmacen.Size = new Size(320, 39);
-            btnRegistrarAlmacen.TabIndex = 7;
-            btnRegistrarAlmacen.Text = "Registrar un almacén";
+            layoutTituloHerramientas.ColumnCount = 3;
+            layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
+            layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutTituloHerramientas.Controls.Add(fieldTituloFiltrosBusqueda, 0, 0);
+            layoutTituloHerramientas.Dock = DockStyle.Fill;
+            layoutTituloHerramientas.Location = new Point(50, 110);
+            layoutTituloHerramientas.Margin = new Padding(0);
+            layoutTituloHerramientas.Name = "layoutTituloHerramientas";
+            layoutTituloHerramientas.RowCount = 1;
+            layoutTituloHerramientas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutTituloHerramientas.Size = new Size(1286, 35);
+            layoutTituloHerramientas.TabIndex = 37;
             // 
-            // fieldIcono
+            // fieldTituloFiltrosBusqueda
             // 
-            fieldIcono.BackgroundImage = (Image) resources.GetObject("fieldIcono.BackgroundImage");
-            fieldIcono.BackgroundImageLayout = ImageLayout.Center;
-            fieldIcono.Dock = DockStyle.Fill;
-            fieldIcono.Location = new Point(20, 6);
-            fieldIcono.Margin = new Padding(0, 6, 0, 0);
-            fieldIcono.Name = "fieldIcono";
-            fieldIcono.Size = new Size(30, 39);
-            fieldIcono.TabIndex = 0;
-            fieldIcono.TabStop = false;
+            fieldTituloFiltrosBusqueda.Dock = DockStyle.Fill;
+            fieldTituloFiltrosBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloFiltrosBusqueda.ForeColor = Color.FromArgb(  115,   109,   106);
+            fieldTituloFiltrosBusqueda.Image = (Image) resources.GetObject("fieldTituloFiltrosBusqueda.Image");
+            fieldTituloFiltrosBusqueda.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloFiltrosBusqueda.ImeMode = ImeMode.NoControl;
+            fieldTituloFiltrosBusqueda.Location = new Point(15, 5);
+            fieldTituloFiltrosBusqueda.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloFiltrosBusqueda.Name = "fieldTituloFiltrosBusqueda";
+            fieldTituloFiltrosBusqueda.Size = new Size(282, 27);
+            fieldTituloFiltrosBusqueda.TabIndex = 24;
+            fieldTituloFiltrosBusqueda.Text = "      Filtro de búsqueda :";
+            fieldTituloFiltrosBusqueda.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // fieldSubtitulo
+            // panelBotonesGestion
             // 
-            fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldSubtitulo.ForeColor = Color.Gray;
-            fieldSubtitulo.ImeMode = ImeMode.NoControl;
-            fieldSubtitulo.Location = new Point(55, 50);
-            fieldSubtitulo.Margin = new Padding(5, 5, 1, 1);
-            fieldSubtitulo.Name = "fieldSubtitulo";
-            fieldSubtitulo.Size = new Size(1280, 39);
-            fieldSubtitulo.TabIndex = 2;
-            fieldSubtitulo.Text = "Registro, edición, eliminación, búsqueda de almacenes.";
+            panelBotonesGestion.Controls.Add(btnRegistrar);
+            panelBotonesGestion.Dock = DockStyle.Fill;
+            panelBotonesGestion.Location = new Point(50, 210);
+            panelBotonesGestion.Margin = new Padding(0);
+            panelBotonesGestion.Name = "panelBotonesGestion";
+            panelBotonesGestion.Padding = new Padding(3);
+            panelBotonesGestion.Size = new Size(1286, 45);
+            panelBotonesGestion.TabIndex = 38;
             // 
-            // layoutEncabezadosTabla
+            // btnRegistrar
             // 
-            layoutEncabezadosTabla.BackColor = Color.FromArgb(  243,   243,   243);
-            layoutEncabezadosTabla.ColumnCount = 8;
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutEncabezadosTabla.Controls.Add(fieldTituloNombre, 0, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloNotas, 3, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloDireccion, 2, 0);
-            layoutEncabezadosTabla.Dock = DockStyle.Fill;
-            layoutEncabezadosTabla.Location = new Point(51, 166);
-            layoutEncabezadosTabla.Margin = new Padding(1);
-            layoutEncabezadosTabla.Name = "layoutEncabezadosTabla";
-            layoutEncabezadosTabla.RowCount = 1;
-            layoutEncabezadosTabla.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutEncabezadosTabla.Size = new Size(1284, 58);
-            layoutEncabezadosTabla.TabIndex = 11;
+            btnRegistrar.Animated = true;
+            btnRegistrar.BackColor = Color.FromArgb(  248,   244,   242);
+            btnRegistrar.BorderRadius = 18;
+            btnRegistrar.CustomizableEdges = customizableEdges5;
+            btnRegistrar.Dock = DockStyle.Left;
+            btnRegistrar.FillColor = Color.FromArgb(  217,   211,   204);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.ForeColor = Color.FromArgb(  40,   37,   35);
+            btnRegistrar.Image = (Image) resources.GetObject("btnRegistrar.Image");
+            btnRegistrar.ImageOffset = new Point(-5, 0);
+            btnRegistrar.Location = new Point(3, 3);
+            btnRegistrar.Margin = new Padding(0);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnRegistrar.Size = new Size(320, 39);
+            btnRegistrar.TabIndex = 7;
+            btnRegistrar.Text = "Registrar un nuevo almacén";
             // 
-            // fieldTituloNombre
+            // guna2Separator1
             // 
-            fieldTituloNombre.Dock = DockStyle.Fill;
-            fieldTituloNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloNombre.ForeColor = Color.Black;
-            fieldTituloNombre.ImeMode = ImeMode.NoControl;
-            fieldTituloNombre.Location = new Point(61, 1);
-            fieldTituloNombre.Margin = new Padding(1);
-            fieldTituloNombre.Name = "fieldTituloNombre";
-            fieldTituloNombre.Size = new Size(218, 56);
-            fieldTituloNombre.TabIndex = 15;
-            fieldTituloNombre.Text = "Nombre";
-            fieldTituloNombre.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldTituloId
-            // 
-            fieldTituloId.Dock = DockStyle.Fill;
-            fieldTituloId.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloId.ForeColor = Color.Black;
-            fieldTituloId.ImeMode = ImeMode.NoControl;
-            fieldTituloId.Location = new Point(1, 1);
-            fieldTituloId.Margin = new Padding(1);
-            fieldTituloId.Name = "fieldTituloId";
-            fieldTituloId.Size = new Size(58, 56);
-            fieldTituloId.TabIndex = 14;
-            fieldTituloId.Text = "Id";
-            fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldTituloNotas
-            // 
-            fieldTituloNotas.Dock = DockStyle.Fill;
-            fieldTituloNotas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloNotas.ForeColor = Color.Black;
-            fieldTituloNotas.ImeMode = ImeMode.NoControl;
-            fieldTituloNotas.Location = new Point(581, 1);
-            fieldTituloNotas.Margin = new Padding(1);
-            fieldTituloNotas.Name = "fieldTituloNotas";
-            fieldTituloNotas.Size = new Size(298, 56);
-            fieldTituloNotas.TabIndex = 10;
-            fieldTituloNotas.Text = "Notas";
-            fieldTituloNotas.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldTituloDireccion
-            // 
-            fieldTituloDireccion.Dock = DockStyle.Fill;
-            fieldTituloDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloDireccion.ForeColor = Color.Black;
-            fieldTituloDireccion.ImeMode = ImeMode.NoControl;
-            fieldTituloDireccion.Location = new Point(281, 1);
-            fieldTituloDireccion.Margin = new Padding(1);
-            fieldTituloDireccion.Name = "fieldTituloDireccion";
-            fieldTituloDireccion.Size = new Size(298, 56);
-            fieldTituloDireccion.TabIndex = 4;
-            fieldTituloDireccion.Text = "Dirección";
-            fieldTituloDireccion.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // contenedorVistas
-            // 
-            contenedorVistas.Dock = DockStyle.Fill;
-            contenedorVistas.Location = new Point(50, 235);
-            contenedorVistas.Margin = new Padding(0);
-            contenedorVistas.Name = "contenedorVistas";
-            contenedorVistas.Size = new Size(1286, 318);
-            contenedorVistas.TabIndex = 13;
+            guna2Separator1.Dock = DockStyle.Fill;
+            guna2Separator1.FillColor = Color.FromArgb(  217,   211,   204);
+            guna2Separator1.Location = new Point(53, 193);
+            guna2Separator1.Name = "guna2Separator1";
+            guna2Separator1.Size = new Size(1280, 14);
+            guna2Separator1.TabIndex = 38;
             // 
             // layoutControlesTabla
             // 
@@ -544,6 +462,169 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldPaginasTotales.Text = "de 1";
             fieldPaginasTotales.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // layoutTitulo
+            // 
+            layoutTitulo.ColumnCount = 2;
+            layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            layoutTitulo.Controls.Add(btnCerrar, 1, 0);
+            layoutTitulo.Controls.Add(fieldTitulo, 0, 0);
+            layoutTitulo.Dock = DockStyle.Fill;
+            layoutTitulo.Location = new Point(50, 0);
+            layoutTitulo.Margin = new Padding(0);
+            layoutTitulo.Name = "layoutTitulo";
+            layoutTitulo.RowCount = 1;
+            layoutTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutTitulo.Size = new Size(1286, 45);
+            layoutTitulo.TabIndex = 14;
+            // 
+            // btnCerrar
+            // 
+            btnCerrar.Animated = true;
+            btnCerrar.AutoRoundedCorners = true;
+            btnCerrar.BorderColor = Color.Gray;
+            btnCerrar.BorderRadius = 18;
+            btnCerrar.CustomizableEdges = customizableEdges17;
+            btnCerrar.Dock = DockStyle.Fill;
+            btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.ForeColor = Color.Black;
+            btnCerrar.HoverState.FillColor = Color.FromArgb(  250,   250,   250);
+            btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
+            btnCerrar.Location = new Point(1239, 3);
+            btnCerrar.Name = "btnCerrar";
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnCerrar.Size = new Size(44, 39);
+            btnCerrar.TabIndex = 8;
+            // 
+            // fieldTitulo
+            // 
+            fieldTitulo.Dock = DockStyle.Fill;
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.ForeColor = Color.Black;
+            fieldTitulo.ImeMode = ImeMode.NoControl;
+            fieldTitulo.Location = new Point(3, 0);
+            fieldTitulo.Name = "fieldTitulo";
+            fieldTitulo.Size = new Size(1230, 45);
+            fieldTitulo.TabIndex = 3;
+            fieldTitulo.Text = "Gestión de almacenes";
+            fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // fieldIcono
+            // 
+            fieldIcono.BackgroundImage = (Image) resources.GetObject("fieldIcono.BackgroundImage");
+            fieldIcono.BackgroundImageLayout = ImageLayout.Center;
+            fieldIcono.Dock = DockStyle.Fill;
+            fieldIcono.Location = new Point(20, 6);
+            fieldIcono.Margin = new Padding(0, 6, 0, 0);
+            fieldIcono.Name = "fieldIcono";
+            fieldIcono.Size = new Size(30, 39);
+            fieldIcono.TabIndex = 0;
+            fieldIcono.TabStop = false;
+            // 
+            // fieldSubtitulo
+            // 
+            fieldSubtitulo.Dock = DockStyle.Fill;
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.ForeColor = Color.Gray;
+            fieldSubtitulo.ImeMode = ImeMode.NoControl;
+            fieldSubtitulo.Location = new Point(55, 50);
+            fieldSubtitulo.Margin = new Padding(5, 5, 1, 1);
+            fieldSubtitulo.Name = "fieldSubtitulo";
+            fieldSubtitulo.Size = new Size(1280, 39);
+            fieldSubtitulo.TabIndex = 2;
+            fieldSubtitulo.Text = "Registro, edición, eliminación, búsqueda de almacenes.";
+            // 
+            // layoutEncabezadosTabla
+            // 
+            layoutEncabezadosTabla.BackColor = Color.FromArgb(  243,   243,   243);
+            layoutEncabezadosTabla.ColumnCount = 8;
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            layoutEncabezadosTabla.Controls.Add(fieldTituloNombre, 0, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloNotas, 3, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloDireccion, 2, 0);
+            layoutEncabezadosTabla.Dock = DockStyle.Fill;
+            layoutEncabezadosTabla.Location = new Point(51, 266);
+            layoutEncabezadosTabla.Margin = new Padding(1);
+            layoutEncabezadosTabla.Name = "layoutEncabezadosTabla";
+            layoutEncabezadosTabla.RowCount = 1;
+            layoutEncabezadosTabla.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutEncabezadosTabla.Size = new Size(1284, 58);
+            layoutEncabezadosTabla.TabIndex = 11;
+            // 
+            // fieldTituloNombre
+            // 
+            fieldTituloNombre.Dock = DockStyle.Fill;
+            fieldTituloNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloNombre.ForeColor = Color.Black;
+            fieldTituloNombre.ImeMode = ImeMode.NoControl;
+            fieldTituloNombre.Location = new Point(61, 1);
+            fieldTituloNombre.Margin = new Padding(1);
+            fieldTituloNombre.Name = "fieldTituloNombre";
+            fieldTituloNombre.Size = new Size(218, 56);
+            fieldTituloNombre.TabIndex = 15;
+            fieldTituloNombre.Text = "Nombre";
+            fieldTituloNombre.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloId
+            // 
+            fieldTituloId.Dock = DockStyle.Fill;
+            fieldTituloId.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloId.ForeColor = Color.Black;
+            fieldTituloId.ImeMode = ImeMode.NoControl;
+            fieldTituloId.Location = new Point(1, 1);
+            fieldTituloId.Margin = new Padding(1);
+            fieldTituloId.Name = "fieldTituloId";
+            fieldTituloId.Size = new Size(58, 56);
+            fieldTituloId.TabIndex = 14;
+            fieldTituloId.Text = "Id";
+            fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloNotas
+            // 
+            fieldTituloNotas.Dock = DockStyle.Fill;
+            fieldTituloNotas.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloNotas.ForeColor = Color.Black;
+            fieldTituloNotas.ImeMode = ImeMode.NoControl;
+            fieldTituloNotas.Location = new Point(581, 1);
+            fieldTituloNotas.Margin = new Padding(1);
+            fieldTituloNotas.Name = "fieldTituloNotas";
+            fieldTituloNotas.Size = new Size(298, 56);
+            fieldTituloNotas.TabIndex = 10;
+            fieldTituloNotas.Text = "Notas";
+            fieldTituloNotas.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloDireccion
+            // 
+            fieldTituloDireccion.Dock = DockStyle.Fill;
+            fieldTituloDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloDireccion.ForeColor = Color.Black;
+            fieldTituloDireccion.ImeMode = ImeMode.NoControl;
+            fieldTituloDireccion.Location = new Point(281, 1);
+            fieldTituloDireccion.Margin = new Padding(1);
+            fieldTituloDireccion.Name = "fieldTituloDireccion";
+            fieldTituloDireccion.Size = new Size(298, 56);
+            fieldTituloDireccion.TabIndex = 4;
+            fieldTituloDireccion.Text = "Dirección";
+            fieldTituloDireccion.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // contenedorVistas
+            // 
+            contenedorVistas.Dock = DockStyle.Fill;
+            contenedorVistas.Location = new Point(50, 335);
+            contenedorVistas.Margin = new Padding(0);
+            contenedorVistas.Name = "contenedorVistas";
+            contenedorVistas.Size = new Size(1286, 218);
+            contenedorVistas.TabIndex = 13;
+            // 
             // VistaGestionAlmacenes
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -558,12 +639,13 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             StartPosition = FormStartPosition.Manual;
             Text = "VistaGestionAlmacenes";
             layoutVista.ResumeLayout(false);
+            layoutHerramientas.ResumeLayout(false);
+            layoutTituloHerramientas.ResumeLayout(false);
+            panelBotonesGestion.ResumeLayout(false);
+            layoutControlesTabla.ResumeLayout(false);
             layoutTitulo.ResumeLayout(false);
-            layoutDistribucionMenu.ResumeLayout(false);
-            layoutBotones.ResumeLayout(false);
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutEncabezadosTabla.ResumeLayout(false);
-            layoutControlesTabla.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -574,10 +656,6 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
         private TableLayoutPanel layoutTitulo;
         private Guna2Button btnCerrar;
         private Label fieldTitulo;
-        private TableLayoutPanel layoutDistribucionMenu;
-        private Guna2TextBox fieldDatoBusqueda;
-        private FlowLayoutPanel layoutBotones;
-        private Guna2Button btnRegistrarAlmacen;
         private PictureBox fieldIcono;
         private Label fieldSubtitulo;
         private TableLayoutPanel layoutEncabezadosTabla;
@@ -594,5 +672,13 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
         private Guna2Button btnSincronizarDatos;
         private Label fieldPaginaActual;
         private Label fieldPaginasTotales;
+        private Guna2Separator guna2Separator1;
+        private Panel panelBotonesGestion;
+        private Guna2Button btnRegistrar;
+        private TableLayoutPanel layoutTituloHerramientas;
+        private Label fieldTituloFiltrosBusqueda;
+        private TableLayoutPanel layoutHerramientas;
+        private Guna2TextBox fieldDatoBusqueda;
+        private Guna2ComboBox fieldCriterioBusqueda;
     }
 }

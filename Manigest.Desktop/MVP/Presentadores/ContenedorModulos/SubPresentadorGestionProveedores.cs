@@ -6,7 +6,7 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
         private PresentadorGestionProveedores _gestionProveedores;
 
         private void InicializarVistaGestionProveedores() {
-            _gestionProveedores = new PresentadorGestionProveedores(new VistaGestionProveedor());
+            _gestionProveedores = new PresentadorGestionProveedores(new VistaGestionProveedores());
             _gestionProveedores.EditarObjeto += MostrarVistaEdicionProveedor;
             _gestionProveedores.Vista.RegistrarDatos += MostrarVistaRegistroProveedor;
 

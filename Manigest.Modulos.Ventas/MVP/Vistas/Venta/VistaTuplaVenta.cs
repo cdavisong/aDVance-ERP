@@ -47,9 +47,9 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             set => fieldCantidadProductos.Text = value;
         }
 
-        public string Total {
-            get => fieldTotal.Text;
-            set => fieldTotal.Text = value;
+        public string MontoTotal {
+            get => fieldMontoTotal.Text;
+            set => fieldMontoTotal.Text = value;
         }
 
         public Color ColorFondoTupla {
@@ -79,7 +79,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldCantidadProductos.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldTotal.Click += delegate (object? sender, EventArgs e) {
+            fieldMontoTotal.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
 

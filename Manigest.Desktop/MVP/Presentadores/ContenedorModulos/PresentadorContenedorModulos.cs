@@ -9,6 +9,7 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
 
             // Eventos
             Vista.MostrarMenuContactos += MostrarVistaMenuContacto;
+            Vista.MostrarMenuFinanzas += MostrarVistaMenuFinanzas;
             Vista.MostrarMenuInventario += MostrarVistaMenuInventario;
             Vista.MostrarMenuVentas += MostrarVistaMenuVentas;
 
@@ -18,6 +19,13 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
             InicializarVistaGestionProveedores();
             InicializarVistaGestionClientes();
             InicializarVistaGestionContactos();
+
+            #endregion
+
+            #region Módulo : Finanzas
+
+            InicializarVistaMenuFinanzas();            
+            InicializarVistaGestionCuentas();
 
             #endregion
 

@@ -1,5 +1,12 @@
 ﻿namespace Manigest.Core.MVP.Modelos.Plantillas {
-    public interface IBuscadorDatos {
+    public interface IBuscadorDatos<C>
+        where C : Enum {
+        C CriterioBusqueda { get; }
+        string DatoBusqueda { get; }
+
+
         event EventHandler? BuscarDatos;
+
+        void CargarCriteriosBusqueda(string[] criteriosBusqueda);
     }
 }

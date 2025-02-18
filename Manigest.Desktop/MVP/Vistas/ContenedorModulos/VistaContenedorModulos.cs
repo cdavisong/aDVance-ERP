@@ -1,5 +1,6 @@
 ﻿using Manigest.Core.MVP.Modelos.Repositorios;
 using Manigest.Core.MVP.Modelos.Repositorios.Plantillas;
+using Manigest.Core.Utiles;
 using Manigest.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
 
 namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
@@ -28,6 +29,10 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             get => contenedorVistas.Height;
         }
 
+        public int TuplasMaximasContenedor {
+            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
+        }
+
         //public bool BtnModuloAdministracionVisible {
         //    get => btnModuloAdministracion.Visible;
         //    set => btnModuloAdministracion.Visible = value;
@@ -38,6 +43,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
         public event EventHandler? MostrarVistaInicio;
         public event EventHandler? MostrarMenuEstadisticas;
         public event EventHandler? MostrarMenuContactos;
+        public event EventHandler? MostrarMenuFinanzas;
         public event EventHandler? MostrarMenuInventario;
         public event EventHandler? MostrarMenuVentas;
         public event EventHandler? CambioModulo;
@@ -60,6 +66,10 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloContactos.Click += delegate (object? sender, EventArgs e) {
                 CambioModulo?.Invoke(sender, e);
                 MostrarMenuContactos?.Invoke(sender, e);
+            };
+            btnModuloFinanzas.Click += delegate (object? sender, EventArgs e) {
+                CambioModulo?.Invoke(sender, e);
+                MostrarMenuFinanzas?.Invoke(sender, e);
             };
             btnModuloInventario.Click += delegate (object? sender, EventArgs e) {
                 CambioModulo?.Invoke(sender, e);

@@ -1,5 +1,7 @@
 ﻿using Manigest.Core.MVP.Modelos.Repositorios;
 using Manigest.Core.MVP.Modelos.Repositorios.Plantillas;
+using Manigest.Core.Utiles;
+using Manigest.Modulos.Ventas.MVP.Modelos;
 using Manigest.Modulos.Ventas.MVP.Vistas.Venta.Plantillas;
 
 namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
@@ -27,8 +29,22 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             set => Size = value;
         }
 
+        public CriterioBusquedaVenta CriterioBusqueda {
+            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaVenta) fieldCriterioBusqueda.SelectedIndex : default;
+            set => fieldCriterioBusqueda.SelectedIndex = (int) value;
+        }
+
+        public string DatoBusqueda {
+            get => fieldDatoBusqueda.Text;
+            set => fieldDatoBusqueda.Text = value;
+        }
+
         public int AlturaContenedorVistas {
             get => contenedorVistas.Height;
+        }
+
+        public int TuplasMaximasContenedor {
+            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
         }
 
         public int PaginaActual {
@@ -68,15 +84,15 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
 
             // Eventos
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
-                if (!string.IsNullOrEmpty(fieldDatoBusqueda.Text))
-                    BuscarDatos?.Invoke(fieldDatoBusqueda.Text, e);
+                if (!string.IsNullOrEmpty(DatoBusqueda))
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
                 Salir?.Invoke(sender, e);
                 Ocultar();
             };
-            btnRegistrarVenta.Click += delegate (object? sender, EventArgs e) {
+            btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
@@ -111,6 +127,16 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             };
         }
 
+        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+            fieldCriterioBusqueda.Items.Add("Todos");
+            fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
+            fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+                fieldDatoBusqueda.Text = string.Empty;
+                fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+            };
+            fieldCriterioBusqueda.SelectedIndex = 0;
+        }
+
         public void Mostrar() {
             Habilitada = true;
             BringToFront();
@@ -121,7 +147,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
-            fieldDatoBusqueda.Value = DateTime.Now;
+            fieldDatoBusqueda.Text = string.Empty;
         }
 
         public void Ocultar() {

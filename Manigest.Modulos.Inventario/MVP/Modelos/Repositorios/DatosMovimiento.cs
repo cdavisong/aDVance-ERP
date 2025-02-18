@@ -5,6 +5,10 @@ using MySql.Data.MySqlClient;
 
 namespace Manigest.Modulos.Inventario.MVP.Modelos.Repositorios {
     public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusquedaMovimiento>, IRepositorioMovimiento {
+        public static DatosMovimiento Instance { get; } = new();
+
+        public DatosMovimiento() : base() { }
+
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_movimiento) FROM mg__movimiento;";
         }
@@ -29,19 +33,19 @@ namespace Manigest.Modulos.Inventario.MVP.Modelos.Repositorios {
                     comando = $"SELECT * FROM mg__movimiento WHERE id_movimiento='{dato}';";
                     break;
                 case CriterioBusquedaMovimiento.Articulo:
-                    comando = $"SELECT * FROM mg__movimiento WHERE id_articulo='{dato}';";
+                    comando = $"SELECT m.* FROM mg__movimiento m JOIN mg__articulo a ON m.id_articulo = a.id_articulo WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
                     break;
                 case CriterioBusquedaMovimiento.AlmacenOrigen:
-                    comando = $"SELECT * FROM mg__movimiento WHERE id_almacen_origen='{dato}';";
+                    comando = $"SELECT * FROM mg__movimiento m JOIN mg__almacen a ON m.id_almacen_origen = a.id_almacen WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
                     break;
                 case CriterioBusquedaMovimiento.AlmacenDestino:
-                    comando = $"SELECT * FROM mg__movimiento WHERE id_almacen_destino='{dato}';";
+                    comando = $"SELECT * FROM mg__movimiento m JOIN mg__almacen a ON m.id_almacen_destino = a.id_almacen WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
                     break;
                 case CriterioBusquedaMovimiento.Fecha:
                     comando = $"SELECT * FROM mg__movimiento WHERE DATE(fecha)='{dato}';";
                     break;
                 case CriterioBusquedaMovimiento.Motivo:
-                    comando = $"SELECT * FROM mg__movimiento WHERE motivo='{dato}';";
+                    comando = $"SELECT * FROM mg__movimiento WHERE LOWER(motivo) LIKE LOWER('%{dato}%');";
                     break;
                 default:
                     comando = "SELECT * FROM mg__movimiento;";

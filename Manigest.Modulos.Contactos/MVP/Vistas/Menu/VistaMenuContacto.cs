@@ -1,4 +1,6 @@
-﻿using Manigest.Modulos.Contactos.MVP.Vistas.Menu.Plantillas;
+﻿using Guna.UI2.WinForms;
+
+using Manigest.Modulos.Contactos.MVP.Vistas.Menu.Plantillas;
 
 namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
     public partial class VistaMenuContacto : Form, IVistaMenuContacto {
@@ -31,17 +33,41 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu {
         public void Inicializar() {
             // Eventos
             btnProveedores.Click += delegate (object? sender, EventArgs e) {
-                CambioMenu?.Invoke(sender, e);
-                VerProveedores?.Invoke(sender, e);
+                PresionarBotonSeleccion(1, e);
             };
             btnClientes.Click += delegate (object? sender, EventArgs e) {
-                CambioMenu?.Invoke(sender, e);
-                VerClientes?.Invoke(sender, e);
+                PresionarBotonSeleccion(2, e);
             };
             btnContactos.Click += delegate (object? sender, EventArgs e) {
-                CambioMenu?.Invoke(sender, e);
-                VerContactos?.Invoke(sender, e);
+                PresionarBotonSeleccion(3, e);
             };
+        }
+
+        public void PresionarBotonSeleccion(object? sender, EventArgs e) {
+            var indiceValido = int.TryParse(sender?.ToString() ?? string.Empty, out var indice);
+
+            if (!indiceValido)
+                return;
+
+            CambioMenu?.Invoke(sender, e);
+
+            switch (indice) {
+                case 1:
+                    VerProveedores?.Invoke(btnProveedores, e);
+                    if (!btnProveedores.Checked)
+                        btnProveedores.Checked = true;
+                    break;
+                case 2:
+                    VerClientes?.Invoke(btnClientes, e);
+                    if (!btnClientes.Checked)
+                        btnClientes.Checked = true;
+                    break;
+                case 3:
+                    VerContactos?.Invoke(btnContactos, e);
+                    if (!btnContactos.Checked)
+                        btnContactos.Checked = true;
+                    break;
+            }            
         }
 
         public void Mostrar() {

@@ -31,8 +31,9 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -43,8 +44,9 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloEstadisticas = new Guna2CircleButton();
             btnModuloContactos = new Guna2CircleButton();
             btnModuloInventario = new Guna2CircleButton();
-            contenedorVistas = new Panel();
             btnModuloVentas = new Guna2CircleButton();
+            contenedorVistas = new Panel();
+            btnModuloFinanzas = new Guna2CircleButton();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
             layoutMenuLateral.SuspendLayout();
@@ -131,6 +133,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             layoutModulos.Controls.Add(btnInicio);
             layoutModulos.Controls.Add(btnModuloEstadisticas);
             layoutModulos.Controls.Add(btnModuloContactos);
+            layoutModulos.Controls.Add(btnModuloFinanzas);
             layoutModulos.Controls.Add(btnModuloInventario);
             layoutModulos.Controls.Add(btnModuloVentas);
             layoutModulos.Dock = DockStyle.Top;
@@ -202,19 +205,38 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloInventario.BackColor = Color.FromArgb(  243,   243,   243);
             btnModuloInventario.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             btnModuloInventario.CheckedState.FillColor = Color.FromArgb(  217,   211,   204);
-            btnModuloInventario.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
+            btnModuloInventario.CustomImages.Image = (Image) resources.GetObject("resource.Image4");
             btnModuloInventario.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnModuloInventario.CustomImages.ImageSize = new Size(24, 24);
             btnModuloInventario.FillColor = Color.FromArgb(  243,   243,   243);
             btnModuloInventario.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnModuloInventario.ForeColor = Color.White;
             btnModuloInventario.ImageSize = new Size(24, 24);
-            btnModuloInventario.Location = new Point(3, 153);
+            btnModuloInventario.Location = new Point(3, 203);
             btnModuloInventario.Name = "btnModuloInventario";
-            btnModuloInventario.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            btnModuloInventario.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnModuloInventario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloInventario.Size = new Size(44, 44);
             btnModuloInventario.TabIndex = 2;
+            // 
+            // btnModuloVentas
+            // 
+            btnModuloVentas.BackColor = Color.FromArgb(  243,   243,   243);
+            btnModuloVentas.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnModuloVentas.CheckedState.FillColor = Color.FromArgb(  217,   211,   204);
+            btnModuloVentas.CustomImages.Image = (Image) resources.GetObject("resource.Image5");
+            btnModuloVentas.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnModuloVentas.CustomImages.ImageSize = new Size(24, 24);
+            btnModuloVentas.FillColor = Color.FromArgb(  243,   243,   243);
+            btnModuloVentas.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnModuloVentas.ForeColor = Color.White;
+            btnModuloVentas.ImageSize = new Size(24, 24);
+            btnModuloVentas.Location = new Point(3, 253);
+            btnModuloVentas.Name = "btnModuloVentas";
+            btnModuloVentas.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            btnModuloVentas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            btnModuloVentas.Size = new Size(44, 44);
+            btnModuloVentas.TabIndex = 4;
             // 
             // contenedorVistas
             // 
@@ -226,24 +248,24 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
             contenedorVistas.Size = new Size(1306, 608);
             contenedorVistas.TabIndex = 1;
             // 
-            // btnModuloVentas
+            // btnModuloFinanzas
             // 
-            btnModuloVentas.BackColor = Color.FromArgb(  243,   243,   243);
-            btnModuloVentas.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            btnModuloVentas.CheckedState.FillColor = Color.FromArgb(  217,   211,   204);
-            btnModuloVentas.CustomImages.Image = (Image) resources.GetObject("resource.Image4");
-            btnModuloVentas.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnModuloVentas.CustomImages.ImageSize = new Size(24, 24);
-            btnModuloVentas.FillColor = Color.FromArgb(  243,   243,   243);
-            btnModuloVentas.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            btnModuloVentas.ForeColor = Color.White;
-            btnModuloVentas.ImageSize = new Size(24, 24);
-            btnModuloVentas.Location = new Point(3, 203);
-            btnModuloVentas.Name = "btnModuloVentas";
-            btnModuloVentas.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnModuloVentas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            btnModuloVentas.Size = new Size(44, 44);
-            btnModuloVentas.TabIndex = 4;
+            btnModuloFinanzas.BackColor = Color.FromArgb(  243,   243,   243);
+            btnModuloFinanzas.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnModuloFinanzas.CheckedState.FillColor = Color.FromArgb(  217,   211,   204);
+            btnModuloFinanzas.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
+            btnModuloFinanzas.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnModuloFinanzas.CustomImages.ImageSize = new Size(24, 24);
+            btnModuloFinanzas.FillColor = Color.FromArgb(  243,   243,   243);
+            btnModuloFinanzas.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnModuloFinanzas.ForeColor = Color.White;
+            btnModuloFinanzas.ImageSize = new Size(24, 24);
+            btnModuloFinanzas.Location = new Point(3, 153);
+            btnModuloFinanzas.Name = "btnModuloFinanzas";
+            btnModuloFinanzas.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            btnModuloFinanzas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            btnModuloFinanzas.Size = new Size(44, 44);
+            btnModuloFinanzas.TabIndex = 5;
             // 
             // VistaContenedorModulos
             // 
@@ -280,5 +302,6 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos {
         private Guna2CircleButton btnAyuda;
         private Guna2CircleButton btnModuloContactos;
         private Guna2CircleButton btnModuloVentas;
+        private Guna2CircleButton btnModuloFinanzas;
     }
 }

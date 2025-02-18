@@ -73,7 +73,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             layoutVista.BackColor = Color.FromArgb(  248,   244,   242);
             layoutVista.ColumnCount = 8;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -127,10 +127,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldNumeroIdentificacionTributaria.Location = new Point(61, 1);
             fieldNumeroIdentificacionTributaria.Margin = new Padding(1);
             fieldNumeroIdentificacionTributaria.Name = "fieldNumeroIdentificacionTributaria";
-            fieldNumeroIdentificacionTributaria.Size = new Size(218, 38);
+            fieldNumeroIdentificacionTributaria.Size = new Size(118, 38);
             fieldNumeroIdentificacionTributaria.TabIndex = 4;
             fieldNumeroIdentificacionTributaria.Text = "nit";
-            fieldNumeroIdentificacionTributaria.TextAlign = ContentAlignment.MiddleLeft;
+            fieldNumeroIdentificacionTributaria.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldId
             // 
@@ -174,7 +174,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldNombreRepresentante.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreRepresentante.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldNombreRepresentante.ImeMode = ImeMode.NoControl;
-            fieldNombreRepresentante.Location = new Point(531, 1);
+            fieldNombreRepresentante.Location = new Point(431, 1);
             fieldNombreRepresentante.Margin = new Padding(1);
             fieldNombreRepresentante.Name = "fieldNombreRepresentante";
             fieldNombreRepresentante.Size = new Size(248, 38);
@@ -189,7 +189,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldRazonSocial.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldRazonSocial.ForeColor = Color.FromArgb(  115,   109,   106);
             fieldRazonSocial.ImeMode = ImeMode.NoControl;
-            fieldRazonSocial.Location = new Point(281, 1);
+            fieldRazonSocial.Location = new Point(181, 1);
             fieldRazonSocial.Margin = new Padding(1);
             fieldRazonSocial.Name = "fieldRazonSocial";
             fieldRazonSocial.Size = new Size(248, 38);

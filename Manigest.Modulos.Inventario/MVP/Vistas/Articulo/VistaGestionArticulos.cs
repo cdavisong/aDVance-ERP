@@ -1,5 +1,7 @@
 ﻿using Manigest.Core.MVP.Modelos.Repositorios;
 using Manigest.Core.MVP.Modelos.Repositorios.Plantillas;
+using Manigest.Core.Utiles;
+using Manigest.Modulos.Inventario.MVP.Modelos;
 using Manigest.Modulos.Inventario.MVP.Vistas.Articulo.Plantillas;
 
 namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
@@ -27,8 +29,22 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             set => Size = value;
         }
 
+        public CriterioBusquedaArticulo CriterioBusqueda {
+            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaArticulo) fieldCriterioBusqueda.SelectedIndex : default;
+            set => fieldCriterioBusqueda.SelectedIndex = (int) value;
+        }
+
+        public string DatoBusqueda {
+            get => fieldDatoBusqueda.Text;
+            set => fieldDatoBusqueda.Text = value;
+        }
+
         public int AlturaContenedorVistas {
             get => contenedorVistas.Height;
+        }
+
+        public int TuplasMaximasContenedor {
+            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
         }
 
         public int PaginaActual {
@@ -68,15 +84,15 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
 
             // Eventos
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
-                if (!string.IsNullOrEmpty(fieldDatoBusqueda.Text))
-                    BuscarDatos?.Invoke(fieldDatoBusqueda.Text, e);
+                if (!string.IsNullOrEmpty(DatoBusqueda))
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
                 Salir?.Invoke(sender, e);
                 Ocultar();
             };
-            btnRegistrarProveedor.Click += delegate (object? sender, EventArgs e) {
+            btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
@@ -109,6 +125,16 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             contenedorVistas.Resize += delegate {
                 AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
             };
+        }
+
+        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+            fieldCriterioBusqueda.Items.Add("Todos");
+            fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
+            fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+                fieldDatoBusqueda.Text = string.Empty;
+                fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+            };
+            fieldCriterioBusqueda.SelectedIndex = 0;
         }
 
         public void Mostrar() {

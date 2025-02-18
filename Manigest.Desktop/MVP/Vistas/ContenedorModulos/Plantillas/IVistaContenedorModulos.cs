@@ -7,6 +7,7 @@ namespace Manigest.Desktop.MVP.Vistas.ContenedorModulos.Plantillas {
         event EventHandler? MostrarVistaInicio;
         event EventHandler? MostrarMenuEstadisticas;
         event EventHandler? MostrarMenuContactos;
+        event EventHandler? MostrarMenuFinanzas;
         event EventHandler? MostrarMenuInventario;
         event EventHandler? MostrarMenuVentas;
         event EventHandler? CambioModulo;

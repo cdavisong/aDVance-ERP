@@ -45,4 +45,16 @@ namespace Manigest.Modulos.Inventario.MVP.Modelos {
         Fecha,
         Motivo
     }
+
+    public static class UtilesBusquedaMovimiento {
+        public static string[] CriterioBusquedaMovimiento = new string[] {
+            "Todos los movimientos",
+            "Identificador de BD",
+            "Nombre del artículo",
+            "Almacén de orígen",
+            "Almacén de destino",
+            "Fecha del movimiento",
+            "Motivo del movimiento"
+        };
+    }
 }

@@ -2,7 +2,6 @@
     public static class VariablesGlobales {
         public static readonly Color ColorResaltadoTupla = Color.FromArgb(252, 225, 205);
         public const int AlturaTuplaPredeterminada = 42;
-        public static int TuplasMaximasContenedor = 0;
         public static int CoordenadaYUltimaTupla = 0;
         public const int AlturaBarraTituloPredeterminada = 51;
 

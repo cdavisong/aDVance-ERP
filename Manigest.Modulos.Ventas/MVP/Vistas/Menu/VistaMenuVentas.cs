@@ -1,4 +1,6 @@
-﻿using Manigest.Modulos.Ventas.MVP.Vistas.Menu.Plantillas;
+﻿using Guna.UI2.WinForms;
+
+using Manigest.Modulos.Ventas.MVP.Vistas.Menu.Plantillas;
 
 namespace Manigest.Modulos.Ventas.MVP.Vistas.Menu {
     public partial class VistaMenuVentas : Form, IVistaMenuVentas {
@@ -30,9 +32,25 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Menu {
         public void Inicializar() {
             // Eventos
             btnVentaArticulos.Click += delegate (object? sender, EventArgs e) {
-                CambioMenu?.Invoke(sender, e);
-                VerVentaArticulos?.Invoke(sender, e);
+                PresionarBotonSeleccion(1, e);
             };
+        }
+
+        public void PresionarBotonSeleccion(object? sender, EventArgs e) {
+            var indiceValido = int.TryParse(sender?.ToString() ?? string.Empty, out var indice);
+
+            if (!indiceValido)
+                return;
+
+            CambioMenu?.Invoke(sender, e);
+
+            switch (indice) {
+                case 1:
+                    VerVentaArticulos?.Invoke(btnVentaArticulos, e);
+                    if (!btnVentaArticulos.Checked)
+                        btnVentaArticulos.Checked = true;
+                    break;
+            }
         }
 
         public void Mostrar() {

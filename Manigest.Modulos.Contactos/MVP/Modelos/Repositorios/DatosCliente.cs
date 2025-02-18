@@ -26,17 +26,17 @@ namespace Manigest.Modulos.Contactos.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoObtener(CriterioBusquedaCliente criterio, string dato) {
-            var comando = string.Empty;
+            string? comando;
 
             switch (criterio) {
                 case CriterioBusquedaCliente.Id:
                     comando = $"SELECT * FROM mg__cliente WHERE id_cliente='{dato}';";
                     break;
-                case CriterioBusquedaCliente.Nombre:
-                    comando = $"SELECT * FROM mg__cliente WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
+                case CriterioBusquedaCliente.RazonSocial:
+                    comando = $"SELECT * FROM mg__cliente WHERE LOWER(razon_social) LIKE LOWER('%{dato}%');";
                     break;
                 case CriterioBusquedaCliente.Numero:
-                    comando = $"SELECT * FROM mg__cliente WHERE numero='{dato}';";
+                    comando = $"SELECT * FROM mg__cliente WHERE LOWER(numero) LIKE LOWER('%{dato}%');";
                     break;
                 default:
                     comando = "SELECT * FROM mg__cliente;";

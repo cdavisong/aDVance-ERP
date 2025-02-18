@@ -1,6 +1,6 @@
-﻿using Manigest.Modulos.Ventas.MVP.Vistas.Venta.Plantillas;
+﻿using Manigest.Modulos.Ventas.MVP.Vistas.DetalleVentaArticulo.Plantillas;
 
-namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
+namespace Manigest.Modulos.Ventas.MVP.Vistas.DetalleVentaArticulo {
     public partial class VistaTuplaDetalleVentaArticulo : Form, IVistaTuplaDetalleVentaArticulo {
         private string _idArticulo;
 
@@ -24,7 +24,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             set => Size = value;
         }
 
-        public string Id {
+        public string IdArticulo {
             get => _idArticulo;
             set => _idArticulo = value;
         }

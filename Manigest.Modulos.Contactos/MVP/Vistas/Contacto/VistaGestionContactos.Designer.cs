@@ -45,15 +45,19 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
+            layoutHerramientas = new TableLayoutPanel();
+            fieldDatoBusqueda = new Guna2TextBox();
+            fieldCriterioBusqueda = new Guna2ComboBox();
+            layoutTituloHerramientas = new TableLayoutPanel();
+            fieldTituloFiltrosBusqueda = new Label();
+            separador1 = new Guna2Separator();
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
-            layoutDistribucionMenu = new TableLayoutPanel();
-            fieldDatoBusqueda = new Guna2TextBox();
-            layoutBotones = new FlowLayoutPanel();
-            btnRegistrarContacto = new Guna2Button();
             fieldIcono = new PictureBox();
             fieldSubtitulo = new Label();
             layoutEncabezadosTabla = new TableLayoutPanel();
@@ -71,13 +75,16 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             btnSincronizarDatos = new Guna2Button();
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
+            panelBotonesGestion = new Panel();
+            btnRegistrar = new Guna2Button();
             layoutVista.SuspendLayout();
+            layoutHerramientas.SuspendLayout();
+            layoutTituloHerramientas.SuspendLayout();
             layoutTitulo.SuspendLayout();
-            layoutDistribucionMenu.SuspendLayout();
-            layoutBotones.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutEncabezadosTabla.SuspendLayout();
             layoutControlesTabla.SuspendLayout();
+            panelBotonesGestion.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -96,19 +103,25 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutVista.Controls.Add(layoutHerramientas, 2, 4);
+            layoutVista.Controls.Add(layoutTituloHerramientas, 2, 3);
+            layoutVista.Controls.Add(separador1, 2, 5);
             layoutVista.Controls.Add(layoutTitulo, 2, 0);
-            layoutVista.Controls.Add(layoutDistribucionMenu, 2, 3);
             layoutVista.Controls.Add(fieldIcono, 1, 0);
             layoutVista.Controls.Add(fieldSubtitulo, 2, 1);
-            layoutVista.Controls.Add(layoutEncabezadosTabla, 2, 5);
-            layoutVista.Controls.Add(contenedorVistas, 2, 7);
-            layoutVista.Controls.Add(layoutControlesTabla, 2, 8);
+            layoutVista.Controls.Add(layoutEncabezadosTabla, 2, 8);
+            layoutVista.Controls.Add(contenedorVistas, 2, 10);
+            layoutVista.Controls.Add(layoutControlesTabla, 2, 11);
+            layoutVista.Controls.Add(panelBotonesGestion, 2, 6);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(1);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 10;
+            layoutVista.RowCount = 13;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
@@ -120,6 +133,123 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(1356, 608);
             layoutVista.TabIndex = 4;
+            // 
+            // layoutHerramientas
+            // 
+            layoutHerramientas.ColumnCount = 3;
+            layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
+            layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutHerramientas.Controls.Add(fieldDatoBusqueda, 1, 0);
+            layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 0, 0);
+            layoutHerramientas.Dock = DockStyle.Fill;
+            layoutHerramientas.Location = new Point(50, 145);
+            layoutHerramientas.Margin = new Padding(0);
+            layoutHerramientas.Name = "layoutHerramientas";
+            layoutHerramientas.RowCount = 1;
+            layoutHerramientas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutHerramientas.Size = new Size(1286, 45);
+            layoutHerramientas.TabIndex = 38;
+            // 
+            // fieldDatoBusqueda
+            // 
+            fieldDatoBusqueda.Animated = true;
+            fieldDatoBusqueda.BackColor = Color.FromArgb(  254,   254,   253);
+            fieldDatoBusqueda.BorderColor = Color.FromArgb(  217,   211,   204);
+            fieldDatoBusqueda.BorderRadius = 18;
+            fieldDatoBusqueda.Cursor = Cursors.IBeam;
+            fieldDatoBusqueda.CustomizableEdges = customizableEdges1;
+            fieldDatoBusqueda.DefaultText = "";
+            fieldDatoBusqueda.DisabledState.BorderColor = Color.FromArgb(  208,   208,   208);
+            fieldDatoBusqueda.DisabledState.FillColor = Color.FromArgb(  226,   226,   226);
+            fieldDatoBusqueda.DisabledState.ForeColor = Color.FromArgb(  138,   138,   138);
+            fieldDatoBusqueda.DisabledState.PlaceholderForeColor = Color.FromArgb(  138,   138,   138);
+            fieldDatoBusqueda.Dock = DockStyle.Fill;
+            fieldDatoBusqueda.FillColor = Color.FromArgb(  254,   254,   253);
+            fieldDatoBusqueda.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
+            fieldDatoBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDatoBusqueda.ForeColor = Color.FromArgb(  28,   28,   28);
+            fieldDatoBusqueda.HoverState.BorderColor = Color.FromArgb(  2,   52,   107);
+            fieldDatoBusqueda.IconLeft = (Image) resources.GetObject("fieldDatoBusqueda.IconLeft");
+            fieldDatoBusqueda.IconLeftOffset = new Point(10, 1);
+            fieldDatoBusqueda.IconRightOffset = new Point(10, 0);
+            fieldDatoBusqueda.Location = new Point(305, 5);
+            fieldDatoBusqueda.Margin = new Padding(5);
+            fieldDatoBusqueda.Name = "fieldDatoBusqueda";
+            fieldDatoBusqueda.PasswordChar = '\0';
+            fieldDatoBusqueda.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
+            fieldDatoBusqueda.PlaceholderText = "Datos complementarios de búsqueda";
+            fieldDatoBusqueda.SelectedText = "";
+            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldDatoBusqueda.Size = new Size(320, 35);
+            fieldDatoBusqueda.TabIndex = 9;
+            fieldDatoBusqueda.TextOffset = new Point(5, 0);
+            fieldDatoBusqueda.Visible = false;
+            // 
+            // fieldCriterioBusqueda
+            // 
+            fieldCriterioBusqueda.Animated = true;
+            fieldCriterioBusqueda.BackColor = Color.Transparent;
+            fieldCriterioBusqueda.BorderColor = Color.FromArgb(  217,   211,   204);
+            fieldCriterioBusqueda.BorderRadius = 16;
+            fieldCriterioBusqueda.CustomizableEdges = customizableEdges3;
+            fieldCriterioBusqueda.Dock = DockStyle.Fill;
+            fieldCriterioBusqueda.DrawMode = DrawMode.OwnerDrawFixed;
+            fieldCriterioBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+            fieldCriterioBusqueda.FillColor = Color.FromArgb(  254,   254,   253);
+            fieldCriterioBusqueda.FocusedColor = Color.FromArgb(  217,   211,   204);
+            fieldCriterioBusqueda.FocusedState.BorderColor = Color.FromArgb(  217,   211,   204);
+            fieldCriterioBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCriterioBusqueda.ForeColor = Color.FromArgb(  40,   37,   35);
+            fieldCriterioBusqueda.ItemHeight = 29;
+            fieldCriterioBusqueda.Location = new Point(5, 5);
+            fieldCriterioBusqueda.Margin = new Padding(5);
+            fieldCriterioBusqueda.Name = "fieldCriterioBusqueda";
+            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            fieldCriterioBusqueda.Size = new Size(290, 35);
+            fieldCriterioBusqueda.TabIndex = 27;
+            fieldCriterioBusqueda.TextOffset = new Point(10, 0);
+            // 
+            // layoutTituloHerramientas
+            // 
+            layoutTituloHerramientas.ColumnCount = 3;
+            layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
+            layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutTituloHerramientas.Controls.Add(fieldTituloFiltrosBusqueda, 0, 0);
+            layoutTituloHerramientas.Dock = DockStyle.Fill;
+            layoutTituloHerramientas.Location = new Point(50, 110);
+            layoutTituloHerramientas.Margin = new Padding(0);
+            layoutTituloHerramientas.Name = "layoutTituloHerramientas";
+            layoutTituloHerramientas.RowCount = 1;
+            layoutTituloHerramientas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutTituloHerramientas.Size = new Size(1286, 35);
+            layoutTituloHerramientas.TabIndex = 37;
+            // 
+            // fieldTituloFiltrosBusqueda
+            // 
+            fieldTituloFiltrosBusqueda.Dock = DockStyle.Fill;
+            fieldTituloFiltrosBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloFiltrosBusqueda.ForeColor = Color.FromArgb(  115,   109,   106);
+            fieldTituloFiltrosBusqueda.Image = (Image) resources.GetObject("fieldTituloFiltrosBusqueda.Image");
+            fieldTituloFiltrosBusqueda.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloFiltrosBusqueda.ImeMode = ImeMode.NoControl;
+            fieldTituloFiltrosBusqueda.Location = new Point(15, 5);
+            fieldTituloFiltrosBusqueda.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloFiltrosBusqueda.Name = "fieldTituloFiltrosBusqueda";
+            fieldTituloFiltrosBusqueda.Size = new Size(282, 27);
+            fieldTituloFiltrosBusqueda.TabIndex = 24;
+            fieldTituloFiltrosBusqueda.Text = "      Filtro de búsqueda :";
+            fieldTituloFiltrosBusqueda.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // separador1
+            // 
+            separador1.Dock = DockStyle.Fill;
+            separador1.FillColor = Color.FromArgb(  217,   211,   204);
+            separador1.Location = new Point(53, 193);
+            separador1.Name = "separador1";
+            separador1.Size = new Size(1280, 14);
+            separador1.TabIndex = 36;
             // 
             // layoutTitulo
             // 
@@ -143,7 +273,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges1;
+            btnCerrar.CustomizableEdges = customizableEdges5;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -152,7 +282,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(1239, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnCerrar.Size = new Size(44, 39);
             btnCerrar.TabIndex = 8;
             // 
@@ -168,86 +298,6 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTitulo.TabIndex = 3;
             fieldTitulo.Text = "Gestión de contactos";
             fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // layoutDistribucionMenu
-            // 
-            layoutDistribucionMenu.ColumnCount = 2;
-            layoutDistribucionMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutDistribucionMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 356F));
-            layoutDistribucionMenu.Controls.Add(fieldDatoBusqueda, 1, 0);
-            layoutDistribucionMenu.Controls.Add(layoutBotones, 0, 0);
-            layoutDistribucionMenu.Dock = DockStyle.Fill;
-            layoutDistribucionMenu.Location = new Point(50, 110);
-            layoutDistribucionMenu.Margin = new Padding(0);
-            layoutDistribucionMenu.Name = "layoutDistribucionMenu";
-            layoutDistribucionMenu.RowCount = 1;
-            layoutDistribucionMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutDistribucionMenu.Size = new Size(1286, 45);
-            layoutDistribucionMenu.TabIndex = 4;
-            // 
-            // fieldDatoBusqueda
-            // 
-            fieldDatoBusqueda.Animated = true;
-            fieldDatoBusqueda.BackColor = Color.FromArgb(  254,   254,   253);
-            fieldDatoBusqueda.BorderColor = Color.FromArgb(  217,   211,   204);
-            fieldDatoBusqueda.BorderRadius = 18;
-            fieldDatoBusqueda.Cursor = Cursors.IBeam;
-            fieldDatoBusqueda.CustomizableEdges = customizableEdges3;
-            fieldDatoBusqueda.DefaultText = "";
-            fieldDatoBusqueda.DisabledState.BorderColor = Color.FromArgb(  208,   208,   208);
-            fieldDatoBusqueda.DisabledState.FillColor = Color.FromArgb(  226,   226,   226);
-            fieldDatoBusqueda.DisabledState.ForeColor = Color.FromArgb(  138,   138,   138);
-            fieldDatoBusqueda.DisabledState.PlaceholderForeColor = Color.FromArgb(  138,   138,   138);
-            fieldDatoBusqueda.Dock = DockStyle.Fill;
-            fieldDatoBusqueda.FillColor = Color.FromArgb(  254,   254,   253);
-            fieldDatoBusqueda.FocusedState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldDatoBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldDatoBusqueda.ForeColor = Color.FromArgb(  28,   28,   28);
-            fieldDatoBusqueda.HoverState.BorderColor = Color.FromArgb(  2,   52,   107);
-            fieldDatoBusqueda.IconLeft = (Image) resources.GetObject("fieldDatoBusqueda.IconLeft");
-            fieldDatoBusqueda.IconLeftOffset = new Point(10, 1);
-            fieldDatoBusqueda.IconRightOffset = new Point(10, 0);
-            fieldDatoBusqueda.Location = new Point(933, 5);
-            fieldDatoBusqueda.Margin = new Padding(3, 5, 3, 5);
-            fieldDatoBusqueda.Name = "fieldDatoBusqueda";
-            fieldDatoBusqueda.PasswordChar = '\0';
-            fieldDatoBusqueda.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
-            fieldDatoBusqueda.PlaceholderText = "Buscar contactos";
-            fieldDatoBusqueda.SelectedText = "";
-            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            fieldDatoBusqueda.Size = new Size(350, 35);
-            fieldDatoBusqueda.TabIndex = 8;
-            fieldDatoBusqueda.TextOffset = new Point(5, 0);
-            // 
-            // layoutBotones
-            // 
-            layoutBotones.BackColor = Color.FromArgb(  248,   244,   242);
-            layoutBotones.Controls.Add(btnRegistrarContacto);
-            layoutBotones.Dock = DockStyle.Fill;
-            layoutBotones.Location = new Point(0, 0);
-            layoutBotones.Margin = new Padding(0);
-            layoutBotones.Name = "layoutBotones";
-            layoutBotones.Size = new Size(930, 45);
-            layoutBotones.TabIndex = 3;
-            // 
-            // btnRegistrarContacto
-            // 
-            btnRegistrarContacto.Animated = true;
-            btnRegistrarContacto.BackColor = Color.FromArgb(  248,   244,   242);
-            btnRegistrarContacto.BorderRadius = 18;
-            btnRegistrarContacto.CustomizableEdges = customizableEdges5;
-            btnRegistrarContacto.FillColor = Color.FromArgb(  217,   211,   204);
-            btnRegistrarContacto.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnRegistrarContacto.ForeColor = Color.FromArgb(  40,   37,   35);
-            btnRegistrarContacto.Image = (Image) resources.GetObject("btnRegistrarContacto.Image");
-            btnRegistrarContacto.ImageOffset = new Point(-5, 0);
-            btnRegistrarContacto.Location = new Point(3, 3);
-            btnRegistrarContacto.Margin = new Padding(3, 3, 1, 3);
-            btnRegistrarContacto.Name = "btnRegistrarContacto";
-            btnRegistrarContacto.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnRegistrarContacto.Size = new Size(320, 39);
-            btnRegistrarContacto.TabIndex = 7;
-            btnRegistrarContacto.Text = "Registrar un contacto";
             // 
             // fieldIcono
             // 
@@ -293,7 +343,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             layoutEncabezadosTabla.Controls.Add(fieldTituloTelefonos, 2, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTiuloCorreoElectronico, 3, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
-            layoutEncabezadosTabla.Location = new Point(51, 166);
+            layoutEncabezadosTabla.Location = new Point(51, 266);
             layoutEncabezadosTabla.Margin = new Padding(1);
             layoutEncabezadosTabla.Name = "layoutEncabezadosTabla";
             layoutEncabezadosTabla.RowCount = 1;
@@ -374,10 +424,10 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             // contenedorVistas
             // 
             contenedorVistas.Dock = DockStyle.Fill;
-            contenedorVistas.Location = new Point(50, 235);
+            contenedorVistas.Location = new Point(50, 335);
             contenedorVistas.Margin = new Padding(0);
             contenedorVistas.Name = "contenedorVistas";
-            contenedorVistas.Size = new Size(1286, 318);
+            contenedorVistas.Size = new Size(1286, 218);
             contenedorVistas.TabIndex = 13;
             // 
             // layoutControlesTabla
@@ -561,6 +611,37 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldPaginasTotales.Text = "de 1";
             fieldPaginasTotales.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // panelBotonesGestion
+            // 
+            panelBotonesGestion.Controls.Add(btnRegistrar);
+            panelBotonesGestion.Dock = DockStyle.Fill;
+            panelBotonesGestion.Location = new Point(50, 210);
+            panelBotonesGestion.Margin = new Padding(0);
+            panelBotonesGestion.Name = "panelBotonesGestion";
+            panelBotonesGestion.Padding = new Padding(3);
+            panelBotonesGestion.Size = new Size(1286, 45);
+            panelBotonesGestion.TabIndex = 36;
+            // 
+            // btnRegistrar
+            // 
+            btnRegistrar.Animated = true;
+            btnRegistrar.BackColor = Color.FromArgb(  248,   244,   242);
+            btnRegistrar.BorderRadius = 18;
+            btnRegistrar.CustomizableEdges = customizableEdges17;
+            btnRegistrar.Dock = DockStyle.Left;
+            btnRegistrar.FillColor = Color.FromArgb(  217,   211,   204);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.ForeColor = Color.FromArgb(  40,   37,   35);
+            btnRegistrar.Image = (Image) resources.GetObject("btnRegistrar.Image");
+            btnRegistrar.ImageOffset = new Point(-5, 0);
+            btnRegistrar.Location = new Point(3, 3);
+            btnRegistrar.Margin = new Padding(0);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnRegistrar.Size = new Size(320, 39);
+            btnRegistrar.TabIndex = 7;
+            btnRegistrar.Text = "Registrar un nuevo contacto";
+            // 
             // VistaGestionContactos
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -575,12 +656,13 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
             StartPosition = FormStartPosition.Manual;
             Text = "VistaGestionContactos";
             layoutVista.ResumeLayout(false);
+            layoutHerramientas.ResumeLayout(false);
+            layoutTituloHerramientas.ResumeLayout(false);
             layoutTitulo.ResumeLayout(false);
-            layoutDistribucionMenu.ResumeLayout(false);
-            layoutBotones.ResumeLayout(false);
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutEncabezadosTabla.ResumeLayout(false);
             layoutControlesTabla.ResumeLayout(false);
+            panelBotonesGestion.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -591,10 +673,6 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
         private TableLayoutPanel layoutTitulo;
         private Guna2Button btnCerrar;
         private Label fieldTitulo;
-        private TableLayoutPanel layoutDistribucionMenu;
-        private Guna2TextBox fieldDatoBusqueda;
-        private FlowLayoutPanel layoutBotones;
-        private Guna2Button btnRegistrarContacto;
         private PictureBox fieldIcono;
         private Label fieldSubtitulo;
         private TableLayoutPanel layoutEncabezadosTabla;
@@ -612,5 +690,13 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Contacto {
         private Label fieldPaginasTotales;
         private Label fieldTituloTelefonos;
         private Label fieldTiuloCorreoElectronico;
+        private Panel panelBotonesGestion;
+        private Guna2Button btnRegistrar;
+        private Guna2Separator separador1;
+        private TableLayoutPanel layoutTituloHerramientas;
+        private Label fieldTituloFiltrosBusqueda;
+        private TableLayoutPanel layoutHerramientas;
+        private Guna2TextBox fieldDatoBusqueda;
+        private Guna2ComboBox fieldCriterioBusqueda;
     }
 }

@@ -7,6 +7,6 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta.Plantillas {
         string NombreAlmacen { get; set; }
         string NombreCliente { get; set; }
         string CantidadProductos { get; set; }
-        string Total { get; set; }
+        string MontoTotal { get; set; }
     }
 }

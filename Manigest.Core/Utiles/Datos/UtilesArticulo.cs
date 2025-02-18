@@ -14,7 +14,7 @@ namespace Manigest.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT id_articulo FROM mg__articulo WHERE LOWER(nombre) LIKE LOWER('%{nombreArticulo}%');";
+                    comando.CommandText = $"SELECT id_articulo FROM mg__articulo WHERE nombre='{nombreArticulo}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {

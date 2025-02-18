@@ -1,5 +1,7 @@
 ﻿using Manigest.Core.MVP.Modelos.Repositorios;
 using Manigest.Core.MVP.Modelos.Repositorios.Plantillas;
+using Manigest.Core.Utiles;
+using Manigest.Modulos.Inventario.MVP.Modelos;
 using Manigest.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
 namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
@@ -27,8 +29,22 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             set => Size = value;
         }
 
+        public CriterioBusquedaMovimiento CriterioBusqueda {
+            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaMovimiento) fieldCriterioBusqueda.SelectedIndex : default;
+            set => fieldCriterioBusqueda.SelectedIndex = (int) value;
+        }
+
+        public string DatoBusqueda {
+            get => fieldDatoBusqueda.Text;
+            set => fieldDatoBusqueda.Text = value;
+        }
+
         public int AlturaContenedorVistas {
             get => contenedorVistas.Height;
+        }
+
+        public int TuplasMaximasContenedor {
+            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
         }
 
         public int PaginaActual {
@@ -48,9 +64,8 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             }
         }
 
-        public IRepositorioVista Vistas { get; private set; }
+        public IRepositorioVista Vistas { get; private set; }        
 
-        public event EventHandler? CambioAlmacenOrigen;
         public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? MostrarPrimeraPagina;
         public event EventHandler? MostrarPaginaAnterior;
@@ -68,19 +83,16 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             Vistas = new RepositorioVistaBase(contenedorVistas);
 
             // Eventos
-            fieldNombreAlmacenOrigen.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
-                CambioAlmacenOrigen?.Invoke(fieldNombreAlmacenOrigen.Text, e);
-            };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
-                if (!string.IsNullOrEmpty(fieldDatoBusqueda.Text))
-                    BuscarDatos?.Invoke(fieldDatoBusqueda.Text, e);
+                if (!string.IsNullOrEmpty(DatoBusqueda))
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
                 Salir?.Invoke(sender, e);
                 Ocultar();
             };
-            btnRegistrarProveedor.Click += delegate (object? sender, EventArgs e) {
+            btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
@@ -115,11 +127,19 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             };
         }
 
-        public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
-            fieldNombreAlmacenOrigen.Items.Add("Todos");
-            fieldNombreAlmacenOrigen.Items.Add("Ninguno");
-            fieldNombreAlmacenOrigen.Items.AddRange(nombresAlmacenes);
-            fieldNombreAlmacenOrigen.SelectedIndex = 0;
+        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+            fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
+            fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+                fieldDatoBusqueda.Text = string.Empty;
+                fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+            };
+            fieldCriterioBusqueda.SelectedIndex = 0;
+        }
+
+        public void BusquedaDatos(CriterioBusquedaMovimiento criterio, string dato) {
+            throw new NotImplementedException();
         }
 
         public void Mostrar() {
@@ -132,9 +152,8 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
-            fieldNombreAlmacenOrigen.SelectedIndex = 0;
-            fieldFechaInicio.Value = DateTime.Now;
-            fieldFechaFinal.Value = DateTime.Now;
+            fieldDatoBusqueda.AutoCompleteMode = AutoCompleteMode.None;
+            fieldDatoBusqueda.AutoCompleteCustomSource.Clear();
             fieldDatoBusqueda.Text = string.Empty;
         }
 

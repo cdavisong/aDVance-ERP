@@ -77,10 +77,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             layoutClienteAlmacen = new TableLayoutPanel();
             fieldNombreCliente = new Guna2ComboBox();
             fieldNombreAlmacen = new Guna2ComboBox();
+            separador2 = new Guna2Separator();
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
-            separador2 = new Guna2Separator();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
@@ -177,7 +177,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldTituloGestionArticulos.Name = "fieldTituloGestionArticulos";
             fieldTituloGestionArticulos.Size = new Size(399, 27);
             fieldTituloGestionArticulos.TabIndex = 4;
-            fieldTituloGestionArticulos.Text = "      Gestión para la venta de artículos :";
+            fieldTituloGestionArticulos.Text = "      Gestión para la venta de artículos";
             fieldTituloGestionArticulos.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldIcono
@@ -420,7 +420,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldTituloTotalVenta.Name = "fieldTituloTotalVenta";
             fieldTituloTotalVenta.Size = new Size(159, 37);
             fieldTituloTotalVenta.TabIndex = 0;
-            fieldTituloTotalVenta.Text = "      Precio total :";
+            fieldTituloTotalVenta.Text = "      Precio total";
             fieldTituloTotalVenta.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnEfectuarPago
@@ -637,6 +637,15 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldNombreAlmacen.TabIndex = 1;
             fieldNombreAlmacen.TextOffset = new Point(10, 0);
             // 
+            // separador2
+            // 
+            separador2.Dock = DockStyle.Fill;
+            separador2.FillColor = Color.FromArgb(  217,   211,   204);
+            separador2.Location = new Point(53, 538);
+            separador2.Name = "separador2";
+            separador2.Size = new Size(411, 14);
+            separador2.TabIndex = 15;
+            // 
             // layoutBotones
             // 
             layoutBotones.BackColor = Color.FromArgb(  248,   244,   242);
@@ -694,15 +703,6 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 0;
             btnRegistrar.Text = "Registrar venta";
-            // 
-            // separador2
-            // 
-            separador2.Dock = DockStyle.Fill;
-            separador2.FillColor = Color.FromArgb(  217,   211,   204);
-            separador2.Location = new Point(53, 538);
-            separador2.Name = "separador2";
-            separador2.Size = new Size(411, 14);
-            separador2.TabIndex = 15;
             // 
             // VistaRegistroVenta
             // 

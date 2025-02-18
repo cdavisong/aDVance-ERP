@@ -12,17 +12,16 @@ namespace Manigest.Modulos.Ventas.MVP.Presentadores {
         public PresentadorGestionVentas(IVistaGestionVentas vista) : base(vista) {
         }
 
-        public override CriterioBusquedaVenta CriterioBusquedaObjeto { get; protected set; } = CriterioBusquedaVenta.Fecha;
-
         protected override PresentadorTuplaVenta ObtenerValoresTupla(Venta objeto) {
             var presentadorTupla = new PresentadorTuplaVenta(new VistaTuplaVenta(), objeto);
+            var nombreCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
 
             presentadorTupla.Vista.Id = objeto.Id.ToString();
             presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("dd/MM/yyyy");
             presentadorTupla.Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
-            presentadorTupla.Vista.NombreCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
+            presentadorTupla.Vista.NombreCliente = string.IsNullOrEmpty(nombreCliente) ? "Anónimo" : nombreCliente;
             presentadorTupla.Vista.CantidadProductos = UtilesVenta.ObtenerCantidadProductosVenta(objeto.Id).ToString();
-            presentadorTupla.Vista.Total = objeto.Total.ToString("0.00", CultureInfo.CurrentCulture);
+            presentadorTupla.Vista.MontoTotal = objeto.Total.ToString("0.00", CultureInfo.CurrentCulture);
 
             return presentadorTupla;
         }

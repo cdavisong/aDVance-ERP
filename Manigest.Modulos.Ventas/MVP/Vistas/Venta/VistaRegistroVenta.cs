@@ -2,11 +2,14 @@
 using Manigest.Core.MVP.Modelos.Repositorios.Plantillas;
 using Manigest.Core.Utiles;
 using Manigest.Core.Utiles.Datos;
+using Manigest.Modulos.Ventas.MVP.Vistas.DetalleVentaArticulo;
+using Manigest.Modulos.Ventas.MVP.Vistas.DetalleVentaArticulo.Plantillas;
 using Manigest.Modulos.Ventas.MVP.Vistas.Venta.Plantillas;
 
 using System.Globalization;
 
-namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
+namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta
+{
     public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGestionDetallesVentaArticulos {
         private bool _modoEdicion;
 
@@ -39,7 +42,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
-                btnRegistrar.Text = value ? "Actualizar movimiento" : "Registrar movimiento";
+                btnRegistrar.Text = value ? "Actualizar venta" : "Registrar venta";
                 _modoEdicion = value;
             }
         }
@@ -70,12 +73,22 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             get => float.TryParse(fieldTotalVenta.Text, out var total) ? total : 0;
             set => fieldTotalVenta.Text = value.ToString("0.00", CultureInfo.CurrentCulture);
         }
+
+        public bool PagoConfirmado {
+            get => btnRegistrar.Enabled;
+            set => btnRegistrar.Enabled = value;
+        }
+
         public int AlturaContenedorVistas {
             get => contenedorVistas.Height;
         }
 
-        public IRepositorioVista Vistas { get; private set; }
+        public int TuplasMaximasContenedor {
+            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
+        }
 
+        public IRepositorioVista Vistas { get; private set; }
+        
         public event EventHandler? ArticuloAgregado;
         public event EventHandler? ArticuloEliminado;
         public event EventHandler? EfectuarPago;
@@ -115,6 +128,9 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
                 ActualizarTuplasArticulos();
                 ActualizarTotal();
             };
+            btnEfectuarPago.Click += delegate (object? sender, EventArgs args) {
+                EfectuarPago?.Invoke(sender, args);
+            };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
                     EditarDatos?.Invoke(sender, args);
@@ -149,12 +165,24 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
 
         private void AdicionarArticulo() {
             var idArticulo = UtilesArticulo.ObtenerIdArticulo(NombreArticulo);
+
+            if (idArticulo == 0) {
+                NombreArticulo = string.Empty;
+
+                fieldCantidad.Text = string.Empty;
+                fieldNombreArticulo.Focus();
+
+                return;
+            }
+
             var precioUnitarioArticulo = UtilesArticulo.ObtenerPrecioUnitarioArticulo(idArticulo);
+            var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen);
             var tuplaArticulo = new string[] {
                     idArticulo.ToString(),
                     NombreArticulo,
                     precioUnitarioArticulo.ToString("0.00", CultureInfo.CurrentCulture),
-                    Cantidad.ToString()
+                    Cantidad.ToString(),
+                    idAlmacen.ToString()
                 };
 
             Articulos.Add(tuplaArticulo);
@@ -178,10 +206,11 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             // Restablecer útima coordenada Y de la tupla
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
-            foreach (var articulo in Articulos) {
+            for (int i = 0; i < Articulos.Count; i++) {
+                var articulo = Articulos[i];
                 var tuplaDetallesVentaArticulo = new VistaTuplaDetalleVentaArticulo();
 
-                tuplaDetallesVentaArticulo.Id = articulo[0];
+                tuplaDetallesVentaArticulo.IdArticulo = articulo[0];
                 tuplaDetallesVentaArticulo.NombreArticulo = articulo[1];
                 tuplaDetallesVentaArticulo.Precio = articulo[2];
                 tuplaDetallesVentaArticulo.Cantidad = articulo[3];
@@ -192,10 +221,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
 
                 // Registro y muestra
                 Vistas.Registrar(
-                    $"vistaTupla{tuplaDetallesVentaArticulo.GetType().Name}{tuplaDetallesVentaArticulo.Id}",
+                    $"vistaTupla{tuplaDetallesVentaArticulo.GetType().Name}{i}",
                     tuplaDetallesVentaArticulo,
                     new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-                    new Size(contenedorVistas.Width - 20, 42), "N");
+                    new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
                 tuplaDetallesVentaArticulo.Mostrar();
 
                 // Incremento de la útima coordenada Y de la tupla

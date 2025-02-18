@@ -8,7 +8,8 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta.Plantillas {
         List<string[]> Articulos { get; }
         int Cantidad { get; set; }
         float Total { get; set; }
-                
+        bool PagoConfirmado { get; set; }
+
         event EventHandler? ArticuloAgregado;
         event EventHandler? ArticuloEliminado;
         event EventHandler? EfectuarPago;

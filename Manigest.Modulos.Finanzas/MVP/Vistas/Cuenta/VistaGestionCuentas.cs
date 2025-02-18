@@ -1,13 +1,15 @@
 ﻿using Manigest.Core.MVP.Modelos.Repositorios;
 using Manigest.Core.MVP.Modelos.Repositorios.Plantillas;
-using Manigest.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
+using Manigest.Core.Utiles;
+using Manigest.Modulos.Finanzas.MVP.Modelos;
+using Manigest.Modulos.Finanzas.MVP.Vistas.Cuenta.Plantillas;
 
-namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
-    public partial class VistaGestionProveedor : Form, IVistaGestionProveedores {
+namespace Manigest.Modulos.Finanzas.MVP.Vistas.Cuenta {
+    public partial class VistaGestionCuentas : Form, IVistaGestionCuentas {
         private int _paginaActual = 1;
         private int _paginasTotales = 1;
 
-        public VistaGestionProveedor() {
+        public VistaGestionCuentas() {
             InitializeComponent();
             Inicializar();
         }
@@ -27,8 +29,22 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             set => Size = value;
         }
 
+        public CriterioBusquedaCuenta CriterioBusqueda {
+            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaCuenta) fieldCriterioBusqueda.SelectedIndex : default;
+            set => fieldCriterioBusqueda.SelectedIndex = (int) value;
+        }
+
+        public string DatoBusqueda {
+            get => fieldDatoBusqueda.Text;
+            set => fieldDatoBusqueda.Text = value;
+        }
+
         public int AlturaContenedorVistas {
             get => contenedorVistas.Height;
+        }
+
+        public int TuplasMaximasContenedor {
+            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
         }
 
         public int PaginaActual {
@@ -50,6 +66,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
 
         public IRepositorioVista Vistas { get; private set; }
 
+        public event EventHandler? CambioAlmacenOrigen;
         public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? MostrarPrimeraPagina;
         public event EventHandler? MostrarPaginaAnterior;
@@ -66,17 +83,17 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             // Variables locales
             Vistas = new RepositorioVistaBase(contenedorVistas);
 
-            // Eventos
+            // Eventos            
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
-                if (!string.IsNullOrEmpty(fieldDatoBusqueda.Text))
-                    BuscarDatos?.Invoke(fieldDatoBusqueda.Text, e);
+                if (!string.IsNullOrEmpty(DatoBusqueda))
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
                 Salir?.Invoke(sender, e);
                 Ocultar();
             };
-            btnRegistrarProveedor.Click += delegate (object? sender, EventArgs e) {
+            btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
@@ -111,6 +128,16 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             };
         }
 
+        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+            fieldCriterioBusqueda.Items.Add("Todos");
+            fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
+            fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+                fieldDatoBusqueda.Text = string.Empty;
+                fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+            };
+            fieldCriterioBusqueda.SelectedIndex = 0;
+        }
+
         public void Mostrar() {
             Habilitada = true;
             BringToFront();
@@ -121,7 +148,6 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
-
             fieldDatoBusqueda.Text = string.Empty;
         }
 

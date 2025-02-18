@@ -1,10 +1,9 @@
 ﻿using Manigest.Core.MVP.Vistas.Plantillas;
 
 namespace Manigest.Modulos.Contactos.MVP.Vistas.Menu.Plantillas {
-    public interface IVistaMenuContacto : IVista {
+    public interface IVistaMenuContacto : IVistaMenu {
         event EventHandler? VerProveedores;
         event EventHandler? VerClientes;
-        event EventHandler? VerContactos;
-        event EventHandler? CambioMenu;
+        event EventHandler? VerContactos;        
     }
 }

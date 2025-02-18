@@ -4,6 +4,10 @@ using MySql.Data.MySqlClient;
 
 namespace Manigest.Modulos.Ventas.MVP.Modelos.Repositorios {
     public class DatosPago : RepositorioDatosBase<Pago, CriterioBusquedaPago>, IRepositorioPago {
+        public static DatosPago Instance { get; } = new();
+
+        public DatosPago() : base() { }
+
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_pago) FROM mg__pago;";
         }

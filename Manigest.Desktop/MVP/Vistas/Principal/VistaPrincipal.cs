@@ -1,5 +1,6 @@
 ﻿using Manigest.Core.MVP.Modelos.Repositorios;
 using Manigest.Core.MVP.Modelos.Repositorios.Plantillas;
+using Manigest.Core.Utiles;
 using Manigest.Desktop.MVP.Vistas.Principal.Plantillas;
 
 namespace Manigest.Desktop.MVP.Vistas.Principal {
@@ -30,6 +31,10 @@ namespace Manigest.Desktop.MVP.Vistas.Principal {
 
         public int AlturaContenedorVistas {
             get => contenedorVistas.Height;
+        }
+
+        public int TuplasMaximasContenedor {
+            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
         }
 
         public bool BtnSubmenuUsuarioDisponible {

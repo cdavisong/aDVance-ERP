@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
+namespace Manigest.Modulos.Ventas.MVP.Vistas.DetalleVentaArticulo {
     partial class VistaTuplaDetalleVentaArticulo {
         /// <summary>
         /// Required designer variable.
@@ -193,8 +193,8 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
         private TableLayoutPanel layoutVista;
         private Guna2Button btnEliminar;
         private Label fieldNombreArticulo;
-        private Label fieldCantidad;
         private Label fieldPrecio;
         private Label simboloPeso;
+        private Label fieldCantidad;
     }
 }

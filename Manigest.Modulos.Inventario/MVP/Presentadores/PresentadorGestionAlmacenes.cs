@@ -9,8 +9,6 @@ namespace Manigest.Modulos.Inventario.MVP.Presentadores {
         public PresentadorGestionAlmacenes(IVistaGestionAlmacenes vista) : base(vista) {
         }
 
-        public override CriterioBusquedaAlmacen CriterioBusquedaObjeto { get; protected set; } = CriterioBusquedaAlmacen.Nombre;
-
         protected override PresentadorTuplaAlmacen ObtenerValoresTupla(Almacen objeto) {
             var presentadorTupla = new PresentadorTuplaAlmacen(new VistaTuplaAlmacen(), objeto);
 

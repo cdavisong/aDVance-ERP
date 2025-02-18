@@ -18,6 +18,7 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaMenuContacto(object? sender, EventArgs e) {
             _menuContacto.Vista.Mostrar();
             _menuContacto.Vista.Restaurar();
+            _menuContacto.Vista.PresionarBotonSeleccion(2, e);
         }
     }
 }

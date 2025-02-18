@@ -19,7 +19,7 @@ namespace Manigest.Core.Utiles.Datos {
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos.Read()) {
-                            cantidadTotal = lectorDatos.GetInt32(lectorDatos.GetOrdinal("total_productos"));
+                            cantidadTotal = int.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("total_productos"))?.ToString(), out var totalProductos) ? totalProductos : 0;
                         }
                     }
                 }
