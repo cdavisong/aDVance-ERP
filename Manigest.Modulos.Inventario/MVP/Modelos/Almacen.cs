@@ -25,4 +25,12 @@ namespace Manigest.Modulos.Inventario.MVP.Modelos {
         Id,
         Nombre
     }
+
+    public static class UtilesBusquedaAlmacen {
+        public static string[] CriterioBusquedaAlmacen = new string[] {
+            "Todos los almacenes",
+            "Identificador de BD",
+            "Nombre del almacén"
+        };
+    }
 }

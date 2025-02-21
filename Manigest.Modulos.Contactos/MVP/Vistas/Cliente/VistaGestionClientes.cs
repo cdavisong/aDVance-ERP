@@ -132,6 +132,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;
                 fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+                fieldDatoBusqueda.Focus();
 
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
             };
@@ -149,7 +150,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Cliente {
             PaginaActual = 1;
             PaginasTotales = 1;
 
-            fieldDatoBusqueda.Text = string.Empty;
+            fieldCriterioBusqueda.SelectedIndex = 0;
         }
 
         public void Ocultar() {

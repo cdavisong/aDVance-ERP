@@ -17,14 +17,13 @@ namespace Manigest.Modulos.Inventario.MVP.Presentadores {
             var presentadorTupla = new PresentadorTuplaArticulo(new VistaTuplaArticulo(), objeto);
 
             presentadorTupla.Vista.Id = objeto.Id.ToString();
-            // TODO: Crear los mecanismos para obtener el nombre de almacen
-            presentadorTupla.Vista.NombreAlmacen = "-";
+            presentadorTupla.Vista.NombreAlmacen = string.IsNullOrEmpty(objeto.NombreAlmacen) ? "-" : objeto.NombreAlmacen;
             presentadorTupla.Vista.Codigo = objeto.Codigo;
             presentadorTupla.Vista.Nombre = objeto.Nombre;
             presentadorTupla.Vista.Descripcion = objeto.Descripcion;
             presentadorTupla.Vista.PrecioAdquisicion = objeto.PrecioAdquisicion;
             presentadorTupla.Vista.PrecioCesion = objeto.PrecioCesion;
-            presentadorTupla.Vista.Stock = UtilesArticulo.ObtenerStockTotalArticulo(objeto.Id);
+            presentadorTupla.Vista.Stock = string.IsNullOrEmpty(objeto.Stock) ? UtilesArticulo.ObtenerStockTotalArticulo(objeto.Id) : int.Parse(objeto.Stock);
             presentadorTupla.Vista.MovimientoPositivoStock += delegate {
                 var objetoPos = new object[] { "+", objeto };
                 MovimientoPositivoStock?.Invoke(objetoPos, EventArgs.Empty); 

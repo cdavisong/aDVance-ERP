@@ -1,4 +1,6 @@
-﻿using Manigest.Modulos.Inventario.MVP.Presentadores;
+﻿using Manigest.Core.Utiles.Datos;
+using Manigest.Modulos.Inventario.MVP.Modelos;
+using Manigest.Modulos.Inventario.MVP.Presentadores;
 using Manigest.Modulos.Inventario.MVP.Vistas.Articulo;
 
 namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
@@ -11,6 +13,8 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionArticulos.MovimientoNegativoStock += MostrarVistaRegistroMovimiento;
             _gestionArticulos.EditarObjeto += MostrarVistaEdicionArticulo;
             _gestionArticulos.Vista.RegistrarDatos += MostrarVistaRegistroArticulo;
+            _gestionArticulos.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
+            _gestionArticulos.Vista.CargarCriteriosBusqueda(UtilesBusquedaArticulo.CriterioBusquedaArticulo);
 
             Vista.Vistas.Registrar("vistaGestionArticulos", _gestionArticulos.Vista);
         }

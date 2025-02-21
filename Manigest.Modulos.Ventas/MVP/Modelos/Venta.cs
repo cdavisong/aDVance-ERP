@@ -23,8 +23,18 @@ namespace Manigest.Modulos.Ventas.MVP.Modelos {
     public enum CriterioBusquedaVenta {
         Todos,
         Id,
-        IdAlmacen,
-        IdCliente,
+        NombreAlmacen,
+        RazonSocialCliente,
         Fecha
+    }
+
+    public static class UtilesBusquedaVenta {
+        public static string[] CriterioBusquedaVenta = new string[] {
+            "Todas las ventas",
+            "Identificador de BD",
+            "Nombre del almacén",
+            "Razón social del cliente",
+            "Fecha de la venta"
+        };
     }
 }

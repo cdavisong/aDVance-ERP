@@ -1,4 +1,5 @@
-﻿using Manigest.Modulos.Inventario.MVP.Presentadores;
+﻿using Manigest.Modulos.Inventario.MVP.Modelos;
+using Manigest.Modulos.Inventario.MVP.Presentadores;
 using Manigest.Modulos.Inventario.MVP.Vistas.Almacen;
 
 namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
@@ -9,6 +10,7 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionAlmacenes = new PresentadorGestionAlmacenes(new VistaGestionAlmacenes());
             _gestionAlmacenes.EditarObjeto += MostrarVistaEdicionAlmacen;
             _gestionAlmacenes.Vista.RegistrarDatos += MostrarVistaRegistroAlmacen;
+            _gestionAlmacenes.Vista.CargarCriteriosBusqueda(UtilesBusquedaAlmacen.CriterioBusquedaAlmacen);
 
             Vista.Vistas.Registrar("vistaGestionAlmacenes", _gestionAlmacenes.Vista);
         }

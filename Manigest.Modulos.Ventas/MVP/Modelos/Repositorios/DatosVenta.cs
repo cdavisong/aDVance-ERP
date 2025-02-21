@@ -28,11 +28,11 @@ namespace Manigest.Modulos.Ventas.MVP.Modelos.Repositorios {
                 case CriterioBusquedaVenta.Id:
                     comando = $"SELECT * FROM mg__venta WHERE id_venta={dato};";
                     break;
-                case CriterioBusquedaVenta.IdAlmacen:
-                    comando = $"SELECT * FROM mg__venta WHERE id_almacen={dato};";
+                case CriterioBusquedaVenta.NombreAlmacen:
+                    comando = $"SELECT v.* FROM mg__venta v JOIN mg__almacen a ON v.id_almacen = a.id_almacen WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
                     break;
-                case CriterioBusquedaVenta.IdCliente:
-                    comando = $"SELECT * FROM mg__venta WHERE id_cliente={dato};";
+                case CriterioBusquedaVenta.RazonSocialCliente:
+                    comando = $"SELECT v.* FROM mg__venta v JOIN mg__cliente c ON v.id_cliente = c.id_cliente WHERE LOWER(c.razon_social) LIKE LOWER('%{dato}%');";
                     break;
                 case CriterioBusquedaVenta.Fecha:
                     comando = $"SELECT * FROM mg__venta WHERE DATE(fecha) = '{dato}';";

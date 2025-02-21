@@ -31,4 +31,12 @@ namespace Manigest.Modulos.Finanzas.MVP.Modelos {
         Id,
         Alias
     }
+
+    public static class UtilesBusquedaCuenta {
+        public static string[] CriterioBusquedaCuenta = new string[] {
+            "Todas las cuentas",
+            "Identificador de BD",
+            "Alias de la cuenta"
+        };
+    }
 }

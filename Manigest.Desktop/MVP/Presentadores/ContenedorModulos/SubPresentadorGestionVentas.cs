@@ -1,4 +1,5 @@
-﻿using Manigest.Modulos.Ventas.MVP.Presentadores;
+﻿using Manigest.Modulos.Ventas.MVP.Modelos;
+using Manigest.Modulos.Ventas.MVP.Presentadores;
 using Manigest.Modulos.Ventas.MVP.Vistas.Venta;
 
 namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
@@ -9,6 +10,7 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionVentasArticulos = new PresentadorGestionVentas(new VistaGestionVentas());
             _gestionVentasArticulos.EditarObjeto += MostrarVistaEdicionVentaArticulo;
             _gestionVentasArticulos.Vista.RegistrarDatos += MostrarVistaRegistroVentaArticulo;
+            _gestionVentasArticulos.Vista.CargarCriteriosBusqueda(UtilesBusquedaVenta.CriterioBusquedaVenta);
 
             Vista.Vistas.Registrar("vistaGestionVentas", _gestionVentasArticulos.Vista);
         }

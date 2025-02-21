@@ -132,6 +132,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;
                 fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+                fieldDatoBusqueda.Focus();
 
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
             };
@@ -152,9 +153,8 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Movimiento {
             Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
-            fieldDatoBusqueda.AutoCompleteMode = AutoCompleteMode.None;
-            fieldDatoBusqueda.AutoCompleteCustomSource.Clear();
-            fieldDatoBusqueda.Text = string.Empty;
+
+            fieldCriterioBusqueda.SelectedIndex = 0;
         }
 
         public void Ocultar() {

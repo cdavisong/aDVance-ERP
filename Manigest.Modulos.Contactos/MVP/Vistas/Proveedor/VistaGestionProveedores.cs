@@ -128,11 +128,13 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
         }
 
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
-            fieldCriterioBusqueda.Items.Add("Todos");
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;
                 fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+                fieldDatoBusqueda.Focus();
+
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
             };
             fieldCriterioBusqueda.SelectedIndex = 0;
         }
@@ -148,7 +150,7 @@ namespace Manigest.Modulos.Contactos.MVP.Vistas.Proveedor {
             PaginaActual = 1;
             PaginasTotales = 1;
 
-            fieldDatoBusqueda.Text = string.Empty;
+            fieldCriterioBusqueda.SelectedIndex = 0;
         }
 
         public void Ocultar() {

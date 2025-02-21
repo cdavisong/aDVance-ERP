@@ -22,7 +22,11 @@ namespace Manigest.Core.MVP.Presentadores {
                     return;
 
                 var criterioBusqueda = (C) objetoSplit[0];
-                var datoBusqueda = objetoSplit[1].ToString();
+                var datoBusqueda = string.Empty;
+
+                if (objetoSplit[1] is string[] datosBusquedaMultiple)
+                    datoBusqueda = string.Join(";", datosBusquedaMultiple);
+                else datoBusqueda = objetoSplit[1].ToString();
 
                 BusquedaDatos(criterioBusqueda, datoBusqueda);
             };

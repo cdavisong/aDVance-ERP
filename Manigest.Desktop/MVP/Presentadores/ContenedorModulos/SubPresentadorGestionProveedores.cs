@@ -1,4 +1,5 @@
-﻿using Manigest.Modulos.Contactos.MVP.Presentadores;
+﻿using Manigest.Modulos.Contactos.MVP.Modelos;
+using Manigest.Modulos.Contactos.MVP.Presentadores;
 using Manigest.Modulos.Contactos.MVP.Vistas.Proveedor;
 
 namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
@@ -9,6 +10,7 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionProveedores = new PresentadorGestionProveedores(new VistaGestionProveedores());
             _gestionProveedores.EditarObjeto += MostrarVistaEdicionProveedor;
             _gestionProveedores.Vista.RegistrarDatos += MostrarVistaRegistroProveedor;
+            _gestionProveedores.Vista.CargarCriteriosBusqueda(UtilesBusquedaProveedor.CriterioBusquedaProveedor);
 
             Vista.Vistas.Registrar("vistaGestionProveedores", _gestionProveedores.Vista);
         }

@@ -29,6 +29,11 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             set => Size = value;
         }
 
+        public string NombreAlmacen {
+            get => fieldNombreAlmacen.Text;
+            set => fieldNombreAlmacen.Text = value;
+        }
+
         public CriterioBusquedaArticulo CriterioBusqueda {
             get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaArticulo) fieldCriterioBusqueda.SelectedIndex : default;
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
@@ -83,9 +88,14 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             Vistas = new RepositorioVistaBase(contenedorVistas);
 
             // Eventos
+            fieldNombreAlmacen.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
+                if (!string.IsNullOrEmpty(NombreAlmacen))
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new string[] { NombreAlmacen, DatoBusqueda } }, e);
+                else SincronizarDatos?.Invoke(sender, e);
+            };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(DatoBusqueda))
-                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new string[] { NombreAlmacen, DatoBusqueda } }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
@@ -127,12 +137,20 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             };
         }
 
+        public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
+            fieldNombreAlmacen.Items.Add("Todos los almacenes");
+            fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
+            fieldNombreAlmacen.SelectedIndex = fieldNombreAlmacen.Items.Count > 0 ? 0 : -1;
+        }
+
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
-            fieldCriterioBusqueda.Items.Add("Todos");
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;
                 fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+                fieldDatoBusqueda.Focus();
+
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new string[] { NombreAlmacen, DatoBusqueda } }, EventArgs.Empty);
             };
             fieldCriterioBusqueda.SelectedIndex = 0;
         }
@@ -148,7 +166,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Articulo {
             PaginaActual = 1;
             PaginasTotales = 1;
 
-            fieldDatoBusqueda.Text = string.Empty;
+            fieldCriterioBusqueda.SelectedIndex = 0;
         }
 
         public void Ocultar() {

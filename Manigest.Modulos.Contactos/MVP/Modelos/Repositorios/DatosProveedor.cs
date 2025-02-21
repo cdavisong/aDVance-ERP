@@ -38,7 +38,7 @@ namespace Manigest.Modulos.Contactos.MVP.Modelos.Repositorios {
                     comando = $"SELECT * FROM mg__proveedor WHERE LOWER(razon_social) LIKE LOWER('%{dato}%');";
                     break;
                 case CriterioBusquedaProveedor.NIT:
-                    comando = $"SELECT * FROM mg__proveedor WHERE nit='{dato}';";
+                    comando = $"SELECT * FROM mg__proveedor WHERE LOWER(nit) LIKE LOWER('%{dato}%');";
                     break;
                 default:
                     comando = "SELECT * FROM mg__proveedor;";

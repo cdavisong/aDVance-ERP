@@ -25,7 +25,9 @@ namespace Manigest.Modulos.Inventario.MVP.Modelos {
         public float PrecioAdquisicion { get; }
         public float PrecioCesion { get; }
         public int StockMinimo { get; }
-        public int PedidoMinimo { get; }
+        public int PedidoMinimo { get; }        
+        public string Stock { get; set; }
+        public string NombreAlmacen { get; set; }
     }
 
     public enum CriterioBusquedaArticulo {
@@ -33,5 +35,14 @@ namespace Manigest.Modulos.Inventario.MVP.Modelos {
         Id,
         Codigo,
         Nombre
+    }
+
+    public static class UtilesBusquedaArticulo {
+        public static string[] CriterioBusquedaArticulo = new string[] {
+            "Todos los artículos",
+            "Identificador de BD",
+            "Código del artículo",
+            "Nombre del artículo"
+        };
     }
 }

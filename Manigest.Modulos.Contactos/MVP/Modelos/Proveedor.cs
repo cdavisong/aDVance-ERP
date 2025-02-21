@@ -24,4 +24,13 @@ namespace Manigest.Modulos.Contactos.MVP.Modelos {
         RazonSocial,
         NIT
     }
+
+    public static class UtilesBusquedaProveedor {
+        public static string[] CriterioBusquedaProveedor = new string[] {
+            "Todos los proveedores",
+            "Identificador de BD",
+            "Razón Social del proveedor",
+            "No. Identificación Tributaria"
+        };
+    }
 }

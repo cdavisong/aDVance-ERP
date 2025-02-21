@@ -27,18 +27,25 @@
 
         public override string ComandoObtener(CriterioBusquedaArticulo criterio, string dato) {
             string? comando;
+            var datoMultiple = dato.Split(';');
+            var todosLosAlmacenes = datoMultiple.Length > 1 && datoMultiple[0].Contains("Todos");
+            var aplicarFiltroAlmacen = datoMultiple.Length > 1 && !todosLosAlmacenes;
+            var comandoAdicionalSelect = ", ta.stock, a.nombre AS nombre_almacen";
+            var comandoAdicionalJoin = $"JOIN mg__articulo_almacen ta ON t.id_articulo = ta.id_articulo JOIN mg__almacen a ON ta.id_almacen = a.id_almacen ";
+            var comandoAdicionalWhere = $"AND a.nombre = '{datoMultiple[0]}'";
+
             switch (criterio) {
                 case CriterioBusquedaArticulo.Id:
-                    comando = $"SELECT * FROM mg__articulo WHERE id_articulo='{dato}';";
+                    comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} FROM mg__articulo t {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}WHERE t.id_articulo='{(datoMultiple.Length > 0 ? datoMultiple[1] : dato)}' {(aplicarFiltroAlmacen ? comandoAdicionalWhere : string.Empty)};";
                     break;
                 case CriterioBusquedaArticulo.Codigo:
-                    comando = $"SELECT * FROM mg__articulo WHERE codigo='{dato}';";
+                    comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} FROM mg__articulo t {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}WHERE LOWER(t.codigo) LIKE LOWER('%{(datoMultiple.Length > 0 ? datoMultiple[1] : dato)}%') {(aplicarFiltroAlmacen ? comandoAdicionalWhere : string.Empty)};";
                     break;
                 case CriterioBusquedaArticulo.Nombre:
-                    comando = $"SELECT * FROM mg__articulo WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
+                    comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} FROM mg__articulo t {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}WHERE LOWER(t.nombre) LIKE LOWER('%{(datoMultiple.Length > 0 ? datoMultiple[1] : dato)}%') {(aplicarFiltroAlmacen ? comandoAdicionalWhere : string.Empty)};";
                     break;
                 default:
-                    comando = "SELECT * FROM mg__articulo;";
+                    comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} FROM mg__articulo t {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}{(aplicarFiltroAlmacen ? comandoAdicionalWhere : string.Empty).Replace("AND", "WHERE")};";
                     break;
             }
 
@@ -56,7 +63,10 @@
                 precioCesion: lectorDatos.GetFloat(lectorDatos.GetOrdinal("precio_cesion")),
                 stockMinimo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("stock_minimo")),
                 pedidoMinimo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("pedido_minimo"))
-            );
+            ) {
+                Stock = lectorDatos.FieldCount > 9 ? lectorDatos.GetValue(lectorDatos.GetOrdinal("stock")).ToString() ?? string.Empty : string.Empty,
+                NombreAlmacen = lectorDatos.FieldCount > 9 ? lectorDatos.GetValue(lectorDatos.GetOrdinal("nombre_almacen")).ToString() ?? string.Empty : string.Empty
+            };
         }
 
         public override string ComandoExiste(string dato) {

@@ -88,6 +88,9 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
                     BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
+            fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") }, e);
+            };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
                 Salir?.Invoke(sender, e);
                 Ocultar();
@@ -128,13 +131,23 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
         }
 
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
-            fieldCriterioBusqueda.Items.Add("Todos");
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-                fieldDatoBusqueda.Text = string.Empty;
-                fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+                if (CriterioBusqueda == CriterioBusquedaVenta.Fecha) {
+                    fieldDatoBusquedaFecha.Value = DateTime.Now;
+                    fieldDatoBusquedaFecha.Focus();
+                } else {
+                    fieldDatoBusqueda.Text = string.Empty;                    
+                    fieldDatoBusqueda.Focus();
+                }
+                
+                fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaVenta.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
+                fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaVenta.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
+
+                if (CriterioBusqueda != CriterioBusquedaVenta.Fecha)
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
             };
-            fieldCriterioBusqueda.SelectedIndex = 0;
+            fieldCriterioBusqueda.SelectedIndex = 4;
         }
 
         public void Mostrar() {
@@ -147,7 +160,8 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
-            fieldDatoBusqueda.Text = string.Empty;
+
+            fieldCriterioBusqueda.SelectedIndex = 4;
         }
 
         public void Ocultar() {

@@ -1,4 +1,5 @@
-﻿using Manigest.Modulos.Finanzas.MVP.Presentadores;
+﻿using Manigest.Modulos.Finanzas.MVP.Modelos;
+using Manigest.Modulos.Finanzas.MVP.Presentadores;
 using Manigest.Modulos.Finanzas.MVP.Vistas.Cuenta;
 
 namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
@@ -9,7 +10,8 @@ namespace Manigest.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionCuentas = new PresentadorGestionCuentas(new VistaGestionCuentas());
             _gestionCuentas.MostrarQrTupla += MostrarVistaQR;
             _gestionCuentas.EditarObjeto += MostrarVistaEdicionCuenta;
-            _gestionCuentas.Vista.RegistrarDatos += MostrarVistaRegistroCuenta;            
+            _gestionCuentas.Vista.RegistrarDatos += MostrarVistaRegistroCuenta;
+            _gestionCuentas.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuenta.CriterioBusquedaCuenta);
 
             Vista.Vistas.Registrar("vistaGestionCuentas", _gestionCuentas.Vista);
         }

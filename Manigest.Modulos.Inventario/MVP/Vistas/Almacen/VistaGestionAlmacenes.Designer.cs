@@ -56,7 +56,6 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldTituloFiltrosBusqueda = new Label();
             panelBotonesGestion = new Panel();
             btnRegistrar = new Guna2Button();
-            guna2Separator1 = new Guna2Separator();
             layoutControlesTabla = new TableLayoutPanel();
             btnPaginaAnterior = new Guna2Button();
             btnPrimeraPagina = new Guna2Button();
@@ -76,6 +75,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldTituloNotas = new Label();
             fieldTituloDireccion = new Label();
             contenedorVistas = new Panel();
+            separador1 = new Guna2Separator();
             layoutVista.SuspendLayout();
             layoutHerramientas.SuspendLayout();
             layoutTituloHerramientas.SuspendLayout();
@@ -102,10 +102,10 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutVista.Controls.Add(separador1, 2, 5);
             layoutVista.Controls.Add(layoutHerramientas, 2, 4);
             layoutVista.Controls.Add(layoutTituloHerramientas, 2, 3);
             layoutVista.Controls.Add(panelBotonesGestion, 2, 6);
-            layoutVista.Controls.Add(guna2Separator1, 2, 5);
             layoutVista.Controls.Add(layoutControlesTabla, 2, 11);
             layoutVista.Controls.Add(layoutTitulo, 2, 0);
             layoutVista.Controls.Add(fieldIcono, 1, 0);
@@ -139,6 +139,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutHerramientas.Controls.Add(fieldDatoBusqueda, 1, 0);
             layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 0, 0);
             layoutHerramientas.Dock = DockStyle.Fill;
@@ -215,6 +216,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
             layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
             layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutTituloHerramientas.Controls.Add(fieldTituloFiltrosBusqueda, 0, 0);
             layoutTituloHerramientas.Dock = DockStyle.Fill;
             layoutTituloHerramientas.Location = new Point(50, 110);
@@ -271,15 +273,6 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             btnRegistrar.Size = new Size(320, 39);
             btnRegistrar.TabIndex = 7;
             btnRegistrar.Text = "Registrar un nuevo almacén";
-            // 
-            // guna2Separator1
-            // 
-            guna2Separator1.Dock = DockStyle.Fill;
-            guna2Separator1.FillColor = Color.FromArgb(  217,   211,   204);
-            guna2Separator1.Location = new Point(53, 193);
-            guna2Separator1.Name = "guna2Separator1";
-            guna2Separator1.Size = new Size(1280, 14);
-            guna2Separator1.TabIndex = 38;
             // 
             // layoutControlesTabla
             // 
@@ -625,6 +618,15 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
             contenedorVistas.Size = new Size(1286, 218);
             contenedorVistas.TabIndex = 13;
             // 
+            // separador1
+            // 
+            separador1.Dock = DockStyle.Fill;
+            separador1.FillColor = Color.FromArgb(  217,   211,   204);
+            separador1.Location = new Point(53, 193);
+            separador1.Name = "separador1";
+            separador1.Size = new Size(1280, 14);
+            separador1.TabIndex = 38;
+            // 
             // VistaGestionAlmacenes
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -672,7 +674,7 @@ namespace Manigest.Modulos.Inventario.MVP.Vistas.Almacen {
         private Guna2Button btnSincronizarDatos;
         private Label fieldPaginaActual;
         private Label fieldPaginasTotales;
-        private Guna2Separator guna2Separator1;
+        private Guna2Separator separador1;
         private Panel panelBotonesGestion;
         private Guna2Button btnRegistrar;
         private TableLayoutPanel layoutTituloHerramientas;
