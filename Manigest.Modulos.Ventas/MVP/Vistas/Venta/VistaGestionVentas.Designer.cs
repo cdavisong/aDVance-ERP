@@ -28,13 +28,6 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionVentas));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -49,6 +42,19 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionVentas));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
             layoutHerramientas = new TableLayoutPanel();
@@ -60,7 +66,6 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldTituloFiltrosBusqueda = new Label();
             panelBotonesGestion = new Panel();
             btnRegistrar = new Guna2Button();
-            separador1 = new Guna2Separator();
             layoutEncabezadosTabla = new TableLayoutPanel();
             fieldTituloMonto = new Label();
             fieldTituloCantidadArticulos = new Label();
@@ -82,6 +87,14 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnSincronizarDatos = new Guna2Button();
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
+            fieldTituloReporte = new Label();
+            layoutSeparadores = new TableLayoutPanel();
+            separador2 = new Guna2Separator();
+            separador1 = new Guna2Separator();
+            layoutCamposReporte = new TableLayoutPanel();
+            fieldFormatoReporte = new Guna2ComboBox();
+            btnDescargar = new Guna2Button();
+            btnImprimir = new Guna2Button();
             layoutVista.SuspendLayout();
             layoutHerramientas.SuspendLayout();
             panelDatosComplementariosBusqueda.SuspendLayout();
@@ -91,6 +104,8 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             layoutTitulo.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutControlesTabla.SuspendLayout();
+            layoutSeparadores.SuspendLayout();
+            layoutCamposReporte.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -109,10 +124,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutVista.Controls.Add(layoutSeparadores, 2, 5);
             layoutVista.Controls.Add(layoutHerramientas, 2, 4);
             layoutVista.Controls.Add(layoutTituloHerramientas, 2, 3);
             layoutVista.Controls.Add(panelBotonesGestion, 2, 6);
-            layoutVista.Controls.Add(separador1, 2, 5);
             layoutVista.Controls.Add(layoutEncabezadosTabla, 2, 8);
             layoutVista.Controls.Add(layoutTitulo, 2, 0);
             layoutVista.Controls.Add(fieldIcono, 1, 0);
@@ -142,12 +157,14 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             // 
             // layoutHerramientas
             // 
-            layoutHerramientas.ColumnCount = 3;
+            layoutHerramientas.ColumnCount = 4;
+            layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 0, 0);
-            layoutHerramientas.Controls.Add(panelDatosComplementariosBusqueda, 1, 0);
+            layoutHerramientas.Controls.Add(layoutCamposReporte, 0, 0);
+            layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 1, 0);
+            layoutHerramientas.Controls.Add(panelDatosComplementariosBusqueda, 2, 0);
             layoutHerramientas.Dock = DockStyle.Fill;
             layoutHerramientas.Location = new Point(50, 145);
             layoutHerramientas.Margin = new Padding(0);
@@ -163,7 +180,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldCriterioBusqueda.BackColor = Color.Transparent;
             fieldCriterioBusqueda.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldCriterioBusqueda.BorderRadius = 16;
-            fieldCriterioBusqueda.CustomizableEdges = customizableEdges1;
+            fieldCriterioBusqueda.CustomizableEdges = customizableEdges7;
             fieldCriterioBusqueda.Dock = DockStyle.Fill;
             fieldCriterioBusqueda.DrawMode = DrawMode.OwnerDrawFixed;
             fieldCriterioBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -173,10 +190,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldCriterioBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldCriterioBusqueda.ForeColor = Color.FromArgb(  40,   37,   35);
             fieldCriterioBusqueda.ItemHeight = 29;
-            fieldCriterioBusqueda.Location = new Point(5, 5);
+            fieldCriterioBusqueda.Location = new Point(225, 5);
             fieldCriterioBusqueda.Margin = new Padding(5);
             fieldCriterioBusqueda.Name = "fieldCriterioBusqueda";
-            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges8;
             fieldCriterioBusqueda.Size = new Size(290, 35);
             fieldCriterioBusqueda.TabIndex = 27;
             fieldCriterioBusqueda.TextOffset = new Point(10, 0);
@@ -186,7 +203,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             panelDatosComplementariosBusqueda.Controls.Add(fieldDatoBusquedaFecha);
             panelDatosComplementariosBusqueda.Controls.Add(fieldDatoBusqueda);
             panelDatosComplementariosBusqueda.Dock = DockStyle.Fill;
-            panelDatosComplementariosBusqueda.Location = new Point(305, 5);
+            panelDatosComplementariosBusqueda.Location = new Point(525, 5);
             panelDatosComplementariosBusqueda.Margin = new Padding(5);
             panelDatosComplementariosBusqueda.Name = "panelDatosComplementariosBusqueda";
             panelDatosComplementariosBusqueda.Size = new Size(320, 35);
@@ -202,8 +219,8 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldDatoBusquedaFecha.CheckedState.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldDatoBusquedaFecha.CheckedState.FillColor = Color.FromArgb(  254,   254,   253);
             fieldDatoBusquedaFecha.CheckedState.ForeColor = Color.FromArgb(  40,   37,   35);
-            fieldDatoBusquedaFecha.CustomFormat = "yyyy/MM/dd";
-            fieldDatoBusquedaFecha.CustomizableEdges = customizableEdges3;
+            fieldDatoBusquedaFecha.CustomFormat = "yyyy-MM-dd";
+            fieldDatoBusquedaFecha.CustomizableEdges = customizableEdges9;
             fieldDatoBusquedaFecha.Dock = DockStyle.Fill;
             fieldDatoBusquedaFecha.FillColor = Color.FromArgb(  254,   254,   253);
             fieldDatoBusquedaFecha.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -214,7 +231,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldDatoBusquedaFecha.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             fieldDatoBusquedaFecha.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             fieldDatoBusquedaFecha.Name = "fieldDatoBusquedaFecha";
-            fieldDatoBusquedaFecha.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            fieldDatoBusquedaFecha.ShadowDecoration.CustomizableEdges = customizableEdges10;
             fieldDatoBusquedaFecha.Size = new Size(320, 35);
             fieldDatoBusquedaFecha.TabIndex = 25;
             fieldDatoBusquedaFecha.Value = new DateTime(2025, 2, 20, 21, 31, 28, 166);
@@ -227,7 +244,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldDatoBusqueda.BorderColor = Color.FromArgb(  217,   211,   204);
             fieldDatoBusqueda.BorderRadius = 18;
             fieldDatoBusqueda.Cursor = Cursors.IBeam;
-            fieldDatoBusqueda.CustomizableEdges = customizableEdges5;
+            fieldDatoBusqueda.CustomizableEdges = customizableEdges11;
             fieldDatoBusqueda.DefaultText = "";
             fieldDatoBusqueda.DisabledState.BorderColor = Color.FromArgb(  208,   208,   208);
             fieldDatoBusqueda.DisabledState.FillColor = Color.FromArgb(  226,   226,   226);
@@ -248,7 +265,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldDatoBusqueda.PlaceholderForeColor = Color.FromArgb(  115,   109,   106);
             fieldDatoBusqueda.PlaceholderText = "Datos complementarios de búsqueda";
             fieldDatoBusqueda.SelectedText = "";
-            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges12;
             fieldDatoBusqueda.Size = new Size(320, 35);
             fieldDatoBusqueda.TabIndex = 9;
             fieldDatoBusqueda.TextOffset = new Point(5, 0);
@@ -256,11 +273,13 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             // 
             // layoutTituloHerramientas
             // 
-            layoutTituloHerramientas.ColumnCount = 3;
+            layoutTituloHerramientas.ColumnCount = 4;
+            layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
             layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
             layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
             layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutTituloHerramientas.Controls.Add(fieldTituloFiltrosBusqueda, 0, 0);
+            layoutTituloHerramientas.Controls.Add(fieldTituloReporte, 0, 0);
+            layoutTituloHerramientas.Controls.Add(fieldTituloFiltrosBusqueda, 1, 0);
             layoutTituloHerramientas.Dock = DockStyle.Fill;
             layoutTituloHerramientas.Location = new Point(50, 110);
             layoutTituloHerramientas.Margin = new Padding(0);
@@ -278,7 +297,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldTituloFiltrosBusqueda.Image = (Image) resources.GetObject("fieldTituloFiltrosBusqueda.Image");
             fieldTituloFiltrosBusqueda.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTituloFiltrosBusqueda.ImeMode = ImeMode.NoControl;
-            fieldTituloFiltrosBusqueda.Location = new Point(15, 5);
+            fieldTituloFiltrosBusqueda.Location = new Point(235, 5);
             fieldTituloFiltrosBusqueda.Margin = new Padding(15, 5, 3, 3);
             fieldTituloFiltrosBusqueda.Name = "fieldTituloFiltrosBusqueda";
             fieldTituloFiltrosBusqueda.Size = new Size(282, 27);
@@ -302,7 +321,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnRegistrar.Animated = true;
             btnRegistrar.BackColor = Color.FromArgb(  248,   244,   242);
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges7;
+            btnRegistrar.CustomizableEdges = customizableEdges13;
             btnRegistrar.Dock = DockStyle.Left;
             btnRegistrar.FillColor = Color.FromArgb(  217,   211,   204);
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -312,19 +331,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnRegistrar.Location = new Point(3, 3);
             btnRegistrar.Margin = new Padding(0);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnRegistrar.Size = new Size(320, 39);
             btnRegistrar.TabIndex = 7;
             btnRegistrar.Text = "Registrar una nueva venta de artículo";
-            // 
-            // separador1
-            // 
-            separador1.Dock = DockStyle.Fill;
-            separador1.FillColor = Color.FromArgb(  217,   211,   204);
-            separador1.Location = new Point(53, 193);
-            separador1.Name = "separador1";
-            separador1.Size = new Size(1280, 14);
-            separador1.TabIndex = 38;
             // 
             // layoutEncabezadosTabla
             // 
@@ -461,7 +471,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges9;
+            btnCerrar.CustomizableEdges = customizableEdges15;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -470,7 +480,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(1239, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnCerrar.Size = new Size(44, 39);
             btnCerrar.TabIndex = 8;
             // 
@@ -560,10 +570,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnPaginaAnterior.BackColor = Color.FromArgb(  243,   243,   243);
             btnPaginaAnterior.CheckedState.BorderColor = Color.WhiteSmoke;
             btnPaginaAnterior.CheckedState.FillColor = Color.WhiteSmoke;
-            btnPaginaAnterior.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnPaginaAnterior.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
             btnPaginaAnterior.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaAnterior.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaAnterior.CustomizableEdges = customizableEdges11;
+            btnPaginaAnterior.CustomizableEdges = customizableEdges17;
             btnPaginaAnterior.Dock = DockStyle.Fill;
             btnPaginaAnterior.FillColor = Color.FromArgb(  243,   243,   243);
             btnPaginaAnterior.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -574,7 +584,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnPaginaAnterior.Location = new Point(36, 1);
             btnPaginaAnterior.Margin = new Padding(1);
             btnPaginaAnterior.Name = "btnPaginaAnterior";
-            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnPaginaAnterior.Size = new Size(33, 33);
             btnPaginaAnterior.TabIndex = 1;
             // 
@@ -584,10 +594,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnPrimeraPagina.BackColor = Color.FromArgb(  243,   243,   243);
             btnPrimeraPagina.CheckedState.BorderColor = Color.WhiteSmoke;
             btnPrimeraPagina.CheckedState.FillColor = Color.WhiteSmoke;
-            btnPrimeraPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnPrimeraPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
             btnPrimeraPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPrimeraPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnPrimeraPagina.CustomizableEdges = customizableEdges13;
+            btnPrimeraPagina.CustomizableEdges = customizableEdges19;
             btnPrimeraPagina.Dock = DockStyle.Fill;
             btnPrimeraPagina.FillColor = Color.FromArgb(  243,   243,   243);
             btnPrimeraPagina.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -598,7 +608,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnPrimeraPagina.Location = new Point(1, 1);
             btnPrimeraPagina.Margin = new Padding(1);
             btnPrimeraPagina.Name = "btnPrimeraPagina";
-            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnPrimeraPagina.Size = new Size(33, 33);
             btnPrimeraPagina.TabIndex = 0;
             // 
@@ -608,10 +618,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnPaginaSiguiente.BackColor = Color.FromArgb(  243,   243,   243);
             btnPaginaSiguiente.CheckedState.BorderColor = Color.WhiteSmoke;
             btnPaginaSiguiente.CheckedState.FillColor = Color.WhiteSmoke;
-            btnPaginaSiguiente.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
+            btnPaginaSiguiente.CustomImages.Image = (Image) resources.GetObject("resource.Image4");
             btnPaginaSiguiente.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaSiguiente.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaSiguiente.CustomizableEdges = customizableEdges15;
+            btnPaginaSiguiente.CustomizableEdges = customizableEdges21;
             btnPaginaSiguiente.Dock = DockStyle.Fill;
             btnPaginaSiguiente.FillColor = Color.FromArgb(  243,   243,   243);
             btnPaginaSiguiente.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -622,7 +632,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnPaginaSiguiente.Location = new Point(311, 1);
             btnPaginaSiguiente.Margin = new Padding(1);
             btnPaginaSiguiente.Name = "btnPaginaSiguiente";
-            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnPaginaSiguiente.Size = new Size(33, 33);
             btnPaginaSiguiente.TabIndex = 2;
             // 
@@ -632,10 +642,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnUltimaPagina.BackColor = Color.FromArgb(  243,   243,   243);
             btnUltimaPagina.CheckedState.BorderColor = Color.WhiteSmoke;
             btnUltimaPagina.CheckedState.FillColor = Color.WhiteSmoke;
-            btnUltimaPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
+            btnUltimaPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image5");
             btnUltimaPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnUltimaPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnUltimaPagina.CustomizableEdges = customizableEdges17;
+            btnUltimaPagina.CustomizableEdges = customizableEdges23;
             btnUltimaPagina.Dock = DockStyle.Fill;
             btnUltimaPagina.FillColor = Color.FromArgb(  243,   243,   243);
             btnUltimaPagina.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -646,7 +656,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnUltimaPagina.Location = new Point(346, 1);
             btnUltimaPagina.Margin = new Padding(1);
             btnUltimaPagina.Name = "btnUltimaPagina";
-            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges24;
             btnUltimaPagina.Size = new Size(33, 33);
             btnUltimaPagina.TabIndex = 3;
             // 
@@ -656,10 +666,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnSincronizarDatos.BackColor = Color.FromArgb(  243,   243,   243);
             btnSincronizarDatos.CheckedState.BorderColor = Color.WhiteSmoke;
             btnSincronizarDatos.CheckedState.FillColor = Color.WhiteSmoke;
-            btnSincronizarDatos.CustomImages.Image = (Image) resources.GetObject("resource.Image4");
+            btnSincronizarDatos.CustomImages.Image = (Image) resources.GetObject("resource.Image6");
             btnSincronizarDatos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnSincronizarDatos.CustomImages.ImageSize = new Size(24, 24);
-            btnSincronizarDatos.CustomizableEdges = customizableEdges19;
+            btnSincronizarDatos.CustomizableEdges = customizableEdges25;
             btnSincronizarDatos.Dock = DockStyle.Fill;
             btnSincronizarDatos.FillColor = Color.FromArgb(  243,   243,   243);
             btnSincronizarDatos.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -670,7 +680,7 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             btnSincronizarDatos.Location = new Point(391, 1);
             btnSincronizarDatos.Margin = new Padding(1);
             btnSincronizarDatos.Name = "btnSincronizarDatos";
-            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnSincronizarDatos.Size = new Size(33, 33);
             btnSincronizarDatos.TabIndex = 4;
             // 
@@ -702,6 +712,147 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             fieldPaginasTotales.Text = "de 1";
             fieldPaginasTotales.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // fieldTituloReporte
+            // 
+            fieldTituloReporte.Dock = DockStyle.Fill;
+            fieldTituloReporte.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloReporte.ForeColor = Color.FromArgb(  115,   109,   106);
+            fieldTituloReporte.Image = (Image) resources.GetObject("fieldTituloReporte.Image");
+            fieldTituloReporte.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloReporte.ImeMode = ImeMode.NoControl;
+            fieldTituloReporte.Location = new Point(15, 5);
+            fieldTituloReporte.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloReporte.Name = "fieldTituloReporte";
+            fieldTituloReporte.Size = new Size(202, 27);
+            fieldTituloReporte.TabIndex = 25;
+            fieldTituloReporte.Text = "      Generar reporte en :";
+            fieldTituloReporte.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // layoutSeparadores
+            // 
+            layoutSeparadores.ColumnCount = 2;
+            layoutSeparadores.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutSeparadores.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutSeparadores.Controls.Add(separador2, 1, 0);
+            layoutSeparadores.Controls.Add(separador1, 0, 0);
+            layoutSeparadores.Dock = DockStyle.Fill;
+            layoutSeparadores.Location = new Point(50, 190);
+            layoutSeparadores.Margin = new Padding(0);
+            layoutSeparadores.Name = "layoutSeparadores";
+            layoutSeparadores.RowCount = 1;
+            layoutSeparadores.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutSeparadores.Size = new Size(1286, 20);
+            layoutSeparadores.TabIndex = 41;
+            // 
+            // separador2
+            // 
+            separador2.Dock = DockStyle.Fill;
+            separador2.FillColor = Color.FromArgb(  217,   211,   204);
+            separador2.Location = new Point(223, 3);
+            separador2.Name = "separador2";
+            separador2.Size = new Size(1060, 14);
+            separador2.TabIndex = 39;
+            // 
+            // separador1
+            // 
+            separador1.Dock = DockStyle.Fill;
+            separador1.FillColor = Color.FromArgb(  217,   211,   204);
+            separador1.Location = new Point(3, 3);
+            separador1.Name = "separador1";
+            separador1.Size = new Size(214, 14);
+            separador1.TabIndex = 38;
+            // 
+            // layoutCamposReporte
+            // 
+            layoutCamposReporte.ColumnCount = 3;
+            layoutCamposReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutCamposReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 44F));
+            layoutCamposReporte.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 44F));
+            layoutCamposReporte.Controls.Add(btnImprimir, 0, 0);
+            layoutCamposReporte.Controls.Add(btnDescargar, 0, 0);
+            layoutCamposReporte.Controls.Add(fieldFormatoReporte, 0, 0);
+            layoutCamposReporte.Dock = DockStyle.Fill;
+            layoutCamposReporte.Location = new Point(0, 0);
+            layoutCamposReporte.Margin = new Padding(0);
+            layoutCamposReporte.Name = "layoutCamposReporte";
+            layoutCamposReporte.RowCount = 1;
+            layoutCamposReporte.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutCamposReporte.Size = new Size(220, 45);
+            layoutCamposReporte.TabIndex = 41;
+            // 
+            // fieldFormatoReporte
+            // 
+            fieldFormatoReporte.Animated = true;
+            fieldFormatoReporte.BackColor = Color.Transparent;
+            fieldFormatoReporte.BorderColor = Color.FromArgb(  217,   211,   204);
+            fieldFormatoReporte.BorderRadius = 16;
+            fieldFormatoReporte.CustomizableEdges = customizableEdges5;
+            fieldFormatoReporte.Dock = DockStyle.Fill;
+            fieldFormatoReporte.DrawMode = DrawMode.OwnerDrawFixed;
+            fieldFormatoReporte.DropDownStyle = ComboBoxStyle.DropDownList;
+            fieldFormatoReporte.FillColor = Color.FromArgb(  254,   254,   253);
+            fieldFormatoReporte.FocusedColor = Color.FromArgb(  217,   211,   204);
+            fieldFormatoReporte.FocusedState.BorderColor = Color.FromArgb(  217,   211,   204);
+            fieldFormatoReporte.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldFormatoReporte.ForeColor = Color.FromArgb(  40,   37,   35);
+            fieldFormatoReporte.ItemHeight = 29;
+            fieldFormatoReporte.Items.AddRange(new object[] { "PDF" });
+            fieldFormatoReporte.Location = new Point(5, 5);
+            fieldFormatoReporte.Margin = new Padding(5);
+            fieldFormatoReporte.Name = "fieldFormatoReporte";
+            fieldFormatoReporte.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldFormatoReporte.Size = new Size(122, 35);
+            fieldFormatoReporte.StartIndex = 0;
+            fieldFormatoReporte.TabIndex = 28;
+            fieldFormatoReporte.TextOffset = new Point(10, 0);
+            // 
+            // btnDescargar
+            // 
+            btnDescargar.Animated = true;
+            btnDescargar.AutoRoundedCorners = true;
+            btnDescargar.BorderColor = Color.FromArgb(  217,   211,   204);
+            btnDescargar.BorderRadius = 16;
+            btnDescargar.BorderThickness = 1;
+            btnDescargar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
+            btnDescargar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnDescargar.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnDescargar.CustomizableEdges = customizableEdges3;
+            btnDescargar.Dock = DockStyle.Fill;
+            btnDescargar.FillColor = Color.FromArgb(  250,   250,   250);
+            btnDescargar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDescargar.ForeColor = Color.White;
+            btnDescargar.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);
+            btnDescargar.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
+            btnDescargar.Location = new Point(137, 5);
+            btnDescargar.Margin = new Padding(5);
+            btnDescargar.Name = "btnDescargar";
+            btnDescargar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnDescargar.Size = new Size(34, 35);
+            btnDescargar.TabIndex = 29;
+            // 
+            // btnImprimir
+            // 
+            btnImprimir.Animated = true;
+            btnImprimir.BorderColor = Color.FromArgb(  217,   211,   204);
+            btnImprimir.BorderRadius = 16;
+            btnImprimir.BorderThickness = 1;
+            btnImprimir.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
+            btnImprimir.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnImprimir.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnImprimir.CustomizableEdges = customizableEdges1;
+            btnImprimir.Dock = DockStyle.Fill;
+            btnImprimir.FillColor = Color.FromArgb(  250,   250,   250);
+            btnImprimir.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnImprimir.ForeColor = Color.White;
+            btnImprimir.HoverState.BorderColor = Color.FromArgb(  217,   211,   204);
+            btnImprimir.HoverState.FillColor = Color.FromArgb(  217,   211,   204);
+            btnImprimir.Location = new Point(181, 5);
+            btnImprimir.Margin = new Padding(5);
+            btnImprimir.Name = "btnImprimir";
+            btnImprimir.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnImprimir.Size = new Size(34, 35);
+            btnImprimir.TabIndex = 30;
+            // 
             // VistaGestionVentas
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -724,6 +875,8 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
             layoutTitulo.ResumeLayout(false);
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutControlesTabla.ResumeLayout(false);
+            layoutSeparadores.ResumeLayout(false);
+            layoutCamposReporte.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -752,7 +905,6 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
         private Label fieldTituloMonto;
         private Label fieldTituloCantidadArticulos;
         private Label fieldTituloFecha;
-        private Guna2Separator separador1;
         private Panel panelBotonesGestion;
         private Guna2Button btnRegistrar;
         private TableLayoutPanel layoutTituloHerramientas;
@@ -762,5 +914,13 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
         private Guna2ComboBox fieldCriterioBusqueda;
         private Guna2DateTimePicker fieldDatoBusquedaFecha;
         private Panel panelDatosComplementariosBusqueda;
+        private Label fieldTituloReporte;
+        private TableLayoutPanel layoutSeparadores;
+        private Guna2Separator separador2;
+        private Guna2Separator separador1;
+        private TableLayoutPanel layoutCamposReporte;
+        private Guna2ComboBox fieldFormatoReporte;
+        private Guna2Button btnImprimir;
+        private Guna2Button btnDescargar;
     }
 }

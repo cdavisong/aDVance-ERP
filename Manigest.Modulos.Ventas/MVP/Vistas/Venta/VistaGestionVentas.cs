@@ -4,6 +4,8 @@ using Manigest.Core.Utiles;
 using Manigest.Modulos.Ventas.MVP.Modelos;
 using Manigest.Modulos.Ventas.MVP.Vistas.Venta.Plantillas;
 
+using System.Globalization;
+
 namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
     public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         private int _paginaActual = 1;
@@ -27,6 +29,11 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
         public Size Dimensiones {
             get => Size;
             set => Size = value;
+        }
+
+        public string FormatoReporte {
+            get => fieldFormatoReporte.Text;
+            set => fieldFormatoReporte.Text = value;
         }
 
         public CriterioBusquedaVenta CriterioBusqueda {
@@ -76,13 +83,33 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
+        public event EventHandler? DescargarReporte;
+        public event EventHandler? ImprimirReporte;
         public event EventHandler? BuscarDatos;
+
+
 
         public void Inicializar() {
             // Variables locales
             Vistas = new RepositorioVistaBase(contenedorVistas);
 
             // Eventos
+            btnDescargar.Click += delegate {
+                var tuplasVentas = contenedorVistas.Controls.OfType<IVistaTuplaVenta>();
+                var filas = new List<string[]>();
+
+                foreach (var tuplaVenta in tuplasVentas) {
+                    var fila = new string[3];
+
+                    fila[0] = tuplaVenta.NombreAlmacen;
+                    fila[1] = tuplaVenta.CantidadProductos;
+                    fila[2] = tuplaVenta.MontoTotal;
+
+                    filas.Add(fila);
+                }
+
+                UtilesReportes.GenerarReporteVentas(fieldDatoBusquedaFecha.Value, filas);
+            };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(DatoBusqueda))
                     BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
@@ -137,10 +164,10 @@ namespace Manigest.Modulos.Ventas.MVP.Vistas.Venta {
                     fieldDatoBusquedaFecha.Value = DateTime.Now;
                     fieldDatoBusquedaFecha.Focus();
                 } else {
-                    fieldDatoBusqueda.Text = string.Empty;                    
+                    fieldDatoBusqueda.Text = string.Empty;
                     fieldDatoBusqueda.Focus();
                 }
-                
+
                 fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaVenta.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
                 fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaVenta.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
 
