@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema 
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="formatoBase.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="resource.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAYtJREFUSEvl
+        lL9KA0EQxoOglYXWSgg7f242p6CkN4WVvoUg+gAB7URQ0Fex9hFUsBQsRFstrLTQQgWjzOmtd8MtOZJC
+        xB8MbL7vm5mwuVyj8W9AxFlBONVi5hnrj4QgdoXgXgiehNxzdkbs2twwjCWMh0LQF4JL7xxp6Vk19TRj
+        m2qx0GpNCeGxEHx4hqM0TSdzT8+qqacZzZa7B+AB5oTgRgjehGHD+jnqZRmE6zZiav1KPLvVhOBRGB6Y
+        YcX6Fs1rVnsG5tvslrNvRHjBzM76MRARtEd7PdGS9QNC7lwIr4r3XRft0avyBCfWCwjBqzAeWL0u30/c
+        i9UD2VPBuGv1umivzrB64NcWzDeb08LQ0yvIroGhp5rNDb1AGM6+/lQ/VfVjDr+AoO8J9vLPnmBfCN7L
+        qdEWlPTYoJgesINiemxQTA/YQTE9NiimB+yggt6vtQDdTpUeEILbbElFecb1PKdn6xfqrjy1gL6mPcGW
+        R7ddLCHYTNN0Is91Op3xhNyazWm1ERfLU/86n9S1sZ/iiZvtAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="resource.Image1" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAfNJREFUSEvt
+        VD2LFEEQHblARU2NFp3rV6+r2oX9AxcIZn4kmqiRgYF/w+RAEPzCQBCMBI0UXFBQEMSLFP0DioiBwmEg
+        LqKcdyo1N7su7e3srFx4D5p5U91Vb+pRPUWxhVlgxBsV3O+KHMj3NgVG/K7XqlFudUPYVxTFnIkcTMQV
+        E7xPxPM6Pjvq4ldNsGjEwIjvRizX8a9G3DPiixGfjeFYlj6nikMWcSaL/0VVKMp55wD2apQLRtxIDEfL
+        stzhcRGBEa+M+GXERVUsGHHNIj7VH7KW1x3BD2jEUlEU2/K9cYjIdpNwfczSb0bcMYYH/p6fH2GYoIKb
+        3nK+nyPFcCRFnOr1erv83bufKpAiHnqbRul3Op2d+ZkmtBLwQxrlaeVxxKMkctZiuGSUx0Z8NOLJ8Itz
+        1MMxRYDS92mIEYsqYXU4QcrwTgV3jfhpDM+63e7u8VxV3ZMEH5oFpOpgkObn9/tSYlmBBSvL0qekikec
+        dBG/D17U8/xpgiWVsNYsMLSIctlt8dhGPEYcNuKHj2sKgUa89jujlNvTBWqLqktDnJvEjTxtxEottLLe
+        mfSbBTKLRrZM4MZwouIRx9fjMvAaed0R2lo0ibcb05YWbcw32aJ/eRuLfNwiXmoML/xnNwv33MYOEvG2
+        vlj/vbxGXncLjfgDrMwMyzQ+akoAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="resource.Image2" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAfBJREFUSEu9
+        lMtqFFEQhqOIF1DBawSH2H3+qjp1chIQRNGFMAtxr4/gypULgyioQcGFC30Jl1m5cCkKKsZniELyBFno
+        TvBCdXqa7h7ndM+IflDQU3/NX13ddXpu7n8D4KQnd8PCrvtqvVCiSyrYVsavIgTbgehil9YbZfdJGRsR
+        IAtlfFbGxy6tN8r4poRn1W9yz5XxtUvrjRI+2F2GPD9jYXfpGe+6tN6I5Bfaz1nEne/SpiK1KSmtEyW6
+        GhhPvNDTUajQ4+FwuOdPmoXlgrgrba8xzKAavRZe8GKSVo/OJkpu1QqzLNs/jTYYDA4UTcittrUGKvTI
+        Ctt5I6UZMQ6OtnNjpExSmqGClWK7hG63tYqUSUpbyvN5JWyV72Jz4malTNpajHGvMtY943XjXJRno8gz
+        1q2uZoIVK4hZdqpKlnjGLdNE5HRRy+56w3RCBMG1yqT4Uu5sw726eaEB50zzjPtlapcy3o6MPOPO8sLC
+        kUDubtVA8MbqmkaMV8r4bk2I6IRNY6YBWAqCl6bZoStqy9W1iDEetJz3/lCt6YOGuUFEh0uj+qg/A+Oh
+        mQTBmoi4YoKdD181ARHtq08QGO/HJhixKPll+5NndzMyn23Ju2d6B9Mw0xbNiogcD4wvZYMNVT3Wrvlr
+        yhX/kTzJ/5LfJV4OK3hnf/wAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="resource.Image3" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAYVJREFUSEvl
+        VLlKBEEQXT9l+1V1V+/6F16Rpl4IirgfoIKZGAieeMb+ghgair+gkYmJGxiKCkYqNTvTDs3gDDsaiA8q
+        qOu9qe7qaTT+LdoAiaUtZ2nbMS5bxgzFNbXgieaE8S6MDzXPOI9rKsMxdoRxL2JsLjwgjONMQCxt5HLV
+        IYT9lORNGN1MxDEd9ojNQTIJmfW4txSBnHDqgUFhPKqIZzpLj+UonWRe7yTu/xbalJEricZaRO1URCc6
+        yeJ9Qb/IEy3GJM41nWOzEMcrwVsz7Bmbyer1YdqrHDFvAiEaDRtR0wpFdAu+isx0nC+DIzMb+os2Sve4
+        p47JovMVxqow7hKztBzntcdbTCUCRW8iE4jjCrHopOIXaj0SLMV1ikoCjmhCiMZDjnErjKvMd4xrYdwE
+        P1dfSUAYz8J4CjnGq2fs5vw9YfOS80N9JYFfnyDGj95ByRZ1hfEgFitxvnyLcu9AC+N8GYTNTNZf/A6I
+        xkJBTSt8yQr9XXgya7WMmyMx79/GJ+zN8j4kozZfAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="resource.Image4" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAUdJREFUSEvt
+        VD1LBDEQDRaW/gVvM2+yE7a3FUHuV2ijvaVaWNidIBaWVuLv8A9ocaClWGpnJTZ+gErWzbo7Chdz2N2D
+        gfBm3rxkNxNjZvgLhOlamD6mC1zpvi2aonMPu5MTQRt66L4tagOHfc2nImizDCoiiMOodDgIEdaB03XZ
+        Bh5YF6b3zrd+LoE1XZdtkIqZwUQ4Vyx5xqXmW+QYVFU1L0z3wnQX1jrfQ46BwO7G2+WZtnW+h1QDD2wK
+        2wthGneuboxxyJWwG1qXbJD2Zv3yJqUalEQrbSPQTZjqetqZbr95LGtdsoExZk6Y3ppmh5EU2KOGew01
+        fcmXwaMwHWteQ4Bh9wS+KBZFBoPuCbyzq1pnBHQmTC/CdBIftl4w7dV1uf8AwIIwnQrT009B3DGG2bco
+        B905KJm2dH5qNJP8EGLiJP8HPgHXVeEtRWEKoAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="resource.Image5" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAlpJREFUSEvV
+        lc+PTEEQx98MNxK/b7Jmuqq6683LTDYOJBzMkYM4EU6EA05+BTcRHIQg4ebHjZC4S5wIN+EfINzI3tlw
+        YeXb773ZfmV3ze6JT9KZ1Lerq7uq+9Vk2b+Aqq7LmY/k7M7jtyg2rrU+S8Z72qVCUyo0k4ypQLTT+i4a
+        VddXoR/q6W0hMgktZ96sQu9U6HuPubBrFoWKe65Cn/sTE2tSHSVSoS8507NUH4uiKFYGdseD56vl6d1N
+        Zd4BOx3ISoW+ZlnWjpq4Y4PBYIWN12A4HC6vFs7W2/PFOJp3MBpYl9hvsixbZuOO6IlsrRyPwq43sH6g
+        3rS2kQFs77tbmp4JKu4AnArmXmnTL2V3wfoB6Cr0s7Zx4Vibe9rf9ExQT2fg5JxbFW2hQwURWz8AXT0d
+        rO3JTmd1lfHppmdCvFBx36w+Llir7G5YfURgeqJC71ONmTcgM+/9+kRu4aXZ7FTogwo9TrUGudBrFXqR
+        anXZcuZTldRSpjtlOWZLFH2FXgahV6nWQMV9UuGHqWYyaOfCDxA8CF1K/YAKP1Khj1avaeHDyoWu2YmK
+        dvDufsxG6LKdBCp0HS3E6hF0zPJk7oSdi8GZ7i0UHOTsTsZnPle3DaE7iBsw7zVTqPndKvgVCPNcfBaY
+        98W7UddP9UjVlmeUaFuq41uIutBtbBa1Py8+EgJtj4ecq5XjjyQu6nY3pTqeIubq4GC+DFQ7nbIK7nCq
+        R3Khc5j8a0dcAHTi6oWdtXOo356yFO6pbc3jDqyNMZh32/igFYRvqdB0VfOljGm0m7Sc/z+/ATkj4L95
+        v8/LAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="fieldTextoBienvenida.Text" xml:space="preserve">
+    <value>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Bienvenido a aDVance ERP&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Segoe UI, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .header {
+            color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .logo {
+            font-family: Segoe UI, sans-serif;
+            font-size: 24px; /* Tamaño de fuente ajustado */
+        }
+        .dv {
+            color: Gray;
+            font-weight: bold;
+        }
+        .advance {
+            color: #333333;
+            font-weight: bold;
+        }
+        .erp {
+            background-color: Firebrick;
+            color: white;
+            font-weight: bold;
+            padding: 2px;
+        }
+        .version {
+            color: Gray;
+            font-size: 10px;
+        }
+        .welcome-text {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .start-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 30px;
+            background-color: #FFDAB9;
+            color: #333333;
+            text-decoration: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .start-button:hover {
+            background-color: #FFDAB9;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="header"&gt;
+        &lt;div class="logo"&gt;
+            &lt;span class="advance"&gt;a&lt;/span&gt;&lt;span class="dv"&gt;DV&lt;/span&gt;&lt;span class="advance"&gt;ance&lt;/span&gt; &lt;span class="erp"&gt;ERP&lt;/span&gt; &lt;span class="version"&gt;v0.1.20.405B&lt;/span&gt;  
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="welcome-text"&gt;
+        &lt;p&gt;¡Estamos encantados de tenerte aquí!&lt;/p&gt;
+        &lt;p&gt;La solución integral para la gestión de tus recursos empresariales comienza ahora.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="description"&gt;
+        &lt;p&gt;Con aDVance ERP, optimiza tus procesos, mejora la eficiencia y lleva tu negocio al siguiente nivel.&lt;/p&gt;
+        &lt;p&gt;Explora nuestras funcionalidades y descubre cómo podemos ayudarte a alcanzar el éxito.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;/p&gt;
+    &lt;a href="/inicio" class="start-button"&gt;Comienza Ahora&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+</root>
