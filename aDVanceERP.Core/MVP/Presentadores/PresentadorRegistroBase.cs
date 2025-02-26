@@ -8,7 +8,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
     public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>
         where Vr : IVistaRegistro
         where Do : class, IRepositorioDatos<O, C>, new()
-        where O : class, IObjetoUnico
+        where O : class, IObjetoUnico, new()
         where C : Enum {
         protected O _objeto;
 

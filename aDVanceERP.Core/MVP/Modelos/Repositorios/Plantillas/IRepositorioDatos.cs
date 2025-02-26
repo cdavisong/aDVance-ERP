@@ -2,8 +2,10 @@
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas {
     public interface IRepositorioDatos<O, C>
-        where O : class, IObjetoUnico
+        where O : class, IObjetoUnico, new()
         where C : Enum {
+        static O Instance = new();
+
         List<O> Objetos { get; }
 
         long Cantidad();

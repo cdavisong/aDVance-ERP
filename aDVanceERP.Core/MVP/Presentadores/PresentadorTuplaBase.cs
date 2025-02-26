@@ -6,7 +6,7 @@ using aDVanceERP.Core.Utiles;
 namespace aDVanceERP.Core.MVP.Presentadores {
     public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresentadorTupla<Vt, O>
         where Vt : IVistaTupla
-        where O : class, IObjetoUnico {
+        where O : class, IObjetoUnico, new() {
         protected PresentadorTuplaBase(Vt vista, O objeto) : base(vista) {
             Vista.TuplaSeleccionada += delegate {
                 TuplaSeleccionada = !TuplaSeleccionada;

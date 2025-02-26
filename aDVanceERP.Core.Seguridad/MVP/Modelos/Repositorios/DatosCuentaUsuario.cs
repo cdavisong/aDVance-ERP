@@ -5,8 +5,10 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios {
     public class DatosCuentaUsuario : RepositorioDatosBase<CuentaUsuario, CriterioBusquedaCuentaUsuario>, IRepositorioCuentaUsuario {
+        
+
         public override string ComandoAdicionar(CuentaUsuario objeto) {
-            throw new NotImplementedException();
+            return $"INSERT INTO ad__cuenta_usuario "
         }
 
         public override string ComandoCantidad() {

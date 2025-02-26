@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
     public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>
-        where O : class, IObjetoUnico
+        where O : class, IObjetoUnico, new()
         where C : Enum {
         protected RepositorioDatosBase() {
             Objetos = new List<O>();

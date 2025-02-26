@@ -5,10 +5,6 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
     public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaCliente>, IRepositorioCliente {
-        public static DatosCliente Instance { get; } = new();
-
-        public DatosCliente() : base() { }
-
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_cliente) FROM adv__cliente;";
         }

@@ -10,7 +10,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         where Vg : IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
         where Vt : IVistaTupla
         where Do : class, IRepositorioDatos<O, C>, new()
-        where O : class, IObjetoUnico
+        where O : class, IObjetoUnico, new()
         where C : Enum {
         protected readonly List<Pt> _tuplasObjetos;
 
