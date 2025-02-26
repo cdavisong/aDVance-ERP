@@ -11,8 +11,4 @@
     <ProjectReference Include="..\aDVanceERP.Core\aDVanceERP.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MVP\Modelos\" />
-  </ItemGroup>
-
 </Project>
