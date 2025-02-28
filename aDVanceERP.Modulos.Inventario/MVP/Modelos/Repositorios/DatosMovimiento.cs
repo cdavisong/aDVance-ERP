@@ -5,10 +5,6 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios {
     public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusquedaMovimiento>, IRepositorioMovimiento {
-        public static DatosMovimiento Instance { get; } = new();
-
-        public DatosMovimiento() : base() { }
-
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_movimiento) FROM adv__movimiento;";
         }

@@ -5,10 +5,6 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Ventas.MVP.Modelos.Repositorios {
     public class DatosDetalleVentaArticulo : RepositorioDatosBase<DetalleVentaArticulo, CriterioDetalleVentaArticulo>, IRepositorioDetalleVentaArticulo {
-        public static DatosDetalleVentaArticulo Instance { get; } = new();
-
-        public DatosDetalleVentaArticulo() : base() { }
-
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_detalle_venta_articulo) FROM adv__detalle_venta_articulo;";
         }

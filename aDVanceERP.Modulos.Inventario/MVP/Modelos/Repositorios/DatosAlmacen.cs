@@ -5,10 +5,6 @@
     using MySql.Data.MySqlClient;
 
     public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen {
-        public static DatosAlmacen Instance { get; } = new();
-
-        public DatosAlmacen() : base() { }
-
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_almacen) FROM adv__almacen;";
         }

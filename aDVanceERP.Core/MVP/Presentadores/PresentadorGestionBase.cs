@@ -93,6 +93,9 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         }
 
         public virtual void RefrescarListaObjetos() {
+            if (Vista.TuplasMaximasContenedor == 0)
+                return;
+
             // Cerrar las vistas
             Vista.Cerrar();
 

@@ -2,5 +2,4 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas {
     public interface IRepositorioArticulo : IRepositorioDatos<Articulo, CriterioBusquedaArticulo> { }
-
 }

@@ -8,6 +8,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
     }
 
     public class Cuenta : IObjetoUnico {
+        public Cuenta() {
+        }
+
         public Cuenta(long id, string alias, string numeroTarjeta, TipoMoneda moneda, long idContacto) {
             Id = id;
             Alias = alias;
@@ -16,12 +19,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
             IdContacto = idContacto;
         }
 
-        public Cuenta(string alias, string numeroTarjeta, TipoMoneda moneda, long idContacto)
-            : this(0, alias, numeroTarjeta, moneda, idContacto) { }
-
         public long Id { get; set; }
-        public string Alias { get; }
-        public string NumeroTarjeta { get; }
+        public string? Alias { get; }
+        public string? NumeroTarjeta { get; }
         public TipoMoneda Moneda { get; }
         public long IdContacto { get; set; }
     }

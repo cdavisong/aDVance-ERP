@@ -1,11 +1,9 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas {
-    public interface IRepositorioDatos<O, C>
+    public interface IRepositorioDatos<O, C> : IDisposable
         where O : class, IObjetoUnico, new()
         where C : Enum {
-        static O Instance = new();
-
         List<O> Objetos { get; }
 
         long Cantidad();

@@ -2,6 +2,9 @@
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
     public class Proveedor : IObjetoUnico {
+        public Proveedor() {
+        }
+
         public Proveedor(long idProveedor, string razonSocial, string numeroIdentificacionTributaria, long idContactoRepresentante) {
             Id = idProveedor;
             RazonSocial = razonSocial;
@@ -9,12 +12,9 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
             IdContactoRepresentante = idContactoRepresentante;
         }
 
-        public Proveedor(string nombre, string numeroIdentificacionTributaria, long idContactoRepresentante)
-            : this(0, nombre, numeroIdentificacionTributaria, idContactoRepresentante) { }
-
         public long Id { get; set; }
-        public string RazonSocial { get; }
-        public string NumeroIdentificacionTributaria { get; }
+        public string? RazonSocial { get; }
+        public string? NumeroIdentificacionTributaria { get; }
         public long IdContactoRepresentante { get; }
     }
 

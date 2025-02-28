@@ -60,8 +60,6 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if (Articulos.Count == 0)
                 return;
 
-            var datosArticulo = DatosDetalleVentaArticulo.Instance;
-            var datosMovimiento = DatosMovimiento.Instance;
             var ultimoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta");
 
             foreach (var articulo in Articulos) {
@@ -73,11 +71,14 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                         int.Parse(articulo[3])
                     );
 
-                datosArticulo.Adicionar(detalleVentaArticulo);
+                using (var datosArticulo = new DatosDetalleVentaArticulo()) {
+                    datosArticulo.Adicionar(detalleVentaArticulo);
+                }
 
                 var stockArticulo = UtilesArticulo.ObtenerStockTotalArticulo(detalleVentaArticulo.IdArticulo);
 
-                datosMovimiento.Adicionar(new Movimiento(
+                using (var datosMovimiento = new DatosMovimiento()) {
+                    datosMovimiento.Adicionar(new Movimiento(
                         0,
                         detalleVentaArticulo.IdArticulo,
                         long.Parse(articulo[4]),
@@ -86,6 +87,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                         "Venta",
                         DateTime.Now
                     ));
+                }
 
                 UtilesMovimientoArticuloAlmacen.ModificarStockArticuloAlmacen(
                         detalleVentaArticulo.IdArticulo,

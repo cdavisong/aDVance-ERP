@@ -1,14 +1,11 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Modulos.Ventas.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Ventas.MVP.Modelos.Repositorios {
     public class DatosDetallePagoTransferencia : RepositorioDatosBase<DetallePagoTransferencia, CriterioBusquedaDetallePagoTransferencia>, IRepositorioDetallePagoTransferencia {
-        public static DatosDetallePagoTransferencia Instance { get; } = new();
-
-        public DatosDetallePagoTransferencia() : base() { }
-
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_detalle_pago_transferencia) FROM adv__detalle_pago_transferencia;";
         }

@@ -43,7 +43,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             var venta = sender as Venta;
 
-            _registroPago.PopularVistaDesdeObjeto(new Pago(venta?.Id ?? 0, string.Empty, venta?.Total ?? 0f));
+            _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta?.Id ?? 0, string.Empty, venta?.Total ?? 0f));
             _registroPago.Vista.EfectuarTransferencia += delegate {
                 MostrarVistaEdicionDetallePagoTransferencia(sender, e);
             };
@@ -55,16 +55,17 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if (Pagos.Count == 0)
                 return;
 
-            var datosPago = DatosPago.Instance;
-            var ultimoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta");
+            using (var datosPago = new DatosPago()) {
+                var ultimoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta");
 
-            foreach (var pago in Pagos) {
-                datosPago.Adicionar(new Pago(
-                    0,
-                    ultimoIdVenta,
-                    pago[0],
-                    float.Parse(pago[1])
-                ));
+                foreach (var pago in Pagos) {
+                    datosPago.Adicionar(new Pago(
+                        0,
+                        ultimoIdVenta,
+                        pago[0],
+                        float.Parse(pago[1])
+                    ));
+                }
             }
 
             Pagos.Clear();

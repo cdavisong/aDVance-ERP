@@ -2,6 +2,6 @@
 
 namespace aDVanceERP.Core.Seguridad.Utiles {
     public static class UtilesSeguridad {
-        public static CuentaUsuario UsuarioAutenticado { get; set; }
+        public static CuentaUsuario UsuarioAutenticado { get; set; } = new();
     }
 }

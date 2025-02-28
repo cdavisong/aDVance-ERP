@@ -1,0 +1,77 @@
+﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
+
+using System.Security;
+
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
+    public partial class VistaAutenticacionUsuario : Form, IVistaAutenticacionUsuario {
+        public VistaAutenticacionUsuario() {
+            InitializeComponent();
+            Inicializar();
+        }
+
+        public bool Habilitada {
+            get => Enabled;
+            set => Enabled = value;
+        }
+
+        public Point Coordenadas {
+            get => Location;
+            set => Location = value;
+        }
+
+        public Size Dimensiones {
+            get => Size;
+            set => Size = value;
+        }
+        public string NombreUsuario {
+            get => fieldNombreUsuario.Text;
+            set => fieldNombreUsuario.Text = value;
+        }
+        public SecureString Password {
+            get {
+                var password = new SecureString();
+
+                foreach (var c in fieldPassword.Text)
+                    password.AppendChar(c);
+                password.MakeReadOnly();
+
+                return password;
+            }
+        }
+
+        public event EventHandler? Autenticar;
+        public event EventHandler? RegistrarCuenta;
+        public event EventHandler? Salir;
+
+        public void Inicializar() {
+            // Eventos
+            btnAutenticarUsuario.Click += delegate {
+                Autenticar?.Invoke(this, EventArgs.Empty);
+            };
+            btnRegistrarCuenta.Click += delegate (object? sender, EventArgs e) {
+                RegistrarCuenta?.Invoke(sender, e);
+                Salir?.Invoke(sender, e);
+                Ocultar();
+            };
+        }
+
+        public void Mostrar() {
+            BringToFront();
+            ShowDialog();
+        }
+
+        public void Restaurar() {
+            //Mensaje.Mostrar("Bienvenido a nuestra plataforma, debe autenticarse antes de comenzar a utilizar nuestros servicios y funcionalidades.", TipoMensaje.Consejo);
+            NombreUsuario = string.Empty;
+            fieldPassword.Text = string.Empty;
+        }
+
+        public void Ocultar() {
+            Hide();
+        }
+
+        public void Cerrar() {
+            Dispose();
+        }
+    }
+}

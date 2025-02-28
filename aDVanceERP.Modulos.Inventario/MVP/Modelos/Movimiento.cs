@@ -2,6 +2,9 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
     public class Movimiento : IObjetoUnico {
+        public Movimiento() {
+        }
+
         public Movimiento(long id, long idArticulo, long idAlmacenOrigen, long idAlmacenDestino, int cantidadMovida, string motivo, DateTime fecha) {
             Id = id;
             IdArticulo = idArticulo;
@@ -17,7 +20,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         public long IdAlmacenOrigen { get; set; }
         public long IdAlmacenDestino { get; set; }
         public int CantidadMovida { get; set; }
-        public string Motivo { get; set; }
+        public string? Motivo { get; set; }
         public DateTime Fecha { get; set; }
     }
 

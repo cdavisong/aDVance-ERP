@@ -148,5 +148,25 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
         public bool Existe(string dato) {
             return Obtener(ComandoExiste(dato)).Any();
         }
+
+        public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing) {
+            if (disposing) {
+                // Liberar cualquier recurso administrado aquí, si es necesario
+                if (Objetos != null) {
+                    Objetos.Clear();
+                }
+            }
+
+            // Liberar cualquier recurso no administrado aquí, si es necesario
+        }
+
+        ~RepositorioDatosBase() {
+            Dispose(false);
+        }
     }
 }

@@ -2,6 +2,9 @@
 
 namespace aDVanceERP.Modulos.Ventas.MVP.Modelos {
     public class DetalleVentaArticulo : IObjetoUnico {
+        public DetalleVentaArticulo() {
+        }
+
         public DetalleVentaArticulo(long id, long idVenta, long idArticulo, float precioUnitario, int cantidad) {
             Id = id;
             IdVenta = idVenta;
@@ -9,9 +12,6 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Modelos {
             PrecioUnitario = precioUnitario;
             Cantidad = cantidad;
         }
-
-        public DetalleVentaArticulo(long idVenta, long idArticulo, float precioUnitario, int cantidad)
-            : this(0, idVenta, idArticulo, precioUnitario, cantidad) { }
 
         public long Id { get; set; }
         public long IdVenta { get; set; }

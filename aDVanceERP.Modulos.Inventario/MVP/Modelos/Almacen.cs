@@ -2,6 +2,9 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
     public class Almacen : IObjetoUnico {
+        public Almacen() {
+        }
+
         public Almacen(long idAlmacen, string nombre, string direccion, bool autorizoVenta, string notas) {
             Id = idAlmacen;
             Nombre = nombre;
@@ -10,14 +13,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
             Notas = notas;
         }
 
-        public Almacen(string nombre, string direccion, bool autorizoVenta, string notas)
-            : this(0, nombre, direccion, autorizoVenta, notas) { }
-
         public long Id { get; set; }
-        public string Nombre { get; }
-        public string Direccion { get; }
+        public string? Nombre { get; }
+        public string? Direccion { get; }
         public bool AutorizoVenta { get; }
-        public string Notas { get; set; }
+        public string? Notas { get; set; }
     }
 
     public enum CriterioBusquedaAlmacen {
