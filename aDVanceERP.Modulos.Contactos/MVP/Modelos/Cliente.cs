@@ -13,8 +13,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
         }
 
         public long Id { get; set; }
-        public string Numero { get; }
-        public string RazonSocial { get; }
+        public string? Numero { get; }
+        public string? RazonSocial { get; }
         public long IdContacto { get; }
     }
 

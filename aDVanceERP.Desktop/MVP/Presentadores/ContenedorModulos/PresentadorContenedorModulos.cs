@@ -1,11 +1,11 @@
-﻿using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
+﻿using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos {
-        public PresentadorContenedorModulos(IVistaPrincipal vistaPrincipal, IVistaContenedorModulos vista) {
+    public partial class PresentadorContenedorModulos : PresentadorBase<IVistaContenedorModulos> {
+        public PresentadorContenedorModulos(IVistaPrincipal vistaPrincipal, IVistaContenedorModulos vista) : base(vista) {
             VistaPrincipal = vistaPrincipal;
-            Vista = vista;
 
             // Eventos
             Vista.MostrarMenuContactos += MostrarVistaMenuContacto;
@@ -47,7 +47,5 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private IVistaPrincipal VistaPrincipal { get; }
-
-        public IVistaContenedorModulos Vista { get; }
     }
 }

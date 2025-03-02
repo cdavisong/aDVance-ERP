@@ -49,8 +49,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         while (lectorDatos.Read()) {
-                            string nombreArticulo = lectorDatos["nombre"].ToString();
-                            string cantidad = lectorDatos["cantidad"].ToString();
+                            string nombreArticulo = lectorDatos["nombre"].ToString() ?? string.Empty;
+                            string cantidad = lectorDatos["cantidad"].ToString() ?? string.Empty;
                             resultado.Add($"{nombreArticulo}:{cantidad}");
                         }
                     }

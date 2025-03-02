@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas {
     public interface IRepositorioVista {
-        List<IVista> Vistas { get; }
+        List<IVista>? Vistas { get; }
         IVista? VistaActual { get; }
 
         void Registrar(string nombre, IVista vista);

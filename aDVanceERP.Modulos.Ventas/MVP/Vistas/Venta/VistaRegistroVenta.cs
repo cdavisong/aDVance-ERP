@@ -46,22 +46,22 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
             }
         }
 
-        public string RazonSocialCliente {
+        public string? RazonSocialCliente {
             get => fieldNombreCliente.Text;
             set => fieldNombreCliente.Text = value;
         }
 
-        public string NombreAlmacen {
+        public string? NombreAlmacen {
             get => fieldNombreAlmacen.Text;
             set => fieldNombreAlmacen.Text = value;
         }
 
-        public string NombreArticulo {
+        public string? NombreArticulo {
             get => fieldNombreArticulo.Text;
             set => fieldNombreArticulo.Text = value;
         }
 
-        public List<string[]> Articulos { get; private set; }
+        public List<string[]>? Articulos { get; private set; }
 
         public int Cantidad {
             get => int.TryParse(fieldCantidad.Text, out var cantidad) ? cantidad : 0;
@@ -89,7 +89,7 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
             get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
         }
 
-        public IRepositorioVista Vistas { get; private set; }
+        public IRepositorioVista? Vistas { get; private set; }
 
         public event EventHandler? ArticuloAgregado;
         public event EventHandler? ArticuloEliminado;
@@ -231,7 +231,7 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
             // Restablecer útima coordenada Y de la tupla
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
-            for (int i = 0; i < Articulos.Count; i++) {
+            for (int i = 0; i < Articulos?.Count; i++) {
                 var articulo = Articulos[i];
                 var tuplaDetallesVentaArticulo = new VistaTuplaDetalleVentaArticulo();
 
@@ -245,7 +245,7 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
                 };
 
                 // Registro y muestra
-                Vistas.Registrar(
+                Vistas?.Registrar(
                     $"vistaTupla{tuplaDetallesVentaArticulo.GetType().Name}{i}",
                     tuplaDetallesVentaArticulo,
                     new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
@@ -260,11 +260,12 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
         private void ActualizarTotal() {
             Total = 0f;
 
-            foreach (var articulo in Articulos) {
-                var cantidad = int.TryParse(articulo[3], out var cantArticulos) ? cantArticulos : 0;
+            if (Articulos != null)
+                foreach (var articulo in Articulos) {
+                    var cantidad = int.TryParse(articulo[3], out var cantArticulos) ? cantArticulos : 0;
 
-                Total += (float.TryParse(articulo[2], NumberStyles.Float, CultureInfo.CurrentCulture, out var precioUnitario) ? precioUnitario * cantidad : 0);
-            }
+                    Total += (float.TryParse(articulo[2], NumberStyles.Float, CultureInfo.CurrentCulture, out var precioUnitario) ? precioUnitario * cantidad : 0);
+                }
 
             btnEfectuarPago.Enabled = Total > 0f;
         }

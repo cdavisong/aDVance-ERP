@@ -11,7 +11,7 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             Inicializar();
         }
 
-        public List<IVista> Vistas { get; private set; }
+        public List<IVista>? Vistas { get; private set; }
 
         public IVista? VistaActual { get; private set; }
 

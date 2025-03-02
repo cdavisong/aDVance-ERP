@@ -10,7 +10,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         where Do : class, IRepositorioDatos<O, C>, new()
         where O : class, IObjetoUnico, new()
         where C : Enum {
-        protected O _objeto;
+        protected O? _objeto;
 
         protected PresentadorRegistroBase(Vr vista) : base(vista) {
             Vista.RegistrarDatos += RegistrarDatosObjeto;
@@ -28,7 +28,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
 
         public abstract void PopularVistaDesdeObjeto(O objeto);
 
-        protected abstract O ObtenerObjetoDesdeVista();
+        protected abstract O? ObtenerObjetoDesdeVista();
 
         protected virtual bool RegistroEdicionDatosAutorizado() {
             return true;

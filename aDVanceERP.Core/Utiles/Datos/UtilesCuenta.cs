@@ -17,11 +17,11 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT id_cuenta FROM adv__cuenta WHERE alias='{aliasCuenta}';";
+                    comando.CommandText = $"SELECT id_cuenta_bancaria FROM adv__cuenta_bancaria WHERE alias='{aliasCuenta}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {
-                            idCuenta = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cuenta"));
+                            idCuenta = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cuenta_bancaria"));
                         }
                     }
                 }
@@ -41,7 +41,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT alias FROM adv__cuenta WHERE id_cuenta='{idCuenta}';";
+                    comando.CommandText = $"SELECT alias FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria='{idCuenta}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {
@@ -65,7 +65,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = "SELECT alias FROM adv__cuenta;";
+                    comando.CommandText = "SELECT alias FROM adv__cuenta_bancaria;";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null) {
@@ -91,7 +91,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT numero_tarjeta FROM adv__cuenta WHERE id_cuenta='{idCuenta}';";
+                    comando.CommandText = $"SELECT numero_tarjeta FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria='{idCuenta}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {
@@ -115,7 +115,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT id_contacto FROM adv__cuenta WHERE id_cuenta='{idCuenta}';";
+                    comando.CommandText = $"SELECT id_contacto FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria='{idCuenta}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {

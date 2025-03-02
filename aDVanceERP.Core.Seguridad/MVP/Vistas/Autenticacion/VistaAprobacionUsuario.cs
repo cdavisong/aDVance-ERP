@@ -1,0 +1,53 @@
+﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
+
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
+    public partial class VistaAprobacionUsuario : Form, IVistaAprobacionUsuario {
+        public VistaAprobacionUsuario() {
+            InitializeComponent();
+            Inicializar();
+        }
+
+        public bool Habilitada {
+            get => Enabled;
+            set => Enabled = value;
+        }
+
+        public Point Coordenadas {
+            get => Location;
+            set => Location = value;
+        }
+
+        public Size Dimensiones {
+            get => Size;
+            set => Size = value;
+        }
+
+        public event EventHandler? CambiarDeUsuario;
+        public event EventHandler? Salir;
+
+        public void Inicializar() {
+            // Eventos            
+            btnCambiarUsuario.Click += delegate (object? sender, EventArgs args) {
+                CambiarDeUsuario?.Invoke(sender, args);
+                Salir?.Invoke(sender, args);
+                Ocultar();
+            };
+        }
+
+        public void Mostrar() {
+            BringToFront();
+            ShowDialog();
+        }
+
+        public void Restaurar() {
+        }
+
+        public void Ocultar() {
+            Hide();
+        }
+
+        public void Cerrar() {
+            Dispose();
+        }
+    }
+}

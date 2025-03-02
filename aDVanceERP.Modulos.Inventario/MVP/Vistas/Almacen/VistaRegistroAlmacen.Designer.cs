@@ -52,18 +52,18 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldTitulo = new Label();
             fieldDireccion = new Guna2TextBox();
             fieldNotas = new Guna2TextBox();
+            layoutAutorizoVenta = new TableLayoutPanel();
+            fieldTituloAutorizoVentaArticulos = new Label();
+            fieldAutorizoVentaArticulos = new Guna2CheckBox();
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
-            layoutAutorizoVenta = new TableLayoutPanel();
-            fieldAutorizoVentaArticulos = new Guna2CheckBox();
-            fieldTituloAutorizoVentaArticulos = new Label();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutTitulo.SuspendLayout();
-            layoutBotones.SuspendLayout();
             layoutAutorizoVenta.SuspendLayout();
+            layoutBotones.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -163,12 +163,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldNombre.Cursor = Cursors.IBeam;
             fieldNombre.CustomizableEdges = customizableEdges1;
             fieldNombre.DefaultText = "";
-            fieldNombre.DisabledState.BorderColor = Color.Gainsboro;
             fieldNombre.DisabledState.BorderColor = Color.White;
             fieldNombre.DisabledState.ForeColor = Color.DimGray;
             fieldNombre.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldNombre.Dock = DockStyle.Fill;
-            fieldNombre.FillColor = Color.White;
             fieldNombre.FocusedState.BorderColor = Color.SandyBrown;
             fieldNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombre.ForeColor = Color.Black;
@@ -243,12 +241,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldDireccion.Cursor = Cursors.IBeam;
             fieldDireccion.CustomizableEdges = customizableEdges5;
             fieldDireccion.DefaultText = "";
-            fieldDireccion.DisabledState.BorderColor = Color.Gainsboro;
             fieldDireccion.DisabledState.BorderColor = Color.White;
             fieldDireccion.DisabledState.ForeColor = Color.DimGray;
             fieldDireccion.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldDireccion.Dock = DockStyle.Fill;
-            fieldDireccion.FillColor = Color.White;
             fieldDireccion.FocusedState.BorderColor = Color.SandyBrown;
             fieldDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldDireccion.ForeColor = Color.Black;
@@ -276,12 +272,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldNotas.Cursor = Cursors.IBeam;
             fieldNotas.CustomizableEdges = customizableEdges7;
             fieldNotas.DefaultText = "";
-            fieldNotas.DisabledState.BorderColor = Color.Gainsboro;
             fieldNotas.DisabledState.BorderColor = Color.White;
             fieldNotas.DisabledState.ForeColor = Color.DimGray;
             fieldNotas.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldNotas.Dock = DockStyle.Fill;
-            fieldNotas.FillColor = Color.White;
             fieldNotas.FocusedState.BorderColor = Color.SandyBrown;
             fieldNotas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNotas.ForeColor = Color.Black;
@@ -300,6 +294,57 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldNotas.Size = new Size(407, 62);
             fieldNotas.TabIndex = 23;
             fieldNotas.TextOffset = new Point(5, 0);
+            // 
+            // layoutAutorizoVenta
+            // 
+            layoutAutorizoVenta.ColumnCount = 2;
+            layoutAutorizoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 26F));
+            layoutAutorizoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutAutorizoVenta.Controls.Add(fieldTituloAutorizoVentaArticulos, 1, 0);
+            layoutAutorizoVenta.Controls.Add(fieldAutorizoVentaArticulos, 0, 0);
+            layoutAutorizoVenta.Dock = DockStyle.Fill;
+            layoutAutorizoVenta.Location = new Point(65, 267);
+            layoutAutorizoVenta.Margin = new Padding(15, 0, 0, 0);
+            layoutAutorizoVenta.Name = "layoutAutorizoVenta";
+            layoutAutorizoVenta.RowCount = 1;
+            layoutAutorizoVenta.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutAutorizoVenta.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutAutorizoVenta.Size = new Size(402, 45);
+            layoutAutorizoVenta.TabIndex = 24;
+            // 
+            // fieldTituloAutorizoVentaArticulos
+            // 
+            fieldTituloAutorizoVentaArticulos.Dock = DockStyle.Fill;
+            fieldTituloAutorizoVentaArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloAutorizoVentaArticulos.ForeColor = Color.Black;
+            fieldTituloAutorizoVentaArticulos.ImeMode = ImeMode.NoControl;
+            fieldTituloAutorizoVentaArticulos.Location = new Point(31, 5);
+            fieldTituloAutorizoVentaArticulos.Margin = new Padding(5, 5, 1, 1);
+            fieldTituloAutorizoVentaArticulos.Name = "fieldTituloAutorizoVentaArticulos";
+            fieldTituloAutorizoVentaArticulos.Size = new Size(370, 39);
+            fieldTituloAutorizoVentaArticulos.TabIndex = 1;
+            fieldTituloAutorizoVentaArticulos.Text = "Autorizar la venta de artículos en el almacén actual.";
+            // 
+            // fieldAutorizoVentaArticulos
+            // 
+            fieldAutorizoVentaArticulos.BackColor = Color.White;
+            fieldAutorizoVentaArticulos.CheckedState.BorderColor = Color.Gainsboro;
+            fieldAutorizoVentaArticulos.CheckedState.BorderRadius = 4;
+            fieldAutorizoVentaArticulos.CheckedState.BorderThickness = 1;
+            fieldAutorizoVentaArticulos.CheckedState.FillColor = Color.WhiteSmoke;
+            fieldAutorizoVentaArticulos.CheckMarkColor = Color.Black;
+            fieldAutorizoVentaArticulos.Dock = DockStyle.Top;
+            fieldAutorizoVentaArticulos.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldAutorizoVentaArticulos.Location = new Point(5, 5);
+            fieldAutorizoVentaArticulos.Margin = new Padding(5, 5, 5, 15);
+            fieldAutorizoVentaArticulos.Name = "fieldAutorizoVentaArticulos";
+            fieldAutorizoVentaArticulos.Size = new Size(16, 25);
+            fieldAutorizoVentaArticulos.TabIndex = 0;
+            fieldAutorizoVentaArticulos.UncheckedState.BorderColor = Color.Gainsboro;
+            fieldAutorizoVentaArticulos.UncheckedState.BorderRadius = 4;
+            fieldAutorizoVentaArticulos.UncheckedState.BorderThickness = 1;
+            fieldAutorizoVentaArticulos.UncheckedState.FillColor = Color.PeachPuff;
+            fieldAutorizoVentaArticulos.UseVisualStyleBackColor = false;
             // 
             // layoutBotones
             // 
@@ -358,57 +403,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Registrar almacén";
             // 
-            // layoutAutorizoVenta
-            // 
-            layoutAutorizoVenta.ColumnCount = 2;
-            layoutAutorizoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 26F));
-            layoutAutorizoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutAutorizoVenta.Controls.Add(fieldTituloAutorizoVentaArticulos, 1, 0);
-            layoutAutorizoVenta.Controls.Add(fieldAutorizoVentaArticulos, 0, 0);
-            layoutAutorizoVenta.Dock = DockStyle.Fill;
-            layoutAutorizoVenta.Location = new Point(65, 267);
-            layoutAutorizoVenta.Margin = new Padding(15, 0, 0, 0);
-            layoutAutorizoVenta.Name = "layoutAutorizoVenta";
-            layoutAutorizoVenta.RowCount = 1;
-            layoutAutorizoVenta.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutAutorizoVenta.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutAutorizoVenta.Size = new Size(402, 45);
-            layoutAutorizoVenta.TabIndex = 24;
-            // 
-            // fieldAutorizoVentaArticulos
-            // 
-            fieldAutorizoVentaArticulos.BackColor = Color.White;
-            fieldAutorizoVentaArticulos.CheckedState.BorderColor = Color.Gainsboro;
-            fieldAutorizoVentaArticulos.CheckedState.BorderRadius = 4;
-            fieldAutorizoVentaArticulos.CheckedState.BorderThickness = 1;
-            fieldAutorizoVentaArticulos.CheckedState.FillColor = Color.WhiteSmoke;
-            fieldAutorizoVentaArticulos.CheckMarkColor = Color.Black;
-            fieldAutorizoVentaArticulos.Dock = DockStyle.Fill;
-            fieldAutorizoVentaArticulos.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldAutorizoVentaArticulos.Location = new Point(5, 5);
-            fieldAutorizoVentaArticulos.Margin = new Padding(5, 5, 5, 15);
-            fieldAutorizoVentaArticulos.Name = "fieldAutorizoVentaArticulos";
-            fieldAutorizoVentaArticulos.Size = new Size(16, 25);
-            fieldAutorizoVentaArticulos.TabIndex = 0;
-            fieldAutorizoVentaArticulos.UncheckedState.BorderColor = Color.Gainsboro;
-            fieldAutorizoVentaArticulos.UncheckedState.BorderRadius = 4;
-            fieldAutorizoVentaArticulos.UncheckedState.BorderThickness = 1;
-            fieldAutorizoVentaArticulos.UncheckedState.FillColor = Color.PeachPuff;
-            fieldAutorizoVentaArticulos.UseVisualStyleBackColor = false;
-            // 
-            // fieldTituloAutorizoVentaArticulos
-            // 
-            fieldTituloAutorizoVentaArticulos.Dock = DockStyle.Fill;
-            fieldTituloAutorizoVentaArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldTituloAutorizoVentaArticulos.ForeColor = Color.Black;
-            fieldTituloAutorizoVentaArticulos.ImeMode = ImeMode.NoControl;
-            fieldTituloAutorizoVentaArticulos.Location = new Point(31, 5);
-            fieldTituloAutorizoVentaArticulos.Margin = new Padding(5, 5, 1, 1);
-            fieldTituloAutorizoVentaArticulos.Name = "fieldTituloAutorizoVentaArticulos";
-            fieldTituloAutorizoVentaArticulos.Size = new Size(370, 39);
-            fieldTituloAutorizoVentaArticulos.TabIndex = 1;
-            fieldTituloAutorizoVentaArticulos.Text = "Autorizar la venta de artículos en el almacén actual.";
-            // 
             // VistaRegistroAlmacen
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -426,8 +420,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutVista.ResumeLayout(false);
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutTitulo.ResumeLayout(false);
-            layoutBotones.ResumeLayout(false);
             layoutAutorizoVenta.ResumeLayout(false);
+            layoutBotones.ResumeLayout(false);
             ResumeLayout(false);
         }
 

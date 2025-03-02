@@ -9,8 +9,8 @@ namespace aDVanceERP.Core.MVP.Presentadores.Plantillas {
         where O : class, IObjetoUnico, new()
         where C : Enum {
         Do DatosObjeto { get; }
-        C CriterioBusquedaObjeto { get; }
-        string DatoBusquedaObjeto { get; }
+        C? CriterioBusquedaObjeto { get; }
+        string? DatoBusquedaObjeto { get; }
 
         event EventHandler EditarObjeto;
 

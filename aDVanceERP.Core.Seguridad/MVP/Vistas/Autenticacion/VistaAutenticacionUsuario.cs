@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
+using aDVanceERP.Core.Seguridad.Properties;
 
 using System.Security;
 
@@ -23,10 +24,12 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             get => Size;
             set => Size = value;
         }
+
         public string NombreUsuario {
             get => fieldNombreUsuario.Text;
             set => fieldNombreUsuario.Text = value;
         }
+
         public SecureString Password {
             get {
                 var password = new SecureString();
@@ -45,6 +48,18 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
 
         public void Inicializar() {
             // Eventos
+            fieldPassword.IconRightClick += delegate { 
+                fieldPassword.UseSystemPasswordChar = !fieldPassword.UseSystemPasswordChar;
+                fieldPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
+                fieldPassword.IconRight = fieldPassword.UseSystemPasswordChar ? Resources.closed_eye_20px : Resources.eye_20px;                
+            };
+            fieldPassword.KeyDown += delegate (object? sender, KeyEventArgs args) {
+                if (args.KeyCode == Keys.Enter) {
+                    Autenticar?.Invoke(this, EventArgs.Empty);
+
+                    args.SuppressKeyPress = true;
+                }
+            };
             btnAutenticarUsuario.Click += delegate {
                 Autenticar?.Invoke(this, EventArgs.Empty);
             };
@@ -57,11 +72,10 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
 
         public void Mostrar() {
             BringToFront();
-            ShowDialog();
+            Show();
         }
 
         public void Restaurar() {
-            //Mensaje.Mostrar("Bienvenido a nuestra plataforma, debe autenticarse antes de comenzar a utilizar nuestros servicios y funcionalidades.", TipoMensaje.Consejo);
             NombreUsuario = string.Empty;
             fieldPassword.Text = string.Empty;
         }

@@ -43,9 +43,9 @@ namespace aDVanceERP.Core.MVP.Presentadores {
 
         public virtual Do DatosObjeto => new();
 
-        public C CriterioBusquedaObjeto { get; protected set; }
+        public C? CriterioBusquedaObjeto { get; protected set; }
 
-        public string DatoBusquedaObjeto { get; protected set; }
+        public string? DatoBusquedaObjeto { get; protected set; }
 
         public event EventHandler? EditarObjeto;
 

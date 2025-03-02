@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.Seguridad.Utiles;
-using aDVanceERP.Desktop.MVP.Vistas.Principal;
+﻿using aDVanceERP.Desktop.MVP.Vistas.Principal;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
@@ -13,20 +12,19 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
             #region Contenedores
 
-            //InicializarVistaContenedorAutenticacionRegistro();
+            InicializarVistaContenedorSeguridad();
             InicializarVistaContenedorModulos();
 
             #endregion
 
             // Otros
-            //MostrarVistaContenedorAutenticacionRegistro(this, EventArgs.Empty);
-            MostrarVistaContenedorModulos(this, EventArgs.Empty);
+            MostrarVistaContenedorSeguridad(this, EventArgs.Empty);
         }
 
         public IVistaPrincipal Vista { get; }
 
         private void DisponerModulos(object? sender, EventArgs e) {
-            _contenedorModulos.Vista.Vistas.Cerrar(true);
+            _contenedorModulos?.Vista.Vistas?.Cerrar(true);
         }
     }
 }

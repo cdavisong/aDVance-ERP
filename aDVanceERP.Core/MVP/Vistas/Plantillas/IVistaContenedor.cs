@@ -5,6 +5,6 @@ namespace aDVanceERP.Core.MVP.Vistas.Plantillas {
         int AlturaContenedorVistas { get; }
         int TuplasMaximasContenedor { get; }
 
-        IRepositorioVista Vistas { get; }
+        IRepositorioVista? Vistas { get; }
     }
 }

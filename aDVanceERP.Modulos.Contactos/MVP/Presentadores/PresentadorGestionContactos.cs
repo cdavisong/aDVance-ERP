@@ -16,7 +16,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
             var telefonoString = string.Empty;
 
             presentadorTupla.Vista.Id = objeto.Id.ToString();
-            presentadorTupla.Vista.Nombre = objeto.Nombre;
+            presentadorTupla.Vista.Nombre = objeto.Nombre ?? string.Empty;
 
             foreach (var telefono in telefonosContacto)
                 telefonoString += $"{telefono.Prefijo} {telefono.Numero}, ";
@@ -24,8 +24,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
                 telefonoString = telefonoString.Substring(0, telefonoString.Length - 2);
 
             presentadorTupla.Vista.Telefonos = telefonoString;
-            presentadorTupla.Vista.CorreoElectronico = objeto.DireccionCorreoElectronico;
-            presentadorTupla.Vista.Direccion = objeto.Direccion;
+            presentadorTupla.Vista.CorreoElectronico = objeto.DireccionCorreoElectronico ?? string.Empty;
+            presentadorTupla.Vista.Direccion = objeto.Direccion ?? string.Empty;
 
             return presentadorTupla;
         }

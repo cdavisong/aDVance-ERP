@@ -39,6 +39,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -53,9 +55,13 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             layoutServiciosExternosAutenticacion = new TableLayoutPanel();
             btnAutenticarGoogle = new Guna2CircleButton();
             brtnAutenticarFacebook = new Guna2CircleButton();
+            layoutHelp = new TableLayoutPanel();
+            fieldInformacion = new Guna2Button();
+            infoIcon = new Guna2NotificationPaint(components);
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             layoutServiciosExternosAutenticacion.SuspendLayout();
+            layoutHelp.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -98,6 +104,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             layoutVista.Controls.Add(btnRegistrarCuenta, 1, 11);
             layoutVista.Controls.Add(fieldTextoServicioAlternativo, 1, 12);
             layoutVista.Controls.Add(layoutServiciosExternosAutenticacion, 1, 13);
+            layoutVista.Controls.Add(layoutHelp, 1, 2);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(1, 1);
             layoutVista.Margin = new Padding(1);
@@ -142,11 +149,11 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnCambioConntraseña.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnCambioConntraseña.ForeColor = Color.Black;
             btnCambioConntraseña.ImeMode = ImeMode.NoControl;
-            btnCambioConntraseña.Location = new Point(21, 325);
-            btnCambioConntraseña.Margin = new Padding(1, 5, 1, 1);
+            btnCambioConntraseña.Location = new Point(35, 325);
+            btnCambioConntraseña.Margin = new Padding(15, 5, 1, 1);
             btnCambioConntraseña.Name = "btnCambioConntraseña";
-            btnCambioConntraseña.Size = new Size(456, 39);
-            btnCambioConntraseña.TabIndex = 4;
+            btnCambioConntraseña.Size = new Size(442, 39);
+            btnCambioConntraseña.TabIndex = 5;
             btnCambioConntraseña.Text = "¿Has olvidado tu contraseña?";
             // 
             // fieldCopyright
@@ -158,7 +165,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldCopyright.Location = new Point(23, 582);
             fieldCopyright.Name = "fieldCopyright";
             fieldCopyright.Size = new Size(452, 80);
-            fieldCopyright.TabIndex = 7;
+            fieldCopyright.TabIndex = 0;
             fieldCopyright.Text = "Copyright 2025© aDVance ERP®";
             fieldCopyright.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -189,7 +196,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldNombreUsuario.SelectedText = "";
             fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges2;
             fieldNombreUsuario.Size = new Size(448, 35);
-            fieldNombreUsuario.TabIndex = 8;
+            fieldNombreUsuario.TabIndex = 3;
             fieldNombreUsuario.TextOffset = new Point(5, 0);
             // 
             // fieldPassword
@@ -210,6 +217,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldPassword.HoverState.BorderColor = Color.SandyBrown;
             fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
             fieldPassword.IconLeftOffset = new Point(10, 0);
+            fieldPassword.IconRight = Properties.Resources.closed_eye_20px;
+            fieldPassword.IconRightOffset = new Point(10, 0);
             fieldPassword.Location = new Point(25, 280);
             fieldPassword.Margin = new Padding(5);
             fieldPassword.Name = "fieldPassword";
@@ -219,7 +228,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldPassword.SelectedText = "";
             fieldPassword.ShadowDecoration.CustomizableEdges = customizableEdges4;
             fieldPassword.Size = new Size(448, 35);
-            fieldPassword.TabIndex = 9;
+            fieldPassword.TabIndex = 4;
             fieldPassword.TextOffset = new Point(5, 0);
             fieldPassword.UseSystemPasswordChar = true;
             // 
@@ -236,7 +245,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnAutenticarUsuario.Name = "btnAutenticarUsuario";
             btnAutenticarUsuario.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnAutenticarUsuario.Size = new Size(452, 39);
-            btnAutenticarUsuario.TabIndex = 16;
+            btnAutenticarUsuario.TabIndex = 6;
             btnAutenticarUsuario.Text = "Autenticar";
             // 
             // btnRegistrarCuenta
@@ -257,7 +266,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnRegistrarCuenta.Name = "btnRegistrarCuenta";
             btnRegistrarCuenta.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnRegistrarCuenta.Size = new Size(452, 39);
-            btnRegistrarCuenta.TabIndex = 17;
+            btnRegistrarCuenta.TabIndex = 7;
             btnRegistrarCuenta.Text = "Eres nuevo? Crea una cuenta";
             // 
             // fieldTextoServicioAlternativo
@@ -271,7 +280,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldTextoServicioAlternativo.Margin = new Padding(1, 5, 1, 10);
             fieldTextoServicioAlternativo.Name = "fieldTextoServicioAlternativo";
             fieldTextoServicioAlternativo.Size = new Size(456, 42);
-            fieldTextoServicioAlternativo.TabIndex = 18;
+            fieldTextoServicioAlternativo.TabIndex = 8;
             fieldTextoServicioAlternativo.Text = "O utilice una de las opciones siguientes";
             fieldTextoServicioAlternativo.TextAlign = ContentAlignment.BottomCenter;
             fieldTextoServicioAlternativo.Visible = false;
@@ -293,7 +302,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             layoutServiciosExternosAutenticacion.RowCount = 1;
             layoutServiciosExternosAutenticacion.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutServiciosExternosAutenticacion.Size = new Size(458, 44);
-            layoutServiciosExternosAutenticacion.TabIndex = 19;
+            layoutServiciosExternosAutenticacion.TabIndex = 9;
             // 
             // btnAutenticarGoogle
             // 
@@ -312,7 +321,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnAutenticarGoogle.ShadowDecoration.CustomizableEdges = customizableEdges9;
             btnAutenticarGoogle.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnAutenticarGoogle.Size = new Size(38, 38);
-            btnAutenticarGoogle.TabIndex = 3;
+            btnAutenticarGoogle.TabIndex = 0;
+            btnAutenticarGoogle.Visible = false;
             // 
             // brtnAutenticarFacebook
             // 
@@ -331,7 +341,61 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             brtnAutenticarFacebook.ShadowDecoration.CustomizableEdges = customizableEdges10;
             brtnAutenticarFacebook.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             brtnAutenticarFacebook.Size = new Size(38, 38);
-            brtnAutenticarFacebook.TabIndex = 4;
+            brtnAutenticarFacebook.TabIndex = 1;
+            brtnAutenticarFacebook.Visible = false;
+            // 
+            // layoutHelp
+            // 
+            layoutHelp.ColumnCount = 1;
+            layoutHelp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            layoutHelp.Controls.Add(fieldInformacion, 0, 0);
+            layoutHelp.Dock = DockStyle.Fill;
+            layoutHelp.Location = new Point(20, 100);
+            layoutHelp.Margin = new Padding(0);
+            layoutHelp.Name = "layoutHelp";
+            layoutHelp.Padding = new Padding(0, 0, 10, 0);
+            layoutHelp.RowCount = 1;
+            layoutHelp.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            layoutHelp.Size = new Size(458, 100);
+            layoutHelp.TabIndex = 2;
+            // 
+            // fieldInformacion
+            // 
+            fieldInformacion.BorderColor = Color.LightBlue;
+            fieldInformacion.BorderRadius = 16;
+            fieldInformacion.BorderThickness = 1;
+            customizableEdges11.TopLeft = false;
+            fieldInformacion.CustomizableEdges = customizableEdges11;
+            fieldInformacion.Dock = DockStyle.Fill;
+            fieldInformacion.FillColor = Color.LightBlue;
+            fieldInformacion.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldInformacion.ForeColor = Color.SteelBlue;
+            fieldInformacion.HoverState.BorderColor = Color.LightBlue;
+            fieldInformacion.HoverState.FillColor = Color.LightBlue;
+            fieldInformacion.ImageOffset = new Point(-5, 0);
+            fieldInformacion.Location = new Point(17, 13);
+            fieldInformacion.Margin = new Padding(17, 13, 0, 5);
+            fieldInformacion.Name = "fieldInformacion";
+            fieldInformacion.PressedColor = Color.LightBlue;
+            fieldInformacion.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            fieldInformacion.Size = new Size(431, 82);
+            fieldInformacion.TabIndex = 0;
+            fieldInformacion.Text = "Bienvenido a nuestra plataforma, debe autenticarse antes de comenzar a utilizar nuestros servicios y funcionalidades.";
+            fieldInformacion.TextAlign = HorizontalAlignment.Left;
+            fieldInformacion.TextOffset = new Point(20, 0);
+            // 
+            // infoIcon
+            // 
+            infoIcon.BorderColor = Color.Transparent;
+            infoIcon.BorderRadius = 16;
+            infoIcon.BorderThickness = 0;
+            infoIcon.FillColor = Color.LightBlue;
+            infoIcon.Font = new Font("Bodoni MT", 16F, FontStyle.Bold, GraphicsUnit.Point);
+            infoIcon.ForeColor = Color.SteelBlue;
+            infoIcon.Offset = new Point(0, 50);
+            infoIcon.Size = new Size(30, 30);
+            infoIcon.TargetControl = layoutHelp;
+            infoIcon.Text = "i";
             // 
             // VistaAutenticacionUsuario
             // 
@@ -349,6 +413,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             layoutBase.ResumeLayout(false);
             layoutVista.ResumeLayout(false);
             layoutServiciosExternosAutenticacion.ResumeLayout(false);
+            layoutHelp.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -368,5 +433,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
         private TableLayoutPanel layoutServiciosExternosAutenticacion;
         private Guna2CircleButton btnAutenticarGoogle;
         private Guna2CircleButton brtnAutenticarFacebook;
+        private TableLayoutPanel layoutHelp;
+        private Guna2Button fieldInformacion;
+        private Guna2NotificationPaint infoIcon;
     }
 }

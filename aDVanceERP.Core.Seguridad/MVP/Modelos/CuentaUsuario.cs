@@ -11,6 +11,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos {
             PasswordHash = passwordHash;
             PasswordSalt = passwordSalt;
             IdRolUsuario = idRolUsuario;
+            Administrador = false;
+            Aprobado = false;
         }        
 
         public long Id { get; set; }

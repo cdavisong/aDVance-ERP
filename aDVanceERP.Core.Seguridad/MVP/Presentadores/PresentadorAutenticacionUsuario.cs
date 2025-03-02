@@ -18,15 +18,15 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
 
         private void AutenticarUsuario(object? sender, EventArgs e) {
             using (var datosUsuario = new DatosCuentaUsuario()) {
-                var usuario = datosUsuario.Obtener(CriterioBusquedaCuentaUsuario.Nombre, Vista.NombreUsuario)?.First();
+                var usuario = datosUsuario.Obtener(CriterioBusquedaCuentaUsuario.Nombre, Vista.NombreUsuario)?.FirstOrDefault();
 
                 if (usuario == null)
                     return;
 
                 if (UtilesPassword.VerificarPassword(Vista.Password, usuario.PasswordHash, usuario.PasswordSalt)) {
-                    UtilesSeguridad.UsuarioAutenticado = usuario;
+                    UtilesCuentaUsuario.UsuarioAutenticado = usuario;
 
-                    UsuarioAutenticado?.Invoke(sender, e);
+                    UsuarioAutenticado?.Invoke(usuario, e);
                 }
             }
         }
