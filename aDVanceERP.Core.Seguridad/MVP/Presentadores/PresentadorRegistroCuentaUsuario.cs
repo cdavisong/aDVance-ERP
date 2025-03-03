@@ -25,10 +25,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
                 passwordHash: passwordSeguro.hash,
                 passwordSalt: passwordSeguro.salt,
                 idRolUsuario: UtilesRolUsuario.ObtenerIdRolUsuario(Vista.NombreRolUsuario)
-                ) { 
-                    Administrador = false,
-                    Aprobado = true
-                };
+                );
         }
     }
 }

@@ -13,11 +13,12 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
 
             InicializarVistaAutenticacionUsuario();
             InicializarVistaRegistroUsuario();
+            InicializarVistaAprobacionUsuario();
 
             #endregion
 
             // Otros
-            MostrarVistaAutenticacionUsuario(null, EventArgs.Empty);
+            MostrarVistaAutenticacionUsuario("first-login", EventArgs.Empty);
         }
 
         private IVistaPrincipal VistaPrincipal { get; }

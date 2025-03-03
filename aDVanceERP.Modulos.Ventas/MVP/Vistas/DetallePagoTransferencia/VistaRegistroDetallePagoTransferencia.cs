@@ -78,17 +78,17 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.DetallePagoTransferencia {
                 Salir?.Invoke(sender, args);
             };
             fieldAlias.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
-                var idCuenta = UtilesCuenta.ObtenerIdCuenta(Alias);
-                var idPropietario = UtilesCuenta.ObtenerIdPropietario(idCuenta);
+                var idCuenta = UtilesCuentaBancaria.ObtenerIdCuenta(Alias);
+                var idPropietario = UtilesCuentaBancaria.ObtenerIdPropietario(idCuenta);
                 var movilPropietario = UtilesTelefonoContacto.ObtenerTelefonoContacto(idPropietario, true);
-                var numeroConfirmacion = string.IsNullOrEmpty(UtilesCuenta.NumeroConfirmacion)
+                var numeroConfirmacion = string.IsNullOrEmpty(UtilesCuentaBancaria.NumeroConfirmacion)
                     ? movilPropietario
-                    : UtilesCuenta.NumeroConfirmacion;
+                    : UtilesCuentaBancaria.NumeroConfirmacion;
 
-                _numeroTarjeta = UtilesCuenta.ObtenerNumeroTarjeta(idCuenta) ?? string.Empty;
+                _numeroTarjeta = UtilesCuentaBancaria.ObtenerNumeroTarjeta(idCuenta) ?? string.Empty;
                 NumeroConfirmacion = numeroConfirmacion ?? string.Empty;
 
-                fieldRecordarNumeroConfirmacion.Checked = NumeroConfirmacion.Equals(UtilesCuenta.NumeroConfirmacion);
+                fieldRecordarNumeroConfirmacion.Checked = NumeroConfirmacion.Equals(UtilesCuentaBancaria.NumeroConfirmacion);
             };
             fieldNumeroMovilConfirmacion.TextChanged += delegate (object? sender, EventArgs args) {
                 if (NumeroConfirmacion.Length == 8 && !string.IsNullOrEmpty(Alias))
@@ -103,7 +103,7 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.DetallePagoTransferencia {
                 btnRegistrar.Enabled = NumeroTransaccion.Length == 13;
             };
             fieldRecordarNumeroConfirmacion.CheckedChanged += delegate (object? sender, EventArgs args) {
-                UtilesCuenta.NumeroConfirmacion = !RecordarNumeroConfirmacion
+                UtilesCuentaBancaria.NumeroConfirmacion = !RecordarNumeroConfirmacion
                     ? string.Empty
                     : NumeroConfirmacion;
             };

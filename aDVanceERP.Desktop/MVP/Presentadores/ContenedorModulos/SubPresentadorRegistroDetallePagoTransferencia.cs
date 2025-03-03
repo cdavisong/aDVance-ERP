@@ -13,7 +13,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private void InicializarVistaRegistroDetallePagoTransferencia() {
             _registroDetallePagoTransferencia = new PresentadorRegistroDetallePagoTransferencia(new VistaRegistroDetallePagoTransferencia());
-            _registroDetallePagoTransferencia.Vista.CargarAliasTarjetas(UtilesCuenta.ObtenerAliasesCuentas());
+            _registroDetallePagoTransferencia.Vista.CargarAliasTarjetas(UtilesCuentaBancaria.ObtenerAliasesCuentas());
             _registroDetallePagoTransferencia.Vista.Coordenadas = new Point(Vista.Dimensiones.Width - _registroDetallePagoTransferencia.Vista.Dimensiones.Width - 20, VariablesGlobales.AlturaBarraTituloPredeterminada);
             _registroDetallePagoTransferencia.Vista.Dimensiones = new Size(_registroDetallePagoTransferencia.Vista.Dimensiones.Width, Vista.Dimensiones.Height);
             _registroDetallePagoTransferencia.Salir += delegate {
@@ -48,7 +48,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 transferencia.Adicionar(new DetallePagoTransferencia(
                     0,
                     UtilesBD.ObtenerUltimoIdTabla("venta"),
-                    UtilesCuenta.ObtenerIdCuenta(Transferencia[0]),
+                    UtilesCuentaBancaria.ObtenerIdCuenta(Transferencia[0]),
                     Transferencia[1],
                     Transferencia[2]
                 )); 

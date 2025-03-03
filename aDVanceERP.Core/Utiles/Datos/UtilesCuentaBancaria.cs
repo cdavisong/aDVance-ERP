@@ -3,7 +3,7 @@
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
-    public static class UtilesCuenta {
+    public static class UtilesCuentaBancaria {
         public static string NumeroConfirmacion = string.Empty;
 
         public static long ObtenerIdCuenta(string aliasCuenta) {

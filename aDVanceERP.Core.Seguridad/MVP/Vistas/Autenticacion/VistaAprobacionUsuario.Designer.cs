@@ -127,7 +127,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnCambiarUsuario.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnCambiarUsuario.Size = new Size(454, 39);
             btnCambiarUsuario.TabIndex = 17;
-            btnCambiarUsuario.Text = "Eres nuevo? Crea una cuenta";
+            btnCambiarUsuario.Text = "Cambiar de usuario";
             // 
             // fieldImagen
             // 

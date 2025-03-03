@@ -27,7 +27,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             set => Size = value;
         }
 
-        public string NombreUsuario {
+        public string? NombreUsuario {
             get => fieldNombreUsuario.Text;
             set => fieldNombreUsuario.Text = value;
         }
@@ -55,6 +55,13 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
         public bool ModoEdicionDatos {
             get => _modoEdicion;
             set {
+                if (value) {
+                    fieldPassword.Text = "test-password1";
+                    fieldConfirmarPassword.Text = "test-password1";
+                }
+
+                fieldPassword.Enabled = !value;
+                fieldConfirmarPassword.Enabled = !value;
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
                 btnRegistrar.Text = value ? "Actualizar usuario" : "Registrar usuario";
                 _modoEdicion = value;

@@ -28,7 +28,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
         public void Inicializar() {
             // Eventos            
             btnCambiarUsuario.Click += delegate (object? sender, EventArgs args) {
-                CambiarDeUsuario?.Invoke(sender, args);
+                CambiarDeUsuario?.Invoke("change-user", args);
                 Salir?.Invoke(sender, args);
                 Ocultar();
             };
@@ -36,7 +36,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
 
         public void Mostrar() {
             BringToFront();
-            ShowDialog();
+            Show();
         }
 
         public void Restaurar() {

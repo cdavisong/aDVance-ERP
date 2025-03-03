@@ -8,7 +8,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
         private void InicializarVistaRegistroUsuario() {
             _registroUsuario = new PresentadorRegistroUsuario(new VistaRegistroUsuario());
             _registroUsuario.MostrarVistaAutenticacionUsuario += MostrarVistaAutenticacionUsuario;
-            _registroUsuario.DatosRegistradosActualizados += VerificarAprobacionUsuario;
+            _registroUsuario.UsuarioRegistrado += MostrarVistaAutenticacionUsuario;
+            _registroUsuario.DatosRegistradosActualizados += MostrarVistaAprobacionUsuario;
 
             Vista.Vistas?.Registrar("vistaRegistroUsuario", _registroUsuario.Vista);
         }

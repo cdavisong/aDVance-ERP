@@ -14,6 +14,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
         }
 
         private void MostrarVistaAutenticacionUsuario(object? sender, EventArgs e) {
+            var message = sender as string;
+
+            if (string.IsNullOrEmpty(message) || message.Equals("register-user"))
+                return;
+
             _autenticacionUsuario?.Vista.Restaurar();
             _autenticacionUsuario?.Vista.Mostrar();
         }

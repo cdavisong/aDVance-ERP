@@ -1,6 +1,8 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
 
 using TheArtOfDevHtmlRenderer.Core.Entities;
@@ -97,6 +99,12 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         }
 
         public void Mostrar() {
+            // TODO: Mejorar la acción de Mostrar / Ocultar módulos según el usuario registrado
+            btnModuloContactos.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
+            btnModuloFinanzas.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
+            btnModuloInventario.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
+            btnModuloSeguridad.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
+
             BringToFront();
             Show();
         }

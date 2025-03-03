@@ -23,7 +23,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
         }
 
         protected override void RegistroAuxiliar() {
-            UsuarioRegistrado?.Invoke("user", EventArgs.Empty);
+            UsuarioRegistrado?.Invoke("register-user", EventArgs.Empty);
         }
 
         protected override CuentaUsuario? ObtenerObjetoDesdeVista() {
@@ -31,7 +31,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
                 if (Vista.Password != null)
                     UtilesCuentaUsuario.CrearUsuarioAdministrador(Vista.NombreUsuario, Vista.Password);
 
-                UsuarioRegistrado?.Invoke("admin", EventArgs.Empty);
+                UsuarioRegistrado?.Invoke("register-admin", EventArgs.Empty);
 
                 return null;
             }

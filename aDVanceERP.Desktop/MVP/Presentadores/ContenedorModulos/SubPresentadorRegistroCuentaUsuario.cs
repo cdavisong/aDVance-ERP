@@ -13,7 +13,10 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroCuentaUsuario.Vista.CargarRolesUsuarios(UtilesRolUsuario.ObtenerNombresRolesUsuarios());
             _registroCuentaUsuario.Vista.Coordenadas = new Point(Vista.Dimensiones.Width - _registroCuentaUsuario.Vista.Dimensiones.Width - 20, VariablesGlobales.AlturaBarraTituloPredeterminada);
             _registroCuentaUsuario.Vista.Dimensiones = new Size(_registroCuentaUsuario.Vista.Dimensiones.Width, Vista.Dimensiones.Height);
-            _registroCuentaUsuario.Salir += delegate { _gestionCuentasUsuarios.RefrescarListaObjetos(); };
+            _registroCuentaUsuario.Salir += delegate {
+                _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
+                _gestionCuentasUsuarios.RefrescarListaObjetos(); 
+            };
         }
 
         private void MostrarVistaRegistroCuentaUsuario(object? sender, EventArgs e) {

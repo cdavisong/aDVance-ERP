@@ -15,7 +15,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
             Vista.Vistas?.Registrar("vistaAprobacionUsuario", _aprobacionUsuario.Vista);
         }
 
-        private void MostrarVistaAprobacionUsuario(object sender, EventArgs e) {
+        private void MostrarVistaAprobacionUsuario(object? sender, EventArgs e) {
             _aprobacionUsuario?.Vista.Mostrar();
         }
 

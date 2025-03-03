@@ -9,6 +9,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
     public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<PresentadorTuplaCuentaUsuario, IVistaGestionCuentasUsuarios, IVistaTuplaCuentaUsuario, CuentaUsuario, DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
         public PresentadorGestionCuentasUsuarios(IVistaGestionCuentasUsuarios vista) : base(vista) {
             vista.AprobarSolicitudCuenta += AprobarSolicitudCuentaUsuario;
+            vista.EditarDatos += delegate { Vista.HabilitarBtnAprobacionSolicitudCuenta = false; };
         }
             
         protected override PresentadorTuplaCuentaUsuario ObtenerValoresTupla(CuentaUsuario objeto) {
@@ -43,7 +44,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
             if (usuariosRol0 > 0)
                 return;
             //Vista.Mensaje.Mostrar($"{(usuariosRol0 == 1 ? "El usuario" : "Existen usuarios")} seleccionado{(usuariosRol0 == 1 ? "" : "s")} {(usuariosRol0 == 1 ? "no tiene" : "sin")} un rolUsuario asignado, por lo que no se puede aprobar la solicitud de cuenta. Por favor, edite el usuario para asignarle un rol.", TipoMensaje.Error);
-
+                        
             RefrescarListaObjetos();
         }
 

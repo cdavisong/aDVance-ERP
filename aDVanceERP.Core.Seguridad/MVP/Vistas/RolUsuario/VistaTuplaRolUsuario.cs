@@ -29,7 +29,14 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
 
         public string? NombreRolUsuario {
             get => fieldNombreRolUsuario.Text;
-            set => fieldNombreRolUsuario.Text = value;
+            set { 
+                fieldNombreRolUsuario.Text = value;
+
+                if (value != null && value.Equals("Administrador")) {
+                    btnEditar.Enabled = false;
+                    btnEliminar.Enabled = false;
+                }
+            }
         }
 
         public string? NivelAcceso {
