@@ -50,6 +50,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             InicializarVistaMenuSeguridad();
             InicializarVistaGestionCuentasUsuarios();
+            InicializarVistaGestionRolesUsuarios();
 
             #endregion
         }

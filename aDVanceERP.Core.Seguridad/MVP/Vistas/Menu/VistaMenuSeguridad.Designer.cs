@@ -29,12 +29,15 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuSeguridad));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
             fieldTitulo = new Label();
             panelRelleno = new Panel();
             btnUsuarios = new Guna2Button();
+            btnRolesUsuarios = new Guna2Button();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
             SuspendLayout();
@@ -64,15 +67,15 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // layoutDistribucion
             // 
             layoutDistribucion.BackColor = Color.WhiteSmoke;
-            layoutDistribucion.ColumnCount = 3;
+            layoutDistribucion.ColumnCount = 4;
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
+            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutDistribucion.Controls.Add(fieldTitulo, 0, 0);
-            layoutDistribucion.Controls.Add(panelRelleno, 2, 0);
+            layoutDistribucion.Controls.Add(panelRelleno, 3, 0);
             layoutDistribucion.Controls.Add(btnUsuarios, 1, 0);
+            layoutDistribucion.Controls.Add(btnRolesUsuarios, 2, 0);
             layoutDistribucion.Dock = DockStyle.Fill;
             layoutDistribucion.Location = new Point(0, 0);
             layoutDistribucion.Margin = new Padding(0);
@@ -102,13 +105,13 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             panelRelleno.BackColor = Color.WhiteSmoke;
             panelRelleno.Dock = DockStyle.Fill;
             panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            panelRelleno.Location = new Point(280, 0);
+            panelRelleno.Location = new Point(440, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
-            panelRelleno.Size = new Size(714, 50);
+            panelRelleno.Size = new Size(554, 50);
             panelRelleno.TabIndex = 0;
             // 
-            // btnProveedores
+            // btnUsuarios
             // 
             btnUsuarios.Animated = true;
             btnUsuarios.BackColor = Color.WhiteSmoke;
@@ -126,11 +129,35 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             btnUsuarios.ForeColor = Color.Black;
             btnUsuarios.Location = new Point(120, 0);
             btnUsuarios.Margin = new Padding(0);
-            btnUsuarios.Name = "btnProveedores";
+            btnUsuarios.Name = "btnUsuarios";
             btnUsuarios.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnUsuarios.Size = new Size(160, 50);
             btnUsuarios.TabIndex = 9;
             btnUsuarios.Text = "Usuarios";
+            // 
+            // btnRolesUsuarios
+            // 
+            btnRolesUsuarios.Animated = true;
+            btnRolesUsuarios.BackColor = Color.WhiteSmoke;
+            btnRolesUsuarios.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnRolesUsuarios.CheckedState.FillColor = Color.WhiteSmoke;
+            btnRolesUsuarios.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRolesUsuarios.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage1");
+            btnRolesUsuarios.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnRolesUsuarios.CustomImages.ImageOffset = new Point(0, 32);
+            btnRolesUsuarios.CustomImages.ImageSize = new Size(131, 8);
+            btnRolesUsuarios.CustomizableEdges = customizableEdges3;
+            btnRolesUsuarios.Dock = DockStyle.Fill;
+            btnRolesUsuarios.FillColor = Color.WhiteSmoke;
+            btnRolesUsuarios.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnRolesUsuarios.ForeColor = Color.Black;
+            btnRolesUsuarios.Location = new Point(280, 0);
+            btnRolesUsuarios.Margin = new Padding(0);
+            btnRolesUsuarios.Name = "btnRolesUsuarios";
+            btnRolesUsuarios.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnRolesUsuarios.Size = new Size(160, 50);
+            btnRolesUsuarios.TabIndex = 10;
+            btnRolesUsuarios.Text = "Roles de usuario";
             // 
             // VistaMenuSeguridad
             // 
@@ -159,5 +186,6 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         private Panel panelRelleno;
         private Label fieldTitulo;
         private Guna2Button btnUsuarios;
+        private Guna2Button btnRolesUsuarios;
     }
 }

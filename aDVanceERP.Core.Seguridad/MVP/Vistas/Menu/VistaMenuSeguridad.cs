@@ -23,6 +23,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         }
 
         public event EventHandler? VerCuentasUsuarios;
+        public event EventHandler? VerRolesUsuarios;
         public event EventHandler? CambioMenu;
         public event EventHandler? Salir;
 
@@ -30,6 +31,9 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // Eventos
             btnUsuarios.Click += delegate (object? sender, EventArgs e) {
                 PresionarBotonSeleccion(1, e);
+            };
+            btnRolesUsuarios.Click += delegate (object? sender, EventArgs e) {
+                PresionarBotonSeleccion(2, e);
             };
         }
 
@@ -47,6 +51,11 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
                     if (!btnUsuarios.Checked)
                         btnUsuarios.Checked = true;
                     break;
+                case 2:
+                    VerRolesUsuarios?.Invoke(btnRolesUsuarios, e);
+                    if (!btnRolesUsuarios.Checked)
+                        btnRolesUsuarios.Checked = true;
+                    break;
             }
         }
 
@@ -57,6 +66,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
 
         public void Restaurar() {
             btnUsuarios.Checked = false;
+            btnRolesUsuarios.Checked = false;
         }
 
         public void Ocultar() {

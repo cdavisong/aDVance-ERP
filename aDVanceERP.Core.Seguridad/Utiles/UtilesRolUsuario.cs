@@ -79,6 +79,34 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
             return nombresRolesUsuarios.ToArray();
         }
 
+        public static uint CantidadUsuariosNombreRol(string nombreRol) {
+            uint longitud = 0;
+
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = $@"
+                        SELECT COUNT(cu.id_cuenta_usuario) AS cant_usuarios_rol
+                        FROM adv__cuenta_usuario cu 
+                        JOIN adv__rol_usuario ru ON cu.id_rol_usuario = ru.id_rol_usuario 
+                        WHERE ru.nombre = '{nombreRol}';";
+
+                    using (var lectorDatos = comando.ExecuteReader()) {
+                        if (lectorDatos != null && lectorDatos.Read()) {
+                            longitud = lectorDatos.GetUInt32(lectorDatos.GetOrdinal("cant_usuarios_rol"));
+                        }
+                    }
+                }
+            }
+
+            return longitud;
+        }
+
         public static int VerificarOCrearRolAdministrador() {
             int rolId = 0;
 

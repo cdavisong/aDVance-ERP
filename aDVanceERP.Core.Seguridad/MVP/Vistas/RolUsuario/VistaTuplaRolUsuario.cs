@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
+﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
-    public partial class VistaTuplaCuentaUsuario : Form, IVistaTuplaCuentaUsuario {
-        public VistaTuplaCuentaUsuario() {
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
+    public partial class VistaTuplaRolUsuario : Form, IVistaTuplaRolUsuario {
+        public VistaTuplaRolUsuario() {
             InitializeComponent();
             Inicializar();
         }
@@ -27,19 +27,19 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             set => fieldId.Text = value;
         }
 
-        public string? NombreUsuario {
-            get => fieldNombreUsuario.Text;
-            set => fieldNombreUsuario.Text = value;
-        }
-
         public string? NombreRolUsuario {
             get => fieldNombreRolUsuario.Text;
             set => fieldNombreRolUsuario.Text = value;
         }
 
-        public string? EstadoCuentaUsuario {
-            get => fieldEstadoCuentaUsuario.Text;
-            set => fieldEstadoCuentaUsuario.Text = value;
+        public string? NivelAcceso {
+            get => fieldNivelAcceso.Text;
+            set => fieldNivelAcceso.Text = value;
+        }
+
+        public string? CantidadUsuarios {
+            get => fieldCantidadUsuariosRol.Text;
+            set => fieldCantidadUsuariosRol.Text = value;
         }
 
         public Color ColorFondoTupla {
@@ -57,13 +57,13 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             fieldId.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldNombreUsuario.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
             fieldNombreRolUsuario.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldEstadoCuentaUsuario.Click += delegate (object? sender, EventArgs e) {
+            fieldNivelAcceso.Click += delegate (object? sender, EventArgs e) {
+                TuplaSeleccionada?.Invoke(this, e);
+            };
+            fieldCantidadUsuariosRol.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
 

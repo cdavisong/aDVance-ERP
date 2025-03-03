@@ -10,7 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _menuContacto.Vista.VerProveedores += MostrarVistaGestionProveedores;
             _menuContacto.Vista.VerClientes += MostrarVistaGestionClientes;
             _menuContacto.Vista.VerContactos += MostrarVistaGestionContactos;
-            _menuContacto.Vista.CambioMenu += delegate { Vista.Vistas.Ocultar(true); };
+            _menuContacto.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
 
             VistaPrincipal.Menus.Registrar("vistaMenuContacto", _menuContacto.Vista);
         }
@@ -18,7 +18,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaMenuContacto(object? sender, EventArgs e) {
             _menuContacto.Vista.Mostrar();
             _menuContacto.Vista.Restaurar();
-            _menuContacto.Vista.PresionarBotonSeleccion(2, e);
+            _menuContacto.Vista.PresionarBotonSeleccion(3, e);
         }
     }
 }
