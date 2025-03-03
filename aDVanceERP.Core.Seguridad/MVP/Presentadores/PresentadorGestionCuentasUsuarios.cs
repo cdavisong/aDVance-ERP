@@ -15,6 +15,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
         protected override PresentadorTuplaCuentaUsuario ObtenerValoresTupla(CuentaUsuario objeto) {
             var presentadorTupla = new PresentadorTuplaCuentaUsuario(new VistaTuplaCuentaUsuario(), objeto);
 
+            presentadorTupla.Vista.Id = objeto.Id.ToString();
             presentadorTupla.Vista.NombreUsuario = objeto.Nombre;
             presentadorTupla.Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
             presentadorTupla.Vista.EstadoCuentaUsuario = objeto.Aprobado ? "Activa" : "Esperando aprobación";
