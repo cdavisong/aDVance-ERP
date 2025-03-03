@@ -33,6 +33,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -41,8 +43,6 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -52,13 +52,13 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
+            fieldPassword = new Guna2TextBox();
             fieldConfirmarPassword = new Guna2TextBox();
             fieldTituloNombreRolUsuario = new Label();
             fieldNombreRolUsuario = new Guna2ComboBox();
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
-            fieldPassword = new Guna2TextBox();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
@@ -180,7 +180,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             fieldNombreUsuario.Name = "fieldNombreUsuario";
             fieldNombreUsuario.PasswordChar = '\0';
             fieldNombreUsuario.PlaceholderForeColor = Color.DimGray;
-            fieldNombreUsuario.PlaceholderText = "Nombre o razón social del contacto";
+            fieldNombreUsuario.PlaceholderText = "Nombre del usuario";
             fieldNombreUsuario.SelectedText = "";
             fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges2;
             fieldNombreUsuario.Size = new Size(407, 35);
@@ -234,6 +234,39 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             fieldTitulo.TabIndex = 0;
             fieldTitulo.Text = "Usuario";
             fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // fieldPassword
+            // 
+            fieldPassword.Animated = true;
+            fieldPassword.BorderColor = Color.Gainsboro;
+            fieldPassword.BorderRadius = 16;
+            fieldPassword.Cursor = Cursors.IBeam;
+            fieldPassword.CustomizableEdges = customizableEdges5;
+            fieldPassword.DefaultText = "";
+            fieldPassword.DisabledState.BorderColor = Color.White;
+            fieldPassword.DisabledState.ForeColor = Color.DimGray;
+            fieldPassword.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldPassword.Dock = DockStyle.Fill;
+            fieldPassword.FocusedState.BorderColor = Color.SandyBrown;
+            fieldPassword.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPassword.ForeColor = Color.Black;
+            fieldPassword.HoverState.BorderColor = Color.SandyBrown;
+            fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
+            fieldPassword.IconLeftOffset = new Point(10, 0);
+            fieldPassword.IconRight = Properties.Resources.closed_eye_20px;
+            fieldPassword.IconRightOffset = new Point(10, 0);
+            fieldPassword.Location = new Point(55, 190);
+            fieldPassword.Margin = new Padding(5);
+            fieldPassword.Name = "fieldPassword";
+            fieldPassword.PasswordChar = '●';
+            fieldPassword.PlaceholderForeColor = Color.DimGray;
+            fieldPassword.PlaceholderText = "Contraseña";
+            fieldPassword.SelectedText = "";
+            fieldPassword.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldPassword.Size = new Size(407, 35);
+            fieldPassword.TabIndex = 15;
+            fieldPassword.TextOffset = new Point(5, 0);
+            fieldPassword.UseSystemPasswordChar = true;
             // 
             // fieldConfirmarPassword
             // 
@@ -362,39 +395,6 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Registrar usuario";
-            // 
-            // fieldPassword
-            // 
-            fieldPassword.Animated = true;
-            fieldPassword.BorderColor = Color.Gainsboro;
-            fieldPassword.BorderRadius = 16;
-            fieldPassword.Cursor = Cursors.IBeam;
-            fieldPassword.CustomizableEdges = customizableEdges5;
-            fieldPassword.DefaultText = "";
-            fieldPassword.DisabledState.BorderColor = Color.White;
-            fieldPassword.DisabledState.ForeColor = Color.DimGray;
-            fieldPassword.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldPassword.Dock = DockStyle.Fill;
-            fieldPassword.FocusedState.BorderColor = Color.SandyBrown;
-            fieldPassword.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldPassword.ForeColor = Color.Black;
-            fieldPassword.HoverState.BorderColor = Color.SandyBrown;
-            fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
-            fieldPassword.IconLeftOffset = new Point(10, 0);
-            fieldPassword.IconRight = Properties.Resources.closed_eye_20px;
-            fieldPassword.IconRightOffset = new Point(10, 0);
-            fieldPassword.Location = new Point(55, 190);
-            fieldPassword.Margin = new Padding(5);
-            fieldPassword.Name = "fieldPassword";
-            fieldPassword.PasswordChar = '●';
-            fieldPassword.PlaceholderForeColor = Color.DimGray;
-            fieldPassword.PlaceholderText = "Contraseña";
-            fieldPassword.SelectedText = "";
-            fieldPassword.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            fieldPassword.Size = new Size(407, 35);
-            fieldPassword.TabIndex = 15;
-            fieldPassword.TextOffset = new Point(5, 0);
-            fieldPassword.UseSystemPasswordChar = true;
             // 
             // VistaRegistroCuentaUsuario
             // 
