@@ -10,6 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas {
         event EventHandler? MostrarMenuFinanzas;
         event EventHandler? MostrarMenuInventario;
         event EventHandler? MostrarMenuVentas;
+        event EventHandler? MostrarMenuSeguridad;
         event EventHandler? CambioModulo;
     }
 }

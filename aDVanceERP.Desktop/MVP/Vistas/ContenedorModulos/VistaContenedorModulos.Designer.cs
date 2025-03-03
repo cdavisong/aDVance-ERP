@@ -33,6 +33,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -44,6 +45,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloFinanzas = new Guna2CircleButton();
             btnModuloInventario = new Guna2CircleButton();
             btnModuloVentas = new Guna2CircleButton();
+            btnModuloSeguridad = new Guna2CircleButton();
             contenedorVistas = new Panel();
             layoutMensajeBienvenida = new TableLayoutPanel();
             fieldTextoBienvenida = new Guna2HtmlLabel();
@@ -102,14 +104,13 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             layoutMenuLateral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutMenuLateral.Controls.Add(layoutModulos, 0, 0);
             layoutMenuLateral.Dock = DockStyle.Fill;
-            layoutMenuLateral.Location = new Point(0, 0);
-            layoutMenuLateral.Margin = new Padding(0);
+            layoutMenuLateral.Location = new Point(0, 10);
+            layoutMenuLateral.Margin = new Padding(0, 10, 0, 10);
             layoutMenuLateral.Name = "layoutMenuLateral";
-            layoutMenuLateral.RowCount = 2;
+            layoutMenuLateral.RowCount = 1;
             layoutMenuLateral.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutMenuLateral.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             layoutMenuLateral.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutMenuLateral.Size = new Size(50, 608);
+            layoutMenuLateral.Size = new Size(50, 588);
             layoutMenuLateral.TabIndex = 0;
             // 
             // layoutModulos
@@ -121,11 +122,12 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             layoutModulos.Controls.Add(btnModuloFinanzas);
             layoutModulos.Controls.Add(btnModuloInventario);
             layoutModulos.Controls.Add(btnModuloVentas);
-            layoutModulos.Dock = DockStyle.Top;
-            layoutModulos.Location = new Point(0, 10);
-            layoutModulos.Margin = new Padding(0, 10, 0, 0);
+            layoutModulos.Controls.Add(btnModuloSeguridad);
+            layoutModulos.Dock = DockStyle.Fill;
+            layoutModulos.Location = new Point(0, 0);
+            layoutModulos.Margin = new Padding(0);
             layoutModulos.Name = "layoutModulos";
-            layoutModulos.Size = new Size(50, 508);
+            layoutModulos.Size = new Size(50, 588);
             layoutModulos.TabIndex = 0;
             // 
             // btnInicio
@@ -237,6 +239,24 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloVentas.Size = new Size(44, 44);
             btnModuloVentas.TabIndex = 4;
             // 
+            // btnModuloSeguridad
+            // 
+            btnModuloSeguridad.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnModuloSeguridad.CheckedState.FillColor = Color.PeachPuff;
+            btnModuloSeguridad.CustomImages.Image = (Image) resources.GetObject("resource.Image6");
+            btnModuloSeguridad.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnModuloSeguridad.CustomImages.ImageSize = new Size(24, 24);
+            btnModuloSeguridad.FillColor = Color.White;
+            btnModuloSeguridad.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnModuloSeguridad.ForeColor = Color.White;
+            btnModuloSeguridad.ImageSize = new Size(24, 24);
+            btnModuloSeguridad.Location = new Point(3, 303);
+            btnModuloSeguridad.Name = "btnModuloSeguridad";
+            btnModuloSeguridad.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            btnModuloSeguridad.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            btnModuloSeguridad.Size = new Size(44, 44);
+            btnModuloSeguridad.TabIndex = 6;
+            // 
             // contenedorVistas
             // 
             contenedorVistas.Controls.Add(layoutMensajeBienvenida);
@@ -314,5 +334,6 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         private Guna2CircleButton btnModuloFinanzas;
         private Guna2HtmlLabel fieldTextoBienvenida;
         private TableLayoutPanel layoutMensajeBienvenida;
+        private Guna2CircleButton btnModuloSeguridad;
     }
 }

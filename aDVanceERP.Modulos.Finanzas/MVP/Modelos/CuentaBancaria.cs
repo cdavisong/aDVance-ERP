@@ -7,11 +7,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         USD
     }
 
-    public class Cuenta : IObjetoUnico {
-        public Cuenta() {
+    public class CuentaBancaria : IObjetoUnico {
+        public CuentaBancaria() {
         }
 
-        public Cuenta(long id, string alias, string numeroTarjeta, TipoMoneda moneda, long idContacto) {
+        public CuentaBancaria(long id, string alias, string numeroTarjeta, TipoMoneda moneda, long idContacto) {
             Id = id;
             Alias = alias;
             NumeroTarjeta = numeroTarjeta;
@@ -26,14 +26,14 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         public long IdContacto { get; set; }
     }
 
-    public enum CriterioBusquedaCuenta {
+    public enum CriterioBusquedaCuentaBancaria {
         Todos,
         Id,
         Alias
     }
 
-    public static class UtilesBusquedaCuenta {
-        public static string[] CriterioBusquedaCuenta = new string[] {
+    public static class UtilesBusquedaCuentaBancaria {
+        public static string[] CriterioBusquedaCuentaBancaria = new string[] {
             "Todas las cuentas",
             "Identificador de BD",
             "Alias de la cuenta"

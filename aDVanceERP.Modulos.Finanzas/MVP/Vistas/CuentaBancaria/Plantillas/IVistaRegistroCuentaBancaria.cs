@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta.Plantillas {
-    public interface IVistaRegistroCuenta : IVistaRegistro {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas {
+    public interface IVistaRegistroCuentaBancaria : IVistaRegistro {
         string Alias { get; set; }
         string NumeroTarjeta { get; set; }
         string Moneda { get; set; }

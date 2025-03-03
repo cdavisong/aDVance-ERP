@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta.Plantillas {
-    public interface IVistaTuplaCuenta : IVistaTupla {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas {
+    public interface IVistaTuplaCuentaBancaria : IVistaTupla {
         string Id { get; set; }
         string Alias { get; set; }
         string NumeroTarjeta { get; set; }

@@ -25,8 +25,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
         }
 
         public string Nombre {
-            get => fieldNombre.Text;
-            set => fieldNombre.Text = value;
+            get => fieldNombreUsuario.Text;
+            set => fieldNombreUsuario.Text = value;
         }
 
         public string TelefonoMovil {

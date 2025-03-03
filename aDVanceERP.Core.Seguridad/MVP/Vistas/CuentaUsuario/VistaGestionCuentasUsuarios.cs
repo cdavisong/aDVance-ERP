@@ -1,15 +1,15 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Seguridad.MVP.Modelos;
+using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 using aDVanceERP.Core.Utiles;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
-    public partial class VistaGestionCuentas : Form, IVistaGestionCuentas {
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
+    public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsuarios {
         private int _paginaActual = 1;
         private int _paginasTotales = 1;
 
-        public VistaGestionCuentas() {
+        public VistaGestionCuentasUsuarios() {
             InitializeComponent();
             Inicializar();
         }
@@ -29,8 +29,13 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
             set => Size = value;
         }
 
-        public CriterioBusquedaCuenta CriterioBusqueda {
-            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaCuenta) fieldCriterioBusqueda.SelectedIndex : default;
+        public bool HabilitarBtnAprobacionSolicitudCuenta {
+            get => btnAprobarCuentaUsuario.Visible;
+            set => btnAprobarCuentaUsuario.Visible = value;
+        }
+
+        public CriterioBusquedaCuentaUsuario CriterioBusqueda {
+            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaCuentaUsuario) fieldCriterioBusqueda.SelectedIndex : default;
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
@@ -64,9 +69,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
             }
         }
 
-        public IRepositorioVista Vistas { get; private set; }
-
-        public event EventHandler? CambioAlmacenOrigen;
+        public IRepositorioVista? Vistas { get; private set; }
+        
         public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? MostrarPrimeraPagina;
         public event EventHandler? MostrarPaginaAnterior;
@@ -75,15 +79,17 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
         public event EventHandler? SincronizarDatos;
         public event EventHandler? Salir;
         public event EventHandler? RegistrarDatos;
+        public event EventHandler? AprobarSolicitudCuenta;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
         public event EventHandler? BuscarDatos;
+        
 
         public void Inicializar() {
             // Variables locales
             Vistas = new RepositorioVistaBase(contenedorVistas);
 
-            // Eventos            
+            // Eventos
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(DatoBusqueda))
                     BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
@@ -95,6 +101,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
+            };
+            btnAprobarCuentaUsuario.Click += delegate (object? sender, EventArgs e) {
+                btnAprobarCuentaUsuario.Hide();
+                AprobarSolicitudCuenta?.Invoke(sender, e);
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
                 PaginaActual = 1;
@@ -138,6 +148,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
             };
             fieldCriterioBusqueda.SelectedIndex = 0;
+            btnAprobarCuentaUsuario.Hide();
         }
 
         public void Mostrar() {
@@ -150,6 +161,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
             Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
+            HabilitarBtnAprobacionSolicitudCuenta = false;
 
             fieldCriterioBusqueda.SelectedIndex = 0;
         }

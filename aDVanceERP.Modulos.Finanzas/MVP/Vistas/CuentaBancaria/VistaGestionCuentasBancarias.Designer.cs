@@ -2,8 +2,8 @@
 
 using System.ComponentModel;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
-    partial class VistaGestionProveedores {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
+    partial class VistaGestionCuentasBancarias {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -28,10 +28,12 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionCuentasBancarias));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionProveedores));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -45,14 +47,11 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges37 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges38 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges39 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges40 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
-            layoutHelp = new TableLayoutPanel();
-            fieldInformacion = new Guna2Button();
+            panelBotonesGestion = new Panel();
+            btnRegistrar = new Guna2Button();
+            separador1 = new Guna2Separator();
             layoutHerramientas = new TableLayoutPanel();
             fieldDatoBusqueda = new Guna2TextBox();
             fieldCriterioBusqueda = new Guna2ComboBox();
@@ -66,32 +65,26 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnSincronizarDatos = new Guna2Button();
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
+            layoutEncabezadosTabla = new TableLayoutPanel();
+            fieldTituloAlias = new Label();
+            fieldTituloAlmacenOrigen = new Label();
+            fieldTituloId = new Label();
+            fieldTituloAlmacenDestino = new Label();
+            fieldTitulaCantidadMovida = new Label();
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
-            panelTitulo = new Panel();
             fieldTitulo = new Label();
             fieldIcono = new PictureBox();
-            layoutEncabezadosTabla = new TableLayoutPanel();
-            fieldTituloNumeroIdentificacionTributaria = new Label();
-            fieldTituloId = new Label();
-            fieldTituloNombreRepresentante = new Label();
-            fieldTituloRazonSocial = new Label();
-            contenedorVistas = new Panel();
-            panelBotonesGestion = new Panel();
-            btnRegistrar = new Guna2Button();
-            separador1 = new Guna2Separator();
             fieldSubtitulo = new Label();
-            infoIcon = new Guna2NotificationPaint(components);
+            contenedorVistas = new Panel();
             layoutVista.SuspendLayout();
-            layoutHelp.SuspendLayout();
+            panelBotonesGestion.SuspendLayout();
             layoutHerramientas.SuspendLayout();
             layoutTituloHerramientas.SuspendLayout();
             layoutControlesTabla.SuspendLayout();
-            layoutTitulo.SuspendLayout();
-            panelTitulo.SuspendLayout();
-            ((ISupportInitialize) fieldIcono).BeginInit();
             layoutEncabezadosTabla.SuspendLayout();
-            panelBotonesGestion.SuspendLayout();
+            layoutTitulo.SuspendLayout();
+            ((ISupportInitialize) fieldIcono).BeginInit();
             SuspendLayout();
             // 
             // formatoBase
@@ -110,25 +103,23 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutVista.Controls.Add(layoutHelp, 2, 2);
-            layoutVista.Controls.Add(layoutHerramientas, 2, 5);
-            layoutVista.Controls.Add(layoutTituloHerramientas, 2, 4);
-            layoutVista.Controls.Add(layoutControlesTabla, 2, 12);
+            layoutVista.Controls.Add(panelBotonesGestion, 2, 6);
+            layoutVista.Controls.Add(separador1, 2, 5);
+            layoutVista.Controls.Add(layoutHerramientas, 2, 4);
+            layoutVista.Controls.Add(layoutTituloHerramientas, 2, 3);
+            layoutVista.Controls.Add(layoutControlesTabla, 2, 11);
+            layoutVista.Controls.Add(layoutEncabezadosTabla, 2, 8);
             layoutVista.Controls.Add(layoutTitulo, 2, 0);
             layoutVista.Controls.Add(fieldIcono, 1, 0);
-            layoutVista.Controls.Add(layoutEncabezadosTabla, 2, 9);
-            layoutVista.Controls.Add(contenedorVistas, 2, 11);
-            layoutVista.Controls.Add(panelBotonesGestion, 2, 7);
-            layoutVista.Controls.Add(separador1, 2, 6);
             layoutVista.Controls.Add(fieldSubtitulo, 2, 1);
+            layoutVista.Controls.Add(contenedorVistas, 2, 10);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(1);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 14;
+            layoutVista.RowCount = 13;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
@@ -143,45 +134,45 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             layoutVista.Size = new Size(1356, 608);
             layoutVista.TabIndex = 4;
             // 
-            // layoutHelp
+            // panelBotonesGestion
             // 
-            layoutHelp.ColumnCount = 1;
-            layoutHelp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            layoutHelp.Controls.Add(fieldInformacion, 0, 0);
-            layoutHelp.Dock = DockStyle.Left;
-            layoutHelp.Location = new Point(50, 90);
-            layoutHelp.Margin = new Padding(0);
-            layoutHelp.Name = "layoutHelp";
-            layoutHelp.Padding = new Padding(0, 0, 10, 0);
-            layoutHelp.RowCount = 1;
-            layoutHelp.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            layoutHelp.Size = new Size(728, 60);
-            layoutHelp.TabIndex = 41;
+            panelBotonesGestion.Controls.Add(btnRegistrar);
+            panelBotonesGestion.Dock = DockStyle.Fill;
+            panelBotonesGestion.Location = new Point(50, 210);
+            panelBotonesGestion.Margin = new Padding(0);
+            panelBotonesGestion.Name = "panelBotonesGestion";
+            panelBotonesGestion.Padding = new Padding(3);
+            panelBotonesGestion.Size = new Size(1286, 45);
+            panelBotonesGestion.TabIndex = 39;
             // 
-            // fieldInformacion
+            // btnRegistrar
             // 
-            fieldInformacion.BorderColor = Color.LightBlue;
-            fieldInformacion.BorderRadius = 16;
-            fieldInformacion.BorderThickness = 1;
-            customizableEdges21.TopLeft = false;
-            fieldInformacion.CustomizableEdges = customizableEdges21;
-            fieldInformacion.Dock = DockStyle.Fill;
-            fieldInformacion.FillColor = Color.LightBlue;
-            fieldInformacion.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldInformacion.ForeColor = Color.SteelBlue;
-            fieldInformacion.HoverState.BorderColor = Color.LightBlue;
-            fieldInformacion.HoverState.FillColor = Color.LightBlue;
-            fieldInformacion.ImageOffset = new Point(-5, 0);
-            fieldInformacion.Location = new Point(17, 13);
-            fieldInformacion.Margin = new Padding(17, 13, 0, 5);
-            fieldInformacion.Name = "fieldInformacion";
-            fieldInformacion.PressedColor = Color.LightBlue;
-            fieldInformacion.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            fieldInformacion.Size = new Size(701, 42);
-            fieldInformacion.TabIndex = 8;
-            fieldInformacion.Text = "La ficha de proveedores se puede utilizar como agenda de colaboradores u otras sociedades de referencia.";
-            fieldInformacion.TextAlign = HorizontalAlignment.Left;
-            fieldInformacion.TextOffset = new Point(20, 0);
+            btnRegistrar.Animated = true;
+            btnRegistrar.BackColor = Color.White;
+            btnRegistrar.BorderRadius = 18;
+            btnRegistrar.CustomizableEdges = customizableEdges19;
+            btnRegistrar.Dock = DockStyle.Left;
+            btnRegistrar.FillColor = Color.PeachPuff;
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.ForeColor = Color.Black;
+            btnRegistrar.Image = (Image) resources.GetObject("btnRegistrar.Image");
+            btnRegistrar.ImageOffset = new Point(-5, 0);
+            btnRegistrar.Location = new Point(3, 3);
+            btnRegistrar.Margin = new Padding(0);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnRegistrar.Size = new Size(320, 39);
+            btnRegistrar.TabIndex = 7;
+            btnRegistrar.Text = "Registrar una tarjeta o cuenta";
+            // 
+            // separador1
+            // 
+            separador1.Dock = DockStyle.Fill;
+            separador1.FillColor = Color.Gainsboro;
+            separador1.Location = new Point(53, 193);
+            separador1.Name = "separador1";
+            separador1.Size = new Size(1280, 14);
+            separador1.TabIndex = 38;
             // 
             // layoutHerramientas
             // 
@@ -192,13 +183,13 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             layoutHerramientas.Controls.Add(fieldDatoBusqueda, 1, 0);
             layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 0, 0);
             layoutHerramientas.Dock = DockStyle.Fill;
-            layoutHerramientas.Location = new Point(50, 205);
+            layoutHerramientas.Location = new Point(50, 145);
             layoutHerramientas.Margin = new Padding(0);
             layoutHerramientas.Name = "layoutHerramientas";
             layoutHerramientas.RowCount = 1;
             layoutHerramientas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutHerramientas.Size = new Size(1286, 45);
-            layoutHerramientas.TabIndex = 38;
+            layoutHerramientas.TabIndex = 37;
             // 
             // fieldDatoBusqueda
             // 
@@ -207,12 +198,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldDatoBusqueda.BorderColor = Color.Gainsboro;
             fieldDatoBusqueda.BorderRadius = 18;
             fieldDatoBusqueda.Cursor = Cursors.IBeam;
-            fieldDatoBusqueda.CustomizableEdges = customizableEdges23;
+            fieldDatoBusqueda.CustomizableEdges = customizableEdges21;
             fieldDatoBusqueda.DefaultText = "";
+            fieldDatoBusqueda.DisabledState.BorderColor = Color.Gainsboro;
             fieldDatoBusqueda.DisabledState.BorderColor = Color.White;
             fieldDatoBusqueda.DisabledState.ForeColor = Color.DimGray;
             fieldDatoBusqueda.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldDatoBusqueda.Dock = DockStyle.Fill;
+            fieldDatoBusqueda.FillColor = Color.White;
             fieldDatoBusqueda.FocusedState.BorderColor = Color.SandyBrown;
             fieldDatoBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldDatoBusqueda.ForeColor = Color.Black;
@@ -227,7 +220,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldDatoBusqueda.PlaceholderForeColor = Color.DimGray;
             fieldDatoBusqueda.PlaceholderText = "Datos complementarios de búsqueda";
             fieldDatoBusqueda.SelectedText = "";
-            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges22;
             fieldDatoBusqueda.Size = new Size(320, 35);
             fieldDatoBusqueda.TabIndex = 9;
             fieldDatoBusqueda.TextOffset = new Point(5, 0);
@@ -239,11 +232,12 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldCriterioBusqueda.BackColor = Color.Transparent;
             fieldCriterioBusqueda.BorderColor = Color.Gainsboro;
             fieldCriterioBusqueda.BorderRadius = 16;
-            fieldCriterioBusqueda.CustomizableEdges = customizableEdges25;
+            fieldCriterioBusqueda.CustomizableEdges = customizableEdges23;
             fieldCriterioBusqueda.Dock = DockStyle.Fill;
             fieldCriterioBusqueda.DrawMode = DrawMode.OwnerDrawFixed;
             fieldCriterioBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldCriterioBusqueda.FocusedColor = Color.Gainsboro;
+            fieldCriterioBusqueda.FillColor = Color.White;
+            fieldCriterioBusqueda.FocusedColor = Color.PeachPuff;
             fieldCriterioBusqueda.FocusedState.BorderColor = Color.Gainsboro;
             fieldCriterioBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldCriterioBusqueda.ForeColor = Color.Black;
@@ -251,7 +245,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldCriterioBusqueda.Location = new Point(5, 5);
             fieldCriterioBusqueda.Margin = new Padding(5);
             fieldCriterioBusqueda.Name = "fieldCriterioBusqueda";
-            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges24;
             fieldCriterioBusqueda.Size = new Size(290, 35);
             fieldCriterioBusqueda.TabIndex = 27;
             fieldCriterioBusqueda.TextOffset = new Point(10, 0);
@@ -264,13 +258,13 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             layoutTituloHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutTituloHerramientas.Controls.Add(fieldTituloFiltrosBusqueda, 0, 0);
             layoutTituloHerramientas.Dock = DockStyle.Fill;
-            layoutTituloHerramientas.Location = new Point(50, 170);
+            layoutTituloHerramientas.Location = new Point(50, 110);
             layoutTituloHerramientas.Margin = new Padding(0);
             layoutTituloHerramientas.Name = "layoutTituloHerramientas";
             layoutTituloHerramientas.RowCount = 1;
             layoutTituloHerramientas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutTituloHerramientas.Size = new Size(1286, 35);
-            layoutTituloHerramientas.TabIndex = 37;
+            layoutTituloHerramientas.TabIndex = 36;
             // 
             // fieldTituloFiltrosBusqueda
             // 
@@ -330,18 +324,18 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnPaginaAnterior.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnPaginaAnterior.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaAnterior.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaAnterior.CustomizableEdges = customizableEdges27;
+            btnPaginaAnterior.CustomizableEdges = customizableEdges25;
             btnPaginaAnterior.Dock = DockStyle.Fill;
             btnPaginaAnterior.FillColor = Color.WhiteSmoke;
             btnPaginaAnterior.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnPaginaAnterior.ForeColor = Color.White;
-            btnPaginaAnterior.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
+            btnPaginaAnterior.HoverState.BorderColor = Color.FromArgb( 245,  245,   245);
             btnPaginaAnterior.HoverState.FillColor = Color.WhiteSmoke;
             btnPaginaAnterior.ImageSize = new Size(24, 24);
             btnPaginaAnterior.Location = new Point(36, 1);
             btnPaginaAnterior.Margin = new Padding(1);
             btnPaginaAnterior.Name = "btnPaginaAnterior";
-            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnPaginaAnterior.Size = new Size(33, 33);
             btnPaginaAnterior.TabIndex = 1;
             // 
@@ -354,18 +348,18 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnPrimeraPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnPrimeraPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPrimeraPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnPrimeraPagina.CustomizableEdges = customizableEdges29;
+            btnPrimeraPagina.CustomizableEdges = customizableEdges27;
             btnPrimeraPagina.Dock = DockStyle.Fill;
             btnPrimeraPagina.FillColor = Color.WhiteSmoke;
             btnPrimeraPagina.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnPrimeraPagina.ForeColor = Color.White;
-            btnPrimeraPagina.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
+            btnPrimeraPagina.HoverState.BorderColor = Color.FromArgb( 245,  245,   245);
             btnPrimeraPagina.HoverState.FillColor = Color.WhiteSmoke;
             btnPrimeraPagina.ImageSize = new Size(24, 24);
             btnPrimeraPagina.Location = new Point(1, 1);
             btnPrimeraPagina.Margin = new Padding(1);
             btnPrimeraPagina.Name = "btnPrimeraPagina";
-            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnPrimeraPagina.Size = new Size(33, 33);
             btnPrimeraPagina.TabIndex = 0;
             // 
@@ -378,18 +372,18 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnPaginaSiguiente.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
             btnPaginaSiguiente.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaSiguiente.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaSiguiente.CustomizableEdges = customizableEdges31;
+            btnPaginaSiguiente.CustomizableEdges = customizableEdges29;
             btnPaginaSiguiente.Dock = DockStyle.Fill;
             btnPaginaSiguiente.FillColor = Color.WhiteSmoke;
             btnPaginaSiguiente.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnPaginaSiguiente.ForeColor = Color.White;
-            btnPaginaSiguiente.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
+            btnPaginaSiguiente.HoverState.BorderColor = Color.FromArgb( 245,  245,   245);
             btnPaginaSiguiente.HoverState.FillColor = Color.WhiteSmoke;
             btnPaginaSiguiente.ImageSize = new Size(24, 24);
             btnPaginaSiguiente.Location = new Point(311, 1);
             btnPaginaSiguiente.Margin = new Padding(1);
             btnPaginaSiguiente.Name = "btnPaginaSiguiente";
-            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges30;
             btnPaginaSiguiente.Size = new Size(33, 33);
             btnPaginaSiguiente.TabIndex = 2;
             // 
@@ -402,18 +396,18 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnUltimaPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
             btnUltimaPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnUltimaPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnUltimaPagina.CustomizableEdges = customizableEdges33;
+            btnUltimaPagina.CustomizableEdges = customizableEdges31;
             btnUltimaPagina.Dock = DockStyle.Fill;
             btnUltimaPagina.FillColor = Color.WhiteSmoke;
             btnUltimaPagina.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnUltimaPagina.ForeColor = Color.White;
-            btnUltimaPagina.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
+            btnUltimaPagina.HoverState.BorderColor = Color.FromArgb( 245,  245,   245);
             btnUltimaPagina.HoverState.FillColor = Color.WhiteSmoke;
             btnUltimaPagina.ImageSize = new Size(24, 24);
             btnUltimaPagina.Location = new Point(346, 1);
             btnUltimaPagina.Margin = new Padding(1);
             btnUltimaPagina.Name = "btnUltimaPagina";
-            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges34;
+            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges32;
             btnUltimaPagina.Size = new Size(33, 33);
             btnUltimaPagina.TabIndex = 3;
             // 
@@ -426,18 +420,18 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             btnSincronizarDatos.CustomImages.Image = (Image) resources.GetObject("resource.Image4");
             btnSincronizarDatos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnSincronizarDatos.CustomImages.ImageSize = new Size(24, 24);
-            btnSincronizarDatos.CustomizableEdges = customizableEdges35;
+            btnSincronizarDatos.CustomizableEdges = customizableEdges33;
             btnSincronizarDatos.Dock = DockStyle.Fill;
             btnSincronizarDatos.FillColor = Color.WhiteSmoke;
             btnSincronizarDatos.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             btnSincronizarDatos.ForeColor = Color.White;
-            btnSincronizarDatos.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
+            btnSincronizarDatos.HoverState.BorderColor = Color.FromArgb( 245,  245,   245);
             btnSincronizarDatos.HoverState.FillColor = Color.WhiteSmoke;
             btnSincronizarDatos.ImageSize = new Size(24, 24);
             btnSincronizarDatos.Location = new Point(391, 1);
             btnSincronizarDatos.Margin = new Padding(1);
             btnSincronizarDatos.Name = "btnSincronizarDatos";
-            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges34;
             btnSincronizarDatos.Size = new Size(33, 33);
             btnSincronizarDatos.TabIndex = 4;
             // 
@@ -469,114 +463,63 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldPaginasTotales.Text = "de 1";
             fieldPaginasTotales.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // layoutTitulo
-            // 
-            layoutTitulo.ColumnCount = 2;
-            layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
-            layoutTitulo.Controls.Add(btnCerrar, 1, 0);
-            layoutTitulo.Controls.Add(panelTitulo, 0, 0);
-            layoutTitulo.Dock = DockStyle.Fill;
-            layoutTitulo.Location = new Point(50, 0);
-            layoutTitulo.Margin = new Padding(0);
-            layoutTitulo.Name = "layoutTitulo";
-            layoutTitulo.RowCount = 1;
-            layoutTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutTitulo.Size = new Size(1286, 45);
-            layoutTitulo.TabIndex = 14;
-            // 
-            // btnCerrar
-            // 
-            btnCerrar.Animated = true;
-            btnCerrar.AutoRoundedCorners = true;
-            btnCerrar.BorderColor = Color.Gray;
-            btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges37;
-            btnCerrar.Dock = DockStyle.Fill;
-            btnCerrar.FillColor = Color.White;
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCerrar.ForeColor = Color.Black;
-            btnCerrar.HoverState.FillColor = Color.White;
-            btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
-            btnCerrar.Location = new Point(1239, 3);
-            btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges38;
-            btnCerrar.Size = new Size(44, 39);
-            btnCerrar.TabIndex = 8;
-            // 
-            // panelTitulo
-            // 
-            panelTitulo.Controls.Add(fieldTitulo);
-            panelTitulo.Dock = DockStyle.Fill;
-            panelTitulo.Location = new Point(0, 0);
-            panelTitulo.Margin = new Padding(0);
-            panelTitulo.Name = "panelTitulo";
-            panelTitulo.Size = new Size(1236, 45);
-            panelTitulo.TabIndex = 9;
-            // 
-            // fieldTitulo
-            // 
-            fieldTitulo.Dock = DockStyle.Left;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldTitulo.ForeColor = Color.Black;
-            fieldTitulo.ImeMode = ImeMode.NoControl;
-            fieldTitulo.Location = new Point(0, 0);
-            fieldTitulo.Name = "fieldTitulo";
-            fieldTitulo.Size = new Size(315, 45);
-            fieldTitulo.TabIndex = 39;
-            fieldTitulo.Text = "Gestión de proveedores";
-            fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fieldIcono
-            // 
-            fieldIcono.BackgroundImage = (Image) resources.GetObject("fieldIcono.BackgroundImage");
-            fieldIcono.BackgroundImageLayout = ImageLayout.Center;
-            fieldIcono.Dock = DockStyle.Fill;
-            fieldIcono.Location = new Point(20, 6);
-            fieldIcono.Margin = new Padding(0, 6, 0, 0);
-            fieldIcono.Name = "fieldIcono";
-            fieldIcono.Size = new Size(30, 39);
-            fieldIcono.TabIndex = 0;
-            fieldIcono.TabStop = false;
-            // 
             // layoutEncabezadosTabla
             // 
             layoutEncabezadosTabla.BackColor = Color.WhiteSmoke;
-            layoutEncabezadosTabla.ColumnCount = 8;
+            layoutEncabezadosTabla.ColumnCount = 9;
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 95F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutEncabezadosTabla.Controls.Add(fieldTituloNumeroIdentificacionTributaria, 0, 0);
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutEncabezadosTabla.Controls.Add(fieldTituloAlias, 0, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloAlmacenOrigen, 2, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloNombreRepresentante, 3, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloRazonSocial, 2, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloAlmacenDestino, 3, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTitulaCantidadMovida, 4, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
-            layoutEncabezadosTabla.Location = new Point(51, 326);
-            layoutEncabezadosTabla.Margin = new Padding(1);
+            layoutEncabezadosTabla.Location = new Point(50, 265);
+            layoutEncabezadosTabla.Margin = new Padding(0, 0, 0, 2);
             layoutEncabezadosTabla.Name = "layoutEncabezadosTabla";
             layoutEncabezadosTabla.RowCount = 1;
             layoutEncabezadosTabla.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutEncabezadosTabla.Size = new Size(1284, 58);
-            layoutEncabezadosTabla.TabIndex = 11;
+            layoutEncabezadosTabla.Size = new Size(1286, 58);
+            layoutEncabezadosTabla.TabIndex = 19;
             // 
-            // fieldTituloNumeroIdentificacionTributaria
+            // fieldTituloAlias
             // 
-            fieldTituloNumeroIdentificacionTributaria.Dock = DockStyle.Fill;
-            fieldTituloNumeroIdentificacionTributaria.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloNumeroIdentificacionTributaria.ForeColor = Color.Black;
-            fieldTituloNumeroIdentificacionTributaria.ImeMode = ImeMode.NoControl;
-            fieldTituloNumeroIdentificacionTributaria.Location = new Point(61, 1);
-            fieldTituloNumeroIdentificacionTributaria.Margin = new Padding(1);
-            fieldTituloNumeroIdentificacionTributaria.Name = "fieldTituloNumeroIdentificacionTributaria";
-            fieldTituloNumeroIdentificacionTributaria.Size = new Size(118, 56);
-            fieldTituloNumeroIdentificacionTributaria.TabIndex = 15;
-            fieldTituloNumeroIdentificacionTributaria.Text = "NIT";
-            fieldTituloNumeroIdentificacionTributaria.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloAlias.Dock = DockStyle.Fill;
+            fieldTituloAlias.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloAlias.ForeColor = Color.Black;
+            fieldTituloAlias.ImeMode = ImeMode.NoControl;
+            fieldTituloAlias.Location = new Point(61, 1);
+            fieldTituloAlias.Margin = new Padding(1);
+            fieldTituloAlias.Name = "fieldTituloAlias";
+            fieldTituloAlias.Size = new Size(218, 56);
+            fieldTituloAlias.TabIndex = 16;
+            fieldTituloAlias.Text = "Alias";
+            fieldTituloAlias.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloAlmacenOrigen
+            // 
+            fieldTituloAlmacenOrigen.Dock = DockStyle.Fill;
+            fieldTituloAlmacenOrigen.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloAlmacenOrigen.ForeColor = Color.Black;
+            fieldTituloAlmacenOrigen.ImeMode = ImeMode.NoControl;
+            fieldTituloAlmacenOrigen.Location = new Point(281, 1);
+            fieldTituloAlmacenOrigen.Margin = new Padding(1);
+            fieldTituloAlmacenOrigen.Name = "fieldTituloAlmacenOrigen";
+            fieldTituloAlmacenOrigen.Size = new Size(158, 56);
+            fieldTituloAlmacenOrigen.TabIndex = 15;
+            fieldTituloAlmacenOrigen.Text = "Tarjeta / Cuenta";
+            fieldTituloAlmacenOrigen.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloId
             // 
@@ -592,82 +535,93 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldTituloId.Text = "Id";
             fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloNombreRepresentante
+            // fieldTituloAlmacenDestino
             // 
-            fieldTituloNombreRepresentante.Dock = DockStyle.Fill;
-            fieldTituloNombreRepresentante.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloNombreRepresentante.ForeColor = Color.Black;
-            fieldTituloNombreRepresentante.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreRepresentante.Location = new Point(431, 1);
-            fieldTituloNombreRepresentante.Margin = new Padding(1);
-            fieldTituloNombreRepresentante.Name = "fieldTituloNombreRepresentante";
-            fieldTituloNombreRepresentante.Size = new Size(248, 56);
-            fieldTituloNombreRepresentante.TabIndex = 10;
-            fieldTituloNombreRepresentante.Text = "Nombre del representante";
-            fieldTituloNombreRepresentante.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloAlmacenDestino.Dock = DockStyle.Fill;
+            fieldTituloAlmacenDestino.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloAlmacenDestino.ForeColor = Color.Black;
+            fieldTituloAlmacenDestino.ImeMode = ImeMode.NoControl;
+            fieldTituloAlmacenDestino.Location = new Point(441, 1);
+            fieldTituloAlmacenDestino.Margin = new Padding(1);
+            fieldTituloAlmacenDestino.Name = "fieldTituloAlmacenDestino";
+            fieldTituloAlmacenDestino.Size = new Size(93, 56);
+            fieldTituloAlmacenDestino.TabIndex = 15;
+            fieldTituloAlmacenDestino.Text = "Tipo de\r\nmoneda";
+            fieldTituloAlmacenDestino.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloRazonSocial
+            // fieldTitulaCantidadMovida
             // 
-            fieldTituloRazonSocial.Dock = DockStyle.Fill;
-            fieldTituloRazonSocial.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloRazonSocial.ForeColor = Color.Black;
-            fieldTituloRazonSocial.ImeMode = ImeMode.NoControl;
-            fieldTituloRazonSocial.Location = new Point(181, 1);
-            fieldTituloRazonSocial.Margin = new Padding(1);
-            fieldTituloRazonSocial.Name = "fieldTituloRazonSocial";
-            fieldTituloRazonSocial.Size = new Size(248, 56);
-            fieldTituloRazonSocial.TabIndex = 4;
-            fieldTituloRazonSocial.Text = "Razón social";
-            fieldTituloRazonSocial.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTitulaCantidadMovida.Dock = DockStyle.Fill;
+            fieldTitulaCantidadMovida.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTitulaCantidadMovida.ForeColor = Color.Black;
+            fieldTitulaCantidadMovida.ImeMode = ImeMode.NoControl;
+            fieldTitulaCantidadMovida.Location = new Point(536, 1);
+            fieldTitulaCantidadMovida.Margin = new Padding(1);
+            fieldTitulaCantidadMovida.Name = "fieldTitulaCantidadMovida";
+            fieldTitulaCantidadMovida.Size = new Size(218, 56);
+            fieldTitulaCantidadMovida.TabIndex = 15;
+            fieldTitulaCantidadMovida.Text = "Propietario";
+            fieldTitulaCantidadMovida.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // contenedorVistas
+            // layoutTitulo
             // 
-            contenedorVistas.Dock = DockStyle.Fill;
-            contenedorVistas.Location = new Point(50, 395);
-            contenedorVistas.Margin = new Padding(0);
-            contenedorVistas.Name = "contenedorVistas";
-            contenedorVistas.Size = new Size(1286, 158);
-            contenedorVistas.TabIndex = 13;
+            layoutTitulo.ColumnCount = 2;
+            layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            layoutTitulo.Controls.Add(btnCerrar, 1, 0);
+            layoutTitulo.Controls.Add(fieldTitulo, 0, 0);
+            layoutTitulo.Dock = DockStyle.Fill;
+            layoutTitulo.Location = new Point(50, 0);
+            layoutTitulo.Margin = new Padding(0);
+            layoutTitulo.Name = "layoutTitulo";
+            layoutTitulo.RowCount = 1;
+            layoutTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutTitulo.Size = new Size(1286, 45);
+            layoutTitulo.TabIndex = 14;
             // 
-            // panelBotonesGestion
+            // btnCerrar
             // 
-            panelBotonesGestion.Controls.Add(btnRegistrar);
-            panelBotonesGestion.Dock = DockStyle.Fill;
-            panelBotonesGestion.Location = new Point(50, 270);
-            panelBotonesGestion.Margin = new Padding(0);
-            panelBotonesGestion.Name = "panelBotonesGestion";
-            panelBotonesGestion.Padding = new Padding(3);
-            panelBotonesGestion.Size = new Size(1286, 45);
-            panelBotonesGestion.TabIndex = 37;
+            btnCerrar.Animated = true;
+            btnCerrar.AutoRoundedCorners = true;
+            btnCerrar.BorderColor = Color.Gray;
+            btnCerrar.BorderRadius = 18;
+            btnCerrar.CustomizableEdges = customizableEdges35;
+            btnCerrar.Dock = DockStyle.Fill;
+            btnCerrar.FillColor = Color.White;
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.ForeColor = Color.Black;
+            btnCerrar.HoverState.FillColor = Color.White;
+            btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
+            btnCerrar.Location = new Point(1239, 3);
+            btnCerrar.Name = "btnCerrar";
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            btnCerrar.Size = new Size(44, 39);
+            btnCerrar.TabIndex = 8;
             // 
-            // btnRegistrar
+            // fieldTitulo
             // 
-            btnRegistrar.Animated = true;
-            btnRegistrar.BackColor = Color.White;
-            btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges39;
-            btnRegistrar.Dock = DockStyle.Left;
-            btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnRegistrar.ForeColor = Color.Black;
-            btnRegistrar.Image = (Image) resources.GetObject("btnRegistrar.Image");
-            btnRegistrar.ImageOffset = new Point(-5, 0);
-            btnRegistrar.Location = new Point(3, 3);
-            btnRegistrar.Margin = new Padding(0);
-            btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges40;
-            btnRegistrar.Size = new Size(320, 39);
-            btnRegistrar.TabIndex = 7;
-            btnRegistrar.Text = "Registrar un nuevo proveedor";
+            fieldTitulo.Dock = DockStyle.Fill;
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.ForeColor = Color.Black;
+            fieldTitulo.ImeMode = ImeMode.NoControl;
+            fieldTitulo.Location = new Point(3, 0);
+            fieldTitulo.Name = "fieldTitulo";
+            fieldTitulo.Size = new Size(1230, 45);
+            fieldTitulo.TabIndex = 3;
+            fieldTitulo.Text = "Gestión de cuentas";
+            fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // separador1
+            // fieldIcono
             // 
-            separador1.Dock = DockStyle.Fill;
-            separador1.FillColor = Color.Gainsboro;
-            separador1.Location = new Point(53, 253);
-            separador1.Name = "separador1";
-            separador1.Size = new Size(1280, 14);
-            separador1.TabIndex = 37;
+            fieldIcono.BackgroundImage = (Image) resources.GetObject("fieldIcono.BackgroundImage");
+            fieldIcono.BackgroundImageLayout = ImageLayout.Center;
+            fieldIcono.Dock = DockStyle.Fill;
+            fieldIcono.Location = new Point(20, 6);
+            fieldIcono.Margin = new Padding(0, 6, 0, 0);
+            fieldIcono.Name = "fieldIcono";
+            fieldIcono.Size = new Size(30, 39);
+            fieldIcono.TabIndex = 0;
+            fieldIcono.TabStop = false;
             // 
             // fieldSubtitulo
             // 
@@ -680,22 +634,18 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldSubtitulo.Name = "fieldSubtitulo";
             fieldSubtitulo.Size = new Size(1280, 39);
             fieldSubtitulo.TabIndex = 2;
-            fieldSubtitulo.Text = "Registro, edición, eliminación, búsqueda de clientes.";
+            fieldSubtitulo.Text = "Registro, edición, eliminación, búsqueda de cuentas y tarjetas bancarias.";
             // 
-            // infoIcon
+            // contenedorVistas
             // 
-            infoIcon.BorderColor = Color.Transparent;
-            infoIcon.BorderRadius = 16;
-            infoIcon.BorderThickness = 0;
-            infoIcon.FillColor = Color.LightBlue;
-            infoIcon.Font = new Font("Bodoni MT", 16F, FontStyle.Bold, GraphicsUnit.Point);
-            infoIcon.ForeColor = Color.SteelBlue;
-            infoIcon.Offset = new Point(0, 50);
-            infoIcon.Size = new Size(30, 30);
-            infoIcon.TargetControl = layoutHelp;
-            infoIcon.Text = "i";
+            contenedorVistas.Dock = DockStyle.Fill;
+            contenedorVistas.Location = new Point(50, 335);
+            contenedorVistas.Margin = new Padding(0);
+            contenedorVistas.Name = "contenedorVistas";
+            contenedorVistas.Size = new Size(1286, 218);
+            contenedorVistas.TabIndex = 13;
             // 
-            // VistaGestionProveedores
+            // VistaGestionCuentas
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1356, 608);
@@ -703,21 +653,19 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
-            Name = "VistaGestionProveedores";
+            Name = "VistaGestionCuentas";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
             Text = "VistGestionProveedor";
             layoutVista.ResumeLayout(false);
-            layoutHelp.ResumeLayout(false);
+            panelBotonesGestion.ResumeLayout(false);
             layoutHerramientas.ResumeLayout(false);
             layoutTituloHerramientas.ResumeLayout(false);
             layoutControlesTabla.ResumeLayout(false);
-            layoutTitulo.ResumeLayout(false);
-            panelTitulo.ResumeLayout(false);
-            ((ISupportInitialize) fieldIcono).EndInit();
             layoutEncabezadosTabla.ResumeLayout(false);
-            panelBotonesGestion.ResumeLayout(false);
+            layoutTitulo.ResumeLayout(false);
+            ((ISupportInitialize) fieldIcono).EndInit();
             ResumeLayout(false);
         }
 
@@ -727,14 +675,11 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
         private TableLayoutPanel layoutVista;
         private TableLayoutPanel layoutTitulo;
         private Guna2Button btnCerrar;
+        private Label fieldTitulo;
         private PictureBox fieldIcono;
         private Label fieldSubtitulo;
-        private TableLayoutPanel layoutEncabezadosTabla;
-        private Label fieldTituloNumeroIdentificacionTributaria;
         private Label fieldTituloId;
-        private Label fieldTituloNombreRepresentante;
         private Panel contenedorVistas;
-        private Label fieldTituloRazonSocial;
         private TableLayoutPanel layoutControlesTabla;
         private Guna2Button btnPaginaAnterior;
         private Guna2Button btnPrimeraPagina;
@@ -743,18 +688,18 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
         private Guna2Button btnSincronizarDatos;
         private Label fieldPaginaActual;
         private Label fieldPaginasTotales;
-        private Guna2Separator separador1;
-        private Panel panelBotonesGestion;
-        private Guna2Button btnRegistrar;
-        private Guna2NotificationPaint infoIcon;
-        private Panel panelTitulo;
+        private TableLayoutPanel layoutEncabezadosTabla;
+        private Label fieldTituloAlmacenOrigen;
+        private Label fieldTitulaCantidadMovida;
+        private Label fieldTituloAlmacenDestino;
+        private Label fieldTituloAlias;
         private TableLayoutPanel layoutTituloHerramientas;
         private Label fieldTituloFiltrosBusqueda;
         private TableLayoutPanel layoutHerramientas;
-        private Guna2TextBox fieldDatoBusqueda;
         private Guna2ComboBox fieldCriterioBusqueda;
-        private Label fieldTitulo;
-        private TableLayoutPanel layoutHelp;
-        private Guna2Button fieldInformacion;
+        private Guna2Separator separador1;
+        private Panel panelBotonesGestion;
+        private Guna2TextBox fieldDatoBusqueda;
+        private Guna2Button btnRegistrar;
     }
 }

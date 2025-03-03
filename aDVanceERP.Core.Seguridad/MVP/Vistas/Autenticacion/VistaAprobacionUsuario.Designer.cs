@@ -28,23 +28,22 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaAprobacionUsuario));
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
-            fieldMensaje = new Guna2HtmlLabel();
             fieldTitulo = new Label();
             fieldCopyright = new Label();
             btnCambiarUsuario = new Guna2Button();
             fieldImagen = new PictureBox();
+            fieldMensaje = new Guna2HtmlLabel();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldImagen).BeginInit();
             SuspendLayout();
             // 
             // formatoBase
             // 
-            formatoBase.AnimateWindow = true;
             formatoBase.AnimationType = Guna2BorderlessForm.AnimateWindowType.AW_HOR_NEGATIVE;
             formatoBase.ContainerControl = this;
             formatoBase.DockIndicatorTransparencyValue = 0.6D;
@@ -83,18 +82,6 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             layoutVista.Size = new Size(500, 685);
             layoutVista.TabIndex = 1;
             // 
-            // fieldMensaje
-            // 
-            fieldMensaje.AutoSize = false;
-            fieldMensaje.BackColor = Color.FromArgb(  250,   250,   250);
-            fieldMensaje.Dock = DockStyle.Fill;
-            fieldMensaje.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldMensaje.Location = new Point(23, 263);
-            fieldMensaje.Name = "fieldMensaje";
-            fieldMensaje.Size = new Size(454, 194);
-            fieldMensaje.TabIndex = 20;
-            fieldMensaje.Text = resources.GetString("fieldMensaje.Text");
-            // 
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
@@ -127,7 +114,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnCambiarUsuario.BorderColor = Color.Gainsboro;
             btnCambiarUsuario.BorderRadius = 18;
             btnCambiarUsuario.BorderThickness = 1;
-            btnCambiarUsuario.CustomizableEdges = customizableEdges5;
+            btnCambiarUsuario.CustomizableEdges = customizableEdges1;
             btnCambiarUsuario.Dock = DockStyle.Fill;
             btnCambiarUsuario.FillColor = Color.White;
             btnCambiarUsuario.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -137,7 +124,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnCambiarUsuario.HoverState.ForeColor = Color.Black;
             btnCambiarUsuario.Location = new Point(23, 483);
             btnCambiarUsuario.Name = "btnCambiarUsuario";
-            btnCambiarUsuario.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnCambiarUsuario.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnCambiarUsuario.Size = new Size(454, 39);
             btnCambiarUsuario.TabIndex = 17;
             btnCambiarUsuario.Text = "Eres nuevo? Crea una cuenta";
@@ -153,6 +140,18 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldImagen.Size = new Size(458, 98);
             fieldImagen.TabIndex = 19;
             fieldImagen.TabStop = false;
+            // 
+            // fieldMensaje
+            // 
+            fieldMensaje.AutoSize = false;
+            fieldMensaje.BackColor = Color.FromArgb(  250,   250,   250);
+            fieldMensaje.Dock = DockStyle.Fill;
+            fieldMensaje.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldMensaje.Location = new Point(23, 263);
+            fieldMensaje.Name = "fieldMensaje";
+            fieldMensaje.Size = new Size(454, 194);
+            fieldMensaje.TabIndex = 20;
+            fieldMensaje.Text = resources.GetString("fieldMensaje.Text");
             // 
             // VistaAprobacionUsuario
             // 

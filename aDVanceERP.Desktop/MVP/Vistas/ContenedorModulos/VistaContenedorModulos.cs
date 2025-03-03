@@ -48,6 +48,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         public event EventHandler? MostrarMenuFinanzas;
         public event EventHandler? MostrarMenuInventario;
         public event EventHandler? MostrarMenuVentas;
+        public event EventHandler? MostrarMenuSeguridad;
         public event EventHandler? CambioModulo;
         public event EventHandler? Salir;
 
@@ -85,6 +86,10 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloVentas.Click += delegate (object? sender, EventArgs e) {
                 CambioModulo?.Invoke(sender, e);
                 MostrarMenuVentas?.Invoke(sender, e);
+            };
+            btnModuloSeguridad.Click += delegate (object? sender, EventArgs e) {
+                CambioModulo?.Invoke(sender, e);
+                MostrarMenuSeguridad?.Invoke(sender, e);
             };
             CambioModulo += delegate {
                 Restaurar();

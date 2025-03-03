@@ -12,6 +12,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             Vista.MostrarMenuFinanzas += MostrarVistaMenuFinanzas;
             Vista.MostrarMenuInventario += MostrarVistaMenuInventario;
             Vista.MostrarMenuVentas += MostrarVistaMenuVentas;
+            Vista.MostrarMenuSeguridad += MostrarVistaMenuSeguridad;
 
             #region Módulo : Contactos
 
@@ -25,7 +26,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             #region Módulo : Finanzas
 
             InicializarVistaMenuFinanzas();
-            InicializarVistaGestionCuentas();
+            InicializarVistaGestionCuentasBancarias();
 
             #endregion
 
@@ -42,6 +43,13 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             InicializarVistaMenuVentas();
             InicializarVistaGestionVentasArticulos();
+
+            #endregion
+
+            #region Módulo : Seguridad
+
+            InicializarVistaMenuSeguridad();
+            InicializarVistaGestionCuentasUsuarios();
 
             #endregion
         }

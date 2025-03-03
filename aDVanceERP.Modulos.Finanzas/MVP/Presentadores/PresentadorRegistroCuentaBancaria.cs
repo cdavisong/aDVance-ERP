@@ -2,16 +2,16 @@
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta.Plantillas;
+using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
-    public class PresentadorRegistroCuenta : PresentadorRegistroBase<IVistaRegistroCuenta, Cuenta, DatosCuenta, CriterioBusquedaCuenta> {
-        public PresentadorRegistroCuenta(IVistaRegistroCuenta vista) : base(vista) {
+    public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaRegistroCuentaBancaria, CuentaBancaria, DatosCuentaBancaria, CriterioBusquedaCuentaBancaria> {
+        public PresentadorRegistroCuentaBancaria(IVistaRegistroCuentaBancaria vista) : base(vista) {
         }
 
-        public override void PopularVistaDesdeObjeto(Cuenta objeto) {
-            Vista.Alias = objeto.Alias;
-            Vista.NumeroTarjeta = objeto.NumeroTarjeta;
+        public override void PopularVistaDesdeObjeto(CuentaBancaria objeto) {
+            Vista.Alias = objeto.Alias ?? string.Empty;
+            Vista.NumeroTarjeta = objeto.NumeroTarjeta ?? string.Empty;
             Vista.Moneda = objeto.Moneda.ToString();
             Vista.NombrePropietario = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
             Vista.ModoEdicionDatos = true;
@@ -19,8 +19,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override Cuenta ObtenerObjetoDesdeVista() {
-            return new Cuenta(_objeto?.Id ?? 0,
+        protected override CuentaBancaria ObtenerObjetoDesdeVista() {
+            return new CuentaBancaria(_objeto?.Id ?? 0,
                     alias: Vista.Alias,
                     numeroTarjeta: Vista.NumeroTarjeta,
                     moneda: (TipoMoneda) Enum.Parse(typeof(TipoMoneda), Vista.Moneda),

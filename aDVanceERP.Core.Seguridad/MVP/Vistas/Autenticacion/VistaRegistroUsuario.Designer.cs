@@ -57,7 +57,6 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             // 
             // formatoBase
             // 
-            formatoBase.AnimateWindow = true;
             formatoBase.AnimationType = Guna2BorderlessForm.AnimateWindowType.AW_HOR_NEGATIVE;
             formatoBase.ContainerControl = this;
             formatoBase.DockIndicatorTransparencyValue = 0.6D;

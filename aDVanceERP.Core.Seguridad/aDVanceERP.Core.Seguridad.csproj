@@ -37,8 +37,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MVP\Vistas\CuentaUsuario\Plantillas\" />
-  </ItemGroup>
-
 </Project>

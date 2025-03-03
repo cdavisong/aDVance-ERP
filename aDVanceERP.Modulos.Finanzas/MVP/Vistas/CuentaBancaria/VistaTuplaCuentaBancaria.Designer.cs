@@ -2,8 +2,8 @@
 
 using System.ComponentModel;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
-    partial class VistaTuplaCuenta {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
+    partial class VistaTuplaCuentaBancaria {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -28,7 +28,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaCuenta));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaCuentaBancaria));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();

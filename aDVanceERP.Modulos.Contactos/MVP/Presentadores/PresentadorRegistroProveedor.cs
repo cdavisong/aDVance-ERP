@@ -10,8 +10,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
         }
 
         public override void PopularVistaDesdeObjeto(Proveedor objeto) {
-            Vista.NumeroIdentificacionTributaria = objeto.NumeroIdentificacionTributaria;
-            Vista.RazonSocial = objeto.RazonSocial;
+            Vista.NumeroIdentificacionTributaria = objeto.NumeroIdentificacionTributaria ?? string.Empty;
+            Vista.RazonSocial = objeto.RazonSocial ?? string.Empty;
             Vista.NombreRepresentante = UtilesContacto.ObtenerNombreContacto(objeto.IdContactoRepresentante) ?? string.Empty;
             Vista.ModoEdicionDatos = true;
 

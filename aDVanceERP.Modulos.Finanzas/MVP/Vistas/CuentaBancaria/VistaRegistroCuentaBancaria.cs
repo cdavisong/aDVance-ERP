@@ -1,11 +1,11 @@
 ﻿using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta.Plantillas;
+using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
-    public partial class VistaRegistroCuenta : Form, IVistaRegistroCuenta {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
+    public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBancaria {
         private bool _modoEdicion;
 
-        public VistaRegistroCuenta() {
+        public VistaRegistroCuentaBancaria() {
             InitializeComponent();
             Inicializar();
         }

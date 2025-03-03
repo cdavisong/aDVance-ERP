@@ -35,7 +35,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos {
             "Todos los usuarios",
             "Identificador de BD",
             "Nombre del usuario",
-            "Rol del usuario"
+            "Rol de usuario"
         };
     }
 }

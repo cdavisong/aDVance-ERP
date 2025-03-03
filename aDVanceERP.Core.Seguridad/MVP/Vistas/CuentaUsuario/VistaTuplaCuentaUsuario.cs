@@ -1,9 +1,8 @@
-﻿using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta.Plantillas;
+﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
-    public partial class VistaTuplaCuenta : Form, IVistaTuplaCuenta {
-        public VistaTuplaCuenta() {
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
+    public partial class VistaTuplaCuentaUsuario : Form, IVistaTuplaCuentaUsuario {
+        public VistaTuplaCuentaUsuario() {
             InitializeComponent();
             Inicializar();
         }
@@ -23,29 +22,24 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
             set => Size = value;
         }
 
-        public string Id {
+        public string? Id {
             get => fieldId.Text;
             set => fieldId.Text = value;
         }
 
-        public string Alias {
-            get => fieldAlias.Text;
-            set => fieldAlias.Text = value;
+        public string? NombreUsuario {
+            get => fieldNombreUsuario.Text;
+            set => fieldNombreUsuario.Text = value;
         }
 
-        public string NumeroTarjeta {
-            get => fieldNumeroTarjeta.Text;
-            set => fieldNumeroTarjeta.Text = value;
+        public string? NombreRolUsuario {
+            get => fieldNombreRolUsuario.Text;
+            set => fieldNombreRolUsuario.Text = value;
         }
 
-        public string Moneda {
-            get => fieldTipoMoneda.Text;
-            set => fieldTipoMoneda.Text = value;
-        }
-
-        public string NombrePropietario {
-            get => fieldNombrePropietario.Text;
-            set => fieldNombrePropietario.Text = value;
+        public string? EstadoCuentaUsuario {
+            get => fieldEstadoCuentaUsuario.Text;
+            set => fieldEstadoCuentaUsuario.Text = value;
         }
 
         public Color ColorFondoTupla {
@@ -54,7 +48,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
         }
 
         public event EventHandler? TuplaSeleccionada;
-        public event EventHandler? MostrarQR;
         public event EventHandler? EditarDatosTupla;
         public event EventHandler? EliminarDatosTupla;
         public event EventHandler? Salir;
@@ -64,25 +57,13 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Cuenta {
             fieldId.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldAlias.Click += delegate (object? sender, EventArgs e) {
+            fieldNombreUsuario.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldNumeroTarjeta.Click += delegate (object? sender, EventArgs e) {
+            fieldNombreRolUsuario.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldTipoMoneda.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldNombrePropietario.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            btnQR.Click += delegate (object? sender, EventArgs e) {
-                var numeroTarjeta = NumeroTarjeta.Replace(" ", string.Empty);
-                var idContacto = UtilesContacto.ObtenerIdContacto(NombrePropietario);
-                var telefonoMovil = UtilesTelefonoContacto.ObtenerTelefonoContacto(idContacto, true);
 
-                MostrarQR?.Invoke($"{Alias},{numeroTarjeta},{telefonoMovil}", e);
-            };
             btnEditar.Click += delegate (object? sender, EventArgs e) {
                 EditarDatosTupla?.Invoke(this, e);
             };

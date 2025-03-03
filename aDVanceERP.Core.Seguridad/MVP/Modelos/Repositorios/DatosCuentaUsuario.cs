@@ -14,7 +14,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoEditar(CuentaUsuario objeto) {
-            return $"UPDATE adv__cuenta_usuario SET nombre = '{objeto.Nombre}', password_hash = '{objeto.PasswordHash}', password_salt = '{objeto.PasswordSalt}', id_rol_usuario = {objeto.IdRolUsuario}, administrador = {Convert.ToInt32(objeto.Administrador)}, aprobado = {Convert.ToInt32(objeto.Aprobado)} WHERE id_cuenta_usuario = {objeto.Id};";
+            return $"UPDATE adv__cuenta_usuario SET nombre = '{objeto.Nombre}', id_rol_usuario = {objeto.IdRolUsuario}, administrador = {Convert.ToInt32(objeto.Administrador)}, aprobado = {Convert.ToInt32(objeto.Aprobado)} WHERE id_cuenta_usuario = {objeto.Id};";
         }
 
         public override string ComandoEliminar(long id) {
