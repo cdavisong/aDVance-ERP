@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Core.Excepciones;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {

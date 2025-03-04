@@ -124,7 +124,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
                         SELECT COUNT(id_permiso) AS cant_permisos 
                         FROM adv__rol_permiso 
                         WHERE id_rol_usuario = @idRolUsuario;";
-                                        
+
                     comando.Parameters.AddWithValue("@idRolUsuario", idRolUsuario);
 
                     using (var lectorDatos = comando.ExecuteReader()) {

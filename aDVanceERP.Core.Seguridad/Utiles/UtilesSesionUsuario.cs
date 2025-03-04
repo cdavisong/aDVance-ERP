@@ -2,6 +2,7 @@
 using aDVanceERP.Core.Utiles;
 
 using MySql.Data.MySqlClient;
+
 using System.Security.Cryptography;
 
 namespace aDVanceERP.Core.Seguridad.Utiles {
@@ -104,7 +105,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
                         if (lectorDatos.Read()) {
                             DateTime fechaInicio = lectorDatos.GetDateTime("fecha_inicio");
                             DateTime fechaFin = lectorDatos.IsDBNull(lectorDatos.GetOrdinal("fecha_fin")) ? DateTime.Now : lectorDatos.GetDateTime("fecha_fin");
-                            
+
                             tiempoDeTrabajo = fechaFin - fechaInicio;
                         }
                     }

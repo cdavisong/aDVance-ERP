@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.Utiles;
+﻿using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
 using aDVanceERP.Core.Seguridad.Utiles;
-using aDVanceERP.Core.Seguridad.MVP.Modelos;
+using aDVanceERP.Core.Utiles;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
@@ -15,7 +15,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroCuentaUsuario.Vista.Dimensiones = new Size(_registroCuentaUsuario.Vista.Dimensiones.Width, Vista.Dimensiones.Height);
             _registroCuentaUsuario.Salir += delegate {
                 _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
-                _gestionCuentasUsuarios.RefrescarListaObjetos(); 
+                _gestionCuentasUsuarios.RefrescarListaObjetos();
             };
         }
 

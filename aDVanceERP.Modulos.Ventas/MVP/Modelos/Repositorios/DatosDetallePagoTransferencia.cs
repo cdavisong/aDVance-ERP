@@ -1,5 +1,4 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Modulos.Ventas.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;

@@ -48,10 +48,10 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
 
         public void Inicializar() {
             // Eventos
-            fieldPassword.IconRightClick += delegate { 
+            fieldPassword.IconRightClick += delegate {
                 fieldPassword.UseSystemPasswordChar = !fieldPassword.UseSystemPasswordChar;
                 fieldPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
-                fieldPassword.IconRight = fieldPassword.UseSystemPasswordChar ? Resources.closed_eye_20px : Resources.eye_20px;                
+                fieldPassword.IconRight = fieldPassword.UseSystemPasswordChar ? Resources.closed_eye_20px : Resources.eye_20px;
             };
             fieldPassword.KeyDown += delegate (object? sender, KeyEventArgs args) {
                 if (args.KeyCode == Keys.Enter) {

@@ -70,7 +70,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
         }
 
         public IRepositorioVista? Vistas { get; private set; }
-        
+
         public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? MostrarPrimeraPagina;
         public event EventHandler? MostrarPaginaAnterior;
@@ -83,7 +83,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
         public event EventHandler? BuscarDatos;
-        
+
 
         public void Inicializar() {
             // Variables locales

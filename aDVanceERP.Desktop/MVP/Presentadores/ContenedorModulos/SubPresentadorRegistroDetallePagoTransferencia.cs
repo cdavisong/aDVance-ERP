@@ -44,14 +44,14 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if (Transferencia.Length == 0)
                 return;
 
-            using(var transferencia = new DatosDetallePagoTransferencia()) {
+            using (var transferencia = new DatosDetallePagoTransferencia()) {
                 transferencia.Adicionar(new DetallePagoTransferencia(
                     0,
                     UtilesBD.ObtenerUltimoIdTabla("venta"),
                     UtilesCuentaBancaria.ObtenerIdCuenta(Transferencia[0]),
                     Transferencia[1],
                     Transferencia[2]
-                )); 
+                ));
             }
 
             Transferencia = new string[0];

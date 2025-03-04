@@ -36,7 +36,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
                 return null;
             }
 
-            var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);            
+            var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
 
             return new CuentaUsuario(_objeto?.Id ?? 0,
                 nombre: Vista.NombreUsuario,

@@ -66,7 +66,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
                 btnRegistrar.Text = value ? "Actualizar usuario" : "Registrar usuario";
                 _modoEdicion = value;
             }
-        }        
+        }
 
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
@@ -122,6 +122,6 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
 
         public void Cerrar() {
             Dispose();
-        }        
+        }
     }
 }

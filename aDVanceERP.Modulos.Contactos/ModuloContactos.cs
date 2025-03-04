@@ -2,7 +2,7 @@
     public static class ModuloContactos {
         public const string Nombre = "MOD_CONTACTO";
 
-        public static readonly string[] Permisos = { 
+        public static readonly string[] Permisos = {
             "MOD_CONTACTO_TODOS",
             "MOD_CONTACTO_PROVEEDORES_TODOS",
             "MOD_CONTACTO_PROVEEDORES_ADICIONAR",

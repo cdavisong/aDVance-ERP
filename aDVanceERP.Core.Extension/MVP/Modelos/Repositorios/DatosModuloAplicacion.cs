@@ -29,7 +29,7 @@ namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios {
             string comando;
             switch (criterio) {
                 case CriterioBusquedaModuloAplicacion.Id:
-                    comando = $"SELECT * FROM adv__modulo_aplicacion WHERE id_modulo_aplicacion = {dato};";                    
+                    comando = $"SELECT * FROM adv__modulo_aplicacion WHERE id_modulo_aplicacion = {dato};";
                     break;
                 case CriterioBusquedaModuloAplicacion.Nombre:
                     comando = $"SELECT * FROM adv__modulo_aplicacion WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";

@@ -13,7 +13,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos {
             IdRolUsuario = idRolUsuario;
             Administrador = false;
             Aprobado = false;
-        }        
+        }
 
         public long Id { get; set; }
         public string? Nombre { get; }

@@ -11,8 +11,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
 
         protected override PresentadorTuplaContacto ObtenerValoresTupla(Contacto objeto) {
             var presentadorTupla = new PresentadorTuplaContacto(new VistaTuplaContacto(), objeto);
-            
-            using (var datosTelefonoContacto = new DatosTelefonoContacto()) {                
+
+            using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
                 var telefonosContacto = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, objeto.Id.ToString());
                 var telefonoString = string.Empty;
 

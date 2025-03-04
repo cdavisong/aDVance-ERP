@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Utiles;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.Utiles {
@@ -40,7 +41,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
                 }
             }
         }
-                
+
         private static long ObtenerIdModulo(MySqlConnection conexion, MySqlTransaction transaccion, string nombreModulo) {
             using (var comando = conexion.CreateCommand()) {
                 comando.Transaction = transaccion;

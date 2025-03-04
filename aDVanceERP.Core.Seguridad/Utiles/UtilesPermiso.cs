@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Utiles;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.Utiles {
@@ -87,8 +88,8 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = idModulo == 0 
-                        ? "SELECT nombre FROM adv__permiso;" 
+                    comando.CommandText = idModulo == 0
+                        ? "SELECT nombre FROM adv__permiso;"
                         : $"SELECT nombre FROM adv__permiso WHERE id_modulo='{idModulo}';";
 
                     using (var lectorDatos = comando.ExecuteReader()) {

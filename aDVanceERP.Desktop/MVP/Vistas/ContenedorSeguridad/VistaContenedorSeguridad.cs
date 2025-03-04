@@ -48,7 +48,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad {
             Show();
         }
 
-        public void Restaurar() {            
+        public void Restaurar() {
             Vistas?.Restaurar("vistaAutenticacionUsuario");
 
             // Restablecer el usuario autenticado

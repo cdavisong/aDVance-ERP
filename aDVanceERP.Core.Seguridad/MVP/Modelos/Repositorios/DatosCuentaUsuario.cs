@@ -44,9 +44,9 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios {
                 passwordHash: lectorDatos.GetString("password_hash"),
                 passwordSalt: lectorDatos.GetString("password_salt"),
                 idRolUsuario: lectorDatos.GetInt64("id_rol_usuario")) {
-                    Administrador = lectorDatos.GetBoolean("administrador"),
-                    Aprobado = lectorDatos.GetBoolean("aprobado")
-                };
+                Administrador = lectorDatos.GetBoolean("administrador"),
+                Aprobado = lectorDatos.GetBoolean("aprobado")
+            };
         }
 
         public override string ComandoExiste(string dato) {

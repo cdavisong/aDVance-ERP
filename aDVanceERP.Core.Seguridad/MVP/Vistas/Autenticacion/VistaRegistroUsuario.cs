@@ -55,7 +55,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
         public bool ModoEdicionDatos {
             get => _modoEdicion;
             set => _modoEdicion = value;
-        }        
+        }
 
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
@@ -66,8 +66,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             // Eventos
             fieldPassword.IconRightClick += delegate {
                 // fieldPassword
-                fieldPassword.UseSystemPasswordChar = !fieldPassword.UseSystemPasswordChar;                
-                fieldPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;                
+                fieldPassword.UseSystemPasswordChar = !fieldPassword.UseSystemPasswordChar;
+                fieldPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
                 fieldPassword.IconRight = fieldPassword.UseSystemPasswordChar ? Resources.closed_eye_20px : Resources.eye_20px;
                 // fieldConfirmarPassword
                 fieldConfirmarPassword.UseSystemPasswordChar = fieldPassword.UseSystemPasswordChar;

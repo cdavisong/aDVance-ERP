@@ -1,9 +1,9 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
-using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
+using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
-using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
     public class PresentadorRegistroRolUsuario : PresentadorRegistroBase<IVistaRegistroRolUsuario, RolUsuario, DatosRolUsuario, CriterioBusquedaRolUsuario> {
@@ -16,7 +16,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
 
             var permisosRoles = UtilesRolUsuario.ObtenerPermisosDeRol(objeto.Id);
 
-            foreach (var permisoRol in permisosRoles) {                
+            foreach (var permisoRol in permisosRoles) {
                 ((IVistaGestionPermisos) Vista).AdicionarPermisoRol(permisoRol);
             }
 

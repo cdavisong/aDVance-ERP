@@ -53,9 +53,9 @@ class Program {
                         nombre VARCHAR(100) NOT NULL
                     );";
 
-            using (MySqlCommand cmd = new MySqlCommand(crearTablaModulo, conexion)) 
+            using (MySqlCommand cmd = new MySqlCommand(crearTablaModulo, conexion))
                 cmd.ExecuteNonQuery();
-            
+
 
             // Crear tabla adv__permiso
             string crearTablaPermiso = @"
@@ -65,9 +65,9 @@ class Program {
                         nombre VARCHAR(100) NOT NULL
                     );";
 
-            using (MySqlCommand cmd = new MySqlCommand(crearTablaPermiso, conexion)) 
+            using (MySqlCommand cmd = new MySqlCommand(crearTablaPermiso, conexion))
                 cmd.ExecuteNonQuery();
-            
+
 
             // Crear tabla adv__rol_permiso
             string crearTablaRolPermiso = @"
@@ -77,11 +77,11 @@ class Program {
                         id_permiso INT NOT NULL
                     );";
 
-            using (MySqlCommand cmd = new MySqlCommand(crearTablaRolPermiso, conexion)) 
-                cmd.ExecuteNonQuery();            
+            using (MySqlCommand cmd = new MySqlCommand(crearTablaRolPermiso, conexion))
+                cmd.ExecuteNonQuery();
 
             Console.Write(" Tablas creadas correctamente.\n");
-        }        
+        }
     }
 
     static void ActualizarTablasExistentes() {

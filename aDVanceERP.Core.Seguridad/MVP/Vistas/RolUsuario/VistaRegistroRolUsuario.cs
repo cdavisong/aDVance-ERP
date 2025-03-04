@@ -7,8 +7,6 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 
-using System.Globalization;
-
 namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
     public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, IVistaGestionPermisos {
         private bool _modoEdicion;
@@ -67,7 +65,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
         }
 
-        public IRepositorioVista? Vistas { get; private set; }        
+        public IRepositorioVista? Vistas { get; private set; }
 
         public event EventHandler? PermisoAgregado;
         public event EventHandler? PermisoEliminado;
@@ -75,7 +73,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
         public event EventHandler? AlturaContenedorTuplasModificada;
-        public event EventHandler? Salir;        
+        public event EventHandler? Salir;
 
         public void Inicializar() {
             Permisos = new List<string[]>();
@@ -123,7 +121,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             var adNombrePermiso = string.IsNullOrEmpty(nombrePermiso) ? NombrePermiso : nombrePermiso;
             var idPermiso = UtilesPermiso.ObtenerIdPermiso(adNombrePermiso);
 
-            var tuplaPermiso = new string[] {                    
+            var tuplaPermiso = new string[] {
                     idPermiso.ToString(),
                     adNombrePermiso
                 };
@@ -196,6 +194,6 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
 
         public void Cerrar() {
             Dispose();
-        }        
+        }
     }
 }

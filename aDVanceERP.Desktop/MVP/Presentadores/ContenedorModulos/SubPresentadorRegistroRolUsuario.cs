@@ -12,7 +12,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         public List<string[]>? Permisos { get; private set; } = new List<string[]>();
 
-        private void InicializarVistaRegistroRolUsuario() { 
+        private void InicializarVistaRegistroRolUsuario() {
             _registroRolUsuario = new PresentadorRegistroRolUsuario(new VistaRegistroRolUsuario());
             _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
             _registroRolUsuario.Vista.Coordenadas = new Point(Vista.Dimensiones.Width - _registroRolUsuario.Vista.Dimensiones.Width - 20, VariablesGlobales.AlturaBarraTituloPredeterminada);
@@ -22,9 +22,9 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
                 RegistrarEditarPermisosRol(UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario));
             };
-            _registroRolUsuario.Salir += delegate { 
-                _gestionRolesUsuarios.RefrescarListaObjetos(); 
-            };            
+            _registroRolUsuario.Salir += delegate {
+                _gestionRolesUsuarios.RefrescarListaObjetos();
+            };
         }
 
         private void MostrarVistaRegistroRolUsuario(object? sender, EventArgs e) {
@@ -37,7 +37,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaEdicionRolUsuario(object? sender, EventArgs e) {
             InicializarVistaRegistroRolUsuario();
 
-            _registroRolUsuario.PopularVistaDesdeObjeto(sender as RolUsuario);            
+            _registroRolUsuario.PopularVistaDesdeObjeto(sender as RolUsuario);
             _registroRolUsuario.Vista.Mostrar();
             _registroRolUsuario = null;
         }

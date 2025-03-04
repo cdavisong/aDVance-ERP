@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
+using aDVanceERP.Core.Utiles;
 
 using MySql.Data.MySqlClient;
 
@@ -9,7 +9,7 @@ using System.Security;
 namespace aDVanceERP.Core.Seguridad.Utiles {
     public static class UtilesCuentaUsuario {
         public static CuentaUsuario? UsuarioAutenticado { get; set; } = new();
-        public static string[]? PermisosUsuario {  get; set; } 
+        public static string[]? PermisosUsuario { get; set; }
 
         public static bool EsTablaCuentasUsuarioVacia() {
             bool tablaVacia = false;
@@ -32,7 +32,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
             }
 
             return tablaVacia;
-        }        
+        }
 
         public static void CrearUsuarioAdministrador(string nombreUsuario, SecureString password) {
             var passwordSeguro = UtilesPassword.HashPassword(password);

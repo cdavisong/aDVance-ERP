@@ -9,12 +9,12 @@ using aDVanceERP.Modulos.Ventas;
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
     public partial class PresentadorPrincipal {
         public PresentadorPrincipal() {
-            Vista = new VistaPrincipal();            
+            Vista = new VistaPrincipal();
 
             // Eventos
             //Vista.SubMenuUsuario += MostrarSubMenuUsuario;
             Vista.Salir += DisponerModulos;
-                        
+
             #region Contenedores
 
             InicializarVistaContenedorSeguridad();
@@ -31,7 +31,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
             // Otros
             MostrarVistaContenedorSeguridad(this, EventArgs.Empty);
         }
-        
+
         public IVistaPrincipal Vista { get; }
 
         private void InicializarPermisosModulos() {
