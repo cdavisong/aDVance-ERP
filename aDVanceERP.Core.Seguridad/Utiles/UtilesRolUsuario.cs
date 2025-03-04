@@ -8,7 +8,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
         private static readonly Dictionary<long, string[]> _cachePermisosRol = new Dictionary<long, string[]>();
 
         public static long ObtenerIdRolUsuario(string nombreRolUsuario) {
-            var idContacto = 0;
+            var idRolUsuario = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
@@ -22,13 +22,13 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos != null && lectorDatos.Read()) {
-                            idContacto = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_rol_usuario"));
+                            idRolUsuario = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_rol_usuario"));
                         }
                     }
                 }
             }
 
-            return idContacto;
+            return idRolUsuario;
         }
 
         public static string? ObtenerNombreRolUsuario(long idRolUsuario) {

@@ -6,6 +6,7 @@ using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
 using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Finanzas;
+using aDVanceERP.Modulos.Inventario;
 using aDVanceERP.Modulos.Ventas;
 
 using TheArtOfDevHtmlRenderer.Core.Entities;
@@ -109,7 +110,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloFinanzas.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
                 (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloFinanzas.Nombre) ?? false);
             btnModuloInventario.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
-                (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloContactos.Nombre) ?? false);
+                (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloInventario.Nombre) ?? false);
             btnModuloVentas.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
                 (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloVentas.Nombre) ?? false);
             btnModuloSeguridad.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;

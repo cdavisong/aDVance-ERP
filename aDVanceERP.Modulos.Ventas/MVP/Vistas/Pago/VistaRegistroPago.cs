@@ -185,7 +185,9 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Pago {
                 tuplaPago.MetodoPago = pago[0];
                 tuplaPago.Monto = pago[1];
                 tuplaPago.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
-                    Pagos.Remove(pago);
+                    pago = sender as string[];
+
+                    Pagos.RemoveAt(Pagos.FindIndex(p => p[0].Equals(pago[0]) && p[1].Equals(pago[1])));
                     PagoEliminado?.Invoke(pago, args);
                 };
 

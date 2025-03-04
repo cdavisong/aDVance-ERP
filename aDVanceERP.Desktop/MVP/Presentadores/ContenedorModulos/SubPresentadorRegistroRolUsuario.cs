@@ -17,6 +17,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
             _registroRolUsuario.Vista.Coordenadas = new Point(Vista.Dimensiones.Width - _registroRolUsuario.Vista.Dimensiones.Width - 20, VariablesGlobales.AlturaBarraTituloPredeterminada);
             _registroRolUsuario.Vista.Dimensiones = new Size(_registroRolUsuario.Vista.Dimensiones.Width, Vista.Dimensiones.Height);
+            _registroRolUsuario.DatosRegistradosActualizados += delegate {
+                Permisos = _registroRolUsuario.Vista.Permisos;
+
+                RegistrarEditarPermisosRol(UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario));
+            };
             _registroRolUsuario.Salir += delegate { 
                 _gestionRolesUsuarios.RefrescarListaObjetos(); 
             };            
@@ -25,11 +30,6 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaRegistroRolUsuario(object? sender, EventArgs e) {
             InicializarVistaRegistroRolUsuario();
 
-            _registroRolUsuario.Vista.RegistrarDatos += delegate {
-                Permisos = _registroRolUsuario.Vista.Permisos;
-
-                RegistrarEditarPermisosRol();
-            };
             _registroRolUsuario.Vista.Mostrar();
             _registroRolUsuario = null;
         }
@@ -37,12 +37,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaEdicionRolUsuario(object? sender, EventArgs e) {
             InicializarVistaRegistroRolUsuario();
 
-            _registroRolUsuario.PopularVistaDesdeObjeto(sender as RolUsuario);
-            _registroRolUsuario.Vista.EditarDatos += delegate {
-                Permisos = _registroRolUsuario.Vista.Permisos;
-
-                RegistrarEditarPermisosRol(UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario));
-            };
+            _registroRolUsuario.PopularVistaDesdeObjeto(sender as RolUsuario);            
             _registroRolUsuario.Vista.Mostrar();
             _registroRolUsuario = null;
         }

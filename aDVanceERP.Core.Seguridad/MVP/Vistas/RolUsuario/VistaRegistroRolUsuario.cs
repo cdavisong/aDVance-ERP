@@ -92,10 +92,10 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
                     CargarNombresPermisos(UtilesPermiso.ObtenerNombresPermisos(idModulo));
             };
             btnAdicionarPermiso.Click += delegate (object? sender, EventArgs args) {
-                AdicionarPermiso();
+                AdicionarPermisoRol();
             };
             PermisoEliminado += delegate (object? sender, EventArgs args) {
-                ActualizarTuplasPermisos();
+                ActualizarTuplasPermisosRoles();
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
@@ -119,11 +119,11 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             fieldNombrePermiso.SelectedIndex = 0;
         }
 
-        public void AdicionarPermiso(string nombrePermiso = "") {
+        public void AdicionarPermisoRol(string nombrePermiso = "") {
             var adNombrePermiso = string.IsNullOrEmpty(nombrePermiso) ? NombrePermiso : nombrePermiso;
             var idPermiso = UtilesPermiso.ObtenerIdPermiso(adNombrePermiso);
 
-            var tuplaPermiso = new string[] {
+            var tuplaPermiso = new string[] {                    
                     idPermiso.ToString(),
                     adNombrePermiso
                 };
@@ -138,10 +138,10 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
                 PermisoAgregado?.Invoke(tuplaPermiso, EventArgs.Empty);
             }
 
-            ActualizarTuplasPermisos();
+            ActualizarTuplasPermisosRoles();
         }
 
-        private void ActualizarTuplasPermisos() {
+        private void ActualizarTuplasPermisosRoles() {
             foreach (var tupla in contenedorVistas.Controls) {
                 if (tupla is IVistaTuplaPermiso vistaTupla) {
                     vistaTupla.Cerrar();
@@ -154,22 +154,24 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
 
             for (int i = 0; i < Permisos?.Count; i++) {
                 var permiso = Permisos[i];
-                var tuplaPermiso = new VistaTuplaPermiso();
+                var tuplaPermisoRol = new VistaTuplaPermiso();
 
-                tuplaPermiso.IdPermiso = permiso[0];
-                tuplaPermiso.NombrePermiso = permiso[1];
-                tuplaPermiso.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
-                    Permisos.Remove(permiso);
+                tuplaPermisoRol.IdPermiso = permiso[0];
+                tuplaPermisoRol.NombrePermiso = permiso[1];
+                tuplaPermisoRol.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+                    permiso = sender as string[];
+
+                    Permisos.RemoveAt(Permisos.FindIndex(p => p[0].Equals(permiso[0])));
                     PermisoEliminado?.Invoke(permiso, args);
                 };
 
                 // Registro y muestra
                 Vistas?.Registrar(
-                    $"vistaTupla{tuplaPermiso.GetType().Name}{i}",
-                    tuplaPermiso,
+                    $"vistaTupla{tuplaPermisoRol.GetType().Name}{i}",
+                    tuplaPermisoRol,
                     new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                     new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
-                tuplaPermiso.Mostrar();
+                tuplaPermisoRol.Mostrar();
 
                 // Incremento de la útima coordenada Y de la tupla
                 VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;

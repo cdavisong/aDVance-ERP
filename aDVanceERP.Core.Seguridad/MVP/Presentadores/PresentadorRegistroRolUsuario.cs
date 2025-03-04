@@ -17,7 +17,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
             var permisosRoles = UtilesRolUsuario.ObtenerPermisosDeRol(objeto.Id);
 
             foreach (var permisoRol in permisosRoles) {                
-                ((IVistaGestionPermisos) Vista).AdicionarPermiso(permisoRol);
+                ((IVistaGestionPermisos) Vista).AdicionarPermisoRol(permisoRol);
             }
 
             _objeto = objeto;

@@ -67,7 +67,7 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.DetalleVentaArticulo {
             };
 
             btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(this, e);
+                EliminarDatosTupla?.Invoke(new string[] { IdArticulo, NombreArticulo, Precio, Cantidad }, e);
             };
         }
 

@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso {
     public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
-        private string _idArticulo;
+        private string _idPermiso = string.Empty;
 
         public VistaTuplaPermiso() {
             InitializeComponent();
@@ -25,8 +25,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso {
         }
 
         public string? IdPermiso {
-            get => _idArticulo;
-            set => _idArticulo = value;
+            get => _idPermiso;
+            set => _idPermiso = value ?? string.Empty;
         }
 
         public string? NombrePermiso {
@@ -45,14 +45,13 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso {
         public event EventHandler? Salir;
 
         public void Inicializar() {
-            // Eventos
-            
+            // Eventos            
             fieldNombrePermiso.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
 
             btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(this, e);
+                EliminarDatosTupla?.Invoke(new string[] { IdPermiso ?? string.Empty, NombrePermiso ?? string.Empty }, e);
             };
         }
 

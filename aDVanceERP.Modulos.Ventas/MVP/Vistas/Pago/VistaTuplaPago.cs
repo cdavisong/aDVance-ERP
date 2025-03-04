@@ -52,7 +52,7 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Pago {
             };
 
             btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(this, e);
+                EliminarDatosTupla?.Invoke(new string[] { MetodoPago, Monto }, e);
             };
         }
 

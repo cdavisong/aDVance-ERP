@@ -242,7 +242,9 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
                 tuplaDetallesVentaArticulo.Precio = articulo[2];
                 tuplaDetallesVentaArticulo.Cantidad = articulo[3];
                 tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
-                    Articulos.Remove(articulo);
+                    articulo = sender as string[];
+
+                    Articulos.RemoveAt(Articulos.FindIndex(p => p[0].Equals(articulo[0])));
                     ArticuloEliminado?.Invoke(articulo, args);
                 };
 
