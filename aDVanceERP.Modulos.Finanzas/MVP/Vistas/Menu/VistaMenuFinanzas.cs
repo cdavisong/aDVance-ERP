@@ -28,7 +28,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
 
         public void Inicializar() {
             // Eventos
-            btnCuentas.Click += delegate (object? sender, EventArgs e) {
+            btnCuentasBancarias.Click += delegate (object? sender, EventArgs e) {
                 PresionarBotonSeleccion(1, e);
             };
         }
@@ -43,9 +43,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
 
             switch (indice) {
                 case 1:
-                    VerCuentas?.Invoke(btnCuentas, e);
-                    if (!btnCuentas.Checked)
-                        btnCuentas.Checked = true;
+                    VerCuentas?.Invoke(btnCuentasBancarias, e);
+                    if (!btnCuentasBancarias.Checked)
+                        btnCuentasBancarias.Checked = true;
                     break;
             }
         }
@@ -56,7 +56,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
         }
 
         public void Restaurar() {
-            btnCuentas.Checked = false;
+            btnCuentasBancarias.Checked = false;
         }
 
         public void Ocultar() {

@@ -29,17 +29,17 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaRolUsuario));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
             btnEliminar = new Guna2Button();
             fieldId = new Label();
             btnEditar = new Guna2Button();
-            fieldNivelAcceso = new Label();
+            fieldCantPermisosRol = new Label();
             fieldNombreRolUsuario = new Label();
             fieldCantidadUsuariosRol = new Label();
             layoutBase.SuspendLayout();
@@ -83,7 +83,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             layoutVista.Controls.Add(btnEliminar, 7, 0);
             layoutVista.Controls.Add(fieldId, 0, 0);
             layoutVista.Controls.Add(btnEditar, 6, 0);
-            layoutVista.Controls.Add(fieldNivelAcceso, 2, 0);
+            layoutVista.Controls.Add(fieldCantPermisosRol, 2, 0);
             layoutVista.Controls.Add(fieldNombreRolUsuario, 1, 0);
             layoutVista.Controls.Add(fieldCantidadUsuariosRol, 3, 0);
             layoutVista.Dock = DockStyle.Fill;
@@ -104,7 +104,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
             btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges1;
+            btnEliminar.CustomizableEdges = customizableEdges5;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.White;
             btnEliminar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -114,7 +114,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 11;
             // 
@@ -141,7 +141,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
             btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges3;
+            btnEditar.CustomizableEdges = customizableEdges7;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
             btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -150,24 +150,24 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             btnEditar.HoverState.FillColor = Color.PeachPuff;
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 9;
             // 
-            // fieldNivelAcceso
+            // fieldCantPermisosRol
             // 
-            fieldNivelAcceso.AutoEllipsis = true;
-            fieldNivelAcceso.Dock = DockStyle.Fill;
-            fieldNivelAcceso.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNivelAcceso.ForeColor = Color.DimGray;
-            fieldNivelAcceso.ImeMode = ImeMode.NoControl;
-            fieldNivelAcceso.Location = new Point(211, 1);
-            fieldNivelAcceso.Margin = new Padding(1);
-            fieldNivelAcceso.Name = "fieldNivelAcceso";
-            fieldNivelAcceso.Size = new Size(148, 39);
-            fieldNivelAcceso.TabIndex = 6;
-            fieldNivelAcceso.Text = "nivelAcceso";
-            fieldNivelAcceso.TextAlign = ContentAlignment.MiddleCenter;
+            fieldCantPermisosRol.AutoEllipsis = true;
+            fieldCantPermisosRol.Dock = DockStyle.Fill;
+            fieldCantPermisosRol.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCantPermisosRol.ForeColor = Color.DimGray;
+            fieldCantPermisosRol.ImeMode = ImeMode.NoControl;
+            fieldCantPermisosRol.Location = new Point(211, 1);
+            fieldCantPermisosRol.Margin = new Padding(1);
+            fieldCantPermisosRol.Name = "fieldCantPermisosRol";
+            fieldCantPermisosRol.Size = new Size(148, 39);
+            fieldCantPermisosRol.TabIndex = 6;
+            fieldCantPermisosRol.Text = "cantPermisos";
+            fieldCantPermisosRol.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldNombreRolUsuario
             // 
@@ -226,7 +226,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
         private Label fieldNombreRolUsuario;
         private Label fieldId;
         private Guna2Button btnEditar;
-        private Label fieldNivelAcceso;
+        private Label fieldCantPermisosRol;
         private Label fieldCantidadUsuariosRol;
     }
 }

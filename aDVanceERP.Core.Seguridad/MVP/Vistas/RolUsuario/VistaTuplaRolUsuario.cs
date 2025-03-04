@@ -39,9 +39,9 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             }
         }
 
-        public string? NivelAcceso {
-            get => fieldNivelAcceso.Text;
-            set => fieldNivelAcceso.Text = value;
+        public string? CantidadPermisos {
+            get => fieldCantPermisosRol.Text;
+            set => fieldCantPermisosRol.Text = value;
         }
 
         public string? CantidadUsuarios {
@@ -67,7 +67,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             fieldNombreRolUsuario.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldNivelAcceso.Click += delegate (object? sender, EventArgs e) {
+            fieldCantPermisosRol.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
             fieldCantidadUsuariosRol.Click += delegate (object? sender, EventArgs e) {

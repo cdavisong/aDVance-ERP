@@ -9,6 +9,7 @@ using System.Security;
 namespace aDVanceERP.Core.Seguridad.Utiles {
     public static class UtilesCuentaUsuario {
         public static CuentaUsuario? UsuarioAutenticado { get; set; } = new();
+        public static string[]? PermisosUsuario {  get; set; } 
 
         public static bool EsTablaCuentasUsuarioVacia() {
             bool tablaVacia = false;

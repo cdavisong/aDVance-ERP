@@ -208,8 +208,10 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
             var indiceArticulo = Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[4].Equals(idAlmacen.ToString()));
             if (indiceArticulo != -1)
                 Articulos[indiceArticulo][3] = (int.Parse(Articulos[indiceArticulo][3]) + int.Parse(adCantidad)).ToString();
-            else
+            else {
                 Articulos.Add(tuplaArticulo);
+                ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+            }
 
             NombreArticulo = string.Empty;
             Cantidad = 0;

@@ -1,7 +1,16 @@
-﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
+﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso;
+using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
+using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
+using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
+
+using System.Globalization;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
-    public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario {
+    public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, IVistaGestionPermisos {
         private bool _modoEdicion;
 
         public VistaRegistroRolUsuario() {
@@ -29,9 +38,14 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             set => fieldNombreRolUsuario.Text = value;
         }
 
-        public byte NivelAcceso {
-            get => (byte) (byte.TryParse(fieldNivelAcceso.Text, out var nivelAcceso) ? nivelAcceso >= 1 ? nivelAcceso : 1 : 1);
-            set => fieldNivelAcceso.Text = value == 1 ? string.Empty : value.ToString();
+        public string? NombreModulo {
+            get => fieldNombreModulo.Text;
+            set => fieldNombreModulo.Text = value;
+        }
+
+        public string? NombrePermiso {
+            get => fieldNombrePermiso.Text;
+            set => fieldNombrePermiso.Text = value;
         }
 
         public bool ModoEdicionDatos {
@@ -43,15 +57,45 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             }
         }
 
+        public List<string[]>? Permisos { get; private set; }
+
+        public int AlturaContenedorVistas {
+            get => contenedorVistas.Height;
+        }
+
+        public int TuplasMaximasContenedor {
+            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
+        }
+
+        public IRepositorioVista? Vistas { get; private set; }        
+
+        public event EventHandler? PermisoAgregado;
+        public event EventHandler? PermisoEliminado;
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
-        public event EventHandler? Salir;
+        public event EventHandler? AlturaContenedorTuplasModificada;
+        public event EventHandler? Salir;        
 
         public void Inicializar() {
+            Permisos = new List<string[]>();
+            Vistas = new RepositorioVistaBase(contenedorVistas);
+
             // Eventos
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);
+            };
+            fieldNombreModulo.SelectedIndexChanged += delegate {
+                var idModulo = UtilesModulo.ObtenerIdModulo(NombreModulo);
+
+                if (idModulo != 0)
+                    CargarNombresPermisos(UtilesPermiso.ObtenerNombresPermisos(idModulo));
+            };
+            btnAdicionarPermiso.Click += delegate (object? sender, EventArgs args) {
+                AdicionarPermiso();
+            };
+            PermisoEliminado += delegate (object? sender, EventArgs args) {
+                ActualizarTuplasPermisos();
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
@@ -64,6 +108,74 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             };
         }
 
+        public void CargarNombresModulos(string[] nombresModulos) {
+            fieldNombreModulo.Items.AddRange(nombresModulos);
+            fieldNombreModulo.SelectedIndex = -1;
+        }
+
+        private void CargarNombresPermisos(string[] nombresPermisos) {
+            fieldNombrePermiso.Items.Clear();
+            fieldNombrePermiso.Items.AddRange(nombresPermisos);
+            fieldNombrePermiso.SelectedIndex = 0;
+        }
+
+        public void AdicionarPermiso(string nombrePermiso = "") {
+            var adNombrePermiso = string.IsNullOrEmpty(nombrePermiso) ? NombrePermiso : nombrePermiso;
+            var idPermiso = UtilesPermiso.ObtenerIdPermiso(adNombrePermiso);
+
+            var tuplaPermiso = new string[] {
+                    idPermiso.ToString(),
+                    adNombrePermiso
+                };
+
+            // Verificar que el permiso ya se encuentre registrado
+            var indiceArticulo = Permisos?.FindIndex(a => a[0].Equals(idPermiso.ToString()));
+
+            if (indiceArticulo != -1)
+                return;
+            else {
+                Permisos?.Add(tuplaPermiso);
+                PermisoAgregado?.Invoke(tuplaPermiso, EventArgs.Empty);
+            }
+
+            ActualizarTuplasPermisos();
+        }
+
+        private void ActualizarTuplasPermisos() {
+            foreach (var tupla in contenedorVistas.Controls) {
+                if (tupla is IVistaTuplaPermiso vistaTupla) {
+                    vistaTupla.Cerrar();
+                }
+            }
+            contenedorVistas.Controls.Clear();
+
+            // Restablecer útima coordenada Y de la tupla
+            VariablesGlobales.CoordenadaYUltimaTupla = 0;
+
+            for (int i = 0; i < Permisos?.Count; i++) {
+                var permiso = Permisos[i];
+                var tuplaPermiso = new VistaTuplaPermiso();
+
+                tuplaPermiso.IdPermiso = permiso[0];
+                tuplaPermiso.NombrePermiso = permiso[1];
+                tuplaPermiso.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+                    Permisos.Remove(permiso);
+                    PermisoEliminado?.Invoke(permiso, args);
+                };
+
+                // Registro y muestra
+                Vistas?.Registrar(
+                    $"vistaTupla{tuplaPermiso.GetType().Name}{i}",
+                    tuplaPermiso,
+                    new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
+                    new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
+                tuplaPermiso.Mostrar();
+
+                // Incremento de la útima coordenada Y de la tupla
+                VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
+            }
+        }
+
         public void Mostrar() {
             BringToFront();
             ShowDialog();
@@ -71,7 +183,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
 
         public void Restaurar() {
             NombreRolUsuario = string.Empty;
-            NivelAcceso = 1;
+            fieldNombreModulo.SelectedIndex = 0;
+            fieldNombrePermiso.SelectedIndex = 0;
             ModoEdicionDatos = false;
         }
 
@@ -81,6 +194,6 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
 
         public void Cerrar() {
             Dispose();
-        }
+        }        
     }
 }

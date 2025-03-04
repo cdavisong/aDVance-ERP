@@ -4,6 +4,9 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
+using aDVanceERP.Modulos.Contactos;
+using aDVanceERP.Modulos.Finanzas;
+using aDVanceERP.Modulos.Ventas;
 
 using TheArtOfDevHtmlRenderer.Core.Entities;
 
@@ -61,9 +64,11 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
 
             // Eventos
             fieldTextoBienvenida.LinkClicked += delegate (object? sender, HtmlLinkClickedEventArgs e) {
-                CambioModulo?.Invoke(sender, e);
-                MostrarMenuVentas?.Invoke(sender, e);
-                btnModuloVentas.Checked = true;
+                if (UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(ModuloVentas.Nombre)) {
+                    CambioModulo?.Invoke(sender, e);
+                    MostrarMenuVentas?.Invoke(sender, e);
+                    btnModuloVentas.Checked = true;
+                }
             };
             btnInicio.Click += delegate (object? sender, EventArgs e) {
                 CambioModulo?.Invoke(sender, e);
@@ -99,10 +104,14 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         }
 
         public void Mostrar() {
-            // TODO: Mejorar la acción de Mostrar / Ocultar módulos según el usuario registrado
-            btnModuloContactos.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
-            btnModuloFinanzas.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
-            btnModuloInventario.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
+            btnModuloContactos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
+                (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloContactos.Nombre) ?? false);
+            btnModuloFinanzas.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
+                (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloFinanzas.Nombre) ?? false);
+            btnModuloInventario.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
+                (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloContactos.Nombre) ?? false);
+            btnModuloVentas.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
+                (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloVentas.Nombre) ?? false);
             btnModuloSeguridad.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
 
             BringToFront();

@@ -12,10 +12,12 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
 
         protected override PresentadorTuplaRolUsuario ObtenerValoresTupla(RolUsuario objeto) {
             var presentadorTupla = new PresentadorTuplaRolUsuario(new VistaTuplaRolUsuario(), objeto);
-
+                        
             presentadorTupla.Vista.Id = objeto.Id.ToString();
             presentadorTupla.Vista.NombreRolUsuario = objeto.Nombre;
-            presentadorTupla.Vista.NivelAcceso = objeto.NivelAcceso.ToString();
+            presentadorTupla.Vista.CantidadPermisos = (objeto.Nombre?.Equals("Administrador") ?? false) 
+                ? UtilesPermiso.ObtenerTotalPermisos().ToString() 
+                : UtilesRolUsuario.CantidadPermisosRol(objeto.Id).ToString();
             presentadorTupla.Vista.CantidadUsuarios = UtilesRolUsuario.CantidadUsuariosNombreRol(objeto.Nombre).ToString();
 
             return presentadorTupla;

@@ -25,6 +25,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
 
                 if (UtilesPassword.VerificarPassword(Vista.Password, usuario.PasswordHash, usuario.PasswordSalt)) {
                     UtilesCuentaUsuario.UsuarioAutenticado = usuario;
+                    UtilesCuentaUsuario.PermisosUsuario = UtilesRolUsuario.ObtenerPermisosDeRol(usuario.IdRolUsuario);
 
                     UsuarioAutenticado?.Invoke(usuario, e);
                 }

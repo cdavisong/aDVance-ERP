@@ -284,10 +284,11 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
             btnAdicionarArticulo.FillColor = Color.PeachPuff;
             btnAdicionarArticulo.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAdicionarArticulo.ForeColor = Color.White;
-            btnAdicionarArticulo.Location = new Point(370, 3);
+            btnAdicionarArticulo.Location = new Point(372, 5);
+            btnAdicionarArticulo.Margin = new Padding(5);
             btnAdicionarArticulo.Name = "btnAdicionarArticulo";
             btnAdicionarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnAdicionarArticulo.Size = new Size(44, 39);
+            btnAdicionarArticulo.Size = new Size(40, 35);
             btnAdicionarArticulo.TabIndex = 2;
             // 
             // fieldCantidad

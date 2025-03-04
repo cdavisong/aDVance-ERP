@@ -11,11 +11,11 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(RolUsuario objeto) {
-            return $"INSERT INTO adv__rol_usuario (nombre, nivel_acceso) VALUES ('{objeto.Nombre}', {objeto.NivelAcceso});";
+            return $"INSERT INTO adv__rol_usuario (nombre) VALUES ('{objeto.Nombre}');";
         }
 
         public override string ComandoEditar(RolUsuario objeto) {
-            return $"UPDATE adv__rol_usuario SET nombre = '{objeto.Nombre}', nivel_acceso = {objeto.NivelAcceso} WHERE id_rol_usuario = {objeto.Id};";
+            return $"UPDATE adv__rol_usuario SET nombre = '{objeto.Nombre}' WHERE id_rol_usuario = {objeto.Id};";
         }
 
         public override string ComandoEliminar(long id) {
@@ -25,6 +25,9 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios {
         public override string ComandoObtener(CriterioBusquedaRolUsuario criterio, string dato) {
             string comando;
             switch (criterio) {
+                case CriterioBusquedaRolUsuario.Id:
+                    comando = $"SELECT * FROM adv__rol_usuario WHERE id_rol_usuario = {dato};";
+                    break;
                 case CriterioBusquedaRolUsuario.Nombre:
                     comando = $"SELECT * FROM adv__rol_usuario WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
                     break;
@@ -38,8 +41,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios {
         public override RolUsuario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
             return new RolUsuario(
                 id: lectorDatos.GetInt64("id_rol_usuario"),
-                nombre: lectorDatos.GetString("nombre"),
-                nivelAcceso: lectorDatos.GetByte("nivel_acceso")
+                nombre: lectorDatos.GetString("nombre")
             );
         }
 

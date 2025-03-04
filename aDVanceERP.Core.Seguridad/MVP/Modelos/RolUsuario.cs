@@ -5,19 +5,18 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos {
         public RolUsuario() {
         }
 
-        public RolUsuario(long id, string nombre, byte nivelAcceso) {
+        public RolUsuario(long id, string nombre) {
             Id = id;
             Nombre = nombre;
-            NivelAcceso = nivelAcceso;
         }
 
         public long Id { get; set; }
         public string? Nombre { get; }
-        public byte NivelAcceso { get; set; }
     }
 
     public enum CriterioBusquedaRolUsuario {
         Todos,
+        Id,
         Nombre
     }
 

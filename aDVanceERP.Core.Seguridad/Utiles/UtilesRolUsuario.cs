@@ -5,6 +5,8 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.Utiles {
     public static class UtilesRolUsuario {
+        private static readonly Dictionary<long, string[]> _cachePermisosRol = new Dictionary<long, string[]>();
+
         public static long ObtenerIdRolUsuario(string nombreRolUsuario) {
             var idContacto = 0;
 
@@ -107,6 +109,35 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
             return longitud;
         }
 
+        public static uint CantidadPermisosRol(long idRolUsuario) {
+            uint cantidadPermisos = 0;
+
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = @"
+                        SELECT COUNT(id_permiso) AS cant_permisos 
+                        FROM adv__rol_permiso 
+                        WHERE id_rol_usuario = @idRolUsuario;";
+                                        
+                    comando.Parameters.AddWithValue("@idRolUsuario", idRolUsuario);
+
+                    using (var lectorDatos = comando.ExecuteReader()) {
+                        if (lectorDatos != null && lectorDatos.Read()) {
+                            cantidadPermisos = lectorDatos.GetUInt32(lectorDatos.GetOrdinal("cant_permisos"));
+                        }
+                    }
+                }
+            }
+
+            return cantidadPermisos;
+        }
+
         public static int VerificarOCrearRolAdministrador() {
             int rolId = 0;
 
@@ -131,6 +162,52 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
             }
 
             return rolId;
+        }
+
+        public static string[] ObtenerPermisosDeRol(long idRolUsuario) {
+            if (_cachePermisosRol.TryGetValue(idRolUsuario, out var permisosCache)) {
+                return permisosCache;
+            }
+
+            string[] permisos = ObtenerPermisosDesdeBD(idRolUsuario);
+
+            _cachePermisosRol[idRolUsuario] = permisos;
+
+            return permisos;
+        }
+
+        private static string[] ObtenerPermisosDesdeBD(long idRolUsuario) {
+            var permisos = new List<string>();
+
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = @"
+                        SELECT p.nombre
+                        FROM adv__rol_permiso rp
+                        JOIN adv__permiso p ON rp.id_permiso = p.id_permiso
+                        WHERE rp.id_rol_usuario = @idRolUsuario;";
+
+                    comando.Parameters.AddWithValue("@idRolUsuario", idRolUsuario);
+
+                    using (var lector = comando.ExecuteReader()) {
+                        while (lector.Read()) {
+                            permisos.Add(lector.GetString("nombre"));
+                        }
+                    }
+                }
+            }
+
+            return permisos.ToArray();
+        }
+
+        public static void LimpiarCacheRol() {
+            _cachePermisosRol.Clear();
         }
     }
 }

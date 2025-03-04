@@ -63,7 +63,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             layoutEncabezadosTabla = new TableLayoutPanel();
             fieldTituloNombreRol = new Label();
             fieldTituloId = new Label();
-            fieldTituloNivelAcceso = new Label();
+            fieldTituloCantPermisosRol = new Label();
             fieldTiuloCantUsuarios = new Label();
             contenedorVistas = new Panel();
             layoutControlesTabla = new TableLayoutPanel();
@@ -334,7 +334,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.Controls.Add(fieldTituloNombreRol, 0, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloNivelAcceso, 2, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloCantPermisosRol, 2, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTiuloCantUsuarios, 3, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
             layoutEncabezadosTabla.Location = new Point(51, 266);
@@ -373,19 +373,19 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             fieldTituloId.Text = "Id";
             fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloNivelAcceso
+            // fieldTituloCantPermisosRol
             // 
-            fieldTituloNivelAcceso.Dock = DockStyle.Fill;
-            fieldTituloNivelAcceso.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloNivelAcceso.ForeColor = Color.Black;
-            fieldTituloNivelAcceso.ImeMode = ImeMode.NoControl;
-            fieldTituloNivelAcceso.Location = new Point(211, 1);
-            fieldTituloNivelAcceso.Margin = new Padding(1);
-            fieldTituloNivelAcceso.Name = "fieldTituloNivelAcceso";
-            fieldTituloNivelAcceso.Size = new Size(148, 56);
-            fieldTituloNivelAcceso.TabIndex = 4;
-            fieldTituloNivelAcceso.Text = "Nivel de acceso";
-            fieldTituloNivelAcceso.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloCantPermisosRol.Dock = DockStyle.Fill;
+            fieldTituloCantPermisosRol.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloCantPermisosRol.ForeColor = Color.Black;
+            fieldTituloCantPermisosRol.ImeMode = ImeMode.NoControl;
+            fieldTituloCantPermisosRol.Location = new Point(211, 1);
+            fieldTituloCantPermisosRol.Margin = new Padding(1);
+            fieldTituloCantPermisosRol.Name = "fieldTituloCantPermisosRol";
+            fieldTituloCantPermisosRol.Size = new Size(148, 56);
+            fieldTituloCantPermisosRol.TabIndex = 4;
+            fieldTituloCantPermisosRol.Text = "Permisos del rol";
+            fieldTituloCantPermisosRol.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTiuloCantUsuarios
             // 
@@ -667,7 +667,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
         private Guna2Button btnSincronizarDatos;
         private Label fieldPaginaActual;
         private Label fieldPaginasTotales;
-        private Label fieldTituloNivelAcceso;
+        private Label fieldTituloCantPermisosRol;
         private Label fieldTiuloCantUsuarios;
         private Panel panelBotonesGestion;
         private Guna2Button btnRegistrar;

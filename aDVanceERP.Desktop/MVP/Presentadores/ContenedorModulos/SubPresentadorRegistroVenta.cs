@@ -11,7 +11,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroVenta _registroVentaArticulo;
 
-        public List<string[]> Articulos { get; private set; } = new List<string[]>();
+        public List<string[]>? Articulos { get; private set; } = new List<string[]>();
 
         private void InicializarVistaRegistroVentaArticulo() {
             _registroVentaArticulo = new PresentadorRegistroVenta(new VistaRegistroVenta());
