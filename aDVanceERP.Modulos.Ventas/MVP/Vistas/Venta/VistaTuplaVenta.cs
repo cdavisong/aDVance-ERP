@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta.Plantillas;
+﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta.Plantillas;
 
 namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
     public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
@@ -92,8 +93,20 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
         }
 
         public void Mostrar() {
+            VerificarPermisos();
             BringToFront();
             Show();
+        }
+
+        private void VerificarPermisos() {
+            btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_ARTICULOS_EDITAR")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_ARTICULOS_TODOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_TODOS");
+            btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_ARTICULOS_ELIMINAR")
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_ARTICULOS_TODOS")
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_TODOS");
         }
 
         public void Restaurar() {

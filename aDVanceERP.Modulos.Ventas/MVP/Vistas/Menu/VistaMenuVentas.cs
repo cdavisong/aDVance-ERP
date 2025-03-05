@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Modulos.Ventas.MVP.Vistas.Menu.Plantillas;
+﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Modulos.Ventas.MVP.Vistas.Menu.Plantillas;
 
 namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Menu {
     public partial class VistaMenuVentas : Form, IVistaMenuVentas {
@@ -52,8 +53,15 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Menu {
         }
 
         public void Mostrar() {
+            VerificarPermisos();
             BringToFront();
             Show();
+        }
+
+        private void VerificarPermisos() {
+            btnVentaArticulos.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_VENTAS_ARTICULOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_TODOS");
         }
 
         public void Restaurar() {

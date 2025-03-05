@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Ventas.MVP.Modelos;
@@ -80,7 +81,7 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
             }
         }
 
-        public IRepositorioVista Vistas { get; private set; }
+        public IRepositorioVista? Vistas { get; private set; }
 
         public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? MostrarPrimeraPagina;
@@ -198,8 +199,16 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
 
         public void Mostrar() {
             Habilitada = true;
+            VerificarPermisos();
             BringToFront();
             Show();
+        }
+
+        private void VerificarPermisos() {
+            btnRegistrar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_ARTICULOS_ADICIONAR")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_ARTICULOS_TODOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_TODOS");
         }
 
         public void Restaurar() {

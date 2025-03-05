@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\aDVanceERP.Core.Seguridad\aDVanceERP.Core.Seguridad.csproj" />
     <ProjectReference Include="..\aDVanceERP.Core\aDVanceERP.Core.csproj" />
   </ItemGroup>
 
