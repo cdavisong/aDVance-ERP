@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas;
+﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
     public partial class VistaTuplaCliente : Form, IVistaTuplaCliente {
@@ -83,8 +84,20 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
         }
 
         public void Mostrar() {
+            VerificarPermisos();
             BringToFront();
             Show();
+        }
+
+        private void VerificarPermisos() {
+            btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CLIENTES_EDITAR")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CLIENTES_TODOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+            btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CLIENTES_ELIMINAR")
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CLIENTES_TODOS")
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
         }
 
         public void Restaurar() {

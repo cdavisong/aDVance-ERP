@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
+﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
     public partial class VistaTuplaProveedor : Form, IVistaTuplaProveedor {
@@ -77,8 +78,20 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
         }
 
         public void Mostrar() {
+            VerificarPermisos();
             BringToFront();
             Show();
+        }
+
+        private void VerificarPermisos() {
+            btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_PROVEEDORES_EDITAR")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_PROVEEDORES_TODOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+            btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_PROVEEDORES_ELIMINAR")
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_PROVEEDORES_TODOS")
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
         }
 
         public void Restaurar() {

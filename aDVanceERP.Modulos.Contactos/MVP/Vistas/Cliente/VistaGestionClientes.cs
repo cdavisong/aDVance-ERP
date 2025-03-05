@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas;
@@ -141,8 +142,16 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
 
         public void Mostrar() {
             Habilitada = true;
+            VerificarPermisos();
             BringToFront();
             Show();
+        }
+
+        private void VerificarPermisos() {
+            btnRegistrar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CLIENTES_ADICIONAR")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CLIENTES_TODOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
         }
 
         public void Restaurar() {

@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu.Plantillas;
+﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
     public partial class VistaMenuContacto : Form, IVistaMenuContacto {
@@ -69,8 +70,21 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
         }
 
         public void Mostrar() {
+            VerificarPermisos();
             BringToFront();
             Show();
+        }
+
+        private void VerificarPermisos() {
+            btnProveedores.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_PROVEEDORES")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS"); ;
+            btnClientes.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_CLIENTES")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS"); ;
+            btnContactos.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_CONTACTOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS"); ;
         }
 
         public void Restaurar() {
