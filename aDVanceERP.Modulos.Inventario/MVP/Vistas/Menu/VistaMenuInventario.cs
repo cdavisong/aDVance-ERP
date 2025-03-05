@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu.Plantillas;
+﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
     public partial class VistaMenuInventario : Form, IVistaMenuInventario {
@@ -69,8 +70,21 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
         }
 
         public void Mostrar() {
+            VerificarPermisos();
             BringToFront();
             Show();
+        }
+
+        private void VerificarPermisos() {
+            btnArticulos.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_INVENTARIO_ARTICULOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_TODOS");
+            btnMovimientos.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_INVENTARIO_MOVIMIENTOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_TODOS");
+            btnAlmacenes.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_INVENTARIO_ALMACENES")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_TODOS");
         }
 
         public void Restaurar() {
