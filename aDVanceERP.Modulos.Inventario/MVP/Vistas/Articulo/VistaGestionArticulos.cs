@@ -173,6 +173,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
                 fieldDatoBusqueda.Focus();
 
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new string[] { NombreAlmacen, DatoBusqueda } }, EventArgs.Empty);
+
+                // Ir a la primera página al cambiar el criterio de búsqueda
+                PaginaActual = 1;
+                HabilitarBotonesPaginacion();
             };
             fieldCriterioBusqueda.SelectedIndex = 0;
         }

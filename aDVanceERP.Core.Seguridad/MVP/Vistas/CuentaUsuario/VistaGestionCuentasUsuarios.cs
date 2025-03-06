@@ -146,6 +146,10 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
                 fieldDatoBusqueda.Focus();
 
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+
+                // Ir a la primera página al cambiar el criterio de búsqueda
+                PaginaActual = 1;
+                HabilitarBotonesPaginacion();
             };
             fieldCriterioBusqueda.SelectedIndex = 0;
             btnAprobarCuentaUsuario.Hide();

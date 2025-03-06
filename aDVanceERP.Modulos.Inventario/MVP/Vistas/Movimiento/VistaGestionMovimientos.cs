@@ -89,6 +89,9 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
                     BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
+            fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") }, e);
+            };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
                 Salir?.Invoke(sender, e);
                 Ocultar();
@@ -131,11 +134,23 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-                fieldDatoBusqueda.Text = string.Empty;
-                fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
-                fieldDatoBusqueda.Focus();
+                if (CriterioBusqueda == CriterioBusquedaMovimiento.Fecha) {
+                    fieldDatoBusquedaFecha.Value = DateTime.Now;
+                    fieldDatoBusquedaFecha.Focus();
+                } else {
+                    fieldDatoBusqueda.Text = string.Empty;
+                    fieldDatoBusqueda.Focus();
+                }
 
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+                fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaMovimiento.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
+                fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaMovimiento.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
+
+                if (CriterioBusqueda != CriterioBusquedaMovimiento.Fecha)
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+
+                // Ir a la primera página al cambiar el criterio de búsqueda
+                PaginaActual = 1;
+                HabilitarBotonesPaginacion();
             };
             fieldCriterioBusqueda.SelectedIndex = 0;
         }
