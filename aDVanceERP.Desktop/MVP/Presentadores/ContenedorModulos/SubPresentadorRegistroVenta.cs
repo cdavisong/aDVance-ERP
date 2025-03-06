@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.Utiles;
-using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Ventas.MVP.Modelos;
@@ -13,12 +13,12 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         public List<string[]>? Articulos { get; private set; } = new List<string[]>();
 
-        private void InicializarVistaRegistroVentaArticulo() {
+        private async Task InicializarVistaRegistroVentaArticulo() {
             _registroVentaArticulo = new PresentadorRegistroVenta(new VistaRegistroVenta());
+            _registroVentaArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+            _registroVentaArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroVentaArticulo.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
             _registroVentaArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
-            _registroVentaArticulo.Vista.Coordenadas = new Point(Vista.Dimensiones.Width - _registroVentaArticulo.Vista.Dimensiones.Width - 20, VariablesGlobales.AlturaBarraTituloPredeterminada);
-            _registroVentaArticulo.Vista.Dimensiones = new Size(_registroVentaArticulo.Vista.Dimensiones.Width, Vista.Dimensiones.Height);
             _registroVentaArticulo.Vista.RegistrarDatos += delegate {
                 Articulos = _registroVentaArticulo.Vista.Articulos;
 
@@ -26,38 +26,46 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 RegistrarPagos();
                 RegistrarTransferencia();
             };
-            _registroVentaArticulo.Salir += delegate {
-                _gestionVentasArticulos.RefrescarListaObjetos();
+            _registroVentaArticulo.Salir += async (sender, e) => {
+                if (_gestionVentasArticulos != null) {
+                    await _gestionVentasArticulos.RefrescarListaObjetos();
+                }
             };
         }
 
-        private void MostrarVistaRegistroVentaArticulo(object? sender, EventArgs e) {
-            InicializarVistaRegistroVentaArticulo();
+        private async void MostrarVistaRegistroVentaArticulo(object? sender, EventArgs e) {
+            await InicializarVistaRegistroVentaArticulo();
 
-            _registroVentaArticulo.Vista.EfectuarPago += delegate {
-                MostrarVistaRegistroPago(_registroVentaArticulo.Vista.Total, e);
+            if (_registroVentaArticulo != null) {
+                _registroVentaArticulo.Vista.EfectuarPago += delegate {
+                    MostrarVistaRegistroPago(_registroVentaArticulo?.Vista.Total, e);
 
-                _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
-            };
-            _registroVentaArticulo.Vista.Mostrar();
-            _registroVentaArticulo = null;
+                    _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
+                };
+                _registroVentaArticulo?.Vista.Mostrar();
+            }
+
+            _registroVentaArticulo?.Dispose();
         }
 
-        private void MostrarVistaEdicionVentaArticulo(object? sender, EventArgs e) {
-            InicializarVistaRegistroVentaArticulo();
+        private async void MostrarVistaEdicionVentaArticulo(object? sender, EventArgs e) {
+            await InicializarVistaRegistroVentaArticulo();
 
-            _registroVentaArticulo.PopularVistaDesdeObjeto(sender as Venta);
-            _registroVentaArticulo.Vista.EfectuarPago += delegate {
-                MostrarVistaEdicionPago(sender, e);
+            if (_registroVentaArticulo != null && sender is Venta venta) {
+                _registroVentaArticulo.PopularVistaDesdeObjeto(venta);
+                _registroVentaArticulo.Vista.EfectuarPago += delegate {
+                    MostrarVistaEdicionPago(sender, e);
 
-                _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
-            };
-            _registroVentaArticulo.Vista.Mostrar();
-            _registroVentaArticulo = null;
+                    _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
+                };
+                _registroVentaArticulo.Vista.Mostrar();
+            }
+
+            _registroVentaArticulo?.Dispose();
         }
 
         private void RegistrarArticulos() {
-            if (Articulos.Count == 0)
+            if (Articulos == null || Articulos.Count == 0)
                 return;
 
             var ultimoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta");

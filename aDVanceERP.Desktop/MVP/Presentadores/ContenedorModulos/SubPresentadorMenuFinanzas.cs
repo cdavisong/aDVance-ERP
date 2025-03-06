@@ -14,8 +14,9 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private void MostrarVistaMenuFinanzas(object? sender, EventArgs e) {
-            _menuFinanzas.Vista.Mostrar();
             _menuFinanzas.Vista.Restaurar();
+            _menuFinanzas.Vista.Mostrar();
+
             _menuFinanzas.Vista.PresionarBotonSeleccion(1, e);
         }
     }

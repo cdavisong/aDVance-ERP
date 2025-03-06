@@ -15,8 +15,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         }
 
         private void MostrarVistaContenedorModulos(object? sender, EventArgs e) {
-            _contenedorModulos?.Vista.Mostrar();
             _contenedorModulos?.Vista.Restaurar();
+            _contenedorModulos?.Vista.Mostrar();
 
             // TODO: Mostrar el botón de sub-menu para usuarios
             //Vista.BtnSubmenuUsuarioDisponible = true;

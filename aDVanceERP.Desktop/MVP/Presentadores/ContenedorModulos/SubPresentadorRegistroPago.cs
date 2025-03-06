@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.Utiles;
-using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Ventas.MVP.Modelos;
 using aDVanceERP.Modulos.Ventas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Ventas.MVP.Presentadores;
@@ -13,8 +13,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private void InicializarVistaRegistroPago() {
             _registroPago = new PresentadorRegistroPago(new VistaRegistroPago());
-            _registroPago.Vista.Coordenadas = new Point(Vista.Dimensiones.Width - _registroPago.Vista.Dimensiones.Width - 20, VariablesGlobales.AlturaBarraTituloPredeterminada);
-            _registroPago.Vista.Dimensiones = new Size(_registroPago.Vista.Dimensiones.Width, Vista.Dimensiones.Height);
+            _registroPago.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+            _registroPago.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroPago.Vista.PagoEliminado += delegate (object? sender, EventArgs e) {
                 if (sender is string[] metodoPago && metodoPago[0].Contains("Transferencia")) {
                     _registroPago.Vista.CargarMetodosPago();
@@ -30,29 +30,34 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaRegistroPago(object? sender, EventArgs e) {
             InicializarVistaRegistroPago();
 
-            _registroPago.Vista.Total = float.Parse(sender?.ToString() ?? "0");
-            _registroPago.Vista.EfectuarTransferencia += delegate {
-                MostrarVistaRegistroDetallePagoTransferencia(sender, e);
-            };
-            _registroPago.Vista.Mostrar();
-            _registroPago = null;
+            if (_registroPago != null) {
+                _registroPago.Vista.Total = float.Parse(sender?.ToString() ?? "0");
+                _registroPago.Vista.EfectuarTransferencia += delegate {
+                    MostrarVistaRegistroDetallePagoTransferencia(sender, e);
+                };
+                _registroPago.Vista.Mostrar();
+            }
+
+            _registroPago?.Dispose();
         }
 
         private void MostrarVistaEdicionPago(object? sender, EventArgs e) {
             InicializarVistaRegistroPago();
 
-            var venta = sender as Venta;
+            if (_registroPago != null && sender is Venta venta) {
 
-            _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta?.Id ?? 0, string.Empty, venta?.Total ?? 0f));
-            _registroPago.Vista.EfectuarTransferencia += delegate {
-                MostrarVistaEdicionDetallePagoTransferencia(sender, e);
-            };
-            _registroPago.Vista.Mostrar();
-            _registroPago = null;
+                _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta?.Id ?? 0, string.Empty, venta?.Total ?? 0f));
+                _registroPago.Vista.EfectuarTransferencia += delegate {
+                    MostrarVistaEdicionDetallePagoTransferencia(sender, e);
+                };
+                _registroPago.Vista.Mostrar();
+            }
+
+            _registroPago?.Dispose();
         }
 
         private void RegistrarPagos() {
-            if (Pagos.Count == 0)
+            if (Pagos == null || Pagos.Count == 0)
                 return;
 
             using (var datosPago = new DatosPago()) {

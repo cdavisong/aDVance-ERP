@@ -4,7 +4,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
     public partial class PresentadorContenedorSeguridad {
-        private PresentadorAprobacionUsuario? _aprobacionUsuario;
+        private PresentadorAprobacionUsuario _aprobacionUsuario;
 
         public event EventHandler? UsuarioAutenticado;
 
@@ -16,7 +16,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
         }
 
         private void MostrarVistaAprobacionUsuario(object? sender, EventArgs e) {
-            _aprobacionUsuario?.Vista.Mostrar();
+            _aprobacionUsuario.Vista.Mostrar();
         }
 
         private void VerificarAprobacionUsuario(object? sender, EventArgs e) {

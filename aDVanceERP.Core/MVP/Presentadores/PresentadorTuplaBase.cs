@@ -8,17 +8,13 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         where Vt : IVistaTupla
         where O : class, IObjetoUnico, new() {
         protected PresentadorTuplaBase(Vt vista, O objeto) : base(vista) {
+            Objeto = objeto ?? throw new ArgumentNullException(nameof(objeto));
+
+            // Suscribir a eventos de la vista
             Vista.TuplaSeleccionada += OnTuplaSeleccionada;
             Vista.EditarDatosTupla += OnEditarDatosTupla;
             Vista.EliminarDatosTupla += OnEliminarDatosTupla;
-            Objeto = objeto;
         }
-
-        private void OnTuplaSeleccionada(object? sender, EventArgs e) => TuplaSeleccionada = !TuplaSeleccionada;
-
-        private void OnEditarDatosTupla(object? sender, EventArgs e) => EditarObjeto?.Invoke(Objeto, e);
-
-        private void OnEliminarDatosTupla(object? sender, EventArgs e) => EliminarObjeto?.Invoke(Objeto, e);
 
         public bool TuplaSeleccionada {
             get => Vista.ColorFondoTupla.Equals(VariablesGlobales.ColorResaltadoTupla);
@@ -39,5 +35,17 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         public event EventHandler? ObjetoDeseleccionado;
         public event EventHandler? EditarObjeto;
         public event EventHandler? EliminarObjeto;
+
+        private void OnTuplaSeleccionada(object? sender, EventArgs e) {
+            TuplaSeleccionada = !TuplaSeleccionada;
+        }
+
+        private void OnEditarDatosTupla(object? sender, EventArgs e) {
+            EditarObjeto?.Invoke(Objeto, e);
+        }
+
+        private void OnEliminarDatosTupla(object? sender, EventArgs e) {
+            EliminarObjeto?.Invoke(Objeto, e);
+        }
     }
 }

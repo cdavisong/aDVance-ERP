@@ -6,19 +6,24 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorGestionRolesUsuarios _gestionRolesUsuarios;
 
-        private void InicializarVistaGestionRolesUsuarios() {
+        private async void InicializarVistaGestionRolesUsuarios() {
             _gestionRolesUsuarios = new PresentadorGestionRolesUsuarios(new VistaGestionRolesUsuarios());
             _gestionRolesUsuarios.EditarObjeto += MostrarVistaEdicionRolUsuario;
             _gestionRolesUsuarios.Vista.RegistrarDatos += MostrarVistaRegistroRolUsuario;
             _gestionRolesUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaRolUsuario.CriterioBusquedaBusquedaRolUsuario);
 
-            Vista.Vistas?.Registrar("vistaGestionRolesUsuarios", _gestionRolesUsuarios.Vista);
+            if (Vista.Vistas != null)
+                await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionRolesUsuarios", _gestionRolesUsuarios.Vista));
         }
 
-        private void MostrarVistaGestionRolesUsuarios(object? sender, EventArgs e) {
-            _gestionRolesUsuarios.Vista.Mostrar();
+        private async void MostrarVistaGestionRolesUsuarios(object? sender, EventArgs e) {
+            if ((_gestionRolesUsuarios?.Vista) == null)
+                return;
+
             _gestionRolesUsuarios.Vista.Restaurar();
-            _gestionRolesUsuarios.RefrescarListaObjetos();
+            _gestionRolesUsuarios.Vista.Mostrar();
+
+            await _gestionRolesUsuarios.RefrescarListaObjetos();
         }
     }
 }

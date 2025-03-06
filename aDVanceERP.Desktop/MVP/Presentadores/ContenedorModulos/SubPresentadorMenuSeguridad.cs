@@ -15,8 +15,9 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private void MostrarVistaMenuSeguridad(object? sender, EventArgs e) {
-            _menuSeguridad.Vista.Mostrar();
             _menuSeguridad.Vista.Restaurar();
+            _menuSeguridad.Vista.Mostrar();
+
             _menuSeguridad.Vista.PresionarBotonSeleccion(1, e);
         }
     }

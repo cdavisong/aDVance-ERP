@@ -2,36 +2,44 @@
 using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
 using aDVanceERP.Core.Seguridad.Utiles;
-using aDVanceERP.Core.Utiles;
+using aDVanceERP.Desktop.Utiles;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroCuentaUsuario _registroCuentaUsuario;
 
-        private void InicializarVistaRegistroCuentaUsuario() {
+        private async Task InicializarVistaRegistroCuentaUsuario() {
             _registroCuentaUsuario = new PresentadorRegistroCuentaUsuario(new VistaRegistroCuentaUsuario());
             _registroCuentaUsuario.Vista.CargarRolesUsuarios(UtilesRolUsuario.ObtenerNombresRolesUsuarios());
-            _registroCuentaUsuario.Vista.Coordenadas = new Point(Vista.Dimensiones.Width - _registroCuentaUsuario.Vista.Dimensiones.Width - 20, VariablesGlobales.AlturaBarraTituloPredeterminada);
-            _registroCuentaUsuario.Vista.Dimensiones = new Size(_registroCuentaUsuario.Vista.Dimensiones.Width, Vista.Dimensiones.Height);
-            _registroCuentaUsuario.Salir += delegate {
-                _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
-                _gestionCuentasUsuarios.RefrescarListaObjetos();
+            _registroCuentaUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width); ;
+            _registroCuentaUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
+            _registroCuentaUsuario.Salir += async (sender, e) => {
+                if (_gestionCuentasUsuarios != null) {
+                    _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
+                    await _gestionCuentasUsuarios.RefrescarListaObjetos();
+                }
             };
         }
 
-        private void MostrarVistaRegistroCuentaUsuario(object? sender, EventArgs e) {
-            InicializarVistaRegistroCuentaUsuario();
+        private async void MostrarVistaRegistroCuentaUsuario(object? sender, EventArgs e) {
+            await InicializarVistaRegistroCuentaUsuario();
 
-            _registroCuentaUsuario.Vista.Mostrar();
-            _registroCuentaUsuario = null;
+            if (_registroCuentaUsuario != null) {
+                _registroCuentaUsuario.Vista.Mostrar();
+            }
+
+            _registroCuentaUsuario?.Dispose();
         }
 
-        private void MostrarVistaEdicionCuentaUsuario(object? sender, EventArgs e) {
-            InicializarVistaRegistroCuentaUsuario();
+        private async void MostrarVistaEdicionCuentaUsuario(object? sender, EventArgs e) {
+            await InicializarVistaRegistroCuentaUsuario();
 
-            _registroCuentaUsuario.PopularVistaDesdeObjeto(sender as CuentaUsuario);
-            _registroCuentaUsuario.Vista.Mostrar();
-            _registroCuentaUsuario = null;
+            if (_registroCuentaUsuario != null && sender is CuentaUsuario cuentaUsuario) {
+                _registroCuentaUsuario.PopularVistaDesdeObjeto(cuentaUsuario);
+                _registroCuentaUsuario.Vista.Mostrar();
+            }
+
+            _registroCuentaUsuario?.Dispose();
         }
     }
 }

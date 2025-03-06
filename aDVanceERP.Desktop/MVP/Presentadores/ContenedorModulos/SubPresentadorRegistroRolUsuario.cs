@@ -3,8 +3,8 @@ using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
 using aDVanceERP.Core.Seguridad.Utiles;
-using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Desktop.Utiles;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
@@ -12,38 +12,48 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         public List<string[]>? Permisos { get; private set; } = new List<string[]>();
 
-        private void InicializarVistaRegistroRolUsuario() {
+        private async Task InicializarVistaRegistroRolUsuario() {
             _registroRolUsuario = new PresentadorRegistroRolUsuario(new VistaRegistroRolUsuario());
+
+            // Configurar coordenadas y dimensiones de la vista
+            _registroRolUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+            _registroRolUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
-            _registroRolUsuario.Vista.Coordenadas = new Point(Vista.Dimensiones.Width - _registroRolUsuario.Vista.Dimensiones.Width - 20, VariablesGlobales.AlturaBarraTituloPredeterminada);
-            _registroRolUsuario.Vista.Dimensiones = new Size(_registroRolUsuario.Vista.Dimensiones.Width, Vista.Dimensiones.Height);
             _registroRolUsuario.DatosRegistradosActualizados += delegate {
                 Permisos = _registroRolUsuario.Vista.Permisos;
 
                 RegistrarEditarPermisosRol(UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario));
             };
-            _registroRolUsuario.Salir += delegate {
-                _gestionRolesUsuarios.RefrescarListaObjetos();
+            _registroRolUsuario.Salir += async (sender, e) => {
+                if (_gestionRolesUsuarios != null) {
+                    await _gestionRolesUsuarios.RefrescarListaObjetos();
+                }
             };
         }
 
-        private void MostrarVistaRegistroRolUsuario(object? sender, EventArgs e) {
-            InicializarVistaRegistroRolUsuario();
+        private async void MostrarVistaRegistroRolUsuario(object? sender, EventArgs e) {
+            await InicializarVistaRegistroRolUsuario();
 
-            _registroRolUsuario.Vista.Mostrar();
-            _registroRolUsuario = null;
+            if (_registroRolUsuario != null) {
+                _registroRolUsuario.Vista.Mostrar();
+            }
+
+            _registroRolUsuario?.Dispose();
         }
 
-        private void MostrarVistaEdicionRolUsuario(object? sender, EventArgs e) {
-            InicializarVistaRegistroRolUsuario();
+        private async void MostrarVistaEdicionRolUsuario(object? sender, EventArgs e) {
+            await InicializarVistaRegistroRolUsuario();
 
-            _registroRolUsuario.PopularVistaDesdeObjeto(sender as RolUsuario);
-            _registroRolUsuario.Vista.Mostrar();
-            _registroRolUsuario = null;
+            if (_registroRolUsuario != null && sender is RolUsuario rolUsuario) {
+                _registroRolUsuario.PopularVistaDesdeObjeto(rolUsuario);
+                _registroRolUsuario.Vista.Mostrar();
+            }
+
+            _registroRolUsuario?.Dispose();
         }
 
         private void RegistrarEditarPermisosRol(long idRolUsuario = 0) {
-            if (Permisos?.Count == 0)
+            if (Permisos == null || Permisos.Count == 0)
                 return;
 
             // Si idRolUsuario es 0, se asume que es un rol nuevo
@@ -69,7 +79,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 }
             }
 
-            Permisos?.Clear();
+            Permisos.Clear();
         }
     }
 }

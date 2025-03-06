@@ -26,9 +26,18 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             return EjecutarConsultaEscalar<long>(ComandoCantidad());
         }
 
+        public virtual async Task<long> CantidadAsync() {
+            return await EjecutarConsultaEscalarAsync<long>(ComandoCantidad());
+        }
+
         public virtual long Adicionar(O objeto) {
             EjecutarComandoNoQuery(ComandoAdicionar(objeto));
             return EjecutarConsultaEscalar<long>("SELECT LAST_INSERT_ID();");
+        }
+
+        public virtual async Task<long> AdicionarAsync(O objeto) {
+            await EjecutarComandoNoQueryAsync(ComandoAdicionar(objeto));
+            return await EjecutarConsultaEscalarAsync<long>("SELECT LAST_INSERT_ID();");
         }
 
         public virtual bool Editar(O objeto, long nuevoId = 0) {
@@ -36,8 +45,18 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             return true;
         }
 
+        public virtual async Task<bool> EditarAsync(O objeto, long nuevoId = 0) {
+            await EjecutarComandoNoQueryAsync(ComandoEditar(objeto));
+            return true;
+        }
+
         public virtual bool Eliminar(long id) {
             EjecutarComandoNoQuery(ComandoEliminar(id));
+            return true;
+        }
+
+        public virtual async Task<bool> EliminarAsync(long id) {
+            await EjecutarComandoNoQueryAsync(ComandoEliminar(id));
             return true;
         }
 
@@ -47,12 +66,30 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             return EjecutarConsulta(comando, lectorDatos => Objetos.Add(ObtenerObjetoDataReader(lectorDatos)));
         }
 
+        public virtual async Task<IEnumerable<O>> ObtenerAsync(string? textoComando = "", int limite = 0, int desplazamiento = 0) {
+            Objetos.Clear();
+            var comando = string.IsNullOrEmpty(textoComando) ? ComandoObtener(default, string.Empty) : textoComando;
+            return await EjecutarConsultaAsync(comando);
+        }
+
         public IEnumerable<O> Obtener(C? criterio, string? dato, int limite = 0, int desplazamiento = 0) {
             return Obtener(ComandoObtener(criterio, dato));
         }
 
+        public async Task<IEnumerable<O>> ObtenerAsync(C? criterio, string? dato, int limite = 0, int desplazamiento = 0) {
+            Objetos.Clear();
+            var comando = ComandoObtener(criterio, dato);
+            return await EjecutarConsultaAsync(comando);
+        }
+
         public bool Existe(string dato) {
             return Obtener(ComandoExiste(dato)).Any();
+        }
+
+        public async Task<bool> ExisteAsync(string dato) {
+            var comando = ComandoExiste(dato);
+            var resultados = await EjecutarConsultaAsync(comando);
+            return resultados.Any();
         }
 
         public void Dispose() {
@@ -80,12 +117,33 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             }
         }
 
+        private async Task<T> EjecutarConsultaEscalarAsync<T>(string comandoTexto) {
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                await conexion.OpenAsync().ConfigureAwait(false);
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = comandoTexto;
+                    var result = await comando.ExecuteScalarAsync().ConfigureAwait(false);
+                    return (T) Convert.ChangeType(result, typeof(T));
+                }
+            }
+        }
+
         private void EjecutarComandoNoQuery(string comandoTexto) {
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 conexion.Open();
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = comandoTexto;
                     comando.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private async Task EjecutarComandoNoQueryAsync(string comandoTexto) {
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                await conexion.OpenAsync().ConfigureAwait(false);
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = comandoTexto;
+                    await comando.ExecuteNonQueryAsync().ConfigureAwait(false);
                 }
             }
         }
@@ -100,6 +158,21 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
                             while (lectorDatos.Read()) {
                                 procesarLector(lectorDatos);
                             }
+                        }
+                    }
+                }
+            }
+            return Objetos;
+        }
+
+        private async Task<IEnumerable<O>> EjecutarConsultaAsync(string comandoTexto) {
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                await conexion.OpenAsync().ConfigureAwait(false);
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = comandoTexto;
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        while (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
+                            Objetos.Add(ObtenerObjetoDataReader((MySqlDataReader) lectorDatos));
                         }
                     }
                 }

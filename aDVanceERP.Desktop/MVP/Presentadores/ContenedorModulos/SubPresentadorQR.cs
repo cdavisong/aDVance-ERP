@@ -17,8 +17,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             InicializarVistaQR();
 
             _qr.Vista.CargarCodigoQR(sender as string);
-            _qr.Vista.Mostrar();
             _qr.Vista.Restaurar();
+            _qr.Vista.Mostrar();
         }
     }
 }

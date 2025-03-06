@@ -6,19 +6,24 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorGestionCuentasUsuarios _gestionCuentasUsuarios;
 
-        private void InicializarVistaGestionCuentasUsuarios() {
+        private async void InicializarVistaGestionCuentasUsuarios() {
             _gestionCuentasUsuarios = new PresentadorGestionCuentasUsuarios(new VistaGestionCuentasUsuarios());
             _gestionCuentasUsuarios.EditarObjeto += MostrarVistaEdicionCuentaUsuario;
             _gestionCuentasUsuarios.Vista.RegistrarDatos += MostrarVistaRegistroCuentaUsuario;
             _gestionCuentasUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaUsuario.CriterioBusquedaBusquedaCuentaUsuario);
 
-            Vista.Vistas?.Registrar("vistaGestionCuentasUsuarios", _gestionCuentasUsuarios.Vista);
+            if (Vista.Vistas != null)
+                await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasUsuarios", _gestionCuentasUsuarios.Vista));
         }
 
-        private void MostrarVistaGestionCuentasUsuarios(object? sender, EventArgs e) {
-            _gestionCuentasUsuarios.Vista.Mostrar();
+        private async void MostrarVistaGestionCuentasUsuarios(object? sender, EventArgs e) {
+            if ((_gestionCuentasUsuarios?.Vista) == null)
+                return;
+
             _gestionCuentasUsuarios.Vista.Restaurar();
-            _gestionCuentasUsuarios.RefrescarListaObjetos();
+            _gestionCuentasUsuarios.Vista.Mostrar();
+
+            await _gestionCuentasUsuarios.RefrescarListaObjetos();
         }
     }
 }

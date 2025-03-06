@@ -10,14 +10,15 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _menuInventario.Vista.VerArticulos += MostrarVistaGestionArticulos;
             _menuInventario.Vista.VerMovimientos += MostrarVistaGestionMovimientos;
             _menuInventario.Vista.VerAlmacenes += MostrarVistaGestionAlmacenes;
-            _menuInventario.Vista.CambioMenu += delegate { Vista.Vistas.Ocultar(true); };
+            _menuInventario.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
 
             VistaPrincipal.Menus.Registrar("vistaMenuInventario", _menuInventario.Vista);
         }
 
         private void MostrarVistaMenuInventario(object? sender, EventArgs e) {
-            _menuInventario.Vista.Mostrar();
             _menuInventario.Vista.Restaurar();
+            _menuInventario.Vista.Mostrar();
+
             _menuInventario.Vista.PresionarBotonSeleccion(1, e);
         }
     }

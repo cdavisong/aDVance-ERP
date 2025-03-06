@@ -8,6 +8,11 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
 
         public RepositorioVistaBase(Panel contenedorVistas) {
             _contenedorVistas = contenedorVistas ?? throw new ArgumentNullException(nameof(contenedorVistas));
+
+            // Habilitar doble búfer para reducir el flickering
+            _contenedorVistas.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?
+                .SetValue(_contenedorVistas, true);
+
             Inicializar();
         }
 
@@ -15,23 +20,31 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
         public IVista? VistaActual { get; private set; }
 
         public void Registrar(string nombre, IVista vista, Point coordenadas, Size dimensiones, string modoRedimensionado = "HV") {
-            if (vista is Control control) {
-                control.Visible = false;
-                control.Tag = modoRedimensionado;
+            SuspendRedraw(); // Suspender el redibujado
 
-                if (vista is Form vistaForm) {
-                    vistaForm.Name = nombre;
-                    vistaForm.Location = coordenadas;
-                    vistaForm.TopLevel = false;
-                    _contenedorVistas.Controls.Add(vistaForm);
-                } else if (vista is UserControl vistaUserControl) {
-                    vistaUserControl.Name = nombre;
-                    vistaUserControl.Location = coordenadas;
-                    _contenedorVistas.Controls.Add(vistaUserControl);
+            try {
+                if (vista is Control control) {
+                    control.Visible = false;
+                    control.Tag = modoRedimensionado;
+
+                    if (vista is Form vistaForm) {
+                        vistaForm.Name = nombre;
+                        vistaForm.Location = coordenadas;
+                        vistaForm.TopLevel = false;
+
+                        _contenedorVistas.Controls.Add(vistaForm);
+                    } else if (vista is UserControl vistaUserControl) {
+                        vistaUserControl.Name = nombre;
+                        vistaUserControl.Location = coordenadas;
+
+                        _contenedorVistas.Controls.Add(vistaUserControl);
+                    }
+                    _vistas?.Add(vista);
+
+                    AjustarDimensiones(vista, dimensiones, modoRedimensionado);
                 }
-
-                AjustarDimensiones(vista, dimensiones, modoRedimensionado);
-                _vistas?.Add(vista);
+            } finally {
+                ResumeRedraw(); // Reanudar el redibujado
             }
         }
 
@@ -72,29 +85,47 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
         }
 
         public void Ocultar(bool ocultarTodo = false) {
-            if (ocultarTodo) {
-                foreach (var control in _contenedorVistas.Controls.OfType<IVista>()) {
-                    control.Ocultar();
-                    control.Habilitada = true;
+            SuspendRedraw(); // Suspender el redibujado
+
+            try {
+                if (ocultarTodo) {
+                    foreach (var control in _contenedorVistas.Controls.OfType<IVista>()) {
+                        control.Ocultar();
+                        control.Habilitada = true;
+                    }
+                } else {
+                    if (VistaActual != null) {
+                        VistaActual.Ocultar();
+                        VistaActual.Habilitada = true;
+                    }
                 }
-            } else {
-                if (VistaActual != null) {
-                    VistaActual.Ocultar();
-                    VistaActual.Habilitada = true;
-                }                
+            } finally {
+                ResumeRedraw(); // Reanudar el redibujado
             }
         }
 
         public void Cerrar(bool cerrarTodo = false) {
-            if (cerrarTodo) {
-                foreach (var control in _contenedorVistas.Controls.OfType<IVista>()) {
-                    control.Cerrar();
-                    (control as Control)?.Dispose();
+            SuspendRedraw(); // Suspender el redibujado
+
+            try {
+                if (cerrarTodo) {
+                    foreach (var control in _contenedorVistas.Controls.OfType<IVista>().ToList()) {
+                        control.Cerrar();
+                        (control as Control)?.Dispose();
+                    }
+                } else {
+                    VistaActual?.Cerrar();
+                    (VistaActual as Control)?.Dispose();
                 }
-            } else {
-                VistaActual?.Cerrar();
-                (VistaActual as Control)?.Dispose();
+            } finally {
+                ResumeRedraw(); // Reanudar el redibujado
             }
+        }
+
+        public async Task CerrarAsync(bool cerrarTodo = false) {
+            await Task.Run(() => {
+                Cerrar(cerrarTodo); // Ejecutar en un hilo secundario
+            });
         }
 
         private void AjustarDimensiones(IVista vista, Size dimensiones, string modoRedimensionado) {
@@ -115,11 +146,27 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
         }
 
         private void ActualizarDimensionesVistas(object? sender, EventArgs e) {
-            foreach (var vista in _vistas.Where(v => !(v is IVistaSubMenu))) {
-                if (vista is Control control && control.Tag is string modoRedimensionado) {
-                    AjustarDimensiones(vista, vista.Dimensiones, modoRedimensionado);
+            SuspendRedraw(); // Suspender el redibujado
+
+            try {
+                foreach (var vista in _vistas.Where(v => !(v is IVistaSubMenu))) {
+                    if (vista is Control control && control.Tag is string modoRedimensionado) {
+                        if (control.InvokeRequired)
+                            control.BeginInvoke(new Action(() => { AjustarDimensiones(vista, vista.Dimensiones, modoRedimensionado); }));
+                        else AjustarDimensiones(vista, vista.Dimensiones, modoRedimensionado);
+                    }
                 }
+            } finally {
+                ResumeRedraw(); // Reanudar el redibujado
             }
+        }
+
+        private void SuspendRedraw() {
+            _contenedorVistas.SuspendLayout();
+        }
+
+        private void ResumeRedraw() {
+            _contenedorVistas.ResumeLayout();
         }
     }
 }

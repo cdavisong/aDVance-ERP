@@ -13,6 +13,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         where O : class, IObjetoUnico, new()
         where C : Enum {
         protected readonly List<Pt> _tuplasObjetos;
+        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1); // Para controlar la concurrencia
 
         protected PresentadorGestionBase(Vg vista) : base(vista) {
             _tuplasObjetos = new List<Pt>();
@@ -49,69 +50,75 @@ namespace aDVanceERP.Core.MVP.Presentadores {
 
         protected abstract Pt ObtenerValoresTupla(O objeto);
 
-        protected virtual void EliminarObjeto(object? sender, EventArgs e) {
+        protected virtual async void EliminarObjeto(object? sender, EventArgs e) {
             if (sender is O objeto) {
-                DatosObjeto.Eliminar(objeto.Id);                
-                Vista.PaginaActual = 1;
-                
-                RefrescarListaObjetos();
+                try {
+                    await DatosObjeto.EliminarAsync(objeto.Id);
+                    Vista.PaginaActual = 1;
+
+                    await RefrescarListaObjetos();
+                } catch (Exception ex) {
+                    //TODO: Manejar la excepción (por ejemplo, mostrar un mensaje al usuario)
+                    Console.WriteLine($"Error al eliminar el objeto: {ex.Message}");
+                }
             }
         }
 
-        public void BusquedaDatos(C criterio, string dato) {
+        public async Task BusquedaDatos(C criterio, string dato) {
             CriterioBusquedaObjeto = criterio;
             DatoBusquedaObjeto = dato;
-            
-            RefrescarListaObjetos();
+
+            await RefrescarListaObjetos();
         }
 
-        public virtual void RefrescarListaObjetos() {
-            if (Vista.TuplasMaximasContenedor == 0) return;
+        public virtual async Task RefrescarListaObjetos() {
+            await _semaphore.WaitAsync();
+            try {
+                if (Vista.TuplasMaximasContenedor == 0) return;
 
-            Vista.Cerrar();
+                Vista.Cerrar();
 
-            _tuplasObjetos.ForEach(tupla => tupla.Vista.Cerrar());
-            _tuplasObjetos.Clear();
+                _tuplasObjetos.ForEach(tupla => tupla.Vista.Cerrar());
+                _tuplasObjetos.Clear();
 
-            VariablesGlobales.CoordenadaYUltimaTupla = 0;
+                VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
-            var objetos = DatosObjeto.Obtener(CriterioBusquedaObjeto, DatoBusquedaObjeto).ToList();
-            var calculoPaginas = objetos.Count / Vista.TuplasMaximasContenedor;
-            var entero = objetos.Count % Vista.TuplasMaximasContenedor == 0;
+                var objetos = (await DatosObjeto.ObtenerAsync(CriterioBusquedaObjeto, DatoBusquedaObjeto)).ToList();
+                var calculoPaginas = objetos.Count / Vista.TuplasMaximasContenedor;
+                var entero = objetos.Count % Vista.TuplasMaximasContenedor == 0;
 
-            Vista.PaginasTotales = calculoPaginas < 1 ? 1 : (entero ? calculoPaginas : calculoPaginas + 1);
+                Vista.PaginasTotales = calculoPaginas < 1 ? 1 : (entero ? calculoPaginas : calculoPaginas + 1);
 
-            var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
+                var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
 
-            for (var i = 0; i + incremento < objetos.Count && i < Vista.TuplasMaximasContenedor; i++) {
-                AdicionarTuplaObjeto(objetos[i + incremento]);
+                for (var i = 0; i + incremento < objetos.Count && i < Vista.TuplasMaximasContenedor; i++) {
+                    AdicionarTuplaObjeto(objetos[i + incremento]);
+                }
+            } catch (Exception ex) {
+                //TODO: Manejar la excepción (por ejemplo, mostrar un mensaje al usuario)
+                Console.WriteLine($"Error al refrescar la lista de objetos: {ex.Message}");
+            } finally {
+                _semaphore.Release();
             }
         }
 
-        private async Task<IEnumerable<O>> ObtenerAsync(C criterio, string dato) {
-            // Aquí deberías implementar la lógica para obtener los objetos de forma asincrónica
-            // Este método es un ejemplo y debería estar en el repositorio correspondiente
-            return await Task.FromResult(new List<O>());
-        }
-
-
-        private void OnBuscarDatos(object? sender, EventArgs e) {
+        private async void OnBuscarDatos(object? sender, EventArgs e) {
             if (sender is object[] objetoSplit && objetoSplit.Length >= 2) {
                 var criterioBusqueda = (C) objetoSplit[0];
                 var datoBusqueda = objetoSplit[1] is string[] datosBusquedaMultiple
                     ? string.Join(";", datosBusquedaMultiple)
                     : objetoSplit[1].ToString();
 
-                BusquedaDatos(criterioBusqueda, datoBusqueda);
+                await BusquedaDatos(criterioBusqueda, datoBusqueda);
             }
         }
 
-        private void OnAlturaContenedorTuplasModificada(object? sender, EventArgs e) {
-            RefrescarListaObjetos();
+        private async void OnAlturaContenedorTuplasModificada(object? sender, EventArgs e) {
+            await RefrescarListaObjetos();
         }
 
-        private void OnSincronizarDatos(object? sender, EventArgs e) {
-            RefrescarListaObjetos();
+        private async void OnSincronizarDatos(object? sender, EventArgs e) {
+            await RefrescarListaObjetos();
         }
     }
 }

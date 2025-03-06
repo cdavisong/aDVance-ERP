@@ -13,8 +13,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         }
 
         private void MostrarVistaContenedorSeguridad(object sender, EventArgs e) {
-            _contenedorSeguridad?.Vista.Mostrar();
             _contenedorSeguridad?.Vista.Restaurar();
+            _contenedorSeguridad?.Vista.Mostrar();
         }
     }
 }

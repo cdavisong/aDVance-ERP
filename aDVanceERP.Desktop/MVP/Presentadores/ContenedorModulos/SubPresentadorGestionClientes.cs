@@ -6,19 +6,24 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorGestionClientes _gestionClientes;
 
-        private void InicializarVistaGestionClientes() {
+        private async void InicializarVistaGestionClientes() {
             _gestionClientes = new PresentadorGestionClientes(new VistaGestionClientes());
             _gestionClientes.EditarObjeto += MostrarVistaEdicionCliente;
             _gestionClientes.Vista.RegistrarDatos += MostrarVistaRegistroCliente;
             _gestionClientes.Vista.CargarCriteriosBusqueda(UtilesBusquedaCliente.CriterioBusquedaCliente);
 
-            Vista.Vistas.Registrar("vistaGestionClientes", _gestionClientes.Vista);
+            if (Vista.Vistas != null)
+                await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionClientes", _gestionClientes.Vista));
         }
 
-        private void MostrarVistaGestionClientes(object? sender, EventArgs e) {
-            _gestionClientes.Vista.Mostrar();
+        private async void MostrarVistaGestionClientes(object? sender, EventArgs e) {
+            if ((_gestionClientes?.Vista) == null)
+                return;
+
             _gestionClientes.Vista.Restaurar();
-            _gestionClientes.RefrescarListaObjetos();
+            _gestionClientes.Vista.Mostrar();
+
+            await _gestionClientes.RefrescarListaObjetos();
         }
     }
 }
