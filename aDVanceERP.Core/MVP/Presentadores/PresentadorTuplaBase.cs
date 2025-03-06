@@ -8,17 +8,17 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         where Vt : IVistaTupla
         where O : class, IObjetoUnico, new() {
         protected PresentadorTuplaBase(Vt vista, O objeto) : base(vista) {
-            Vista.TuplaSeleccionada += delegate {
-                TuplaSeleccionada = !TuplaSeleccionada;
-            };
-            Vista.EditarDatosTupla += delegate (object? sender, EventArgs e) {
-                EditarObjeto?.Invoke(Objeto, e);
-            };
-            Vista.EliminarDatosTupla += delegate (object? sender, EventArgs e) {
-                EliminarObjeto?.Invoke(Objeto, e);
-            };
+            Vista.TuplaSeleccionada += OnTuplaSeleccionada;
+            Vista.EditarDatosTupla += OnEditarDatosTupla;
+            Vista.EliminarDatosTupla += OnEliminarDatosTupla;
             Objeto = objeto;
         }
+
+        private void OnTuplaSeleccionada(object? sender, EventArgs e) => TuplaSeleccionada = !TuplaSeleccionada;
+
+        private void OnEditarDatosTupla(object? sender, EventArgs e) => EditarObjeto?.Invoke(Objeto, e);
+
+        private void OnEliminarDatosTupla(object? sender, EventArgs e) => EliminarObjeto?.Invoke(Objeto, e);
 
         public bool TuplaSeleccionada {
             get => Vista.ColorFondoTupla.Equals(VariablesGlobales.ColorResaltadoTupla);

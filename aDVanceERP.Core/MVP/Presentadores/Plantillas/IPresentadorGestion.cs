@@ -12,7 +12,7 @@ namespace aDVanceERP.Core.MVP.Presentadores.Plantillas {
         C? CriterioBusquedaObjeto { get; }
         string? DatoBusquedaObjeto { get; }
 
-        event EventHandler EditarObjeto;
+        event EventHandler? EditarObjeto;
 
         void BusquedaDatos(C criterio, string dato);
         void RefrescarListaObjetos();

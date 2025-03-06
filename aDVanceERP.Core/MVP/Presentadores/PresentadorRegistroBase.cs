@@ -4,6 +4,8 @@ using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
+using System;
+
 namespace aDVanceERP.Core.MVP.Presentadores {
     public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>
         where Vr : IVistaRegistro
@@ -15,13 +17,10 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         protected PresentadorRegistroBase(Vr vista) : base(vista) {
             Vista.RegistrarDatos += RegistrarDatosObjeto;
             Vista.EditarDatos += EditarDatosObjeto;
-            Vista.Salir += delegate (object? sender, EventArgs e) {
-                Salir?.Invoke(sender, e);
-                Vista.Cerrar();
-            };
+            Vista.Salir += OnSalir;
         }
 
-        public virtual Do DatosObjeto => new();
+        public Do DatosObjeto => new Do();
 
         public event EventHandler? DatosRegistradosActualizados;
         public event EventHandler? Salir;
@@ -58,17 +57,23 @@ namespace aDVanceERP.Core.MVP.Presentadores {
                     DatosObjeto.Editar(_objeto);
                 } else if (_objeto.Id != 0) {
                     DatosObjeto.Editar(_objeto);
-                } else _objeto.Id = DatosObjeto.Adicionar(_objeto);
+                } else {
+                    _objeto.Id = DatosObjeto.Adicionar(_objeto);
+                }
 
                 RegistroAuxiliar();
 
-                // lanzar eventos
                 DatosRegistradosActualizados?.Invoke(sender, e);
                 Salir?.Invoke(sender, e);
                 Vista.Cerrar();
             } catch (ExcepcionConexionServidorMySQL) {
-                // ...
+                // Manejar la excepción de conexión al servidor MySQL
             }
+        }
+
+        private void OnSalir(object? sender, EventArgs e) {
+            Salir?.Invoke(sender, e);
+            Vista.Cerrar();
         }
     }
 }
