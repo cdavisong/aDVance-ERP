@@ -98,9 +98,11 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             };
         }
 
-        public void CargarRolesUsuarios(string[] rolesUsuarios) {
+        public void CargarRolesUsuarios(string[] rolesUsuarios) {            
+            var rolesFiltrados = rolesUsuarios.Where(rol => rol != "Administrador").ToArray();
+
             fieldNombreRolUsuario.Items.Add("Ninguno");
-            fieldNombreRolUsuario.Items.AddRange(rolesUsuarios);
+            fieldNombreRolUsuario.Items.AddRange(rolesFiltrados);
             fieldNombreRolUsuario.SelectedIndex = 0;
         }
 
