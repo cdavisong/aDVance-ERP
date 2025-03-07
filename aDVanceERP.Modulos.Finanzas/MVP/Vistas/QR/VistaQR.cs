@@ -46,7 +46,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.QR {
         }
 
         public void Restaurar() {
-            QR = null;
+            
         }
 
         public void Ocultar() {

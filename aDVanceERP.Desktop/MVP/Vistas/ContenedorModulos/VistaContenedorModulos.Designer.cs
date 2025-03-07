@@ -40,7 +40,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             layoutMenuLateral = new TableLayoutPanel();
             layoutModulos = new FlowLayoutPanel();
             btnInicio = new Guna2CircleButton();
-            btnModuloEstadisticas = new Guna2CircleButton();
+            btnEstadisticas = new Guna2CircleButton();
             btnModuloContactos = new Guna2CircleButton();
             btnModuloFinanzas = new Guna2CircleButton();
             btnModuloInventario = new Guna2CircleButton();
@@ -117,7 +117,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             // 
             layoutModulos.BackColor = Color.White;
             layoutModulos.Controls.Add(btnInicio);
-            layoutModulos.Controls.Add(btnModuloEstadisticas);
+            layoutModulos.Controls.Add(btnEstadisticas);
             layoutModulos.Controls.Add(btnModuloContactos);
             layoutModulos.Controls.Add(btnModuloFinanzas);
             layoutModulos.Controls.Add(btnModuloInventario);
@@ -150,22 +150,21 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             // 
             // btnModuloEstadisticas
             // 
-            btnModuloEstadisticas.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            btnModuloEstadisticas.CheckedState.FillColor = Color.PeachPuff;
-            btnModuloEstadisticas.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
-            btnModuloEstadisticas.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnModuloEstadisticas.CustomImages.ImageSize = new Size(24, 24);
-            btnModuloEstadisticas.FillColor = Color.White;
-            btnModuloEstadisticas.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            btnModuloEstadisticas.ForeColor = Color.White;
-            btnModuloEstadisticas.ImageSize = new Size(24, 24);
-            btnModuloEstadisticas.Location = new Point(3, 53);
-            btnModuloEstadisticas.Name = "btnModuloEstadisticas";
-            btnModuloEstadisticas.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnModuloEstadisticas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            btnModuloEstadisticas.Size = new Size(44, 44);
-            btnModuloEstadisticas.TabIndex = 1;
-            btnModuloEstadisticas.Visible = false;
+            btnEstadisticas.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnEstadisticas.CheckedState.FillColor = Color.PeachPuff;
+            btnEstadisticas.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnEstadisticas.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnEstadisticas.CustomImages.ImageSize = new Size(24, 24);
+            btnEstadisticas.FillColor = Color.White;
+            btnEstadisticas.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEstadisticas.ForeColor = Color.White;
+            btnEstadisticas.ImageSize = new Size(24, 24);
+            btnEstadisticas.Location = new Point(3, 53);
+            btnEstadisticas.Name = "btnModuloEstadisticas";
+            btnEstadisticas.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnEstadisticas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            btnEstadisticas.Size = new Size(44, 44);
+            btnEstadisticas.TabIndex = 1;
             // 
             // btnModuloContactos
             // 
@@ -301,6 +300,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             ClientSize = new Size(1356, 608);
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaContenedorModulos";
@@ -327,7 +327,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         private FlowLayoutPanel layoutModulos;
         private Panel contenedorVistas;
         private Guna2CircleButton btnInicio;
-        private Guna2CircleButton btnModuloEstadisticas;
+        private Guna2CircleButton btnEstadisticas;
         private Guna2CircleButton btnModuloInventario;
         private Guna2CircleButton btnModuloContactos;
         private Guna2CircleButton btnModuloVentas;

@@ -8,11 +8,18 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             VistaPrincipal = vistaPrincipal;
 
             // Eventos
+            Vista.MostrarVistaEstadisticas += MostrarVistaContenedorEstadisticas;
             Vista.MostrarMenuContactos += MostrarVistaMenuContacto;
             Vista.MostrarMenuFinanzas += MostrarVistaMenuFinanzas;
             Vista.MostrarMenuInventario += MostrarVistaMenuInventario;
             Vista.MostrarMenuVentas += MostrarVistaMenuVentas;
             Vista.MostrarMenuSeguridad += MostrarVistaMenuSeguridad;
+
+            #region Vista : Estadísticas
+
+            InicializarVistaContenedorEstadisticas();
+
+            #endregion
 
             #region Módulo : Contactos
 

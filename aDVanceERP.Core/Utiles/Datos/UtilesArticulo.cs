@@ -5,23 +5,28 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Core.Utiles.Datos {
     public static class UtilesArticulo {
         public static long ObtenerIdArticulo(string nombreArticulo) {
-            var idArticulo = 0;
+            var idArticulo = 0L;
+            var connectionString = UtilesConfServidores.ObtenerStringConfServidorMySQL();
+            var query = "SELECT id_articulo FROM adv__articulo WHERE nombre = @nombreArticulo;";
 
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(connectionString)) {
                 try {
                     conexion.Open();
-                } catch (Exception) {
-                    throw new ExcepcionConexionServidorMySQL();
-                }
 
-                using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT id_articulo FROM adv__articulo WHERE nombre='{nombreArticulo}';";
+                    using (var comando = new MySqlCommand(query, conexion)) {
+                        comando.Parameters.AddWithValue("@nombreArticulo", nombreArticulo);
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos != null && lectorDatos.Read()) {
-                            idArticulo = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_articulo"));
+                        using (var lectorDatos = comando.ExecuteReader()) {
+                            if (lectorDatos.Read()) {
+                                idArticulo = lectorDatos.GetInt64("id_articulo");
+                            }
                         }
                     }
+                } catch (MySqlException) {
+                    throw new ExcepcionConexionServidorMySQL();
+                } catch (Exception ex) {
+                    //TODO: Capturar cualquier otra excepción inesperada
+                    throw new Exception("Error inesperado al obtener el ID del artículo.", ex);
                 }
             }
 
@@ -99,6 +104,36 @@ namespace aDVanceERP.Core.Utiles.Datos {
             }
 
             return nombresArticulos.ToArray();
+        }
+
+        public static int ObtenerStockTotalArticulos() {
+            var cantidadTotal = 0;
+            var connectionString = UtilesConfServidores.ObtenerStringConfServidorMySQL();
+            var query = @"
+                SELECT SUM(aa.stock) AS total_articulos
+                FROM adv__articulo_almacen aa
+                INNER JOIN adv__articulo a ON aa.id_articulo = a.id_articulo;";
+
+            using (var conexion = new MySqlConnection(connectionString)) {
+                try {
+                    conexion.Open();
+
+                    using (var comando = new MySqlCommand(query, conexion)) {
+                        object result = comando.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value) {
+                            cantidadTotal = Convert.ToInt32(result);
+                        }
+                    }
+                } catch (MySqlException) {
+                    throw new ExcepcionConexionServidorMySQL();
+                } catch (Exception ex) {
+                    //TODO: Capturar cualquier otra excepción inesperada
+                    throw new Exception("Error inesperado al obtener la cantidad total de artículo.", ex);
+                }
+            }
+
+            return cantidadTotal;
         }
 
         public static int ObtenerStockTotalArticulo(long idArticulo) {
@@ -181,8 +216,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return precioUnitario;
         }
 
-        public static float ObtenerMontoInvertidoEnArticulos(long idAlmacen) {
-            float montoInvertido = 0f;
+        public static decimal ObtenerMontoInvertidoEnArticulos(long idAlmacen = 0) {
+            decimal montoInvertido = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
@@ -192,17 +227,17 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 }
 
                 using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = @"
+                    comando.CommandText = @$"
                     SELECT SUM(ar.precio_adquisicion * aa.stock) AS monto_invertido
                     FROM adv__articulo ar 
                     JOIN adv__articulo_almacen aa ON ar.id_articulo = aa.id_articulo
                     JOIN adv__almacen al ON aa.id_almacen = al.id_almacen
-                    WHERE al.id_almacen = @IdAlmacen;";
+                    {(idAlmacen != 0 ? "WHERE al.id_almacen = @IdAlmacen" : string.Empty)};";
                     comando.Parameters.AddWithValue("@IdAlmacen", idAlmacen);
 
                     using (var lectorDatos = comando.ExecuteReader()) {
                         if (lectorDatos.Read()) {
-                            montoInvertido = float.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("monto_invertido"))?.ToString(), out var totalMonto) ? totalMonto : 0f;
+                            montoInvertido = decimal.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("monto_invertido"))?.ToString(), out var totalMonto) ? totalMonto : 0;
                         }
                     }
                 }

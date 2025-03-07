@@ -5,12 +5,14 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas {
         //bool BtnModuloAdministracionVisible { get; set; }
 
         event EventHandler? MostrarVistaInicio;
-        event EventHandler? MostrarMenuEstadisticas;
+        event EventHandler? MostrarVistaEstadisticas;
         event EventHandler? MostrarMenuContactos;
         event EventHandler? MostrarMenuFinanzas;
         event EventHandler? MostrarMenuInventario;
         event EventHandler? MostrarMenuVentas;
         event EventHandler? MostrarMenuSeguridad;
         event EventHandler? CambioModulo;
+
+        void PresionarBotonModulo(object? sender, EventArgs e);
     }
 }

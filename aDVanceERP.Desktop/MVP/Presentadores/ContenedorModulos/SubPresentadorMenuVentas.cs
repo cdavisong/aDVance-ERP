@@ -17,7 +17,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _menuVentas.Vista.Restaurar();
             _menuVentas.Vista.Mostrar();
 
-            _menuVentas.Vista.PresionarBotonSeleccion(1, e);
+            _menuVentas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 1, e);
         }
     }
 }

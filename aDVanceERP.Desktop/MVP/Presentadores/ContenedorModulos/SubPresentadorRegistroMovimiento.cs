@@ -50,12 +50,12 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private async void MostrarVistaRegistroMovimiento(object? sender, EventArgs e) {
-            if (_registroMovimiento != null) {
-                if (sender is object[] datosAlmacenArticulo)
-                    await InicializarVistaRegistroMovimiento(datosAlmacenArticulo[0].ToString(), datosAlmacenArticulo[1].ToString(), datosAlmacenArticulo[2] as Articulo);
-                else
-                    await InicializarVistaRegistroMovimiento(string.Empty, string.Empty);
+            if (sender is object[] datosAlmacenArticulo)
+                await InicializarVistaRegistroMovimiento(datosAlmacenArticulo[0].ToString(), datosAlmacenArticulo[1].ToString(), datosAlmacenArticulo[2] as Articulo);
+            else
+                await InicializarVistaRegistroMovimiento(string.Empty, string.Empty);
 
+            if (_registroMovimiento != null) {
                 _registroMovimiento.Vista.Mostrar();
             }
 

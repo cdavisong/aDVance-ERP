@@ -134,6 +134,8 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
+
+                ActualizarMontoVenta();
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
                 PaginaActual = 1;

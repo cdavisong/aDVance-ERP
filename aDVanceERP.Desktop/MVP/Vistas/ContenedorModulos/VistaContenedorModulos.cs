@@ -48,7 +48,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         public IRepositorioVista Vistas { get; private set; }
 
         public event EventHandler? MostrarVistaInicio;
-        public event EventHandler? MostrarMenuEstadisticas;
+        public event EventHandler? MostrarVistaEstadisticas;
         public event EventHandler? MostrarMenuContactos;
         public event EventHandler? MostrarMenuFinanzas;
         public event EventHandler? MostrarMenuInventario;
@@ -71,36 +71,76 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
                 }
             };
             btnInicio.Click += delegate (object? sender, EventArgs e) {
-                CambioModulo?.Invoke(sender, e);
-                MostrarVistaInicio?.Invoke(sender, e);
+                PresionarBotonModulo(1, e);
             };
-            btnModuloEstadisticas.Click += delegate (object? sender, EventArgs e) {
-                CambioModulo?.Invoke(sender, e);
-                MostrarMenuEstadisticas?.Invoke(sender, e);
+            btnEstadisticas.Click += delegate (object? sender, EventArgs e) {
+                PresionarBotonModulo(2, e);
             };
             btnModuloContactos.Click += delegate (object? sender, EventArgs e) {
-                CambioModulo?.Invoke(sender, e);
-                MostrarMenuContactos?.Invoke(sender, e);
+                PresionarBotonModulo(3, e);
             };
             btnModuloFinanzas.Click += delegate (object? sender, EventArgs e) {
-                CambioModulo?.Invoke(sender, e);
-                MostrarMenuFinanzas?.Invoke(sender, e);
+                PresionarBotonModulo(4, e);
             };
             btnModuloInventario.Click += delegate (object? sender, EventArgs e) {
-                CambioModulo?.Invoke(sender, e);
-                MostrarMenuInventario?.Invoke(sender, e);
+                PresionarBotonModulo(5, e);
             };
             btnModuloVentas.Click += delegate (object? sender, EventArgs e) {
-                CambioModulo?.Invoke(sender, e);
-                MostrarMenuVentas?.Invoke(sender, e);
+                PresionarBotonModulo(6, e);
             };
             btnModuloSeguridad.Click += delegate (object? sender, EventArgs e) {
-                CambioModulo?.Invoke(sender, e);
-                MostrarMenuSeguridad?.Invoke(sender, e);
+                PresionarBotonModulo(7, e);
             };
             CambioModulo += delegate {
                 Restaurar();
             };
+        }
+
+        public void PresionarBotonModulo(object? sender, EventArgs e) {
+            var indiceValido = int.TryParse(sender?.ToString() ?? string.Empty, out var indice);
+
+            if (!indiceValido)
+                return;
+
+            CambioModulo?.Invoke(sender, e);
+
+            switch (indice) {
+                case 1:
+                    MostrarVistaInicio?.Invoke(btnInicio, e);
+                    if (!btnInicio.Checked)
+                        btnInicio.Checked = true;
+                    break;
+                case 2:
+                    MostrarVistaEstadisticas?.Invoke(btnEstadisticas, e);
+                    if (!btnEstadisticas.Checked)
+                        btnEstadisticas.Checked = true;
+                    break;
+                case 3:
+                    MostrarMenuContactos?.Invoke(btnModuloContactos, e);
+                    if (!btnModuloContactos.Checked)
+                        btnModuloContactos.Checked = true;
+                    break;
+                case 4:
+                    MostrarMenuFinanzas?.Invoke(btnModuloFinanzas, e);
+                    if (!btnModuloFinanzas.Checked)
+                        btnModuloFinanzas.Checked = true;
+                    break;
+                case 5:
+                    MostrarMenuInventario?.Invoke(btnModuloInventario, e);
+                    if (!btnModuloInventario.Checked)
+                        btnModuloInventario.Checked = true;
+                    break;
+                case 6:
+                    MostrarMenuVentas?.Invoke(btnModuloVentas, e);
+                    if (!btnModuloVentas.Checked)
+                        btnModuloVentas.Checked = true;
+                    break;
+                case 7:
+                    MostrarMenuSeguridad?.Invoke(btnModuloSeguridad, e);
+                    if (!btnModuloSeguridad.Checked)
+                        btnModuloSeguridad.Checked = true;
+                    break;
+            }
         }
 
         public void Mostrar() {
