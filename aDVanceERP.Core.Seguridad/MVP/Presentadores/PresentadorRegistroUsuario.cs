@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
@@ -39,7 +40,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
                     return null;
                 }
             } catch (ExcepcionConexionServidorMySQL e) {
-                CentroNotificaciones.Mostrar(e.Message, true);
+                CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
             }
 
             var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);

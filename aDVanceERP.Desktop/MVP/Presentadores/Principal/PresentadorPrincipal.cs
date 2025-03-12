@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.Principal;
@@ -43,7 +44,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloInventario.Nombre, ModuloInventario.Permisos);
                 UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloVentas.Nombre, ModuloVentas.Permisos);
             } catch (ExcepcionConexionServidorMySQL e) {
-                CentroNotificaciones.Mostrar(e.Message, true);
+                CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
             }
             
         }

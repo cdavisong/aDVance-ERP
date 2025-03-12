@@ -8,9 +8,9 @@ namespace aDVanceERP.Core.Mensajes.Utiles {
         private static List<IVistaNotificacion> _notificacionesActivas = new List<IVistaNotificacion>();
         private static int _margen = 10; // Margen entre notificaciones y respecto a la pantalla
 
-        public static void Mostrar(string mensaje, bool esError = false) {
+        public static void Mostrar(string mensaje, TipoNotificacion tipo = TipoNotificacion.Info) {
             var areaTrabajo = Screen.PrimaryScreen?.WorkingArea;
-            var modelo = new Notificacion(mensaje, esError);
+            var modelo = new Notificacion(mensaje, tipo);
             var vista = new VistaNotificacion(modelo);
 
             // Calculamos la posición final (para ubicar la notificación apilada)

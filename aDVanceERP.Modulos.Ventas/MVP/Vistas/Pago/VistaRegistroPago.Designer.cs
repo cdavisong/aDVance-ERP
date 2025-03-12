@@ -272,8 +272,7 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Pago {
             fieldMetodoPago.Dock = DockStyle.Fill;
             fieldMetodoPago.DrawMode = DrawMode.OwnerDrawFixed;
             fieldMetodoPago.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldMetodoPago.FillColor = Color.White;
-            fieldMetodoPago.FocusedColor = Color.White;
+            fieldMetodoPago.FocusedColor = Color.SandyBrown;
             fieldMetodoPago.FocusedState.BorderColor = Color.SandyBrown;
             fieldMetodoPago.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldMetodoPago.ForeColor = Color.Black;
@@ -313,12 +312,10 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Pago {
             fieldMonto.Cursor = Cursors.IBeam;
             fieldMonto.CustomizableEdges = customizableEdges7;
             fieldMonto.DefaultText = "";
-            fieldMonto.DisabledState.BorderColor = Color.Gainsboro;
             fieldMonto.DisabledState.BorderColor = Color.White;
             fieldMonto.DisabledState.ForeColor = Color.DimGray;
             fieldMonto.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldMonto.Dock = DockStyle.Fill;
-            fieldMonto.FillColor = Color.White;
             fieldMonto.FocusedState.BorderColor = Color.SandyBrown;
             fieldMonto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldMonto.ForeColor = Color.Black;

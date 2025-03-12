@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
@@ -35,7 +36,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                     }
                 };
             } catch (ExcepcionConexionServidorMySQL e) {
-                CentroNotificaciones.Mostrar(e.Message);
+                CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
             }
             
         }

@@ -1,14 +1,13 @@
-﻿using aDVanceERP.Core.Mensajes.MVP.Vistas.Notificacion.Plantillas;
+﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+using aDVanceERP.Core.Mensajes.MVP.Vistas.Notificacion.Plantillas;
 using aDVanceERP.Core.Mensajes.Properties;
-
-using static Guna.UI2.Native.WinApi;
 
 using Timer = System.Windows.Forms.Timer;
 
 namespace aDVanceERP.Core.Mensajes.MVP.Vistas.Notificacion {
     public partial class VistaNotificacion : Form, IVistaNotificacion {
         // Notificacion.
-        private bool _esError;
+        private TipoNotificacion _tipo;
         private Modelos.Notificacion _notificacion;
 
         // Temporizadores
@@ -47,13 +46,18 @@ namespace aDVanceERP.Core.Mensajes.MVP.Vistas.Notificacion {
             set => fieldMensaje.Text = value;
         }
 
-        public bool EsError {
-            get => _esError;
+        public TipoNotificacion Tipo {
+            get => _tipo;
             set { 
-                _esError = value;
+                _tipo = value;
 
                 //layoutDistribucion1.BackColor = value ? Color.LightSalmon : Color.White;
-                fieldIcono.BackgroundImage = value ? Resources.error_96px : Resources.info_96px;
+                fieldIcono.BackgroundImage = 
+                    value == TipoNotificacion.Error 
+                        ? Resources.error_96px 
+                        : value == TipoNotificacion.Advertencia ? 
+                            Resources.warning_96px :
+                            Resources.info_96px;
                 //fieldMensaje.ForeColor = value ? Color.Firebrick : Color.Gray;                
             }
         }
@@ -63,7 +67,7 @@ namespace aDVanceERP.Core.Mensajes.MVP.Vistas.Notificacion {
         public void Inicializar() {
             if (_notificacion != null) {
                 Mensaje = _notificacion.Mensaje;
-                EsError = _notificacion.EsError;
+                Tipo = _notificacion.Tipo;
             }
 
             // Temporizadores

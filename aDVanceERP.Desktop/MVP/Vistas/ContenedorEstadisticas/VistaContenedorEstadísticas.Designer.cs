@@ -29,6 +29,12 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
             layoutTitulo = new TableLayoutPanel();
@@ -36,6 +42,16 @@
             fieldIcono = new PictureBox();
             fieldSubtitulo = new Label();
             layoutDistribucionEstadisticas = new TableLayoutPanel();
+            layoutGraficoEstadisticas = new TableLayoutPanel();
+            btnImprimirAnalisisVentas = new Guna.UI2.WinForms.Guna2Button();
+            subLayoutGraficoEstadisticas1 = new TableLayoutPanel();
+            subLayoutGraficoEstadisticas2 = new TableLayoutPanel();
+            fieldTituloAnalisisVentas = new Label();
+            fieldSubTituloAnalisisVentas = new Label();
+            fieldTituloFiltrosBusqueda = new Label();
+            fieldCriterioBusqueda = new Guna.UI2.WinForms.Guna2ComboBox();
+            fieldDatoBusquedaFecha = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            fieldGraficoVentas = new PictureBox();
             subLayout1DistribucionEstadisticas = new TableLayoutPanel();
             layoutEstadisticasGanancia = new TableLayoutPanel();
             subLayout1EstadisticasGanancia = new TableLayoutPanel();
@@ -52,14 +68,18 @@
             layoutEstadisticasProducto = new TableLayoutPanel();
             btnGestionarArticulos = new Guna.UI2.WinForms.Guna2Button();
             subLayout1EstadisticasProducto = new TableLayoutPanel();
+            fieldMontoInversionArticuloss = new Label();
             subLayout2EstadisticasProducto = new TableLayoutPanel();
             fieldCantArticulosRegistrados = new Label();
             fieldTituloArticulos = new Label();
-            fieldMontoInversionArticuloss = new Label();
             layoutVista.SuspendLayout();
             layoutTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) fieldIcono).BeginInit();
             layoutDistribucionEstadisticas.SuspendLayout();
+            layoutGraficoEstadisticas.SuspendLayout();
+            subLayoutGraficoEstadisticas1.SuspendLayout();
+            subLayoutGraficoEstadisticas2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) fieldGraficoVentas).BeginInit();
             subLayout1DistribucionEstadisticas.SuspendLayout();
             layoutEstadisticasGanancia.SuspendLayout();
             subLayout1EstadisticasGanancia.SuspendLayout();
@@ -110,7 +130,7 @@
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.Size = new Size(1356, 608);
+            layoutVista.Size = new Size(1507, 654);
             layoutVista.TabIndex = 5;
             // 
             // layoutTitulo
@@ -125,7 +145,7 @@
             layoutTitulo.Name = "layoutTitulo";
             layoutTitulo.RowCount = 1;
             layoutTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutTitulo.Size = new Size(1286, 45);
+            layoutTitulo.Size = new Size(1437, 45);
             layoutTitulo.TabIndex = 14;
             // 
             // fieldTitulo
@@ -136,7 +156,7 @@
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
             fieldTitulo.Name = "fieldTitulo";
-            fieldTitulo.Size = new Size(1280, 45);
+            fieldTitulo.Size = new Size(1431, 45);
             fieldTitulo.TabIndex = 3;
             fieldTitulo.Text = "Estadísticas generales";
             fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
@@ -162,7 +182,7 @@
             fieldSubtitulo.Location = new Point(55, 50);
             fieldSubtitulo.Margin = new Padding(5, 5, 1, 1);
             fieldSubtitulo.Name = "fieldSubtitulo";
-            fieldSubtitulo.Size = new Size(1280, 39);
+            fieldSubtitulo.Size = new Size(1431, 39);
             fieldSubtitulo.TabIndex = 2;
             fieldSubtitulo.Text = "Registro de estadísticas generales para los módulos de la aplicación.";
             // 
@@ -171,6 +191,7 @@
             layoutDistribucionEstadisticas.BackColor = Color.White;
             layoutDistribucionEstadisticas.ColumnCount = 1;
             layoutDistribucionEstadisticas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutDistribucionEstadisticas.Controls.Add(layoutGraficoEstadisticas, 0, 1);
             layoutDistribucionEstadisticas.Controls.Add(subLayout1DistribucionEstadisticas, 0, 0);
             layoutDistribucionEstadisticas.Dock = DockStyle.Fill;
             layoutDistribucionEstadisticas.Location = new Point(50, 110);
@@ -179,8 +200,190 @@
             layoutDistribucionEstadisticas.RowCount = 2;
             layoutDistribucionEstadisticas.RowStyles.Add(new RowStyle(SizeType.Absolute, 200F));
             layoutDistribucionEstadisticas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutDistribucionEstadisticas.Size = new Size(1286, 478);
+            layoutDistribucionEstadisticas.Size = new Size(1437, 524);
             layoutDistribucionEstadisticas.TabIndex = 15;
+            // 
+            // layoutGraficoEstadisticas
+            // 
+            layoutGraficoEstadisticas.BackColor = Color.WhiteSmoke;
+            layoutGraficoEstadisticas.ColumnCount = 1;
+            layoutGraficoEstadisticas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutGraficoEstadisticas.Controls.Add(btnImprimirAnalisisVentas, 0, 1);
+            layoutGraficoEstadisticas.Controls.Add(subLayoutGraficoEstadisticas1, 0, 0);
+            layoutGraficoEstadisticas.Dock = DockStyle.Fill;
+            layoutGraficoEstadisticas.Location = new Point(3, 203);
+            layoutGraficoEstadisticas.Name = "layoutGraficoEstadisticas";
+            layoutGraficoEstadisticas.RowCount = 2;
+            layoutGraficoEstadisticas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutGraficoEstadisticas.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            layoutGraficoEstadisticas.Size = new Size(1431, 318);
+            layoutGraficoEstadisticas.TabIndex = 17;
+            // 
+            // btnImprimirAnalisisVentas
+            // 
+            btnImprimirAnalisisVentas.Animated = true;
+            btnImprimirAnalisisVentas.BackColor = Color.WhiteSmoke;
+            btnImprimirAnalisisVentas.CustomizableEdges = customizableEdges1;
+            btnImprimirAnalisisVentas.Dock = DockStyle.Fill;
+            btnImprimirAnalisisVentas.FillColor = Color.WhiteSmoke;
+            btnImprimirAnalisisVentas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnImprimirAnalisisVentas.ForeColor = Color.Black;
+            btnImprimirAnalisisVentas.Image = (Image) resources.GetObject("btnImprimirAnalisisVentas.Image");
+            btnImprimirAnalisisVentas.ImageAlign = HorizontalAlignment.Left;
+            btnImprimirAnalisisVentas.ImageOffset = new Point(-5, 0);
+            btnImprimirAnalisisVentas.Location = new Point(0, 283);
+            btnImprimirAnalisisVentas.Margin = new Padding(0);
+            btnImprimirAnalisisVentas.Name = "btnImprimirAnalisisVentas";
+            btnImprimirAnalisisVentas.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnImprimirAnalisisVentas.Size = new Size(1431, 35);
+            btnImprimirAnalisisVentas.TabIndex = 8;
+            btnImprimirAnalisisVentas.Text = "Imprimir análisis de ventas";
+            btnImprimirAnalisisVentas.TextAlign = HorizontalAlignment.Left;
+            // 
+            // subLayoutGraficoEstadisticas1
+            // 
+            subLayoutGraficoEstadisticas1.ColumnCount = 3;
+            subLayoutGraficoEstadisticas1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            subLayoutGraficoEstadisticas1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            subLayoutGraficoEstadisticas1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            subLayoutGraficoEstadisticas1.Controls.Add(subLayoutGraficoEstadisticas2, 0, 0);
+            subLayoutGraficoEstadisticas1.Controls.Add(fieldGraficoVentas, 2, 0);
+            subLayoutGraficoEstadisticas1.Dock = DockStyle.Fill;
+            subLayoutGraficoEstadisticas1.Location = new Point(3, 3);
+            subLayoutGraficoEstadisticas1.Margin = new Padding(3, 3, 3, 10);
+            subLayoutGraficoEstadisticas1.Name = "subLayoutGraficoEstadisticas1";
+            subLayoutGraficoEstadisticas1.RowCount = 1;
+            subLayoutGraficoEstadisticas1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            subLayoutGraficoEstadisticas1.Size = new Size(1425, 270);
+            subLayoutGraficoEstadisticas1.TabIndex = 0;
+            // 
+            // subLayoutGraficoEstadisticas2
+            // 
+            subLayoutGraficoEstadisticas2.BackColor = Color.Transparent;
+            subLayoutGraficoEstadisticas2.ColumnCount = 1;
+            subLayoutGraficoEstadisticas2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            subLayoutGraficoEstadisticas2.Controls.Add(fieldTituloAnalisisVentas, 0, 0);
+            subLayoutGraficoEstadisticas2.Controls.Add(fieldSubTituloAnalisisVentas, 0, 1);
+            subLayoutGraficoEstadisticas2.Controls.Add(fieldTituloFiltrosBusqueda, 0, 3);
+            subLayoutGraficoEstadisticas2.Controls.Add(fieldCriterioBusqueda, 0, 4);
+            subLayoutGraficoEstadisticas2.Controls.Add(fieldDatoBusquedaFecha, 0, 6);
+            subLayoutGraficoEstadisticas2.Dock = DockStyle.Fill;
+            subLayoutGraficoEstadisticas2.Location = new Point(10, 10);
+            subLayoutGraficoEstadisticas2.Margin = new Padding(10, 10, 0, 10);
+            subLayoutGraficoEstadisticas2.Name = "subLayoutGraficoEstadisticas2";
+            subLayoutGraficoEstadisticas2.RowCount = 8;
+            subLayoutGraficoEstadisticas2.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            subLayoutGraficoEstadisticas2.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            subLayoutGraficoEstadisticas2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            subLayoutGraficoEstadisticas2.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
+            subLayoutGraficoEstadisticas2.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            subLayoutGraficoEstadisticas2.RowStyles.Add(new RowStyle(SizeType.Absolute, 5F));
+            subLayoutGraficoEstadisticas2.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            subLayoutGraficoEstadisticas2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            subLayoutGraficoEstadisticas2.Size = new Size(290, 250);
+            subLayoutGraficoEstadisticas2.TabIndex = 2;
+            // 
+            // fieldTituloAnalisisVentas
+            // 
+            fieldTituloAnalisisVentas.AutoSize = true;
+            fieldTituloAnalisisVentas.BackColor = Color.Transparent;
+            fieldTituloAnalisisVentas.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloAnalisisVentas.Image = (Image) resources.GetObject("fieldTituloAnalisisVentas.Image");
+            fieldTituloAnalisisVentas.ImageAlign = ContentAlignment.BottomLeft;
+            fieldTituloAnalisisVentas.Location = new Point(3, 0);
+            fieldTituloAnalisisVentas.Name = "fieldTituloAnalisisVentas";
+            fieldTituloAnalisisVentas.Padding = new Padding(0, 0, 0, 10);
+            fieldTituloAnalisisVentas.Size = new Size(134, 45);
+            fieldTituloAnalisisVentas.TabIndex = 0;
+            fieldTituloAnalisisVentas.Text = "    Análisis";
+            // 
+            // fieldSubTituloAnalisisVentas
+            // 
+            fieldSubTituloAnalisisVentas.AutoSize = true;
+            fieldSubTituloAnalisisVentas.BackColor = Color.Transparent;
+            fieldSubTituloAnalisisVentas.ForeColor = Color.FromArgb(  64,   64,   64);
+            fieldSubTituloAnalisisVentas.Location = new Point(11, 45);
+            fieldSubTituloAnalisisVentas.Margin = new Padding(11, 0, 0, 0);
+            fieldSubTituloAnalisisVentas.Name = "fieldSubTituloAnalisisVentas";
+            fieldSubTituloAnalisisVentas.Size = new Size(263, 20);
+            fieldSubTituloAnalisisVentas.TabIndex = 1;
+            fieldSubTituloAnalisisVentas.Text = "de ventas diarias, mensuales o anuales";
+            // 
+            // fieldTituloFiltrosBusqueda
+            // 
+            fieldTituloFiltrosBusqueda.Dock = DockStyle.Fill;
+            fieldTituloFiltrosBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloFiltrosBusqueda.ForeColor = Color.DimGray;
+            fieldTituloFiltrosBusqueda.Image = (Image) resources.GetObject("fieldTituloFiltrosBusqueda.Image");
+            fieldTituloFiltrosBusqueda.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloFiltrosBusqueda.ImeMode = ImeMode.NoControl;
+            fieldTituloFiltrosBusqueda.Location = new Point(15, 105);
+            fieldTituloFiltrosBusqueda.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloFiltrosBusqueda.Name = "fieldTituloFiltrosBusqueda";
+            fieldTituloFiltrosBusqueda.Size = new Size(272, 27);
+            fieldTituloFiltrosBusqueda.TabIndex = 25;
+            fieldTituloFiltrosBusqueda.Text = "      Criterio de análisis :";
+            fieldTituloFiltrosBusqueda.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // fieldCriterioBusqueda
+            // 
+            fieldCriterioBusqueda.Animated = true;
+            fieldCriterioBusqueda.BackColor = Color.Transparent;
+            fieldCriterioBusqueda.BorderColor = Color.Gainsboro;
+            fieldCriterioBusqueda.BorderRadius = 16;
+            fieldCriterioBusqueda.CustomizableEdges = customizableEdges3;
+            fieldCriterioBusqueda.Dock = DockStyle.Fill;
+            fieldCriterioBusqueda.DrawMode = DrawMode.OwnerDrawFixed;
+            fieldCriterioBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+            fieldCriterioBusqueda.FocusedColor = Color.Gainsboro;
+            fieldCriterioBusqueda.FocusedState.BorderColor = Color.Gainsboro;
+            fieldCriterioBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCriterioBusqueda.ForeColor = Color.Black;
+            fieldCriterioBusqueda.ItemHeight = 29;
+            fieldCriterioBusqueda.Location = new Point(5, 140);
+            fieldCriterioBusqueda.Margin = new Padding(5);
+            fieldCriterioBusqueda.Name = "fieldCriterioBusqueda";
+            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            fieldCriterioBusqueda.Size = new Size(280, 35);
+            fieldCriterioBusqueda.TabIndex = 28;
+            fieldCriterioBusqueda.TextOffset = new Point(10, 0);
+            // 
+            // fieldDatoBusquedaFecha
+            // 
+            fieldDatoBusquedaFecha.BorderColor = Color.Gainsboro;
+            fieldDatoBusquedaFecha.BorderRadius = 18;
+            fieldDatoBusquedaFecha.BorderThickness = 1;
+            fieldDatoBusquedaFecha.Checked = true;
+            fieldDatoBusquedaFecha.CheckedState.BorderColor = Color.Gainsboro;
+            fieldDatoBusquedaFecha.CheckedState.FillColor = Color.White;
+            fieldDatoBusquedaFecha.CheckedState.ForeColor = Color.Black;
+            fieldDatoBusquedaFecha.CustomFormat = "yyyy-MM-dd";
+            fieldDatoBusquedaFecha.CustomizableEdges = customizableEdges5;
+            fieldDatoBusquedaFecha.Dock = DockStyle.Fill;
+            fieldDatoBusquedaFecha.FillColor = Color.White;
+            fieldDatoBusquedaFecha.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDatoBusquedaFecha.ForeColor = Color.Black;
+            fieldDatoBusquedaFecha.Format = DateTimePickerFormat.Custom;
+            fieldDatoBusquedaFecha.Location = new Point(5, 190);
+            fieldDatoBusquedaFecha.Margin = new Padding(5);
+            fieldDatoBusquedaFecha.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
+            fieldDatoBusquedaFecha.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
+            fieldDatoBusquedaFecha.Name = "fieldDatoBusquedaFecha";
+            fieldDatoBusquedaFecha.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldDatoBusquedaFecha.Size = new Size(280, 35);
+            fieldDatoBusquedaFecha.TabIndex = 29;
+            fieldDatoBusquedaFecha.Value = new DateTime(2025, 2, 20, 21, 31, 28, 166);
+            fieldDatoBusquedaFecha.Visible = false;
+            // 
+            // fieldGraficoVentas
+            // 
+            fieldGraficoVentas.Dock = DockStyle.Fill;
+            fieldGraficoVentas.Location = new Point(320, 10);
+            fieldGraficoVentas.Margin = new Padding(0, 10, 0, 10);
+            fieldGraficoVentas.Name = "fieldGraficoVentas";
+            fieldGraficoVentas.Size = new Size(1105, 250);
+            fieldGraficoVentas.TabIndex = 3;
+            fieldGraficoVentas.TabStop = false;
             // 
             // subLayout1DistribucionEstadisticas
             // 
@@ -198,7 +401,7 @@
             subLayout1DistribucionEstadisticas.Name = "subLayout1DistribucionEstadisticas";
             subLayout1DistribucionEstadisticas.RowCount = 1;
             subLayout1DistribucionEstadisticas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            subLayout1DistribucionEstadisticas.Size = new Size(1286, 200);
+            subLayout1DistribucionEstadisticas.Size = new Size(1437, 200);
             subLayout1DistribucionEstadisticas.TabIndex = 16;
             // 
             // layoutEstadisticasGanancia
@@ -208,12 +411,12 @@
             layoutEstadisticasGanancia.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEstadisticasGanancia.Controls.Add(subLayout1EstadisticasGanancia, 0, 0);
             layoutEstadisticasGanancia.Dock = DockStyle.Fill;
-            layoutEstadisticasGanancia.Location = new Point(773, 3);
+            layoutEstadisticasGanancia.Location = new Point(865, 3);
             layoutEstadisticasGanancia.Name = "layoutEstadisticasGanancia";
             layoutEstadisticasGanancia.RowCount = 2;
             layoutEstadisticasGanancia.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutEstadisticasGanancia.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
-            layoutEstadisticasGanancia.Size = new Size(510, 194);
+            layoutEstadisticasGanancia.Size = new Size(569, 194);
             layoutEstadisticasGanancia.TabIndex = 2;
             // 
             // subLayout1EstadisticasGanancia
@@ -229,7 +432,7 @@
             subLayout1EstadisticasGanancia.RowCount = 2;
             subLayout1EstadisticasGanancia.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             subLayout1EstadisticasGanancia.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-            subLayout1EstadisticasGanancia.Size = new Size(504, 146);
+            subLayout1EstadisticasGanancia.Size = new Size(563, 146);
             subLayout1EstadisticasGanancia.TabIndex = 0;
             // 
             // subLayout2EstadisticasGanancia
@@ -247,7 +450,7 @@
             subLayout2EstadisticasGanancia.RowStyles.Add(new RowStyle(SizeType.Absolute, 61F));
             subLayout2EstadisticasGanancia.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             subLayout2EstadisticasGanancia.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            subLayout2EstadisticasGanancia.Size = new Size(494, 96);
+            subLayout2EstadisticasGanancia.Size = new Size(553, 96);
             subLayout2EstadisticasGanancia.TabIndex = 1;
             // 
             // fieldGananciaTotalNegocio
@@ -281,19 +484,19 @@
             layoutEstadisticasVenta.Controls.Add(btnGestionarVentas, 0, 1);
             layoutEstadisticasVenta.Controls.Add(subLayout1EstadisticasVentaProducto, 0, 0);
             layoutEstadisticasVenta.Dock = DockStyle.Fill;
-            layoutEstadisticasVenta.Location = new Point(388, 3);
+            layoutEstadisticasVenta.Location = new Point(434, 3);
             layoutEstadisticasVenta.Name = "layoutEstadisticasVenta";
             layoutEstadisticasVenta.RowCount = 2;
             layoutEstadisticasVenta.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutEstadisticasVenta.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
-            layoutEstadisticasVenta.Size = new Size(379, 194);
+            layoutEstadisticasVenta.Size = new Size(425, 194);
             layoutEstadisticasVenta.TabIndex = 1;
             // 
             // btnGestionarVentas
             // 
             btnGestionarVentas.Animated = true;
             btnGestionarVentas.BackColor = Color.PaleGoldenrod;
-            btnGestionarVentas.CustomizableEdges = customizableEdges1;
+            btnGestionarVentas.CustomizableEdges = customizableEdges7;
             btnGestionarVentas.Dock = DockStyle.Fill;
             btnGestionarVentas.FillColor = Color.PaleGoldenrod;
             btnGestionarVentas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -304,8 +507,8 @@
             btnGestionarVentas.Location = new Point(0, 159);
             btnGestionarVentas.Margin = new Padding(0);
             btnGestionarVentas.Name = "btnGestionarVentas";
-            btnGestionarVentas.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnGestionarVentas.Size = new Size(379, 35);
+            btnGestionarVentas.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnGestionarVentas.Size = new Size(425, 35);
             btnGestionarVentas.TabIndex = 8;
             btnGestionarVentas.Text = "Gestionar ventas";
             btnGestionarVentas.TextAlign = HorizontalAlignment.Left;
@@ -324,7 +527,7 @@
             subLayout1EstadisticasVentaProducto.RowCount = 2;
             subLayout1EstadisticasVentaProducto.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             subLayout1EstadisticasVentaProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-            subLayout1EstadisticasVentaProducto.Size = new Size(373, 146);
+            subLayout1EstadisticasVentaProducto.Size = new Size(419, 146);
             subLayout1EstadisticasVentaProducto.TabIndex = 0;
             // 
             // fieldMontoVentaArticulosVendidos
@@ -353,7 +556,7 @@
             subLayout2EstadisticasVenta.RowStyles.Add(new RowStyle(SizeType.Absolute, 61F));
             subLayout2EstadisticasVenta.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             subLayout2EstadisticasVenta.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            subLayout2EstadisticasVenta.Size = new Size(363, 96);
+            subLayout2EstadisticasVenta.Size = new Size(409, 96);
             subLayout2EstadisticasVenta.TabIndex = 1;
             // 
             // fieldCantArticulosVendidos
@@ -392,14 +595,14 @@
             layoutEstadisticasProducto.RowCount = 2;
             layoutEstadisticasProducto.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutEstadisticasProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
-            layoutEstadisticasProducto.Size = new Size(379, 194);
+            layoutEstadisticasProducto.Size = new Size(425, 194);
             layoutEstadisticasProducto.TabIndex = 0;
             // 
             // btnGestionarArticulos
             // 
             btnGestionarArticulos.Animated = true;
             btnGestionarArticulos.BackColor = Color.PeachPuff;
-            btnGestionarArticulos.CustomizableEdges = customizableEdges3;
+            btnGestionarArticulos.CustomizableEdges = customizableEdges9;
             btnGestionarArticulos.Dock = DockStyle.Fill;
             btnGestionarArticulos.FillColor = Color.PeachPuff;
             btnGestionarArticulos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -410,8 +613,8 @@
             btnGestionarArticulos.Location = new Point(0, 159);
             btnGestionarArticulos.Margin = new Padding(0);
             btnGestionarArticulos.Name = "btnGestionarArticulos";
-            btnGestionarArticulos.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnGestionarArticulos.Size = new Size(379, 35);
+            btnGestionarArticulos.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnGestionarArticulos.Size = new Size(425, 35);
             btnGestionarArticulos.TabIndex = 8;
             btnGestionarArticulos.Text = "Gestionar artículos";
             btnGestionarArticulos.TextAlign = HorizontalAlignment.Left;
@@ -430,8 +633,19 @@
             subLayout1EstadisticasProducto.RowCount = 2;
             subLayout1EstadisticasProducto.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             subLayout1EstadisticasProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
-            subLayout1EstadisticasProducto.Size = new Size(373, 146);
+            subLayout1EstadisticasProducto.Size = new Size(419, 146);
             subLayout1EstadisticasProducto.TabIndex = 0;
+            // 
+            // fieldMontoInversionArticuloss
+            // 
+            fieldMontoInversionArticuloss.AutoSize = true;
+            fieldMontoInversionArticuloss.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldMontoInversionArticuloss.Location = new Point(10, 116);
+            fieldMontoInversionArticuloss.Margin = new Padding(10, 0, 3, 0);
+            fieldMontoInversionArticuloss.Name = "fieldMontoInversionArticuloss";
+            fieldMontoInversionArticuloss.Size = new Size(28, 30);
+            fieldMontoInversionArticuloss.TabIndex = 3;
+            fieldMontoInversionArticuloss.Text = "0";
             // 
             // subLayout2EstadisticasProducto
             // 
@@ -448,7 +662,7 @@
             subLayout2EstadisticasProducto.RowCount = 2;
             subLayout2EstadisticasProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 61F));
             subLayout2EstadisticasProducto.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            subLayout2EstadisticasProducto.Size = new Size(363, 96);
+            subLayout2EstadisticasProducto.Size = new Size(409, 96);
             subLayout2EstadisticasProducto.TabIndex = 1;
             // 
             // fieldCantArticulosRegistrados
@@ -474,23 +688,12 @@
             fieldTituloArticulos.TabIndex = 1;
             fieldTituloArticulos.Text = "Artículos en almacenes";
             // 
-            // fieldMontoInversionProductos
-            // 
-            fieldMontoInversionArticuloss.AutoSize = true;
-            fieldMontoInversionArticuloss.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldMontoInversionArticuloss.Location = new Point(10, 116);
-            fieldMontoInversionArticuloss.Margin = new Padding(10, 0, 3, 0);
-            fieldMontoInversionArticuloss.Name = "fieldMontoInversionProductos";
-            fieldMontoInversionArticuloss.Size = new Size(28, 30);
-            fieldMontoInversionArticuloss.TabIndex = 3;
-            fieldMontoInversionArticuloss.Text = "0";
-            // 
             // VistaContenedorEstadísticas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1356, 608);
+            ClientSize = new Size(1507, 654);
             Controls.Add(layoutVista);
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.Black;
@@ -505,6 +708,11 @@
             layoutTitulo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) fieldIcono).EndInit();
             layoutDistribucionEstadisticas.ResumeLayout(false);
+            layoutGraficoEstadisticas.ResumeLayout(false);
+            subLayoutGraficoEstadisticas1.ResumeLayout(false);
+            subLayoutGraficoEstadisticas2.ResumeLayout(false);
+            subLayoutGraficoEstadisticas2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize) fieldGraficoVentas).EndInit();
             subLayout1DistribucionEstadisticas.ResumeLayout(false);
             layoutEstadisticasGanancia.ResumeLayout(false);
             subLayout1EstadisticasGanancia.ResumeLayout(false);
@@ -552,5 +760,15 @@
         private Label fieldGananciaTotalNegocio;
         private Label fieldTituloGananciaTotalNegocio;
         private Label fieldMontoInversionArticuloss;
+        private TableLayoutPanel layoutGraficoEstadisticas;
+        private Guna.UI2.WinForms.Guna2Button btnImprimirAnalisisVentas;
+        private TableLayoutPanel subLayoutGraficoEstadisticas1;
+        private TableLayoutPanel subLayoutGraficoEstadisticas2;
+        private Label fieldTituloAnalisisVentas;
+        private Label fieldSubTituloAnalisisVentas;
+        private Label fieldTituloFiltrosBusqueda;
+        private Guna.UI2.WinForms.Guna2ComboBox fieldCriterioBusqueda;
+        private PictureBox fieldGraficoVentas;
+        private Guna.UI2.WinForms.Guna2DateTimePicker fieldDatoBusquedaFecha;
     }
 }
