@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="MVP\Modelos\" />
+    <Folder Include="MVP\Presentadores\" />
+    <Folder Include="MVP\Vistas\MensajeFlotante\Plantillas\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\aDVanceERP.Core\aDVanceERP.Core.csproj" />
+  </ItemGroup>
+
+</Project>
