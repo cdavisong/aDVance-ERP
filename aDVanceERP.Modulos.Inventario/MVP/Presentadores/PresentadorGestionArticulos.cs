@@ -18,12 +18,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
 
             presentadorTupla.Vista.Id = objeto.Id.ToString();
             presentadorTupla.Vista.NombreAlmacen = string.IsNullOrEmpty(objeto.NombreAlmacen) ? "-" : objeto.NombreAlmacen;
-            presentadorTupla.Vista.Codigo = objeto.Codigo;
-            presentadorTupla.Vista.Nombre = objeto.Nombre;
-            presentadorTupla.Vista.Descripcion = objeto.Descripcion;
+            presentadorTupla.Vista.Codigo = objeto.Codigo ?? string.Empty;
+            presentadorTupla.Vista.Nombre = objeto.Nombre ?? string.Empty;
+            presentadorTupla.Vista.Descripcion = objeto.Descripcion ?? string.Empty;
             presentadorTupla.Vista.PrecioAdquisicion = objeto.PrecioAdquisicion;
             presentadorTupla.Vista.PrecioCesion = objeto.PrecioCesion;
-            presentadorTupla.Vista.Stock = string.IsNullOrEmpty(objeto.Stock) ? UtilesArticulo.ObtenerStockTotalArticulo(objeto.Id) : int.Parse(objeto.Stock);
+            presentadorTupla.Vista.Stock = string.IsNullOrEmpty(objeto.Stock) ? UtilesArticulo.ObtenerStockTotalArticulo(objeto.Id).Result : int.Parse(objeto.Stock);
             presentadorTupla.Vista.MovimientoPositivoStock += delegate (object? sender, EventArgs args) {
                 var nombreAlmacen = sender as string;
                 var objetoPos = new object[] { "+", nombreAlmacen ?? string.Empty, objeto };

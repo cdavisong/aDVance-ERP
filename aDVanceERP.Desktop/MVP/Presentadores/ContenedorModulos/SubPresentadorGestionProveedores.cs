@@ -9,8 +9,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private async void InicializarVistaGestionProveedores() {
             _gestionProveedores = new PresentadorGestionProveedores(new VistaGestionProveedores());
             _gestionProveedores.EditarObjeto += MostrarVistaEdicionProveedor;
-            _gestionProveedores.Vista.RegistrarDatos += MostrarVistaRegistroProveedor;
-            _gestionProveedores.Vista.CargarCriteriosBusqueda(UtilesBusquedaProveedor.CriterioBusquedaProveedor);
+            _gestionProveedores.Vista.RegistrarDatos += MostrarVistaRegistroProveedor;            
 
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionProveedores", _gestionProveedores.Vista));
@@ -20,6 +19,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if ((_gestionProveedores?.Vista) == null)
                 return;
 
+            _gestionProveedores.Vista.CargarCriteriosBusqueda(UtilesBusquedaProveedor.CriterioBusquedaProveedor);
             _gestionProveedores.Vista.Restaurar();
             _gestionProveedores.Vista.Mostrar();
 

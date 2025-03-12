@@ -1,4 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
@@ -6,12 +8,12 @@ using aDVanceERP.Core.Seguridad.Utiles;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
     public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistroUsuario, CuentaUsuario, DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
-        public PresentadorRegistroUsuario(IVistaRegistroUsuario vista) : base(vista) {
-            vista.Salir += delegate (object? sender, EventArgs args) {
-                MostrarVistaAutenticacionUsuario?.Invoke(sender, args);
-            };
+        public PresentadorRegistroUsuario(IVistaRegistroUsuario vista) : base(vista) {            
             vista.RegistrarDatos += delegate (object? sender, EventArgs args) {
                 UsuarioRegistrado?.Invoke(sender, args);
+            };
+            vista.AutenticarUsuario += delegate (object? sender, EventArgs args) {
+                MostrarVistaAutenticacionUsuario?.Invoke("autenticate-user", args);
             };
         }
 
@@ -26,14 +28,18 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
             UsuarioRegistrado?.Invoke("register-user", EventArgs.Empty);
         }
 
-        protected override CuentaUsuario? ObtenerObjetoDesdeVista() {
-            if (UtilesCuentaUsuario.EsTablaCuentasUsuarioVacia()) {
-                if (Vista.Password != null)
-                    UtilesCuentaUsuario.CrearUsuarioAdministrador(Vista.NombreUsuario, Vista.Password);
+        protected override async Task<CuentaUsuario?> ObtenerObjetoDesdeVista() {
+            try {
+                if (await UtilesCuentaUsuario.EsTablaCuentasUsuarioVacia()) {
+                    if (Vista.Password != null)
+                        await UtilesCuentaUsuario.CrearUsuarioAdministrador(Vista.NombreUsuario, Vista.Password);
 
-                UsuarioRegistrado?.Invoke("register-admin", EventArgs.Empty);
+                    UsuarioRegistrado?.Invoke("register-admin", EventArgs.Empty);
 
-                return null;
+                    return null;
+                }
+            } catch (ExcepcionConexionServidorMySQL e) {
+                CentroNotificaciones.Mostrar(e.Message, true);
             }
 
             var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);

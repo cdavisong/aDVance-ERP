@@ -10,8 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionMovimientos = new PresentadorGestionMovimientos(new VistaGestionMovimientos());
             _gestionMovimientos.EditarObjeto += MostrarVistaEdicionMovimiento;
             _gestionMovimientos.Vista.RegistrarDatos += MostrarVistaRegistroMovimiento;
-            _gestionMovimientos.Vista.CargarCriteriosBusqueda(UtilesBusquedaMovimiento.CriterioBusquedaMovimiento);
-
+            
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionMovimientos", _gestionMovimientos.Vista));
         }
@@ -20,6 +19,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if ((_gestionMovimientos?.Vista) == null)
                 return;
 
+            _gestionMovimientos.Vista.CargarCriteriosBusqueda(UtilesBusquedaMovimiento.CriterioBusquedaMovimiento);
             _gestionMovimientos.Vista.Restaurar();
             _gestionMovimientos.Vista.Mostrar();
 

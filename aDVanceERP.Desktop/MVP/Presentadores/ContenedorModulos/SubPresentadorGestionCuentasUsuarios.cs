@@ -10,8 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionCuentasUsuarios = new PresentadorGestionCuentasUsuarios(new VistaGestionCuentasUsuarios());
             _gestionCuentasUsuarios.EditarObjeto += MostrarVistaEdicionCuentaUsuario;
             _gestionCuentasUsuarios.Vista.RegistrarDatos += MostrarVistaRegistroCuentaUsuario;
-            _gestionCuentasUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaUsuario.CriterioBusquedaBusquedaCuentaUsuario);
-
+            
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasUsuarios", _gestionCuentasUsuarios.Vista));
         }
@@ -20,6 +19,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if ((_gestionCuentasUsuarios?.Vista) == null)
                 return;
 
+            _gestionCuentasUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaUsuario.CriterioBusquedaBusquedaCuentaUsuario);
             _gestionCuentasUsuarios.Vista.Restaurar();
             _gestionCuentasUsuarios.Vista.Mostrar();
 

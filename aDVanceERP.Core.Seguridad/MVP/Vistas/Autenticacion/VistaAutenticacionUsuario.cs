@@ -65,7 +65,6 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             };
             btnRegistrarCuenta.Click += delegate (object? sender, EventArgs e) {
                 RegistrarCuenta?.Invoke(sender, e);
-                Salir?.Invoke(sender, e);
                 Ocultar();
             };
         }

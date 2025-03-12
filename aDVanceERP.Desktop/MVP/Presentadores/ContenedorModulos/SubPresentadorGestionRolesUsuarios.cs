@@ -10,8 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionRolesUsuarios = new PresentadorGestionRolesUsuarios(new VistaGestionRolesUsuarios());
             _gestionRolesUsuarios.EditarObjeto += MostrarVistaEdicionRolUsuario;
             _gestionRolesUsuarios.Vista.RegistrarDatos += MostrarVistaRegistroRolUsuario;
-            _gestionRolesUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaRolUsuario.CriterioBusquedaBusquedaRolUsuario);
-
+            
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionRolesUsuarios", _gestionRolesUsuarios.Vista));
         }
@@ -20,6 +19,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if ((_gestionRolesUsuarios?.Vista) == null)
                 return;
 
+            _gestionRolesUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaRolUsuario.CriterioBusquedaBusquedaRolUsuario);
             _gestionRolesUsuarios.Vista.Restaurar();
             _gestionRolesUsuarios.Vista.Mostrar();
 

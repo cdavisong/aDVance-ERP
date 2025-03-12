@@ -60,7 +60,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
-        public event EventHandler? Salir;
+        public event EventHandler? AutenticarUsuario;
+        public event EventHandler? Salir;        
 
         public void Inicializar() {
             // Eventos
@@ -77,7 +78,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
                 RegistrarDatos?.Invoke(sender, e);
             };
             btnRegresarAutenticar.Click += delegate (object? sender, EventArgs e) {
-                Salir?.Invoke(sender, e);
+                AutenticarUsuario?.Invoke(sender, e);
                 Ocultar();
             };
         }

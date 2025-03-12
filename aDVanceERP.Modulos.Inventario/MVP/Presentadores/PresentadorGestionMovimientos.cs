@@ -14,12 +14,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             var presentadorTupla = new PresentadorTuplaMovimiento(new VistaTuplaMovimiento(), objeto);
 
             presentadorTupla.Vista.Id = objeto.Id.ToString();
-            presentadorTupla.Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo) ?? string.Empty;
+            presentadorTupla.Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
             presentadorTupla.Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
             presentadorTupla.Vista.ActualizarIconoStock(UtilesMovimientoArticuloAlmacen.MotivoMovimientoPositivo.Contains(objeto.Motivo));
             presentadorTupla.Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
             presentadorTupla.Vista.CantidadMovida = objeto.CantidadMovida.ToString();
-            presentadorTupla.Vista.Motivo = objeto.Motivo;
+            presentadorTupla.Vista.Motivo = objeto.Motivo ?? string.Empty;
             presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("yyyy-MM-dd");
 
             return presentadorTupla;

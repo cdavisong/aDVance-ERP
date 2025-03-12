@@ -1,4 +1,6 @@
-﻿using aDVanceERP.Core.Seguridad.Utiles;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.Principal;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 using aDVanceERP.Modulos.Contactos;
@@ -35,10 +37,15 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         public IVistaPrincipal Vista { get; }
 
         private void InicializarPermisosModulos() {
-            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloContactos.Nombre, ModuloContactos.Permisos);
-            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloFinanzas.Nombre, ModuloFinanzas.Permisos);
-            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloInventario.Nombre, ModuloInventario.Permisos);
-            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloVentas.Nombre, ModuloVentas.Permisos);
+            try {
+                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloContactos.Nombre, ModuloContactos.Permisos);
+                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloFinanzas.Nombre, ModuloFinanzas.Permisos);
+                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloInventario.Nombre, ModuloInventario.Permisos);
+                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloVentas.Nombre, ModuloVentas.Permisos);
+            } catch (ExcepcionConexionServidorMySQL e) {
+                CentroNotificaciones.Mostrar(e.Message, true);
+            }
+            
         }
 
         private void DisponerModulos(object? sender, EventArgs e) {

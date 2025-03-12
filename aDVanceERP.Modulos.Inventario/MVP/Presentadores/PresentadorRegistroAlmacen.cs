@@ -9,16 +9,16 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
         }
 
         public override void PopularVistaDesdeObjeto(Almacen objeto) {
-            Vista.Nombre = objeto.Nombre;
-            Vista.Direccion = objeto.Direccion;
+            Vista.Nombre = objeto.Nombre ?? string.Empty;
+            Vista.Direccion = objeto.Direccion ?? string.Empty;
             Vista.AutorizoVenta = objeto.AutorizoVenta;
-            Vista.Notas = objeto.Notas;
+            Vista.Notas = objeto.Notas ?? string.Empty;
             Vista.ModoEdicionDatos = true;
 
             _objeto = objeto;
         }
 
-        protected override Almacen ObtenerObjetoDesdeVista() {
+        protected override async Task<Almacen?> ObtenerObjetoDesdeVista() {
             return new Almacen(
                 idAlmacen: _objeto?.Id ?? 0,
                 nombre: Vista.Nombre,

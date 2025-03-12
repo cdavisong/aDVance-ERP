@@ -108,10 +108,10 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);
             };
-            fieldNombreAlmacen.SelectedIndexChanged += delegate {
-                var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen);
+            fieldNombreAlmacen.SelectedIndexChanged += async delegate {
+                var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
 
-                CargarNombresArticulos(UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
+                CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
             };
             fieldCantidad.TextChanged += delegate {
                 btnAdicionarArticulo.Enabled = Cantidad > 0;
@@ -165,13 +165,13 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
             fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
-        public void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
+        public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
             var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
-            var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
+            var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
             var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
-            var idArticulo = UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
+            var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
             var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
-            var stockArticulo = UtilesArticulo.ObtenerStockArticulo(adNombreArticulo, adNombreAlmacen);
+            var stockArticulo = await UtilesArticulo.ObtenerStockArticulo(adNombreArticulo, adNombreAlmacen);
 
             // Verificar ID y stock del artículo
             if (idArticulo == 0 || stockArticulo == 0) {
@@ -195,7 +195,7 @@ namespace aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta {
                 fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Regular);
             }
 
-            var precioUnitarioArticulo = UtilesArticulo.ObtenerPrecioUnitarioArticulo(idArticulo);
+            var precioUnitarioArticulo = await UtilesArticulo.ObtenerPrecioUnitarioArticulo(idArticulo);
             var tuplaArticulo = new string[] {
                     idArticulo.ToString(),
                     adNombreArticulo,

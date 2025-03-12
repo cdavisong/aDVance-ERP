@@ -7,5 +7,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas {
         string NombreUsuario { get; }
         SecureString? Password { get; }
         bool ConfirmacionTerminosServicio { get; }
+
+        event EventHandler? AutenticarUsuario;
     }
 }

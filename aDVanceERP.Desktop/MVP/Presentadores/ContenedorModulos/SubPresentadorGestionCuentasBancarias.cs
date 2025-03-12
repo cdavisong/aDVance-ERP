@@ -11,7 +11,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionCuentasBancarias.MostrarQrTupla += MostrarVistaQR;
             _gestionCuentasBancarias.EditarObjeto += MostrarVistaEdicionCuentaBancaria;
             _gestionCuentasBancarias.Vista.RegistrarDatos += MostrarVistaRegistroCuentaBancaria;
-            _gestionCuentasBancarias.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaBancaria.CriterioBusquedaCuentaBancaria);
+            
 
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasBancarias", _gestionCuentasBancarias.Vista));
@@ -21,6 +21,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if ((_gestionCuentasBancarias?.Vista) == null)
                 return;
 
+            _gestionCuentasBancarias.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaBancaria.CriterioBusquedaCuentaBancaria);
             _gestionCuentasBancarias.Vista.Restaurar();
             _gestionCuentasBancarias.Vista.Mostrar();
 

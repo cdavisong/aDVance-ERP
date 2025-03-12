@@ -24,7 +24,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override Contacto ObtenerObjetoDesdeVista() {
+        protected override async Task<Contacto?> ObtenerObjetoDesdeVista() {
             return new Contacto(_objeto?.Id ?? 0,
                     nombre: Vista.Nombre,
                     direccionCorreoElectronico: Vista.CorreoElectronico,
@@ -47,7 +47,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
                     prefijo: "+53",
                     numero: Vista.TelefonoMovil,
                     categoria: CategoriaTelefonoContacto.Movil,
-                    idContacto: _objeto.Id
+                    idContacto: _objeto?.Id ?? 0
                     ));
             else if (Vista.ModoEdicionDatos && _movil.Id != 0)
                 datosTelefonoContacto.Eliminar(_movil.Id);

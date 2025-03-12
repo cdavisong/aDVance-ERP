@@ -26,7 +26,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
 
         public abstract void PopularVistaDesdeObjeto(O objeto);
 
-        protected abstract O ObtenerObjetoDesdeVista();
+        protected abstract Task<O?> ObtenerObjetoDesdeVista();
 
         protected virtual bool RegistroEdicionDatosAutorizado() {
             return true;
@@ -46,32 +46,24 @@ namespace aDVanceERP.Core.MVP.Presentadores {
             if (!RegistroEdicionDatosAutorizado())
                 return;
 
-            try {
-                _objeto = ObtenerObjetoDesdeVista();
+            _objeto = await ObtenerObjetoDesdeVista();
 
-                if (_objeto == null)
-                    return;
+            if (_objeto == null)
+                return;
 
-                if (Vista.ModoEdicionDatos && _objeto.Id != 0) {
-                    await DatosObjeto.EditarAsync(_objeto);
-                } else if (_objeto.Id != 0) {
-                    await DatosObjeto.EditarAsync(_objeto);
-                } else {
-                    _objeto.Id = await DatosObjeto.AdicionarAsync(_objeto);
-                }
-
-                RegistroAuxiliar();
-
-                DatosRegistradosActualizados?.Invoke(sender, e);
-                Salir?.Invoke(sender, e);
-                Vista.Cerrar();
-            } catch (ExcepcionConexionServidorMySQL ex) {
-                // Manejar la excepción de conexión al servidor MySQL
-                Console.WriteLine($"Error de conexión: {ex.Message}");
-            } catch (Exception ex) {
-                // Manejar otras excepciones
-                Console.WriteLine($"Error inesperado: {ex.Message}");
+            if (Vista.ModoEdicionDatos && _objeto.Id != 0) {
+                await DatosObjeto.EditarAsync(_objeto);
+            } else if (_objeto.Id != 0) {
+                await DatosObjeto.EditarAsync(_objeto);
+            } else {
+                _objeto.Id = await DatosObjeto.AdicionarAsync(_objeto);
             }
+
+            RegistroAuxiliar();
+
+            DatosRegistradosActualizados?.Invoke(sender, e);
+            Salir?.Invoke(sender, e);
+            Vista.Cerrar();
         }
 
         private void OnSalir(object? sender, EventArgs e) {

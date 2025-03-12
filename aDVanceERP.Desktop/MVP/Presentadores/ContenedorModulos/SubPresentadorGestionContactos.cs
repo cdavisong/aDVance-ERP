@@ -10,7 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionContactos = new PresentadorGestionContactos(new VistaGestionContactos());
             _gestionContactos.EditarObjeto += MostrarVistaEdicionContacto;
             _gestionContactos.Vista.RegistrarDatos += MostrarVistaRegistroContacto;
-            _gestionContactos.Vista.CargarCriteriosBusqueda(UtilesBusquedaContacto.CriterioBusquedaContacto);
+            
 
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionContactos", _gestionContactos.Vista));
@@ -20,6 +20,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if ((_gestionContactos?.Vista) == null)
                 return;
 
+            _gestionContactos.Vista.CargarCriteriosBusqueda(UtilesBusquedaContacto.CriterioBusquedaContacto);
             _gestionContactos.Vista.Restaurar();
             _gestionContactos.Vista.Mostrar();
 

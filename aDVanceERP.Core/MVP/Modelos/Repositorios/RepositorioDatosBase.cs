@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 
@@ -109,7 +110,12 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
 
         private T EjecutarConsultaEscalar<T>(string comandoTexto) {
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                conexion.Open();
+                try {
+                    conexion.Open();
+                } catch (MySqlException) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = comandoTexto;
                     return (T) Convert.ChangeType(comando.ExecuteScalar(), typeof(T));
@@ -119,7 +125,12 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
 
         private async Task<T> EjecutarConsultaEscalarAsync<T>(string comandoTexto) {
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                await conexion.OpenAsync().ConfigureAwait(false);
+                try {
+                    await conexion.OpenAsync().ConfigureAwait(false);
+                } catch (MySqlException) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = comandoTexto;
                     var result = await comando.ExecuteScalarAsync().ConfigureAwait(false);
@@ -130,7 +141,12 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
 
         private void EjecutarComandoNoQuery(string comandoTexto) {
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                conexion.Open();
+                try {
+                    conexion.Open();
+                } catch (MySqlException) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = comandoTexto;
                     comando.ExecuteNonQuery();
@@ -140,7 +156,12 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
 
         private async Task EjecutarComandoNoQueryAsync(string comandoTexto) {
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                await conexion.OpenAsync().ConfigureAwait(false);
+                try {
+                    await conexion.OpenAsync().ConfigureAwait(false);
+                } catch (MySqlException) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }         
+                
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = comandoTexto;
                     await comando.ExecuteNonQueryAsync().ConfigureAwait(false);
@@ -150,7 +171,11 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
 
         private IEnumerable<O> EjecutarConsulta(string comandoTexto, Action<MySqlDataReader> procesarLector) {
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                conexion.Open();
+                try {
+                    conexion.Open();
+                } catch (MySqlException) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = comandoTexto;
                     using (var lectorDatos = comando.ExecuteReader()) {
@@ -167,7 +192,12 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
 
         private async Task<IEnumerable<O>> EjecutarConsultaAsync(string comandoTexto) {
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                await conexion.OpenAsync().ConfigureAwait(false);
+                try {
+                    await conexion.OpenAsync().ConfigureAwait(false);
+                } catch (MySqlException) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = comandoTexto;
                     using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {

@@ -145,7 +145,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             if (UtilesMovimientoArticuloAlmacen.MotivoMovimientoNegativo.Contains(Motivo) && string.Equals(NombreAlmacenOrigen, "Ninguno"))
                 return false;
 
-            CantidadInicialOrigen = UtilesArticulo.ObtenerStockArticulo(NombreArticulo, NombreAlmacenOrigen);
+            CantidadInicialOrigen = UtilesArticulo.ObtenerStockArticulo(NombreArticulo, NombreAlmacenOrigen).Result;
 
             if (CantidadFinalOrigen < 0) {
                 fieldCantidadMovida.ForeColor = Color.Firebrick;

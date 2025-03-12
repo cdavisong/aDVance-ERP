@@ -12,17 +12,17 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         public List<string[]>? Permisos { get; private set; } = new List<string[]>();
 
-        private async Task InicializarVistaRegistroRolUsuario() {
+        private void InicializarVistaRegistroRolUsuario() {
             _registroRolUsuario = new PresentadorRegistroRolUsuario(new VistaRegistroRolUsuario());
 
             // Configurar coordenadas y dimensiones de la vista
             _registroRolUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroRolUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
-            _registroRolUsuario.DatosRegistradosActualizados += delegate {
+            _registroRolUsuario.DatosRegistradosActualizados += async delegate  {
                 Permisos = _registroRolUsuario.Vista.Permisos;
 
-                RegistrarEditarPermisosRol(UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario));
+                RegistrarEditarPermisosRol(await UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario));
             };
             _registroRolUsuario.Salir += async (sender, e) => {
                 if (_gestionRolesUsuarios != null) {
@@ -31,8 +31,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             };
         }
 
-        private async void MostrarVistaRegistroRolUsuario(object? sender, EventArgs e) {
-            await InicializarVistaRegistroRolUsuario();
+        private void MostrarVistaRegistroRolUsuario(object? sender, EventArgs e) {
+            InicializarVistaRegistroRolUsuario();
 
             if (_registroRolUsuario != null) {
                 _registroRolUsuario.Vista.Mostrar();
@@ -41,8 +41,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroRolUsuario?.Dispose();
         }
 
-        private async void MostrarVistaEdicionRolUsuario(object? sender, EventArgs e) {
-            await InicializarVistaRegistroRolUsuario();
+        private void MostrarVistaEdicionRolUsuario(object? sender, EventArgs e) {
+            InicializarVistaRegistroRolUsuario();
 
             if (_registroRolUsuario != null && sender is RolUsuario rolUsuario) {
                 _registroRolUsuario.PopularVistaDesdeObjeto(rolUsuario);

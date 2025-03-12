@@ -18,11 +18,11 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override Cliente ObtenerObjetoDesdeVista() {
+        protected override async Task<Cliente?> ObtenerObjetoDesdeVista() {
             return new Cliente(_objeto?.Id ?? 0,
                     numero: Vista.Numero,
                     razonSocial: Vista.RazonSocial,
-                    idContacto: UtilesContacto.ObtenerIdContacto(Vista.NombreContacto)
+                    idContacto: await UtilesContacto.ObtenerIdContacto(Vista.NombreContacto)
                 );
         }
     }

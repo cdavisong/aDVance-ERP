@@ -114,6 +114,10 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         }
 
         private async void OnAlturaContenedorTuplasModificada(object? sender, EventArgs e) {
+            if (Vista is Form vistaForm)
+                if (!vistaForm.Visible)
+                    return;
+
             await RefrescarListaObjetos();
         }
 

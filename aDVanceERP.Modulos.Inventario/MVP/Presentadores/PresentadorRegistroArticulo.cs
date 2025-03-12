@@ -10,9 +10,9 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
         }
 
         public override void PopularVistaDesdeObjeto(Articulo objeto) {
-            Vista.Codigo = objeto.Codigo;
-            Vista.Nombre = objeto.Nombre;
-            Vista.Descripcion = objeto.Descripcion;
+            Vista.Codigo = objeto.Codigo ?? string.Empty;
+            Vista.Nombre = objeto.Nombre ?? string.Empty;
+            Vista.Descripcion = objeto.Descripcion ?? string.Empty;
             Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
             Vista.PrecioAdquisicion = objeto.PrecioAdquisicion;
             Vista.PrecioCesion = objeto.PrecioCesion;
@@ -23,13 +23,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override Articulo ObtenerObjetoDesdeVista() {
+        protected override async Task<Articulo?> ObtenerObjetoDesdeVista() {
             return new Articulo(
                 _objeto?.Id ?? 0,
                 codigo: Vista.Codigo,
                 nombre: Vista.Nombre,
                 descripcion: Vista.Descripcion,
-                idProveedor: UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
+                idProveedor: await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
                 precioAdquisicion: Vista.PrecioAdquisicion,
                 precioCesion: Vista.PrecioCesion,
                 stockMinimo: Vista.StockMinimo,

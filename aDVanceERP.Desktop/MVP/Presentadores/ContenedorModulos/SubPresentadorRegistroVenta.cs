@@ -1,4 +1,6 @@
-﻿using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
@@ -14,23 +16,28 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         public List<string[]>? Articulos { get; private set; } = new List<string[]>();
 
         private async Task InicializarVistaRegistroVentaArticulo() {
-            _registroVentaArticulo = new PresentadorRegistroVenta(new VistaRegistroVenta());
-            _registroVentaArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
-            _registroVentaArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroVentaArticulo.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
-            _registroVentaArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
-            _registroVentaArticulo.Vista.RegistrarDatos += delegate {
-                Articulos = _registroVentaArticulo.Vista.Articulos;
+            try {
+                _registroVentaArticulo = new PresentadorRegistroVenta(new VistaRegistroVenta());
+                _registroVentaArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+                _registroVentaArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
+                _registroVentaArticulo.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
+                _registroVentaArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
+                _registroVentaArticulo.Vista.RegistrarDatos += delegate {
+                    Articulos = _registroVentaArticulo.Vista.Articulos;
 
-                RegistrarArticulos();
-                RegistrarPagos();
-                RegistrarTransferencia();
-            };
-            _registroVentaArticulo.Salir += async (sender, e) => {
-                if (_gestionVentasArticulos != null) {
-                    await _gestionVentasArticulos.RefrescarListaObjetos();
-                }
-            };
+                    RegistrarArticulos();
+                    RegistrarPagos();
+                    RegistrarTransferencia();
+                };
+                _registroVentaArticulo.Salir += async (sender, e) => {
+                    if (_gestionVentasArticulos != null) {
+                        await _gestionVentasArticulos.RefrescarListaObjetos();
+                    }
+                };
+            } catch (ExcepcionConexionServidorMySQL e) {
+                CentroNotificaciones.Mostrar(e.Message);
+            }
+            
         }
 
         private async void MostrarVistaRegistroVentaArticulo(object? sender, EventArgs e) {

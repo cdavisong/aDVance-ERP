@@ -10,7 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private async Task InicializarVistaRegistroMovimiento() {
             _registroMovimiento = new PresentadorRegistroMovimiento(new VistaRegistroMovimiento());
-            _registroMovimiento.Vista.CargarNombresArticulos(UtilesArticulo.ObtenerNombresArticulos());
+            _registroMovimiento.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
             _registroMovimiento.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
             _registroMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);

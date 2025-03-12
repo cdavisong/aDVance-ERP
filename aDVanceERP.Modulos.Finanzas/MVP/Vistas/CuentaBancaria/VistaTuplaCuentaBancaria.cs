@@ -79,7 +79,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             };
             btnQR.Click += delegate (object? sender, EventArgs e) {
                 var numeroTarjeta = NumeroTarjeta.Replace(" ", string.Empty);
-                var idContacto = UtilesContacto.ObtenerIdContacto(NombrePropietario);
+                var idContacto = UtilesContacto.ObtenerIdContacto(NombrePropietario).Result;
                 var telefonoMovil = UtilesTelefonoContacto.ObtenerTelefonoContacto(idContacto, true);
 
                 MostrarQR?.Invoke($"{Alias},{numeroTarjeta},{telefonoMovil}", e);

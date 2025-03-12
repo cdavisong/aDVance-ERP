@@ -10,8 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionAlmacenes = new PresentadorGestionAlmacenes(new VistaGestionAlmacenes());
             _gestionAlmacenes.EditarObjeto += MostrarVistaEdicionAlmacen;
             _gestionAlmacenes.Vista.RegistrarDatos += MostrarVistaRegistroAlmacen;
-            _gestionAlmacenes.Vista.CargarCriteriosBusqueda(UtilesBusquedaAlmacen.CriterioBusquedaAlmacen);
-
+            
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionAlmacenes", _gestionAlmacenes.Vista));
         }
@@ -20,6 +19,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if ((_gestionAlmacenes?.Vista) == null)
                 return;
 
+            _gestionAlmacenes.Vista.CargarCriteriosBusqueda(UtilesBusquedaAlmacen.CriterioBusquedaAlmacen);
             _gestionAlmacenes.Vista.Restaurar();
             _gestionAlmacenes.Vista.Mostrar();
 

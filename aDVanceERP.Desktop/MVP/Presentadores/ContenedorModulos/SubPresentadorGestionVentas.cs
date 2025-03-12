@@ -10,7 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionVentasArticulos = new PresentadorGestionVentas(new VistaGestionVentas());
             _gestionVentasArticulos.EditarObjeto += MostrarVistaEdicionVentaArticulo;
             _gestionVentasArticulos.Vista.RegistrarDatos += MostrarVistaRegistroVentaArticulo;
-            _gestionVentasArticulos.Vista.CargarCriteriosBusqueda(UtilesBusquedaVenta.CriterioBusquedaVenta);
+            
 
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionVentas", _gestionVentasArticulos.Vista));
@@ -20,6 +20,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if ((_gestionVentasArticulos?.Vista) == null)
                 return;
 
+            _gestionVentasArticulos.Vista.CargarCriteriosBusqueda(UtilesBusquedaVenta.CriterioBusquedaVenta);
             _gestionVentasArticulos.Vista.Restaurar();
             _gestionVentasArticulos.Vista.Mostrar();
 

@@ -4,41 +4,38 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
     public static class UtilesArticulo {
-        public static long ObtenerIdArticulo(string nombreArticulo) {
+        public static async Task<long> ObtenerIdArticulo(string nombreArticulo) {
             var idArticulo = 0L;
             var connectionString = UtilesConfServidores.ObtenerStringConfServidorMySQL();
             var query = "SELECT id_articulo FROM adv__articulo WHERE nombre = @nombreArticulo;";
 
             using (var conexion = new MySqlConnection(connectionString)) {
                 try {
-                    conexion.Open();
-
-                    using (var comando = new MySqlCommand(query, conexion)) {
-                        comando.Parameters.AddWithValue("@nombreArticulo", nombreArticulo);
-
-                        using (var lectorDatos = comando.ExecuteReader()) {
-                            if (lectorDatos.Read()) {
-                                idArticulo = lectorDatos.GetInt64("id_articulo");
-                            }
-                        }
-                    }
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (MySqlException) {
                     throw new ExcepcionConexionServidorMySQL();
-                } catch (Exception ex) {
-                    //TODO: Capturar cualquier otra excepción inesperada
-                    throw new Exception("Error inesperado al obtener el ID del artículo.", ex);
+                }
+
+                using (var comando = new MySqlCommand(query, conexion)) {
+                    comando.Parameters.AddWithValue("@nombreArticulo", nombreArticulo);
+
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        if (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
+                            idArticulo = lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_articulo"));
+                        }
+                    }
                 }
             }
 
             return idArticulo;
         }
 
-        public static string? ObtenerNombreArticulo(long idArticulo) {
+        public static async Task<string?> ObtenerNombreArticulo(long idArticulo) {
             var nombreArticulo = string.Empty;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
@@ -46,8 +43,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = $"SELECT nombre FROM adv__articulo WHERE id_articulo='{idArticulo}';";
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos != null && lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        if (lectorDatos != null && await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             nombreArticulo = lectorDatos.GetString(lectorDatos.GetOrdinal("nombre"));
                         }
                     }
@@ -57,12 +54,12 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return nombreArticulo;
         }
 
-        public static string[] ObtenerNombresArticulos() {
+        public static async Task<string[]> ObtenerNombresArticulos() {
             List<string> nombresArticulos = new List<string>();
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
@@ -70,8 +67,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = "SELECT nombre FROM adv__articulo;";
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        while (lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        while (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             nombresArticulos.Add(lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")));
                         }
                     }
@@ -81,12 +78,12 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return nombresArticulos.ToArray();
         }
 
-        public static string[] ObtenerNombresArticulos(long idAlmacen) {
+        public static async Task<string[]> ObtenerNombresArticulos(long idAlmacen) {
             List<string> nombresArticulos = new List<string>();
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
@@ -95,8 +92,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
                     comando.CommandText = "SELECT a.nombre FROM adv__articulo a JOIN adv__articulo_almacen aa ON a.id_articulo = aa.id_articulo WHERE aa.id_almacen = @IdAlmacen;";
                     comando.Parameters.AddWithValue("@IdAlmacen", idAlmacen);
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        while (lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        while (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             nombresArticulos.Add(lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")));
                         }
                     }
@@ -106,7 +103,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return nombresArticulos.ToArray();
         }
 
-        public static int ObtenerStockTotalArticulos() {
+        public static async Task<int> ObtenerStockTotalArticulos() {
             var cantidadTotal = 0;
             var connectionString = UtilesConfServidores.ObtenerStringConfServidorMySQL();
             var query = @"
@@ -116,7 +113,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
             using (var conexion = new MySqlConnection(connectionString)) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
 
                     using (var comando = new MySqlCommand(query, conexion)) {
                         object result = comando.ExecuteScalar();
@@ -136,12 +133,12 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return cantidadTotal;
         }
 
-        public static int ObtenerStockTotalArticulo(long idArticulo) {
+        public static async Task<int> ObtenerStockTotalArticulo(long idArticulo) {
             int stockTotal = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
@@ -150,8 +147,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
                     comando.CommandText = "SELECT SUM(stock) as stock_total FROM adv__articulo_almacen WHERE id_articulo = @IdArticulo;";
                     comando.Parameters.AddWithValue("@IdArticulo", idArticulo);
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        if (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             stockTotal = int.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("stock_total")).ToString(), out var valorStockTotal) ? valorStockTotal : 0;
                         }
                     }
@@ -161,12 +158,12 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return stockTotal;
         }
 
-        public static int ObtenerStockArticulo(string nombreArticulo, string nombreAlmacen) {
+        public static async Task<int> ObtenerStockArticulo(string nombreArticulo, string nombreAlmacen) {
             int stock = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
@@ -180,8 +177,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
                     comando.Parameters.AddWithValue("@NombreArticulo", nombreArticulo);
                     comando.Parameters.AddWithValue("@NombreAlmacen", nombreAlmacen);
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        if (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             stock = int.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("stock")).ToString(), out var valorStockTotal) ? valorStockTotal : 0;
                         }
                     }
@@ -191,12 +188,12 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return stock;
         }
 
-        public static float ObtenerPrecioUnitarioArticulo(long idArticulo) {
+        public static async Task<float> ObtenerPrecioUnitarioArticulo(long idArticulo) {
             float precioUnitario = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
@@ -205,8 +202,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
                     comando.CommandText = "SELECT precio_cesion FROM adv__articulo WHERE id_articulo = @IdArticulo;";
                     comando.Parameters.AddWithValue("@IdArticulo", idArticulo);
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        if (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             precioUnitario = lectorDatos.GetFloat(lectorDatos.GetOrdinal("precio_cesion"));
                         }
                     }
@@ -216,12 +213,12 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return precioUnitario;
         }
 
-        public static decimal ObtenerMontoInvertidoEnArticulos(long idAlmacen = 0) {
+        public static async Task<decimal> ObtenerMontoInvertidoEnArticulos(long idAlmacen = 0) {
             decimal montoInvertido = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
@@ -235,8 +232,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
                     {(idAlmacen != 0 ? "WHERE al.id_almacen = @IdAlmacen" : string.Empty)};";
                     comando.Parameters.AddWithValue("@IdAlmacen", idAlmacen);
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        if (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             montoInvertido = decimal.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("monto_invertido"))?.ToString(), out var totalMonto) ? totalMonto : 0;
                         }
                     }

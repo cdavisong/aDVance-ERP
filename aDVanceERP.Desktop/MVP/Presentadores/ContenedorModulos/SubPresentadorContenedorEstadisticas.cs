@@ -17,7 +17,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             Vista.Vistas?.Registrar("vistaContenedorEstadisticas", _contenedorEstadisticas.Vista);
         }
 
-        private void MostrarVistaContenedorEstadisticas(object sender, EventArgs e) {
+        private void MostrarVistaContenedorEstadisticas(object? sender, EventArgs e) {
             if ((_contenedorEstadisticas?.Vista) == null)
                 return;
 
