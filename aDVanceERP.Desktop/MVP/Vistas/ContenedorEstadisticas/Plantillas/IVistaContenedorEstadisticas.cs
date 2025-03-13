@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Utiles.Datos;
 
 namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas {
     public interface IVistaContenedorEstadisticas : IVista {
@@ -7,8 +8,11 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas {
         int CantidadArticulosVendidos { get; set; }
         decimal MontoVentaArticulosVendidos { get; set; }
         decimal MontoGananciaTotalNegocio { get; set; }
+        DatosEstadisticosVentas DatosEstadisticosVentas { get; set; }
+        DateTime FechaEstadisticasVentas { get; }
 
         event EventHandler? MostrarVistaGestionArticulos;
         event EventHandler? MostrarVistaGestionVentas;
+        event EventHandler? FechaEstadsticasModificada;
     }
 }

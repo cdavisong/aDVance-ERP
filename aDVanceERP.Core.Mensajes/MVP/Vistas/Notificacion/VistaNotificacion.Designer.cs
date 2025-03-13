@@ -43,7 +43,6 @@
             formatoBase.ContainerControl = this;
             formatoBase.DockIndicatorTransparencyValue = 0.6D;
             formatoBase.DragForm = false;
-            formatoBase.HasFormShadow = false;
             formatoBase.ResizeForm = false;
             formatoBase.TransparentWhileDrag = true;
             // 
@@ -65,7 +64,7 @@
             layoutDistribucion1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutDistribucion1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutDistribucion1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutDistribucion1.Size = new Size(588, 156);
+            layoutDistribucion1.Size = new Size(552, 156);
             layoutDistribucion1.TabIndex = 0;
             // 
             // fieldIcono
@@ -93,7 +92,7 @@
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
-            btnCerrar.Location = new Point(526, 23);
+            btnCerrar.Location = new Point(490, 23);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnCerrar.Size = new Size(39, 39);
@@ -108,7 +107,7 @@
             fieldMensaje.Location = new Point(146, 25);
             fieldMensaje.Margin = new Padding(10, 5, 1, 1);
             fieldMensaje.Name = "fieldMensaje";
-            fieldMensaje.Size = new Size(376, 110);
+            fieldMensaje.Size = new Size(340, 110);
             fieldMensaje.TabIndex = 10;
             fieldMensaje.Text = "...";
             fieldMensaje.TextAlign = ContentAlignment.MiddleLeft;
@@ -117,7 +116,7 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
-            ClientSize = new Size(588, 156);
+            ClientSize = new Size(552, 156);
             Controls.Add(layoutDistribucion1);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;

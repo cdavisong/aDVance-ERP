@@ -3,7 +3,15 @@
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
+    public class DatosEstadisticosVentas {
+        public Dictionary<DateTime, decimal> VentasPorHora { get; set; } = new();
+        public Dictionary<DateTime, decimal> VentasPorDia { get; set; } = new();
+        public Dictionary<DateTime, decimal> VentasPorMes { get; set; } = new();
+    }
+
     public static class UtilesVenta {
+        private static DatosEstadisticosVentas _datos = new();
+
         public static int ObtenerTotalArticulosVendidosHoy() {
             var cantidadTotal = 0;
             var connectionString = UtilesConfServidores.ObtenerStringConfServidorMySQL();
@@ -176,6 +184,155 @@ namespace aDVanceERP.Core.Utiles.Datos {
             }
 
             return gananciaTotal;
+        }
+
+        public static DatosEstadisticosVentas ObtenerDatosEstadisticosVentas(DateTime fecha) {
+            // Inicializar los datos si es necesario
+            if (_datos == null) {
+                _datos = new DatosEstadisticosVentas();
+            }
+
+            // Obtener los datos de ventas
+            ObtenerVentasPorHora(fecha);
+            ObtenerVentasPorDia(fecha);
+            ObtenerVentasPorMes(fecha);
+
+            // Rellenar los períodos vacíos
+            RellenarPeriodosVacios(_datos, fecha);
+
+            // Ordenar los resultados
+            _datos.VentasPorHora = _datos.VentasPorHora.OrderBy(v => v.Key).ToDictionary(v => v.Key, v => v.Value);
+            _datos.VentasPorDia = _datos.VentasPorDia.OrderBy(v => v.Key).ToDictionary(v => v.Key, v => v.Value);
+            _datos.VentasPorMes = _datos.VentasPorMes.OrderBy(v => v.Key).ToDictionary(v => v.Key, v => v.Value);
+
+            return _datos;
+        }
+
+        private static void ObtenerVentasPorHora(DateTime fechaHora) {
+            var connectionString = UtilesConfServidores.ObtenerStringConfServidorMySQL();
+
+            string query = @"
+                SELECT HOUR(v.fecha) AS Hora, 
+                       SUM(d.precio_unitario * d.cantidad) AS Total
+                FROM adv__venta v
+                INNER JOIN adv__detalle_venta_articulo d ON v.id_venta = d.id_venta
+                WHERE DATE(v.fecha) = @fecha
+                GROUP BY HOUR(v.fecha)";
+
+            using (var conexion = new MySqlConnection(connectionString)) {
+                try {
+                    conexion.Open();
+
+                    using (var comando = new MySqlCommand(query, conexion)) {
+                        comando.Parameters.AddWithValue("@fecha", fechaHora.Date.ToString("yyyy-MM-dd")); // Usamos la fecha sin la hora
+
+                        _datos.VentasPorHora.Clear();
+
+                        using (var reader = comando.ExecuteReader()) {
+                            while (reader.Read()) {
+                                DateTime hora = fechaHora.Date.AddHours(reader.GetInt32(0)); // Añadimos la hora a la fecha base
+                                _datos.VentasPorHora.Add(hora, reader.GetDecimal(1));
+                            }
+                        }
+                    }
+                } catch (MySqlException ex) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+            }
+        }
+
+        private static void ObtenerVentasPorDia(DateTime fechaHora) {
+            var connectionString = UtilesConfServidores.ObtenerStringConfServidorMySQL();
+
+            string query = @"
+                SELECT DAY(v.fecha) AS Dia, 
+                       SUM(d.precio_unitario * d.cantidad) AS Total
+                FROM adv__venta v
+                INNER JOIN adv__detalle_venta_articulo d ON v.id_venta = d.id_venta
+                WHERE MONTH(v.fecha) = @mes AND YEAR(v.fecha) = @anio
+                GROUP BY DAY(v.fecha)";
+
+            using (var conexion = new MySqlConnection(connectionString)) {
+                try {
+                    conexion.Open();
+
+                    using (var comando = new MySqlCommand(query, conexion)) {
+                        comando.Parameters.AddWithValue("@mes", fechaHora.Month); // Mes de la fecha proporcionada
+                        comando.Parameters.AddWithValue("@anio", fechaHora.Year); // Año de la fecha proporcionada
+
+                        _datos.VentasPorDia.Clear();
+
+                        using (var reader = comando.ExecuteReader()) {
+                            while (reader.Read()) {
+                                DateTime dia = new DateTime(fechaHora.Year, fechaHora.Month, reader.GetInt32(0)); // Fecha completa
+                                _datos.VentasPorDia.Add(dia, reader.GetDecimal(1));
+                            }
+                        }
+                    }
+                } catch (MySqlException ex) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+            }
+        }
+
+        private static void ObtenerVentasPorMes(DateTime fechaHora) {
+            var connectionString = UtilesConfServidores.ObtenerStringConfServidorMySQL();
+
+            string query = @"
+                SELECT MONTH(v.fecha) AS Mes, 
+                       SUM(d.precio_unitario * d.cantidad) AS Total
+                FROM adv__venta v
+                INNER JOIN adv__detalle_venta_articulo d ON v.id_venta = d.id_venta
+                WHERE YEAR(v.fecha) = @anio
+                GROUP BY MONTH(v.fecha)";
+
+            using (var conexion = new MySqlConnection(connectionString)) {
+                try {
+                    conexion.Open();
+
+                    using (var comando = new MySqlCommand(query, conexion)) {
+                        comando.Parameters.AddWithValue("@anio", fechaHora.Year); // Año de la fecha proporcionada
+
+                        _datos.VentasPorMes.Clear();
+
+                        using (var reader = comando.ExecuteReader()) {
+                            while (reader.Read()) {
+                                DateTime mes = new DateTime(fechaHora.Year, reader.GetInt32(0), 1); // Primer día del mes
+                                _datos.VentasPorMes.Add(mes, reader.GetDecimal(1));
+                            }
+                        }
+                    }
+                } catch (MySqlException ex) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+            }
+        }
+
+        private static void RellenarPeriodosVacios(DatosEstadisticosVentas datos, DateTime fecha) {
+            // Rellenar horas (0-23)
+            for (int hora = 0; hora < 24; hora++) {
+                DateTime horaFecha = fecha.Date.AddHours(hora);
+                if (!datos.VentasPorHora.ContainsKey(horaFecha)) {
+                    datos.VentasPorHora.Add(horaFecha, 0);
+                }
+            }
+
+            // Rellenar días del mes
+            int diasEnMes = DateTime.DaysInMonth(fecha.Year, fecha.Month);
+            for (int dia = 1; dia <= diasEnMes; dia++) {
+                DateTime diaFecha = new DateTime(fecha.Year, fecha.Month, dia);
+                if (!datos.VentasPorDia.ContainsKey(diaFecha)) {
+                    datos.VentasPorDia.Add(diaFecha, 0);
+                }
+            }
+
+            // Rellenar meses del año
+            for (int mes = 1; mes <= 12; mes++) {
+                DateTime mesFecha = new DateTime(fecha.Year, mes, 1);
+                if (!datos.VentasPorMes.ContainsKey(mesFecha)) {
+                    datos.VentasPorMes.Add(mesFecha, 0);
+                }
+            }
         }
     }
 }

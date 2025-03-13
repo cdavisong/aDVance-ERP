@@ -1,13 +1,13 @@
-﻿using aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas;
+﻿using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas;
 using aDVanceERP.Desktop.Properties;
-using aDVanceERP.Modulos.Ventas.MVP.Modelos;
 
 using System.Drawing.Drawing2D;
 using System.Globalization;
 
 namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas {
     public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadisticas {
-        private DatosEstadisticosVentas _datosEstadisticosVentas;
+        private DatosEstadisticosVentas _datosEstadisticosVentas = new();
 
         public VistaContenedorEstadísticas() {
             InitializeComponent();
@@ -53,13 +53,26 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas {
             get => decimal.TryParse(fieldGananciaTotalNegocio.Text.Remove(1, 2), out var monto) ? monto : 0;
             set => fieldGananciaTotalNegocio.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
         }
+        public DatosEstadisticosVentas DatosEstadisticosVentas { 
+            get => _datosEstadisticosVentas; 
+            set {
+                _datosEstadisticosVentas = value;
+
+                fieldGraficoVentas.Invalidate();
+            }
+        }
+
+        public DateTime FechaEstadisticasVentas { 
+            get => fieldDatoFecha.Value; 
+        }
 
         public event EventHandler? MostrarVistaGestionArticulos;
         public event EventHandler? MostrarVistaGestionVentas;
-        public event EventHandler? Salir;
+        public event EventHandler? FechaEstadsticasModificada;
+        public event EventHandler? Salir;        
 
         public void Inicializar() {
-            fieldCriterioBusqueda.Items.AddRange(new object[] {
+            fieldCriterioEstadisticasVenta.Items.AddRange(new object[] {
                 "Diario",
                 "Mensual",
                 "Anual"
@@ -90,36 +103,63 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas {
             btnGestionarVentas.Click += delegate (object? sender, EventArgs e) {
                 MostrarVistaGestionVentas?.Invoke(sender, e);
             };
-            fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-                fieldDatoBusquedaFecha.Format = DateTimePickerFormat.Custom;
+            // Suscripción al evento SelectedIndexChanged
+            fieldCriterioEstadisticasVenta.SelectedIndexChanged += delegate {
+                if (fieldCriterioEstadisticasVenta.SelectedItem == null)
+                    return;
 
-                switch (fieldCriterioBusqueda.SelectedItem.ToString()) {
+                fieldDatoFecha.Format = DateTimePickerFormat.Custom;
+
+                switch (fieldCriterioEstadisticasVenta.SelectedItem.ToString()) {
                     case "Diario":
-                        fieldDatoBusquedaFecha.CustomFormat = "yyyy-MM-dd";
+                        fieldDatoFecha.CustomFormat = "yyyy-MM-dd";
                         break;
                     case "Mensual":
-                        fieldDatoBusquedaFecha.CustomFormat = "yyyy-MM";
+                        fieldDatoFecha.CustomFormat = "yyyy-MM";
                         break;
                     case "Anual":
-                        fieldDatoBusquedaFecha.CustomFormat = "yyyy";
+                        fieldDatoFecha.CustomFormat = "yyyy";
                         break;
                     default:
+                        fieldDatoFecha.CustomFormat = "yyyy-MM-dd"; // Formato por defecto
                         break;
                 }
 
+                fieldDatoFecha.Value = DateTime.Today; // Reiniciar la fecha al día actual
+                fieldGraficoVentas.Invalidate(); // Forzar la actualización del gráfico
+            };
+
+            // Suscripción al evento ValueChanged
+            fieldDatoFecha.ValueChanged += delegate (object? sender, EventArgs args) {
+                // Invocar el evento si está suscrito
+                FechaEstadsticasModificada?.Invoke(FechaEstadisticasVentas, args);
+
+                // Forzar la actualización del gráfico
                 fieldGraficoVentas.Invalidate();
             };
+
+            // Suscripción al evento Paint
             fieldGraficoVentas.Paint += RenderizarGraficoVentas;
+
+            // Suscripción al evento Resize
+            fieldGraficoVentas.Resize += delegate {
+                fieldGraficoVentas.Invalidate(); // Redibujar el gráfico al cambiar el tamaño
+            };
         }
 
         private void RenderizarGraficoVentas(object? sender, PaintEventArgs e) {
-            if (fieldCriterioBusqueda.SelectedIndex == -1)
+            // Validar que se haya seleccionado un criterio de búsqueda
+            if (fieldCriterioEstadisticasVenta.SelectedIndex == -1 || fieldCriterioEstadisticasVenta.SelectedItem == null)
                 return;
 
             var g = e.Graphics;
-            
             g.SmoothingMode = SmoothingMode.AntiAlias;
             g.Clear(fieldGraficoVentas.BackColor);
+
+            // Dibujar la imagen de fondo
+            g.DrawImageUnscaled(Resources.bar_chartF_96px,
+                fieldGraficoVentas.Width - 96, // Posición X (esquina inferior derecha)
+                fieldGraficoVentas.Height - 96); // Posición Y (esquina inferior derecha)
 
             // Configuración inicial
             var margen = 40;
@@ -130,57 +170,117 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas {
             g.DrawLine(Pens.Gray, margen, margen, margen, margen + altura);
             g.DrawLine(Pens.Gray, margen, margen + altura, margen + ancho, margen + altura);
 
-            // Obtiene datos según selección
-            var tipoGrafico = fieldCriterioBusqueda.SelectedItem.ToString();
-            var fechaSeleccionada = fieldDatoBusquedaFecha.Value;
+            // Obtener datos según selección
+            var tipoGrafico = fieldCriterioEstadisticasVenta.SelectedItem.ToString();
+            var fechaSeleccionada = fieldDatoFecha.Value;
 
-            // Datos
+            // Obtener datos para el gráfico
             var datosGrafico = ObtenerDatosGrafico(tipoGrafico, fechaSeleccionada);
+
+            if (datosGrafico.Count == 0)
+                return;
 
             // Calcular escalas
             var valorMaximo = datosGrafico.Values.Max();
-            var escalaY = altura / (float)valorMaximo;
-            var pasoX = ancho / (float)datosGrafico.Count;
+            if (valorMaximo == 0) return; // Evitar división por cero
 
-            // Dibujar barras
+            var escalaY = altura / (float) valorMaximo;
+            var pasoX = ancho / (float) datosGrafico.Count;            
+
+            // Dibujar barras y montos
             var i = 0;
             foreach (var dato in datosGrafico) {
                 var alturaBarra = (float) dato.Value * escalaY;
                 var barra = new RectangleF(
-                        margen * i * pasoX + 2,
-                        margen + altura - alturaBarra,
-                        pasoX - 4,
-                        alturaBarra
-                    );
+                    margen + i * pasoX + 2, // Posición X corregida
+                    margen + altura - alturaBarra, // Posición Y
+                    pasoX - 4, // Ancho de la barra
+                    alturaBarra // Altura de la barra
+                );
 
+                // Dibujar la barra
                 g.FillRectangle(Brushes.DarkGray, barra);
+
+                // Dibujar el monto sobre la barra
+                if (dato.Value > 0) {
+                    string montoFormateado = dato.Value.ToString("N"); // Formato numérico
+                    var tamanoTexto = g.MeasureString(montoFormateado, Font);
+
+                    // Posición X del texto (centrado sobre la barra)
+                    var posXTexto = margen + i * pasoX + (pasoX - tamanoTexto.Width) / 2;
+
+                    // Verificar si el texto se superpone con la siguiente barra
+                    if (i < datosGrafico.Count - 1) { // No es la última barra
+                        var siguienteBarraX = margen + (i + 1) * pasoX + 2; // Posición X de la siguiente barra
+                        if (posXTexto + tamanoTexto.Width > siguienteBarraX) {
+                            // Ajustar la posición X del texto para evitar superposición
+                            posXTexto = siguienteBarraX - tamanoTexto.Width - 2; // Margen de 2 píxeles
+                        }
+                    }
+
+                    // Posición Y del texto (por encima de la barra)
+                    var posYTexto = barra.Top - tamanoTexto.Height - 5; // 5 píxeles de margen superior
+
+                    // Dibujar el texto
+                    g.DrawString(montoFormateado, new Font(Font, FontStyle.Bold), Brushes.Black, posXTexto, posYTexto);
+                }
                 i++;
             }
+
+            // Calcular el promedio de ventas
+            var promedioVentas = datosGrafico.Values.Average();
+            var alturaPromedio = (float) promedioVentas * escalaY;
+
+            // Dibujar la línea del promedio
+            var colorPromedio = Color.Black; // Color de la línea del promedio
+            var penPromedio = new Pen(colorPromedio, 2); // Línea de 2 píxeles de grosor
+            g.DrawLine(penPromedio, margen, margen + altura - alturaPromedio, margen + ancho, margen + altura - alturaPromedio);
+
+            // Dibujar la etiqueta del promedio
+            string textoPromedio = $"Promedio: {promedioVentas.ToString("N2")}"; // Formato numérico con 2 decimales
+            var tamanoTextoPromedio = g.MeasureString(textoPromedio, Font);
+            var posXTextoPromedio = margen + ancho - tamanoTextoPromedio.Width - 10; // Esquina superior derecha
+            var posYTextoPromedio = margen + altura - alturaPromedio - tamanoTextoPromedio.Height - 5; // Encima de la línea
+
+            g.DrawString(textoPromedio, new Font(Font, FontStyle.Bold), new SolidBrush(colorPromedio), posXTextoPromedio, posYTextoPromedio);
 
             // Dibujar etiquetas
             i = 0;
             foreach (var dato in datosGrafico) {
                 var posX = margen + i * pasoX + pasoX / 2;
 
-                g.DrawString(dato.Key, Font, Brushes.Black, posX, margen + altura + 5);
+                // Ajustar posición de la etiqueta
+                var formato = new StringFormat {
+                    Alignment = StringAlignment.Center // Centrar el texto
+                };
+
+                g.DrawString(dato.Key, Font, Brushes.Black, posX, margen + altura + 5, formato);
+                i++;
             }
         }
 
         private Dictionary<string, decimal> ObtenerDatosGrafico(string? tipoGrafico, DateTime fechaSeleccionada) {
             var resultado = new Dictionary<string, decimal>();
 
-            switch (fieldCriterioBusqueda.SelectedItem.ToString()) {
+            if (_datosEstadisticosVentas == null)
+                return resultado;
+
+            switch (tipoGrafico) {
                 case "Diario":
-                    foreach (var dato in _datosEstadisticosVentas.VentasPorHora.Where(x => x.Key.Date == fechaSeleccionada.Date))
-                        resultado.Add(dato.Key.ToString("HH:00"), dato.Value);
+                    foreach (var dato in _datosEstadisticosVentas.VentasPorHora)
+                        resultado.Add(dato.Key.ToString("HH"), dato.Value);
                     break;
                 case "Mensual":
-                    foreach (var dato in _datosEstadisticosVentas.VentasPorDia.Where(x => x.Key.Date.Month == fechaSeleccionada.Month && x.Key.Year == fechaSeleccionada.Year))
-                        resultado.Add(dato.Key.ToString("00"), dato.Value);
+                    foreach (var dato in _datosEstadisticosVentas.VentasPorDia)
+                        resultado.Add(dato.Key.Day.ToString("00"), dato.Value);
                     break;
                 case "Anual":
-                    foreach (var dato in _datosEstadisticosVentas.VentasPorMes.Where(x => x.Key.Date.Year == fechaSeleccionada.Year))
-                        resultado.Add(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(dato.Key.Date.Month), dato.Value);
+                    foreach (var dato in _datosEstadisticosVentas.VentasPorMes) {
+                        var cultura = new CultureInfo("es-ES");
+                        var abreviaturaMes = cultura.DateTimeFormat.GetAbbreviatedMonthName(dato.Key.Month);
+
+                        resultado.Add(abreviaturaMes, dato.Value);
+                    }
                     break;
                 default:
                     break;
@@ -191,7 +291,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas {
 
         public void Mostrar() {
             fieldTituloArticulosVendidos.Text = $"Artículos vendidos hoy {DateTime.Now.ToString("dd/MM/yyyy")}";
-            fieldCriterioBusqueda.SelectedIndex = 0 ;
+            fieldCriterioEstadisticasVenta.StartIndex = 0;
 
             BringToFront();
             Show();
