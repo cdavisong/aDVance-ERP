@@ -71,13 +71,11 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
             // 
             layoutDistribucion.BackColor = Color.WhiteSmoke;
             layoutDistribucion.ColumnCount = 5;
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutDistribucion.Controls.Add(btnContactos, 3, 0);
             layoutDistribucion.Controls.Add(btnClientes, 2, 0);
             layoutDistribucion.Controls.Add(fieldTitulo, 0, 0);
@@ -108,7 +106,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
             btnContactos.FillColor = Color.WhiteSmoke;
             btnContactos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnContactos.ForeColor = Color.Black;
-            btnContactos.Location = new Point(440, 0);
+            btnContactos.Location = new Point(480, 0);
             btnContactos.Margin = new Padding(0);
             btnContactos.Name = "btnContactos";
             btnContactos.ShadowDecoration.CustomizableEdges = customizableEdges2;
@@ -132,7 +130,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
             btnClientes.FillColor = Color.WhiteSmoke;
             btnClientes.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnClientes.ForeColor = Color.Black;
-            btnClientes.Location = new Point(280, 0);
+            btnClientes.Location = new Point(320, 0);
             btnClientes.Margin = new Padding(0);
             btnClientes.Name = "btnClientes";
             btnClientes.ShadowDecoration.CustomizableEdges = customizableEdges4;
@@ -150,7 +148,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
             fieldTitulo.Location = new Point(0, 0);
             fieldTitulo.Margin = new Padding(0);
             fieldTitulo.Name = "fieldTitulo";
-            fieldTitulo.Size = new Size(120, 50);
+            fieldTitulo.Size = new Size(160, 50);
             fieldTitulo.TabIndex = 4;
             fieldTitulo.Text = "Contacto";
             fieldTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -160,10 +158,10 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
             panelRelleno.BackColor = Color.WhiteSmoke;
             panelRelleno.Dock = DockStyle.Fill;
             panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            panelRelleno.Location = new Point(600, 0);
+            panelRelleno.Location = new Point(640, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
-            panelRelleno.Size = new Size(394, 50);
+            panelRelleno.Size = new Size(354, 50);
             panelRelleno.TabIndex = 0;
             // 
             // btnProveedores
@@ -182,7 +180,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
             btnProveedores.FillColor = Color.WhiteSmoke;
             btnProveedores.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnProveedores.ForeColor = Color.Black;
-            btnProveedores.Location = new Point(120, 0);
+            btnProveedores.Location = new Point(160, 0);
             btnProveedores.Margin = new Padding(0);
             btnProveedores.Name = "btnProveedores";
             btnProveedores.ShadowDecoration.CustomizableEdges = customizableEdges6;
@@ -193,7 +191,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
             // VistaMenuContacto
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb( 245,  245,   245);
+            BackColor = Color.FromArgb(  245,   245,   245);
             ClientSize = new Size(994, 50);
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);

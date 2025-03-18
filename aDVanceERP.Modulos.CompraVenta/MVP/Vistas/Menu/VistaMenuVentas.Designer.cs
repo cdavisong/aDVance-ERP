@@ -1,7 +1,7 @@
 ﻿using Guna.UI2.WinForms;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
-    partial class VistaMenuVentas {
+    partial class VistaMenuCompraventas {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -26,15 +26,15 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuVentas));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuCompraventas));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
             fieldTitulo = new Label();
             panelRelleno = new Panel();
-            btnVentaArticulos = new Guna2Button();
+            btnVenta = new Guna2Button();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
             SuspendLayout();
@@ -65,14 +65,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             // 
             layoutDistribucion.BackColor = Color.WhiteSmoke;
             layoutDistribucion.ColumnCount = 3;
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutDistribucion.Controls.Add(fieldTitulo, 0, 0);
             layoutDistribucion.Controls.Add(panelRelleno, 2, 0);
-            layoutDistribucion.Controls.Add(btnVentaArticulos, 1, 0);
+            layoutDistribucion.Controls.Add(btnVenta, 1, 0);
             layoutDistribucion.Dock = DockStyle.Fill;
             layoutDistribucion.Location = new Point(0, 0);
             layoutDistribucion.Margin = new Padding(0);
@@ -92,9 +90,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             fieldTitulo.Location = new Point(0, 0);
             fieldTitulo.Margin = new Padding(0);
             fieldTitulo.Name = "fieldTitulo";
-            fieldTitulo.Size = new Size(120, 50);
+            fieldTitulo.Size = new Size(160, 50);
             fieldTitulo.TabIndex = 4;
-            fieldTitulo.Text = "Ventas";
+            fieldTitulo.Text = "Compraventas";
             fieldTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panelRelleno
@@ -102,40 +100,40 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             panelRelleno.BackColor = Color.WhiteSmoke;
             panelRelleno.Dock = DockStyle.Fill;
             panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            panelRelleno.Location = new Point(280, 0);
+            panelRelleno.Location = new Point(320, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
-            panelRelleno.Size = new Size(714, 50);
+            panelRelleno.Size = new Size(674, 50);
             panelRelleno.TabIndex = 0;
             // 
-            // btnArticulos
+            // btnVenta
             // 
-            btnVentaArticulos.Animated = true;
-            btnVentaArticulos.BackColor = Color.WhiteSmoke;
-            btnVentaArticulos.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            btnVentaArticulos.CheckedState.FillColor = Color.WhiteSmoke;
-            btnVentaArticulos.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnVentaArticulos.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
-            btnVentaArticulos.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnVentaArticulos.CustomImages.ImageOffset = new Point(0, 32);
-            btnVentaArticulos.CustomImages.ImageSize = new Size(131, 8);
-            btnVentaArticulos.CustomizableEdges = customizableEdges3;
-            btnVentaArticulos.Dock = DockStyle.Fill;
-            btnVentaArticulos.FillColor = Color.WhiteSmoke;
-            btnVentaArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnVentaArticulos.ForeColor = Color.Black;
-            btnVentaArticulos.Location = new Point(120, 0);
-            btnVentaArticulos.Margin = new Padding(0);
-            btnVentaArticulos.Name = "btnArticulos";
-            btnVentaArticulos.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnVentaArticulos.Size = new Size(160, 50);
-            btnVentaArticulos.TabIndex = 9;
-            btnVentaArticulos.Text = "Articulos";
+            btnVenta.Animated = true;
+            btnVenta.BackColor = Color.WhiteSmoke;
+            btnVenta.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnVenta.CheckedState.FillColor = Color.WhiteSmoke;
+            btnVenta.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnVenta.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
+            btnVenta.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnVenta.CustomImages.ImageOffset = new Point(0, 32);
+            btnVenta.CustomImages.ImageSize = new Size(131, 8);
+            btnVenta.CustomizableEdges = customizableEdges1;
+            btnVenta.Dock = DockStyle.Fill;
+            btnVenta.FillColor = Color.WhiteSmoke;
+            btnVenta.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnVenta.ForeColor = Color.Black;
+            btnVenta.Location = new Point(160, 0);
+            btnVenta.Margin = new Padding(0);
+            btnVenta.Name = "btnVenta";
+            btnVenta.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnVenta.Size = new Size(160, 50);
+            btnVenta.TabIndex = 9;
+            btnVenta.Text = "Venta";
             // 
             // VistaMenuVentas
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb( 245,  245,   245);
+            BackColor = Color.FromArgb(  245,   245,   245);
             ClientSize = new Size(994, 50);
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -158,6 +156,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
         private TableLayoutPanel layoutDistribucion;
         private Panel panelRelleno;
         private Label fieldTitulo;
-        private Guna2Button btnVentaArticulos;
+        private Guna2Button btnVenta;
     }
 }

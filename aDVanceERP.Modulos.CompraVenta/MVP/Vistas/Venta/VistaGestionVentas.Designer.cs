@@ -480,7 +480,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnRegistrar.Size = new Size(320, 39);
             btnRegistrar.TabIndex = 7;
-            btnRegistrar.Text = "Registrar una nueva venta de artículo";
+            btnRegistrar.Text = "Registrar una nueva venta";
             // 
             // layoutEncabezadosTabla
             // 
@@ -640,7 +640,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTitulo.Name = "fieldTitulo";
             fieldTitulo.Size = new Size(1230, 45);
             fieldTitulo.TabIndex = 3;
-            fieldTitulo.Text = "Gestión para ventas de artículos";
+            fieldTitulo.Text = "Gestión para ventas";
             fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldIcono

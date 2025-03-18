@@ -65,11 +65,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
             // 
             layoutDistribucion.BackColor = Color.WhiteSmoke;
             layoutDistribucion.ColumnCount = 3;
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutDistribucion.Controls.Add(fieldTitulo, 0, 0);
             layoutDistribucion.Controls.Add(panelRelleno, 2, 0);
             layoutDistribucion.Controls.Add(btnCuentasBancarias, 1, 0);
@@ -92,7 +90,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
             fieldTitulo.Location = new Point(0, 0);
             fieldTitulo.Margin = new Padding(0);
             fieldTitulo.Name = "fieldTitulo";
-            fieldTitulo.Size = new Size(120, 50);
+            fieldTitulo.Size = new Size(160, 50);
             fieldTitulo.TabIndex = 4;
             fieldTitulo.Text = "Finanzas";
             fieldTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -102,10 +100,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
             panelRelleno.BackColor = Color.WhiteSmoke;
             panelRelleno.Dock = DockStyle.Fill;
             panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            panelRelleno.Location = new Point(280, 0);
+            panelRelleno.Location = new Point(320, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
-            panelRelleno.Size = new Size(714, 50);
+            panelRelleno.Size = new Size(674, 50);
             panelRelleno.TabIndex = 0;
             // 
             // btnCuentasBancarias
@@ -124,7 +122,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
             btnCuentasBancarias.FillColor = Color.WhiteSmoke;
             btnCuentasBancarias.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnCuentasBancarias.ForeColor = Color.Black;
-            btnCuentasBancarias.Location = new Point(120, 0);
+            btnCuentasBancarias.Location = new Point(160, 0);
             btnCuentasBancarias.Margin = new Padding(0);
             btnCuentasBancarias.Name = "btnCuentasBancarias";
             btnCuentasBancarias.ShadowDecoration.CustomizableEdges = customizableEdges2;

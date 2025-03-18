@@ -71,7 +71,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             // 
             layoutDistribucion.BackColor = Color.WhiteSmoke;
             layoutDistribucion.ColumnCount = 5;
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
@@ -106,7 +106,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             btnMovimientos.FillColor = Color.WhiteSmoke;
             btnMovimientos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnMovimientos.ForeColor = Color.Black;
-            btnMovimientos.Location = new Point(280, 0);
+            btnMovimientos.Location = new Point(320, 0);
             btnMovimientos.Margin = new Padding(0);
             btnMovimientos.Name = "btnMovimientos";
             btnMovimientos.ShadowDecoration.CustomizableEdges = customizableEdges2;
@@ -130,7 +130,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             btnAlmacenes.FillColor = Color.WhiteSmoke;
             btnAlmacenes.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnAlmacenes.ForeColor = Color.Black;
-            btnAlmacenes.Location = new Point(440, 0);
+            btnAlmacenes.Location = new Point(480, 0);
             btnAlmacenes.Margin = new Padding(0);
             btnAlmacenes.Name = "btnAlmacenes";
             btnAlmacenes.ShadowDecoration.CustomizableEdges = customizableEdges4;
@@ -148,7 +148,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             fieldTitulo.Location = new Point(0, 0);
             fieldTitulo.Margin = new Padding(0);
             fieldTitulo.Name = "fieldTitulo";
-            fieldTitulo.Size = new Size(120, 50);
+            fieldTitulo.Size = new Size(160, 50);
             fieldTitulo.TabIndex = 4;
             fieldTitulo.Text = "Inventario";
             fieldTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -158,10 +158,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             panelRelleno.BackColor = Color.WhiteSmoke;
             panelRelleno.Dock = DockStyle.Fill;
             panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            panelRelleno.Location = new Point(600, 0);
+            panelRelleno.Location = new Point(640, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
-            panelRelleno.Size = new Size(394, 50);
+            panelRelleno.Size = new Size(354, 50);
             panelRelleno.TabIndex = 0;
             // 
             // btnArticulos
@@ -180,7 +180,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             btnArticulos.FillColor = Color.WhiteSmoke;
             btnArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnArticulos.ForeColor = Color.Black;
-            btnArticulos.Location = new Point(120, 0);
+            btnArticulos.Location = new Point(160, 0);
             btnArticulos.Margin = new Padding(0);
             btnArticulos.Name = "btnArticulos";
             btnArticulos.ShadowDecoration.CustomizableEdges = customizableEdges6;
@@ -191,7 +191,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             // VistaMenuInventario
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb( 245,  245,   245);
+            BackColor = Color.FromArgb(  245,   245,   245);
             ClientSize = new Size(994, 50);
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);

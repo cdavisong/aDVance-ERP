@@ -32,8 +32,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                     RegistrarTransferencia();
                 };
                 _registroVentaArticulo.Salir += async (sender, e) => {
-                    if (_gestionVentasArticulos != null) {
-                        await _gestionVentasArticulos.RefrescarListaObjetos();
+                    if (_gestionVentas != null) {
+                        await _gestionVentas.RefrescarListaObjetos();
                     }
                 };
             } catch (ExcepcionConexionServidorMySQL e) {

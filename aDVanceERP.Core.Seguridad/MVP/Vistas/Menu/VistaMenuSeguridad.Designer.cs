@@ -68,7 +68,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // 
             layoutDistribucion.BackColor = Color.WhiteSmoke;
             layoutDistribucion.ColumnCount = 4;
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -95,7 +95,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             fieldTitulo.Location = new Point(0, 0);
             fieldTitulo.Margin = new Padding(0);
             fieldTitulo.Name = "fieldTitulo";
-            fieldTitulo.Size = new Size(120, 50);
+            fieldTitulo.Size = new Size(160, 50);
             fieldTitulo.TabIndex = 4;
             fieldTitulo.Text = "Seguridad";
             fieldTitulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -105,10 +105,10 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             panelRelleno.BackColor = Color.WhiteSmoke;
             panelRelleno.Dock = DockStyle.Fill;
             panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            panelRelleno.Location = new Point(440, 0);
+            panelRelleno.Location = new Point(480, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
-            panelRelleno.Size = new Size(554, 50);
+            panelRelleno.Size = new Size(514, 50);
             panelRelleno.TabIndex = 0;
             // 
             // btnUsuarios
@@ -127,7 +127,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             btnUsuarios.FillColor = Color.WhiteSmoke;
             btnUsuarios.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnUsuarios.ForeColor = Color.Black;
-            btnUsuarios.Location = new Point(120, 0);
+            btnUsuarios.Location = new Point(160, 0);
             btnUsuarios.Margin = new Padding(0);
             btnUsuarios.Name = "btnUsuarios";
             btnUsuarios.ShadowDecoration.CustomizableEdges = customizableEdges2;
@@ -151,7 +151,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             btnRolesUsuarios.FillColor = Color.WhiteSmoke;
             btnRolesUsuarios.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnRolesUsuarios.ForeColor = Color.Black;
-            btnRolesUsuarios.Location = new Point(280, 0);
+            btnRolesUsuarios.Location = new Point(320, 0);
             btnRolesUsuarios.Margin = new Padding(0);
             btnRolesUsuarios.Name = "btnRolesUsuarios";
             btnRolesUsuarios.ShadowDecoration.CustomizableEdges = customizableEdges4;

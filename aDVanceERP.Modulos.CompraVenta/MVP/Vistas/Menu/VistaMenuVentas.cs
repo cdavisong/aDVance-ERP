@@ -2,8 +2,8 @@
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
-    public partial class VistaMenuVentas : Form, IVistaMenuVentas {
-        public VistaMenuVentas() {
+    public partial class VistaMenuCompraventas : Form, IVistaMenuVentas {
+        public VistaMenuCompraventas() {
             InitializeComponent();
             Inicializar();
         }
@@ -23,14 +23,14 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             set => Size = value;
         }
 
-        public event EventHandler? VerVentaArticulos;
+        public event EventHandler? VerVentas;
         public event EventHandler? CambioMenu;
         public event EventHandler? Salir;
 
 
         public void Inicializar() {
             // Eventos
-            btnVentaArticulos.Click += delegate (object? sender, EventArgs e) {
+            btnVenta.Click += delegate (object? sender, EventArgs e) {
                 PresionarBotonSeleccion(1, e);
             };
         }
@@ -45,9 +45,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
 
             switch (indice) {
                 case 1:
-                    VerVentaArticulos?.Invoke(btnVentaArticulos, e);
-                    if (!btnVentaArticulos.Checked)
-                        btnVentaArticulos.Checked = true;
+                    VerVentas?.Invoke(btnVenta, e);
+                    if (!btnVenta.Checked)
+                        btnVenta.Checked = true;
                     break;
             }
         }
@@ -59,13 +59,13 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
         }
 
         private void VerificarPermisos() {
-            btnVentaArticulos.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+            btnVenta.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_VENTAS_ARTICULOS")
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_TODOS");
         }
 
         public void Restaurar() {
-            btnVentaArticulos.Checked = false;
+            btnVenta.Checked = false;
         }
 
         public void Ocultar() {
