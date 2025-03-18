@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVanceERP.Modulos.Ventas", "aDVanceERP.Modulos.Ventas\aDVanceERP.Modulos.Ventas.csproj", "{FBC9DBA8-94C3-4BAC-BE08-EF63F5F2DC4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVanceERP.Modulos.CompraVenta", "aDVanceERP.Modulos.CompraVenta\aDVanceERP.Modulos.CompraVenta.csproj", "{FBC9DBA8-94C3-4BAC-BE08-EF63F5F2DC4F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVanceERP.Modulos.Finanzas", "aDVanceERP.Modulos.Finanzas\aDVanceERP.Modulos.Finanzas.csproj", "{6FD8C8FB-3A0E-4FA1-A9C5-E6116146EF20}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVanceERP.Core.Extension",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVanceERP.PatchDB", "aDVanceERP.PatchDB\aDVanceERP.PatchDB.csproj", "{4089320F-0561-4C14-BF15-9369B2BA91E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aDVanceERP.Core.Mensajes", "aDVanceERP.Core.Mensajes\aDVanceERP.Core.Mensajes.csproj", "{8A49C1F2-A499-495A-86E6-5A3C382AA483}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVanceERP.Core.Mensajes", "aDVanceERP.Core.Mensajes\aDVanceERP.Core.Mensajes.csproj", "{8A49C1F2-A499-495A-86E6-5A3C382AA483}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

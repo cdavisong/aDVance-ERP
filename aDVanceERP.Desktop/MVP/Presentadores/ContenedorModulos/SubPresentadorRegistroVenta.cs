@@ -3,12 +3,13 @@ using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Ventas.MVP.Modelos;
-using aDVanceERP.Modulos.Ventas.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Ventas.MVP.Presentadores;
-using aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {

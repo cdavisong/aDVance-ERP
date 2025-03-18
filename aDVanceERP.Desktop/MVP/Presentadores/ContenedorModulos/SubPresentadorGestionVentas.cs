@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Modulos.Ventas.MVP.Modelos;
-using aDVanceERP.Modulos.Ventas.MVP.Presentadores;
-using aDVanceERP.Modulos.Ventas.MVP.Vistas.Venta;
+﻿using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {

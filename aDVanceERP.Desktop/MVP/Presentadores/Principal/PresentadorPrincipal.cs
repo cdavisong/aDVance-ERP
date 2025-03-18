@@ -4,10 +4,10 @@ using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.Principal;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
+using aDVanceERP.Modulos.CompraVenta;
 using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Finanzas;
 using aDVanceERP.Modulos.Inventario;
-using aDVanceERP.Modulos.Ventas;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
     public partial class PresentadorPrincipal {

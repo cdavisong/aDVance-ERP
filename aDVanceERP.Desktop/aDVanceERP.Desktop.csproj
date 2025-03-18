@@ -21,7 +21,7 @@
     <ProjectReference Include="..\aDVanceERP.Modulos.Contactos\aDVanceERP.Modulos.Contactos.csproj" />
     <ProjectReference Include="..\aDVanceERP.Modulos.Finanzas\aDVanceERP.Modulos.Finanzas.csproj" />
     <ProjectReference Include="..\aDVanceERP.Modulos.Inventario\aDVanceERP.Modulos.Inventario.csproj" />
-    <ProjectReference Include="..\aDVanceERP.Modulos.Ventas\aDVanceERP.Modulos.Ventas.csproj" />
+    <ProjectReference Include="..\aDVanceERP.Modulos.CompraVenta\aDVanceERP.Modulos.CompraVenta.csproj" />
   </ItemGroup>
 
   <ItemGroup>

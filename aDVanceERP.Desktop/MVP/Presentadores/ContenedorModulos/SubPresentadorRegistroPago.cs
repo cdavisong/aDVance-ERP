@@ -1,9 +1,10 @@
 ﻿using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
-using aDVanceERP.Modulos.Ventas.MVP.Modelos;
-using aDVanceERP.Modulos.Ventas.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Ventas.MVP.Presentadores;
-using aDVanceERP.Modulos.Ventas.MVP.Vistas.Pago;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
