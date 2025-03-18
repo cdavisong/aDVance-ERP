@@ -48,7 +48,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             #region Módulo : Ventas
 
-            InicializarVistaMenuVentas();
+            InicializarVistaMenuCompraventas();
             InicializarVistaGestionVentas();
 
             #endregion

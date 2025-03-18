@@ -3,21 +3,21 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorMenuCompraventas _menuVentas;
+        private PresentadorMenuCompraventas _menuCompraventas;
 
-        private void InicializarVistaMenuVentas() {
-            _menuVentas = new PresentadorMenuCompraventas(new VistaMenuCompraventas());
-            _menuVentas.Vista.VerVentas += MostrarVistaGestionVentas;
-            _menuVentas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
+        private void InicializarVistaMenuCompraventas() {
+            _menuCompraventas = new PresentadorMenuCompraventas(new VistaMenuCompraventas());
+            _menuCompraventas.Vista.VerVentas += MostrarVistaGestionVentas;
+            _menuCompraventas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
 
-            VistaPrincipal.Menus.Registrar("vistaMenuVentas", _menuVentas.Vista);
+            VistaPrincipal.Menus.Registrar("vistaMenuCompraventas", _menuCompraventas.Vista);
         }
 
         private void MostrarVistaMenuVentas(object? sender, EventArgs e) {
-            _menuVentas.Vista.Restaurar();
-            _menuVentas.Vista.Mostrar();
+            _menuCompraventas.Vista.Restaurar();
+            _menuCompraventas.Vista.Mostrar();
 
-            _menuVentas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 1, e);
+            _menuCompraventas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 1, e);
         }
     }
 }
