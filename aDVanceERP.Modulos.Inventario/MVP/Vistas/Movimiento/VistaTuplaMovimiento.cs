@@ -49,9 +49,9 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             set => fieldCantidadMovida.Text = value;
         }
 
-        public string Motivo {
-            get => fieldMotivo.Text;
-            set => fieldMotivo.Text = value;
+        public string TipoMovimiento {
+            get => fieldTipoMovimiento.Text;
+            set => fieldTipoMovimiento.Text = value;
         }
 
         public string Fecha {
@@ -86,7 +86,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldCantidadMovida.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldMotivo.Click += delegate (object? sender, EventArgs e) {
+            fieldTipoMovimiento.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
             fieldFecha.Click += delegate (object? sender, EventArgs e) {

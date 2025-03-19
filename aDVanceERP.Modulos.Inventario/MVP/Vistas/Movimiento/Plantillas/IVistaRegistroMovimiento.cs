@@ -8,12 +8,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas {
         int CantidadInicialOrigen { get; set; }
         int CantidadMovida { get; set; }
         int CantidadFinalOrigen { get; }
-        string Motivo { get; set; }
+        string TipoMovimiento { get; set; }
         DateTime Fecha { get; set; }
+
+        event EventHandler? RegistrarTipoMovimiento;
 
         void CargarNombresArticulos(string[] nombresArticulos);
         void CargarNombresAlmacenes(string[] nombresAlmacenes);
-        void CargarMotivos(string[] motivos);
+        void CargarTiposMovimientos(string[] tiposMovimientos);
         void ActualizarCamposAlmacenes();
     }
 }

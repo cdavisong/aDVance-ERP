@@ -16,7 +16,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
             Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
             Vista.CantidadMovida = objeto.CantidadMovida;
-            Vista.Motivo = objeto.Motivo?.ToString() ?? string.Empty;
+            Vista.TipoMovimiento = UtilesMovimiento.ObtenerNombreTipoMovimiento(objeto.IdTipoMovimiento) ?? string.Empty;
             Vista.Fecha = objeto.Fecha;
             Vista.ModoEdicionDatos = true;
 
@@ -30,7 +30,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
                 idAlmacenOrigen: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen),
                 idAlmacenDestino: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino),
                 cantidadMovida: Vista.CantidadMovida,
-                motivo: Vista.Motivo,
+                idTipoMovimiento: UtilesMovimiento.ObtenerIdTipoMovimiento(Vista.TipoMovimiento),
                 fecha: Vista.Fecha
             );
 
@@ -39,7 +39,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
 
         protected override void RegistroAuxiliar() {
             if (_movimiento != null) {
-                UtilesMovimientoArticuloAlmacen.ModificarStockArticuloAlmacen(_movimiento.IdArticulo, _movimiento.IdAlmacenOrigen, _movimiento.IdAlmacenDestino, _movimiento.CantidadMovida);
+                UtilesMovimiento.ModificarStockArticuloAlmacen(_movimiento.IdArticulo, _movimiento.IdAlmacenOrigen, _movimiento.IdAlmacenDestino, _movimiento.CantidadMovida);
             }
         }
     }

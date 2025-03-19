@@ -10,11 +10,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Movimiento objeto) {
-            return $"INSERT INTO adv__movimiento (id_articulo, id_almacen_origen, id_almacen_destino, cantidad_movida, motivo, fecha) VALUES ('{objeto.IdArticulo}', '{objeto.IdAlmacenOrigen}', '{objeto.IdAlmacenDestino}', '{objeto.CantidadMovida}', '{objeto.Motivo}', '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}');";
+            return $"INSERT INTO adv__movimiento (id_articulo, id_almacen_origen, id_almacen_destino, cantidad_movida, id_tipo_movimiento, fecha) VALUES ('{objeto.IdArticulo}', '{objeto.IdAlmacenOrigen}', '{objeto.IdAlmacenDestino}', '{objeto.CantidadMovida}', '{objeto.IdTipoMovimiento}', '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}');";
         }
 
         public override string ComandoEditar(Movimiento objeto) {
-            return $"UPDATE adv__movimiento SET id_articulo='{objeto.IdArticulo}', id_almacen_origen='{objeto.IdAlmacenOrigen}', id_almacen_destino='{objeto.IdAlmacenDestino}', cantidad_movida='{objeto.CantidadMovida}', motivo='{objeto.Motivo}', fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}' WHERE id_movimiento='{objeto.Id}';";
+            return $"UPDATE adv__movimiento SET id_articulo='{objeto.IdArticulo}', id_almacen_origen='{objeto.IdAlmacenOrigen}', id_almacen_destino='{objeto.IdAlmacenDestino}', cantidad_movida='{objeto.CantidadMovida}', id_tipo_movimiento='{objeto.IdTipoMovimiento}', fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}' WHERE id_movimiento='{objeto.Id}';";
         }
 
         public override string ComandoEliminar(long id) {
@@ -40,8 +40,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios {
                 case CriterioBusquedaMovimiento.Fecha:
                     comando = $"SELECT * FROM adv__movimiento WHERE DATE(fecha)='{dato}';";
                     break;
-                case CriterioBusquedaMovimiento.Motivo:
-                    comando = $"SELECT * FROM adv__movimiento WHERE LOWER(motivo) LIKE LOWER('%{dato}%');";
+                case CriterioBusquedaMovimiento.TipoMovimiento:
+                    comando = $"SELECT (id_articulo, id_almacen_origen, id_almacen_destino, cantidad_movida, id_tipo_movimiento, fecha) " +
+                              $"FROM adv__movimiento m " +
+                              $"JOIN adv__tipo_movimiento tm " +
+                              $"ON m.id_tipo_movimiento = tm.id_tipo_movimiento " +
+                              $"WHERE LOWER(tm.nombre) LIKE LOWER('%{dato}%');";
                     break;
                 default:
                     comando = "SELECT * FROM adv__movimiento;";
@@ -58,7 +62,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios {
                 idAlmacenOrigen: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_origen")),
                 idAlmacenDestino: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_destino")),
                 cantidadMovida: lectorDatos.GetInt32(lectorDatos.GetOrdinal("cantidad_movida")),
-                motivo: lectorDatos.GetString(lectorDatos.GetOrdinal("motivo")),
+                idTipoMovimiento: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_movimiento")),
                 fecha: lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha"))
             );
         }

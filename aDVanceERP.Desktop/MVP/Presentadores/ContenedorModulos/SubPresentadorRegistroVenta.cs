@@ -101,12 +101,12 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                         long.Parse(articulo[4]),
                         0,
                         detalleVentaArticulo.Cantidad,
-                        "Venta",
+                        UtilesMovimiento.ObtenerIdTipoMovimiento("Venta"),
                         DateTime.Now
                     ));
                 }
 
-                UtilesMovimientoArticuloAlmacen.ModificarStockArticuloAlmacen(
+                UtilesMovimiento.ModificarStockArticuloAlmacen(
                         detalleVentaArticulo.IdArticulo,
                         long.Parse(articulo[4]),
                         0,

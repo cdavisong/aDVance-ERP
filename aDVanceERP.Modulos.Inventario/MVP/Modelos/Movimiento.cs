@@ -5,13 +5,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         public Movimiento() {
         }
 
-        public Movimiento(long id, long idArticulo, long idAlmacenOrigen, long idAlmacenDestino, int cantidadMovida, string motivo, DateTime fecha) {
+        public Movimiento(long id, long idArticulo, long idAlmacenOrigen, long idAlmacenDestino, int cantidadMovida, long idTipoMovimiento, DateTime fecha) {
             Id = id;
             IdArticulo = idArticulo;
             IdAlmacenOrigen = idAlmacenOrigen;
             IdAlmacenDestino = idAlmacenDestino;
             CantidadMovida = cantidadMovida;
-            Motivo = motivo;
+            IdTipoMovimiento = idTipoMovimiento;
             Fecha = fecha;
         }
 
@@ -20,7 +20,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         public long IdAlmacenOrigen { get; set; }
         public long IdAlmacenDestino { get; set; }
         public int CantidadMovida { get; set; }
-        public string? Motivo { get; set; }
+        public long IdTipoMovimiento { get; set; }
         public DateTime Fecha { get; set; }
     }
 
@@ -31,7 +31,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         AlmacenOrigen,
         AlmacenDestino,
         Fecha,
-        Motivo
+        TipoMovimiento
     }
 
     public static class UtilesBusquedaMovimiento {
@@ -42,7 +42,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
             "Almacén de orígen",
             "Almacén de destino",
             "Fecha del movimiento",
-            "Motivo del movimiento"
+            "Tipo de movimiento"
         };
     }
 }

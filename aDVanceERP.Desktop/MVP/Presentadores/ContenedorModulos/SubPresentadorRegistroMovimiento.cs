@@ -8,12 +8,15 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroMovimiento _registroMovimiento;
 
+        public string Signo { get; private set; }
+
         private async Task InicializarVistaRegistroMovimiento() {
             _registroMovimiento = new PresentadorRegistroMovimiento(new VistaRegistroMovimiento());
             _registroMovimiento.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
             _registroMovimiento.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
             _registroMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
+            _registroMovimiento.Vista.RegistrarTipoMovimiento += MostrarVistaRegistroTipoMovimiento;
             _registroMovimiento.Salir += async (sender, e) => {
                 if (_gestionMovimientos != null) {
                     await _gestionMovimientos.RefrescarListaObjetos();
@@ -25,13 +28,12 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             await InicializarVistaRegistroMovimiento();
 
             if (_registroMovimiento != null) {
+                Signo = signo;
+
                 if (string.IsNullOrEmpty(signo)) {
-                    _registroMovimiento.Vista.CargarMotivos(UtilesMovimientoArticuloAlmacen.MotivoMovimientoPositivo);
-                    _registroMovimiento.Vista.CargarMotivos(UtilesMovimientoArticuloAlmacen.MotivoMovimientoNegativo);
+                    _registroMovimiento.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos());
                 } else {
-                    _registroMovimiento.Vista.CargarMotivos(signo.Equals("+")
-                        ? UtilesMovimientoArticuloAlmacen.MotivoMovimientoPositivo
-                        : UtilesMovimientoArticuloAlmacen.MotivoMovimientoNegativo);
+                    _registroMovimiento.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos(signo));
 
                     if (!nombreAlmacen.Equals("-")) {
                         _registroMovimiento.Vista.NombreAlmacenOrigen = signo.Equals("-") ? nombreAlmacen : "Ninguno";

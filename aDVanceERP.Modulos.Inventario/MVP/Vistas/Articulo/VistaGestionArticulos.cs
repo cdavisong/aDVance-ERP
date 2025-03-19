@@ -160,6 +160,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         }
 
         public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
+            fieldNombreAlmacen.Items.Clear();
             fieldNombreAlmacen.Items.Add("Todos los almacenes");
             fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
             fieldNombreAlmacen.SelectedIndex = fieldNombreAlmacen.Items.Count > 0 ? 0 : -1;

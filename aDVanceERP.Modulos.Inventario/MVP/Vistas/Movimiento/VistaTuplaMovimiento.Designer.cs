@@ -41,7 +41,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenDestino = new Label();
             fieldId = new Label();
             btnEditar = new Guna2Button();
-            fieldMotivo = new Label();
+            fieldTipoMovimiento = new Label();
             fieldCantidadMovida = new Label();
             fieldFecha = new Label();
             fieldIcono = new PictureBox();
@@ -94,7 +94,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutVista.Controls.Add(fieldNombreAlmacenDestino, 4, 0);
             layoutVista.Controls.Add(fieldId, 0, 0);
             layoutVista.Controls.Add(btnEditar, 10, 0);
-            layoutVista.Controls.Add(fieldMotivo, 6, 0);
+            layoutVista.Controls.Add(fieldTipoMovimiento, 6, 0);
             layoutVista.Controls.Add(fieldCantidadMovida, 5, 0);
             layoutVista.Controls.Add(fieldFecha, 7, 0);
             layoutVista.Controls.Add(fieldIcono, 3, 0);
@@ -105,7 +105,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutVista.Name = "layoutVista";
             layoutVista.RowCount = 1;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutVista.Size = new Size(1241, 40);
+            layoutVista.Size = new Size(1241, 41);
             layoutVista.TabIndex = 18;
             // 
             // fieldNombreArticulo
@@ -117,7 +117,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreArticulo.Location = new Point(61, 1);
             fieldNombreArticulo.Margin = new Padding(1);
             fieldNombreArticulo.Name = "fieldNombreArticulo";
-            fieldNombreArticulo.Size = new Size(218, 38);
+            fieldNombreArticulo.Size = new Size(218, 39);
             fieldNombreArticulo.TabIndex = 20;
             fieldNombreArticulo.Text = "nombreArticulo";
             fieldNombreArticulo.TextAlign = ContentAlignment.MiddleLeft;
@@ -142,7 +142,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnEliminar.Size = new Size(34, 34);
+            btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 11;
             // 
             // fieldNombreAlmacenDestino
@@ -167,7 +167,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldId.Location = new Point(1, 1);
             fieldId.Margin = new Padding(1);
             fieldId.Name = "fieldId";
-            fieldId.Size = new Size(58, 38);
+            fieldId.Size = new Size(58, 39);
             fieldId.TabIndex = 13;
             fieldId.Text = "id";
             fieldId.TextAlign = ContentAlignment.MiddleCenter;
@@ -191,22 +191,22 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
             btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            btnEditar.Size = new Size(34, 34);
+            btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 9;
             // 
-            // fieldMotivo
+            // fieldTipoMovimiento
             // 
-            fieldMotivo.Dock = DockStyle.Fill;
-            fieldMotivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldMotivo.ForeColor = Color.DimGray;
-            fieldMotivo.ImeMode = ImeMode.NoControl;
-            fieldMotivo.Location = new Point(671, 1);
-            fieldMotivo.Margin = new Padding(1);
-            fieldMotivo.Name = "fieldMotivo";
-            fieldMotivo.Size = new Size(218, 38);
-            fieldMotivo.TabIndex = 14;
-            fieldMotivo.Text = "motivo";
-            fieldMotivo.TextAlign = ContentAlignment.MiddleLeft;
+            fieldTipoMovimiento.Dock = DockStyle.Fill;
+            fieldTipoMovimiento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTipoMovimiento.ForeColor = Color.DimGray;
+            fieldTipoMovimiento.ImeMode = ImeMode.NoControl;
+            fieldTipoMovimiento.Location = new Point(671, 1);
+            fieldTipoMovimiento.Margin = new Padding(1);
+            fieldTipoMovimiento.Name = "fieldTipoMovimiento";
+            fieldTipoMovimiento.Size = new Size(218, 39);
+            fieldTipoMovimiento.TabIndex = 14;
+            fieldTipoMovimiento.Text = "tipoMovimiento";
+            fieldTipoMovimiento.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldCantidadMovida
             // 
@@ -218,7 +218,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldCantidadMovida.Location = new Point(561, 1);
             fieldCantidadMovida.Margin = new Padding(1);
             fieldCantidadMovida.Name = "fieldCantidadMovida";
-            fieldCantidadMovida.Size = new Size(108, 38);
+            fieldCantidadMovida.Size = new Size(108, 39);
             fieldCantidadMovida.TabIndex = 6;
             fieldCantidadMovida.Text = "cantidad";
             fieldCantidadMovida.TextAlign = ContentAlignment.MiddleCenter;
@@ -232,7 +232,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldFecha.Location = new Point(891, 1);
             fieldFecha.Margin = new Padding(1);
             fieldFecha.Name = "fieldFecha";
-            fieldFecha.Size = new Size(118, 38);
+            fieldFecha.Size = new Size(118, 39);
             fieldFecha.TabIndex = 17;
             fieldFecha.Text = "fecha";
             fieldFecha.TextAlign = ContentAlignment.MiddleCenter;
@@ -245,7 +245,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldIcono.Location = new Point(400, 3);
             fieldIcono.Margin = new Padding(0, 3, 0, 0);
             fieldIcono.Name = "fieldIcono";
-            fieldIcono.Size = new Size(40, 37);
+            fieldIcono.Size = new Size(40, 38);
             fieldIcono.TabIndex = 18;
             fieldIcono.TabStop = false;
             // 
@@ -258,7 +258,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenOrigen.Location = new Point(281, 1);
             fieldNombreAlmacenOrigen.Margin = new Padding(1);
             fieldNombreAlmacenOrigen.Name = "fieldNombreAlmacenOrigen";
-            fieldNombreAlmacenOrigen.Size = new Size(118, 38);
+            fieldNombreAlmacenOrigen.Size = new Size(118, 39);
             fieldNombreAlmacenOrigen.TabIndex = 19;
             fieldNombreAlmacenOrigen.Text = "nombreAlmacenOrigen";
             fieldNombreAlmacenOrigen.TextAlign = ContentAlignment.MiddleRight;
@@ -292,7 +292,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         private Label fieldNombreAlmacenDestino;
         private Label fieldId;
         private Guna2Button btnEditar;
-        private Label fieldMotivo;
+        private Label fieldTipoMovimiento;
         private Label fieldCantidadMovida;
         private Label fieldFecha;
         private PictureBox fieldIcono;

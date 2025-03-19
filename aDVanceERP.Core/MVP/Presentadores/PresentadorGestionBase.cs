@@ -72,7 +72,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         }
 
         public virtual async Task RefrescarListaObjetos() {
-            await _semaphore.WaitAsync();
+            await _semaphore.WaitAsync();            
             try {
                 if (Vista.TuplasMaximasContenedor == 0) return;
 

@@ -51,9 +51,9 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             get => CantidadInicialOrigen - CantidadMovida;
         }
 
-        public string Motivo {
-            get => fieldMotivo.Text;
-            set => fieldMotivo.Text = value;
+        public string TipoMovimiento {
+            get => fieldTipoMovimiento.Text;
+            set => fieldTipoMovimiento.Text = value;
         }
 
         public DateTime Fecha {
@@ -70,18 +70,22 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             }
         }
 
+        public event EventHandler? RegistrarTipoMovimiento;
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
-        public event EventHandler? Salir;
+        public event EventHandler? Salir;        
 
         public void Inicializar() {
             // Eventos
-            fieldMotivo.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
+            fieldTipoMovimiento.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
                 ActualizarCamposAlmacenes();
             };
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);
+            };
+            btnAdicionarTipoMovimiento.Click += delegate (object? sender, EventArgs args) { 
+                RegistrarTipoMovimiento?.Invoke(sender, args);
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (!MovimientoStockCorrecto())
@@ -98,31 +102,37 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         }
 
         public void CargarNombresArticulos(string[] nombresArticulos) {
+            fieldNombreArticulo.Items.Clear();
             fieldNombreArticulo.Items.AddRange(nombresArticulos);
             fieldNombreArticulo.SelectedIndex = -1;
         }
 
         public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
+            fieldNombreAlmacenOrigen.Items.Clear();
             fieldNombreAlmacenOrigen.Items.Add("Ninguno");
             fieldNombreAlmacenOrigen.Items.AddRange(nombresAlmacenes);
             fieldNombreAlmacenOrigen.SelectedIndex = 0;
 
+            fieldNombreAlmacenDestino.Items.Clear();
             fieldNombreAlmacenDestino.Items.Add("Ninguno");
             fieldNombreAlmacenDestino.Items.AddRange(nombresAlmacenes);
             fieldNombreAlmacenDestino.SelectedIndex = 0;
         }
 
-        public void CargarMotivos(string[] motivos) {
-            fieldMotivo.Items.AddRange(motivos);
-            fieldMotivo.SelectedIndex = 0;
+        public void CargarTiposMovimientos(string[] tiposMovimientos) {
+            fieldTipoMovimiento.Items.Clear();
+            fieldTipoMovimiento.Items.AddRange(tiposMovimientos);
+            fieldTipoMovimiento.SelectedIndex = 0;
         }
 
         public void ActualizarCamposAlmacenes() {
-            if (UtilesMovimientoArticuloAlmacen.MotivoMovimientoPositivo.Contains(Motivo) && !Motivo.Equals("Devolución")) {
+            var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(TipoMovimiento);
+
+            if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Carga")) {
                 fieldNombreAlmacenOrigen.SelectedIndex = 0;
                 fieldNombreAlmacenOrigen.Enabled = false;
                 fieldNombreAlmacenDestino.Enabled = true;
-            } else if (UtilesMovimientoArticuloAlmacen.MotivoMovimientoNegativo.Contains(Motivo) && !Motivo.Equals("Uso interno")) {
+            } else if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Descarga")) {
                 fieldNombreAlmacenDestino.SelectedIndex = 0;
                 fieldNombreAlmacenDestino.Enabled = false;
                 fieldNombreAlmacenOrigen.Enabled = true;
@@ -136,13 +146,15 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             if (string.IsNullOrEmpty(NombreArticulo))
                 return false;
 
-            if (UtilesMovimientoArticuloAlmacen.MotivoMovimientoPositivo.Contains(Motivo)) {
+            var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(TipoMovimiento);
+
+            if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Carga")) {
                 if (string.Equals(NombreAlmacenDestino, "Ninguno"))
                     return false;
                 else return true;
             }
 
-            if (UtilesMovimientoArticuloAlmacen.MotivoMovimientoNegativo.Contains(Motivo) && string.Equals(NombreAlmacenOrigen, "Ninguno"))
+            if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Descarga") && string.Equals(NombreAlmacenOrigen, "Ninguno"))
                 return false;
 
             CantidadInicialOrigen = UtilesArticulo.ObtenerStockArticulo(NombreArticulo, NombreAlmacenOrigen).Result;
@@ -171,8 +183,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenDestino.SelectedIndex = 0;
             CantidadInicialOrigen = 0;
             CantidadMovida = 0;
-            Motivo = string.Empty;
-            fieldMotivo.SelectedIndex = 0;
+            TipoMovimiento = string.Empty;
+            fieldTipoMovimiento.SelectedIndex = 0;
             Fecha = DateTime.Now;
             ModoEdicionDatos = false;
         }

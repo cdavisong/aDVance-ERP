@@ -28,6 +28,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionMovimientos));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -44,14 +49,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionMovimientos));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
             layoutHerramientas = new TableLayoutPanel();
+            panelDatosComplementariosBusqueda = new Panel();
+            fieldDatoBusquedaFecha = new Guna2DateTimePicker();
+            fieldDatoBusqueda = new Guna2TextBox();
             fieldCriterioBusqueda = new Guna2ComboBox();
             layoutTituloHerramientas = new TableLayoutPanel();
             fieldTituloFiltrosBusqueda = new Label();
@@ -80,18 +83,15 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
             separador1 = new Guna2Separator();
-            panelDatosComplementariosBusqueda = new Panel();
-            fieldDatoBusquedaFecha = new Guna2DateTimePicker();
-            fieldDatoBusqueda = new Guna2TextBox();
             layoutVista.SuspendLayout();
             layoutHerramientas.SuspendLayout();
+            panelDatosComplementariosBusqueda.SuspendLayout();
             layoutTituloHerramientas.SuspendLayout();
             panelBotonesGestion.SuspendLayout();
             layoutEncabezadosTabla.SuspendLayout();
             layoutTitulo.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutControlesTabla.SuspendLayout();
-            panelDatosComplementariosBusqueda.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -157,6 +157,77 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutHerramientas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutHerramientas.Size = new Size(1286, 45);
             layoutHerramientas.TabIndex = 38;
+            // 
+            // panelDatosComplementariosBusqueda
+            // 
+            panelDatosComplementariosBusqueda.Controls.Add(fieldDatoBusquedaFecha);
+            panelDatosComplementariosBusqueda.Controls.Add(fieldDatoBusqueda);
+            panelDatosComplementariosBusqueda.Dock = DockStyle.Fill;
+            panelDatosComplementariosBusqueda.Location = new Point(305, 5);
+            panelDatosComplementariosBusqueda.Margin = new Padding(5);
+            panelDatosComplementariosBusqueda.Name = "panelDatosComplementariosBusqueda";
+            panelDatosComplementariosBusqueda.Size = new Size(320, 35);
+            panelDatosComplementariosBusqueda.TabIndex = 29;
+            // 
+            // fieldDatoBusquedaFecha
+            // 
+            fieldDatoBusquedaFecha.BackColor = Color.White;
+            fieldDatoBusquedaFecha.BorderColor = Color.Gainsboro;
+            fieldDatoBusquedaFecha.BorderRadius = 18;
+            fieldDatoBusquedaFecha.BorderThickness = 1;
+            fieldDatoBusquedaFecha.Checked = true;
+            fieldDatoBusquedaFecha.CheckedState.BorderColor = Color.Gainsboro;
+            fieldDatoBusquedaFecha.CheckedState.FillColor = Color.White;
+            fieldDatoBusquedaFecha.CheckedState.ForeColor = Color.Black;
+            fieldDatoBusquedaFecha.CustomFormat = "yyyy-MM-dd";
+            fieldDatoBusquedaFecha.CustomizableEdges = customizableEdges1;
+            fieldDatoBusquedaFecha.Dock = DockStyle.Fill;
+            fieldDatoBusquedaFecha.FillColor = Color.White;
+            fieldDatoBusquedaFecha.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDatoBusquedaFecha.ForeColor = Color.Black;
+            fieldDatoBusquedaFecha.Format = DateTimePickerFormat.Custom;
+            fieldDatoBusquedaFecha.Location = new Point(0, 0);
+            fieldDatoBusquedaFecha.Margin = new Padding(5);
+            fieldDatoBusquedaFecha.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
+            fieldDatoBusquedaFecha.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
+            fieldDatoBusquedaFecha.Name = "fieldDatoBusquedaFecha";
+            fieldDatoBusquedaFecha.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldDatoBusquedaFecha.Size = new Size(320, 35);
+            fieldDatoBusquedaFecha.TabIndex = 25;
+            fieldDatoBusquedaFecha.Value = new DateTime(2025, 2, 20, 21, 31, 28, 166);
+            fieldDatoBusquedaFecha.Visible = false;
+            // 
+            // fieldDatoBusqueda
+            // 
+            fieldDatoBusqueda.Animated = true;
+            fieldDatoBusqueda.BackColor = Color.FromArgb(  254,   254,   253);
+            fieldDatoBusqueda.BorderColor = Color.Gainsboro;
+            fieldDatoBusqueda.BorderRadius = 18;
+            fieldDatoBusqueda.Cursor = Cursors.IBeam;
+            fieldDatoBusqueda.CustomizableEdges = customizableEdges3;
+            fieldDatoBusqueda.DefaultText = "";
+            fieldDatoBusqueda.DisabledState.BorderColor = Color.White;
+            fieldDatoBusqueda.DisabledState.ForeColor = Color.DimGray;
+            fieldDatoBusqueda.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldDatoBusqueda.Dock = DockStyle.Fill;
+            fieldDatoBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDatoBusqueda.ForeColor = Color.Black;
+            fieldDatoBusqueda.HoverState.BorderColor = Color.SandyBrown;
+            fieldDatoBusqueda.IconLeft = (Image) resources.GetObject("fieldDatoBusqueda.IconLeft");
+            fieldDatoBusqueda.IconLeftOffset = new Point(10, 1);
+            fieldDatoBusqueda.IconRightOffset = new Point(10, 0);
+            fieldDatoBusqueda.Location = new Point(0, 0);
+            fieldDatoBusqueda.Margin = new Padding(5);
+            fieldDatoBusqueda.Name = "fieldDatoBusqueda";
+            fieldDatoBusqueda.PasswordChar = '\0';
+            fieldDatoBusqueda.PlaceholderForeColor = Color.DimGray;
+            fieldDatoBusqueda.PlaceholderText = "Datos complementarios de búsqueda";
+            fieldDatoBusqueda.SelectedText = "";
+            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            fieldDatoBusqueda.Size = new Size(320, 35);
+            fieldDatoBusqueda.TabIndex = 9;
+            fieldDatoBusqueda.TextOffset = new Point(5, 0);
+            fieldDatoBusqueda.Visible = false;
             // 
             // fieldCriterioBusqueda
             // 
@@ -315,7 +386,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloMotivo.Name = "fieldTituloMotivo";
             fieldTituloMotivo.Size = new Size(218, 56);
             fieldTituloMotivo.TabIndex = 15;
-            fieldTituloMotivo.Text = "Motivo";
+            fieldTituloMotivo.Text = "Tipo de movimiento";
             fieldTituloMotivo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTitulaCantidadMovida
@@ -646,77 +717,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             separador1.Size = new Size(1280, 14);
             separador1.TabIndex = 34;
             // 
-            // panelDatosComplementariosBusqueda
-            // 
-            panelDatosComplementariosBusqueda.Controls.Add(fieldDatoBusquedaFecha);
-            panelDatosComplementariosBusqueda.Controls.Add(fieldDatoBusqueda);
-            panelDatosComplementariosBusqueda.Dock = DockStyle.Fill;
-            panelDatosComplementariosBusqueda.Location = new Point(305, 5);
-            panelDatosComplementariosBusqueda.Margin = new Padding(5);
-            panelDatosComplementariosBusqueda.Name = "panelDatosComplementariosBusqueda";
-            panelDatosComplementariosBusqueda.Size = new Size(320, 35);
-            panelDatosComplementariosBusqueda.TabIndex = 29;
-            // 
-            // fieldDatoBusquedaFecha
-            // 
-            fieldDatoBusquedaFecha.BackColor = Color.White;
-            fieldDatoBusquedaFecha.BorderColor = Color.Gainsboro;
-            fieldDatoBusquedaFecha.BorderRadius = 18;
-            fieldDatoBusquedaFecha.BorderThickness = 1;
-            fieldDatoBusquedaFecha.Checked = true;
-            fieldDatoBusquedaFecha.CheckedState.BorderColor = Color.Gainsboro;
-            fieldDatoBusquedaFecha.CheckedState.FillColor = Color.White;
-            fieldDatoBusquedaFecha.CheckedState.ForeColor = Color.Black;
-            fieldDatoBusquedaFecha.CustomFormat = "yyyy-MM-dd";
-            fieldDatoBusquedaFecha.CustomizableEdges = customizableEdges1;
-            fieldDatoBusquedaFecha.Dock = DockStyle.Fill;
-            fieldDatoBusquedaFecha.FillColor = Color.White;
-            fieldDatoBusquedaFecha.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldDatoBusquedaFecha.ForeColor = Color.Black;
-            fieldDatoBusquedaFecha.Format = DateTimePickerFormat.Custom;
-            fieldDatoBusquedaFecha.Location = new Point(0, 0);
-            fieldDatoBusquedaFecha.Margin = new Padding(5);
-            fieldDatoBusquedaFecha.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
-            fieldDatoBusquedaFecha.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
-            fieldDatoBusquedaFecha.Name = "fieldDatoBusquedaFecha";
-            fieldDatoBusquedaFecha.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            fieldDatoBusquedaFecha.Size = new Size(320, 35);
-            fieldDatoBusquedaFecha.TabIndex = 25;
-            fieldDatoBusquedaFecha.Value = new DateTime(2025, 2, 20, 21, 31, 28, 166);
-            fieldDatoBusquedaFecha.Visible = false;
-            // 
-            // fieldDatoBusqueda
-            // 
-            fieldDatoBusqueda.Animated = true;
-            fieldDatoBusqueda.BackColor = Color.FromArgb(  254,   254,   253);
-            fieldDatoBusqueda.BorderColor = Color.Gainsboro;
-            fieldDatoBusqueda.BorderRadius = 18;
-            fieldDatoBusqueda.Cursor = Cursors.IBeam;
-            fieldDatoBusqueda.CustomizableEdges = customizableEdges3;
-            fieldDatoBusqueda.DefaultText = "";
-            fieldDatoBusqueda.DisabledState.BorderColor = Color.White;
-            fieldDatoBusqueda.DisabledState.ForeColor = Color.DimGray;
-            fieldDatoBusqueda.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldDatoBusqueda.Dock = DockStyle.Fill;
-            fieldDatoBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldDatoBusqueda.ForeColor = Color.Black;
-            fieldDatoBusqueda.HoverState.BorderColor = Color.SandyBrown;
-            fieldDatoBusqueda.IconLeft = (Image) resources.GetObject("fieldDatoBusqueda.IconLeft");
-            fieldDatoBusqueda.IconLeftOffset = new Point(10, 1);
-            fieldDatoBusqueda.IconRightOffset = new Point(10, 0);
-            fieldDatoBusqueda.Location = new Point(0, 0);
-            fieldDatoBusqueda.Margin = new Padding(5);
-            fieldDatoBusqueda.Name = "fieldDatoBusqueda";
-            fieldDatoBusqueda.PasswordChar = '\0';
-            fieldDatoBusqueda.PlaceholderForeColor = Color.DimGray;
-            fieldDatoBusqueda.PlaceholderText = "Datos complementarios de búsqueda";
-            fieldDatoBusqueda.SelectedText = "";
-            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            fieldDatoBusqueda.Size = new Size(320, 35);
-            fieldDatoBusqueda.TabIndex = 9;
-            fieldDatoBusqueda.TextOffset = new Point(5, 0);
-            fieldDatoBusqueda.Visible = false;
-            // 
             // VistaGestionMovimientos
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -732,13 +732,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             Text = "VistGestionProveedor";
             layoutVista.ResumeLayout(false);
             layoutHerramientas.ResumeLayout(false);
+            panelDatosComplementariosBusqueda.ResumeLayout(false);
             layoutTituloHerramientas.ResumeLayout(false);
             panelBotonesGestion.ResumeLayout(false);
             layoutEncabezadosTabla.ResumeLayout(false);
             layoutTitulo.ResumeLayout(false);
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutControlesTabla.ResumeLayout(false);
-            panelDatosComplementariosBusqueda.ResumeLayout(false);
             ResumeLayout(false);
         }
 
