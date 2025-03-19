@@ -1,4 +1,7 @@
-﻿using aDVanceERP.Core.Seguridad.Utiles;
+﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
@@ -114,6 +117,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             };
             btnMovimientoNegativo.Click += delegate (object? sender, EventArgs e) {
                 MovimientoNegativoStock?.Invoke(NombreAlmacen, e);
+            };
+            btnEliminar.Click += async delegate (object? sender, EventArgs e) {
+                if (await UtilesArticulo.PuedeEliminarArticulo(long.Parse(Id))) {
+                    EliminarDatosTupla?.Invoke(this, e); 
+                } else
+                    CentroNotificaciones.Mostrar($"No se puede eliminar el artículo {Nombre}, existen registros de movimientos asociados al mismo y podría dañar la integridad y trazabilidad de los datos.", TipoNotificacion.Advertencia);
             };
         }
 

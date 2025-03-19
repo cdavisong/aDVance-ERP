@@ -242,5 +242,42 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
             return montoInvertido;
         }
+
+        public static async Task<bool> PuedeEliminarArticulo(long idArticulo) {
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    await conexion.OpenAsync().ConfigureAwait(false);
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                // Verificar si hay ventas asociadas al artículo
+                using (var comandoVentas = conexion.CreateCommand()) {
+                    comandoVentas.CommandText = "SELECT COUNT(*) FROM adv__detalle_venta_articulo WHERE id_articulo = @IdArticulo;";
+                    comandoVentas.Parameters.AddWithValue("@IdArticulo", idArticulo);
+
+                    var cantidadVentas = Convert.ToInt32(await comandoVentas.ExecuteScalarAsync().ConfigureAwait(false));
+
+                    if (cantidadVentas > 0) {
+                        return false; // Hay ventas asociadas, no se puede eliminar
+                    }
+                }
+
+                // Verificar si hay movimientos asociados al artículo
+                using (var comandoMovimientos = conexion.CreateCommand()) {
+                    comandoMovimientos.CommandText = "SELECT COUNT(*) FROM adv__movimiento WHERE id_articulo = @IdArticulo;";
+                    comandoMovimientos.Parameters.AddWithValue("@IdArticulo", idArticulo);
+
+                    var cantidadMovimientos = Convert.ToInt32(await comandoMovimientos.ExecuteScalarAsync().ConfigureAwait(false));
+
+                    if (cantidadMovimientos > 0) {
+                        return false; // Hay movimientos asociados, no se puede eliminar
+                    }
+                }
+            }
+
+            // No hay ventas ni movimientos asociados, se puede eliminar
+            return true;
+        }
     }
 }
