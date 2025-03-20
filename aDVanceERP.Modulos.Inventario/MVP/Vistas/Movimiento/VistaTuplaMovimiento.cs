@@ -103,9 +103,9 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
 
         public void ActualizarIconoStock(bool movPositivo) {
             if (movPositivo)
-                fieldIcono.BackgroundImage = Resources.move_stockG_20px;
+                fieldIcono.BackgroundImage = Resources.load_cargo_20px;
             else
-                fieldIcono.BackgroundImage = Resources.move_stockR_20px;
+                fieldIcono.BackgroundImage = Resources.unload_cargo_20px;
         }
 
         public void Mostrar() {

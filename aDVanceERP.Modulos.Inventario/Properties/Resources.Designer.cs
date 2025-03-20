@@ -63,9 +63,9 @@ namespace aDVanceERP.Modulos.Inventario.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap move_stock_20px {
+        internal static System.Drawing.Bitmap load_cargo_20px {
             get {
-                object obj = ResourceManager.GetObject("move_stock_20px", resourceCulture);
+                object obj = ResourceManager.GetObject("load_cargo_20px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace aDVanceERP.Modulos.Inventario.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap move_stockB_20px {
+        internal static System.Drawing.Bitmap transfer_20px {
             get {
-                object obj = ResourceManager.GetObject("move_stockB_20px", resourceCulture);
+                object obj = ResourceManager.GetObject("transfer_20px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,19 +83,9 @@ namespace aDVanceERP.Modulos.Inventario.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap move_stockG_20px {
+        internal static System.Drawing.Bitmap unload_cargo_20px {
             get {
-                object obj = ResourceManager.GetObject("move_stockG_20px", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap move_stockR_20px {
-            get {
-                object obj = ResourceManager.GetObject("move_stockR_20px", resourceCulture);
+                object obj = ResourceManager.GetObject("unload_cargo_20px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
