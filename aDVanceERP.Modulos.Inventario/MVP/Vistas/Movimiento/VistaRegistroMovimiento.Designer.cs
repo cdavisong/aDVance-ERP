@@ -45,12 +45,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -61,8 +61,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
             fieldNotas = new Guna2TextBox();
-            fieldTituloNombreArticulo = new Label();
-            fieldNombreArticulo = new Guna2ComboBox();
             layoutTituloAlmacenes = new TableLayoutPanel();
             fieldTituloNombreAlmacenOrigen = new Label();
             fieldTituloNombreAlmacenDestino = new Label();
@@ -77,6 +75,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
+            fieldNombreArticulo = new Guna2TextBox();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
@@ -123,27 +122,25 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutVista.Controls.Add(fieldCantidadMovida, 2, 13);
+            layoutVista.Controls.Add(fieldCantidadMovida, 2, 12);
             layoutVista.Controls.Add(fieldIcono, 1, 1);
             layoutVista.Controls.Add(fieldSubtitulo, 2, 2);
             layoutVista.Controls.Add(layoutTitulo, 2, 1);
-            layoutVista.Controls.Add(fieldNotas, 2, 15);
-            layoutVista.Controls.Add(fieldTituloNombreArticulo, 2, 4);
-            layoutVista.Controls.Add(fieldNombreArticulo, 2, 5);
-            layoutVista.Controls.Add(layoutTituloAlmacenes, 2, 10);
-            layoutVista.Controls.Add(layoutAlmacenes, 2, 11);
-            layoutVista.Controls.Add(fieldTituloMotivo, 2, 7);
-            layoutVista.Controls.Add(layoutTipoMovimiento, 2, 8);
+            layoutVista.Controls.Add(fieldNotas, 2, 14);
+            layoutVista.Controls.Add(layoutTituloAlmacenes, 2, 9);
+            layoutVista.Controls.Add(layoutAlmacenes, 2, 10);
+            layoutVista.Controls.Add(fieldTituloMotivo, 2, 6);
+            layoutVista.Controls.Add(layoutTipoMovimiento, 2, 7);
+            layoutVista.Controls.Add(fieldNombreArticulo, 2, 4);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(13, 0);
             layoutVista.Margin = new Padding(3, 0, 0, 0);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 18;
+            layoutVista.RowCount = 17;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
@@ -156,6 +153,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(487, 620);
             layoutVista.TabIndex = 0;
@@ -181,7 +179,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldCantidadMovida.IconRight = (Image) resources.GetObject("fieldCantidadMovida.IconRight");
             fieldCantidadMovida.IconRightOffset = new Point(6, 0);
             fieldCantidadMovida.IconRightSize = new Size(12, 12);
-            fieldCantidadMovida.Location = new Point(55, 405);
+            fieldCantidadMovida.Location = new Point(55, 370);
             fieldCantidadMovida.Margin = new Padding(5);
             fieldCantidadMovida.Name = "fieldCantidadMovida";
             fieldCantidadMovida.PasswordChar = '\0';
@@ -285,7 +283,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNotas.HoverState.BorderColor = Color.SandyBrown;
             fieldNotas.IconLeft = (Image) resources.GetObject("fieldNotas.IconLeft");
             fieldNotas.IconLeftOffset = new Point(10, -11);
-            fieldNotas.Location = new Point(55, 460);
+            fieldNotas.Location = new Point(55, 425);
             fieldNotas.Margin = new Padding(5);
             fieldNotas.Multiline = true;
             fieldNotas.Name = "fieldNotas";
@@ -298,45 +296,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNotas.TabIndex = 30;
             fieldNotas.TextOffset = new Point(5, 0);
             // 
-            // fieldTituloNombreArticulo
-            // 
-            fieldTituloNombreArticulo.Dock = DockStyle.Fill;
-            fieldTituloNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldTituloNombreArticulo.ForeColor = Color.DimGray;
-            fieldTituloNombreArticulo.Image = (Image) resources.GetObject("fieldTituloNombreArticulo.Image");
-            fieldTituloNombreArticulo.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloNombreArticulo.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreArticulo.Location = new Point(65, 135);
-            fieldTituloNombreArticulo.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloNombreArticulo.Name = "fieldTituloNombreArticulo";
-            fieldTituloNombreArticulo.Size = new Size(399, 27);
-            fieldTituloNombreArticulo.TabIndex = 33;
-            fieldTituloNombreArticulo.Text = "      Artículo :";
-            fieldTituloNombreArticulo.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fieldNombreArticulo
-            // 
-            fieldNombreArticulo.Animated = true;
-            fieldNombreArticulo.BackColor = Color.Transparent;
-            fieldNombreArticulo.BorderColor = Color.Gainsboro;
-            fieldNombreArticulo.BorderRadius = 16;
-            fieldNombreArticulo.CustomizableEdges = customizableEdges7;
-            fieldNombreArticulo.Dock = DockStyle.Fill;
-            fieldNombreArticulo.DrawMode = DrawMode.OwnerDrawFixed;
-            fieldNombreArticulo.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldNombreArticulo.FocusedColor = Color.SandyBrown;
-            fieldNombreArticulo.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreArticulo.ForeColor = Color.Black;
-            fieldNombreArticulo.ItemHeight = 29;
-            fieldNombreArticulo.Location = new Point(55, 170);
-            fieldNombreArticulo.Margin = new Padding(5);
-            fieldNombreArticulo.Name = "fieldNombreArticulo";
-            fieldNombreArticulo.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldNombreArticulo.Size = new Size(407, 35);
-            fieldNombreArticulo.TabIndex = 34;
-            fieldNombreArticulo.TextOffset = new Point(10, 0);
-            // 
             // layoutTituloAlmacenes
             // 
             layoutTituloAlmacenes.ColumnCount = 2;
@@ -345,7 +304,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutTituloAlmacenes.Controls.Add(fieldTituloNombreAlmacenOrigen, 0, 0);
             layoutTituloAlmacenes.Controls.Add(fieldTituloNombreAlmacenDestino, 1, 0);
             layoutTituloAlmacenes.Dock = DockStyle.Fill;
-            layoutTituloAlmacenes.Location = new Point(50, 310);
+            layoutTituloAlmacenes.Location = new Point(50, 275);
             layoutTituloAlmacenes.Margin = new Padding(0);
             layoutTituloAlmacenes.Name = "layoutTituloAlmacenes";
             layoutTituloAlmacenes.RowCount = 1;
@@ -394,7 +353,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutAlmacenes.Controls.Add(fieldNombreAlmacenOrigen, 0, 0);
             layoutAlmacenes.Controls.Add(fieldNombreAlmacenDestino, 1, 0);
             layoutAlmacenes.Dock = DockStyle.Fill;
-            layoutAlmacenes.Location = new Point(50, 345);
+            layoutAlmacenes.Location = new Point(50, 310);
             layoutAlmacenes.Margin = new Padding(0);
             layoutAlmacenes.Name = "layoutAlmacenes";
             layoutAlmacenes.RowCount = 1;
@@ -409,7 +368,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenOrigen.BackColor = Color.Transparent;
             fieldNombreAlmacenOrigen.BorderColor = Color.Gainsboro;
             fieldNombreAlmacenOrigen.BorderRadius = 16;
-            fieldNombreAlmacenOrigen.CustomizableEdges = customizableEdges9;
+            fieldNombreAlmacenOrigen.CustomizableEdges = customizableEdges7;
             fieldNombreAlmacenOrigen.Dock = DockStyle.Fill;
             fieldNombreAlmacenOrigen.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreAlmacenOrigen.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -421,7 +380,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenOrigen.Location = new Point(5, 5);
             fieldNombreAlmacenOrigen.Margin = new Padding(5);
             fieldNombreAlmacenOrigen.Name = "fieldNombreAlmacenOrigen";
-            fieldNombreAlmacenOrigen.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            fieldNombreAlmacenOrigen.ShadowDecoration.CustomizableEdges = customizableEdges8;
             fieldNombreAlmacenOrigen.Size = new Size(198, 35);
             fieldNombreAlmacenOrigen.TabIndex = 25;
             fieldNombreAlmacenOrigen.TextOffset = new Point(10, 0);
@@ -432,7 +391,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenDestino.BackColor = Color.Transparent;
             fieldNombreAlmacenDestino.BorderColor = Color.Gainsboro;
             fieldNombreAlmacenDestino.BorderRadius = 16;
-            fieldNombreAlmacenDestino.CustomizableEdges = customizableEdges11;
+            fieldNombreAlmacenDestino.CustomizableEdges = customizableEdges9;
             fieldNombreAlmacenDestino.Dock = DockStyle.Fill;
             fieldNombreAlmacenDestino.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreAlmacenDestino.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -444,7 +403,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenDestino.Location = new Point(213, 5);
             fieldNombreAlmacenDestino.Margin = new Padding(5);
             fieldNombreAlmacenDestino.Name = "fieldNombreAlmacenDestino";
-            fieldNombreAlmacenDestino.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            fieldNombreAlmacenDestino.ShadowDecoration.CustomizableEdges = customizableEdges10;
             fieldNombreAlmacenDestino.Size = new Size(199, 35);
             fieldNombreAlmacenDestino.TabIndex = 28;
             fieldNombreAlmacenDestino.TextOffset = new Point(10, 0);
@@ -457,7 +416,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloMotivo.Image = (Image) resources.GetObject("fieldTituloMotivo.Image");
             fieldTituloMotivo.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTituloMotivo.ImeMode = ImeMode.NoControl;
-            fieldTituloMotivo.Location = new Point(65, 225);
+            fieldTituloMotivo.Location = new Point(65, 190);
             fieldTituloMotivo.Margin = new Padding(15, 5, 3, 3);
             fieldTituloMotivo.Name = "fieldTituloMotivo";
             fieldTituloMotivo.Size = new Size(399, 27);
@@ -475,7 +434,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutTipoMovimiento.Controls.Add(btnAdicionarTipoMovimiento, 1, 0);
             layoutTipoMovimiento.Controls.Add(btnEliminarTipoMovimiento, 2, 0);
             layoutTipoMovimiento.Dock = DockStyle.Fill;
-            layoutTipoMovimiento.Location = new Point(50, 255);
+            layoutTipoMovimiento.Location = new Point(50, 220);
             layoutTipoMovimiento.Margin = new Padding(0);
             layoutTipoMovimiento.Name = "layoutTipoMovimiento";
             layoutTipoMovimiento.RowCount = 1;
@@ -489,7 +448,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTipoMovimiento.BackColor = Color.Transparent;
             fieldTipoMovimiento.BorderColor = Color.Gainsboro;
             fieldTipoMovimiento.BorderRadius = 16;
-            fieldTipoMovimiento.CustomizableEdges = customizableEdges13;
+            fieldTipoMovimiento.CustomizableEdges = customizableEdges11;
             fieldTipoMovimiento.Dock = DockStyle.Fill;
             fieldTipoMovimiento.DrawMode = DrawMode.OwnerDrawFixed;
             fieldTipoMovimiento.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -501,7 +460,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTipoMovimiento.Location = new Point(5, 5);
             fieldTipoMovimiento.Margin = new Padding(5);
             fieldTipoMovimiento.Name = "fieldTipoMovimiento";
-            fieldTipoMovimiento.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldTipoMovimiento.ShadowDecoration.CustomizableEdges = customizableEdges12;
             fieldTipoMovimiento.Size = new Size(307, 35);
             fieldTipoMovimiento.TabIndex = 32;
             fieldTipoMovimiento.TextOffset = new Point(10, 0);
@@ -512,7 +471,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnAdicionarTipoMovimiento.BorderRadius = 18;
             btnAdicionarTipoMovimiento.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnAdicionarTipoMovimiento.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAdicionarTipoMovimiento.CustomizableEdges = customizableEdges15;
+            btnAdicionarTipoMovimiento.CustomizableEdges = customizableEdges13;
             btnAdicionarTipoMovimiento.DialogResult = DialogResult.Cancel;
             btnAdicionarTipoMovimiento.Dock = DockStyle.Fill;
             btnAdicionarTipoMovimiento.FillColor = Color.PeachPuff;
@@ -520,7 +479,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnAdicionarTipoMovimiento.ForeColor = Color.White;
             btnAdicionarTipoMovimiento.Location = new Point(320, 3);
             btnAdicionarTipoMovimiento.Name = "btnAdicionarTipoMovimiento";
-            btnAdicionarTipoMovimiento.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnAdicionarTipoMovimiento.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnAdicionarTipoMovimiento.Size = new Size(44, 39);
             btnAdicionarTipoMovimiento.TabIndex = 33;
             // 
@@ -530,7 +489,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnEliminarTipoMovimiento.BorderRadius = 18;
             btnEliminarTipoMovimiento.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEliminarTipoMovimiento.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminarTipoMovimiento.CustomizableEdges = customizableEdges17;
+            btnEliminarTipoMovimiento.CustomizableEdges = customizableEdges15;
             btnEliminarTipoMovimiento.DialogResult = DialogResult.Cancel;
             btnEliminarTipoMovimiento.Dock = DockStyle.Fill;
             btnEliminarTipoMovimiento.FillColor = Color.PeachPuff;
@@ -538,7 +497,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnEliminarTipoMovimiento.ForeColor = Color.White;
             btnEliminarTipoMovimiento.Location = new Point(370, 3);
             btnEliminarTipoMovimiento.Name = "btnEliminarTipoMovimiento";
-            btnEliminarTipoMovimiento.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnEliminarTipoMovimiento.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnEliminarTipoMovimiento.Size = new Size(44, 39);
             btnEliminarTipoMovimiento.TabIndex = 34;
             // 
@@ -599,6 +558,39 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Registrar movimiento";
             // 
+            // fieldNombreArticulo
+            // 
+            fieldNombreArticulo.Animated = true;
+            fieldNombreArticulo.BorderColor = Color.Gainsboro;
+            fieldNombreArticulo.BorderRadius = 16;
+            fieldNombreArticulo.Cursor = Cursors.IBeam;
+            fieldNombreArticulo.CustomizableEdges = customizableEdges17;
+            fieldNombreArticulo.DefaultText = "";
+            fieldNombreArticulo.DisabledState.BorderColor = Color.White;
+            fieldNombreArticulo.DisabledState.ForeColor = Color.DimGray;
+            fieldNombreArticulo.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldNombreArticulo.Dock = DockStyle.Fill;
+            fieldNombreArticulo.FocusedState.BorderColor = Color.SandyBrown;
+            fieldNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreArticulo.ForeColor = Color.Black;
+            fieldNombreArticulo.HoverState.BorderColor = Color.SandyBrown;
+            fieldNombreArticulo.IconLeft = (Image) resources.GetObject("fieldNombreArticulo.IconLeft");
+            fieldNombreArticulo.IconLeftOffset = new Point(10, 0);
+            fieldNombreArticulo.IconRightCursor = Cursors.Cross;
+            fieldNombreArticulo.IconRightOffset = new Point(6, 0);
+            fieldNombreArticulo.IconRightSize = new Size(12, 12);
+            fieldNombreArticulo.Location = new Point(55, 135);
+            fieldNombreArticulo.Margin = new Padding(5);
+            fieldNombreArticulo.Name = "fieldNombreArticulo";
+            fieldNombreArticulo.PasswordChar = '\0';
+            fieldNombreArticulo.PlaceholderForeColor = Color.DimGray;
+            fieldNombreArticulo.PlaceholderText = "Nombre del producto";
+            fieldNombreArticulo.SelectedText = "";
+            fieldNombreArticulo.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            fieldNombreArticulo.Size = new Size(407, 35);
+            fieldNombreArticulo.TabIndex = 33;
+            fieldNombreArticulo.TextOffset = new Point(5, 0);
+            // 
             // VistaRegistroMovimiento
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -649,11 +641,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         private Label fieldTituloMotivo;
         private TableLayoutPanel layoutTituloAlmacenes;
         private TableLayoutPanel layoutAlmacenes;
-        private Label fieldTituloNombreArticulo;
-        private Guna2ComboBox fieldNombreArticulo;
         private Guna2ComboBox fieldTipoMovimiento;
         private TableLayoutPanel layoutTipoMovimiento;
         private Guna2Button btnAdicionarTipoMovimiento;
         private Guna2Button btnEliminarTipoMovimiento;
+        private Guna2TextBox fieldNombreArticulo;
     }
 }

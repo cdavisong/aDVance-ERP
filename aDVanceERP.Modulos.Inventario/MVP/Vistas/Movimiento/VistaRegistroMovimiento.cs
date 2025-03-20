@@ -106,9 +106,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         }
 
         public void CargarNombresArticulos(string[] nombresArticulos) {
-            fieldNombreArticulo.Items.Clear();
-            fieldNombreArticulo.Items.AddRange(nombresArticulos);
-            fieldNombreArticulo.SelectedIndex = -1;
+            fieldNombreArticulo.AutoCompleteCustomSource.Clear();
+            fieldNombreArticulo.AutoCompleteCustomSource.AddRange(nombresArticulos);
+            fieldNombreArticulo.AutoCompleteMode = AutoCompleteMode.Suggest;
+            fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
