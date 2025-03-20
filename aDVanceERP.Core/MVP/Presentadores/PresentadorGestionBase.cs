@@ -69,6 +69,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
             DatoBusquedaObjeto = dato;
 
             await RefrescarListaObjetos();
+            Vista.PaginaActual = 1;
         }
 
         public virtual async Task RefrescarListaObjetos() {
