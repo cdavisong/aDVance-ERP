@@ -7,7 +7,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas {
         string? NombreArticulo { get; set; }
         List<string[]>? Articulos { get; }
         int Cantidad { get; set; }
-        float Total { get; set; }
+        decimal Total { get; set; }
         bool PagoConfirmado { get; set; }
 
         event EventHandler? ArticuloAgregado;

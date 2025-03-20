@@ -1,8 +1,9 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
+
+using System.Globalization;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
     public class DatosDetalleVentaArticulo : RepositorioDatosBase<DetalleVentaArticulo, CriterioDetalleVentaArticulo>, IRepositorioDetalleVentaArticulo {
@@ -11,11 +12,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(DetalleVentaArticulo objeto) {
-            return $"INSERT INTO adv__detalle_venta_articulo (id_venta, id_articulo, precio_unitario, cantidad) VALUES ({objeto.IdVenta}, {objeto.IdArticulo}, {objeto.PrecioUnitario}, {objeto.Cantidad});";
+            return $"INSERT INTO adv__detalle_venta_articulo (id_venta, id_articulo, precio_unitario, cantidad) VALUES ({objeto.IdVenta}, {objeto.IdArticulo}, {objeto.PrecioUnitario.ToString(CultureInfo.InvariantCulture)}, {objeto.Cantidad});";
         }
 
         public override string ComandoEditar(DetalleVentaArticulo objeto) {
-            return $"UPDATE adv__detalle_venta_articulo SET id_venta={objeto.IdVenta}, id_articulo={objeto.IdArticulo}, precio_unitario={objeto.PrecioUnitario}, cantidad={objeto.Cantidad} WHERE id_detalle_venta_articulo={objeto.Id};";
+            return $"UPDATE adv__detalle_venta_articulo SET id_venta={objeto.IdVenta}, id_articulo={objeto.IdArticulo}, precio_unitario={objeto.PrecioUnitario.ToString(CultureInfo.InvariantCulture)}, cantidad={objeto.Cantidad} WHERE id_detalle_venta_articulo={objeto.Id};";
         }
 
         public override string ComandoEliminar(long id) {
@@ -52,7 +53,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
                 id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_venta_articulo")),
                 idVenta: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
                 idArticulo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_articulo")),
-                precioUnitario: lectorDatos.GetFloat(lectorDatos.GetOrdinal("precio_unitario")),
+                precioUnitario: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_unitario")),
                 cantidad: lectorDatos.GetInt32(lectorDatos.GetOrdinal("cantidad"))
             );
         }

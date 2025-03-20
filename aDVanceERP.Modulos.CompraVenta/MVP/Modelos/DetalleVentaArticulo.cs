@@ -5,7 +5,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public DetalleVentaArticulo() {
         }
 
-        public DetalleVentaArticulo(long id, long idVenta, long idArticulo, float precioUnitario, int cantidad) {
+        public DetalleVentaArticulo(long id, long idVenta, long idArticulo, decimal precioUnitario, int cantidad) {
             Id = id;
             IdVenta = idVenta;
             IdArticulo = idArticulo;
@@ -16,7 +16,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public long Id { get; set; }
         public long IdVenta { get; set; }
         public long IdArticulo { get; set; }
-        public float PrecioUnitario { get; set; }
+        public decimal PrecioUnitario { get; set; }
         public int Cantidad { get; set; }
     }
 

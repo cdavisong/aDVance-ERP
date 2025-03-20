@@ -1,8 +1,9 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
+
+using System.Globalization;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
     public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IRepositorioVenta {
@@ -11,11 +12,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Venta objeto) {
-            return $"INSERT INTO adv__venta (fecha, id_almacen, id_cliente, total) VALUES ('{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', {objeto.IdAlmacen}, {objeto.IdCliente}, {objeto.Total});";
+            return $"INSERT INTO adv__venta (fecha, id_almacen, id_cliente, total) VALUES ('{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', {objeto.IdAlmacen}, {objeto.IdCliente}, {objeto.Total.ToString(CultureInfo.InvariantCulture)});";
         }
 
         public override string ComandoEditar(Venta objeto) {
-            return $"UPDATE adv__venta SET fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', id_almacen={objeto.IdAlmacen}, id_cliente={objeto.IdCliente}, total={objeto.Total} WHERE id_venta={objeto.Id};";
+            return $"UPDATE adv__venta SET fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', id_almacen={objeto.IdAlmacen}, id_cliente={objeto.IdCliente}, total={objeto.Total.ToString(CultureInfo.InvariantCulture)} WHERE id_venta={objeto.Id};";
         }
 
         public override string ComandoEliminar(long id) {
@@ -52,7 +53,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
                 fecha: lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
                 idAlmacen: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
                 idCliente: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
-                total: lectorDatos.GetFloat(lectorDatos.GetOrdinal("total"))
+                total: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("total"))
             );
         }
 

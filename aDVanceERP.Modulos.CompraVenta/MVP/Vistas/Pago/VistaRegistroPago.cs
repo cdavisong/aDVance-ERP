@@ -8,7 +8,7 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
     public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestionPagos {
         private bool _modoEdicion;
-        private float _total;
+        private decimal _total;
 
         public VistaRegistroPago() {
             InitializeComponent();
@@ -35,9 +35,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
             set => fieldMetodoPago.Text = value;
         }
 
-        public float Monto {
-            get => float.TryParse(fieldMonto.Text, out var total) ? total : 0;
-            set => fieldMonto.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+        public decimal Monto {
+            get => decimal.TryParse(fieldMonto.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total) ? total : 0;
+            set => fieldMonto.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public List<string[]> Pagos { get; private set; }
@@ -61,28 +61,31 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
 
         public IRepositorioVista Vistas { get; private set; }
 
-        public float Total {
+        public decimal Total {
             get => _total;
             set {
                 _total = value;
+
+                if (ModoEdicionDatos)
+                    Suma = value;
 
                 ActualizarPendiente();
             }
         }
 
-        public float Suma {
-            get => float.TryParse(fieldSuma.Text, out var total) ? total : 0;
-            set => fieldSuma.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+        public decimal Suma {
+            get => decimal.TryParse(fieldSuma.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total) ? total : 0;
+            set => fieldSuma.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
-        public float Pendiente {
-            get => float.TryParse(fieldPendiente.Text, out var total) ? total : 0;
-            set => fieldPendiente.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+        public decimal Pendiente {
+            get => decimal.TryParse(fieldPendiente.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total) ? total : 0;
+            set => fieldPendiente.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
-        public float Devolucion {
-            get => float.TryParse(fieldDevolucion.Text, out var total) ? total : 0;
-            set => fieldDevolucion.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+        public decimal Devolucion {
+            get => decimal.TryParse(fieldDevolucion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total) ? total : 0;
+            set => fieldDevolucion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public event EventHandler? EfectuarTransferencia;
@@ -147,12 +150,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
             fieldMetodoPago.SelectedIndex = 0;
         }
 
-        public void AdicionarPago(string metodoPago = "", float monto = -1f) {
+        public void AdicionarPago(string metodoPago = "", decimal monto = -1) {
             var adMetodoPago = string.IsNullOrEmpty(metodoPago) ? MetodoPago : metodoPago;
-            var adMonto = monto < 0f ? Monto : monto;
+            var adMonto = monto < 0 ? Monto : monto;
             var tuplaPago = new string[] {
                     adMetodoPago,
-                    adMonto.ToString("0.00", CultureInfo.InvariantCulture)
+                    adMonto.ToString("N2", CultureInfo.InvariantCulture)
                 };
 
             Pagos.Add(tuplaPago);
@@ -205,10 +208,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
         }
 
         private void ActualizarSuma() {
-            Suma = 0f;
+            Suma = 0;
 
             foreach (var pago in Pagos) {
-                Suma += (float.TryParse(pago[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var pagoParcial) ? pagoParcial : 0);
+                Suma += (decimal.TryParse(pago[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var pagoParcial) ? pagoParcial : 0);
             }
 
             ActualizarPendiente();
@@ -228,7 +231,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
         private void ActualizarDevolucion() {
             var pendiente = Total - Suma;
 
-            Devolucion = pendiente < 0 ? pendiente * -1f : 0f;
+            Devolucion = pendiente < 0 ? pendiente * -1 : 0;
         }
 
         public void Mostrar() {

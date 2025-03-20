@@ -5,7 +5,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         public ArticuloProveedor() {
         }
 
-        public ArticuloProveedor(long id, long idProveedor, float precioAdquisicion, float precioVenta) {
+        public ArticuloProveedor(long id, long idProveedor, decimal precioAdquisicion, decimal precioVenta) {
             Id = id;
             IdProveedor = idProveedor;
             PrecioAdquisicion = precioAdquisicion;
@@ -15,8 +15,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         public long Id { get; set; }
         public long IdArticulo { get; set; }
         public long IdProveedor { get; set; }
-        public float PrecioAdquisicion { get; }
-        public float PrecioVenta { get; }
+        public decimal PrecioAdquisicion { get; }
+        public decimal PrecioVenta { get; }
     }
 
     public enum CriterioBusquedaArticuloProveedor {

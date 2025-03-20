@@ -3,6 +3,8 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
+using System.Globalization;
+
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
     public class DatosPago : RepositorioDatosBase<Pago, CriterioBusquedaPago>, IRepositorioPago {
         public override string ComandoCantidad() {
@@ -10,11 +12,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Pago objeto) {
-            return $"INSERT INTO adv__pago (id_venta, metodo_pago, monto) VALUES ({objeto.IdVenta}, '{objeto.MetodoPago}', {objeto.Monto});";
+            return $"INSERT INTO adv__pago (id_venta, metodo_pago, monto) VALUES ({objeto.IdVenta}, '{objeto.MetodoPago}', {objeto.Monto.ToString(CultureInfo.InvariantCulture)});";
         }
 
         public override string ComandoEditar(Pago objeto) {
-            return $"UPDATE adv__pago SET id_venta={objeto.IdVenta}, metodo_pago='{objeto.MetodoPago}', monto={objeto.Monto} WHERE id_pago={objeto.Id};";
+            return $"UPDATE adv__pago SET id_venta={objeto.IdVenta}, metodo_pago='{objeto.MetodoPago}', monto={objeto.Monto.ToString(CultureInfo.InvariantCulture)} WHERE id_pago={objeto.Id};";
         }
 
         public override string ComandoEliminar(long id) {
@@ -48,7 +50,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
                 id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_pago")),
                 idVenta: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
                 metodoPago: lectorDatos.GetString(lectorDatos.GetOrdinal("metodo_pago")),
-                monto: lectorDatos.GetFloat(lectorDatos.GetOrdinal("monto"))
+                monto: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("monto"))
             );
         }
     }

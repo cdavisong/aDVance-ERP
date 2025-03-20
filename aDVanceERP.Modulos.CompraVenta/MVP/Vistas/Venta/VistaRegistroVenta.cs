@@ -68,9 +68,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             set => fieldCantidad.Text = value > 0 ? value.ToString() : string.Empty;
         }
 
-        public float Total {
-            get => float.TryParse(fieldTotalVenta.Text, out var total) ? total : 0;
-            set => fieldTotalVenta.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+        public decimal Total {
+            get => decimal.TryParse(fieldTotalVenta.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total) ? total : 0;
+            set => fieldTotalVenta.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public bool PagoConfirmado {
@@ -173,33 +173,35 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
             var stockArticulo = await UtilesArticulo.ObtenerStockArticulo(adNombreArticulo, adNombreAlmacen);
 
-            // Verificar ID y stock del artículo
-            if (idArticulo == 0 || stockArticulo == 0) {
-                NombreArticulo = string.Empty;
+            if (!ModoEdicionDatos) {
+                // Verificar ID y stock del artículo
+                if (idArticulo == 0 || stockArticulo == 0) {
+                    NombreArticulo = string.Empty;
 
-                fieldCantidad.Text = string.Empty;
-                fieldNombreArticulo.Focus();
+                    fieldCantidad.Text = string.Empty;
+                    fieldNombreArticulo.Focus();
 
-                return;
-            }
+                    return;
+                }
 
-            // Verificar que la cantidad no exceda el stock del artículo
-            var stockComprometido = Articulos.Where(a => a[0].Equals(idArticulo.ToString()) && a[4].Equals(idAlmacen.ToString())).Sum(a => int.Parse(a[3]));
-            if (int.Parse(adCantidad) + stockComprometido > stockArticulo) {
-                fieldCantidad.ForeColor = Color.Firebrick;
-                fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
+                // Verificar que la cantidad no exceda el stock del artículo
+                var stockComprometido = Articulos.Where(a => a[0].Equals(idArticulo.ToString()) && a[4].Equals(idAlmacen.ToString())).Sum(a => int.Parse(a[3]));
+                if (int.Parse(adCantidad) + stockComprometido > stockArticulo) {
+                    fieldCantidad.ForeColor = Color.Firebrick;
+                    fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
 
-                return;
-            } else {
-                fieldCantidad.ForeColor = Color.Black;
-                fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Regular);
+                    return;
+                } else {
+                    fieldCantidad.ForeColor = Color.Black;
+                    fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Regular);
+                }
             }
 
             var precioUnitarioArticulo = await UtilesArticulo.ObtenerPrecioUnitarioArticulo(idArticulo);
             var tuplaArticulo = new string[] {
                     idArticulo.ToString(),
                     adNombreArticulo,
-                    precioUnitarioArticulo.ToString("0.00", CultureInfo.InvariantCulture),
+                    precioUnitarioArticulo.ToString("N2", CultureInfo.InvariantCulture),
                     adCantidad.ToString(),
                     idAlmacen.ToString()
                 };
@@ -262,16 +264,16 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         }
 
         private void ActualizarTotal() {
-            Total = 0f;
+            Total = 0;
 
             if (Articulos != null)
                 foreach (var articulo in Articulos) {
                     var cantidad = int.TryParse(articulo[3], out var cantArticulos) ? cantArticulos : 0;
 
-                    Total += (float.TryParse(articulo[2], NumberStyles.Float, CultureInfo.InvariantCulture, out var precioUnitario) ? precioUnitario * cantidad : 0);
+                    Total += (decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioUnitario) ? precioUnitario * cantidad : 0);
                 }
 
-            btnEfectuarPago.Enabled = Total > 0f;
+            btnEfectuarPago.Enabled = Total > 0;
         }
 
         public void Mostrar() {

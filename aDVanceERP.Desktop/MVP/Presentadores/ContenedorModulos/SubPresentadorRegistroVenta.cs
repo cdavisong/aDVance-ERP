@@ -7,13 +7,13 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
+using System.Globalization;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorRegistroVenta _registroVentaArticulo;
+        private PresentadorRegistroVenta? _registroVentaArticulo;
 
         public List<string[]>? Articulos { get; private set; } = new List<string[]>();
 
@@ -84,7 +84,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                         0,
                         ultimoIdVenta,
                         long.Parse(articulo[0]),
-                        float.Parse(articulo[2]),
+                        decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioUnitario) ? precioUnitario : 0.00m,
                         int.Parse(articulo[3])
                     );
 

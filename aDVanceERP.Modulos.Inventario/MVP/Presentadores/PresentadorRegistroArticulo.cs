@@ -10,6 +10,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
         }
 
         public override void PopularVistaDesdeObjeto(Articulo objeto) {
+            Vista.ModoEdicionDatos = true;
             Vista.Codigo = objeto.Codigo ?? string.Empty;
             Vista.Nombre = objeto.Nombre ?? string.Empty;
             Vista.Descripcion = objeto.Descripcion ?? string.Empty;

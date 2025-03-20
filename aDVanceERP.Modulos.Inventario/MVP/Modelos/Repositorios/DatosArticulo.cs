@@ -55,8 +55,8 @@
                 nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
                 descripcion: lectorDatos.GetString(lectorDatos.GetOrdinal("descripcion")),
                 idProveedor: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
-                precioAdquisicion: lectorDatos.GetFloat(lectorDatos.GetOrdinal("precio_adquisicion")),
-                precioCesion: lectorDatos.GetFloat(lectorDatos.GetOrdinal("precio_cesion")),
+                precioAdquisicion: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_adquisicion")),
+                precioCesion: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_cesion")),
                 stockMinimo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("stock_minimo")),
                 pedidoMinimo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("pedido_minimo"))
             ) {

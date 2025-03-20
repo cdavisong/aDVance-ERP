@@ -2,6 +2,7 @@
 using PdfSharp.Pdf;
 
 using System.Diagnostics;
+using System.Globalization;
 
 namespace aDVanceERP.Core.Utiles {
     public static class UtilesReportes {
@@ -47,7 +48,7 @@ namespace aDVanceERP.Core.Utiles {
 
             // Agregar filas de datos
             yPoint += 20;
-            float sumaTotal = 0;
+            decimal sumaTotal = 0;
 
             for (int i = 0; i < filas.Count; i++) {
                 var tupla = filas[i];
@@ -55,7 +56,7 @@ namespace aDVanceERP.Core.Utiles {
                 gfx.DrawString((i + 1).ToString(), fontContenido, XBrushes.Black, new XRect(margenIzquierdo, yPoint, pagina.Width, pagina.Height), XStringFormats.TopLeft);
                 gfx.DrawString(tupla[0], fontContenido, XBrushes.Black, new XRect(margenIzquierdo + 100, yPoint, pagina.Width, pagina.Height), XStringFormats.TopLeft);
                 gfx.DrawString(tupla[1], fontContenido, XBrushes.Black, new XRect(margenIzquierdo + 200, yPoint, pagina.Width, pagina.Height), XStringFormats.TopLeft);
-                float total = float.Parse(tupla[2]);
+                decimal total = decimal.TryParse(tupla[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var valorTotal) ? valorTotal : 0.00m;
                 gfx.DrawString($"${total}", fontContenido, XBrushes.Black, new XRect(margenIzquierdo + 300, yPoint, pagina.Width, pagina.Height), XStringFormats.TopLeft);
 
                 sumaTotal += total;

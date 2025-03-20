@@ -3,6 +3,8 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
+using System.Globalization;
+
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
     public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>, IRepositorioCompra {
         public override string ComandoCantidad() {
@@ -10,11 +12,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Compra objeto) {
-            return $"INSERT INTO adv__compra (fecha, id_almacen, id_proveedor, total) VALUES ('{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', {objeto.IdAlmacen}, {objeto.IdProveedor}, {objeto.Total});";
+            return $"INSERT INTO adv__compra (fecha, id_almacen, id_proveedor, total) VALUES ('{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', {objeto.IdAlmacen}, {objeto.IdProveedor}, {objeto.Total.ToString(CultureInfo.InvariantCulture)});";
         }
 
         public override string ComandoEditar(Compra objeto) {
-            return $"UPDATE adv__compra SET fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', id_almacen={objeto.IdAlmacen}, id_proveedor={objeto.IdProveedor}, total={objeto.Total} WHERE id_compra={objeto.Id};";
+            return $"UPDATE adv__compra SET fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', id_almacen={objeto.IdAlmacen}, id_proveedor={objeto.IdProveedor}, total={objeto.Total.ToString(CultureInfo.InvariantCulture)} WHERE id_compra={objeto.Id};";
         }
 
         public override string ComandoEliminar(long id) {
@@ -51,7 +53,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
                 fecha: lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
                 idAlmacen: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
                 idProveedor: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
-                total: lectorDatos.GetFloat(lectorDatos.GetOrdinal("total"))
+                total: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("total"))
             );
         }
 

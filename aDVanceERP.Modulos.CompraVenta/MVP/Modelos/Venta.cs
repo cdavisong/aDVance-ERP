@@ -5,7 +5,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public Venta() {
         }
 
-        public Venta(long id, DateTime fecha, long idAlmacen, long idCliente, float total) {
+        public Venta(long id, DateTime fecha, long idAlmacen, long idCliente, decimal total) {
             Id = id;
             Fecha = fecha;
             IdAlmacen = idAlmacen;
@@ -17,7 +17,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public DateTime Fecha { get; set; }
         public long IdAlmacen { get; set; }
         public long IdCliente { get; set; }
-        public float Total { get; set; }
+        public decimal Total { get; set; }
     }
 
     public enum CriterioBusquedaVenta {

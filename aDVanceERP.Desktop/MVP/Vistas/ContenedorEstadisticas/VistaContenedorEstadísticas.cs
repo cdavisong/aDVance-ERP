@@ -35,7 +35,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas {
         }
 
         public decimal MontoInversionArticulos {
-            get => decimal.TryParse(fieldMontoInversionArticuloss.Text.Remove(1, 2), out var monto) ? monto : 0;
+            get => decimal.TryParse(fieldMontoInversionArticuloss.Text.Remove(1, 2), NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0;
             set => fieldMontoInversionArticuloss.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
         }
 
@@ -45,12 +45,12 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas {
         }
 
         public decimal MontoVentaArticulosVendidos {
-            get => decimal.TryParse(fieldMontoVentaArticulosVendidos.Text.Remove(1, 2), out var monto) ? monto : 0;
+            get => decimal.TryParse(fieldMontoVentaArticulosVendidos.Text.Remove(1, 2), NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0;
             set => fieldMontoVentaArticulosVendidos.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
         }
 
         public decimal MontoGananciaTotalNegocio {
-            get => decimal.TryParse(fieldGananciaTotalNegocio.Text.Remove(1, 2), out var monto) ? monto : 0;
+            get => decimal.TryParse(fieldGananciaTotalNegocio.Text.Remove(1, 2), NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0;
             set => fieldGananciaTotalNegocio.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
         }
         public DatosEstadisticosVentas DatosEstadisticosVentas { 

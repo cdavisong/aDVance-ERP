@@ -1,5 +1,7 @@
 ﻿using aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo.Plantillas;
 
+using System.Globalization;
+
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
     public partial class VistaRegistroArticulo : Form, IVistaRegistroArticulo {
         private bool _modoEdicion;
@@ -44,14 +46,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             set => fieldNombreProveedor.Text = value;
         }
 
-        public float PrecioAdquisicion {
-            get => float.TryParse(fieldPrecioAdquisicion.Text, out var value) ? value : 0;
-            set => fieldPrecioAdquisicion.Text = value.ToString();
+        public decimal PrecioAdquisicion {
+            get => decimal.TryParse(fieldPrecioAdquisicion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : 0;
+            set => fieldPrecioAdquisicion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
-        public float PrecioCesion {
-            get => float.TryParse(fieldPrecioCesion.Text, out var value) ? value : 0;
-            set => fieldPrecioCesion.Text = value.ToString();
+        public decimal PrecioCesion {
+            get => decimal.TryParse(fieldPrecioCesion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : 0;
+            set => fieldPrecioCesion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public int StockMinimo {

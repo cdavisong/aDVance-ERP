@@ -5,6 +5,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
+using System.Globalization;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
@@ -32,7 +33,10 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             InicializarVistaRegistroPago();
 
             if (_registroPago != null) {
-                _registroPago.Vista.Total = float.Parse(sender?.ToString() ?? "0");
+                if (sender is decimal decimalValue)
+                    _registroPago.Vista.Total = decimalValue;
+                else
+                    _registroPago.Vista.Total = 0.00m; // Valor por defecto si la conversión falla                
                 _registroPago.Vista.EfectuarTransferencia += delegate {
                     MostrarVistaRegistroDetallePagoTransferencia(sender, e);
                 };
@@ -46,8 +50,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             InicializarVistaRegistroPago();
 
             if (_registroPago != null && sender is Venta venta) {
-
-                _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta?.Id ?? 0, string.Empty, venta?.Total ?? 0f));
+                _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta?.Id ?? 0, string.Empty, venta?.Total ?? 0));
                 _registroPago.Vista.EfectuarTransferencia += delegate {
                     MostrarVistaEdicionDetallePagoTransferencia(sender, e);
                 };
@@ -69,7 +72,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                         0,
                         ultimoIdVenta,
                         pago[0],
-                        float.Parse(pago[1])
+                        decimal.TryParse(pago[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0.00m
                     ));
                 }
             }

@@ -20,7 +20,7 @@ class Program {
         Console.WriteLine("--------------------------------------------------------------------");
         Console.WriteLine($"Iniciando parche BD versión {version}...\n");
 
-        try {            
+        try {
             CrearTablasNuevas();
             ActualizarTablasExistentes();
             MigrarDatosMotivoATipoMovimiento();
@@ -54,7 +54,7 @@ class Program {
 
             using (MySqlCommand cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion))
                 cmd.ExecuteNonQuery();
-                        
+
             // Crear tabla adv__compra
             string crearTablaCompra = @"
                 CREATE TABLE IF NOT EXISTS adv__compra (
@@ -130,6 +130,33 @@ class Program {
                 cmd.ExecuteNonQuery();
 
             Console.Write(" Migración completada.\n");
+        }
+
+        static void ActualizarColumnasMontosADecimal() {
+            Console.Write("- Actualizando columnas de montos financieros a DECIMAL...");
+
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                // Script para actualizar las columnas a DECIMAL
+                string actualizarColumnas = @"
+                    ALTER TABLE adv__venta MODIFY total DECIMAL(10, 2) NOT NULL;
+                    ALTER TABLE adv__compra MODIFY total DECIMAL(10, 2) NOT NULL;
+                    ALTER TABLE adv__articulo MODIFY precio_adquisicion DECIMAL(10, 2) NOT NULL;
+                    ALTER TABLE adv__articulo MODIFY precio_cesion DECIMAL(10, 2) NOT NULL;
+                    ALTER TABLE adv__detalle_venta_articulo MODIFY precio_unitario DECIMAL(10, 2) NOT NULL;
+                    ALTER TABLE adv__pago MODIFY monto DECIMAL(10, 2) NOT NULL;";
+
+                using (MySqlCommand cmd = new MySqlCommand(actualizarColumnas, conexion)) {
+                    cmd.ExecuteNonQuery();
+                }
+
+                Console.Write(" Columnas actualizadas correctamente.\n");
+            }
         }
     }
 }

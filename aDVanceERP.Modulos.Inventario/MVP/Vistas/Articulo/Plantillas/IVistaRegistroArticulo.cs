@@ -6,8 +6,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo.Plantillas {
         string Nombre { get; set; }
         string Descripcion { get; set; }
         string RazonSocialProveedor { get; set; }
-        float PrecioAdquisicion { get; set; }
-        float PrecioCesion { get; set; }
+        decimal PrecioAdquisicion { get; set; }
+        decimal PrecioCesion { get; set; }
         int StockMinimo { get; set; }
         int PedidoMinimo { get; set; }
 

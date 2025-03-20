@@ -11,7 +11,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
         public PresentadorRegistroPago(IVistaRegistroPago vista) : base(vista) {
         }
 
-        public override void PopularVistaDesdeObjeto(Pago objeto) {
+        public override void PopularVistaDesdeObjeto(Pago objeto) {            
             Vista.Total = objeto.Monto;
             Vista.ModoEdicionDatos = true;
 
@@ -19,7 +19,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
 
             foreach (var pago in pagos) {
                 var pagoSplit = pago.Split(':');
-                ((IVistaGestionPagos) Vista).AdicionarPago(pagoSplit[0], float.Parse(pagoSplit[1], NumberStyles.Float, CultureInfo.InvariantCulture));
+                ((IVistaGestionPagos) Vista).AdicionarPago(pagoSplit[0], decimal.TryParse(pagoSplit[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0.00m);
             }
 
             _objeto = objeto;

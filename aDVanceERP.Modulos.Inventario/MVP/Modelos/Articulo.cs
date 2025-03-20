@@ -5,7 +5,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         public Articulo() {
         }
 
-        public Articulo(long id, string codigo, string nombre, string descripcion, long idProveedor, float precioAdquisicion, float precioCesion, int stockMinimo, int pedidoMinimo) {
+        public Articulo(long id, string codigo, string nombre, string descripcion, long idProveedor, decimal precioAdquisicion, decimal precioCesion, int stockMinimo, int pedidoMinimo) {
             Id = id;
             Codigo = codigo;
             Nombre = nombre;
@@ -22,8 +22,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         public string? Nombre { get; }
         public string? Descripcion { get; set; }
         public long IdProveedor { get; set; }
-        public float PrecioAdquisicion { get; }
-        public float PrecioCesion { get; }
+        public decimal PrecioAdquisicion { get; }
+        public decimal PrecioCesion { get; }
         public int StockMinimo { get; }
         public int PedidoMinimo { get; }
         public string? Stock { get; set; }

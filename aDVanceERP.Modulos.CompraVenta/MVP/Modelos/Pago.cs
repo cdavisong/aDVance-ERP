@@ -5,7 +5,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public Pago() {
         }
 
-        public Pago(long id, long idVenta, string metodoPago, float monto) {
+        public Pago(long id, long idVenta, string metodoPago, decimal monto) {
             Id = id;
             IdVenta = idVenta;
             MetodoPago = metodoPago;
@@ -15,7 +15,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public long Id { get; set; }
         public long IdVenta { get; set; }
         public string? MetodoPago { get; set; }
-        public float Monto { get; set; }
+        public decimal Monto { get; set; }
     }
 
     public enum CriterioBusquedaPago {
