@@ -71,6 +71,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         }
 
         public event EventHandler? RegistrarTipoMovimiento;
+        public event EventHandler? EliminarTipoMovimiento;
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
@@ -86,6 +87,9 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             };
             btnAdicionarTipoMovimiento.Click += delegate (object? sender, EventArgs args) { 
                 RegistrarTipoMovimiento?.Invoke(sender, args);
+            };
+            btnEliminarTipoMovimiento.Click += delegate (object? sender, EventArgs args) {
+                EliminarTipoMovimiento?.Invoke(TipoMovimiento, args);
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (!MovimientoStockCorrecto())

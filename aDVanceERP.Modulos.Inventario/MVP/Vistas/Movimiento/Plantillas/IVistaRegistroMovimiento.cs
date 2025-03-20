@@ -12,6 +12,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas {
         DateTime Fecha { get; set; }
 
         event EventHandler? RegistrarTipoMovimiento;
+        event EventHandler? EliminarTipoMovimiento;
 
         void CargarNombresArticulos(string[] nombresArticulos);
         void CargarNombresAlmacenes(string[] nombresAlmacenes);

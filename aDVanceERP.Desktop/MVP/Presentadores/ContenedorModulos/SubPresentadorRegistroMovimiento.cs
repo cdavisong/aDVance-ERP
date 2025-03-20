@@ -17,6 +17,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroMovimiento.Vista.RegistrarTipoMovimiento += MostrarVistaRegistroTipoMovimiento;
+            _registroMovimiento.Vista.EliminarTipoMovimiento += EliminarTipoMovimiento;
             _registroMovimiento.Salir += async (sender, e) => {
                 if (_gestionMovimientos != null) {
                     await _gestionMovimientos.RefrescarListaObjetos();
