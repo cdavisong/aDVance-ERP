@@ -23,7 +23,9 @@ class Program {
         try {
             CrearTablasNuevas();
             ActualizarTablasExistentes();
+            ActualizarColumnasMontosADecimal();
             MigrarDatosMotivoATipoMovimiento();
+            CorregirVentaIncorrecta();
 
             Console.WriteLine("\nParche aplicado correctamente.");
             Console.ReadLine();
@@ -86,7 +88,14 @@ class Program {
             // Crear tabla adv__tipo_movimiento
             string agregarTipoMovimientoTablaMovimiento = @"
                     ALTER TABLE adv__movimiento
-                    ADD COLUMN id_tipo_movimiento INT;";
+                    ADD COLUMN id_tipo_movimiento INT
+                    WHERE NOT EXISTS (
+                        SELECT 1
+                        FROM INFORMATION_SCHEMA.COLUMNS
+                        WHERE TABLE_SCHEMA = DATABASE()
+                        AND TABLE_NAME = 'adv__movimiento'
+                        AND COLUMN_NAME = 'id_tipo_movimiento'
+                    );";
 
             using (MySqlCommand cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion))
                 cmd.ExecuteNonQuery();
@@ -130,20 +139,21 @@ class Program {
                 cmd.ExecuteNonQuery();
 
             Console.Write(" Migración completada.\n");
-        }
+        }        
+    }
 
-        static void ActualizarColumnasMontosADecimal() {
-            Console.Write("- Actualizando columnas de montos financieros a DECIMAL...");
+    static void ActualizarColumnasMontosADecimal() {
+        Console.Write("- Actualizando columnas de montos financieros a DECIMAL...");
 
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                try {
-                    conexion.Open();
-                } catch (Exception) {
-                    throw new ExcepcionConexionServidorMySQL();
-                }
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            } catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
+            }
 
-                // Script para actualizar las columnas a DECIMAL
-                string actualizarColumnas = @"
+            // Script para actualizar las columnas a DECIMAL
+            string actualizarColumnas = @"
                     ALTER TABLE adv__venta MODIFY total DECIMAL(10, 2) NOT NULL;
                     ALTER TABLE adv__compra MODIFY total DECIMAL(10, 2) NOT NULL;
                     ALTER TABLE adv__articulo MODIFY precio_adquisicion DECIMAL(10, 2) NOT NULL;
@@ -151,12 +161,64 @@ class Program {
                     ALTER TABLE adv__detalle_venta_articulo MODIFY precio_unitario DECIMAL(10, 2) NOT NULL;
                     ALTER TABLE adv__pago MODIFY monto DECIMAL(10, 2) NOT NULL;";
 
-                using (MySqlCommand cmd = new MySqlCommand(actualizarColumnas, conexion)) {
-                    cmd.ExecuteNonQuery();
-                }
-
-                Console.Write(" Columnas actualizadas correctamente.\n");
+            using (MySqlCommand cmd = new MySqlCommand(actualizarColumnas, conexion)) {
+                cmd.ExecuteNonQuery();
             }
+
+            Console.Write(" Columnas actualizadas correctamente.\n");
+        }
+    }
+
+    static void CorregirVentaIncorrecta() {
+        Console.Write("- Corrigiendo venta incorrecta...");
+
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            } catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
+            }
+
+            // Paso 1: Actualizar el precio unitario en adv__detalle_venta_articulo
+            string actualizarPrecioUnitario = @"
+                    UPDATE adv__detalle_venta_articulo
+                    SET precio_unitario = 7700.00
+                    WHERE id_detalle_venta_articulo = 3;";
+
+            using (MySqlCommand cmd = new MySqlCommand(actualizarPrecioUnitario, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Paso 2: Actualizar el monto total en adv__venta
+            string actualizarMontoVenta = @"
+                    UPDATE adv__venta
+                    SET total = 77000.00
+                    WHERE id_venta = 3;";
+
+            using (MySqlCommand cmd = new MySqlCommand(actualizarMontoVenta, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Paso 2: Actualizar el monto del pago adv__pago
+            string actualizarMontoPago = @"
+                    UPDATE adv__pago
+                    SET monto = 77000.00
+                    WHERE id_venta = 3;";
+
+            using (MySqlCommand cmd = new MySqlCommand(actualizarMontoPago, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Paso 3: Insertar un nuevo movimiento en adv__movimiento
+            string insertarMovimiento = @"
+                    INSERT INTO adv__movimiento (id_articulo, id_almacen_origen, id_almacen_destino, fecha, cantidad_movida, id_tipo_movimiento)
+                    SELECT dva.id_articulo, 9 AS id_almacen_origen, NULL AS id_almacen_destino, v.fecha, dva.cantidad, tm.id_tipo_movimiento
+                    FROM adv__venta v
+                    JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                    JOIN adv__tipo_movimiento tm ON tm.nombre = 'Venta'
+                    WHERE v.id_venta = 3;";
+
+            using (MySqlCommand cmd = new MySqlCommand(insertarMovimiento, conexion))
+                cmd.ExecuteNonQuery();
+
+            Console.Write(" Corrección completada.\n");
         }
     }
 }
