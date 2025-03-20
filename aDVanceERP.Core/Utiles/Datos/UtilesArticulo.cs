@@ -90,8 +90,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
         public static async Task<string[]> ObtenerNombresArticulos(long idAlmacen) {
             string query = "SELECT a.nombre FROM adv__articulo a JOIN adv__articulo_almacen aa ON a.id_articulo = aa.id_articulo WHERE aa.id_almacen = @IdAlmacen;";
-            var parametros = new MySqlParameter[]
-            {
+            var parametros = new MySqlParameter[] {
                 new MySqlParameter("@IdAlmacen", idAlmacen)
             };
 
@@ -105,9 +104,9 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static async Task<int> ObtenerStockTotalArticulo(long idArticulo) {
-            string query = "SELECT SUM(stock) as stock_total FROM adv__articulo_almacen WHERE id_articulo = @IdArticulo;";
-            var parametros = new MySqlParameter[]
-            {
+            // Usamos COALESCE para devolver 0 si SUM(stock) es NULL
+            string query = "SELECT COALESCE(SUM(stock), 0) as stock_total FROM adv__articulo_almacen WHERE id_articulo = @IdArticulo;";
+            var parametros = new MySqlParameter[] {
                 new MySqlParameter("@IdArticulo", idArticulo)
             };
 
@@ -121,8 +120,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 JOIN adv__articulo ar ON aa.id_articulo = ar.id_articulo 
                 JOIN adv__almacen al ON aa.id_almacen = al.id_almacen 
                 WHERE ar.nombre = @NombreArticulo AND al.nombre = @NombreAlmacen;";
-            var parametros = new MySqlParameter[]
-            {
+            var parametros = new MySqlParameter[]            {
                 new MySqlParameter("@NombreArticulo", nombreArticulo),
                 new MySqlParameter("@NombreAlmacen", nombreAlmacen)
             };
