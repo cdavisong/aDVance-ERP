@@ -46,7 +46,7 @@ class Program {
 
             // Crear tabla adv__tipo_movimiento
             string crearTablaTipoMovimiento = @"
-                    CREATE TABLE adv__tipo_movimiento (
+                    CREATE TABLE IF NOT EXISTS adv__tipo_movimiento (
                         id_tipo_movimiento INT PRIMARY KEY AUTO_INCREMENT,
                         nombre VARCHAR(50) NOT NULL,
                         efecto ENUM('Carga', 'Descarga', 'Transferencia') NOT NULL
@@ -54,8 +54,22 @@ class Program {
 
             using (MySqlCommand cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion))
                 cmd.ExecuteNonQuery();
+                        
+            // Crear tabla adv__compra
+            string crearTablaCompra = @"
+                CREATE TABLE IF NOT EXISTS adv__compra (
+                    id_compra BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    fecha DATETIME NOT NULL,
+                    id_almacen INT(11) NOT NULL,
+                    id_proveedor INT(11) NOT NULL,
+                    total DECIMAL NOT NULL
+                );";
+
+            using (MySqlCommand cmd = new MySqlCommand(crearTablaCompra, conexion))
+                cmd.ExecuteNonQuery();
 
             Console.Write(" Tablas creadas correctamente.\n");
+
         }
     }
 
@@ -72,7 +86,7 @@ class Program {
             // Crear tabla adv__tipo_movimiento
             string agregarTipoMovimientoTablaMovimiento = @"
                     ALTER TABLE adv__movimiento
-ADD                 COLUMN id_tipo_movimiento INT;";
+                    ADD COLUMN id_tipo_movimiento INT;";
 
             using (MySqlCommand cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion))
                 cmd.ExecuteNonQuery();
