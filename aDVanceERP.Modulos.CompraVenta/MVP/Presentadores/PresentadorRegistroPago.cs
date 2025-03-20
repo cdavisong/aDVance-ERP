@@ -19,7 +19,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
 
             foreach (var pago in pagos) {
                 var pagoSplit = pago.Split(':');
-                ((IVistaGestionPagos) Vista).AdicionarPago(pagoSplit[0], float.Parse(pagoSplit[1], NumberStyles.Float, CultureInfo.CurrentCulture));
+                ((IVistaGestionPagos) Vista).AdicionarPago(pagoSplit[0], float.Parse(pagoSplit[1], NumberStyles.Float, CultureInfo.InvariantCulture));
             }
 
             _objeto = objeto;

@@ -172,7 +172,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         }
 
         private void ActualizarMontoVenta() {
-            ValorBrutoVenta = UtilesVenta.ObtenerValorBrutoVentaDia(fieldDatoBusquedaFecha.Value).ToString("0.00", CultureInfo.CurrentCulture); ;
+            ValorBrutoVenta = UtilesVenta.ObtenerValorBrutoVentaDia(fieldDatoBusquedaFecha.Value).ToString("N2", CultureInfo.InvariantCulture); ;
         }
 
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {

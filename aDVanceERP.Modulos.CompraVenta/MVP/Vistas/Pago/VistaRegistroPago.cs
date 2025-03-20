@@ -37,7 +37,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
 
         public float Monto {
             get => float.TryParse(fieldMonto.Text, out var total) ? total : 0;
-            set => fieldMonto.Text = value.ToString("0.00", CultureInfo.CurrentCulture);
+            set => fieldMonto.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         public List<string[]> Pagos { get; private set; }
@@ -72,17 +72,17 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
 
         public float Suma {
             get => float.TryParse(fieldSuma.Text, out var total) ? total : 0;
-            set => fieldSuma.Text = value.ToString("0.00", CultureInfo.CurrentCulture);
+            set => fieldSuma.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         public float Pendiente {
             get => float.TryParse(fieldPendiente.Text, out var total) ? total : 0;
-            set => fieldPendiente.Text = value.ToString("0.00", CultureInfo.CurrentCulture);
+            set => fieldPendiente.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         public float Devolucion {
             get => float.TryParse(fieldDevolucion.Text, out var total) ? total : 0;
-            set => fieldDevolucion.Text = value.ToString("0.00", CultureInfo.CurrentCulture);
+            set => fieldDevolucion.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         public event EventHandler? EfectuarTransferencia;
@@ -152,7 +152,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
             var adMonto = monto < 0f ? Monto : monto;
             var tuplaPago = new string[] {
                     adMetodoPago,
-                    adMonto.ToString("0.00", CultureInfo.CurrentCulture)
+                    adMonto.ToString("0.00", CultureInfo.InvariantCulture)
                 };
 
             Pagos.Add(tuplaPago);
@@ -208,7 +208,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
             Suma = 0f;
 
             foreach (var pago in Pagos) {
-                Suma += (float.TryParse(pago[1], NumberStyles.Float, CultureInfo.CurrentCulture, out var pagoParcial) ? pagoParcial : 0);
+                Suma += (float.TryParse(pago[1], NumberStyles.Float, CultureInfo.InvariantCulture, out var pagoParcial) ? pagoParcial : 0);
             }
 
             ActualizarPendiente();

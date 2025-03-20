@@ -21,7 +21,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
             presentadorTupla.Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
             presentadorTupla.Vista.NombreCliente = string.IsNullOrEmpty(nombreCliente) ? "Anónimo" : nombreCliente;
             presentadorTupla.Vista.CantidadProductos = UtilesVenta.ObtenerCantidadProductosVenta(objeto.Id).ToString();
-            presentadorTupla.Vista.MontoTotal = objeto.Total.ToString("0.00", CultureInfo.CurrentCulture);
+            presentadorTupla.Vista.MontoTotal = objeto.Total.ToString("0.00", CultureInfo.InvariantCulture);
 
             return presentadorTupla;
         }

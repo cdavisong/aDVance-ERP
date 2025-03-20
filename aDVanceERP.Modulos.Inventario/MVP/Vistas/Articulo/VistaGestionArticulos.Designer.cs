@@ -400,19 +400,18 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             // 
             layoutValorBrutoInversion.ColumnCount = 3;
             layoutValorBrutoInversion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutValorBrutoInversion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutValorBrutoInversion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutValorBrutoInversion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             layoutValorBrutoInversion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutValorBrutoInversion.Controls.Add(label1, 0, 0);
             layoutValorBrutoInversion.Controls.Add(fieldValorBrutoInversion, 0, 0);
             layoutValorBrutoInversion.Controls.Add(fieldTituloValorBrutoInversion, 0, 0);
             layoutValorBrutoInversion.Dock = DockStyle.Right;
-            layoutValorBrutoInversion.Location = new Point(922, 0);
+            layoutValorBrutoInversion.Location = new Point(884, 0);
             layoutValorBrutoInversion.Margin = new Padding(0);
             layoutValorBrutoInversion.Name = "layoutValorBrutoInversion";
             layoutValorBrutoInversion.RowCount = 1;
             layoutValorBrutoInversion.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutValorBrutoInversion.Size = new Size(364, 35);
+            layoutValorBrutoInversion.Size = new Size(402, 35);
             layoutValorBrutoInversion.TabIndex = 11;
             layoutValorBrutoInversion.Visible = false;
             // 
@@ -423,7 +422,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             label1.ForeColor = Color.Black;
             label1.ImageAlign = ContentAlignment.MiddleLeft;
             label1.ImeMode = ImeMode.NoControl;
-            label1.Location = new Point(347, 5);
+            label1.Location = new Point(385, 5);
             label1.Margin = new Padding(3, 5, 3, 3);
             label1.Name = "label1";
             label1.Size = new Size(14, 27);
@@ -438,10 +437,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldValorBrutoInversion.ForeColor = Color.Black;
             fieldValorBrutoInversion.ImageAlign = ContentAlignment.MiddleLeft;
             fieldValorBrutoInversion.ImeMode = ImeMode.NoControl;
-            fieldValorBrutoInversion.Location = new Point(249, 5);
+            fieldValorBrutoInversion.Location = new Point(247, 5);
             fieldValorBrutoInversion.Margin = new Padding(15, 5, 3, 3);
             fieldValorBrutoInversion.Name = "fieldValorBrutoInversion";
-            fieldValorBrutoInversion.Size = new Size(92, 27);
+            fieldValorBrutoInversion.Size = new Size(132, 27);
             fieldValorBrutoInversion.TabIndex = 1;
             fieldValorBrutoInversion.Text = "0";
             fieldValorBrutoInversion.TextAlign = ContentAlignment.MiddleRight;
@@ -457,7 +456,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldTituloValorBrutoInversion.Location = new Point(15, 5);
             fieldTituloValorBrutoInversion.Margin = new Padding(15, 5, 3, 3);
             fieldTituloValorBrutoInversion.Name = "fieldTituloValorBrutoInversion";
-            fieldTituloValorBrutoInversion.Size = new Size(216, 27);
+            fieldTituloValorBrutoInversion.Size = new Size(214, 27);
             fieldTituloValorBrutoInversion.TabIndex = 0;
             fieldTituloValorBrutoInversion.Text = "      Valor bruto de la inversión :";
             fieldTituloValorBrutoInversion.TextAlign = ContentAlignment.MiddleLeft;

@@ -102,11 +102,18 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             };
         }
 
-        public void ActualizarIconoStock(bool movPositivo) {
-            if (movPositivo)
-                fieldIcono.BackgroundImage = Resources.load_cargo_20px;
-            else
-                fieldIcono.BackgroundImage = Resources.unload_cargo_20px;
+        public void ActualizarIconoStock(string tipoMovimiento) {
+            switch (tipoMovimiento) {
+                case "Carga":
+                    fieldIcono.BackgroundImage = Resources.load_cargo_20px;
+                    break;
+                case "Descarga":
+                    fieldIcono.BackgroundImage = Resources.unload_cargo_20px;
+                    break;
+                case "Transferencia":
+                    fieldIcono.BackgroundImage = Resources.transfer_20px;
+                    break;
+            }
         }
 
         public void Mostrar() {

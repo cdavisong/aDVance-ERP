@@ -20,17 +20,15 @@ class Program {
         Console.WriteLine("--------------------------------------------------------------------");
         Console.WriteLine($"Iniciando parche BD versión {version}...\n");
 
-        try {
-            // Crear las nuevas tablas
+        try {            
             CrearTablasNuevas();
-
-            // Modificar y actualizar los datos de tablas existentes
             ActualizarTablasExistentes();
+            MigrarDatosMotivoATipoMovimiento();
 
-            Console.WriteLine("Parche aplicado correctamente.");
+            Console.WriteLine("\nParche aplicado correctamente.");
             Console.ReadLine();
         } catch (Exception ex) {
-            Console.WriteLine("Error al aplicar el parche: " + ex.Message);
+            Console.WriteLine("\nError al aplicar el parche: " + ex.Message);
         }
         Console.WriteLine("Presione cualquier tecla para salir.");
         Console.ReadLine();
@@ -46,38 +44,15 @@ class Program {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
-            // Crear tabla adv__modulo
-            string crearTablaModulo = @"
-                    CREATE TABLE IF NOT EXISTS adv__modulo (
-                        id_modulo INT AUTO_INCREMENT PRIMARY KEY,
-                        nombre VARCHAR(100) NOT NULL
+            // Crear tabla adv__tipo_movimiento
+            string crearTablaTipoMovimiento = @"
+                    CREATE TABLE adv__tipo_movimiento (
+                        id_tipo_movimiento INT PRIMARY KEY AUTO_INCREMENT,
+                        nombre VARCHAR(50) NOT NULL,
+                        efecto ENUM('Carga', 'Descarga', 'Transferencia') NOT NULL
                     );";
 
-            using (MySqlCommand cmd = new MySqlCommand(crearTablaModulo, conexion))
-                cmd.ExecuteNonQuery();
-
-
-            // Crear tabla adv__permiso
-            string crearTablaPermiso = @"
-                    CREATE TABLE IF NOT EXISTS adv__permiso (
-                        id_permiso INT AUTO_INCREMENT PRIMARY KEY,
-                        id_modulo INT NOT NULL,
-                        nombre VARCHAR(100) NOT NULL
-                    );";
-
-            using (MySqlCommand cmd = new MySqlCommand(crearTablaPermiso, conexion))
-                cmd.ExecuteNonQuery();
-
-
-            // Crear tabla adv__rol_permiso
-            string crearTablaRolPermiso = @"
-                    CREATE TABLE IF NOT EXISTS adv__rol_permiso (
-                        id_rol_permiso INT AUTO_INCREMENT PRIMARY KEY,
-                        id_rol_usuario INT NOT NULL,
-                        id_permiso INT NOT NULL
-                    );";
-
-            using (MySqlCommand cmd = new MySqlCommand(crearTablaRolPermiso, conexion))
+            using (MySqlCommand cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion))
                 cmd.ExecuteNonQuery();
 
             Console.Write(" Tablas creadas correctamente.\n");
@@ -94,31 +69,53 @@ class Program {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
-            // Verificar si la columna nivel_acceso existe antes de eliminarla
-            string verificarColumna = @"
-                    SELECT COUNT(*)
-                    FROM information_schema.COLUMNS
-                    WHERE TABLE_SCHEMA = DATABASE()
-                    AND TABLE_NAME = 'adv__rol_usuario'
-                    AND COLUMN_NAME = 'nivel_acceso';";
+            // Crear tabla adv__tipo_movimiento
+            string agregarTipoMovimientoTablaMovimiento = @"
+                    ALTER TABLE adv__movimiento
+ADD                 COLUMN id_tipo_movimiento INT;";
 
-            using (MySqlCommand cmd = new MySqlCommand(verificarColumna, conexion)) {
-                int existeColumna = Convert.ToInt32(cmd.ExecuteScalar());
+            using (MySqlCommand cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion))
+                cmd.ExecuteNonQuery();
+        }
+    }
 
-                if (existeColumna > 0) {
-                    // Eliminar la columna nivel_acceso
-                    string eliminarColumna = @"
-                            ALTER TABLE adv__rol_usuario
-                            DROP COLUMN nivel_acceso;";
+    static void MigrarDatosMotivoATipoMovimiento() {
+        Console.Write("- Migrando datos de 'motivo' a 'tipo_movimiento'...");
 
-                    using (MySqlCommand cmdEliminar = new MySqlCommand(eliminarColumna, conexion)) {
-                        cmdEliminar.ExecuteNonQuery();
-                        Console.Write(" Tablas actualizadas correctamente.\n");
-                    }
-                } else {
-                    Console.Write(" La columna nivel_acceso no existe en la tabla adv__rol_usuario.\n");
-                }
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            } catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
             }
+
+            // Paso 1: Insertar los tipos de movimiento en adv__tipo_movimiento
+            string insertarTiposMovimiento = @"
+            INSERT INTO adv__tipo_movimiento (nombre, efecto)
+            VALUES 
+                ('Compra', 'Carga'),
+                ('Venta', 'Descarga'),
+                ('Baja por defecto', 'Descarga'),
+                ('Uso interno', 'Transferencia');";
+
+            using (MySqlCommand cmd = new MySqlCommand(insertarTiposMovimiento, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Paso 2: Actualizar adv__movimiento con id_tipo_movimiento
+            string actualizarMovimientos = @"
+            UPDATE adv__movimiento m
+            JOIN adv__tipo_movimiento tm ON m.motivo = tm.nombre
+            SET m.id_tipo_movimiento = tm.id_tipo_movimiento;";
+
+            using (MySqlCommand cmd = new MySqlCommand(actualizarMovimientos, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Paso 3: Eliminar la columna 'motivo'
+            string eliminarColumnaMotivo = @"ALTER TABLE adv__movimiento DROP COLUMN motivo;";
+            using (MySqlCommand cmd = new MySqlCommand(eliminarColumnaMotivo, conexion))
+                cmd.ExecuteNonQuery();
+
+            Console.Write(" Migración completada.\n");
         }
     }
 }

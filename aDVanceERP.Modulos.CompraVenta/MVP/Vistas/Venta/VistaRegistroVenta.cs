@@ -70,7 +70,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
 
         public float Total {
             get => float.TryParse(fieldTotalVenta.Text, out var total) ? total : 0;
-            set => fieldTotalVenta.Text = value.ToString("0.00", CultureInfo.CurrentCulture);
+            set => fieldTotalVenta.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         public bool PagoConfirmado {
@@ -199,7 +199,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             var tuplaArticulo = new string[] {
                     idArticulo.ToString(),
                     adNombreArticulo,
-                    precioUnitarioArticulo.ToString("0.00", CultureInfo.CurrentCulture),
+                    precioUnitarioArticulo.ToString("0.00", CultureInfo.InvariantCulture),
                     adCantidad.ToString(),
                     idAlmacen.ToString()
                 };
@@ -268,7 +268,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
                 foreach (var articulo in Articulos) {
                     var cantidad = int.TryParse(articulo[3], out var cantArticulos) ? cantArticulos : 0;
 
-                    Total += (float.TryParse(articulo[2], NumberStyles.Float, CultureInfo.CurrentCulture, out var precioUnitario) ? precioUnitario * cantidad : 0);
+                    Total += (float.TryParse(articulo[2], NumberStyles.Float, CultureInfo.InvariantCulture, out var precioUnitario) ? precioUnitario * cantidad : 0);
                 }
 
             btnEfectuarPago.Enabled = Total > 0f;

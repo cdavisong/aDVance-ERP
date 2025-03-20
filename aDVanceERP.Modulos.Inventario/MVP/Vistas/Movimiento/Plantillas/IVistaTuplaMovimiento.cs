@@ -10,6 +10,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas {
         string TipoMovimiento { get; set; }
         string Fecha { get; set; }
 
-        void ActualizarIconoStock(bool movPositivo);
+        void ActualizarIconoStock(string tipoMovimiento);
     }
 }

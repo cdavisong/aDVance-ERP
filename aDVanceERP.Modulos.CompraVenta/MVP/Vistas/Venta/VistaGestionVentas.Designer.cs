@@ -715,19 +715,18 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             layoutValorBrutoVenta.ColumnCount = 3;
             layoutValorBrutoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutValorBrutoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutValorBrutoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutValorBrutoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             layoutValorBrutoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutValorBrutoVenta.Controls.Add(simboloPeso1, 0, 0);
             layoutValorBrutoVenta.Controls.Add(fieldValorBrutoVenta, 0, 0);
             layoutValorBrutoVenta.Controls.Add(fieldTituloValorBrutoVenta, 0, 0);
             layoutValorBrutoVenta.Dock = DockStyle.Right;
-            layoutValorBrutoVenta.Location = new Point(934, 0);
+            layoutValorBrutoVenta.Location = new Point(895, 0);
             layoutValorBrutoVenta.Margin = new Padding(0);
             layoutValorBrutoVenta.Name = "layoutValorBrutoVenta";
             layoutValorBrutoVenta.RowCount = 1;
             layoutValorBrutoVenta.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutValorBrutoVenta.Size = new Size(352, 35);
+            layoutValorBrutoVenta.Size = new Size(391, 35);
             layoutValorBrutoVenta.TabIndex = 9;
             layoutValorBrutoVenta.Visible = false;
             // 
@@ -738,7 +737,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             simboloPeso1.ForeColor = Color.Black;
             simboloPeso1.ImageAlign = ContentAlignment.MiddleLeft;
             simboloPeso1.ImeMode = ImeMode.NoControl;
-            simboloPeso1.Location = new Point(335, 5);
+            simboloPeso1.Location = new Point(374, 5);
             simboloPeso1.Margin = new Padding(3, 5, 3, 3);
             simboloPeso1.Name = "simboloPeso1";
             simboloPeso1.Size = new Size(14, 27);
@@ -753,10 +752,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldValorBrutoVenta.ForeColor = Color.Black;
             fieldValorBrutoVenta.ImageAlign = ContentAlignment.MiddleLeft;
             fieldValorBrutoVenta.ImeMode = ImeMode.NoControl;
-            fieldValorBrutoVenta.Location = new Point(237, 5);
+            fieldValorBrutoVenta.Location = new Point(236, 5);
             fieldValorBrutoVenta.Margin = new Padding(15, 5, 3, 3);
             fieldValorBrutoVenta.Name = "fieldValorBrutoVenta";
-            fieldValorBrutoVenta.Size = new Size(92, 27);
+            fieldValorBrutoVenta.Size = new Size(132, 27);
             fieldValorBrutoVenta.TabIndex = 1;
             fieldValorBrutoVenta.Text = "0";
             fieldValorBrutoVenta.TextAlign = ContentAlignment.MiddleRight;
@@ -772,7 +771,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloValorBrutoVenta.Location = new Point(15, 5);
             fieldTituloValorBrutoVenta.Margin = new Padding(15, 5, 3, 3);
             fieldTituloValorBrutoVenta.Name = "fieldTituloValorBrutoVenta";
-            fieldTituloValorBrutoVenta.Size = new Size(204, 27);
+            fieldTituloValorBrutoVenta.Size = new Size(203, 27);
             fieldTituloValorBrutoVenta.TabIndex = 0;
             fieldTituloValorBrutoVenta.Text = "      Valor bruto de las ventas :";
             fieldTituloValorBrutoVenta.TextAlign = ContentAlignment.MiddleLeft;

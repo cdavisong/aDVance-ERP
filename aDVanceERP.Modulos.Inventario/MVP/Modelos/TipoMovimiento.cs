@@ -4,7 +4,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
     public enum EfectoMovimiento {
         Ninguno,
         Carga,
-        Descarga
+        Descarga,
+        Transferencia
     }
 
     public class TipoMovimiento : IObjetoUnico {

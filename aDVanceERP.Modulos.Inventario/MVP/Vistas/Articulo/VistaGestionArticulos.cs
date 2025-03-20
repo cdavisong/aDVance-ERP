@@ -156,7 +156,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         }
 
         private async void ActualizarMontoInversion() {
-            ValorBrutoInversion = (await UtilesArticulo.ObtenerMontoInvertidoEnArticulos(await UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen))).ToString("0.00", CultureInfo.CurrentCulture);
+            ValorBrutoInversion = (await UtilesArticulo.ObtenerMontoInvertidoEnArticulos(await UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen))).ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
