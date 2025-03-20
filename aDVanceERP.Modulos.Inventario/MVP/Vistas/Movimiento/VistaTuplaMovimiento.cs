@@ -36,12 +36,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
 
         public string NombreAlmacenOrigen {
             get => fieldNombreAlmacenOrigen.Text;
-            set => fieldNombreAlmacenOrigen.Text = value;
+            set => fieldNombreAlmacenOrigen.Text = string.IsNullOrEmpty(value) ? "Ninguno" : value;
         }
 
         public string NombreAlmacenDestino {
             get => fieldNombreAlmacenDestino.Text;
-            set => fieldNombreAlmacenDestino.Text = value;
+            set => fieldNombreAlmacenDestino.Text = string.IsNullOrEmpty(value) ? "Ninguno" : value; 
+            
         }
 
         public string CantidadMovida {
