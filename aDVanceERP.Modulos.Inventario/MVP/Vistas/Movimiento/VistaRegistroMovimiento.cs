@@ -181,7 +181,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
 
         public void Restaurar() {
             NombreArticulo = string.Empty;
-            fieldNombreArticulo.SelectedIndex = -1;
             NombreAlmacenOrigen = string.Empty;
             fieldNombreAlmacenOrigen.SelectedIndex = 0;
             NombreAlmacenDestino = string.Empty;
