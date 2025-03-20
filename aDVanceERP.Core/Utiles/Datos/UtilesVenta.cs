@@ -173,12 +173,18 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
                         if (result != null && result != DBNull.Value) {
                             gananciaTotal = Convert.ToDecimal(result);
+                        } else {
+                            // Si no hay datos, la ganancia es 0
+                            gananciaTotal = 0;
                         }
                     }
-                } catch (MySqlException) {
+                } catch (MySqlException ex) {
+                    // Log del error
+                    Console.WriteLine("Error de MySQL: " + ex.Message);
                     throw new ExcepcionConexionServidorMySQL();
                 } catch (Exception ex) {
-                    //TODO: Capturar cualquier otra excepción inesperada
+                    // Log del error
+                    Console.WriteLine("Error inesperado: " + ex.Message);
                     throw new Exception("Error inesperado al calcular la ganancia total del negocio.", ex);
                 }
             }
