@@ -64,22 +64,67 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
         public IEnumerable<O> Obtener(string? textoComando = "", int limite = 0, int desplazamiento = 0) {
             Objetos.Clear();
             var comando = string.IsNullOrEmpty(textoComando) ? ComandoObtener(default, string.Empty) : textoComando;
+
+            // Agregar LIMIT y OFFSET si es necesario (antes del ;)
+            if (limite > 0) {
+                comando = comando.TrimEnd(';'); // Eliminar el ; si existe
+                comando += $" LIMIT {limite}";
+                if (desplazamiento > 0) {
+                    comando += $" OFFSET {desplazamiento}";
+                }
+                comando += ";"; // Agregar el ; al final
+            }
+
             return EjecutarConsulta(comando, lectorDatos => Objetos.Add(ObtenerObjetoDataReader(lectorDatos)));
         }
 
         public virtual async Task<IEnumerable<O>> ObtenerAsync(string? textoComando = "", int limite = 0, int desplazamiento = 0) {
             Objetos.Clear();
             var comando = string.IsNullOrEmpty(textoComando) ? ComandoObtener(default, string.Empty) : textoComando;
+
+            // Agregar LIMIT y OFFSET si es necesario (antes del ;)
+            if (limite > 0) {
+                comando = comando.TrimEnd(';'); // Eliminar el ; si existe
+                comando += $" LIMIT {limite}";
+                if (desplazamiento > 0) {
+                    comando += $" OFFSET {desplazamiento}";
+                }
+                comando += ";"; // Agregar el ; al final
+            }
+
             return await EjecutarConsultaAsync(comando);
         }
 
         public IEnumerable<O> Obtener(C? criterio, string? dato, int limite = 0, int desplazamiento = 0) {
-            return Obtener(ComandoObtener(criterio, dato));
+            var comando = ComandoObtener(criterio, dato);
+
+            // Agregar LIMIT y OFFSET si es necesario (antes del ;)
+            if (limite > 0) {
+                comando = comando.TrimEnd(';'); // Eliminar el ; si existe
+                comando += $" LIMIT {limite}";
+                if (desplazamiento > 0) {
+                    comando += $" OFFSET {desplazamiento}";
+                }
+                comando += ";"; // Agregar el ; al final
+            }
+
+            return Obtener(comando);
         }
 
         public async Task<IEnumerable<O>> ObtenerAsync(C? criterio, string? dato, int limite = 0, int desplazamiento = 0) {
             Objetos.Clear();
             var comando = ComandoObtener(criterio, dato);
+
+            // Agregar LIMIT y OFFSET si es necesario (antes del ;)
+            if (limite > 0) {
+                comando = comando.TrimEnd(';'); // Eliminar el ; si existe
+                comando += $" LIMIT {limite}";
+                if (desplazamiento > 0) {
+                    comando += $" OFFSET {desplazamiento}";
+                }
+                comando += ";"; // Agregar el ; al final
+            }
+
             return await EjecutarConsultaAsync(comando);
         }
 

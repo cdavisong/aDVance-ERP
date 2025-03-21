@@ -84,16 +84,17 @@ namespace aDVanceERP.Core.MVP.Presentadores {
 
                 VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
-                var objetos = (await DatosObjeto.ObtenerAsync(CriterioBusquedaObjeto, DatoBusquedaObjeto)).ToList();
-                var calculoPaginas = objetos.Count / Vista.TuplasMaximasContenedor;
-                var entero = objetos.Count % Vista.TuplasMaximasContenedor == 0;
+                var cantidadObjetos = DatosObjeto.Cantidad();
+                var calculoPaginas = (int)cantidadObjetos / Vista.TuplasMaximasContenedor;
+                var entero = cantidadObjetos % Vista.TuplasMaximasContenedor == 0;
 
                 Vista.PaginasTotales = calculoPaginas < 1 ? 1 : (entero ? calculoPaginas : calculoPaginas + 1);
 
                 var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
+                var objetos = (await DatosObjeto.ObtenerAsync(CriterioBusquedaObjeto, DatoBusquedaObjeto, Vista.TuplasMaximasContenedor, incremento)).ToList();
 
-                for (var i = 0; i + incremento < objetos.Count && i < Vista.TuplasMaximasContenedor; i++) {
-                    AdicionarTuplaObjeto(objetos[i + incremento]);
+                for (var i = 0; i < objetos.Count && i < Vista.TuplasMaximasContenedor; i++) {
+                    AdicionarTuplaObjeto(objetos[i]);
                 }
             } catch (Exception ex) {
                 //TODO: Manejar la excepción (por ejemplo, mostrar un mensaje al usuario)
