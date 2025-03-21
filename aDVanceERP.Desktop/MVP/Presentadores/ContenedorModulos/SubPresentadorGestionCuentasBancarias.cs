@@ -6,7 +6,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorGestionCuentasBancarias _gestionCuentasBancarias;
 
-        private async void InicializarVistaGestionCuentasBancarias() {
+        private void InicializarVistaGestionCuentasBancarias() {
             _gestionCuentasBancarias = new PresentadorGestionCuentasBancarias(new VistaGestionCuentasBancarias());
             _gestionCuentasBancarias.MostrarQrTupla += MostrarVistaQR;
             _gestionCuentasBancarias.EditarObjeto += MostrarVistaEdicionCuentaBancaria;
@@ -14,10 +14,10 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             
 
             if (Vista.Vistas != null)
-                await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasBancarias", _gestionCuentasBancarias.Vista));
+                Vista.Vistas?.Registrar("vistaGestionCuentasBancarias", _gestionCuentasBancarias.Vista);
         }
 
-        private async void MostrarVistaGestionCuentasBancarias(object? sender, EventArgs e) {
+        private void MostrarVistaGestionCuentasBancarias(object? sender, EventArgs e) {
             if ((_gestionCuentasBancarias?.Vista) == null)
                 return;
 
@@ -25,7 +25,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionCuentasBancarias.Vista.Restaurar();
             _gestionCuentasBancarias.Vista.Mostrar();
 
-            await _gestionCuentasBancarias.RefrescarListaObjetos();
+            _gestionCuentasBancarias.RefrescarListaObjetos();
         }
     }
 }

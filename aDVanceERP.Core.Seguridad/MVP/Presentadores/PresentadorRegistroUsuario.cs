@@ -29,11 +29,11 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
             UsuarioRegistrado?.Invoke("register-user", EventArgs.Empty);
         }
 
-        protected override async Task<CuentaUsuario?> ObtenerObjetoDesdeVista() {
+        protected override CuentaUsuario? ObtenerObjetoDesdeVista() {
             try {
-                if (await UtilesCuentaUsuario.EsTablaCuentasUsuarioVacia()) {
+                if (UtilesCuentaUsuario.EsTablaCuentasUsuarioVacia()) {
                     if (Vista.Password != null)
-                        await UtilesCuentaUsuario.CrearUsuarioAdministrador(Vista.NombreUsuario, Vista.Password);
+                        UtilesCuentaUsuario.CrearUsuarioAdministrador(Vista.NombreUsuario, Vista.Password);
 
                     UsuarioRegistrado?.Invoke("register-admin", EventArgs.Empty);
 

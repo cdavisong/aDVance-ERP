@@ -23,7 +23,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override async Task<RolUsuario?> ObtenerObjetoDesdeVista() {
+        protected override RolUsuario? ObtenerObjetoDesdeVista() {
             return new RolUsuario(_objeto?.Id ?? 0,
                 nombre: Vista.NombreRolUsuario
                 );

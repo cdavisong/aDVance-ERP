@@ -49,7 +49,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         }
 
         private void DisponerModulos(object? sender, EventArgs e) {
-            _contenedorModulos?.Vista.Vistas?.Cerrar(true);
+            _contenedorModulos?.Vista.Vistas?.CerrarVistas();
         }
     }
 }

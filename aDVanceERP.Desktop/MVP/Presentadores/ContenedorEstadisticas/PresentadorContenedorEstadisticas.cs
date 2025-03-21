@@ -11,9 +11,9 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorEstadisticas {
             };
         }
 
-        internal async void RefrescarEstadísticas() {
-            Vista.CantidadArticulosRegistrados = await UtilesArticulo.ObtenerStockTotalArticulos();
-            Vista.MontoInversionArticulos = await UtilesArticulo.ObtenerMontoInvertidoEnArticulos();
+        internal void RefrescarEstadísticas() {
+            Vista.CantidadArticulosRegistrados = UtilesArticulo.ObtenerStockTotalArticulos();
+            Vista.MontoInversionArticulos = UtilesArticulo.ObtenerMontoInvertidoEnArticulos();
             Vista.CantidadArticulosVendidos = UtilesVenta.ObtenerTotalArticulosVendidosHoy();
             Vista.MontoVentaArticulosVendidos = UtilesVenta.ObtenerValorBrutoVentaDia(DateTime.Now);
             Vista.MontoGananciaTotalNegocio = UtilesVenta.ObtenerValorGananciaTotalNegocio();            

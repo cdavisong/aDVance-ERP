@@ -8,20 +8,20 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroArticulo _registroArticulo;
 
-        private async Task InicializarVistaRegistroArticulo() {
+        private void InicializarVistaRegistroArticulo() {
             _registroArticulo = new PresentadorRegistroArticulo(new VistaRegistroArticulo());
             _registroArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
             _registroArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroArticulo.Salir += async (sender, e) => {
+            _registroArticulo.Salir += delegate {
                 if (_gestionArticulos != null) {
-                    await _gestionArticulos.RefrescarListaObjetos();
+                    _gestionArticulos.RefrescarListaObjetos();
                 }
             };
         }
 
-        private async void MostrarVistaRegistroArticulo(object? sender, EventArgs e) {
-            await InicializarVistaRegistroArticulo();
+        private void MostrarVistaRegistroArticulo(object? sender, EventArgs e) {
+            InicializarVistaRegistroArticulo();
 
             if (_registroArticulo != null) {
                 _registroArticulo.Vista.Mostrar();
@@ -30,8 +30,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroArticulo?.Dispose();
         }
 
-        private async void MostrarVistaEdicionArticulo(object? sender, EventArgs e) {
-            await InicializarVistaRegistroArticulo();
+        private void MostrarVistaEdicionArticulo(object? sender, EventArgs e) {
+            InicializarVistaRegistroArticulo();
 
             if (_registroArticulo != null && sender is Articulo articulo) {
                 _registroArticulo.PopularVistaDesdeObjeto(articulo);

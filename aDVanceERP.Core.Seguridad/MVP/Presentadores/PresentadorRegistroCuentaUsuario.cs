@@ -17,14 +17,14 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override async Task<CuentaUsuario?> ObtenerObjetoDesdeVista() {
+        protected override CuentaUsuario? ObtenerObjetoDesdeVista() {
             var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
 
             return new CuentaUsuario(_objeto?.Id ?? 0,
                 nombre: Vista.NombreUsuario,
                 passwordHash: passwordSeguro.hash,
                 passwordSalt: passwordSeguro.salt,
-                idRolUsuario: await UtilesRolUsuario.ObtenerIdRolUsuario(Vista.NombreRolUsuario)
+                idRolUsuario: UtilesRolUsuario.ObtenerIdRolUsuario(Vista.NombreRolUsuario)
                 );
         }
     }

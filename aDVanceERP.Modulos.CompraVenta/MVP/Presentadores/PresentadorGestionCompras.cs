@@ -20,7 +20,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
             presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("dd/MM/yyyy");
             presentadorTupla.Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
             presentadorTupla.Vista.NombreProveedor = string.IsNullOrEmpty(nombreProveedor) ? "Anónimo" : nombreProveedor;
-            presentadorTupla.Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
+            presentadorTupla.Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo) ?? string.Empty;
             presentadorTupla.Vista.CantidadProducto = objeto.Cantidad.ToString();
             presentadorTupla.Vista.MontoTotal = objeto.Total.ToString("N2", CultureInfo.InvariantCulture);
 

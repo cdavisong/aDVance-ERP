@@ -87,12 +87,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
                 Salir?.Invoke("exit", args);
             };
             fieldNombreAlmacen.SelectedIndexChanged += async delegate {
-                var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
+                var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen);
 
-                CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
+                CargarNombresArticulos(UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
             };
             fieldNombreArticulo.TextChanged += delegate {
-                _articuloValido = UtilesArticulo.ObtenerIdArticulo(NombreArticulo).Result != 0;
+                _articuloValido = UtilesArticulo.ObtenerIdArticulo(NombreArticulo) != 0;
 
                 if (_articuloValido)
                     fieldCantidadArticulos.Focus();
@@ -134,7 +134,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
 
         private void ActualizarMontoTotalCompra() {
             if (_articuloValido && Cantidad > 0) {
-                var precioUnitario = UtilesArticulo.ObtenerPrecioUnitarioArticulo(UtilesArticulo.ObtenerIdArticulo(NombreArticulo).Result).Result;
+                var precioUnitario = UtilesArticulo.ObtenerPrecioUnitarioArticulo(UtilesArticulo.ObtenerIdArticulo(NombreArticulo));
 
                 PrecioUnitario = precioUnitario;
                 Total = precioUnitario * Cantidad;                

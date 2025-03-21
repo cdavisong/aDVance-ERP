@@ -17,7 +17,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         public List<string[]>? Articulos { get; private set; } = new List<string[]>();
 
-        private async Task InicializarVistaRegistroVentaArticulo() {
+        private void InicializarVistaRegistroVentaArticulo() {
             try {
                 _registroVentaArticulo = new PresentadorRegistroVenta(new VistaRegistroVenta());
                 _registroVentaArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
@@ -31,9 +31,9 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                     RegistrarPagos();
                     RegistrarTransferencia();
                 };
-                _registroVentaArticulo.Salir += async (sender, e) => {
+                _registroVentaArticulo.Salir += delegate {
                     if (_gestionVentas != null) {
-                        await _gestionVentas.RefrescarListaObjetos();
+                        _gestionVentas.RefrescarListaObjetos();
                     }
                 };
             } catch (ExcepcionConexionServidorMySQL e) {
@@ -42,8 +42,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             
         }
 
-        private async void MostrarVistaRegistroVentaArticulo(object? sender, EventArgs e) {
-            await InicializarVistaRegistroVentaArticulo();
+        private void MostrarVistaRegistroVentaArticulo(object? sender, EventArgs e) {
+            InicializarVistaRegistroVentaArticulo();
 
             if (_registroVentaArticulo != null) {
                 _registroVentaArticulo.Vista.EfectuarPago += delegate {
@@ -57,8 +57,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroVentaArticulo?.Dispose();
         }
 
-        private async void MostrarVistaEdicionVentaArticulo(object? sender, EventArgs e) {
-            await InicializarVistaRegistroVentaArticulo();
+        private void MostrarVistaEdicionVentaArticulo(object? sender, EventArgs e) {
+            InicializarVistaRegistroVentaArticulo();
 
             if (_registroVentaArticulo != null && sender is Venta venta) {
                 _registroVentaArticulo.PopularVistaDesdeObjeto(venta);

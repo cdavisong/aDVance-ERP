@@ -156,7 +156,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         }
 
         private async void ActualizarMontoInversion() {
-            ValorBrutoInversion = (await UtilesArticulo.ObtenerMontoInvertidoEnArticulos(await UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen))).ToString("N2", CultureInfo.InvariantCulture);
+            ValorBrutoInversion = (UtilesArticulo.ObtenerMontoInvertidoEnArticulos(UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen))).ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
@@ -167,6 +167,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         }
 
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+            fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;

@@ -24,13 +24,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override async Task<Articulo?> ObtenerObjetoDesdeVista() {
+        protected override Articulo? ObtenerObjetoDesdeVista() {
             return new Articulo(
                 _objeto?.Id ?? 0,
                 codigo: Vista.Codigo,
                 nombre: Vista.Nombre,
                 descripcion: Vista.Descripcion,
-                idProveedor: await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
+                idProveedor: UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
                 precioAdquisicion: Vista.PrecioAdquisicion,
                 precioCesion: Vista.PrecioCesion,
                 stockMinimo: Vista.StockMinimo,

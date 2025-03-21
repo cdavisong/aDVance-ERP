@@ -159,7 +159,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         }
 
         public void Restaurar() {
-            Vistas.Ocultar(true);
+            Vistas.OcultarVistas();
         }
 
         public void Ocultar() {
@@ -169,7 +169,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         }
 
         public void Cerrar() {
-            Vistas.Cerrar();
+            Vistas.CerrarVistas();
         }
     }
 }

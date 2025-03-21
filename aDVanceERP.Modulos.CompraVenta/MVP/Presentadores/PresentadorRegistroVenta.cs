@@ -25,11 +25,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override async Task<Venta?> ObtenerObjetoDesdeVista() {
+        protected override Venta? ObtenerObjetoDesdeVista() {
             return new Venta(_objeto?.Id ?? 0,
                    fecha: DateTime.Now,
-                   idAlmacen: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
-                   idCliente: await UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),
+                   idAlmacen: UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
+                   idCliente: UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),
                    total: Vista.Total
                );
         }

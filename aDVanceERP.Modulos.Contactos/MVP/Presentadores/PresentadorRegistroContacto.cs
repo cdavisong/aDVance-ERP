@@ -24,7 +24,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override async Task<Contacto?> ObtenerObjetoDesdeVista() {
+        protected override Contacto? ObtenerObjetoDesdeVista() {
             return new Contacto(_objeto?.Id ?? 0,
                     nombre: Vista.Nombre,
                     direccionCorreoElectronico: Vista.CorreoElectronico,

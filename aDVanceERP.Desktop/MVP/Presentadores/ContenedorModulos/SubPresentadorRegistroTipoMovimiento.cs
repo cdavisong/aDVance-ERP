@@ -8,7 +8,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroTipoMovimiento _registroTipoMovimiento;
 
-        private async Task InicializarVistaRegistroTipoMovimiento() {
+        private void InicializarVistaRegistroTipoMovimiento() {
             _registroTipoMovimiento = new PresentadorRegistroTipoMovimiento(new VistaRegistroTipoMovimiento());
             _registroTipoMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroTipoMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
@@ -17,8 +17,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             };
         }
 
-        private async void MostrarVistaRegistroTipoMovimiento(object? sender, EventArgs e) {
-            await InicializarVistaRegistroTipoMovimiento();
+        private void MostrarVistaRegistroTipoMovimiento(object? sender, EventArgs e) {
+            InicializarVistaRegistroTipoMovimiento();
 
             if (_registroTipoMovimiento != null) {
                 _registroTipoMovimiento.Vista.Mostrar();
@@ -28,8 +28,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         /*
-        private async void MostrarVistaEdicionTipoMovimiento(object? sender, EventArgs e) {
-            await InicializarVistaRegistroTipoMovimiento();
+        private void MostrarVistaEdicionTipoMovimiento(object? sender, EventArgs e) {
+            InicializarVistaRegistroTipoMovimiento();
 
             if (_registroTipoMovimiento != null && sender is TipoMovimiento tipoMovimiento) {
                 _registroTipoMovimiento.PopularVistaDesdeObjeto(tipoMovimiento);

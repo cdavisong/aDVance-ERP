@@ -12,7 +12,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
             throw new NotImplementedException();
         }
 
-        protected override async Task<DetallePagoTransferencia?> ObtenerObjetoDesdeVista() {
+        protected override DetallePagoTransferencia? ObtenerObjetoDesdeVista() {
             throw new NotImplementedException();
         }
     }

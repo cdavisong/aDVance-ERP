@@ -8,21 +8,21 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroCuentaUsuario _registroCuentaUsuario;
 
-        private async Task InicializarVistaRegistroCuentaUsuario() {
+        private void InicializarVistaRegistroCuentaUsuario() {
             _registroCuentaUsuario = new PresentadorRegistroCuentaUsuario(new VistaRegistroCuentaUsuario());
             _registroCuentaUsuario.Vista.CargarRolesUsuarios(UtilesRolUsuario.ObtenerNombresRolesUsuarios());
             _registroCuentaUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width); ;
             _registroCuentaUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroCuentaUsuario.Salir += async (sender, e) => {
+            _registroCuentaUsuario.Salir += delegate {
                 if (_gestionCuentasUsuarios != null) {
                     _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
-                    await _gestionCuentasUsuarios.RefrescarListaObjetos();
+                    _gestionCuentasUsuarios.RefrescarListaObjetos();
                 }
             };
         }
 
-        private async void MostrarVistaRegistroCuentaUsuario(object? sender, EventArgs e) {
-            await InicializarVistaRegistroCuentaUsuario();
+        private void MostrarVistaRegistroCuentaUsuario(object? sender, EventArgs e) {
+            InicializarVistaRegistroCuentaUsuario();
 
             if (_registroCuentaUsuario != null) {
                 _registroCuentaUsuario.Vista.Mostrar();
@@ -31,8 +31,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroCuentaUsuario?.Dispose();
         }
 
-        private async void MostrarVistaEdicionCuentaUsuario(object? sender, EventArgs e) {
-            await InicializarVistaRegistroCuentaUsuario();
+        private void MostrarVistaEdicionCuentaUsuario(object? sender, EventArgs e) {
+            InicializarVistaRegistroCuentaUsuario();
 
             if (_registroCuentaUsuario != null && sender is CuentaUsuario cuentaUsuario) {
                 _registroCuentaUsuario.PopularVistaDesdeObjeto(cuentaUsuario);

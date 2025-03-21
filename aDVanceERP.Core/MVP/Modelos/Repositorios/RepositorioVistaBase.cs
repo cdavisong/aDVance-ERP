@@ -4,10 +4,11 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
     public sealed class RepositorioVistaBase : IRepositorioVista {
         private readonly Panel _contenedorVistas;
-        private List<IVista>? _vistas;
+        private Dictionary<string, IVista> _vistas;
 
         public RepositorioVistaBase(Panel contenedorVistas) {
             _contenedorVistas = contenedorVistas ?? throw new ArgumentNullException(nameof(contenedorVistas));
+            _vistas = new Dictionary<string, IVista>();
 
             // Habilitar doble búfer para reducir el flickering
             _contenedorVistas.GetType().GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)?
@@ -16,36 +17,34 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             Inicializar();
         }
 
-        public List<IVista>? Vistas => _vistas;
-        public IVista? VistaActual { get; private set; }
-
         public void Registrar(string nombre, IVista vista, Point coordenadas, Size dimensiones, string modoRedimensionado = "HV") {
+            if (_vistas.ContainsKey(nombre))
+                return; // No registrar si ya existe
+
             SuspendRedraw(); // Suspender el redibujado
 
             try {
                 if (vista is Control control) {
-                    control.Visible = false;
+                    control.Name = nombre;
+                    control.Location = coordenadas;
+                    control.Visible = false;                    
                     control.Tag = modoRedimensionado;
 
                     if (vista is Form vistaForm) {
-                        vistaForm.Name = nombre;
-                        vistaForm.Location = coordenadas;
                         vistaForm.TopLevel = false;
 
                         _contenedorVistas.Controls.Add(vistaForm);
                     } else if (vista is UserControl vistaUserControl) {
-                        vistaUserControl.Name = nombre;
-                        vistaUserControl.Location = coordenadas;
-
                         _contenedorVistas.Controls.Add(vistaUserControl);
                     }
-                    _vistas?.Add(vista);
 
                     AjustarDimensiones(vista, dimensiones, modoRedimensionado);
                 }
             } finally {
                 ResumeRedraw(); // Reanudar el redibujado
             }
+
+            _vistas.Add(nombre, vista);
         }
 
         public void Registrar(string nombre, IVista vista) {
@@ -53,79 +52,88 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
         }
 
         public IVista? Obtener(string nombre) {
-            var controles = _contenedorVistas.Controls.Find(nombre, false);
-            return controles.FirstOrDefault() as IVista;
+            var vista = _vistas[nombre];
+
+            if (vista != null)
+                return vista;
+
+            // Si la vista no existe, se puede lanzar una excepción
+            throw new KeyNotFoundException($"La vista con el nombre '{nombre}' no está registrada.");
         }
 
         public void Inicializar(string nombre = "") {
-            if (string.IsNullOrEmpty(nombre)) {
-                _vistas = new List<IVista>();
-            } else {
+            if (!string.IsNullOrEmpty(nombre))
                 Obtener(nombre)?.Inicializar();
-            }
 
             _contenedorVistas.Resize += ActualizarDimensionesVistas;
         }
 
         public void Mostrar(string nombre) {
             var vista = Obtener(nombre);
-            if (vista != null) {
-                vista.Habilitada = true;
-                vista.Mostrar();
-                VistaActual = vista;
-            }
+
+            if (vista == null)
+                return;
+
+            vista.Habilitada = true;
+            vista.Mostrar();
         }
 
         public void Restaurar(string nombre) {
             var vista = Obtener(nombre);
-            if (vista != null) {
-                vista.Habilitada = true;
-                vista.Restaurar();
-            }
+
+            if (vista == null)
+                return;
+
+            vista.Habilitada = true;
+            vista.Restaurar();
         }
 
-        public void Ocultar(bool ocultarTodo = false) {
+        public void OcultarVista(string nombre) {
+            var vista = Obtener(nombre);
+
+            if (vista == null)
+                return;
+
+            vista.Ocultar();
+            vista.Habilitada = true;
+        }
+
+        public void OcultarVistas() {
             SuspendRedraw(); // Suspender el redibujado
 
             try {
-                if (ocultarTodo) {
-                    foreach (var control in _contenedorVistas.Controls.OfType<IVista>()) {
-                        control.Ocultar();
-                        control.Habilitada = true;
-                    }
-                } else {
-                    if (VistaActual != null) {
-                        VistaActual.Ocultar();
-                        VistaActual.Habilitada = true;
-                    }
+                foreach (var control in _contenedorVistas.Controls.OfType<IVista>()) {
+                    control.Ocultar();
+                    control.Habilitada = true;
                 }
             } finally {
                 ResumeRedraw(); // Reanudar el redibujado
             }
         }
 
-        public void Cerrar(bool cerrarTodo = false) {
-            SuspendRedraw(); // Suspender el redibujado
+        public void CerrarVista(string nombre) {
+            var vista = Obtener(nombre);
+
+            if (vista == null)
+                return;
+
+            vista.Cerrar();
+            (vista as Control)?.Dispose();
+            _vistas.Remove(nombre);
+        }
+
+        public void CerrarVistas() {
+            SuspendRedraw();
 
             try {
-                if (cerrarTodo) {
-                    foreach (var control in _contenedorVistas.Controls.OfType<IVista>().ToList()) {
-                        control.Cerrar();
-                        (control as Control)?.Dispose();
-                    }
-                } else {
-                    VistaActual?.Cerrar();
-                    (VistaActual as Control)?.Dispose();
+                foreach (var control in _contenedorVistas.Controls.OfType<IVista>().ToList()) {
+                    control.Cerrar();
+                    (control as Control)?.Dispose();
+                    _vistas.Remove((control as Control)?.Name);
                 }
             } finally {
                 ResumeRedraw(); // Reanudar el redibujado
             }
-        }
-
-        public async Task CerrarAsync(bool cerrarTodo = false) {
-            await Task.Run(() => {
-                Cerrar(cerrarTodo); // Ejecutar en un hilo secundario
-            });
         }
 
         private void AjustarDimensiones(IVista vista, Size dimensiones, string modoRedimensionado) {
@@ -149,7 +157,9 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             SuspendRedraw(); // Suspender el redibujado
 
             try {
-                foreach (var vista in _vistas.Where(v => !(v is IVistaSubMenu))) {
+                foreach (var vistaKeyValue in _vistas.Where(v => !(v.Value is IVistaSubMenu))) {
+                    var vista = vistaKeyValue.Value;
+
                     if (vista is Control control && control.Tag is string modoRedimensionado) {
                         if (control.InvokeRequired)
                             control.BeginInvoke(new Action(() => { AjustarDimensiones(vista, vista.Dimensiones, modoRedimensionado); }));
@@ -167,6 +177,6 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
 
         private void ResumeRedraw() {
             _contenedorVistas.ResumeLayout();
-        }
+        }        
     }
 }

@@ -6,17 +6,17 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorGestionVentas _gestionVentas;
 
-        private async void InicializarVistaGestionVentas() {
+        private void InicializarVistaGestionVentas() {
             _gestionVentas = new PresentadorGestionVentas(new VistaGestionVentas());
             _gestionVentas.EditarObjeto += MostrarVistaEdicionVentaArticulo;
             _gestionVentas.Vista.RegistrarDatos += MostrarVistaRegistroVentaArticulo;
             
 
             if (Vista.Vistas != null)
-                await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionVentas", _gestionVentas.Vista));
+                Vista.Vistas?.Registrar("vistaGestionVentas", _gestionVentas.Vista);
         }
 
-        private async void MostrarVistaGestionVentas(object? sender, EventArgs e) {
+        private void MostrarVistaGestionVentas(object? sender, EventArgs e) {
             if ((_gestionVentas?.Vista) == null)
                 return;
 
@@ -24,7 +24,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionVentas.Vista.Restaurar();
             _gestionVentas.Vista.Mostrar();
 
-            await _gestionVentas.RefrescarListaObjetos();
+            _gestionVentas.RefrescarListaObjetos();
         }
     }
 }

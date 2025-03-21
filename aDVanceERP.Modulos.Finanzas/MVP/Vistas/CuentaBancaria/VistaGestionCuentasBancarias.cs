@@ -130,6 +130,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
         }
 
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+            fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;

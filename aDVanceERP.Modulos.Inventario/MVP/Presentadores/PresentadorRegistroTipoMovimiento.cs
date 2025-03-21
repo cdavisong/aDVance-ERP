@@ -16,7 +16,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override async Task<TipoMovimiento?> ObtenerObjetoDesdeVista() {
+        protected override TipoMovimiento? ObtenerObjetoDesdeVista() {
             return new TipoMovimiento(
                 id: _objeto?.Id ?? 0,
                 nombre: Vista.Nombre,
