@@ -2,8 +2,8 @@
 
 using System.ComponentModel;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
-    partial class VistaGestionVentas {
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
+    partial class VistaGestionCompras {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -28,7 +28,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionVentas));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionCompras));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -76,11 +76,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnRegistrar = new Guna2Button();
             layoutEncabezadosTabla = new TableLayoutPanel();
             fieldTituloMonto = new Label();
-            fieldTituloCantidadArticulos = new Label();
+            fieldTituloCantidad = new Label();
             fieldTituloId = new Label();
-            fieldTituloNombreCliente = new Label();
+            fieldTituloNombreProveedor = new Label();
             fieldTituloFecha = new Label();
             fieldTituloAlmacen = new Label();
+            fieldNombreArticulo = new Label();
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
@@ -88,9 +89,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldSubtitulo = new Label();
             contenedorVistas = new Panel();
             layoutControlesTabla = new TableLayoutPanel();
-            layoutValorBrutoVenta = new TableLayoutPanel();
+            layoutValorBrutoCompra = new TableLayoutPanel();
             simboloPeso1 = new Label();
-            fieldValorBrutoVenta = new Label();
+            fieldValorBrutoCompra = new Label();
             fieldTituloValorBrutoVenta = new Label();
             btnPaginaAnterior = new Guna2Button();
             btnPrimeraPagina = new Guna2Button();
@@ -99,9 +100,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnSincronizarDatos = new Guna2Button();
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
-            layoutPago = new TableLayoutPanel();
-            symbolPeso = new Label();
-            fieldTotalVenta = new Label();
             layoutVista.SuspendLayout();
             layoutSeparadores.SuspendLayout();
             layoutHerramientas.SuspendLayout();
@@ -113,8 +111,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutTitulo.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutControlesTabla.SuspendLayout();
-            layoutValorBrutoVenta.SuspendLayout();
-            layoutPago.SuspendLayout();
+            layoutValorBrutoCompra.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -162,7 +159,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(1356, 608);
-            layoutVista.TabIndex = 4;
+            layoutVista.TabIndex = 5;
             // 
             // layoutSeparadores
             // 
@@ -480,15 +477,16 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnRegistrar.Size = new Size(320, 39);
             btnRegistrar.TabIndex = 7;
-            btnRegistrar.Text = "Registrar una nueva venta";
+            btnRegistrar.Text = "Registrar una nueva compra";
             // 
             // layoutEncabezadosTabla
             // 
             layoutEncabezadosTabla.BackColor = Color.WhiteSmoke;
-            layoutEncabezadosTabla.ColumnCount = 10;
+            layoutEncabezadosTabla.ColumnCount = 11;
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
@@ -496,12 +494,13 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutEncabezadosTabla.Controls.Add(fieldTituloMonto, 5, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloCantidadArticulos, 4, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloMonto, 6, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloCantidad, 5, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloNombreCliente, 3, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloNombreProveedor, 3, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloFecha, 1, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloAlmacen, 2, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldNombreArticulo, 4, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
             layoutEncabezadosTabla.Location = new Point(50, 265);
             layoutEncabezadosTabla.Margin = new Padding(0, 0, 0, 2);
@@ -517,7 +516,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloMonto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloMonto.ForeColor = Color.Black;
             fieldTituloMonto.ImeMode = ImeMode.NoControl;
-            fieldTituloMonto.Location = new Point(631, 1);
+            fieldTituloMonto.Location = new Point(851, 1);
             fieldTituloMonto.Margin = new Padding(1);
             fieldTituloMonto.Name = "fieldTituloMonto";
             fieldTituloMonto.Size = new Size(128, 56);
@@ -525,19 +524,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloMonto.Text = "Monto";
             fieldTituloMonto.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloCantidadArticulos
+            // fieldTituloCantidad
             // 
-            fieldTituloCantidadArticulos.Dock = DockStyle.Fill;
-            fieldTituloCantidadArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloCantidadArticulos.ForeColor = Color.Black;
-            fieldTituloCantidadArticulos.ImeMode = ImeMode.NoControl;
-            fieldTituloCantidadArticulos.Location = new Point(521, 1);
-            fieldTituloCantidadArticulos.Margin = new Padding(1);
-            fieldTituloCantidadArticulos.Name = "fieldTituloCantidadArticulos";
-            fieldTituloCantidadArticulos.Size = new Size(108, 56);
-            fieldTituloCantidadArticulos.TabIndex = 15;
-            fieldTituloCantidadArticulos.Text = "Cantidad de artículos";
-            fieldTituloCantidadArticulos.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloCantidad.Dock = DockStyle.Fill;
+            fieldTituloCantidad.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloCantidad.ForeColor = Color.Black;
+            fieldTituloCantidad.ImeMode = ImeMode.NoControl;
+            fieldTituloCantidad.Location = new Point(741, 1);
+            fieldTituloCantidad.Margin = new Padding(1);
+            fieldTituloCantidad.Name = "fieldTituloCantidad";
+            fieldTituloCantidad.Size = new Size(108, 56);
+            fieldTituloCantidad.TabIndex = 15;
+            fieldTituloCantidad.Text = "Cantidad";
+            fieldTituloCantidad.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloId
             // 
@@ -553,19 +552,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloId.Text = "Id";
             fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloNombreCliente
+            // fieldTituloNombreProveedor
             // 
-            fieldTituloNombreCliente.Dock = DockStyle.Fill;
-            fieldTituloNombreCliente.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloNombreCliente.ForeColor = Color.Black;
-            fieldTituloNombreCliente.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreCliente.Location = new Point(301, 1);
-            fieldTituloNombreCliente.Margin = new Padding(1);
-            fieldTituloNombreCliente.Name = "fieldTituloNombreCliente";
-            fieldTituloNombreCliente.Size = new Size(218, 56);
-            fieldTituloNombreCliente.TabIndex = 15;
-            fieldTituloNombreCliente.Text = "Cliente";
-            fieldTituloNombreCliente.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloNombreProveedor.Dock = DockStyle.Fill;
+            fieldTituloNombreProveedor.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloNombreProveedor.ForeColor = Color.Black;
+            fieldTituloNombreProveedor.ImeMode = ImeMode.NoControl;
+            fieldTituloNombreProveedor.Location = new Point(301, 1);
+            fieldTituloNombreProveedor.Margin = new Padding(1);
+            fieldTituloNombreProveedor.Name = "fieldTituloNombreProveedor";
+            fieldTituloNombreProveedor.Size = new Size(218, 56);
+            fieldTituloNombreProveedor.TabIndex = 15;
+            fieldTituloNombreProveedor.Text = "Proveedor";
+            fieldTituloNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloFecha
             // 
@@ -594,6 +593,20 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloAlmacen.TabIndex = 15;
             fieldTituloAlmacen.Text = "Almacén";
             fieldTituloAlmacen.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldNombreArticulo
+            // 
+            fieldNombreArticulo.Dock = DockStyle.Fill;
+            fieldNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldNombreArticulo.ForeColor = Color.Black;
+            fieldNombreArticulo.ImeMode = ImeMode.NoControl;
+            fieldNombreArticulo.Location = new Point(521, 1);
+            fieldNombreArticulo.Margin = new Padding(1);
+            fieldNombreArticulo.Name = "fieldNombreArticulo";
+            fieldNombreArticulo.Size = new Size(218, 56);
+            fieldNombreArticulo.TabIndex = 17;
+            fieldNombreArticulo.Text = "Artículo";
+            fieldNombreArticulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // layoutTitulo
             // 
@@ -640,7 +653,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTitulo.Name = "fieldTitulo";
             fieldTitulo.Size = new Size(1230, 45);
             fieldTitulo.TabIndex = 3;
-            fieldTitulo.Text = "Gestión para ventas";
+            fieldTitulo.Text = "Gestión para compras";
             fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldIcono
@@ -666,7 +679,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldSubtitulo.Name = "fieldSubtitulo";
             fieldSubtitulo.Size = new Size(1280, 39);
             fieldSubtitulo.TabIndex = 2;
-            fieldSubtitulo.Text = "Registro, edición y búsqueda de ventas.";
+            fieldSubtitulo.Text = "Registro, edición y búsqueda de compras.";
             // 
             // contenedorVistas
             // 
@@ -694,7 +707,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutControlesTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
             layoutControlesTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutControlesTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutControlesTabla.Controls.Add(layoutValorBrutoVenta, 12, 0);
+            layoutControlesTabla.Controls.Add(layoutValorBrutoCompra, 12, 0);
             layoutControlesTabla.Controls.Add(btnPaginaAnterior, 1, 0);
             layoutControlesTabla.Controls.Add(btnPrimeraPagina, 0, 0);
             layoutControlesTabla.Controls.Add(btnPaginaSiguiente, 6, 0);
@@ -713,22 +726,22 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             // layoutValorBrutoVenta
             // 
-            layoutValorBrutoVenta.ColumnCount = 3;
-            layoutValorBrutoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutValorBrutoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
-            layoutValorBrutoVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutValorBrutoVenta.Controls.Add(simboloPeso1, 0, 0);
-            layoutValorBrutoVenta.Controls.Add(fieldValorBrutoVenta, 0, 0);
-            layoutValorBrutoVenta.Controls.Add(fieldTituloValorBrutoVenta, 0, 0);
-            layoutValorBrutoVenta.Dock = DockStyle.Right;
-            layoutValorBrutoVenta.Location = new Point(895, 0);
-            layoutValorBrutoVenta.Margin = new Padding(0);
-            layoutValorBrutoVenta.Name = "layoutValorBrutoVenta";
-            layoutValorBrutoVenta.RowCount = 1;
-            layoutValorBrutoVenta.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutValorBrutoVenta.Size = new Size(391, 35);
-            layoutValorBrutoVenta.TabIndex = 9;
-            layoutValorBrutoVenta.Visible = false;
+            layoutValorBrutoCompra.ColumnCount = 3;
+            layoutValorBrutoCompra.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutValorBrutoCompra.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            layoutValorBrutoCompra.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutValorBrutoCompra.Controls.Add(simboloPeso1, 0, 0);
+            layoutValorBrutoCompra.Controls.Add(fieldValorBrutoCompra, 0, 0);
+            layoutValorBrutoCompra.Controls.Add(fieldTituloValorBrutoVenta, 0, 0);
+            layoutValorBrutoCompra.Dock = DockStyle.Right;
+            layoutValorBrutoCompra.Location = new Point(880, 0);
+            layoutValorBrutoCompra.Margin = new Padding(0);
+            layoutValorBrutoCompra.Name = "layoutValorBrutoVenta";
+            layoutValorBrutoCompra.RowCount = 1;
+            layoutValorBrutoCompra.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutValorBrutoCompra.Size = new Size(406, 35);
+            layoutValorBrutoCompra.TabIndex = 9;
+            layoutValorBrutoCompra.Visible = false;
             // 
             // simboloPeso1
             // 
@@ -737,7 +750,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             simboloPeso1.ForeColor = Color.Black;
             simboloPeso1.ImageAlign = ContentAlignment.MiddleLeft;
             simboloPeso1.ImeMode = ImeMode.NoControl;
-            simboloPeso1.Location = new Point(374, 5);
+            simboloPeso1.Location = new Point(389, 5);
             simboloPeso1.Margin = new Padding(3, 5, 3, 3);
             simboloPeso1.Name = "simboloPeso1";
             simboloPeso1.Size = new Size(14, 27);
@@ -747,18 +760,18 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             // fieldValorBrutoVenta
             // 
-            fieldValorBrutoVenta.Dock = DockStyle.Fill;
-            fieldValorBrutoVenta.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldValorBrutoVenta.ForeColor = Color.Black;
-            fieldValorBrutoVenta.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldValorBrutoVenta.ImeMode = ImeMode.NoControl;
-            fieldValorBrutoVenta.Location = new Point(236, 5);
-            fieldValorBrutoVenta.Margin = new Padding(15, 5, 3, 3);
-            fieldValorBrutoVenta.Name = "fieldValorBrutoVenta";
-            fieldValorBrutoVenta.Size = new Size(132, 27);
-            fieldValorBrutoVenta.TabIndex = 1;
-            fieldValorBrutoVenta.Text = "0";
-            fieldValorBrutoVenta.TextAlign = ContentAlignment.MiddleRight;
+            fieldValorBrutoCompra.Dock = DockStyle.Fill;
+            fieldValorBrutoCompra.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldValorBrutoCompra.ForeColor = Color.Black;
+            fieldValorBrutoCompra.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldValorBrutoCompra.ImeMode = ImeMode.NoControl;
+            fieldValorBrutoCompra.Location = new Point(251, 5);
+            fieldValorBrutoCompra.Margin = new Padding(15, 5, 3, 3);
+            fieldValorBrutoCompra.Name = "fieldValorBrutoVenta";
+            fieldValorBrutoCompra.Size = new Size(132, 27);
+            fieldValorBrutoCompra.TabIndex = 1;
+            fieldValorBrutoCompra.Text = "0";
+            fieldValorBrutoCompra.TextAlign = ContentAlignment.MiddleRight;
             // 
             // fieldTituloValorBrutoVenta
             // 
@@ -771,9 +784,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloValorBrutoVenta.Location = new Point(15, 5);
             fieldTituloValorBrutoVenta.Margin = new Padding(15, 5, 3, 3);
             fieldTituloValorBrutoVenta.Name = "fieldTituloValorBrutoVenta";
-            fieldTituloValorBrutoVenta.Size = new Size(203, 27);
+            fieldTituloValorBrutoVenta.Size = new Size(218, 27);
             fieldTituloValorBrutoVenta.TabIndex = 0;
-            fieldTituloValorBrutoVenta.Text = "      Valor bruto de las ventas :";
+            fieldTituloValorBrutoVenta.Text = "      Valor bruto de las compras :";
             fieldTituloValorBrutoVenta.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnPaginaAnterior
@@ -924,52 +937,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldPaginasTotales.Text = "de 1";
             fieldPaginasTotales.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // layoutPago
-            // 
-            layoutPago.ColumnCount = 4;
-            layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutPago.Controls.Add(symbolPeso, 0, 0);
-            layoutPago.Location = new Point(0, 0);
-            layoutPago.Name = "layoutPago";
-            layoutPago.RowCount = 1;
-            layoutPago.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutPago.Size = new Size(200, 100);
-            layoutPago.TabIndex = 0;
-            // 
-            // symbolPeso
-            // 
-            symbolPeso.Dock = DockStyle.Fill;
-            symbolPeso.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            symbolPeso.ForeColor = Color.Black;
-            symbolPeso.ImageAlign = ContentAlignment.MiddleLeft;
-            symbolPeso.ImeMode = ImeMode.NoControl;
-            symbolPeso.Location = new Point(3, 5);
-            symbolPeso.Margin = new Padding(3, 5, 3, 3);
-            symbolPeso.Name = "symbolPeso";
-            symbolPeso.Size = new Size(1, 92);
-            symbolPeso.TabIndex = 2;
-            symbolPeso.Text = "$";
-            symbolPeso.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldTotalVenta
-            // 
-            fieldTotalVenta.Dock = DockStyle.Fill;
-            fieldTotalVenta.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTotalVenta.ForeColor = Color.Black;
-            fieldTotalVenta.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTotalVenta.ImeMode = ImeMode.NoControl;
-            fieldTotalVenta.Location = new Point(15, 5);
-            fieldTotalVenta.Margin = new Padding(15, 5, 3, 3);
-            fieldTotalVenta.Name = "fieldTotalVenta";
-            fieldTotalVenta.Size = new Size(92, 37);
-            fieldTotalVenta.TabIndex = 1;
-            fieldTotalVenta.Text = "0";
-            fieldTotalVenta.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // VistaGestionVentas
+            // VistaGestionCompras
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1356, 608);
@@ -977,11 +945,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
-            Name = "VistaGestionVentas";
+            Name = "VistaGestionCompras";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
-            Text = "VistGestionProveedor";
+            Text = "VistaGestionCompras";
             layoutVista.ResumeLayout(false);
             layoutSeparadores.ResumeLayout(false);
             layoutHerramientas.ResumeLayout(false);
@@ -993,8 +961,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutTitulo.ResumeLayout(false);
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutControlesTabla.ResumeLayout(false);
-            layoutValorBrutoVenta.ResumeLayout(false);
-            layoutPago.ResumeLayout(false);
+            layoutValorBrutoCompra.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1002,14 +969,41 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
 
         private Guna2BorderlessForm formatoBase;
         private TableLayoutPanel layoutVista;
+        private TableLayoutPanel layoutSeparadores;
+        private Guna2Separator separador2;
+        private Guna2Separator separador1;
+        private TableLayoutPanel layoutHerramientas;
+        private TableLayoutPanel layoutCamposReporte;
+        private Guna2Button btnImprimir;
+        private Guna2Button btnDescargar;
+        private Guna2ComboBox fieldFormatoReporte;
+        private Guna2ComboBox fieldCriterioBusqueda;
+        private Panel panelDatosComplementariosBusqueda;
+        private Guna2DateTimePicker fieldDatoBusquedaFecha;
+        private Guna2TextBox fieldDatoBusqueda;
+        private TableLayoutPanel layoutTituloHerramientas;
+        private Label fieldTituloReporte;
+        private Label fieldTituloFiltrosBusqueda;
+        private Panel panelBotonesGestion;
+        private Guna2Button btnRegistrar;
+        private TableLayoutPanel layoutEncabezadosTabla;
+        private Label fieldTituloMonto;
+        private Label fieldTituloCantidad;
+        private Label fieldTituloId;
+        private Label fieldTituloNombreProveedor;
+        private Label fieldTituloFecha;
+        private Label fieldTituloAlmacen;
         private TableLayoutPanel layoutTitulo;
         private Guna2Button btnCerrar;
         private Label fieldTitulo;
         private PictureBox fieldIcono;
         private Label fieldSubtitulo;
-        private Label fieldTituloId;
         private Panel contenedorVistas;
         private TableLayoutPanel layoutControlesTabla;
+        private TableLayoutPanel layoutValorBrutoCompra;
+        private Label simboloPeso1;
+        private Label fieldValorBrutoCompra;
+        private Label fieldTituloValorBrutoVenta;
         private Guna2Button btnPaginaAnterior;
         private Guna2Button btnPrimeraPagina;
         private Guna2Button btnPaginaSiguiente;
@@ -1017,35 +1011,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         private Guna2Button btnSincronizarDatos;
         private Label fieldPaginaActual;
         private Label fieldPaginasTotales;
-        private TableLayoutPanel layoutEncabezadosTabla;
-        private Label fieldTituloAlmacen;
-        private Label fieldTituloNombreCliente;
-        private Label fieldTituloMonto;
-        private Label fieldTituloCantidadArticulos;
-        private Label fieldTituloFecha;
-        private Panel panelBotonesGestion;
-        private Guna2Button btnRegistrar;
-        private TableLayoutPanel layoutTituloHerramientas;
-        private Label fieldTituloFiltrosBusqueda;
-        private TableLayoutPanel layoutHerramientas;
-        private Guna2TextBox fieldDatoBusqueda;
-        private Guna2ComboBox fieldCriterioBusqueda;
-        private Guna2DateTimePicker fieldDatoBusquedaFecha;
-        private Panel panelDatosComplementariosBusqueda;
-        private Label fieldTituloReporte;
-        private TableLayoutPanel layoutSeparadores;
-        private Guna2Separator separador2;
-        private Guna2Separator separador1;
-        private TableLayoutPanel layoutCamposReporte;
-        private Guna2ComboBox fieldFormatoReporte;
-        private Guna2Button btnImprimir;
-        private Guna2Button btnDescargar;
-        private TableLayoutPanel layoutValorBrutoVenta;
-        private Label simboloPeso1;
-        private Label fieldValorBrutoVenta;
-        private Label fieldTituloValorBrutoVenta;
-        private TableLayoutPanel layoutPago;
-        private Label symbolPeso;
-        private Label fieldTotalVenta;
+        private Label fieldNombreArticulo;
     }
 }

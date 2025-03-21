@@ -29,24 +29,24 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaRegistroVenta));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -227,16 +227,16 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges1;
+            btnCerrar.CustomizableEdges = customizableEdges25;
             btnCerrar.Dock = DockStyle.Fill;
-            btnCerrar.FillColor = Color.FromArgb(  248,   244,   242);
+            btnCerrar.FillColor = Color.White;
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(370, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnCerrar.Size = new Size(44, 39);
             btnCerrar.TabIndex = 1;
             // 
@@ -277,7 +277,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnAdicionarArticulo.BorderRadius = 18;
             btnAdicionarArticulo.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnAdicionarArticulo.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAdicionarArticulo.CustomizableEdges = customizableEdges3;
+            btnAdicionarArticulo.CustomizableEdges = customizableEdges19;
             btnAdicionarArticulo.DialogResult = DialogResult.Cancel;
             btnAdicionarArticulo.Dock = DockStyle.Fill;
             btnAdicionarArticulo.Enabled = false;
@@ -287,7 +287,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnAdicionarArticulo.Location = new Point(372, 5);
             btnAdicionarArticulo.Margin = new Padding(5);
             btnAdicionarArticulo.Name = "btnAdicionarArticulo";
-            btnAdicionarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnAdicionarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnAdicionarArticulo.Size = new Size(40, 35);
             btnAdicionarArticulo.TabIndex = 2;
             // 
@@ -297,7 +297,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldCantidad.BorderColor = Color.Gainsboro;
             fieldCantidad.BorderRadius = 16;
             fieldCantidad.Cursor = Cursors.IBeam;
-            fieldCantidad.CustomizableEdges = customizableEdges5;
+            fieldCantidad.CustomizableEdges = customizableEdges21;
             fieldCantidad.DefaultText = "";
             fieldCantidad.DisabledState.BorderColor = Color.Gainsboro;
             fieldCantidad.DisabledState.FillColor = Color.White;
@@ -319,7 +319,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldCantidad.PlaceholderForeColor = Color.DimGray;
             fieldCantidad.PlaceholderText = "Cant.";
             fieldCantidad.SelectedText = "";
-            fieldCantidad.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldCantidad.ShadowDecoration.CustomizableEdges = customizableEdges22;
             fieldCantidad.Size = new Size(85, 35);
             fieldCantidad.TabIndex = 1;
             fieldCantidad.TextAlign = HorizontalAlignment.Right;
@@ -331,7 +331,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreArticulo.BorderColor = Color.Gainsboro;
             fieldNombreArticulo.BorderRadius = 16;
             fieldNombreArticulo.Cursor = Cursors.IBeam;
-            fieldNombreArticulo.CustomizableEdges = customizableEdges7;
+            fieldNombreArticulo.CustomizableEdges = customizableEdges23;
             fieldNombreArticulo.DefaultText = "";
             fieldNombreArticulo.DisabledState.BorderColor = Color.Gainsboro;
             fieldNombreArticulo.DisabledState.FillColor = Color.White;
@@ -351,7 +351,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreArticulo.PlaceholderForeColor = Color.DimGray;
             fieldNombreArticulo.PlaceholderText = "Nombre o identificador";
             fieldNombreArticulo.SelectedText = "";
-            fieldNombreArticulo.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            fieldNombreArticulo.ShadowDecoration.CustomizableEdges = customizableEdges24;
             fieldNombreArticulo.Size = new Size(262, 35);
             fieldNombreArticulo.TabIndex = 0;
             fieldNombreArticulo.TextOffset = new Point(5, 0);
@@ -428,7 +428,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEfectuarPago.BorderRadius = 18;
             btnEfectuarPago.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEfectuarPago.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEfectuarPago.CustomizableEdges = customizableEdges9;
+            btnEfectuarPago.CustomizableEdges = customizableEdges27;
             btnEfectuarPago.DialogResult = DialogResult.Cancel;
             btnEfectuarPago.Dock = DockStyle.Fill;
             btnEfectuarPago.Enabled = false;
@@ -437,7 +437,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEfectuarPago.ForeColor = Color.White;
             btnEfectuarPago.Location = new Point(310, 3);
             btnEfectuarPago.Name = "btnEfectuarPago";
-            btnEfectuarPago.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnEfectuarPago.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnEfectuarPago.Size = new Size(104, 39);
             btnEfectuarPago.TabIndex = 3;
             // 
@@ -594,7 +594,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreCliente.BackColor = Color.Transparent;
             fieldNombreCliente.BorderColor = Color.Gainsboro;
             fieldNombreCliente.BorderRadius = 16;
-            fieldNombreCliente.CustomizableEdges = customizableEdges11;
+            fieldNombreCliente.CustomizableEdges = customizableEdges29;
             fieldNombreCliente.Dock = DockStyle.Fill;
             fieldNombreCliente.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreCliente.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -606,7 +606,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreCliente.Location = new Point(5, 5);
             fieldNombreCliente.Margin = new Padding(5);
             fieldNombreCliente.Name = "fieldNombreCliente";
-            fieldNombreCliente.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            fieldNombreCliente.ShadowDecoration.CustomizableEdges = customizableEdges30;
             fieldNombreCliente.Size = new Size(198, 35);
             fieldNombreCliente.TabIndex = 0;
             fieldNombreCliente.TextOffset = new Point(10, 0);
@@ -617,7 +617,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreAlmacen.BackColor = Color.Transparent;
             fieldNombreAlmacen.BorderColor = Color.Gainsboro;
             fieldNombreAlmacen.BorderRadius = 16;
-            fieldNombreAlmacen.CustomizableEdges = customizableEdges13;
+            fieldNombreAlmacen.CustomizableEdges = customizableEdges31;
             fieldNombreAlmacen.Dock = DockStyle.Fill;
             fieldNombreAlmacen.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreAlmacen.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -629,7 +629,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreAlmacen.Location = new Point(213, 5);
             fieldNombreAlmacen.Margin = new Padding(5);
             fieldNombreAlmacen.Name = "fieldNombreAlmacen";
-            fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges32;
             fieldNombreAlmacen.Size = new Size(199, 35);
             fieldNombreAlmacen.TabIndex = 1;
             fieldNombreAlmacen.TextOffset = new Point(10, 0);
@@ -669,7 +669,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges15;
+            btnSalir.CustomizableEdges = customizableEdges33;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -679,7 +679,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges34;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 1;
             btnSalir.Text = "Cancelar";
@@ -688,7 +688,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges17;
+            btnRegistrar.CustomizableEdges = customizableEdges35;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.Enabled = false;
             btnRegistrar.FillColor = Color.PeachPuff;
@@ -696,7 +696,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges36;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 0;
             btnRegistrar.Text = "Registrar venta";

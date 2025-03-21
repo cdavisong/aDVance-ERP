@@ -42,11 +42,10 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloContactos.Nombre, ModuloContactos.Permisos);
                 UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloFinanzas.Nombre, ModuloFinanzas.Permisos);
                 UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloInventario.Nombre, ModuloInventario.Permisos);
-                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloVentas.Nombre, ModuloVentas.Permisos);
+                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloCompraventa.Nombre, ModuloCompraventa.Permisos);
             } catch (ExcepcionConexionServidorMySQL e) {
                 CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
-            }
-            
+            }            
         }
 
         private void DisponerModulos(object? sender, EventArgs e) {

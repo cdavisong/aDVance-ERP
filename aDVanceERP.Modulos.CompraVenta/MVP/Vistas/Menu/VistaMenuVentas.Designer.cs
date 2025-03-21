@@ -26,6 +26,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuCompraventas));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -35,6 +37,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             fieldTitulo = new Label();
             panelRelleno = new Panel();
             btnVenta = new Guna2Button();
+            btnCompra = new Guna2Button();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
             SuspendLayout();
@@ -64,13 +67,15 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             // layoutDistribucion
             // 
             layoutDistribucion.BackColor = Color.WhiteSmoke;
-            layoutDistribucion.ColumnCount = 3;
+            layoutDistribucion.ColumnCount = 4;
+            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutDistribucion.Controls.Add(btnCompra, 0, 0);
             layoutDistribucion.Controls.Add(fieldTitulo, 0, 0);
-            layoutDistribucion.Controls.Add(panelRelleno, 2, 0);
-            layoutDistribucion.Controls.Add(btnVenta, 1, 0);
+            layoutDistribucion.Controls.Add(panelRelleno, 3, 0);
+            layoutDistribucion.Controls.Add(btnVenta, 2, 0);
             layoutDistribucion.Dock = DockStyle.Fill;
             layoutDistribucion.Location = new Point(0, 0);
             layoutDistribucion.Margin = new Padding(0);
@@ -100,10 +105,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             panelRelleno.BackColor = Color.WhiteSmoke;
             panelRelleno.Dock = DockStyle.Fill;
             panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            panelRelleno.Location = new Point(320, 0);
+            panelRelleno.Location = new Point(480, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
-            panelRelleno.Size = new Size(674, 50);
+            panelRelleno.Size = new Size(514, 50);
             panelRelleno.TabIndex = 0;
             // 
             // btnVenta
@@ -113,24 +118,48 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             btnVenta.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             btnVenta.CheckedState.FillColor = Color.WhiteSmoke;
             btnVenta.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnVenta.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
+            btnVenta.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage1");
             btnVenta.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnVenta.CustomImages.ImageOffset = new Point(0, 32);
             btnVenta.CustomImages.ImageSize = new Size(131, 8);
-            btnVenta.CustomizableEdges = customizableEdges1;
+            btnVenta.CustomizableEdges = customizableEdges3;
             btnVenta.Dock = DockStyle.Fill;
             btnVenta.FillColor = Color.WhiteSmoke;
             btnVenta.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnVenta.ForeColor = Color.Black;
-            btnVenta.Location = new Point(160, 0);
+            btnVenta.Location = new Point(320, 0);
             btnVenta.Margin = new Padding(0);
             btnVenta.Name = "btnVenta";
-            btnVenta.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnVenta.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnVenta.Size = new Size(160, 50);
             btnVenta.TabIndex = 9;
             btnVenta.Text = "Venta";
             // 
-            // VistaMenuVentas
+            // btnCompra
+            // 
+            btnCompra.Animated = true;
+            btnCompra.BackColor = Color.WhiteSmoke;
+            btnCompra.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnCompra.CheckedState.FillColor = Color.WhiteSmoke;
+            btnCompra.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCompra.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
+            btnCompra.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnCompra.CustomImages.ImageOffset = new Point(0, 32);
+            btnCompra.CustomImages.ImageSize = new Size(131, 8);
+            btnCompra.CustomizableEdges = customizableEdges1;
+            btnCompra.Dock = DockStyle.Fill;
+            btnCompra.FillColor = Color.WhiteSmoke;
+            btnCompra.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCompra.ForeColor = Color.Black;
+            btnCompra.Location = new Point(160, 0);
+            btnCompra.Margin = new Padding(0);
+            btnCompra.Name = "btnCompra";
+            btnCompra.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnCompra.Size = new Size(160, 50);
+            btnCompra.TabIndex = 10;
+            btnCompra.Text = "Compra";
+            // 
+            // VistaMenuCompraventas
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(  245,   245,   245);
@@ -139,7 +168,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
-            Name = "VistaMenuVentas";
+            Name = "VistaMenuCompraventas";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
@@ -157,5 +186,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
         private Panel panelRelleno;
         private Label fieldTitulo;
         private Guna2Button btnVenta;
+        private Guna2Button btnCompra;
     }
 }

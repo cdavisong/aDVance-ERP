@@ -4,16 +4,16 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
-    public partial class VistaGestionVentas : Form, IVistaGestionVentas {
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
+    public partial class VistaGestionCompras : Form, IVistaGestionCompras {
         private int _paginaActual = 1;
         private int _paginasTotales = 1;
 
-        public VistaGestionVentas() {
+        public VistaGestionCompras() {
             InitializeComponent();
             Inicializar();
         }
@@ -38,8 +38,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             set => fieldFormatoReporte.Text = value;
         }
 
-        public CriterioBusquedaVenta CriterioBusqueda {
-            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaVenta) fieldCriterioBusqueda.SelectedIndex : default;
+        public CriterioBusquedaCompra CriterioBusqueda {
+            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaCompra) fieldCriterioBusqueda.SelectedIndex : default;
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
@@ -48,11 +48,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             set => fieldDatoBusqueda.Text = value;
         }
 
-        public string ValorBrutoVenta {
-            get => fieldValorBrutoVenta.Text;
+        public string ValorBrutoCompra {
+            get => fieldValorBrutoCompra.Text;
             set {
-                layoutValorBrutoVenta.Visible = !value.Equals("0.00");
-                fieldValorBrutoVenta.Text = value;
+                layoutValorBrutoCompra.Visible = !value.Equals("0.00");
+                fieldValorBrutoCompra.Text = value;
             }
         }
 
@@ -103,20 +103,22 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
 
             // Eventos
             btnDescargar.Click += delegate {
-                var tuplasVentas = contenedorVistas.Controls.OfType<IVistaTuplaVenta>();
+                var tuplasCompras = contenedorVistas.Controls.OfType<IVistaTuplaCompra>();
                 var filas = new List<string[]>();
 
-                foreach (var tuplaVenta in tuplasVentas) {
-                    var fila = new string[3];
+                foreach (var tuplaCompra in tuplasCompras) {
+                    var fila = new string[5];
 
-                    fila[0] = tuplaVenta.NombreAlmacen;
-                    fila[1] = tuplaVenta.CantidadProductos;
-                    fila[2] = tuplaVenta.MontoTotal;
+                    fila[0] = tuplaCompra.NombreAlmacen;
+                    fila[1] = tuplaCompra.NombreProveedor;
+                    fila[2] = tuplaCompra.NombreArticulo;
+                    fila[3] = tuplaCompra.CantidadProducto;
+                    fila[4] = tuplaCompra.MontoTotal;
 
                     filas.Add(fila);
                 }
 
-                UtilesReportes.GenerarReporteVentas(fieldDatoBusquedaFecha.Value, filas);
+                //TODO: Generar el reporte de compras
             };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(DatoBusqueda))
@@ -126,7 +128,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") }, e);
 
-                ActualizarMontoVenta();
+                ActualizarMontoCompra();
             };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
                 Salir?.Invoke(sender, e);
@@ -135,7 +137,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
 
-                ActualizarMontoVenta();
+                ActualizarMontoCompra();
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
                 PaginaActual = 1;
@@ -164,43 +166,43 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) {
                 SincronizarDatos?.Invoke(sender, e);
 
-                ActualizarMontoVenta();
+                ActualizarMontoCompra();
             };
             contenedorVistas.Resize += delegate {
                 AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
             };
         }
 
-        private void ActualizarMontoVenta() {
-            ValorBrutoVenta = UtilesVenta.ObtenerValorBrutoVentaDia(fieldDatoBusquedaFecha.Value).ToString("N2", CultureInfo.InvariantCulture); ;
+        private void ActualizarMontoCompra() {
+            ValorBrutoCompra = UtilesCompra.ObtenerValorBrutoCompraDia(fieldDatoBusquedaFecha.Value).ToString("N2", CultureInfo.InvariantCulture); ;
         }
 
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-                if (CriterioBusqueda == CriterioBusquedaVenta.Fecha) {
+                if (CriterioBusqueda == CriterioBusquedaCompra.Fecha) {
                     fieldDatoBusquedaFecha.Value = DateTime.Now;
                     fieldDatoBusquedaFecha.Focus();
 
-                    ActualizarMontoVenta();
+                    ActualizarMontoCompra();
                 } else {
-                    layoutValorBrutoVenta.Visible = false;
+                    layoutValorBrutoCompra.Visible = false;
 
                     fieldDatoBusqueda.Text = string.Empty;
                     fieldDatoBusqueda.Focus();
                 }
 
-                fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaVenta.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
-                fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaVenta.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
+                fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaCompra.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
+                fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaCompra.Fecha && fieldCriterioBusqueda.SelectedIndex != 0;
 
-                if (CriterioBusqueda != CriterioBusquedaVenta.Fecha)
+                if (CriterioBusqueda != CriterioBusquedaCompra.Fecha)
                     BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
 
                 // Ir a la primera página al cambiar el criterio de búsqueda
                 PaginaActual = 1;
                 HabilitarBotonesPaginacion();
             };
-            fieldCriterioBusqueda.SelectedIndex = 4;
+            fieldCriterioBusqueda.SelectedIndex = 5;
         }
 
         public void Mostrar() {
@@ -212,8 +214,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
 
         private void VerificarPermisos() {
             btnRegistrar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_ADICIONAR")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_TODOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_ADICIONAR")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_TODOS")
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
         }
 
@@ -222,7 +224,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             PaginaActual = 1;
             PaginasTotales = 1;
 
-            fieldCriterioBusqueda.SelectedIndex = 4;
+            fieldCriterioBusqueda.SelectedIndex = 5;
         }
 
         public void Ocultar() {

@@ -22,6 +22,9 @@
         }
 
         public override string ComandoObtener(CriterioBusquedaArticulo criterio, string dato) {
+            if (string.IsNullOrEmpty(dato))
+                dato = "Todos";
+
             string? comando;
             var datoMultiple = dato.Split(';');
             var todosLosAlmacenes = datoMultiple.Length > 1 && datoMultiple[0].Contains("Todos");

@@ -1,0 +1,30 @@
+﻿using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
+
+using System.Globalization;
+
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
+    public class PresentadorGestionCompras : PresentadorGestionBase<PresentadorTuplaCompra, IVistaGestionCompras, IVistaTuplaCompra, Compra, DatosCompra, CriterioBusquedaCompra> {
+        public PresentadorGestionCompras(IVistaGestionCompras vista) : base(vista) {
+        }
+
+        protected override PresentadorTuplaCompra ObtenerValoresTupla(Compra objeto) {
+            var presentadorTupla = new PresentadorTuplaCompra(new VistaTuplaCompra(), objeto);
+            var nombreProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
+
+            presentadorTupla.Vista.Id = objeto.Id.ToString();
+            presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("dd/MM/yyyy");
+            presentadorTupla.Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
+            presentadorTupla.Vista.NombreProveedor = string.IsNullOrEmpty(nombreProveedor) ? "Anónimo" : nombreProveedor;
+            presentadorTupla.Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
+            presentadorTupla.Vista.CantidadProducto = objeto.Cantidad.ToString();
+            presentadorTupla.Vista.MontoTotal = objeto.Total.ToString("N2", CultureInfo.InvariantCulture);
+
+            return presentadorTupla;
+        }
+    }
+}

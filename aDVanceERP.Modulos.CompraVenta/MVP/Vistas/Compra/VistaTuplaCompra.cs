@@ -1,9 +1,9 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
-    public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
-        public VistaTuplaVenta() {
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
+    public partial class VistaTuplaCompra : Form, IVistaTuplaCompra {
+        public VistaTuplaCompra() {
             InitializeComponent();
             Inicializar();
         }
@@ -38,12 +38,17 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             set => fieldNombreAlmacen.Text = value;
         }
 
-        public string NombreCliente {
-            get => fieldNombreCliente.Text;
-            set => fieldNombreCliente.Text = value;
+        public string NombreProveedor {
+            get => fieldNombreProveedor.Text;
+            set => fieldNombreProveedor.Text = value;
         }
 
-        public string CantidadProductos {
+        public string NombreArticulo {
+            get => fieldNombreArticulo.Text;
+            set => fieldNombreArticulo.Text = value;
+        }
+
+        public string CantidadProducto {
             get => fieldCantidadProductos.Text;
             set => fieldCantidadProductos.Text = value;
         }
@@ -74,7 +79,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreAlmacen.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldNombreCliente.Click += delegate (object? sender, EventArgs e) {
+            fieldNombreProveedor.Click += delegate (object? sender, EventArgs e) {
+                TuplaSeleccionada?.Invoke(this, e);
+            };
+            fieldNombreArticulo.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
             fieldCantidadProductos.Click += delegate (object? sender, EventArgs e) {
@@ -100,12 +108,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
 
         private void VerificarPermisos() {
             btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_EDITAR")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_TODOS")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_EDITAR")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_TODOS")
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
             btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_ELIMINAR")
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_TODOS")
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_ELIMINAR")
+               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_TODOS")
                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
         }
 

@@ -64,7 +64,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
 
             // Eventos
             fieldTextoBienvenida.LinkClicked += delegate (object? sender, HtmlLinkClickedEventArgs e) {
-                if (UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(ModuloVentas.Nombre)) {
+                if (UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(ModuloCompraventa.Nombre)) {
                     CambioModulo?.Invoke(sender, e);
                     MostrarMenuVentas?.Invoke(sender, e);
                     btnModuloVentas.Checked = true;
@@ -151,7 +151,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloInventario.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
                 (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloInventario.Nombre) ?? false);
             btnModuloVentas.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
-                (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloVentas.Nombre) ?? false);
+                (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloCompraventa.Nombre) ?? false);
             btnModuloSeguridad.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
 
             BringToFront();

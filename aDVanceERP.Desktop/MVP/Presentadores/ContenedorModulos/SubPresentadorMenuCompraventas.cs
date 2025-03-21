@@ -7,6 +7,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private void InicializarVistaMenuCompraventas() {
             _menuCompraventas = new PresentadorMenuCompraventas(new VistaMenuCompraventas());
+            _menuCompraventas.Vista.VerCompras += MostrarVistaGestionCompras;
             _menuCompraventas.Vista.VerVentas += MostrarVistaGestionVentas;
             _menuCompraventas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
 
@@ -17,7 +18,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _menuCompraventas.Vista.Restaurar();
             _menuCompraventas.Vista.Mostrar();
 
-            _menuCompraventas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 1, e);
+            _menuCompraventas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 2, e);
         }
     }
 }

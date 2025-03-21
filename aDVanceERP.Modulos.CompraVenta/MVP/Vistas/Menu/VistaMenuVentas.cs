@@ -23,6 +23,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             set => Size = value;
         }
 
+        public event EventHandler? VerCompras;
         public event EventHandler? VerVentas;
         public event EventHandler? CambioMenu;
         public event EventHandler? Salir;
@@ -30,8 +31,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
 
         public void Inicializar() {
             // Eventos
-            btnVenta.Click += delegate (object? sender, EventArgs e) {
+            btnCompra.Click += delegate (object? sender, EventArgs e) {
                 PresionarBotonSeleccion(1, e);
+            };
+            btnVenta.Click += delegate (object? sender, EventArgs e) {
+                PresionarBotonSeleccion(2, e);
             };
         }
 
@@ -45,6 +49,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
 
             switch (indice) {
                 case 1:
+                    VerCompras?.Invoke(btnCompra, e);
+                    if (!btnCompra.Checked)
+                        btnCompra.Checked = true;
+                    break;
+                case 2:
                     VerVentas?.Invoke(btnVenta, e);
                     if (!btnVenta.Checked)
                         btnVenta.Checked = true;
@@ -59,9 +68,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
         }
 
         private void VerificarPermisos() {
+            btnCompra.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_COMPRAVENTA_COMPRA")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA");
             btnVenta.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_VENTAS_ARTICULOS")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_VENTAS_TODOS");
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_COMPRAVENTA_VENTA")
+                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
         }
 
         public void Restaurar() {
