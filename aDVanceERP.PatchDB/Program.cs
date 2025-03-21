@@ -24,6 +24,7 @@ class Program {
             CrearTablasNuevas();
             ActualizarTablasExistentes();
             ActualizarColumnasMontosADecimal();
+            EliminarModuloVentasYPermisos();
             MigrarDatosMotivoATipoMovimiento();
             CorregirVentaIncorrecta();
 
@@ -219,6 +220,49 @@ class Program {
                 cmd.ExecuteNonQuery();
 
             Console.Write(" Corrección completada.\n");
+        }
+    }
+
+    static void EliminarModuloVentasYPermisos() {
+        Console.Write("- Eliminando módulo MOD_VENTAS, sus permisos asociados y referencias en roles...");
+
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            } catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
+            }
+
+            // Paso 1: Eliminar las referencias en adv__rol_permiso que apuntan a permisos relacionados con MOD_VENTAS
+            string eliminarReferenciasRoles = @"
+            DELETE FROM adv__rol_permiso
+            WHERE id_permiso IN (
+                SELECT id_permiso FROM adv__permiso WHERE nombre LIKE '%MOD_VENTAS%'
+            );";
+
+            using (MySqlCommand cmd = new MySqlCommand(eliminarReferenciasRoles, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
+
+            // Paso 2: Eliminar los permisos que contienen la frase 'MOD_VENTAS' en su nombre
+            string eliminarPermisosVentas = @"
+            DELETE FROM adv__permiso
+            WHERE nombre LIKE '%MOD_VENTAS%';";
+
+            using (MySqlCommand cmd = new MySqlCommand(eliminarPermisosVentas, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
+
+            // Paso 3: Eliminar el módulo MOD_VENTAS
+            string eliminarModuloVentas = @"
+            DELETE FROM adv__modulo
+            WHERE nombre = 'MOD_VENTAS';";
+
+            using (MySqlCommand cmd = new MySqlCommand(eliminarModuloVentas, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
+
+            Console.Write(" Módulo, permisos y referencias en roles eliminados correctamente.\n");
         }
     }
 }
