@@ -178,7 +178,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
         }
 
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
-            fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 if (CriterioBusqueda == CriterioBusquedaCompra.Fecha) {

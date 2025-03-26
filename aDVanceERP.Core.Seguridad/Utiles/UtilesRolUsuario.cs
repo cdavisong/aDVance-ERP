@@ -7,12 +7,12 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
     public static class UtilesRolUsuario {
         private static readonly Dictionary<long, string[]> _cachePermisosRol = new Dictionary<long, string[]>();
 
-        public static long ObtenerIdRolUsuario(string nombreRolUsuario) {
+        public static async Task<long> ObtenerIdRolUsuario(string nombreRolUsuario) {
             var idRolUsuario = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
@@ -20,8 +20,8 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = $"SELECT id_rol_usuario FROM adv__rol_usuario WHERE nombre='{nombreRolUsuario}';";
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos != null && lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        if (lectorDatos != null && await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             idRolUsuario = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_rol_usuario"));
                         }
                     }
@@ -138,7 +138,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
             return cantidadPermisos;
         }
 
-        public static int VerificarOCrearRolAdministrador() {
+        public static async Task<int> VerificarOCrearRolAdministrador() {
             int rolId = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
@@ -149,14 +149,14 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
                 }
 
                 using (var comando = new MySqlCommand("SELECT id_rol_usuario FROM adv__rol_usuario WHERE nombre = 'Administrador'", conexion)) {
-                    rolId = Convert.ToInt32(comando.ExecuteScalar());
+                    rolId = Convert.ToInt32(await comando.ExecuteScalarAsync());
                 }
 
                 if (rolId == 0) {
                     using (var comando = new MySqlCommand("INSERT INTO adv__rol_usuario (nombre, nivel_acceso) VALUES (@nombre, @nivelAcceso); SELECT LAST_INSERT_ID();", conexion)) {
                         comando.Parameters.AddWithValue("@nombre", "Administrador");
                         comando.Parameters.AddWithValue("@nivelAcceso", 100);
-                        rolId = Convert.ToInt32(comando.ExecuteScalar());
+                        rolId = Convert.ToInt32(await comando.ExecuteScalarAsync());
                     }
                 }
             }

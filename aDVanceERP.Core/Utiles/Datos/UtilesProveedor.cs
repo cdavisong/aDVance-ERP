@@ -4,12 +4,12 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
     public static class UtilesProveedor {
-        public static long ObtenerIdProveedor(string nombreProveedor) {
+        public static async Task<long> ObtenerIdProveedor(string nombreProveedor) {
             var idProveedor = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
-                    conexion.Open();
+                    await conexion.OpenAsync().ConfigureAwait(false);
                 } catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
@@ -17,8 +17,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 using (var comando = conexion.CreateCommand()) {
                     comando.CommandText = $"SELECT id_proveedor FROM adv__proveedor WHERE razon_social='{nombreProveedor}';";
 
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos != null && lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        if (lectorDatos != null && await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             idProveedor = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor"));
                         }
                     }

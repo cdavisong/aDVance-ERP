@@ -11,7 +11,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _menuInventario.Vista.VerMovimientos += MostrarVistaGestionMovimientos;
             _menuInventario.Vista.VerAlmacenes += MostrarVistaGestionAlmacenes;
             _menuInventario.Vista.CambioMenu += delegate { 
-                Vista.Vistas?.OcultarVistas(); 
+                Vista.Vistas?.Ocultar(true); 
             };
 
             VistaPrincipal.Menus.Registrar("vistaMenuInventario", _menuInventario.Vista);

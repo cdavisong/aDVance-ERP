@@ -86,31 +86,22 @@ class Program {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
-            // Verificar si la columna ya existe antes de agregarla
-            string verificarColumnaExistente = @"
-            SELECT COUNT(*)
-            FROM INFORMATION_SCHEMA.COLUMNS
-            WHERE TABLE_SCHEMA = DATABASE()
-            AND TABLE_NAME = 'adv__movimiento'
-            AND COLUMN_NAME = 'id_tipo_movimiento';";
-
-            using (MySqlCommand cmdVerificar = new MySqlCommand(verificarColumnaExistente, conexion)) {
-                int cantidadColumnas = Convert.ToInt32(cmdVerificar.ExecuteScalar());
-
-                if (cantidadColumnas == 0) {
-                    // Si la columna no existe, se agrega
-                    string agregarTipoMovimientoTablaMovimiento = @"
+            // Crear tabla adv__tipo_movimiento
+            string agregarTipoMovimientoTablaMovimiento = @"
                     ALTER TABLE adv__movimiento
-                    ADD COLUMN id_tipo_movimiento INT;";
+                    ADD COLUMN id_tipo_movimiento INT
+                    WHERE NOT EXISTS (
+                        SELECT 1
+                        FROM INFORMATION_SCHEMA.COLUMNS
+                        WHERE TABLE_SCHEMA = DATABASE()
+                        AND TABLE_NAME = 'adv__movimiento'
+                        AND COLUMN_NAME = 'id_tipo_movimiento'
+                    );";
 
-                    using (MySqlCommand cmdAgregar = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion)) {
-                        cmdAgregar.ExecuteNonQuery();
-                    }
-                }
-            }
+            using (MySqlCommand cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion))
+                cmd.ExecuteNonQuery();
         }
     }
-
 
     static void MigrarDatosMotivoATipoMovimiento() {
         Console.Write("- Migrando datos de 'motivo' a 'tipo_movimiento'...");

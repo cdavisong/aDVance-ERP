@@ -22,11 +22,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroRolUsuario.DatosRegistradosActualizados += async delegate  {
                 Permisos = _registroRolUsuario.Vista.Permisos;
 
-                RegistrarEditarPermisosRol(UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario));
+                RegistrarEditarPermisosRol(await UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario));
             };
-            _registroRolUsuario.Salir += delegate {
+            _registroRolUsuario.Salir += async (sender, e) => {
                 if (_gestionRolesUsuarios != null) {
-                    _gestionRolesUsuarios.RefrescarListaObjetos();
+                    await _gestionRolesUsuarios.RefrescarListaObjetos();
                 }
             };
         }

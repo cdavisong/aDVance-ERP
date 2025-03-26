@@ -12,7 +12,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
         }
 
         public override void PopularVistaDesdeObjeto(Movimiento objeto) {
-            Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo) ?? string.Empty;
+            Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
             Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
             Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
             Vista.CantidadMovida = objeto.CantidadMovida;
@@ -23,12 +23,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override Movimiento? ObtenerObjetoDesdeVista() {
+        protected override async Task<Movimiento?> ObtenerObjetoDesdeVista() {
             _movimiento = new Movimiento(
                 id: _objeto?.Id ?? 0,
-                idArticulo: UtilesArticulo.ObtenerIdArticulo(Vista.NombreArticulo),
-                idAlmacenOrigen: UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen),
-                idAlmacenDestino: UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino),
+                idArticulo: await UtilesArticulo.ObtenerIdArticulo(Vista.NombreArticulo),
+                idAlmacenOrigen: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen),
+                idAlmacenDestino: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino),
                 cantidadMovida: Vista.CantidadMovida,
                 idTipoMovimiento: UtilesMovimiento.ObtenerIdTipoMovimiento(Vista.TipoMovimiento),
                 fecha: Vista.Fecha

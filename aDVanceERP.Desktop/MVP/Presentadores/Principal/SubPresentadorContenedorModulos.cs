@@ -8,7 +8,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         private void InicializarVistaContenedorModulos() {
             _contenedorModulos = new PresentadorContenedorModulos(Vista, new VistaContenedorModulos());
             _contenedorModulos.Vista.CambioModulo += delegate {
-                Vista.Menus.OcultarVistas();
+                Vista.Menus.Ocultar(true);
             };
 
             Vista.Vistas?.Registrar("vistaContenedorModulos", _contenedorModulos.Vista);

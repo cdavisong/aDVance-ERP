@@ -9,9 +9,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _menuCompraventas = new PresentadorMenuCompraventas(new VistaMenuCompraventas());
             _menuCompraventas.Vista.VerCompras += MostrarVistaGestionCompras;
             _menuCompraventas.Vista.VerVentas += MostrarVistaGestionVentas;
-            _menuCompraventas.Vista.CambioMenu += delegate { 
-                Vista.Vistas?.OcultarVistas(); 
-            };
+            _menuCompraventas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
 
             VistaPrincipal.Menus.Registrar("vistaMenuCompraventas", _menuCompraventas.Vista);
         }

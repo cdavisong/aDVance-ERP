@@ -129,7 +129,6 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
         }
 
         public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
-            fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;

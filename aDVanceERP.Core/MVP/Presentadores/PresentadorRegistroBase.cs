@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
@@ -25,7 +26,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
 
         public abstract void PopularVistaDesdeObjeto(O objeto);
 
-        protected abstract O? ObtenerObjetoDesdeVista();
+        protected abstract Task<O?> ObtenerObjetoDesdeVista();
 
         protected virtual bool RegistroEdicionDatosAutorizado() {
             return true;
@@ -34,28 +35,28 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         protected virtual void RegistroAuxiliar() { }
 
         protected virtual void RegistrarDatosObjeto(object? sender, EventArgs e) {
-            RegistrarEditarObjetoAsync(sender, e);
+            _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
         }
 
         protected virtual void EditarDatosObjeto(object? sender, EventArgs e) {
-            RegistrarEditarObjetoAsync(sender, e);
+            _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
         }
 
-        private void RegistrarEditarObjetoAsync(object? sender, EventArgs e) {
+        private async Task RegistrarEditarObjetoAsync(object? sender, EventArgs e) {
             if (!RegistroEdicionDatosAutorizado())
                 return;
 
-            _objeto = ObtenerObjetoDesdeVista();
+            _objeto = await ObtenerObjetoDesdeVista();
 
             if (_objeto == null)
                 return;
 
             if (Vista.ModoEdicionDatos && _objeto.Id != 0) {
-                DatosObjeto.Editar(_objeto);
+                await DatosObjeto.EditarAsync(_objeto);
             } else if (_objeto.Id != 0) {
-                DatosObjeto.Editar(_objeto);
+                await DatosObjeto.EditarAsync(_objeto);
             } else {
-                _objeto.Id = DatosObjeto.Adicionar(_objeto);
+                _objeto.Id = await DatosObjeto.AdicionarAsync(_objeto);
             }
 
             RegistroAuxiliar();

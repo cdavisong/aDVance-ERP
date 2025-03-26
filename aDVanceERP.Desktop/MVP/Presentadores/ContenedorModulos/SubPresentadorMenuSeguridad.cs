@@ -9,9 +9,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _menuSeguridad = new PresentadorMenuSeguridad(new VistaMenuSeguridad());
             _menuSeguridad.Vista.VerCuentasUsuarios += MostrarVistaGestionCuentasUsuarios;
             _menuSeguridad.Vista.VerRolesUsuarios += MostrarVistaGestionRolesUsuarios;
-            _menuSeguridad.Vista.CambioMenu += delegate { 
-                Vista.Vistas?.OcultarVistas(); 
-            };
+            _menuSeguridad.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
 
             VistaPrincipal.Menus.Registrar("vistaMenuSeguridad", _menuSeguridad.Vista);
         }

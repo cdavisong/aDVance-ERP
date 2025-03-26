@@ -19,7 +19,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override Almacen? ObtenerObjetoDesdeVista() {
+        protected override async Task<Almacen?> ObtenerObjetoDesdeVista() {
             return new Almacen(
                 idAlmacen: _objeto?.Id ?? 0,
                 nombre: Vista.Nombre,

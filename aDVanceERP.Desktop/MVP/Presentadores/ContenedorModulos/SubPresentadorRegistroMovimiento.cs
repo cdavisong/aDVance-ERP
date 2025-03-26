@@ -10,23 +10,23 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         public string Signo { get; private set; }
 
-        private void InicializarVistaRegistroMovimiento() {
+        private async Task InicializarVistaRegistroMovimiento() {
             _registroMovimiento = new PresentadorRegistroMovimiento(new VistaRegistroMovimiento());
-            _registroMovimiento.Vista.CargarNombresArticulos(UtilesArticulo.ObtenerNombresArticulos());
+            _registroMovimiento.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
             _registroMovimiento.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
             _registroMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroMovimiento.Vista.RegistrarTipoMovimiento += MostrarVistaRegistroTipoMovimiento;
             _registroMovimiento.Vista.EliminarTipoMovimiento += EliminarTipoMovimiento;
-            _registroMovimiento.Salir += delegate {
+            _registroMovimiento.Salir += async (sender, e) => {
                 if (_gestionMovimientos != null) {
-                    _gestionMovimientos.RefrescarListaObjetos();
+                    await _gestionMovimientos.RefrescarListaObjetos();
                 }
             };
         }
 
-        private void InicializarVistaRegistroMovimiento(string signo, string nombreAlmacen) {
-            InicializarVistaRegistroMovimiento();
+        private async Task InicializarVistaRegistroMovimiento(string signo, string nombreAlmacen) {
+            await InicializarVistaRegistroMovimiento();
 
             if (_registroMovimiento != null) {
                 Signo = signo;
@@ -44,19 +44,19 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             }
         }
 
-        private void InicializarVistaRegistroMovimiento(string signo, string nombreAlmacen, Articulo objeto) {
-            InicializarVistaRegistroMovimiento(signo, nombreAlmacen);
+        private async Task InicializarVistaRegistroMovimiento(string signo, string nombreAlmacen, Articulo objeto) {
+            await InicializarVistaRegistroMovimiento(signo, nombreAlmacen);
 
             if (_registroMovimiento != null) {
                 _registroMovimiento.Vista.NombreArticulo = objeto?.Nombre ?? string.Empty;
             }
         }
 
-        private void MostrarVistaRegistroMovimiento(object? sender, EventArgs e) {
+        private async void MostrarVistaRegistroMovimiento(object? sender, EventArgs e) {
             if (sender is object[] datosAlmacenArticulo)
-                InicializarVistaRegistroMovimiento(datosAlmacenArticulo[0].ToString(), datosAlmacenArticulo[1].ToString(), datosAlmacenArticulo[2] as Articulo);
+                await InicializarVistaRegistroMovimiento(datosAlmacenArticulo[0].ToString(), datosAlmacenArticulo[1].ToString(), datosAlmacenArticulo[2] as Articulo);
             else
-                InicializarVistaRegistroMovimiento(string.Empty, string.Empty);
+                await InicializarVistaRegistroMovimiento(string.Empty, string.Empty);
 
             if (_registroMovimiento != null) {
                 _registroMovimiento.Vista.Mostrar();
@@ -65,8 +65,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroMovimiento?.Dispose();
         }
 
-        private void MostrarVistaEdicionMovimiento(object? sender, EventArgs e) {
-            InicializarVistaRegistroMovimiento(string.Empty, string.Empty);
+        private async void MostrarVistaEdicionMovimiento(object? sender, EventArgs e) {
+            await InicializarVistaRegistroMovimiento(string.Empty, string.Empty);
 
             if (_registroMovimiento != null && sender is Movimiento movimiento) {
                 _registroMovimiento.PopularVistaDesdeObjeto(movimiento);

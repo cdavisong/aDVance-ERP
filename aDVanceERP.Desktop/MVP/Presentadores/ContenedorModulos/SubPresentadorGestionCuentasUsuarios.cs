@@ -6,16 +6,16 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorGestionCuentasUsuarios _gestionCuentasUsuarios;
 
-        private void InicializarVistaGestionCuentasUsuarios() {
+        private async void InicializarVistaGestionCuentasUsuarios() {
             _gestionCuentasUsuarios = new PresentadorGestionCuentasUsuarios(new VistaGestionCuentasUsuarios());
             _gestionCuentasUsuarios.EditarObjeto += MostrarVistaEdicionCuentaUsuario;
             _gestionCuentasUsuarios.Vista.RegistrarDatos += MostrarVistaRegistroCuentaUsuario;
             
             if (Vista.Vistas != null)
-                Vista.Vistas?.Registrar("vistaGestionCuentasUsuarios", _gestionCuentasUsuarios.Vista);
+                await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasUsuarios", _gestionCuentasUsuarios.Vista));
         }
 
-        private void MostrarVistaGestionCuentasUsuarios(object? sender, EventArgs e) {
+        private async void MostrarVistaGestionCuentasUsuarios(object? sender, EventArgs e) {
             if ((_gestionCuentasUsuarios?.Vista) == null)
                 return;
 
@@ -23,7 +23,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionCuentasUsuarios.Vista.Restaurar();
             _gestionCuentasUsuarios.Vista.Mostrar();
 
-            _gestionCuentasUsuarios.RefrescarListaObjetos();
+            await _gestionCuentasUsuarios.RefrescarListaObjetos();
         }
     }
 }

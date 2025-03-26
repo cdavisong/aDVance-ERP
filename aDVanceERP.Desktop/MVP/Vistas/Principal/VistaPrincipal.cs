@@ -87,7 +87,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.Principal {
         }
 
         public void Cerrar() {
-            Vistas.CerrarVistas();
+            Vistas.Cerrar(true);
         }
     }
 }

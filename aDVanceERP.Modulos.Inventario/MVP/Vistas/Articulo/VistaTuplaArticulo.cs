@@ -121,7 +121,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
                 MovimientoNegativoStock?.Invoke(NombreAlmacen, e);
             };
             btnEliminar.Click += async delegate (object? sender, EventArgs e) {
-                if (UtilesArticulo.PuedeEliminarArticulo(long.Parse(Id))) {
+                if (await UtilesArticulo.PuedeEliminarArticulo(long.Parse(Id))) {
                     EliminarDatosTupla?.Invoke(this, e); 
                 } else
                     CentroNotificaciones.Mostrar($"No se puede eliminar el artículo {Nombre}, existen registros de movimientos asociados al mismo y podría dañar la integridad y trazabilidad de los datos.", TipoNotificacion.Advertencia);

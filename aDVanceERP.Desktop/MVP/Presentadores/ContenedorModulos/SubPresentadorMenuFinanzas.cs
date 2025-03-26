@@ -8,9 +8,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void InicializarVistaMenuFinanzas() {
             _menuFinanzas = new PresentadorMenuFinanzas(new VistaMenuFinanzas());
             _menuFinanzas.Vista.VerCuentas += MostrarVistaGestionCuentasBancarias;
-            _menuFinanzas.Vista.CambioMenu += delegate { 
-                Vista.Vistas?.OcultarVistas(); 
-            };
+            _menuFinanzas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
 
             VistaPrincipal.Menus.Registrar("vistaMenuFinanzas", _menuFinanzas.Vista);
         }

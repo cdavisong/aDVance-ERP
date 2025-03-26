@@ -19,12 +19,12 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             _objeto = objeto;
         }
 
-        protected override CuentaBancaria? ObtenerObjetoDesdeVista() {
+        protected override async Task<CuentaBancaria?> ObtenerObjetoDesdeVista() {
             return new CuentaBancaria(_objeto?.Id ?? 0,
                     alias: Vista.Alias,
                     numeroTarjeta: Vista.NumeroTarjeta,
                     moneda: (TipoMoneda) Enum.Parse(typeof(TipoMoneda), Vista.Moneda),
-                    idContacto: UtilesContacto.ObtenerIdContacto(Vista.NombrePropietario)
+                    idContacto: await UtilesContacto.ObtenerIdContacto(Vista.NombrePropietario)
                 );
         }
     }

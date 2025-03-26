@@ -11,7 +11,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
         public static CuentaUsuario? UsuarioAutenticado { get; set; } = new();
         public static string[]? PermisosUsuario { get; set; }
 
-        public static bool EsTablaCuentasUsuarioVacia() {
+        public static async Task<bool> EsTablaCuentasUsuarioVacia() {
             bool tablaVacia = false;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
@@ -22,8 +22,8 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
                 }
 
                 using (var comando = new MySqlCommand("SELECT COUNT(*) AS user_count FROM adv__cuenta_usuario", conexion)) {
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos.Read()) {
+                    using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        if (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                             int userCount = lectorDatos.GetInt32(lectorDatos.GetOrdinal("user_count"));
 
                             tablaVacia = userCount == 0;
@@ -35,7 +35,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
             return tablaVacia;
         }
 
-        public static void CrearUsuarioAdministrador(string nombreUsuario, SecureString password) {
+        public static async Task CrearUsuarioAdministrador(string nombreUsuario, SecureString password) {
             var passwordSeguro = UtilesPassword.HashPassword(password);
             var passwordSalt = passwordSeguro.salt;
             var passwordHash = passwordSeguro.hash;
@@ -47,7 +47,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
                     throw new ExcepcionConexionServidorMySQL();
                 }
 
-                var idRolAdministrador = UtilesRolUsuario.VerificarOCrearRolAdministrador();
+                var idRolAdministrador = await UtilesRolUsuario.VerificarOCrearRolAdministrador();
 
                 using (var comando = new MySqlCommand("INSERT INTO adv__cuenta_usuario (nombre, password_hash, password_salt, id_rol_usuario, administrador, aprobado) VALUES (@nombre, @passwordHash, @passwordSalt, @idRolUsuario, @administrador, @aprobado)", conexion)) {
                     comando.Parameters.AddWithValue("@nombre", nombreUsuario);
@@ -57,7 +57,7 @@ namespace aDVanceERP.Core.Seguridad.Utiles {
                     comando.Parameters.AddWithValue("@administrador", true);
                     comando.Parameters.AddWithValue("@aprobado", true);
 
-                    comando.ExecuteNonQuery();
+                    await comando.ExecuteNonQueryAsync();
                 }
             }
         }

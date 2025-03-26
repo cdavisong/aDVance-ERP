@@ -14,7 +14,7 @@ namespace aDVanceERP.Core.MVP.Presentadores.Plantillas {
 
         event EventHandler? EditarObjeto;
 
-        void BusquedaDatos(C criterio, string dato);
-        void RefrescarListaObjetos();
+        Task BusquedaDatos(C criterio, string dato);
+        Task RefrescarListaObjetos();
     }
 }

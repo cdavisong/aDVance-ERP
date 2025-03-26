@@ -60,7 +60,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad {
         }
 
         public void Cerrar() {
-            Vistas?.CerrarVistas();
+            Vistas?.Cerrar();
         }
     }
 }

@@ -7,19 +7,19 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroContacto _registroContacto;
 
-        private void InicializarVistaRegistroContacto() {
+        private async Task InicializarVistaRegistroContacto() {
             _registroContacto = new PresentadorRegistroContacto(new VistaRegistroContacto());
             _registroContacto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroContacto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroContacto.Salir += delegate {
+            _registroContacto.Salir += async (sender, e) => {
                 if (_gestionContactos != null) {
-                    _gestionContactos.RefrescarListaObjetos();
+                    await _gestionContactos.RefrescarListaObjetos();
                 }
             };
         }
 
-        private void MostrarVistaRegistroContacto(object? sender, EventArgs e) {
-            InicializarVistaRegistroContacto();
+        private async void MostrarVistaRegistroContacto(object? sender, EventArgs e) {
+            await InicializarVistaRegistroContacto();
 
             if (_registroContacto != null) {
                 _registroContacto.Vista.Mostrar();
@@ -28,8 +28,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroContacto?.Dispose();
         }
 
-        private void MostrarVistaEdicionContacto(object? sender, EventArgs e) {
-            InicializarVistaRegistroContacto();
+        private async void MostrarVistaEdicionContacto(object? sender, EventArgs e) {
+            await InicializarVistaRegistroContacto();
 
             if (_registroContacto != null && sender is Contacto contacto) {
                 _registroContacto.PopularVistaDesdeObjeto(contacto);

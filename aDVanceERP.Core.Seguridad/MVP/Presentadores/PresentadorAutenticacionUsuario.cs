@@ -19,7 +19,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
         public event EventHandler? UsuarioAutenticado;
         public event EventHandler? MostrarVistaRegistroCuentaUsuario;
 
-        private void AutenticarUsuario(object? sender, EventArgs args) {
+        private async void AutenticarUsuario(object? sender, EventArgs args) {
             if (string.IsNullOrEmpty(Vista.NombreUsuario) || Vista.Password.Length == 0) {
                 CentroNotificaciones.Mostrar("Debe especificar un usuario y contraseña para autenticarse en el sistema. Por favor, rellene los campos correctamente.", TipoNotificacion.Advertencia);
                 
@@ -28,7 +28,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
 
             try {
                 using (var datosUsuario = new DatosCuentaUsuario()) {
-                    var usuario = (datosUsuario.Obtener(CriterioBusquedaCuentaUsuario.Nombre, Vista.NombreUsuario))?.FirstOrDefault();
+                    var usuario = (await datosUsuario.ObtenerAsync(CriterioBusquedaCuentaUsuario.Nombre, Vista.NombreUsuario))?.FirstOrDefault();
 
                     if (usuario == null) {
                         CentroNotificaciones.Mostrar("El usuario especificado no existe en la base de datos o no se ha registrado aún en el sistema, verifique los datos entrados.", TipoNotificacion.Advertencia);

@@ -8,20 +8,20 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroCuentaBancaria _registroCuentaBancaria;
 
-        private void InicializarVistaRegistroCuentaBancaria() {
+        private async Task InicializarVistaRegistroCuentaBancaria() {
             _registroCuentaBancaria = new PresentadorRegistroCuentaBancaria(new VistaRegistroCuentaBancaria());
             _registroCuentaBancaria.Vista.CargarNombresContactos(UtilesContacto.ObtenerNombresContactos());
             _registroCuentaBancaria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroCuentaBancaria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroCuentaBancaria.Salir += delegate {
+            _registroCuentaBancaria.Salir += async (sender, e) => {
                 if (_gestionCuentasBancarias != null) {
-                    _gestionCuentasBancarias.RefrescarListaObjetos();
+                    await _gestionCuentasBancarias.RefrescarListaObjetos();
                 }
             };
         }
 
-        private void MostrarVistaRegistroCuentaBancaria(object? sender, EventArgs e) {
-            InicializarVistaRegistroCuentaBancaria();
+        private async void MostrarVistaRegistroCuentaBancaria(object? sender, EventArgs e) {
+            await InicializarVistaRegistroCuentaBancaria();
 
             if (_registroCuentaBancaria != null) {
                 _registroCuentaBancaria.Vista.Mostrar();
@@ -30,8 +30,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroCuentaBancaria?.Dispose();
         }
 
-        private void MostrarVistaEdicionCuentaBancaria(object? sender, EventArgs e) {
-            InicializarVistaRegistroCuentaBancaria();
+        private async void MostrarVistaEdicionCuentaBancaria(object? sender, EventArgs e) {
+            await InicializarVistaRegistroCuentaBancaria();
 
             if (_registroCuentaBancaria != null && sender is CuentaBancaria cuentaBancaria) {
                 _registroCuentaBancaria.PopularVistaDesdeObjeto(cuentaBancaria);

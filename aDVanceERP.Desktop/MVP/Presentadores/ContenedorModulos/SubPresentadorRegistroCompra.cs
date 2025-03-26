@@ -13,14 +13,14 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroCompra? _registroCompraArticulo;
 
-        private void InicializarVistaRegistroCompraArticulo() {
+        private async Task InicializarVistaRegistroCompraArticulo() {
             try {
                 _registroCompraArticulo = new PresentadorRegistroCompra(new VistaRegistroCompra());
                 _registroCompraArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
                 _registroCompraArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
                 _registroCompraArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
                 _registroCompraArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
-                _registroCompraArticulo.Vista.CargarNombresArticulos(UtilesArticulo.ObtenerNombresArticulos());
+                _registroCompraArticulo.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
                 _registroCompraArticulo.Vista.RegistrarArticulo += MostrarVistaRegistroArticulo;
                 _registroCompraArticulo.Salir += async (sender, args) => {
                     var salida = sender as string;
@@ -29,7 +29,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                         AdicionarMovimientoCompraArticulo(sender, args);
 
                     if (_gestionCompras != null) {
-                        _gestionCompras.RefrescarListaObjetos();
+                        await _gestionCompras.RefrescarListaObjetos();
                     }
                 };
             } catch (ExcepcionConexionServidorMySQL e) {
@@ -37,8 +37,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             }
         }        
 
-        private void MostrarVistaRegistroCompraArticulo(object? sender, EventArgs e) {
-            InicializarVistaRegistroCompraArticulo();
+        private async void MostrarVistaRegistroCompraArticulo(object? sender, EventArgs e) {
+            await InicializarVistaRegistroCompraArticulo();
 
             if (_registroCompraArticulo != null) {                
                 _registroCompraArticulo?.Vista.Mostrar();
@@ -47,8 +47,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroCompraArticulo?.Dispose();
         }
 
-        private void MostrarVistaEdicionCompraArticulo(object? sender, EventArgs e) {
-            InicializarVistaRegistroCompraArticulo();
+        private async void MostrarVistaEdicionCompraArticulo(object? sender, EventArgs e) {
+            await InicializarVistaRegistroCompraArticulo();
 
             if (_registroCompraArticulo != null && sender is Compra compra) {
                 _registroCompraArticulo.PopularVistaDesdeObjeto(compra);
@@ -62,8 +62,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if (_registroCompraArticulo == null)
                 return;
 
-            var idArticulo = UtilesArticulo.ObtenerIdArticulo(_registroCompraArticulo.Vista.NombreArticulo);
-            var idAlmacenDestino = UtilesAlmacen.ObtenerIdAlmacen(_registroCompraArticulo.Vista.NombreAlmacen);
+            var idArticulo = UtilesArticulo.ObtenerIdArticulo(_registroCompraArticulo.Vista.NombreArticulo).Result;
+            var idAlmacenDestino = UtilesAlmacen.ObtenerIdAlmacen(_registroCompraArticulo.Vista.NombreAlmacen).Result;
 
             using (var datosMovimiento = new DatosMovimiento()) {
                 datosMovimiento.Adicionar(new Movimiento(
