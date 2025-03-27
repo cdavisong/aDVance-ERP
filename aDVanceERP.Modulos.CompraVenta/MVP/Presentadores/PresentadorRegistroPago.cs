@@ -22,7 +22,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
                 ((IVistaGestionPagos) Vista).AdicionarPago(pagoSplit[0], decimal.TryParse(pagoSplit[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0.00m);
             }
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<Pago?> ObtenerObjetoDesdeVista() {

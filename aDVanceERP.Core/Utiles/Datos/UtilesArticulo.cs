@@ -113,7 +113,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return await EjecutarConsultaEscalar(query, lector => lector.GetInt32(lector.GetOrdinal("stock_total")), parametros);
         }
 
-        public static async Task<int> ObtenerStockArticulo(string nombreArticulo, string nombreAlmacen) {
+        public static async Task<int> ObtenerStockArticulo(string nombreArticulo, string? nombreAlmacen) {
             string query = @"
                 SELECT aa.stock 
                 FROM adv__articulo_almacen aa 
@@ -129,7 +129,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static async Task<decimal> ObtenerPrecioUnitarioArticulo(long idArticulo) {
-            string query = "SELECT precio_cesion FROM adv__articulo WHERE id_articulo = @IdArticulo;";
+            string query = "SELECT precio_venta_base FROM adv__articulo WHERE id_articulo = @IdArticulo;";
             var parametros = new MySqlParameter[]
             {
                 new MySqlParameter("@IdArticulo", idArticulo)
@@ -140,17 +140,16 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
         public static async Task<decimal> ObtenerMontoInvertidoEnArticulos(long idAlmacen = 0) {
             string query = @$"
-                SELECT SUM(ar.precio_adquisicion * aa.stock) AS monto_invertido
+                SELECT SUM(ar.precio_compra_base * aa.stock) AS monto_invertido
                 FROM adv__articulo ar 
                 JOIN adv__articulo_almacen aa ON ar.id_articulo = aa.id_articulo
                 JOIN adv__almacen al ON aa.id_almacen = al.id_almacen
                 {(idAlmacen != 0 ? "WHERE al.id_almacen = @IdAlmacen" : string.Empty)};";
-            var parametros = new MySqlParameter[]
-            {
+            var parametros = new MySqlParameter[] {
                 new MySqlParameter("@IdAlmacen", idAlmacen)
             };
 
-            return await EjecutarConsultaEscalar(query, lector => lector.GetDecimal(lector.GetOrdinal("monto_invertido")), parametros);
+            return await EjecutarConsultaEscalar(query, lector => lector.IsDBNull(lector.GetOrdinal("monto_invertido")) ? 0 : lector.GetDecimal(lector.GetOrdinal("monto_invertido")), parametros);
         }
 
         public static async Task<bool> PuedeEliminarArticulo(long idArticulo) {

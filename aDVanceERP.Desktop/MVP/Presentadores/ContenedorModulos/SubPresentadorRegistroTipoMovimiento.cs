@@ -6,24 +6,23 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorRegistroTipoMovimiento _registroTipoMovimiento;
+        private PresentadorRegistroTipoMovimiento? _registroTipoMovimiento;
 
-        private async Task InicializarVistaRegistroTipoMovimiento() {
+        private Task InicializarVistaRegistroTipoMovimiento() {
             _registroTipoMovimiento = new PresentadorRegistroTipoMovimiento(new VistaRegistroTipoMovimiento());
             _registroTipoMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroTipoMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroTipoMovimiento.Salir += delegate {
-                _registroMovimiento.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos(Signo));
+                _registroMovimiento?.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos());
             };
+
+            return Task.CompletedTask;
         }
 
         private async void MostrarVistaRegistroTipoMovimiento(object? sender, EventArgs e) {
             await InicializarVistaRegistroTipoMovimiento();
 
-            if (_registroTipoMovimiento != null) {
-                _registroTipoMovimiento.Vista.Mostrar();
-            }
-
+            _registroTipoMovimiento?.Vista.Mostrar();
             _registroTipoMovimiento?.Dispose();
         }
 
@@ -41,14 +40,16 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private async void EliminarTipoMovimiento(object? sender, EventArgs e) {
             using (var tipoMovimiento = new DatosTipoMovimiento()) {
-                var nombreTipoMovimiento = sender as string;
-                var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(nombreTipoMovimiento);
+                if (sender is string nombreTipoMovimiento) {
+                    var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(nombreTipoMovimiento);
 
-                if (idTipoMovimiento != 0) {
-                    tipoMovimiento.Eliminar(idTipoMovimiento);
+                    if (idTipoMovimiento == 0) 
+                        return;
 
-                    _registroMovimiento.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos(Signo));
+                    await tipoMovimiento.EliminarAsync(idTipoMovimiento);
                 }
+
+                _registroMovimiento?.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos(Signo));
             }
         }
     }

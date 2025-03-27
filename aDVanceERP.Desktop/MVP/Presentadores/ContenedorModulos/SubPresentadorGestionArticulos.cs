@@ -20,7 +20,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private async void MostrarVistaGestionArticulos(object? sender, EventArgs e) {
-            if ((_gestionArticulos?.Vista) == null)
+            if ((_gestionArticulos.Vista) == null)
                 return;
 
             _gestionArticulos.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());

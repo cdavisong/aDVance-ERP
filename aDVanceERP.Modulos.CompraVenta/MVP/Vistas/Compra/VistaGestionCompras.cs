@@ -43,7 +43,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
-        public string DatoBusqueda {
+        public string? DatoBusqueda {
             get => fieldDatoBusqueda.Text;
             set => fieldDatoBusqueda.Text = value;
         }
@@ -177,7 +177,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             ValorBrutoCompra = UtilesCompra.ObtenerValorBrutoCompraDia(fieldDatoBusquedaFecha.Value).ToString("N2", CultureInfo.InvariantCulture); ;
         }
 
-        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+        public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 if (CriterioBusqueda == CriterioBusquedaCompra.Fecha) {

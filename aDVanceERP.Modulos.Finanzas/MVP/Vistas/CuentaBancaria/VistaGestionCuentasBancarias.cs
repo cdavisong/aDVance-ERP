@@ -35,7 +35,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
-        public string DatoBusqueda {
+        public string? DatoBusqueda {
             get => fieldDatoBusqueda.Text;
             set => fieldDatoBusqueda.Text = value;
         }
@@ -129,7 +129,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             };
         }
 
-        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+        public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;

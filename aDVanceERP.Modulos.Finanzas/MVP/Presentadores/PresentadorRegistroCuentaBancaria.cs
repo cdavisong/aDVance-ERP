@@ -16,11 +16,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             Vista.NombrePropietario = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
             Vista.ModoEdicionDatos = true;
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<CuentaBancaria?> ObtenerObjetoDesdeVista() {
-            return new CuentaBancaria(_objeto?.Id ?? 0,
+            return new CuentaBancaria(Objeto?.Id ?? 0,
                     alias: Vista.Alias,
                     numeroTarjeta: Vista.NumeroTarjeta,
                     moneda: (TipoMoneda) Enum.Parse(typeof(TipoMoneda), Vista.Moneda),

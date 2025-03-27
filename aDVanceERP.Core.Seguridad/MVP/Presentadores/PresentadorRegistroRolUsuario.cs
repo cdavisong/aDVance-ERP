@@ -20,11 +20,11 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
                 ((IVistaGestionPermisos) Vista).AdicionarPermisoRol(permisoRol);
             }
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<RolUsuario?> ObtenerObjetoDesdeVista() {
-            return new RolUsuario(_objeto?.Id ?? 0,
+            return new RolUsuario(Objeto?.Id ?? 0,
                 nombre: Vista.NombreRolUsuario
                 );
         }

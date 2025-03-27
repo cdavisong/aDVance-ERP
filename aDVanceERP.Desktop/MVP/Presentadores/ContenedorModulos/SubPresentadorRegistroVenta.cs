@@ -31,10 +31,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                     RegistrarPagos();
                     RegistrarTransferencia();
                 };
-                _registroVentaArticulo.Salir += async (sender, e) => {
-                    if (_gestionVentas != null) {
-                        await _gestionVentas.RefrescarListaObjetos();
-                    }
+                _registroVentaArticulo.Salir += async delegate {
+                    await _gestionVentas.RefrescarListaObjetos();
                 };
             } catch (ExcepcionConexionServidorMySQL e) {
                 CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
@@ -45,15 +43,20 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private async void MostrarVistaRegistroVentaArticulo(object? sender, EventArgs e) {
             await InicializarVistaRegistroVentaArticulo();
 
-            if (_registroVentaArticulo != null) {
-                _registroVentaArticulo.Vista.EfectuarPago += delegate {
-                    MostrarVistaRegistroPago(_registroVentaArticulo?.Vista.Total, e);
 
-                    _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
-                };
-                _registroVentaArticulo?.Vista.Mostrar();
-            }
+            if (_registroVentaArticulo == null) 
+                return;
 
+            _registroVentaArticulo.Vista.EfectuarPago += delegate {
+                if (_registroVentaArticulo == null) 
+                    return;
+
+                MostrarVistaRegistroPago(_registroVentaArticulo.Vista.Total, e);
+
+                _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
+            };
+
+            _registroVentaArticulo?.Vista.Mostrar();
             _registroVentaArticulo?.Dispose();
         }
 
@@ -65,7 +68,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 _registroVentaArticulo.Vista.EfectuarPago += delegate {
                     MostrarVistaEdicionPago(sender, e);
 
-                    _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
+                    if (_registroVentaArticulo != null) 
+                        _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
                 };
                 _registroVentaArticulo.Vista.Mostrar();
             }
@@ -92,17 +96,16 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                     datosArticulo.Adicionar(detalleVentaArticulo);
                 }
 
-                var stockArticulo = UtilesArticulo.ObtenerStockTotalArticulo(detalleVentaArticulo.IdArticulo);
-
                 using (var datosMovimiento = new DatosMovimiento()) {
                     datosMovimiento.Adicionar(new Movimiento(
                         0,
                         detalleVentaArticulo.IdArticulo,
                         long.Parse(articulo[4]),
                         0,
+                        DateTime.Now,
                         detalleVentaArticulo.Cantidad,
-                        UtilesMovimiento.ObtenerIdTipoMovimiento("Venta"),
-                        DateTime.Now
+                        UtilesMovimiento.ObtenerIdTipoMovimiento("Venta")
+                        
                     ));
                 }
 

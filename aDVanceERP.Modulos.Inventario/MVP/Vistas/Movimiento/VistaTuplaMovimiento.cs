@@ -103,17 +103,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         }
 
         public void ActualizarIconoStock(string tipoMovimiento) {
-            switch (tipoMovimiento) {
-                case "Carga":
-                    fieldIcono.BackgroundImage = Resources.load_cargo_20px;
-                    break;
-                case "Descarga":
-                    fieldIcono.BackgroundImage = Resources.unload_cargo_20px;
-                    break;
-                case "Transferencia":
-                    fieldIcono.BackgroundImage = Resources.transfer_20px;
-                    break;
-            }
+            fieldIcono.BackgroundImage = tipoMovimiento switch {
+                "Carga" => Resources.load_cargo_20px,
+                "Descarga" => Resources.unload_cargo_20px,
+                "Transferencia" => Resources.transfer_20px,
+                _ => fieldIcono.BackgroundImage
+            };
         }
 
         public void Mostrar() {
@@ -123,6 +118,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         }
 
         private void VerificarPermisos() {
+            if (UtilesCuentaUsuario.UsuarioAutenticado == null || UtilesCuentaUsuario.PermisosUsuario == null) {
+                btnEditar.Enabled = false;
+                btnEliminar.Enabled = false;
+                return;
+            }
+
             btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_MOVIMIENTOS_EDITAR")
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_MOVIMIENTOS_TODOS")

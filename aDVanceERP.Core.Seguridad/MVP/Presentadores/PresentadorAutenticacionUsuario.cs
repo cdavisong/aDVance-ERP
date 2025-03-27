@@ -28,7 +28,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
 
             try {
                 using (var datosUsuario = new DatosCuentaUsuario()) {
-                    var usuario = (await datosUsuario.ObtenerAsync(CriterioBusquedaCuentaUsuario.Nombre, Vista.NombreUsuario))?.FirstOrDefault();
+                    var usuario = (await datosUsuario.ObtenerAsync(CriterioBusquedaCuentaUsuario.Nombre, Vista.NombreUsuario, out _).ConfigureAwait(false)).FirstOrDefault();
 
                     if (usuario == null) {
                         CentroNotificaciones.Mostrar("El usuario especificado no existe en la base de datos o no se ha registrado aún en el sistema, verifique los datos entrados.", TipoNotificacion.Advertencia);

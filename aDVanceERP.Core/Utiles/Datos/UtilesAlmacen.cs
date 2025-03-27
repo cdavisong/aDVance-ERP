@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
     public static class UtilesAlmacen {
-        public static async Task<long> ObtenerIdAlmacen(string nombreAlmacen) {
+        public static async Task<long> ObtenerIdAlmacen(string? nombreAlmacen) {
             var idAlmacen = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
@@ -52,7 +52,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return nombreAlmacen;
         }
 
-        public static string[] ObtenerNombresAlmacenes(bool autorizoVenta = false) {
+        public static object[] ObtenerNombresAlmacenes(bool autorizoVenta = false) {
             var nombresAlmacenes = new List<string>();
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {

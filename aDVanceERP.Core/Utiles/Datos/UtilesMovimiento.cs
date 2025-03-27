@@ -28,7 +28,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return idModulo;
         }
 
-        public static string ObtenerNombreTipoMovimiento(long idTipoMovimiento) {
+        public static string? ObtenerNombreTipoMovimiento(long idTipoMovimiento) {
             var nombreTipoMovimiento = string.Empty;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
@@ -76,7 +76,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return efectoTipoMovimiento;
         }
 
-        public static string[] ObtenerNombresTiposMovimientos(string signo = "") {
+        public static object[] ObtenerNombresTiposMovimientos(string? signo = "") {
             var nombresTiposMovimientos = new List<string>();
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
@@ -95,10 +95,11 @@ namespace aDVanceERP.Core.Utiles.Datos {
                                                     : " WHERE efecto = 'Descarga'")};";
 
                     using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos != null) {
-                            while (lectorDatos.Read()) {
-                                nombresTiposMovimientos.Add(lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")));
-                            }
+                        if (lectorDatos == null) 
+                            return nombresTiposMovimientos.ToArray();
+
+                        while (lectorDatos.Read()) {
+                            nombresTiposMovimientos.Add(lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")));
                         }
                     }
                 }
@@ -122,7 +123,12 @@ namespace aDVanceERP.Core.Utiles.Datos {
                         try {
                             if (idAlmacenOrigen > 0) {
                                 // Decrementar stock en el almacén de origen
-                                comando.CommandText = "UPDATE adv__articulo_almacen SET stock = stock - @Cantidad WHERE id_articulo = @IdArticulo AND id_almacen = @IdAlmacenOrigen;";
+                                comando.CommandText = """
+                                                      UPDATE adv__articulo_almacen 
+                                                      SET stock = stock - @Cantidad 
+                                                      WHERE id_articulo = @IdArticulo 
+                                                        AND id_almacen = @IdAlmacenOrigen;
+                                                      """;
                                 comando.Parameters.AddWithValue("@Cantidad", cantidad);
                                 comando.Parameters.AddWithValue("@IdArticulo", idArticulo);
                                 comando.Parameters.AddWithValue("@IdAlmacenOrigen", idAlmacenOrigen);
@@ -133,20 +139,38 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
                             if (idAlmacenDestino > 0) {
                                 // Verificar si el artículo ya existe en el almacén de destino
-                                comando.CommandText = "SELECT COUNT(*) FROM adv__articulo_almacen WHERE id_articulo = @IdArticulo AND id_almacen = @IdAlmacenDestino;";
+                                comando.CommandText = """
+                                                      SELECT COUNT(*) 
+                                                      FROM adv__articulo_almacen 
+                                                      WHERE id_articulo = @IdArticulo 
+                                                        AND id_almacen = @IdAlmacenDestino;
+                                                      """;
                                 comando.Parameters.AddWithValue("@IdArticulo", idArticulo);
                                 comando.Parameters.AddWithValue("@IdAlmacenDestino", idAlmacenDestino);
 
                                 int count = Convert.ToInt32(comando.ExecuteScalar());
                                 comando.Parameters.Clear();
 
-                                if (count > 0) {
-                                    // Incrementar stock en el almacén de destino
-                                    comando.CommandText = "UPDATE adv__articulo_almacen SET stock = stock + @Cantidad WHERE id_articulo = @IdArticulo AND id_almacen = @IdAlmacenDestino;";
-                                } else {
-                                    // Insertar nuevo registro en la tabla `adv__articulo_almacen` para el artículo en el almacén de destino
-                                    comando.CommandText = "INSERT INTO adv__articulo_almacen (id_articulo, id_almacen, stock) VALUES (@IdArticulo, @IdAlmacenDestino, @Cantidad);";
-                                }
+                                // Incrementar stock en el almacén de destino y de ser necesario, insertar nuevo
+                                // registro en la tabla `adv__articulo_almacen` para el artículo en el almacén de destino
+                                comando.CommandText = count > 0 ? """
+                                                                  UPDATE adv__articulo_almacen 
+                                                                  SET stock = stock + @Cantidad 
+                                                                  WHERE id_articulo = @IdArticulo 
+                                                                    AND id_almacen = @IdAlmacenDestino;
+                                                                  """ : 
+                                                                  """
+                                                                  INSERT INTO adv__articulo_almacen (
+                                                                    id_articulo, 
+                                                                    id_almacen, 
+                                                                    stock
+                                                                  ) 
+                                                                  VALUES (
+                                                                    @IdArticulo, 
+                                                                    @IdAlmacenDestino, 
+                                                                    @Cantidad
+                                                                  );
+                                                                  """;
 
                                 comando.Parameters.AddWithValue("@Cantidad", cantidad);
                                 comando.Parameters.AddWithValue("@IdArticulo", idArticulo);

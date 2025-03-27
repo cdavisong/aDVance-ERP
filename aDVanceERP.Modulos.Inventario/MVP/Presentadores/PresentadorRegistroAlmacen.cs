@@ -16,12 +16,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             Vista.Notas = objeto.Notas ?? string.Empty;
             Vista.ModoEdicionDatos = true;
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<Almacen?> ObtenerObjetoDesdeVista() {
             return new Almacen(
-                idAlmacen: _objeto?.Id ?? 0,
+                idAlmacen: Objeto?.Id ?? 0,
                 nombre: Vista.Nombre,
                 direccion: Vista.Direccion,
                 autorizoVenta: Vista.AutorizoVenta,

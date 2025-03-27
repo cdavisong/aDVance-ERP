@@ -141,13 +141,13 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             }
         }
 
-        public void CargarRazonesSocialesProveedores(string[] nombresProveedores) {
+        public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
             fieldNombreProveedor.Items.Add("Anónimo");
             fieldNombreProveedor.Items.AddRange(nombresProveedores);
             fieldNombreProveedor.SelectedIndex = 0;
         }
 
-        public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
+        public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
             fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
             fieldNombreAlmacen.SelectedIndex = 0;
         }

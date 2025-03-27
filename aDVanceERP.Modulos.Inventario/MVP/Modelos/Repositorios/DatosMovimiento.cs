@@ -10,11 +10,38 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Movimiento objeto) {
-            return $"INSERT INTO adv__movimiento (id_articulo, id_almacen_origen, id_almacen_destino, cantidad_movida, id_tipo_movimiento, fecha) VALUES ('{objeto.IdArticulo}', '{objeto.IdAlmacenOrigen}', '{objeto.IdAlmacenDestino}', '{objeto.CantidadMovida}', '{objeto.IdTipoMovimiento}', '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}');";
+            return $"""
+                    INSERT INTO adv__movimiento (
+                        id_articulo, 
+                        id_almacen_origen, 
+                        id_almacen_destino, 
+                        fecha, 
+                        cantidad_movida, 
+                        id_tipo_movimiento
+                    ) 
+                    VALUES (
+                        '{objeto.IdArticulo}', 
+                        '{objeto.IdAlmacenOrigen}', 
+                        '{objeto.IdAlmacenDestino}', 
+                        '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', 
+                        '{objeto.CantidadMovida}', 
+                        '{objeto.IdTipoMovimiento}'
+                    );
+                    """;
         }
 
         public override string ComandoEditar(Movimiento objeto) {
-            return $"UPDATE adv__movimiento SET id_articulo='{objeto.IdArticulo}', id_almacen_origen='{objeto.IdAlmacenOrigen}', id_almacen_destino='{objeto.IdAlmacenDestino}', cantidad_movida='{objeto.CantidadMovida}', id_tipo_movimiento='{objeto.IdTipoMovimiento}', fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}' WHERE id_movimiento='{objeto.Id}';";
+            return $"""
+                    UPDATE adv__movimiento 
+                    SET 
+                        id_articulo='{objeto.IdArticulo}', 
+                        id_almacen_origen='{objeto.IdAlmacenOrigen}', 
+                        id_almacen_destino='{objeto.IdAlmacenDestino}',
+                        fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', 
+                        cantidad_movida='{objeto.CantidadMovida}', 
+                        id_tipo_movimiento='{objeto.IdTipoMovimiento}'
+                    WHERE id_movimiento='{objeto.Id}';
+                    """;
         }
 
         public override string ComandoEliminar(long id) {
@@ -61,9 +88,9 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios {
                 idArticulo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_articulo")),
                 idAlmacenOrigen: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_origen")),
                 idAlmacenDestino: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_destino")),
+                fecha: lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
                 cantidadMovida: lectorDatos.GetInt32(lectorDatos.GetOrdinal("cantidad_movida")),
-                idTipoMovimiento: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_movimiento")),
-                fecha: lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha"))
+                idTipoMovimiento: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_movimiento"))
             );
         }
 

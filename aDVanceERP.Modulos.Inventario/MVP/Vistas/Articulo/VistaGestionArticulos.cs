@@ -33,7 +33,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             set => Size = value;
         }
 
-        public string NombreAlmacen {
+        public string? NombreAlmacen {
             get => fieldNombreAlmacen.Text;
             set => fieldNombreAlmacen.Text = value;
         }
@@ -43,7 +43,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
-        public string DatoBusqueda {
+        public string? DatoBusqueda {
             get => fieldDatoBusqueda.Text;
             set => fieldDatoBusqueda.Text = value;
         }
@@ -159,14 +159,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             ValorBrutoInversion = (await UtilesArticulo.ObtenerMontoInvertidoEnArticulos(await UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen))).ToString("N2", CultureInfo.InvariantCulture);
         }
 
-        public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
+        public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
             fieldNombreAlmacen.Items.Clear();
             fieldNombreAlmacen.Items.Add("Todos los almacenes");
             fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
             fieldNombreAlmacen.SelectedIndex = fieldNombreAlmacen.Items.Count > 0 ? 0 : -1;
         }
 
-        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+        public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;

@@ -7,7 +7,7 @@ using aDVanceERP.Core.Utiles;
 namespace aDVanceERP.Core.MVP.Presentadores {
     public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : PresentadorBase<Vg>, IPresentadorGestion<Vg, Do, O, C>
         where Pt : IPresentadorTupla<Vt, O>
-        where Vg : IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
+        where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
         where Vt : IVistaTupla
         where Do : class, IRepositorioDatos<O, C>, new()
         where O : class, IObjetoUnico, new()
@@ -83,15 +83,13 @@ namespace aDVanceERP.Core.MVP.Presentadores {
                 _tuplasObjetos.Clear();
 
                 VariablesGlobales.CoordenadaYUltimaTupla = 0;
-
-                var cantidadObjetos = DatosObjeto.Cantidad();
-                var calculoPaginas = (int)cantidadObjetos / Vista.TuplasMaximasContenedor;
-                var entero = cantidadObjetos % Vista.TuplasMaximasContenedor == 0;
+                
+                var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
+                var objetos = (await DatosObjeto.ObtenerAsync(CriterioBusquedaObjeto, DatoBusquedaObjeto, out var totalFilas, Vista.TuplasMaximasContenedor, incremento)).ToList();
+                var calculoPaginas = totalFilas / Vista.TuplasMaximasContenedor;
+                var entero = totalFilas % Vista.TuplasMaximasContenedor == 0;
 
                 Vista.PaginasTotales = calculoPaginas < 1 ? 1 : (entero ? calculoPaginas : calculoPaginas + 1);
-
-                var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
-                var objetos = (await DatosObjeto.ObtenerAsync(CriterioBusquedaObjeto, DatoBusquedaObjeto, Vista.TuplasMaximasContenedor, incremento)).ToList();
 
                 for (var i = 0; i < objetos.Count && i < Vista.TuplasMaximasContenedor; i++) {
                     AdicionarTuplaObjeto(objetos[i]);

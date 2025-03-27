@@ -52,7 +52,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return razonSocialCliente;
         }
 
-        public static string[] ObtenerRazonesSocialesClientes() {
+        public static object[] ObtenerRazonesSocialesClientes() {
             var razonesSocialesClientes = new List<string>();
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {

@@ -34,7 +34,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
-        public string DatoBusqueda {
+        public string? DatoBusqueda {
             get => fieldDatoBusqueda.Text;
             set => fieldDatoBusqueda.Text = value;
         }
@@ -127,7 +127,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             };
         }
 
-        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+        public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;

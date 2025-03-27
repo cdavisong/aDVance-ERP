@@ -78,23 +78,6 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             return EjecutarConsulta(comando, lectorDatos => Objetos.Add(ObtenerObjetoDataReader(lectorDatos)));
         }
 
-        public virtual async Task<IEnumerable<O>> ObtenerAsync(string? textoComando = "", int limite = 0, int desplazamiento = 0) {
-            Objetos.Clear();
-            var comando = string.IsNullOrEmpty(textoComando) ? ComandoObtener(default, string.Empty) : textoComando;
-
-            // Agregar LIMIT y OFFSET si es necesario (antes del ;)
-            if (limite > 0) {
-                comando = comando.TrimEnd(';'); // Eliminar el ; si existe
-                comando += $" LIMIT {limite}";
-                if (desplazamiento > 0) {
-                    comando += $" OFFSET {desplazamiento}";
-                }
-                comando += ";"; // Agregar el ; al final
-            }
-
-            return await EjecutarConsultaAsync(comando);
-        }
-
         public IEnumerable<O> Obtener(C? criterio, string? dato, int limite = 0, int desplazamiento = 0) {
             var comando = ComandoObtener(criterio, dato);
 
@@ -111,9 +94,10 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             return Obtener(comando);
         }
 
-        public async Task<IEnumerable<O>> ObtenerAsync(C? criterio, string? dato, int limite = 0, int desplazamiento = 0) {
+        public Task<IEnumerable<O>> ObtenerAsync(C? criterio, string? dato, out int totalFilas, int limite = 0, int desplazamiento = 0) {
             Objetos.Clear();
             var comando = ComandoObtener(criterio, dato);
+            var comandoCount = $"SELECT COUNT(*) as total_filas {comando[comando.IndexOf("FROM", StringComparison.Ordinal)..]}";
 
             // Agregar LIMIT y OFFSET si es necesario (antes del ;)
             if (limite > 0) {
@@ -125,7 +109,9 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
                 comando += ";"; // Agregar el ; al final
             }
 
-            return await EjecutarConsultaAsync(comando);
+            totalFilas = (int) EjecutarConsultaEscalar<long>(comandoCount);
+
+            return EjecutarConsultaAsync(comando);
         }
 
         public bool Existe(string dato) {

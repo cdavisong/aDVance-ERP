@@ -46,12 +46,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             set => fieldNombreProveedor.Text = value;
         }
 
-        public decimal PrecioAdquisicion {
+        public decimal PrecioCompraBase {
             get => decimal.TryParse(fieldPrecioAdquisicion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : 0;
             set => fieldPrecioAdquisicion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
-        public decimal PrecioCesion {
+        public decimal PrecioVentaBase {
             get => decimal.TryParse(fieldPrecioCesion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : 0;
             set => fieldPrecioCesion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
@@ -113,8 +113,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             Descripcion = string.Empty;
             RazonSocialProveedor = string.Empty;
             fieldNombreProveedor.SelectedIndex = 0;
-            PrecioAdquisicion = 0;
-            PrecioCesion = 0;
+            PrecioCompraBase = 0;
+            PrecioVentaBase = 0;
             StockMinimo = 0;
             PedidoMinimo = 0;
             ModoEdicionDatos = false;

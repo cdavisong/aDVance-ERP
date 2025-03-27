@@ -35,7 +35,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
-        public string DatoBusqueda {
+        public string? DatoBusqueda {
             get => fieldDatoBusqueda.Text;
             set => fieldDatoBusqueda.Text = value;
         }
@@ -128,7 +128,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             };
         }
 
-        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+        public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 fieldDatoBusqueda.Text = string.Empty;

@@ -1,4 +1,6 @@
-﻿using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
@@ -30,30 +32,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             set => fieldNombreArticulo.Text = value;
         }
 
-        public string NombreAlmacenOrigen {
+        public string? NombreAlmacenOrigen {
             get => fieldNombreAlmacenOrigen.Text;
             set => fieldNombreAlmacenOrigen.Text = value;
         }
 
-        public string NombreAlmacenDestino {
+        public string? NombreAlmacenDestino {
             get => fieldNombreAlmacenDestino.Text;
             set => fieldNombreAlmacenDestino.Text = value;
-        }
-
-        public int CantidadInicialOrigen { get; set; }
-
-        public int CantidadMovida {
-            get => int.TryParse(fieldCantidadMovida.Text, out var value) ? value : 0;
-            set => fieldCantidadMovida.Text = value.ToString();
-        }
-
-        public int CantidadFinalOrigen {
-            get => CantidadInicialOrigen - CantidadMovida;
-        }
-
-        public string TipoMovimiento {
-            get => fieldTipoMovimiento.Text;
-            set => fieldTipoMovimiento.Text = value;
         }
 
         public DateTime Fecha {
@@ -61,10 +47,22 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             set { }
         }
 
+        public int CantidadMovida {
+            get => int.TryParse(fieldCantidadMovida.Text, out var value) ? value : 0;
+            set => fieldCantidadMovida.Text = value.ToString();
+        }
+
+        public string TipoMovimiento {
+            get => fieldTipoMovimiento.Text;
+            set => fieldTipoMovimiento.Text = value;
+        }
+
         public bool ModoEdicionDatos {
             get => _modoEdicion;
             set {
-                fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
+                fieldSubtitulo.Text = value 
+                    ? $"Detalles y actualización del registro con fecha {Fecha:dd-MM-yyy}" 
+                    : $"Registro con fecha {Fecha:dd-MM-yyy}";
                 btnRegistrar.Text = value ? "Actualizar movimiento" : "Registrar movimiento";
                 _modoEdicion = value;
             }
@@ -79,7 +77,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
 
         public void Inicializar() {
             // Eventos
-            fieldTipoMovimiento.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
+            fieldTipoMovimiento.SelectedIndexChanged += delegate {
                 ActualizarCamposAlmacenes();
             };
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
@@ -112,7 +110,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
-        public void CargarNombresAlmacenes(string[] nombresAlmacenes) {
+        public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
             fieldNombreAlmacenOrigen.Items.Clear();
             fieldNombreAlmacenOrigen.Items.Add("Ninguno");
             fieldNombreAlmacenOrigen.Items.AddRange(nombresAlmacenes);
@@ -124,7 +122,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenDestino.SelectedIndex = 0;
         }
 
-        public void CargarTiposMovimientos(string[] tiposMovimientos) {
+        public void CargarTiposMovimientos(object[] tiposMovimientos) {
             fieldTipoMovimiento.Items.Clear();
             fieldTipoMovimiento.Items.AddRange(tiposMovimientos);
             fieldTipoMovimiento.SelectedIndex = 0;
@@ -147,31 +145,29 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             }
         }
 
-        public bool MovimientoStockCorrecto() {
+        private bool MovimientoStockCorrecto() {
             if (string.IsNullOrEmpty(NombreArticulo))
                 return false;
 
             var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(TipoMovimiento);
 
-            if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Carga")) {
-                if (string.Equals(NombreAlmacenDestino, "Ninguno"))
-                    return false;
-                else return true;
-            }
+            if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Carga"))
+                return !string.Equals(NombreAlmacenDestino, "Ninguno");
 
             if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Descarga") && string.Equals(NombreAlmacenOrigen, "Ninguno"))
                 return false;
 
-            CantidadInicialOrigen = UtilesArticulo.ObtenerStockArticulo(NombreArticulo, NombreAlmacenOrigen).Result;
+            var cantidadInicialOrigen = UtilesArticulo.ObtenerStockArticulo(NombreArticulo, NombreAlmacenOrigen).Result;
 
-            if (CantidadFinalOrigen < 0) {
-                fieldCantidadMovida.ForeColor = Color.Firebrick;
-                fieldCantidadMovida.Font = new Font(fieldCantidadMovida.Font, FontStyle.Bold);
+            if (cantidadInicialOrigen - CantidadMovida >= 0) 
+                return true;
 
-                return false;
-            }
+            fieldCantidadMovida.ForeColor = Color.Firebrick;
+            fieldCantidadMovida.Font = new Font(fieldCantidadMovida.Font, FontStyle.Bold);
 
-            return true;
+            CentroNotificaciones.Mostrar($"No se puede mover una cantidad de artículos hacia el destino menor que la cantidad orígen ({cantidadInicialOrigen} unidades) en el almacén {NombreAlmacenOrigen}", TipoNotificacion.Advertencia);
+
+            return false;
         }
 
         public void Mostrar() {
@@ -185,7 +181,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldNombreAlmacenOrigen.SelectedIndex = 0;
             NombreAlmacenDestino = string.Empty;
             fieldNombreAlmacenDestino.SelectedIndex = 0;
-            CantidadInicialOrigen = 0;
             CantidadMovida = 0;
             TipoMovimiento = string.Empty;
             fieldTipoMovimiento.SelectedIndex = 0;

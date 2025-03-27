@@ -22,11 +22,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
                 ((IVistaGestionDetallesVentaArticulos) Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0], articuloSplit[1]);
             }
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<Venta?> ObtenerObjetoDesdeVista() {
-            return new Venta(_objeto?.Id ?? 0,
+            return new Venta(Objeto?.Id ?? 0,
                    fecha: DateTime.Now,
                    idAlmacen: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
                    idCliente: await UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),

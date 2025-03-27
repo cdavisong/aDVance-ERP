@@ -10,11 +10,38 @@
         }
 
         public override string ComandoAdicionar(Articulo objeto) {
-            return $"INSERT INTO adv__articulo (codigo, nombre, descripcion, id_proveedor, precio_adquisicion, precio_cesion, stock_minimo, pedido_minimo) VALUES ('{objeto.Codigo}', '{objeto.Nombre}', '{objeto.Descripcion}', '{objeto.IdProveedor}', '{objeto.PrecioAdquisicion}', '{objeto.PrecioCesion}', '{objeto.StockMinimo}', '{objeto.PedidoMinimo}');";
+            return $"""
+                    INSERT INTO adv__articulo (
+                        codigo, 
+                        nombre, 
+                        descripcion, 
+                        id_proveedor, 
+                        precio_compra_base, 
+                        precio_venta_base
+                    ) 
+                    VALUES (
+                        '{objeto.Codigo}', 
+                        '{objeto.Nombre}', 
+                        '{objeto.Descripcion}', 
+                        '{objeto.IdProveedor}', 
+                        '{objeto.PrecioCompraBase}', 
+                        '{objeto.PrecioVentaBase}'
+                    );
+                    """;
         }
 
         public override string ComandoEditar(Articulo objeto) {
-            return $"UPDATE adv__articulo SET codigo='{objeto.Codigo}', nombre='{objeto.Nombre}', descripcion='{objeto.Descripcion}', id_proveedor='{objeto.IdProveedor}', precio_adquisicion='{objeto.PrecioAdquisicion}', precio_cesion='{objeto.PrecioCesion}', stock_minimo='{objeto.StockMinimo}', pedido_minimo='{objeto.PedidoMinimo}' WHERE id_articulo={objeto.Id};";
+            return $"""
+                    UPDATE adv__articulo 
+                    SET 
+                        codigo='{objeto.Codigo}', 
+                        nombre='{objeto.Nombre}', 
+                        descripcion='{objeto.Descripcion}', 
+                        id_proveedor='{objeto.IdProveedor}', 
+                        precio_compra_base='{objeto.PrecioCompraBase}', 
+                        precio_venta_base='{objeto.PrecioVentaBase}'
+                    WHERE id_articulo={objeto.Id};
+                    """;
         }
 
         public override string ComandoEliminar(long id) {
@@ -58,10 +85,8 @@
                 nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
                 descripcion: lectorDatos.GetString(lectorDatos.GetOrdinal("descripcion")),
                 idProveedor: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
-                precioAdquisicion: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_adquisicion")),
-                precioCesion: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_cesion")),
-                stockMinimo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("stock_minimo")),
-                pedidoMinimo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("pedido_minimo"))
+                precioCompraBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra_base")),
+                precioVentaBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_base"))
             ) {
                 Stock = lectorDatos.FieldCount > 9 ? lectorDatos.GetValue(lectorDatos.GetOrdinal("stock")).ToString() ?? string.Empty : string.Empty,
                 NombreAlmacen = lectorDatos.FieldCount > 9 ? lectorDatos.GetValue(lectorDatos.GetOrdinal("nombre_almacen")).ToString() ?? string.Empty : string.Empty

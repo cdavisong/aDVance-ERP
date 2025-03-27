@@ -1,16 +1,14 @@
-﻿using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores {
     public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>, IDisposable
-        where Vr : IVistaRegistro
+        where Vr : class, IVistaRegistro
         where Do : class, IRepositorioDatos<O, C>, new()
         where O : class, IObjetoUnico, new()
         where C : Enum {
-        protected O? _objeto = null;
         private bool _disposed = false; // Para evitar llamadas redundantes a Dispose
 
         protected PresentadorRegistroBase(Vr vista) : base(vista) {
@@ -19,7 +17,11 @@ namespace aDVanceERP.Core.MVP.Presentadores {
             Vista.Salir += OnSalir;
         }
 
-        public Do DatosObjeto => new Do();
+        protected O? Objeto { get; set; } // Objeto que se va a registrar o editar
+
+        public Do DatosObjeto {
+            get => new();
+        }
 
         public event EventHandler? DatosRegistradosActualizados;
         public event EventHandler? Salir;
@@ -46,17 +48,17 @@ namespace aDVanceERP.Core.MVP.Presentadores {
             if (!RegistroEdicionDatosAutorizado())
                 return;
 
-            _objeto = await ObtenerObjetoDesdeVista();
+            Objeto = await ObtenerObjetoDesdeVista();
 
-            if (_objeto == null)
+            if (Objeto == null)
                 return;
 
-            if (Vista.ModoEdicionDatos && _objeto.Id != 0) {
-                await DatosObjeto.EditarAsync(_objeto);
-            } else if (_objeto.Id != 0) {
-                await DatosObjeto.EditarAsync(_objeto);
+            if (Vista.ModoEdicionDatos && Objeto.Id != 0) {
+                await DatosObjeto.EditarAsync(Objeto);
+            } else if (Objeto.Id != 0) {
+                await DatosObjeto.EditarAsync(Objeto);
             } else {
-                _objeto.Id = await DatosObjeto.AdicionarAsync(_objeto);
+                Objeto.Id = await DatosObjeto.AdicionarAsync(Objeto);
             }
 
             RegistroAuxiliar();
@@ -78,20 +80,21 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         }
 
         protected virtual void Dispose(bool disposing) {
-            if (!_disposed) {
-                if (disposing) {
-                    // Liberar recursos administrados
-                    if (Vista is IDisposable disposableVista) {
-                        disposableVista.Dispose();
-                    }
+            if (_disposed) 
+                return;
 
-                    // Liberar otros recursos administrados si es necesario
+            if (disposing) {
+                // Liberar recursos administrados
+                if (Vista is IDisposable disposableVista) {
+                    disposableVista.Dispose();
                 }
 
-                // Liberar recursos no administrados si es necesario
-
-                _disposed = true;
+                // Liberar otros recursos administrados si es necesario
             }
+
+            // Liberar recursos no administrados si es necesario
+
+            _disposed = true;
         }
 
         ~PresentadorRegistroBase() {

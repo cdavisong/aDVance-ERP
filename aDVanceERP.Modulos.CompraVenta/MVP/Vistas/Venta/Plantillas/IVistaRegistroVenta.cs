@@ -14,8 +14,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas {
         event EventHandler? ArticuloEliminado;
         event EventHandler? EfectuarPago;
 
-        void CargarRazonesSocialesClientes(string[] nombresClientes);
-        void CargarNombresAlmacenes(string[] nombresAlmacenes);
+        void CargarRazonesSocialesClientes(object[] nombresClientes);
+        void CargarNombresAlmacenes(object[] nombresAlmacenes);
         void CargarNombresArticulos(string[] nombresArticulos);
     }
 }

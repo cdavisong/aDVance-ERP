@@ -2,11 +2,11 @@
     public interface IBuscadorDatos<C>
         where C : Enum {
         C CriterioBusqueda { get; }
-        string DatoBusqueda { get; }
+        string? DatoBusqueda { get; }
 
 
         event EventHandler? BuscarDatos;
 
-        void CargarCriteriosBusqueda(string[] criteriosBusqueda);
+        void CargarCriteriosBusqueda(object[] criteriosBusqueda);
     }
 }

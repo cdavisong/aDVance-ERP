@@ -35,7 +35,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
-        public string DatoBusqueda {
+        public string? DatoBusqueda {
             get => fieldDatoBusqueda.Text;
             set => fieldDatoBusqueda.Text = value;
         }
@@ -52,7 +52,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             get => _paginaActual;
             set {
                 _paginaActual = value;
-                fieldPaginaActual.Text = $"Página {value}";
+                fieldPaginaActual.Text = $@"Página {value}";
             }
         }
 
@@ -60,7 +60,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             get => _paginasTotales;
             set {
                 _paginasTotales = value;
-                fieldPaginasTotales.Text = $"de {value}";
+                fieldPaginasTotales.Text = $@"de {value}";
                 HabilitarBotonesPaginacion();
             }
         }
@@ -131,7 +131,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             };
         }
 
-        public void CargarCriteriosBusqueda(string[] criteriosBusqueda) {
+        public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 if (CriterioBusqueda == CriterioBusquedaMovimiento.Fecha) {
@@ -163,6 +163,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         }
 
         private void VerificarPermisos() {
+            if (UtilesCuentaUsuario.UsuarioAutenticado == null || UtilesCuentaUsuario.PermisosUsuario == null) {
+                btnRegistrar.Enabled = false;
+                return;
+            }
+
             btnRegistrar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_MOVIMIENTOS_ADICIONAR")
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_MOVIMIENTOS_TODOS")

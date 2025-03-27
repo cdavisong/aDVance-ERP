@@ -15,32 +15,31 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
             Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
             Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
+            Vista.Fecha = objeto.Fecha;
             Vista.CantidadMovida = objeto.CantidadMovida;
             Vista.TipoMovimiento = UtilesMovimiento.ObtenerNombreTipoMovimiento(objeto.IdTipoMovimiento) ?? string.Empty;
-            Vista.Fecha = objeto.Fecha;
             Vista.ModoEdicionDatos = true;
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<Movimiento?> ObtenerObjetoDesdeVista() {
             _movimiento = new Movimiento(
-                id: _objeto?.Id ?? 0,
+                id: Objeto?.Id ?? 0,
                 idArticulo: await UtilesArticulo.ObtenerIdArticulo(Vista.NombreArticulo),
                 idAlmacenOrigen: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen),
                 idAlmacenDestino: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino),
+                fecha: Vista.Fecha,
                 cantidadMovida: Vista.CantidadMovida,
-                idTipoMovimiento: UtilesMovimiento.ObtenerIdTipoMovimiento(Vista.TipoMovimiento),
-                fecha: Vista.Fecha
+                idTipoMovimiento: UtilesMovimiento.ObtenerIdTipoMovimiento(Vista.TipoMovimiento)
             );
 
             return _movimiento;
         }
 
         protected override void RegistroAuxiliar() {
-            if (_movimiento != null) {
+            if (_movimiento != null)
                 UtilesMovimiento.ModificarStockArticuloAlmacen(_movimiento.IdArticulo, _movimiento.IdAlmacenOrigen, _movimiento.IdAlmacenDestino, _movimiento.CantidadMovida);
-            }
         }
     }
 

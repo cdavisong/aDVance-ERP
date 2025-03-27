@@ -28,9 +28,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                     if (string.IsNullOrEmpty(salida))
                         AdicionarMovimientoCompraArticulo(sender, args);
 
-                    if (_gestionCompras != null) {
-                        await _gestionCompras.RefrescarListaObjetos();
-                    }
+                    await _gestionCompras.RefrescarListaObjetos();
                 };
             } catch (ExcepcionConexionServidorMySQL e) {
                 CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
@@ -40,10 +38,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private async void MostrarVistaRegistroCompraArticulo(object? sender, EventArgs e) {
             await InicializarVistaRegistroCompraArticulo();
 
-            if (_registroCompraArticulo != null) {                
-                _registroCompraArticulo?.Vista.Mostrar();
-            }
-
+            _registroCompraArticulo?.Vista.Mostrar();
             _registroCompraArticulo?.Dispose();
         }
 
@@ -59,7 +54,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private void AdicionarMovimientoCompraArticulo(object? sender, EventArgs e) {
-            if (_registroCompraArticulo == null)
+            if (_registroCompraArticulo?.Vista.NombreArticulo == null) 
                 return;
 
             var idArticulo = UtilesArticulo.ObtenerIdArticulo(_registroCompraArticulo.Vista.NombreArticulo).Result;
@@ -71,18 +66,18 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                     idArticulo,
                     0,
                     idAlmacenDestino,
+                    DateTime.Now,
                     _registroCompraArticulo.Vista.Cantidad,
-                    UtilesMovimiento.ObtenerIdTipoMovimiento("Compra"),
-                    DateTime.Now
+                    UtilesMovimiento.ObtenerIdTipoMovimiento("Compra")
                 ));
             }
 
             UtilesMovimiento.ModificarStockArticuloAlmacen(
-                        idArticulo,
-                        0,
-                        idAlmacenDestino,
-                        _registroCompraArticulo.Vista.Cantidad
-                    );
+                idArticulo,
+                0,
+                idAlmacenDestino,
+                _registroCompraArticulo.Vista.Cantidad
+            );
         }
     }
 }

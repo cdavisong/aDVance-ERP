@@ -15,11 +15,11 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
             Vista.NombreContacto = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
             Vista.ModoEdicionDatos = true;
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<Cliente?> ObtenerObjetoDesdeVista() {
-            return new Cliente(_objeto?.Id ?? 0,
+            return new Cliente(Objeto?.Id ?? 0,
                     numero: Vista.Numero,
                     razonSocial: Vista.RazonSocial,
                     idContacto: await UtilesContacto.ObtenerIdContacto(Vista.NombreContacto)

@@ -15,26 +15,22 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             Vista.Nombre = objeto.Nombre ?? string.Empty;
             Vista.Descripcion = objeto.Descripcion ?? string.Empty;
             Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
-            Vista.PrecioAdquisicion = objeto.PrecioAdquisicion;
-            Vista.PrecioCesion = objeto.PrecioCesion;
-            Vista.StockMinimo = objeto.StockMinimo;
-            Vista.PedidoMinimo = objeto.PedidoMinimo;
+            Vista.PrecioCompraBase = objeto.PrecioCompraBase;
+            Vista.PrecioVentaBase = objeto.PrecioVentaBase;
             Vista.ModoEdicionDatos = true;
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<Articulo?> ObtenerObjetoDesdeVista() {
             return new Articulo(
-                _objeto?.Id ?? 0,
+                Objeto?.Id ?? 0,
                 codigo: Vista.Codigo,
                 nombre: Vista.Nombre,
                 descripcion: Vista.Descripcion,
                 idProveedor: await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
-                precioAdquisicion: Vista.PrecioAdquisicion,
-                precioCesion: Vista.PrecioCesion,
-                stockMinimo: Vista.StockMinimo,
-                pedidoMinimo: Vista.PedidoMinimo
+                precioCompraBase: Vista.PrecioCompraBase,
+                precioVentaBase: Vista.PrecioVentaBase
             );
         }
     }

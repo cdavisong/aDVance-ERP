@@ -7,39 +7,100 @@ namespace aDVanceERP.PatchDB;
 
 class Program {
     static void Main(string[] args) {
+        Console.CursorVisible = false;
+        Console.Title = "aDVance ERP º Sistema de Parches";
         var version = "desconocida";
 
         if (File.Exists(@".\app.ver"))
             using (var fs = new FileStream(@".\app.ver", FileMode.Open)) {
                 using (var sr = new StreamReader(fs)) {
-                    version = sr.ReadToEnd();
+                    version = sr.ReadToEnd().Trim();
                 }
             }
 
-        Console.WriteLine("aDVance ERP");
-        Console.WriteLine("--------------------------------------------------------------------");
-        Console.WriteLine($"Iniciando parche BD versión {version}...\n");
+        // Logo en ASCII con colores básicos
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
+        Console.WriteLine(@"
+                █████╗ ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗ ██████╗███████╗
+               ██╔══██╗██╔══██╗██║   ██║██╔══██╗████╗  ██║██╔════╝██╔════╝
+               ███████║██║  ██║██║   ██║███████║██╔██╗ ██║██║     █████╗  
+               ██╔══██║██║  ██║╚██╗ ██╔╝██╔══██║██║╚██╗██║██║     ██╔══╝  
+               ██║  ██║██████╔╝ ╚████╔╝ ██║  ██║██║ ╚████║╚██████╗███████╗
+               ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝");
+        Console.ResetColor();
+        Console.WriteLine($"               E R P  -  S I S T E M A  D E  P A R C H E S");
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        Console.WriteLine($"               versión {version}\n");
 
         try {
-            CrearTablasNuevas();
-            ActualizarTablasExistentes();
-            ActualizarColumnasMontosADecimal();
-            EliminarModuloVentasYPermisos();
-            MigrarDatosMotivoATipoMovimiento();
-            CorregirVentaIncorrecta();
+            ExecuteStep(CrearTablasNuevas, "Creación de estructura modular");
+            ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+            ExecuteStep(ActualizarColumnasMontosADecimal, "Normalización financiera");
+            ExecuteStep(MigrarDatosMotivoATipoMovimiento, "Reestructuración de movimientos");
+            ExecuteStep(EliminarModuloVentasYPermisos, "Depuración de módulos obsoletos");
+            ExecuteStep(EliminarVentasYMovimientosAsociados, "Reinicio de transacciones comerciales");
+            ExecuteStep(MigrarPreciosCompraADetallesCompra, "Registro de compra inicial");
 
-            Console.WriteLine("\nParche aplicado correctamente.");
-            Console.ReadLine();
+            RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
         } catch (Exception ex) {
-            Console.WriteLine("\nError al aplicar el parche: " + ex.Message);
+            RenderStatus($"Error crítico: {ex.Message}", ConsoleColor.Red);
         }
-        Console.WriteLine("Presione cualquier tecla para salir.");
-        Console.ReadLine();
+
+        Console.CursorVisible = true;
+        Console.WriteLine("\n");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write("Presione cualquier tecla para salir...");
+        Console.ReadKey();
     }
 
-    static void CrearTablasNuevas() {
-        Console.WriteLine("- Creando nuevas tablas...");
+    #region Funciones de Interfaz
+    static void ExecuteStep(Action step, string title) {
+        RenderProgressBar(title, ConsoleColor.White);
+        try {
+            step.Invoke();
+            Console.SetCursorPosition(60, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("COMPLETADO");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("]");
+        } catch (Exception ex) {
+            Console.SetCursorPosition(60, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("FALLIDO");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("]");
+            throw;
+        }
+        Console.ResetColor();
+    }
 
+    static void RenderStatus(string message, ConsoleColor color) {
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.WriteLine($"\n[{DateTime.Now:HH:mm:ss}]");
+        Console.ForegroundColor = color;
+        Console.Write(" » ");
+        Console.ForegroundColor = color;
+        Console.Write(message, color);
+        Console.WriteLine("\n");
+        Console.ResetColor();
+    }
+
+    static void RenderProgressBar(string text, ConsoleColor color) {
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
+        Console.Write($" [{DateTime.Now:HH:mm:ss}]");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.Write(" -");
+        Console.ForegroundColor = color;
+        Console.Write($" {text,-40}");
+        Console.ResetColor();
+    }
+    #endregion
+
+    static void CrearTablasNuevas() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
@@ -48,37 +109,45 @@ class Program {
             }
 
             // Crear tabla adv__tipo_movimiento
-            string crearTablaTipoMovimiento = @"
+            const string crearTablaTipoMovimiento = @"
                     CREATE TABLE IF NOT EXISTS adv__tipo_movimiento (
                         id_tipo_movimiento INT PRIMARY KEY AUTO_INCREMENT,
                         nombre VARCHAR(50) NOT NULL,
                         efecto ENUM('Carga', 'Descarga', 'Transferencia') NOT NULL
                     );";
 
-            using (MySqlCommand cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion))
+            using (var cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion))
                 cmd.ExecuteNonQuery();
 
             // Crear tabla adv__compra
-            string crearTablaCompra = @"
+            const string crearTablaCompra = @"
                 CREATE TABLE IF NOT EXISTS adv__compra (
-                    id_compra BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    id_compra INT(11) PRIMARY KEY AUTO_INCREMENT,
                     fecha DATETIME NOT NULL,
                     id_almacen INT(11) NOT NULL,
                     id_proveedor INT(11) NOT NULL,
-                    total DECIMAL NOT NULL
+                    total DECIMAL(10,2) NOT NULL                    
                 );";
 
-            using (MySqlCommand cmd = new MySqlCommand(crearTablaCompra, conexion))
+            using (var cmd = new MySqlCommand(crearTablaCompra, conexion))
                 cmd.ExecuteNonQuery();
 
-            Console.Write(" Tablas creadas correctamente.\n");
+            // Crear tabla adv__detalle_compra
+            const string crearTablaDetalleCompra = @"
+                CREATE TABLE IF NOT EXISTS adv__detalle_compra_articulo (
+                   id_detalle_compra_articulo INT(11) PRIMARY KEY AUTO_INCREMENT,
+                   id_compra INT(11) NOT NULL,
+                   id_articulo INT(11) NOT NULL,
+                   cantidad INT(11) NOT NULL,
+                   precio_compra DECIMAL(10,2) NOT NULL
+                );";
 
+            using (var cmd = new MySqlCommand(crearTablaDetalleCompra, conexion))
+                cmd.ExecuteNonQuery();
         }
     }
 
-    static void ActualizarTablasExistentes() {
-        Console.WriteLine("- Actualizando tablas existentes...");
-
+    static void ModificarTablasExistentes() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
@@ -86,66 +155,65 @@ class Program {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
-            // Crear tabla adv__tipo_movimiento
-            string agregarTipoMovimientoTablaMovimiento = @"
-                    ALTER TABLE adv__movimiento
-                    ADD COLUMN id_tipo_movimiento INT
-                    WHERE NOT EXISTS (
-                        SELECT 1
-                        FROM INFORMATION_SCHEMA.COLUMNS
-                        WHERE TABLE_SCHEMA = DATABASE()
-                        AND TABLE_NAME = 'adv__movimiento'
-                        AND COLUMN_NAME = 'id_tipo_movimiento'
-                    );";
+            // Agregar columna id_tipo_movimiento a la tabla adv__movimiento
+            const string agregarTipoMovimientoTablaMovimiento = @"
+                ALTER TABLE adv__movimiento 
+                ADD COLUMN id_tipo_movimiento INT NOT NULL DEFAULT 0;";
 
-            using (MySqlCommand cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion))
+            using (var cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Modificar columna precio_adquisicion a la tabla adv__articulo
+            const string modificarPrecioAdquisicionTablaArticulo = @"
+                ALTER TABLE adv__articulo 
+                CHANGE precio_adquisicion precio_compra_base DECIMAL(10,2) NOT NULL;";
+
+            using (var cmd = new MySqlCommand(modificarPrecioAdquisicionTablaArticulo, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Modificar columna precio_cesion a la tabla adv__articulo
+            const string modificarPrecioCesionTablaArticulo = @"
+                ALTER TABLE adv__articulo 
+                CHANGE precio_cesion precio_venta_base DECIMAL(10,2) NOT NULL;";
+
+            using (var cmd = new MySqlCommand(modificarPrecioCesionTablaArticulo, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Eliminar columna stock_minimo de la tabla adv__articulo
+            const string eliminarStockMinimoTablaArticulo = @"
+                ALTER TABLE adv__articulo 
+                DROP COLUMN stock_minimo;";
+
+            using (var cmd = new MySqlCommand(eliminarStockMinimoTablaArticulo, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Eliminar columna pedido_minimo de la tabla adv__articulo
+            const string eliminarPedidoMinimoTablaArticulo = @"
+                ALTER TABLE adv__articulo 
+                DROP COLUMN pedido_minimo;";
+
+            using (var cmd = new MySqlCommand(eliminarPedidoMinimoTablaArticulo, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Modificar columna precio_unitario a la tabla adv__detalle_venta_articulo
+            const string modificarPrecioUnitarioTablaDetalleVentaArticulo = @"
+                ALTER TABLE adv__detalle_venta_articulo 
+                CHANGE precio_unitario precio_venta_final DECIMAL(10,2) NOT NULL;";
+
+            using (var cmd = new MySqlCommand(modificarPrecioUnitarioTablaDetalleVentaArticulo, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Agregar columna precio_venta_vigente a la tabla adv__detalle_venta_articulo
+            const string agregarPrecioVentaVigenteTablaDetalleVentaArticulo = @"
+                ALTER TABLE adv__detalle_venta_articulo 
+                ADD COLUMN precio_compra_vigente DECIMAL(10,2) NOT NULL AFTER id_articulo;";
+
+            using (var cmd = new MySqlCommand(agregarPrecioVentaVigenteTablaDetalleVentaArticulo, conexion))
                 cmd.ExecuteNonQuery();
         }
-    }
-
-    static void MigrarDatosMotivoATipoMovimiento() {
-        Console.Write("- Migrando datos de 'motivo' a 'tipo_movimiento'...");
-
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-            try {
-                conexion.Open();
-            } catch (Exception) {
-                throw new ExcepcionConexionServidorMySQL();
-            }
-
-            // Paso 1: Insertar los tipos de movimiento en adv__tipo_movimiento
-            string insertarTiposMovimiento = @"
-            INSERT INTO adv__tipo_movimiento (nombre, efecto)
-            VALUES 
-                ('Compra', 'Carga'),
-                ('Venta', 'Descarga'),
-                ('Baja por defecto', 'Descarga'),
-                ('Uso interno', 'Transferencia');";
-
-            using (MySqlCommand cmd = new MySqlCommand(insertarTiposMovimiento, conexion))
-                cmd.ExecuteNonQuery();
-
-            // Paso 2: Actualizar adv__movimiento con id_tipo_movimiento
-            string actualizarMovimientos = @"
-            UPDATE adv__movimiento m
-            JOIN adv__tipo_movimiento tm ON m.motivo = tm.nombre
-            SET m.id_tipo_movimiento = tm.id_tipo_movimiento;";
-
-            using (MySqlCommand cmd = new MySqlCommand(actualizarMovimientos, conexion))
-                cmd.ExecuteNonQuery();
-
-            // Paso 3: Eliminar la columna 'motivo'
-            string eliminarColumnaMotivo = @"ALTER TABLE adv__movimiento DROP COLUMN motivo;";
-            using (MySqlCommand cmd = new MySqlCommand(eliminarColumnaMotivo, conexion))
-                cmd.ExecuteNonQuery();
-
-            Console.Write(" Migración completada.\n");
-        }        
     }
 
     static void ActualizarColumnasMontosADecimal() {
-        Console.Write("- Actualizando columnas de montos financieros a DECIMAL...");
-
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
@@ -154,25 +222,20 @@ class Program {
             }
 
             // Script para actualizar las columnas a DECIMAL
-            string actualizarColumnas = @"
+            const string actualizarColumnas = @"
                     ALTER TABLE adv__venta MODIFY total DECIMAL(10, 2) NOT NULL;
                     ALTER TABLE adv__compra MODIFY total DECIMAL(10, 2) NOT NULL;
-                    ALTER TABLE adv__articulo MODIFY precio_adquisicion DECIMAL(10, 2) NOT NULL;
-                    ALTER TABLE adv__articulo MODIFY precio_cesion DECIMAL(10, 2) NOT NULL;
-                    ALTER TABLE adv__detalle_venta_articulo MODIFY precio_unitario DECIMAL(10, 2) NOT NULL;
+                    ALTER TABLE adv__articulo MODIFY precio_compra_base DECIMAL(10, 2) NOT NULL;
+                    ALTER TABLE adv__articulo MODIFY precio_venta_base DECIMAL(10, 2) NOT NULL;
+                    ALTER TABLE adv__detalle_venta_articulo MODIFY precio_venta_final DECIMAL(10, 2) NOT NULL;
                     ALTER TABLE adv__pago MODIFY monto DECIMAL(10, 2) NOT NULL;";
 
-            using (MySqlCommand cmd = new MySqlCommand(actualizarColumnas, conexion)) {
+            using (var cmd = new MySqlCommand(actualizarColumnas, conexion))
                 cmd.ExecuteNonQuery();
-            }
-
-            Console.Write(" Columnas actualizadas correctamente.\n");
         }
     }
 
-    static void CorregirVentaIncorrecta() {
-        Console.Write("- Corrigiendo venta incorrecta...");
-
+    static void MigrarDatosMotivoATipoMovimiento() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
@@ -180,52 +243,61 @@ class Program {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
-            // Paso 1: Actualizar el precio unitario en adv__detalle_venta_articulo
-            string actualizarPrecioUnitario = @"
-                    UPDATE adv__detalle_venta_articulo
-                    SET precio_unitario = 7700.00
-                    WHERE id_detalle_venta_articulo = 3;";
+            // Paso 1: Insertar los tipos de movimiento en adv__tipo_movimiento
+            const string insertarTiposMovimiento = @"
+                INSERT INTO adv__tipo_movimiento (nombre, efecto)
+                VALUES 
+                    ('Compra', 'Carga'),
+                    ('Venta', 'Descarga'),
+                    ('Baja por defecto', 'Descarga'),
+                    ('Uso interno', 'Transferencia');";
 
-            using (MySqlCommand cmd = new MySqlCommand(actualizarPrecioUnitario, conexion))
+            using (var cmd = new MySqlCommand(insertarTiposMovimiento, conexion))
                 cmd.ExecuteNonQuery();
 
-            // Paso 2: Actualizar el monto total en adv__venta
-            string actualizarMontoVenta = @"
-                    UPDATE adv__venta
-                    SET total = 77000.00
-                    WHERE id_venta = 3;";
+            // Paso 2: Actualizar adv__movimiento con id_tipo_movimiento
+            const string actualizarMovimientos = @"
+                UPDATE adv__movimiento m
+                JOIN adv__tipo_movimiento tm ON m.motivo = tm.nombre
+                SET m.id_tipo_movimiento = tm.id_tipo_movimiento;";
 
-            using (MySqlCommand cmd = new MySqlCommand(actualizarMontoVenta, conexion))
+            using (var cmd = new MySqlCommand(actualizarMovimientos, conexion))
                 cmd.ExecuteNonQuery();
 
-            // Paso 2: Actualizar el monto del pago adv__pago
-            string actualizarMontoPago = @"
-                    UPDATE adv__pago
-                    SET monto = 77000.00
-                    WHERE id_venta = 3;";
+            // Paso 3: Eliminar la columna 'motivo'
+            const string eliminarColumnaMotivo = @"
+                ALTER TABLE adv__movimiento 
+                DROP COLUMN motivo;";
 
-            using (MySqlCommand cmd = new MySqlCommand(actualizarMontoPago, conexion))
+            using (var cmd = new MySqlCommand(eliminarColumnaMotivo, conexion))
                 cmd.ExecuteNonQuery();
+        }
+    }
 
-            // Paso 3: Insertar un nuevo movimiento en adv__movimiento
-            string insertarMovimiento = @"
-                    INSERT INTO adv__movimiento (id_articulo, id_almacen_origen, id_almacen_destino, fecha, cantidad_movida, id_tipo_movimiento)
-                    SELECT dva.id_articulo, 9 AS id_almacen_origen, NULL AS id_almacen_destino, v.fecha, dva.cantidad, tm.id_tipo_movimiento
-                    FROM adv__venta v
-                    JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
-                    JOIN adv__tipo_movimiento tm ON tm.nombre = 'Venta'
-                    WHERE v.id_venta = 3;";
+    static void EliminarVentasYMovimientosAsociados() {
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            } catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
+            }
 
-            using (MySqlCommand cmd = new MySqlCommand(insertarMovimiento, conexion))
-                cmd.ExecuteNonQuery();
+            // Orden de eliminación recomendado
+            string[] consultasEliminacion = {
+                "DELETE FROM adv__detalle_pago_transferencia;",                 // Detalles específicos de transferencias
+                "DELETE FROM adv__pago;",                                       // Pagos generales
+                "DELETE FROM adv__detalle_venta_articulo;",                     // Detalles de ventas
+                "DELETE FROM adv__movimiento WHERE id_tipo_movimiento = 2;",    // Movimientos de ventas (tipo 2)
+                "DELETE FROM adv__venta;"                                       // Cabecera de ventas
+            };
 
-            Console.Write(" Corrección completada.\n");
+            foreach (var consulta in consultasEliminacion)
+                using (var cmd = new MySqlCommand(consulta, conexion))
+                    cmd.ExecuteNonQuery();
         }
     }
 
     static void EliminarModuloVentasYPermisos() {
-        Console.Write("- Eliminando módulo MOD_VENTAS, sus permisos asociados y referencias en roles...");
-
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
@@ -234,35 +306,114 @@ class Program {
             }
 
             // Paso 1: Eliminar las referencias en adv__rol_permiso que apuntan a permisos relacionados con MOD_VENTAS
-            string eliminarReferenciasRoles = @"
+            var eliminarReferenciasRoles = @"
             DELETE FROM adv__rol_permiso
             WHERE id_permiso IN (
                 SELECT id_permiso FROM adv__permiso WHERE nombre LIKE '%MOD_VENTAS%'
             );";
 
-            using (MySqlCommand cmd = new MySqlCommand(eliminarReferenciasRoles, conexion)) {
+            using (var cmd = new MySqlCommand(eliminarReferenciasRoles, conexion)) {
                 cmd.ExecuteNonQuery();
             }
 
             // Paso 2: Eliminar los permisos que contienen la frase 'MOD_VENTAS' en su nombre
-            string eliminarPermisosVentas = @"
+            var eliminarPermisosVentas = @"
             DELETE FROM adv__permiso
             WHERE nombre LIKE '%MOD_VENTAS%';";
 
-            using (MySqlCommand cmd = new MySqlCommand(eliminarPermisosVentas, conexion)) {
+            using (var cmd = new MySqlCommand(eliminarPermisosVentas, conexion)) {
                 cmd.ExecuteNonQuery();
             }
 
             // Paso 3: Eliminar el módulo MOD_VENTAS
-            string eliminarModuloVentas = @"
+            var eliminarModuloVentas = @"
             DELETE FROM adv__modulo
             WHERE nombre = 'MOD_VENTAS';";
 
-            using (MySqlCommand cmd = new MySqlCommand(eliminarModuloVentas, conexion)) {
+            using (var cmd = new MySqlCommand(eliminarModuloVentas, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
+
+    static void MigrarPreciosCompraADetallesCompra() {
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            } catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
+            }
+
+            // Paso 1: Crear una compra genérica
+            const string crearCompraGenerica = @"
+            INSERT INTO adv__compra (fecha, id_almacen, id_proveedor, total)
+            VALUES (NOW(), 8, 0, 0);";
+
+            int idCompra;
+            using (var cmd = new MySqlCommand(crearCompraGenerica, conexion)) {
+                cmd.ExecuteNonQuery();
+
+                // Obtener ID de la compra recién creada
+                cmd.CommandText = "SELECT LAST_INSERT_ID();";
+                idCompra = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+
+            // Paso 2: Insertar detalles de compra para cada artículo
+            const string migrarDetallesCompra = @"
+            INSERT INTO adv__detalle_compra_articulo 
+                (id_compra, id_articulo, cantidad, precio_compra)
+            SELECT 
+                @idCompra,
+                a.id_articulo,
+                COALESCE(aa.stock_total, 0) AS cantidad,
+                a.precio_compra_base
+            FROM adv__articulo a
+            LEFT JOIN (
+                SELECT id_articulo, SUM(stock) AS stock_total
+                FROM adv__articulo_almacen
+                GROUP BY id_articulo
+            ) aa ON a.id_articulo = aa.id_articulo;";
+
+            using (var cmd = new MySqlCommand(migrarDetallesCompra, conexion)) {
+                cmd.Parameters.AddWithValue("@idCompra", idCompra);
                 cmd.ExecuteNonQuery();
             }
 
-            Console.Write(" Módulo, permisos y referencias en roles eliminados correctamente.\n");
+            // Paso 3: Crear movimientos de carga para cada artículo
+            const string crearMovimientos = @"
+            INSERT INTO adv__movimiento 
+                (id_articulo, id_almacen_origen, id_almacen_destino, fecha, cantidad_movida, id_tipo_movimiento)
+            SELECT 
+                aa.id_articulo,
+                0,  -- Asumiendo que el origen es '0' (proveedor/externo)
+                8,  -- Almacén destino (8 según la compra)
+                NOW(),
+                aa.stock_total,
+                1   -- Tipo movimiento: Compra (Carga)
+            FROM (
+                SELECT id_articulo, SUM(stock) AS stock_total
+                FROM adv__articulo_almacen
+                GROUP BY id_articulo
+            ) aa;";
+
+            using (var cmd = new MySqlCommand(crearMovimientos, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
+
+            // Paso 4: Actualizar el total de la compra genérica
+            const string actualizarTotalCompra = @"
+            UPDATE adv__compra 
+            SET total = (
+                SELECT SUM(cantidad * precio_compra) 
+                FROM adv__detalle_compra_articulo 
+                WHERE id_compra = @idCompra
+            )
+            WHERE id_compra = @idCompra;";
+
+            using (var cmd = new MySqlCommand(actualizarTotalCompra, conexion)) {
+                cmd.Parameters.AddWithValue("@idCompra", idCompra);
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

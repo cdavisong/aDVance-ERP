@@ -21,8 +21,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             presentadorTupla.Vista.Codigo = objeto.Codigo ?? string.Empty;
             presentadorTupla.Vista.Nombre = objeto.Nombre ?? string.Empty;
             presentadorTupla.Vista.Descripcion = objeto.Descripcion ?? string.Empty;
-            presentadorTupla.Vista.PrecioAdquisicion = objeto.PrecioAdquisicion;
-            presentadorTupla.Vista.PrecioCesion = objeto.PrecioCesion;
+            presentadorTupla.Vista.PrecioAdquisicion = objeto.PrecioCompraBase;
+            presentadorTupla.Vista.PrecioCesion = objeto.PrecioVentaBase;
             presentadorTupla.Vista.Stock = string.IsNullOrEmpty(objeto.Stock) ? UtilesArticulo.ObtenerStockTotalArticulo(objeto.Id).Result : int.Parse(objeto.Stock);
             presentadorTupla.Vista.MovimientoPositivoStock += delegate (object? sender, EventArgs args) {
                 var nombreAlmacen = sender as string;

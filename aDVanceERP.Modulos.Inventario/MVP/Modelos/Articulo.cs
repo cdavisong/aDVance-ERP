@@ -5,16 +5,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         public Articulo() {
         }
 
-        public Articulo(long id, string codigo, string nombre, string descripcion, long idProveedor, decimal precioAdquisicion, decimal precioCesion, int stockMinimo, int pedidoMinimo) {
+        public Articulo(long id, string codigo, string nombre, string descripcion, long idProveedor, decimal precioCompraBase, decimal precioVentaBase) {
             Id = id;
             Codigo = codigo;
             Nombre = nombre;
             Descripcion = descripcion;
             IdProveedor = idProveedor;
-            PrecioAdquisicion = precioAdquisicion;
-            PrecioCesion = precioCesion;
-            StockMinimo = stockMinimo;
-            PedidoMinimo = pedidoMinimo;
+            PrecioCompraBase = precioCompraBase;
+            PrecioVentaBase = precioVentaBase;
         }
 
         public long Id { get; set; }
@@ -22,10 +20,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
         public string? Nombre { get; }
         public string? Descripcion { get; set; }
         public long IdProveedor { get; set; }
-        public decimal PrecioAdquisicion { get; }
-        public decimal PrecioCesion { get; }
-        public int StockMinimo { get; }
-        public int PedidoMinimo { get; }
+        public decimal PrecioCompraBase { get; }
+        public decimal PrecioVentaBase { get; }
         public string? Stock { get; set; }
         public string? NombreAlmacen { get; set; }
     }
@@ -38,7 +34,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
     }
 
     public static class UtilesBusquedaArticulo {
-        public static string[] CriterioBusquedaArticulo = new string[] {
+        public static object[] CriterioBusquedaArticulo = new string[] {
             "Todos los artículos",
             "Identificador de BD",
             "Código del artículo",

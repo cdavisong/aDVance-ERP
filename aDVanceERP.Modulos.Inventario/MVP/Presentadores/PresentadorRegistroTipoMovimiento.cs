@@ -13,12 +13,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
             Vista.Efecto = objeto.Efecto.ToString();
             Vista.ModoEdicionDatos = true;
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<TipoMovimiento?> ObtenerObjetoDesdeVista() {
             return new TipoMovimiento(
-                id: _objeto?.Id ?? 0,
+                id: Objeto?.Id ?? 0,
                 nombre: Vista.Nombre,
                 efecto: (EfectoMovimiento) (Enum.TryParse(typeof(EfectoMovimiento), Vista.Efecto, out var efecto) ? efecto : default(EfectoMovimiento))
                 );

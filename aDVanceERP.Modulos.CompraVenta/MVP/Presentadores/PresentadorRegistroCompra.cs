@@ -16,11 +16,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
             Vista.Cantidad = objeto.Cantidad;
             Vista.ModoEdicionDatos = true;
 
-            _objeto = objeto;
+            Objeto = objeto;
         }
 
         protected override async Task<Compra?> ObtenerObjetoDesdeVista() {
-            return new Compra(_objeto?.Id ?? 0,
+            return new Compra(Objeto?.Id ?? 0,
                    fecha: DateTime.Now,
                    idAlmacen: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
                    idProveedor: await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
