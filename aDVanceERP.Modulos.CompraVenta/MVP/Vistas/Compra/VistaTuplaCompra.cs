@@ -43,16 +43,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             set => fieldNombreProveedor.Text = value;
         }
 
-        public string NombreArticulo {
-            get => fieldNombreArticulo.Text;
-            set => fieldNombreArticulo.Text = value;
-        }
-
-        public string CantidadProducto {
-            get => fieldCantidadProductos.Text;
-            set => fieldCantidadProductos.Text = value;
-        }
-
         public string MontoTotal {
             get => fieldMontoTotal.Text;
             set => fieldMontoTotal.Text = value;
@@ -80,12 +70,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
                 TuplaSeleccionada?.Invoke(this, e);
             };
             fieldNombreProveedor.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldNombreArticulo.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldCantidadProductos.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
             fieldMontoTotal.Click += delegate (object? sender, EventArgs e) {

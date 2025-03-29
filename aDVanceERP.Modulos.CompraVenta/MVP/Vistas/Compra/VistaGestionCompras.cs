@@ -111,9 +111,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
 
                     fila[0] = tuplaCompra.NombreAlmacen;
                     fila[1] = tuplaCompra.NombreProveedor;
-                    fila[2] = tuplaCompra.NombreArticulo;
-                    fila[3] = tuplaCompra.CantidadProducto;
-                    fila[4] = tuplaCompra.MontoTotal;
+                    fila[2] = tuplaCompra.MontoTotal;
 
                     filas.Add(fila);
                 }

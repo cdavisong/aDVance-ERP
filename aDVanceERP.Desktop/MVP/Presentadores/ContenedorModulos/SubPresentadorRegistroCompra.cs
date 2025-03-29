@@ -21,7 +21,6 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 _registroCompraArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
                 _registroCompraArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
                 _registroCompraArticulo.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
-                _registroCompraArticulo.Vista.RegistrarArticulo += MostrarVistaRegistroArticulo;
                 _registroCompraArticulo.Salir += async (sender, args) => {
                     var salida = sender as string;
                     

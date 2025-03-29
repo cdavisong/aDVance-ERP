@@ -2,7 +2,7 @@
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
@@ -19,7 +19,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
 
             foreach (var articulo in articulosVenta) {
                 var articuloSplit = articulo.Split(':');
-                ((IVistaGestionDetallesVentaArticulos) Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0], articuloSplit[1]);
+                ((IVistaGestionDetallesCompraventaArticulos) Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0], articuloSplit[1]);
             }
 
             Objeto = objeto;

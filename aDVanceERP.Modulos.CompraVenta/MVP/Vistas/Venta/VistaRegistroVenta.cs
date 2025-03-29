@@ -2,14 +2,14 @@
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo;
 
 using System.Globalization;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
-    public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGestionDetallesVentaArticulos {
+    public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGestionDetallesCompraventaArticulos {
         private bool _modoEdicion;
 
         public VistaRegistroVenta() {
@@ -226,7 +226,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
 
         private void ActualizarTuplasArticulos() {
             foreach (var tupla in contenedorVistas.Controls) {
-                if (tupla is IVistaTuplaDetalleVentaArticulo vistaTupla) {
+                if (tupla is IVistaTuplaDetalleCompraventaArticulo vistaTupla) {
                     vistaTupla.Cerrar();
                 }
             }
@@ -237,7 +237,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
 
             for (int i = 0; i < Articulos?.Count; i++) {
                 var articulo = Articulos[i];
-                var tuplaDetallesVentaArticulo = new VistaTuplaDetalleVentaArticulo();
+                var tuplaDetallesVentaArticulo = new VistaTuplaDetalleCompraventaArticulo();
 
                 tuplaDetallesVentaArticulo.IdArticulo = articulo[0];
                 tuplaDetallesVentaArticulo.NombreArticulo = articulo[1];

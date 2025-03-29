@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo.Plantillas {
-    public interface IVistaTuplaDetalleVentaArticulo : IVistaTupla {
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas {
+    public interface IVistaTuplaDetalleCompraventaArticulo : IVistaTupla {
         string IdArticulo { get; set; }
         string NombreArticulo { get; set; }
         string Precio { get; set; }

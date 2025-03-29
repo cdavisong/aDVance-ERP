@@ -91,7 +91,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutVista.Name = "layoutVista";
             layoutVista.RowCount = 1;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutVista.Size = new Size(1241, 40);
+            layoutVista.Size = new Size(1241, 41);
             layoutVista.TabIndex = 19;
             // 
             // fieldId
@@ -103,7 +103,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldId.Location = new Point(1, 1);
             fieldId.Margin = new Padding(1);
             fieldId.Name = "fieldId";
-            fieldId.Size = new Size(58, 38);
+            fieldId.Size = new Size(58, 39);
             fieldId.TabIndex = 13;
             fieldId.Text = "id";
             fieldId.TextAlign = ContentAlignment.MiddleCenter;
@@ -117,10 +117,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreAlmacen.Location = new Point(181, 1);
             fieldNombreAlmacen.Margin = new Padding(1);
             fieldNombreAlmacen.Name = "fieldNombreAlmacen";
-            fieldNombreAlmacen.Size = new Size(118, 38);
+            fieldNombreAlmacen.Size = new Size(118, 39);
             fieldNombreAlmacen.TabIndex = 19;
             fieldNombreAlmacen.Text = "nombreAlmacenOrigen";
-            fieldNombreAlmacen.TextAlign = ContentAlignment.MiddleRight;
+            fieldNombreAlmacen.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldFecha
             // 
@@ -131,7 +131,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldFecha.Location = new Point(61, 1);
             fieldFecha.Margin = new Padding(1);
             fieldFecha.Name = "fieldFecha";
-            fieldFecha.Size = new Size(118, 38);
+            fieldFecha.Size = new Size(118, 39);
             fieldFecha.TabIndex = 17;
             fieldFecha.Text = "fecha";
             fieldFecha.TextAlign = ContentAlignment.MiddleCenter;
@@ -145,7 +145,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreCliente.Location = new Point(305, 1);
             fieldNombreCliente.Margin = new Padding(5, 1, 1, 1);
             fieldNombreCliente.Name = "fieldNombreCliente";
-            fieldNombreCliente.Size = new Size(214, 38);
+            fieldNombreCliente.Size = new Size(214, 39);
             fieldNombreCliente.TabIndex = 4;
             fieldNombreCliente.Text = "nombreCliente";
             fieldNombreCliente.TextAlign = ContentAlignment.MiddleLeft;
@@ -160,7 +160,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldCantidadProductos.Location = new Point(521, 1);
             fieldCantidadProductos.Margin = new Padding(1);
             fieldCantidadProductos.Name = "fieldCantidadProductos";
-            fieldCantidadProductos.Size = new Size(108, 38);
+            fieldCantidadProductos.Size = new Size(108, 39);
             fieldCantidadProductos.TabIndex = 6;
             fieldCantidadProductos.Text = "cantidad";
             fieldCantidadProductos.TextAlign = ContentAlignment.MiddleCenter;
@@ -174,7 +174,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldMontoTotal.Location = new Point(631, 1);
             fieldMontoTotal.Margin = new Padding(1);
             fieldMontoTotal.Name = "fieldMontoTotal";
-            fieldMontoTotal.Size = new Size(108, 38);
+            fieldMontoTotal.Size = new Size(108, 39);
             fieldMontoTotal.TabIndex = 20;
             fieldMontoTotal.Text = "total";
             fieldMontoTotal.TextAlign = ContentAlignment.MiddleRight;
@@ -198,7 +198,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
             btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnEditar.Size = new Size(34, 34);
+            btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 21;
             // 
             // btnEliminar
@@ -222,7 +222,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            btnEliminar.Size = new Size(34, 34);
+            btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 22;
             // 
             // symbolPeso
@@ -235,7 +235,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             symbolPeso.Location = new Point(743, 5);
             symbolPeso.Margin = new Padding(3, 5, 3, 3);
             symbolPeso.Name = "symbolPeso";
-            symbolPeso.Size = new Size(14, 32);
+            symbolPeso.Size = new Size(14, 33);
             symbolPeso.TabIndex = 30;
             symbolPeso.Text = "$";
             symbolPeso.TextAlign = ContentAlignment.MiddleCenter;

@@ -1,10 +1,8 @@
-﻿using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo.Plantillas;
+﻿using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
-    public partial class VistaTuplaDetalleVentaArticulo : Form, IVistaTuplaDetalleVentaArticulo {
-        private string _idArticulo;
-
-        public VistaTuplaDetalleVentaArticulo() {
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
+    public partial class VistaTuplaDetalleCompraventaArticulo : Form, IVistaTuplaDetalleCompraventaArticulo {
+        public VistaTuplaDetalleCompraventaArticulo() {
             InitializeComponent();
             Inicializar();
         }
@@ -24,10 +22,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
             set => Size = value;
         }
 
-        public string IdArticulo {
-            get => _idArticulo;
-            set => _idArticulo = value;
-        }
+        public string IdArticulo { get; set; }
 
         public string NombreArticulo {
             get => fieldNombreArticulo.Text;
@@ -67,7 +62,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
             };
 
             btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(new string[] { IdArticulo, NombreArticulo, Precio, Cantidad }, e);
+                EliminarDatosTupla?.Invoke(new[] { IdArticulo, NombreArticulo, Precio, Cantidad }, e);
             };
         }
 

@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorGestionCompras _gestionCompras;
+        private PresentadorGestionCompras? _gestionCompras;
 
         private async void InicializarVistaGestionCompras() {
             _gestionCompras = new PresentadorGestionCompras(new VistaGestionCompras());
@@ -16,7 +16,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private async void MostrarVistaGestionCompras(object? sender, EventArgs e) {
-            if ((_gestionCompras?.Vista) == null)
+            if (_gestionCompras?.Vista == null)
                 return;
 
             _gestionCompras.Vista.CargarCriteriosBusqueda(UtilesBusquedaCompra.CriterioBusquedaCompra);

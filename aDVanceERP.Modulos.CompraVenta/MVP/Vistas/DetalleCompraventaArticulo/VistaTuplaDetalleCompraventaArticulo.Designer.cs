@@ -2,8 +2,8 @@
 
 using System.ComponentModel;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
-    partial class VistaTuplaDetalleVentaArticulo {
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
+    partial class VistaTuplaDetalleCompraventaArticulo {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -28,17 +28,18 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaDetalleVentaArticulo));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaDetalleCompraventaArticulo));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
-            simboloPeso = new Label();
-            fieldPrecio = new Label();
             btnEliminar = new Guna2Button();
             fieldNombreArticulo = new Label();
             fieldCantidad = new Label();
+            fieldPrecio = new Guna2TextBox();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             SuspendLayout();
@@ -68,53 +69,24 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
             // layoutVista
             // 
             layoutVista.BackColor = Color.White;
-            layoutVista.ColumnCount = 5;
+            layoutVista.ColumnCount = 4;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutVista.Controls.Add(simboloPeso, 0, 0);
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.Controls.Add(fieldPrecio, 0, 0);
-            layoutVista.Controls.Add(btnEliminar, 4, 0);
+            layoutVista.Controls.Add(btnEliminar, 3, 0);
             layoutVista.Controls.Add(fieldNombreArticulo, 0, 0);
-            layoutVista.Controls.Add(fieldCantidad, 3, 0);
+            layoutVista.Controls.Add(fieldCantidad, 2, 0);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(0, 0, 0, 1);
             layoutVista.Name = "layoutVista";
             layoutVista.RowCount = 1;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutVista.Size = new Size(417, 40);
+            layoutVista.Size = new Size(417, 41);
             layoutVista.TabIndex = 0;
-            // 
-            // simboloPeso
-            // 
-            simboloPeso.Dock = DockStyle.Fill;
-            simboloPeso.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            simboloPeso.ForeColor = Color.Black;
-            simboloPeso.ImeMode = ImeMode.NoControl;
-            simboloPeso.Location = new Point(308, 1);
-            simboloPeso.Margin = new Padding(1);
-            simboloPeso.Name = "simboloPeso";
-            simboloPeso.Size = new Size(18, 38);
-            simboloPeso.TabIndex = 3;
-            simboloPeso.Text = "$";
-            simboloPeso.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldPrecio
-            // 
-            fieldPrecio.Dock = DockStyle.Fill;
-            fieldPrecio.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldPrecio.ForeColor = Color.Black;
-            fieldPrecio.ImeMode = ImeMode.NoControl;
-            fieldPrecio.Location = new Point(198, 1);
-            fieldPrecio.Margin = new Padding(1);
-            fieldPrecio.Name = "fieldPrecio";
-            fieldPrecio.Size = new Size(108, 38);
-            fieldPrecio.TabIndex = 2;
-            fieldPrecio.Text = "precio";
-            fieldPrecio.TextAlign = ContentAlignment.MiddleRight;
             // 
             // btnEliminar
             // 
@@ -125,7 +97,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
             btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
             btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges1;
+            btnEliminar.CustomizableEdges = customizableEdges5;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.White;
             btnEliminar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -135,8 +107,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(380, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnEliminar.Size = new Size(34, 34);
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 0;
             // 
             // fieldNombreArticulo
@@ -148,7 +120,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
             fieldNombreArticulo.Location = new Point(1, 1);
             fieldNombreArticulo.Margin = new Padding(1);
             fieldNombreArticulo.Name = "fieldNombreArticulo";
-            fieldNombreArticulo.Size = new Size(195, 38);
+            fieldNombreArticulo.Size = new Size(195, 39);
             fieldNombreArticulo.TabIndex = 1;
             fieldNombreArticulo.Text = "nombreArticulo";
             fieldNombreArticulo.TextAlign = ContentAlignment.MiddleLeft;
@@ -162,12 +134,44 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
             fieldCantidad.Location = new Point(328, 1);
             fieldCantidad.Margin = new Padding(1);
             fieldCantidad.Name = "fieldCantidad";
-            fieldCantidad.Size = new Size(48, 38);
+            fieldCantidad.Size = new Size(48, 39);
             fieldCantidad.TabIndex = 4;
             fieldCantidad.Text = "cant.";
             fieldCantidad.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // VistaTuplaDetalleVentaArticulo
+            // fieldPrecio
+            // 
+            fieldPrecio.Animated = true;
+            fieldPrecio.BorderColor = Color.Gainsboro;
+            fieldPrecio.BorderRadius = 16;
+            fieldPrecio.Cursor = Cursors.IBeam;
+            fieldPrecio.CustomizableEdges = customizableEdges7;
+            fieldPrecio.DefaultText = "";
+            fieldPrecio.DisabledState.BorderColor = Color.White;
+            fieldPrecio.DisabledState.ForeColor = Color.DimGray;
+            fieldPrecio.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldPrecio.Dock = DockStyle.Fill;
+            fieldPrecio.FocusedState.BorderColor = Color.SandyBrown;
+            fieldPrecio.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldPrecio.ForeColor = Color.Black;
+            fieldPrecio.HoverState.BorderColor = Color.SandyBrown;
+            fieldPrecio.IconLeftOffset = new Point(10, 0);
+            fieldPrecio.IconRight = (Image) resources.GetObject("fieldPrecio.IconRight");
+            fieldPrecio.IconRightOffset = new Point(6, 0);
+            fieldPrecio.IconRightSize = new Size(12, 12);
+            fieldPrecio.Location = new Point(200, 3);
+            fieldPrecio.Name = "fieldPrecio";
+            fieldPrecio.PasswordChar = '\0';
+            fieldPrecio.PlaceholderForeColor = Color.DimGray;
+            fieldPrecio.PlaceholderText = "Precio";
+            fieldPrecio.SelectedText = "";
+            fieldPrecio.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            fieldPrecio.Size = new Size(124, 35);
+            fieldPrecio.TabIndex = 5;
+            fieldPrecio.TextAlign = HorizontalAlignment.Right;
+            fieldPrecio.TextOffset = new Point(5, 0);
+            // 
+            // VistaTuplaDetalleCompraventaArticulo
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
@@ -176,7 +180,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
-            Name = "VistaTuplaDetalleVentaArticulo";
+            Name = "VistaTuplaDetalleCompraventaArticulo";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
@@ -193,8 +197,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleVentaArticulo {
         private TableLayoutPanel layoutVista;
         private Guna2Button btnEliminar;
         private Label fieldNombreArticulo;
-        private Label fieldPrecio;
-        private Label simboloPeso;
         private Label fieldCantidad;
+        private Guna2TextBox fieldPrecio;
     }
 }

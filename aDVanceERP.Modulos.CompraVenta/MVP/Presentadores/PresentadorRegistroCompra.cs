@@ -12,8 +12,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
         public override void PopularVistaDesdeObjeto(Compra objeto) {
             Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
             Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
-            Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
-            Vista.Cantidad = objeto.Cantidad;
             Vista.ModoEdicionDatos = true;
 
             Objeto = objeto;
@@ -24,8 +22,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
                    fecha: DateTime.Now,
                    idAlmacen: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
                    idProveedor: await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
-                   idArticulo: await UtilesArticulo.ObtenerIdArticulo(Vista.NombreArticulo),
-                   cantidad: Vista.Cantidad,
                    total: Vista.Total
                );
         }

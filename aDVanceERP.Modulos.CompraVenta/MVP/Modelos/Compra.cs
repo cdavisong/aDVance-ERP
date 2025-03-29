@@ -5,13 +5,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public Compra() {
         }
 
-        public Compra(long id, DateTime fecha, long idAlmacen, long idProveedor, long idArticulo, int cantidad, decimal total) {
+        public Compra(long id, DateTime fecha, long idAlmacen, long idProveedor, decimal total) {
             Id = id;
             Fecha = fecha;
             IdAlmacen = idAlmacen;
             IdProveedor = idProveedor;
-            IdArticulo = idArticulo;
-            Cantidad = cantidad;
             Total = total;
         }
 
@@ -19,8 +17,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public DateTime Fecha { get; set; }
         public long IdAlmacen { get; set; }
         public long IdProveedor { get; set; }
-        public long IdArticulo { get; set; }
-        public int Cantidad { get; set; }
         public decimal Total { get; set; }
     }
 
@@ -34,7 +30,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
     }
 
     public static class UtilesBusquedaCompra {
-        public static readonly string[] CriterioBusquedaCompra = new string[] {
+        public static readonly object[] CriterioBusquedaCompra = new string[] {
             "Todas las compras",
             "Identificador de BD",
             "Nombre del almacén",

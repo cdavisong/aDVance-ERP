@@ -6,7 +6,6 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
     public partial class VistaRegistroCompra : Form, IVistaRegistroCompra {
         private bool _modoEdicion;
-        private bool _articuloValido;
 
         public VistaRegistroCompra() {
             InitializeComponent();
@@ -58,24 +57,21 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
         }
 
         public int Cantidad {
-            get => int.TryParse(fieldCantidadArticulos.Text, out var cantidad) ? cantidad : 0;
-            set { 
-                fieldCantidadArticulos.Text = value > 0 ? value.ToString() : string.Empty;
+            get => int.TryParse(fieldCantidad.Text, out var cantidad) ? cantidad : 0;
+            set {
+                fieldCantidad.Text = value > 0 ? value.ToString() : string.Empty;
                 fieldCantidad.Text = value > 0 ? value.ToString() : "0";
             }
-        }
-
-        public decimal PrecioUnitario {
-            get => decimal.TryParse(fieldPrecioUnitario.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total) ? total : 0;
-            set => fieldPrecioUnitario.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public decimal Total {
             get => decimal.TryParse(fieldTotalCompra.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total) ? total : 0;
             set => fieldTotalCompra.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
+        public List<string[]>? Articulos { get; }
 
-        public event EventHandler? RegistrarArticulo;
+        public event EventHandler? ArticuloAgregado;
+        public event EventHandler? ArticuloEliminado;
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
@@ -91,36 +87,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
 
                 CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
             };
-            fieldNombreArticulo.TextChanged += delegate {
-                _articuloValido = UtilesArticulo.ObtenerIdArticulo(NombreArticulo).Result != 0;
-
-                if (_articuloValido)
-                    fieldCantidadArticulos.Focus();
-
-                ActualizarMontoTotalCompra();
-            };
-            btnAdicionarArticulo.Click += delegate (object? sender, EventArgs args) {
-                RegistrarArticulo?.Invoke(sender, args);
-
-                NombreArticulo = string.Empty;
-                fieldNombreArticulo.Focus();
-            };
-            fieldCantidadArticulos.TextChanged += delegate {
-                btnRegistrar.Enabled = Cantidad > 0 && _articuloValido;
-                Cantidad = int.TryParse(fieldCantidadArticulos.Text, out var cantidad) ? cantidad : 0;
-
-                ActualizarMontoTotalCompra();
-            };
-            fieldCantidadArticulos.KeyDown += delegate (object? sender, KeyEventArgs args) {
-                if (args.KeyCode == Keys.Enter && _articuloValido) {
-                    if (ModoEdicionDatos)
-                        EditarDatos?.Invoke(sender, args);
-                    else
-                        RegistrarDatos?.Invoke(sender, args);
-
-                    args.SuppressKeyPress = true;
-                }
-            };
+            
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
                     EditarDatos?.Invoke(sender, args);
@@ -130,15 +97,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnSalir.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke("exit", args);
             };
-        }
-
-        private void ActualizarMontoTotalCompra() {
-            if (_articuloValido && Cantidad > 0) {
-                var precioUnitario = UtilesArticulo.ObtenerPrecioUnitarioArticulo(UtilesArticulo.ObtenerIdArticulo(NombreArticulo).Result).Result;
-
-                PrecioUnitario = precioUnitario;
-                Total = precioUnitario * Cantidad;                
-            }
         }
 
         public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
