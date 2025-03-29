@@ -64,8 +64,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
         public static async Task<long> ObtenerIdArticulo(string nombreArticulo) {
             string query = "SELECT id_articulo FROM adv__articulo WHERE nombre = @nombreArticulo;";
-            var parametros = new MySqlParameter[]
-            {
+            var parametros = new[] {
                 new MySqlParameter("@nombreArticulo", nombreArticulo)
             };
 
@@ -74,8 +73,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
         public static async Task<string?> ObtenerNombreArticulo(long idArticulo) {
             string query = "SELECT nombre FROM adv__articulo WHERE id_articulo = @idArticulo;";
-            var parametros = new MySqlParameter[]
-            {
+            var parametros = new[] {
                 new MySqlParameter("@idArticulo", idArticulo)
             };
 
@@ -106,7 +104,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
         public static async Task<int> ObtenerStockTotalArticulo(long idArticulo) {
             // Usamos COALESCE para devolver 0 si SUM(stock) es NULL
             string query = "SELECT COALESCE(SUM(stock), 0) as stock_total FROM adv__articulo_almacen WHERE id_articulo = @IdArticulo;";
-            var parametros = new MySqlParameter[] {
+            var parametros = new[] {
                 new MySqlParameter("@IdArticulo", idArticulo)
             };
 
@@ -120,7 +118,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 JOIN adv__articulo ar ON aa.id_articulo = ar.id_articulo 
                 JOIN adv__almacen al ON aa.id_almacen = al.id_almacen 
                 WHERE ar.nombre = @NombreArticulo AND al.nombre = @NombreAlmacen;";
-            var parametros = new MySqlParameter[]            {
+            var parametros = new[]            {
                 new MySqlParameter("@NombreArticulo", nombreArticulo),
                 new MySqlParameter("@NombreAlmacen", nombreAlmacen)
             };
@@ -130,12 +128,11 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
         public static async Task<decimal> ObtenerPrecioUnitarioArticulo(long idArticulo) {
             string query = "SELECT precio_venta_base FROM adv__articulo WHERE id_articulo = @IdArticulo;";
-            var parametros = new MySqlParameter[]
-            {
+            var parametros = new[] {
                 new MySqlParameter("@IdArticulo", idArticulo)
             };
 
-            return await EjecutarConsultaEscalar(query, lector => lector.GetDecimal(lector.GetOrdinal("precio_cesion")), parametros);
+            return await EjecutarConsultaEscalar(query, lector => lector.GetDecimal(lector.GetOrdinal("precio_venta_base")), parametros);
         }
 
         public static async Task<decimal> ObtenerMontoInvertidoEnArticulos(long idAlmacen = 0) {
@@ -155,8 +152,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
         public static async Task<bool> PuedeEliminarArticulo(long idArticulo) {
             string queryVentas = "SELECT COUNT(*) FROM adv__detalle_venta_articulo WHERE id_articulo = @IdArticulo;";
             string queryMovimientos = "SELECT COUNT(*) FROM adv__movimiento WHERE id_articulo = @IdArticulo;";
-            var parametros = new MySqlParameter[]
-            {
+            var parametros = new[] {
                 new MySqlParameter("@IdArticulo", idArticulo)
             };
 

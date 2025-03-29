@@ -235,7 +235,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // Restablecer útima coordenada Y de la tupla
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
-            for (int i = 0; i < Articulos?.Count; i++) {
+            for (var i = 0; i < Articulos?.Count; i++) {
                 var articulo = Articulos[i];
                 var tuplaDetallesVentaArticulo = new VistaTuplaDetalleCompraventaArticulo();
 
@@ -243,6 +243,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
                 tuplaDetallesVentaArticulo.NombreArticulo = articulo[1];
                 tuplaDetallesVentaArticulo.Precio = articulo[2];
                 tuplaDetallesVentaArticulo.Cantidad = articulo[3];
+                tuplaDetallesVentaArticulo.MontoModificado += delegate (object? sender, EventArgs args) {
+                    if (sender is not IVistaTuplaDetalleCompraventaArticulo vista) 
+                        return;
+
+                    var indiceArticulo = Articulos.FindIndex(a => a[0].Equals(vista.IdArticulo));
+
+                    if (indiceArticulo == -1)
+                        return;
+                    
+                    Articulos[indiceArticulo][2] = vista.Precio; // Actualizar precio unitario
+
+                    ActualizarTotal();
+                };
                 tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                     articulo = sender as string[];
 

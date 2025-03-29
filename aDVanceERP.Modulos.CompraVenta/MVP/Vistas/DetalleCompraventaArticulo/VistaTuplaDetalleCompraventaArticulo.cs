@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
+﻿using System.Globalization;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
     public partial class VistaTuplaDetalleCompraventaArticulo : Form, IVistaTuplaDetalleCompraventaArticulo {
@@ -44,6 +45,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
             set => layoutVista.BackColor = value;
         }
 
+        public event EventHandler? MontoModificado;
         public event EventHandler? TuplaSeleccionada;
         public event EventHandler? EditarDatosTupla;
         public event EventHandler? EliminarDatosTupla;
@@ -57,6 +59,17 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
             fieldPrecio.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
+            fieldPrecio.LostFocus += delegate {
+                FormatearMontoModificado();
+            };
+            fieldPrecio.KeyDown += delegate (object? sender, KeyEventArgs args) {
+                if (args.KeyCode != Keys.Enter) 
+                    return;
+                
+                FormatearMontoModificado();
+
+                args.SuppressKeyPress = true;
+            };
             fieldCantidad.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
@@ -64,6 +77,14 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
             btnEliminar.Click += delegate (object? sender, EventArgs e) {
                 EliminarDatosTupla?.Invoke(new[] { IdArticulo, NombreArticulo, Precio, Cantidad }, e);
             };
+        }
+
+        private void FormatearMontoModificado() {
+            if (!decimal.TryParse(Precio, NumberStyles.Any, CultureInfo.InvariantCulture, out var monto)) 
+                return;
+
+            Precio = monto.ToString("N2", CultureInfo.InvariantCulture);
+            MontoModificado?.Invoke(this, EventArgs.Empty); // Dispara el evento para notificar que se ha modificado el monto
         }
 
         public void Mostrar() {

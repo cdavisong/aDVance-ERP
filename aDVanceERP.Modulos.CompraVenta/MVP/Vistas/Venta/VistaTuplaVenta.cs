@@ -1,6 +1,8 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
+using System.Globalization;
+
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
     public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
         public VistaTuplaVenta() {

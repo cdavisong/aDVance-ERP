@@ -6,5 +6,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.P
         string NombreArticulo { get; set; }
         string Precio { get; set; }
         string Cantidad { get; set; }
+
+        event EventHandler? MontoModificado;
     }
 }
