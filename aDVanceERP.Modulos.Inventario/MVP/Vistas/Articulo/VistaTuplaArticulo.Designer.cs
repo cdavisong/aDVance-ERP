@@ -29,14 +29,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaArticulo));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -48,8 +48,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnMovimientoPositivo = new Guna2Button();
             fieldDescripcion = new Label();
             fieldNombre = new Label();
-            fieldPrecioCesion = new Label();
-            fieldPrecioAdquisicion = new Label();
+            fieldPrecioVentaBase = new Label();
+            fieldPrecioCompraBase = new Label();
             fieldCodigo = new Label();
             btnEliminar = new Guna2Button();
             layoutBase.SuspendLayout();
@@ -103,8 +103,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             layoutVista.Controls.Add(btnMovimientoPositivo, 9, 0);
             layoutVista.Controls.Add(fieldDescripcion, 4, 0);
             layoutVista.Controls.Add(fieldNombre, 3, 0);
-            layoutVista.Controls.Add(fieldPrecioCesion, 6, 0);
-            layoutVista.Controls.Add(fieldPrecioAdquisicion, 5, 0);
+            layoutVista.Controls.Add(fieldPrecioVentaBase, 6, 0);
+            layoutVista.Controls.Add(fieldPrecioCompraBase, 5, 0);
             layoutVista.Controls.Add(fieldCodigo, 2, 0);
             layoutVista.Controls.Add(btnEliminar, 12, 0);
             layoutVista.Dock = DockStyle.Fill;
@@ -167,7 +167,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
             btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges1;
+            btnEditar.CustomizableEdges = customizableEdges9;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
             btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -176,7 +176,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnEditar.HoverState.FillColor = Color.PeachPuff;
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 9;
             // 
@@ -189,7 +189,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnMovimientoNegativo.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
             btnMovimientoNegativo.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnMovimientoNegativo.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnMovimientoNegativo.CustomizableEdges = customizableEdges3;
+            btnMovimientoNegativo.CustomizableEdges = customizableEdges11;
             btnMovimientoNegativo.Dock = DockStyle.Fill;
             btnMovimientoNegativo.FillColor = Color.White;
             btnMovimientoNegativo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -198,7 +198,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnMovimientoNegativo.HoverState.FillColor = Color.PeachPuff;
             btnMovimientoNegativo.Location = new Point(1124, 3);
             btnMovimientoNegativo.Name = "btnMovimientoNegativo";
-            btnMovimientoNegativo.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnMovimientoNegativo.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnMovimientoNegativo.Size = new Size(34, 35);
             btnMovimientoNegativo.TabIndex = 18;
             // 
@@ -211,7 +211,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnMovimientoPositivo.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage2");
             btnMovimientoPositivo.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
             btnMovimientoPositivo.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnMovimientoPositivo.CustomizableEdges = customizableEdges5;
+            btnMovimientoPositivo.CustomizableEdges = customizableEdges13;
             btnMovimientoPositivo.Dock = DockStyle.Fill;
             btnMovimientoPositivo.FillColor = Color.White;
             btnMovimientoPositivo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -220,7 +220,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnMovimientoPositivo.HoverState.FillColor = Color.PeachPuff;
             btnMovimientoPositivo.Location = new Point(1084, 3);
             btnMovimientoPositivo.Name = "btnMovimientoPositivo";
-            btnMovimientoPositivo.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnMovimientoPositivo.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnMovimientoPositivo.Size = new Size(34, 35);
             btnMovimientoPositivo.TabIndex = 19;
             // 
@@ -253,33 +253,33 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldNombre.Text = "nombre";
             fieldNombre.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // fieldPrecioCesion
+            // fieldPrecioVentaBase
             // 
-            fieldPrecioCesion.Dock = DockStyle.Fill;
-            fieldPrecioCesion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldPrecioCesion.ForeColor = Color.DimGray;
-            fieldPrecioCesion.ImeMode = ImeMode.NoControl;
-            fieldPrecioCesion.Location = new Point(861, 1);
-            fieldPrecioCesion.Margin = new Padding(1);
-            fieldPrecioCesion.Name = "fieldPrecioCesion";
-            fieldPrecioCesion.Size = new Size(108, 39);
-            fieldPrecioCesion.TabIndex = 17;
-            fieldPrecioCesion.Text = "precioCesion";
-            fieldPrecioCesion.TextAlign = ContentAlignment.MiddleCenter;
+            fieldPrecioVentaBase.Dock = DockStyle.Fill;
+            fieldPrecioVentaBase.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPrecioVentaBase.ForeColor = Color.DimGray;
+            fieldPrecioVentaBase.ImeMode = ImeMode.NoControl;
+            fieldPrecioVentaBase.Location = new Point(861, 1);
+            fieldPrecioVentaBase.Margin = new Padding(1);
+            fieldPrecioVentaBase.Name = "fieldPrecioVentaBase";
+            fieldPrecioVentaBase.Size = new Size(108, 39);
+            fieldPrecioVentaBase.TabIndex = 17;
+            fieldPrecioVentaBase.Text = "precioVenta";
+            fieldPrecioVentaBase.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldPrecioAdquisicion
+            // fieldPrecioCompraBase
             // 
-            fieldPrecioAdquisicion.Dock = DockStyle.Fill;
-            fieldPrecioAdquisicion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldPrecioAdquisicion.ForeColor = Color.DimGray;
-            fieldPrecioAdquisicion.ImeMode = ImeMode.NoControl;
-            fieldPrecioAdquisicion.Location = new Point(751, 1);
-            fieldPrecioAdquisicion.Margin = new Padding(1);
-            fieldPrecioAdquisicion.Name = "fieldPrecioAdquisicion";
-            fieldPrecioAdquisicion.Size = new Size(108, 39);
-            fieldPrecioAdquisicion.TabIndex = 14;
-            fieldPrecioAdquisicion.Text = "precioAdq.";
-            fieldPrecioAdquisicion.TextAlign = ContentAlignment.MiddleCenter;
+            fieldPrecioCompraBase.Dock = DockStyle.Fill;
+            fieldPrecioCompraBase.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPrecioCompraBase.ForeColor = Color.DimGray;
+            fieldPrecioCompraBase.ImeMode = ImeMode.NoControl;
+            fieldPrecioCompraBase.Location = new Point(751, 1);
+            fieldPrecioCompraBase.Margin = new Padding(1);
+            fieldPrecioCompraBase.Name = "fieldPrecioCompraBase";
+            fieldPrecioCompraBase.Size = new Size(108, 39);
+            fieldPrecioCompraBase.TabIndex = 14;
+            fieldPrecioCompraBase.Text = "precioCompra.";
+            fieldPrecioCompraBase.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldCodigo
             // 
@@ -304,7 +304,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage3");
             btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges7;
+            btnEliminar.CustomizableEdges = customizableEdges15;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.White;
             btnEliminar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -314,7 +314,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 21;
             // 
@@ -345,11 +345,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         private Label fieldNombre;
         private Label fieldId;
         private Guna2Button btnEditar;
-        private Label fieldPrecioAdquisicion;
+        private Label fieldPrecioCompraBase;
         private Label fieldDescripcion;
         private Label fieldCodigo;
         private Label fieldStock;
-        private Label fieldPrecioCesion;
+        private Label fieldPrecioVentaBase;
         private Guna2Button btnMovimientoNegativo;
         private Guna2Button btnMovimientoPositivo;
         private Label fieldNombreAlmacen;

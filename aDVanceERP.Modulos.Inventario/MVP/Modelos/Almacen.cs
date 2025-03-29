@@ -27,7 +27,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
     }
 
     public static class UtilesBusquedaAlmacen {
-        public static string[] CriterioBusquedaAlmacen = new string[] {
+        public static object[] CriterioBusquedaAlmacen = new string[] {
             "Todos los almacenes",
             "Identificador de BD",
             "Nombre del almacén"

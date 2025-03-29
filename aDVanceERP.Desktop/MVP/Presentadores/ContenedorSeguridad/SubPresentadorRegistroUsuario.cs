@@ -15,8 +15,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
         }
 
         private void MostrarVistaRegistroUsuario(object? sender, EventArgs e) {
-            _registroUsuario?.Vista.Mostrar();
             _registroUsuario?.Vista.Restaurar();
+            _registroUsuario?.Vista.Mostrar();
         }
     }
 }

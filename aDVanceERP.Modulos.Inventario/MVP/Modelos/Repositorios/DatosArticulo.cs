@@ -56,8 +56,8 @@
             var datoMultiple = dato.Split(';');
             var todosLosAlmacenes = datoMultiple.Length > 1 && datoMultiple[0].Contains("Todos");
             var aplicarFiltroAlmacen = datoMultiple.Length > 1 && !todosLosAlmacenes;
-            var comandoAdicionalSelect = ", ta.stock, a.nombre AS nombre_almacen";
-            var comandoAdicionalJoin = $"JOIN adv__articulo_almacen ta ON t.id_articulo = ta.id_articulo JOIN adv__almacen a ON ta.id_almacen = a.id_almacen ";
+            const string comandoAdicionalSelect = ", ta.stock, a.nombre AS nombre_almacen";
+            const string comandoAdicionalJoin = "JOIN adv__articulo_almacen ta ON t.id_articulo = ta.id_articulo JOIN adv__almacen a ON ta.id_almacen = a.id_almacen ";
             var comandoAdicionalWhere = $"AND a.nombre = '{datoMultiple[0]}'";
 
             switch (criterio) {
@@ -88,8 +88,8 @@
                 precioCompraBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra_base")),
                 precioVentaBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_base"))
             ) {
-                Stock = lectorDatos.FieldCount > 9 ? lectorDatos.GetValue(lectorDatos.GetOrdinal("stock")).ToString() ?? string.Empty : string.Empty,
-                NombreAlmacen = lectorDatos.FieldCount > 9 ? lectorDatos.GetValue(lectorDatos.GetOrdinal("nombre_almacen")).ToString() ?? string.Empty : string.Empty
+                Stock = lectorDatos.FieldCount > 7 ? lectorDatos.GetValue(lectorDatos.GetOrdinal("stock")).ToString() ?? string.Empty : string.Empty,
+                NombreAlmacen = lectorDatos.FieldCount > 7 ? lectorDatos.GetValue(lectorDatos.GetOrdinal("nombre_almacen")).ToString() ?? string.Empty : string.Empty
             };
         }
 

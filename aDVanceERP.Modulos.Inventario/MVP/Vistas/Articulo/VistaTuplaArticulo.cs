@@ -53,14 +53,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             set => fieldDescripcion.Text = value;
         }
 
-        public decimal PrecioAdquisicion {
-            get => decimal.TryParse(fieldPrecioAdquisicion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : 0;
-            set => fieldPrecioAdquisicion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
+        public decimal PrecioCompraBase {
+            get => decimal.TryParse(fieldPrecioCompraBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : 0;
+            set => fieldPrecioCompraBase.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
-        public decimal PrecioCesion {
-            get => decimal.TryParse(fieldPrecioCesion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : 0;
-            set => fieldPrecioCesion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
+        public decimal PrecioVentaBase {
+            get => decimal.TryParse(fieldPrecioVentaBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : 0;
+            set => fieldPrecioVentaBase.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public int Stock {
@@ -101,10 +101,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldDescripcion.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldPrecioAdquisicion.Click += delegate (object? sender, EventArgs e) {
+            fieldPrecioCompraBase.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldPrecioCesion.Click += delegate (object? sender, EventArgs e) {
+            fieldPrecioVentaBase.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
             fieldStock.Click += delegate (object? sender, EventArgs e) {
@@ -135,6 +135,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         }
 
         private void VerificarPermisos() {
+            if (UtilesCuentaUsuario.UsuarioAutenticado == null || UtilesCuentaUsuario.PermisosUsuario == null) {
+                btnMovimientoPositivo.Enabled = false;
+                btnMovimientoNegativo.Enabled = false;
+                btnEditar.Enabled = false;
+                return;
+            }
+
             btnMovimientoPositivo.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_MOVIMIENTOS_ADICIONAR")
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_MOVIMIENTOS_TODOS")

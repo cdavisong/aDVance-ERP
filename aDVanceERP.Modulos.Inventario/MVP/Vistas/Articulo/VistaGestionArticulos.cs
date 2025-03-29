@@ -51,7 +51,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         public string ValorBrutoInversion {
             get => fieldValorBrutoInversion.Text;
             set {
-                layoutValorBrutoInversion.Visible = !value.Equals("0,00");
+                layoutValorBrutoInversion.Visible = !value.Equals("0.00");
                 fieldValorBrutoInversion.Text = value;
             }
         }
@@ -68,7 +68,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             get => _paginaActual;
             set {
                 _paginaActual = value;
-                fieldPaginaActual.Text = $"Página {value}";
+                fieldPaginaActual.Text = $@"Página {value}";
             }
         }
 
@@ -76,7 +76,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             get => _paginasTotales;
             set {
                 _paginasTotales = value;
-                fieldPaginasTotales.Text = $"de {value}";
+                fieldPaginasTotales.Text = $@"de {value}";
                 HabilitarBotonesPaginacion();
             }
         }
@@ -102,14 +102,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             // Eventos
             fieldNombreAlmacen.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(NombreAlmacen)) {
-                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new string[] { NombreAlmacen, DatoBusqueda } }, e);
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, DatoBusqueda } }, e);
                 } else SincronizarDatos?.Invoke(sender, e);
 
                 ActualizarMontoInversion();
             };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(DatoBusqueda))
-                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new string[] { NombreAlmacen, DatoBusqueda } }, e);
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, DatoBusqueda } }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
@@ -173,7 +173,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
                 fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
                 fieldDatoBusqueda.Focus();
 
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new string[] { NombreAlmacen, DatoBusqueda } }, EventArgs.Empty);
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, DatoBusqueda } }, EventArgs.Empty);
 
                 // Ir a la primera página al cambiar el criterio de búsqueda
                 PaginaActual = 1;
@@ -190,6 +190,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         }
 
         private void VerificarPermisos() {
+            if (UtilesCuentaUsuario.UsuarioAutenticado == null || UtilesCuentaUsuario.PermisosUsuario == null) {
+                btnRegistrar.Enabled = false;
+                return;
+            }
+
             btnRegistrar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_ARTICULOS_ADICIONAR")
                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_ARTICULOS_TODOS")

@@ -5,10 +5,9 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorGestionArticulos _gestionArticulos;
+        private PresentadorGestionArticulos? _gestionArticulos;
 
         private async void InicializarVistaGestionArticulos() {
-
             _gestionArticulos = new PresentadorGestionArticulos(new VistaGestionArticulos());
             _gestionArticulos.MovimientoPositivoStock += MostrarVistaRegistroMovimiento;
             _gestionArticulos.MovimientoNegativoStock += MostrarVistaRegistroMovimiento;
@@ -20,15 +19,12 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private async void MostrarVistaGestionArticulos(object? sender, EventArgs e) {
-            if ((_gestionArticulos.Vista) == null)
-                return;
+            _gestionArticulos?.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
+            _gestionArticulos?.Vista.CargarCriteriosBusqueda(UtilesBusquedaArticulo.CriterioBusquedaArticulo);
+            _gestionArticulos?.Vista.Restaurar();
+            _gestionArticulos?.Vista.Mostrar();
 
-            _gestionArticulos.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
-            _gestionArticulos.Vista.CargarCriteriosBusqueda(UtilesBusquedaArticulo.CriterioBusquedaArticulo);
-            _gestionArticulos.Vista.Restaurar();
-            _gestionArticulos.Vista.Mostrar();
-
-            await _gestionArticulos.RefrescarListaObjetos();
+            await _gestionArticulos?.RefrescarListaObjetos()!;
         }
     }
 }

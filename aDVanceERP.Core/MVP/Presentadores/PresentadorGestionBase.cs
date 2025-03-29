@@ -64,7 +64,7 @@ namespace aDVanceERP.Core.MVP.Presentadores {
             }
         }
 
-        public async Task BusquedaDatos(C criterio, string dato) {
+        public async Task BusquedaDatos(C criterio, string? dato) {
             CriterioBusquedaObjeto = criterio;
             DatoBusquedaObjeto = dato;
 
@@ -103,14 +103,15 @@ namespace aDVanceERP.Core.MVP.Presentadores {
         }
 
         private async void OnBuscarDatos(object? sender, EventArgs e) {
-            if (sender is object[] objetoSplit && objetoSplit.Length >= 2) {
-                var criterioBusqueda = (C) objetoSplit[0];
-                var datoBusqueda = objetoSplit[1] is string[] datosBusquedaMultiple
-                    ? string.Join(";", datosBusquedaMultiple)
-                    : objetoSplit[1].ToString();
+            if (sender is not object[] objetoSplit || objetoSplit.Length < 2) 
+                return;
 
-                await BusquedaDatos(criterioBusqueda, datoBusqueda);
-            }
+            var criterioBusqueda = (C) objetoSplit[0];
+            var datoBusqueda = objetoSplit[1] is string[] datosBusquedaMultiple
+                ? string.Join(";", datosBusquedaMultiple)
+                : objetoSplit[1].ToString();
+
+            await BusquedaDatos(criterioBusqueda, datoBusqueda);
         }
 
         private async void OnAlturaContenedorTuplasModificada(object? sender, EventArgs e) {

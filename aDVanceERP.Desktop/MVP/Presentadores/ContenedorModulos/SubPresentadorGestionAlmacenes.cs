@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorGestionAlmacenes _gestionAlmacenes;
+        private PresentadorGestionAlmacenes? _gestionAlmacenes;
 
         private async void InicializarVistaGestionAlmacenes() {
             _gestionAlmacenes = new PresentadorGestionAlmacenes(new VistaGestionAlmacenes());
@@ -16,7 +16,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private async void MostrarVistaGestionAlmacenes(object? sender, EventArgs e) {
-            if ((_gestionAlmacenes?.Vista) == null)
+            if (_gestionAlmacenes?.Vista == null)
                 return;
 
             _gestionAlmacenes.Vista.CargarCriteriosBusqueda(UtilesBusquedaAlmacen.CriterioBusquedaAlmacen);

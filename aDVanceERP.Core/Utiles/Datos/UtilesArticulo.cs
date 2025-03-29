@@ -145,7 +145,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 JOIN adv__articulo_almacen aa ON ar.id_articulo = aa.id_articulo
                 JOIN adv__almacen al ON aa.id_almacen = al.id_almacen
                 {(idAlmacen != 0 ? "WHERE al.id_almacen = @IdAlmacen" : string.Empty)};";
-            var parametros = new MySqlParameter[] {
+            var parametros = new[] {
                 new MySqlParameter("@IdAlmacen", idAlmacen)
             };
 

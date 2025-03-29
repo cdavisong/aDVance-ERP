@@ -7,8 +7,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo.Plantillas {
         string Codigo { get; set; }
         string Nombre { get; set; }
         string Descripcion { get; set; }
-        decimal PrecioAdquisicion { get; set; }
-        decimal PrecioCesion { get; set; }
+        decimal PrecioCompraBase { get; set; }
+        decimal PrecioVentaBase { get; set; }
         int Stock { get; set; }
 
         event EventHandler? MovimientoPositivoStock;

@@ -47,10 +47,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -63,9 +59,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldPrecioCesion = new Guna2TextBox();
             fieldPrecioAdquisicion = new Guna2TextBox();
             fieldDescripcion = new Guna2TextBox();
-            layoutStock = new TableLayoutPanel();
-            fieldPedidoMinimo = new Guna2TextBox();
-            fieldStockMinimo = new Guna2TextBox();
             fieldTituloNombreProveedor = new Label();
             fieldNombreProveedor = new Guna2ComboBox();
             fieldCodigo = new Guna2TextBox();
@@ -78,7 +71,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutTitulo.SuspendLayout();
             layoutPrecios.SuspendLayout();
-            layoutStock.SuspendLayout();
             layoutBotones.SuspendLayout();
             SuspendLayout();
             // 
@@ -123,7 +115,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             layoutVista.Controls.Add(layoutTitulo, 2, 1);
             layoutVista.Controls.Add(layoutPrecios, 2, 13);
             layoutVista.Controls.Add(fieldDescripcion, 2, 8);
-            layoutVista.Controls.Add(layoutStock, 2, 15);
             layoutVista.Controls.Add(fieldTituloNombreProveedor, 2, 10);
             layoutVista.Controls.Add(fieldNombreProveedor, 2, 11);
             layoutVista.Controls.Add(fieldCodigo, 2, 6);
@@ -132,7 +123,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             layoutVista.Location = new Point(13, 0);
             layoutVista.Margin = new Padding(3, 0, 0, 0);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 18;
+            layoutVista.RowCount = 16;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
@@ -147,10 +138,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
@@ -255,12 +243,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldPrecioCesion.Cursor = Cursors.IBeam;
             fieldPrecioCesion.CustomizableEdges = customizableEdges3;
             fieldPrecioCesion.DefaultText = "";
-            fieldPrecioCesion.DisabledState.BorderColor = Color.Gainsboro;
             fieldPrecioCesion.DisabledState.BorderColor = Color.White;
             fieldPrecioCesion.DisabledState.ForeColor = Color.DimGray;
             fieldPrecioCesion.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldPrecioCesion.Dock = DockStyle.Fill;
-            fieldPrecioCesion.FillColor = Color.White;
             fieldPrecioCesion.FocusedState.BorderColor = Color.SandyBrown;
             fieldPrecioCesion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldPrecioCesion.ForeColor = Color.Black;
@@ -275,7 +261,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldPrecioCesion.Name = "fieldPrecioCesion";
             fieldPrecioCesion.PasswordChar = '\0';
             fieldPrecioCesion.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioCesion.PlaceholderText = "P. Cesión";
+            fieldPrecioCesion.PlaceholderText = "P. Venta Base";
             fieldPrecioCesion.SelectedText = "";
             fieldPrecioCesion.ShadowDecoration.CustomizableEdges = customizableEdges4;
             fieldPrecioCesion.Size = new Size(199, 35);
@@ -291,12 +277,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldPrecioAdquisicion.Cursor = Cursors.IBeam;
             fieldPrecioAdquisicion.CustomizableEdges = customizableEdges5;
             fieldPrecioAdquisicion.DefaultText = "";
-            fieldPrecioAdquisicion.DisabledState.BorderColor = Color.Gainsboro;
             fieldPrecioAdquisicion.DisabledState.BorderColor = Color.White;
             fieldPrecioAdquisicion.DisabledState.ForeColor = Color.DimGray;
             fieldPrecioAdquisicion.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldPrecioAdquisicion.Dock = DockStyle.Fill;
-            fieldPrecioAdquisicion.FillColor = Color.White;
             fieldPrecioAdquisicion.FocusedState.BorderColor = Color.SandyBrown;
             fieldPrecioAdquisicion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldPrecioAdquisicion.ForeColor = Color.Black;
@@ -311,7 +295,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldPrecioAdquisicion.Name = "fieldPrecioAdquisicion";
             fieldPrecioAdquisicion.PasswordChar = '\0';
             fieldPrecioAdquisicion.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioAdquisicion.PlaceholderText = "P. Adquisición";
+            fieldPrecioAdquisicion.PlaceholderText = "P. Compra Base";
             fieldPrecioAdquisicion.SelectedText = "";
             fieldPrecioAdquisicion.ShadowDecoration.CustomizableEdges = customizableEdges6;
             fieldPrecioAdquisicion.Size = new Size(198, 35);
@@ -327,12 +311,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldDescripcion.Cursor = Cursors.IBeam;
             fieldDescripcion.CustomizableEdges = customizableEdges7;
             fieldDescripcion.DefaultText = "";
-            fieldDescripcion.DisabledState.BorderColor = Color.Gainsboro;
             fieldDescripcion.DisabledState.BorderColor = Color.White;
             fieldDescripcion.DisabledState.ForeColor = Color.DimGray;
             fieldDescripcion.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldDescripcion.Dock = DockStyle.Fill;
-            fieldDescripcion.FillColor = Color.White;
             fieldDescripcion.FocusedState.BorderColor = Color.SandyBrown;
             fieldDescripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldDescripcion.ForeColor = Color.Black;
@@ -351,95 +333,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldDescripcion.Size = new Size(407, 60);
             fieldDescripcion.TabIndex = 3;
             fieldDescripcion.TextOffset = new Point(5, 0);
-            // 
-            // layoutStock
-            // 
-            layoutStock.ColumnCount = 2;
-            layoutStock.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            layoutStock.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            layoutStock.Controls.Add(fieldPedidoMinimo, 1, 0);
-            layoutStock.Controls.Add(fieldStockMinimo, 0, 0);
-            layoutStock.Dock = DockStyle.Fill;
-            layoutStock.Location = new Point(50, 465);
-            layoutStock.Margin = new Padding(0);
-            layoutStock.Name = "layoutStock";
-            layoutStock.RowCount = 1;
-            layoutStock.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutStock.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutStock.Size = new Size(417, 45);
-            layoutStock.TabIndex = 7;
-            // 
-            // fieldPedidoMinimo
-            // 
-            fieldPedidoMinimo.Animated = true;
-            fieldPedidoMinimo.BorderColor = Color.Gainsboro;
-            fieldPedidoMinimo.BorderRadius = 16;
-            fieldPedidoMinimo.Cursor = Cursors.IBeam;
-            fieldPedidoMinimo.CustomizableEdges = customizableEdges9;
-            fieldPedidoMinimo.DefaultText = "";
-            fieldPedidoMinimo.DisabledState.BorderColor = Color.Gainsboro;
-            fieldPedidoMinimo.DisabledState.BorderColor = Color.White;
-            fieldPedidoMinimo.DisabledState.ForeColor = Color.DimGray;
-            fieldPedidoMinimo.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldPedidoMinimo.Dock = DockStyle.Fill;
-            fieldPedidoMinimo.FillColor = Color.White;
-            fieldPedidoMinimo.FocusedState.BorderColor = Color.SandyBrown;
-            fieldPedidoMinimo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldPedidoMinimo.ForeColor = Color.Black;
-            fieldPedidoMinimo.HoverState.BorderColor = Color.SandyBrown;
-            fieldPedidoMinimo.IconLeft = (Image) resources.GetObject("fieldPedidoMinimo.IconLeft");
-            fieldPedidoMinimo.IconLeftOffset = new Point(10, 0);
-            fieldPedidoMinimo.IconRight = (Image) resources.GetObject("fieldPedidoMinimo.IconRight");
-            fieldPedidoMinimo.IconRightOffset = new Point(6, 0);
-            fieldPedidoMinimo.IconRightSize = new Size(12, 12);
-            fieldPedidoMinimo.Location = new Point(213, 5);
-            fieldPedidoMinimo.Margin = new Padding(5);
-            fieldPedidoMinimo.Name = "fieldPedidoMinimo";
-            fieldPedidoMinimo.PasswordChar = '\0';
-            fieldPedidoMinimo.PlaceholderForeColor = Color.DimGray;
-            fieldPedidoMinimo.PlaceholderText = "Pedido mínimo";
-            fieldPedidoMinimo.SelectedText = "";
-            fieldPedidoMinimo.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            fieldPedidoMinimo.Size = new Size(199, 35);
-            fieldPedidoMinimo.TabIndex = 1;
-            fieldPedidoMinimo.TextAlign = HorizontalAlignment.Right;
-            fieldPedidoMinimo.TextOffset = new Point(5, 0);
-            // 
-            // fieldStockMinimo
-            // 
-            fieldStockMinimo.Animated = true;
-            fieldStockMinimo.BorderColor = Color.Gainsboro;
-            fieldStockMinimo.BorderRadius = 16;
-            fieldStockMinimo.Cursor = Cursors.IBeam;
-            fieldStockMinimo.CustomizableEdges = customizableEdges11;
-            fieldStockMinimo.DefaultText = "";
-            fieldStockMinimo.DisabledState.BorderColor = Color.Gainsboro;
-            fieldStockMinimo.DisabledState.BorderColor = Color.White;
-            fieldStockMinimo.DisabledState.ForeColor = Color.DimGray;
-            fieldStockMinimo.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldStockMinimo.Dock = DockStyle.Fill;
-            fieldStockMinimo.FillColor = Color.White;
-            fieldStockMinimo.FocusedState.BorderColor = Color.SandyBrown;
-            fieldStockMinimo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldStockMinimo.ForeColor = Color.Black;
-            fieldStockMinimo.HoverState.BorderColor = Color.SandyBrown;
-            fieldStockMinimo.IconLeft = (Image) resources.GetObject("fieldStockMinimo.IconLeft");
-            fieldStockMinimo.IconLeftOffset = new Point(10, 0);
-            fieldStockMinimo.IconRight = (Image) resources.GetObject("fieldStockMinimo.IconRight");
-            fieldStockMinimo.IconRightOffset = new Point(6, 0);
-            fieldStockMinimo.IconRightSize = new Size(12, 12);
-            fieldStockMinimo.Location = new Point(5, 5);
-            fieldStockMinimo.Margin = new Padding(5);
-            fieldStockMinimo.Name = "fieldStockMinimo";
-            fieldStockMinimo.PasswordChar = '\0';
-            fieldStockMinimo.PlaceholderForeColor = Color.DimGray;
-            fieldStockMinimo.PlaceholderText = "Stock mínimo";
-            fieldStockMinimo.SelectedText = "";
-            fieldStockMinimo.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            fieldStockMinimo.Size = new Size(198, 35);
-            fieldStockMinimo.TabIndex = 0;
-            fieldStockMinimo.TextAlign = HorizontalAlignment.Right;
-            fieldStockMinimo.TextOffset = new Point(5, 0);
             // 
             // fieldTituloNombreProveedor
             // 
@@ -463,12 +356,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldNombreProveedor.BackColor = Color.Transparent;
             fieldNombreProveedor.BorderColor = Color.Gainsboro;
             fieldNombreProveedor.BorderRadius = 16;
-            fieldNombreProveedor.CustomizableEdges = customizableEdges13;
+            fieldNombreProveedor.CustomizableEdges = customizableEdges9;
             fieldNombreProveedor.Dock = DockStyle.Fill;
             fieldNombreProveedor.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldNombreProveedor.FillColor = Color.White;
-            fieldNombreProveedor.FocusedColor = Color.White;
+            fieldNombreProveedor.FocusedColor = Color.SandyBrown;
             fieldNombreProveedor.FocusedState.BorderColor = Color.SandyBrown;
             fieldNombreProveedor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreProveedor.ForeColor = Color.Black;
@@ -476,7 +368,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldNombreProveedor.Location = new Point(55, 360);
             fieldNombreProveedor.Margin = new Padding(5);
             fieldNombreProveedor.Name = "fieldNombreProveedor";
-            fieldNombreProveedor.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldNombreProveedor.ShadowDecoration.CustomizableEdges = customizableEdges10;
             fieldNombreProveedor.Size = new Size(407, 35);
             fieldNombreProveedor.TabIndex = 5;
             fieldNombreProveedor.TextOffset = new Point(10, 0);
@@ -487,14 +379,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldCodigo.BorderColor = Color.Gainsboro;
             fieldCodigo.BorderRadius = 16;
             fieldCodigo.Cursor = Cursors.IBeam;
-            fieldCodigo.CustomizableEdges = customizableEdges15;
+            fieldCodigo.CustomizableEdges = customizableEdges11;
             fieldCodigo.DefaultText = "";
-            fieldCodigo.DisabledState.BorderColor = Color.Gainsboro;
             fieldCodigo.DisabledState.BorderColor = Color.White;
             fieldCodigo.DisabledState.ForeColor = Color.DimGray;
             fieldCodigo.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldCodigo.Dock = DockStyle.Fill;
-            fieldCodigo.FillColor = Color.White;
             fieldCodigo.FocusedState.BorderColor = Color.SandyBrown;
             fieldCodigo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldCodigo.ForeColor = Color.Black;
@@ -508,7 +398,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldCodigo.PlaceholderForeColor = Color.DimGray;
             fieldCodigo.PlaceholderText = "Código";
             fieldCodigo.SelectedText = "";
-            fieldCodigo.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            fieldCodigo.ShadowDecoration.CustomizableEdges = customizableEdges12;
             fieldCodigo.Size = new Size(407, 35);
             fieldCodigo.TabIndex = 2;
             fieldCodigo.TextOffset = new Point(5, 0);
@@ -519,14 +409,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldNombre.BorderColor = Color.Gainsboro;
             fieldNombre.BorderRadius = 16;
             fieldNombre.Cursor = Cursors.IBeam;
-            fieldNombre.CustomizableEdges = customizableEdges17;
+            fieldNombre.CustomizableEdges = customizableEdges13;
             fieldNombre.DefaultText = "";
-            fieldNombre.DisabledState.BorderColor = Color.Gainsboro;
             fieldNombre.DisabledState.BorderColor = Color.White;
             fieldNombre.DisabledState.ForeColor = Color.DimGray;
             fieldNombre.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldNombre.Dock = DockStyle.Fill;
-            fieldNombre.FillColor = Color.White;
             fieldNombre.FocusedState.BorderColor = Color.SandyBrown;
             fieldNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombre.ForeColor = Color.Black;
@@ -540,7 +428,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldNombre.PlaceholderForeColor = Color.DimGray;
             fieldNombre.PlaceholderText = "Nombre o identificador";
             fieldNombre.SelectedText = "";
-            fieldNombre.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            fieldNombre.ShadowDecoration.CustomizableEdges = customizableEdges14;
             fieldNombre.Size = new Size(407, 35);
             fieldNombre.TabIndex = 1;
             fieldNombre.TextOffset = new Point(5, 0);
@@ -571,7 +459,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges19;
+            btnSalir.CustomizableEdges = customizableEdges15;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -581,7 +469,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 1;
             btnSalir.Text = "Salir";
@@ -590,14 +478,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges21;
+            btnRegistrar.CustomizableEdges = customizableEdges17;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 0;
             btnRegistrar.Text = "Registrar artículo";
@@ -620,7 +508,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutTitulo.ResumeLayout(false);
             layoutPrecios.ResumeLayout(false);
-            layoutStock.ResumeLayout(false);
             layoutBotones.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -645,9 +532,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
         private TableLayoutPanel layoutPrecios;
         private Guna2TextBox fieldPrecioCesion;
         private Guna2TextBox fieldPrecioAdquisicion;
-        private TableLayoutPanel layoutStock;
-        private Guna2TextBox fieldStockMinimo;
-        private Guna2TextBox fieldPedidoMinimo;
         private Guna2TextBox fieldDescripcion;
     }
 }

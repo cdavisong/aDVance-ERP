@@ -16,7 +16,10 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
             Inicializar();
         }
 
-        public List<IVista>? Vistas => _vistas;
+        public List<IVista>? Vistas {
+            get => _vistas;
+        }
+
         public IVista? VistaActual { get; private set; }
 
         public void Registrar(string nombre, IVista vista, Point coordenadas, Size dimensiones, string modoRedimensionado = "HV") {

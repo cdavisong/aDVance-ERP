@@ -56,16 +56,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             set => fieldPrecioCesion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
-        public int StockMinimo {
-            get => int.TryParse(fieldStockMinimo.Text, out var value) ? value : 0;
-            set => fieldStockMinimo.Text = value.ToString();
-        }
-
-        public int PedidoMinimo {
-            get => int.TryParse(fieldPedidoMinimo.Text, out var value) ? value : 0;
-            set => fieldPedidoMinimo.Text = value.ToString();
-        }
-
         public bool ModoEdicionDatos {
             get => _modoEdicion;
             set {
@@ -96,7 +86,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             };
         }
 
-        public void CargarRazonesSocialesProveedores(string[] nombresProveedores) {
+        public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
+            fieldNombreProveedor.Items.Clear();
             fieldNombreProveedor.Items.Add("Ninguno");
             fieldNombreProveedor.Items.AddRange(nombresProveedores);
             fieldNombreProveedor.SelectedIndex = 0;
@@ -115,8 +106,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldNombreProveedor.SelectedIndex = 0;
             PrecioCompraBase = 0;
             PrecioVentaBase = 0;
-            StockMinimo = 0;
-            PedidoMinimo = 0;
             ModoEdicionDatos = false;
         }
 

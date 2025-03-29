@@ -8,9 +8,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo.Plantillas {
         string RazonSocialProveedor { get; set; }
         decimal PrecioCompraBase { get; set; }
         decimal PrecioVentaBase { get; set; }
-        int StockMinimo { get; set; }
-        int PedidoMinimo { get; set; }
 
-        void CargarRazonesSocialesProveedores(string[] nombresProveedores);
+        void CargarRazonesSocialesProveedores(object[] nombresProveedores);
     }
 }

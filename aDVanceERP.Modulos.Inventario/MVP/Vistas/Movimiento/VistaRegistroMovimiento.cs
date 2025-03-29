@@ -61,8 +61,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value 
-                    ? $"Detalles y actualización del registro con fecha {Fecha:dd-MM-yyy}" 
-                    : $"Registro con fecha {Fecha:dd-MM-yyy}";
+                    ? $"Detalles y actualización del registro con fecha {Fecha:yyyy-MM-dd}" 
+                    : $"Registro con fecha {Fecha:yyyy-MM-dd}";
                 btnRegistrar.Text = value ? "Actualizar movimiento" : "Registrar movimiento";
                 _modoEdicion = value;
             }
@@ -76,6 +76,9 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         public event EventHandler? Salir;        
 
         public void Inicializar() {
+            // Propiedades
+            ModoEdicionDatos = false;
+
             // Eventos
             fieldTipoMovimiento.SelectedIndexChanged += delegate {
                 ActualizarCamposAlmacenes();

@@ -6,27 +6,24 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorRegistroArticulo _registroArticulo;
+        private PresentadorRegistroArticulo? _registroArticulo;
 
-        private async Task InicializarVistaRegistroArticulo() {
+        private Task InicializarVistaRegistroArticulo() {
             _registroArticulo = new PresentadorRegistroArticulo(new VistaRegistroArticulo());
             _registroArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
             _registroArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroArticulo.Salir += async (sender, e) => {
-                if (_gestionArticulos != null) {
-                    await _gestionArticulos.RefrescarListaObjetos();
-                }
+            _registroArticulo.Salir += async delegate {
+                await _gestionArticulos?.RefrescarListaObjetos()!;
             };
+
+            return Task.CompletedTask;
         }
 
         private async void MostrarVistaRegistroArticulo(object? sender, EventArgs e) {
             await InicializarVistaRegistroArticulo();
 
-            if (_registroArticulo != null) {
-                _registroArticulo.Vista.Mostrar();
-            }
-
+            _registroArticulo?.Vista.Mostrar();
             _registroArticulo?.Dispose();
         }
 
