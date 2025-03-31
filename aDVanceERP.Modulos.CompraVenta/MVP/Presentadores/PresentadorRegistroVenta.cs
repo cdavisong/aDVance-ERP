@@ -17,8 +17,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
 
             var articulosVenta = UtilesVenta.ObtenerArticulosPorVenta(objeto.Id);
 
-            foreach (var articulo in articulosVenta) {
-                var articuloSplit = articulo.Split(':');
+            foreach (var articuloSplit in articulosVenta.Select(articulo => articulo.Split(':'))) {
                 ((IVistaGestionDetallesCompraventaArticulos) Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0], articuloSplit[1]);
             }
 

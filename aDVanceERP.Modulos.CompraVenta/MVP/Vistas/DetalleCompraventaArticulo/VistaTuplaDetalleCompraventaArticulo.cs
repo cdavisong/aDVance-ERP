@@ -3,14 +3,20 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plant
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
     public partial class VistaTuplaDetalleCompraventaArticulo : Form, IVistaTuplaDetalleCompraventaArticulo {
+        private bool _enabled = true;
+
         public VistaTuplaDetalleCompraventaArticulo() {
             InitializeComponent();
             Inicializar();
         }
 
         public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
+            get => _enabled;
+            set {
+                _enabled = value;
+                fieldPrecio.ReadOnly = !value;
+                btnEliminar.Enabled = value;
+            }
         }
 
         public Point Coordenadas {

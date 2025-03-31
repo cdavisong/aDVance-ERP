@@ -1,9 +1,12 @@
-﻿using aDVanceERP.Core.Excepciones;
+﻿using System.Globalization;
+
+using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
@@ -13,6 +16,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroCompra? _registroCompraArticulo;
 
+        private List<string[]>? ArticulosCompra { get; set; } = new();
+
         private async Task InicializarVistaRegistroCompraArticulo() {
             try {
                 _registroCompraArticulo = new PresentadorRegistroCompra(new VistaRegistroCompra());
@@ -21,18 +26,18 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 _registroCompraArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
                 _registroCompraArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
                 _registroCompraArticulo.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
-                _registroCompraArticulo.Salir += async (sender, args) => {
-                    var salida = sender as string;
-                    
-                    if (string.IsNullOrEmpty(salida))
-                        AdicionarMovimientoCompraArticulo(sender, args);
+                _registroCompraArticulo.Vista.RegistrarDatos += delegate {
+                    ArticulosCompra = _registroCompraArticulo.Vista.Articulos;
 
-                    await _gestionCompras.RefrescarListaObjetos();
+                    RegistrarDetallesCompraArticulo();
+                };
+                _registroCompraArticulo.Salir += async delegate {
+                    await _gestionCompras?.RefrescarListaObjetos()!;
                 };
             } catch (ExcepcionConexionServidorMySQL e) {
                 CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
             }
-        }        
+        }
 
         private async void MostrarVistaRegistroCompraArticulo(object? sender, EventArgs e) {
             await InicializarVistaRegistroCompraArticulo();
@@ -52,30 +57,50 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroCompraArticulo?.Dispose();
         }
 
-        private void AdicionarMovimientoCompraArticulo(object? sender, EventArgs e) {
-            if (_registroCompraArticulo?.Vista.NombreArticulo == null) 
+        private void RegistrarDetallesCompraArticulo() {
+            if (ArticulosCompra == null || ArticulosCompra.Count == 0)
                 return;
 
-            var idArticulo = UtilesArticulo.ObtenerIdArticulo(_registroCompraArticulo.Vista.NombreArticulo).Result;
-            var idAlmacenDestino = UtilesAlmacen.ObtenerIdAlmacen(_registroCompraArticulo.Vista.NombreAlmacen).Result;
+            var ultimoIdCompra = UtilesBD.ObtenerUltimoIdTabla("compra");
 
+            foreach (var articulo in ArticulosCompra) {
+                var detalleCompraArticulo = new DetalleCompraArticulo(
+                        0,
+                        ultimoIdCompra,
+                        long.Parse(articulo[0]),
+                        int.Parse(articulo[3]),
+                        decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioCompra) ? precioCompra : 0.00m
+                    );
+
+                using (var datosArticulo = new DatosDetalleCompraArticulo()) {
+                    datosArticulo.Adicionar(detalleCompraArticulo);
+                }
+
+                RegistrarMovimientoCompraArticulo(detalleCompraArticulo, articulo);
+                ModificarStockCompraArticulo(detalleCompraArticulo, articulo);
+            }
+        }
+
+        private static void RegistrarMovimientoCompraArticulo(DetalleCompraArticulo detalleCompraArticulo, IReadOnlyList<string> articulo) {
             using (var datosMovimiento = new DatosMovimiento()) {
                 datosMovimiento.Adicionar(new Movimiento(
                     0,
-                    idArticulo,
+                    detalleCompraArticulo.IdArticulo,
                     0,
-                    idAlmacenDestino,
+                    long.Parse(articulo[4]),
                     DateTime.Now,
-                    _registroCompraArticulo.Vista.Cantidad,
+                    detalleCompraArticulo.Cantidad,
                     UtilesMovimiento.ObtenerIdTipoMovimiento("Compra")
                 ));
             }
+        }
 
+        private static void ModificarStockCompraArticulo(DetalleCompraArticulo detalleCompraArticulo, IReadOnlyList<string> articulo) {
             UtilesMovimiento.ModificarStockArticuloAlmacen(
-                idArticulo,
-                0,
-                idAlmacenDestino,
-                _registroCompraArticulo.Vista.Cantidad
+                detalleCompraArticulo.IdArticulo,
+            0,
+                long.Parse(articulo[4]),
+                detalleCompraArticulo.Cantidad
             );
         }
     }

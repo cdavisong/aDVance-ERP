@@ -68,7 +68,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             get => _paginaActual;
             set {
                 _paginaActual = value;
-                fieldPaginaActual.Text = $"Página {value}";
+                fieldPaginaActual.Text = $@"Página {value}";
             }
         }
 
@@ -76,7 +76,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             get => _paginasTotales;
             set {
                 _paginasTotales = value;
-                fieldPaginasTotales.Text = $"de {value}";
+                fieldPaginasTotales.Text = $@"de {value}";
                 HabilitarBotonesPaginacion();
             }
         }
@@ -125,8 +125,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             };
             fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") }, e);
-
-                ActualizarMontoVenta();
             };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
                 Salir?.Invoke(sender, e);
@@ -134,8 +132,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
-
-                ActualizarMontoVenta();
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
                 PaginaActual = 1;
@@ -163,26 +159,25 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             };
             btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) {
                 SincronizarDatos?.Invoke(sender, e);
-
-                ActualizarMontoVenta();
             };
             contenedorVistas.Resize += delegate {
                 AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
             };
         }
-
-        private void ActualizarMontoVenta() {
+        
+        public void ActualizarValorBrutoVentas() {
             ValorBrutoVenta = UtilesVenta.ObtenerValorBrutoVentaDia(fieldDatoBusquedaFecha.Value).ToString("N2", CultureInfo.InvariantCulture); ;
         }
 
         public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+            fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
                 if (CriterioBusqueda == CriterioBusquedaVenta.Fecha) {
                     fieldDatoBusquedaFecha.Value = DateTime.Now;
                     fieldDatoBusquedaFecha.Focus();
 
-                    ActualizarMontoVenta();
+                    ActualizarValorBrutoVentas();
                 } else {
                     layoutValorBrutoVenta.Visible = false;
 

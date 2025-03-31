@@ -122,21 +122,29 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static int ObtenerCantidadProductosVenta(long idVenta) {
-            string query = "SELECT SUM(cantidad) AS total_productos FROM adv__detalle_venta_articulo WHERE id_venta = @IdVenta;";
-            var parametros = new MySqlParameter[] {
+            const string query = """
+                                 SELECT 
+                                    SUM(cantidad) AS total_productos 
+                                 FROM adv__detalle_venta_articulo 
+                                 WHERE id_venta = @IdVenta;
+                                 """;
+            var parametros = new[] {
                 new MySqlParameter("@IdVenta", idVenta)
             };
 
             return EjecutarConsultaEntero(query, parametros);
         }
 
-        public static List<string> ObtenerArticulosPorVenta(long idVenta) {
-            string query = @"
-                SELECT a.nombre, d.cantidad
-                FROM adv__detalle_venta_articulo d
-                JOIN adv__articulo a ON d.id_articulo = a.id_articulo
-                WHERE d.id_venta = @IdVenta;";
-            var parametros = new MySqlParameter[]            {
+        public static IEnumerable<string> ObtenerArticulosPorVenta(long idVenta) {
+            const string query = """
+                                 SELECT 
+                                    a.nombre, 
+                                    d.cantidad
+                                 FROM adv__detalle_venta_articulo d
+                                 JOIN adv__articulo a ON d.id_articulo = a.id_articulo
+                                 WHERE d.id_venta = @IdVenta;
+                                 """;
+            var parametros = new[]            {
                 new MySqlParameter("@IdVenta", idVenta)
             };
 

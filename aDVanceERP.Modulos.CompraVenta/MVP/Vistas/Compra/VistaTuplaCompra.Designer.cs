@@ -44,6 +44,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnEditar = new Guna2Button();
             btnEliminar = new Guna2Button();
             symbolPeso = new Label();
+            fieldCantidadProductos = new Label();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             SuspendLayout();
@@ -73,27 +74,27 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // layoutVista
             // 
             layoutVista.BackColor = Color.White;
-            layoutVista.ColumnCount = 10;
+            layoutVista.ColumnCount = 11;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.Controls.Add(fieldId, 0, 0);
             layoutVista.Controls.Add(fieldNombreAlmacen, 2, 0);
             layoutVista.Controls.Add(fieldFecha, 1, 0);
             layoutVista.Controls.Add(fieldNombreProveedor, 3, 0);
-            layoutVista.Controls.Add(fieldMontoTotal, 4, 0);
-            layoutVista.Controls.Add(btnEditar, 8, 0);
-            layoutVista.Controls.Add(btnEliminar, 9, 0);
-            layoutVista.Controls.Add(symbolPeso, 5, 0);
+            layoutVista.Controls.Add(fieldMontoTotal, 5, 0);
+            layoutVista.Controls.Add(btnEditar, 9, 0);
+            layoutVista.Controls.Add(btnEliminar, 10, 0);
+            layoutVista.Controls.Add(symbolPeso, 6, 0);
+            layoutVista.Controls.Add(fieldCantidadProductos, 4, 0);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(0, 0, 0, 1);
@@ -165,7 +166,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldMontoTotal.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldMontoTotal.ForeColor = Color.Black;
             fieldMontoTotal.ImeMode = ImeMode.NoControl;
-            fieldMontoTotal.Location = new Point(521, 1);
+            fieldMontoTotal.Location = new Point(631, 1);
             fieldMontoTotal.Margin = new Padding(1);
             fieldMontoTotal.Name = "fieldMontoTotal";
             fieldMontoTotal.Size = new Size(108, 39);
@@ -226,13 +227,28 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             symbolPeso.ForeColor = Color.Black;
             symbolPeso.ImageAlign = ContentAlignment.MiddleLeft;
             symbolPeso.ImeMode = ImeMode.NoControl;
-            symbolPeso.Location = new Point(633, 5);
+            symbolPeso.Location = new Point(743, 5);
             symbolPeso.Margin = new Padding(3, 5, 3, 3);
             symbolPeso.Name = "symbolPeso";
             symbolPeso.Size = new Size(14, 33);
             symbolPeso.TabIndex = 30;
             symbolPeso.Text = "$";
             symbolPeso.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldCantidadProductos
+            // 
+            fieldCantidadProductos.AutoEllipsis = true;
+            fieldCantidadProductos.Dock = DockStyle.Fill;
+            fieldCantidadProductos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCantidadProductos.ForeColor = Color.DimGray;
+            fieldCantidadProductos.ImeMode = ImeMode.NoControl;
+            fieldCantidadProductos.Location = new Point(521, 1);
+            fieldCantidadProductos.Margin = new Padding(1);
+            fieldCantidadProductos.Name = "fieldCantidadProductos";
+            fieldCantidadProductos.Size = new Size(108, 39);
+            fieldCantidadProductos.TabIndex = 31;
+            fieldCantidadProductos.Text = "cantidad";
+            fieldCantidadProductos.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // VistaTuplaCompra
             // 
@@ -266,5 +282,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
         private Guna2Button btnEditar;
         private Guna2Button btnEliminar;
         private Label symbolPeso;
+        private Label fieldCantidadProductos;
     }
 }

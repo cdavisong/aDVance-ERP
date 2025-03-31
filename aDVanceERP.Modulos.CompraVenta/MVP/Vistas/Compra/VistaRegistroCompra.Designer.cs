@@ -165,7 +165,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnRegistrar.BorderRadius = 18;
             btnRegistrar.CustomizableEdges = customizableEdges3;
             btnRegistrar.Dock = DockStyle.Fill;
-            btnRegistrar.Enabled = false;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrar.ForeColor = Color.Black;

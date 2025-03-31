@@ -29,7 +29,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
     }
 
     public static class UtilesBusquedaVenta {
-        public static string[] CriterioBusquedaVenta = new string[] {
+        public static object[] CriterioBusquedaVenta = new string[] {
             "Todas las ventas",
             "Identificador de BD",
             "Nombre del almacén",

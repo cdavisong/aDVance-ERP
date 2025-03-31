@@ -28,10 +28,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         /// </summary>
         private void InitializeComponent() {
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaVenta));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
             fieldId = new Label();
@@ -188,7 +188,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
             btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges5;
+            btnEditar.CustomizableEdges = customizableEdges1;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
             btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -197,7 +197,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEditar.HoverState.FillColor = Color.PeachPuff;
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 21;
             // 
@@ -210,7 +210,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
             btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges7;
+            btnEliminar.CustomizableEdges = customizableEdges3;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.Enabled = false;
             btnEliminar.FillColor = Color.White;
@@ -221,7 +221,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 22;
             // 

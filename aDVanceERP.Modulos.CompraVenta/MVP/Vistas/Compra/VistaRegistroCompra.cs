@@ -1,10 +1,15 @@
-﻿using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
 
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
-    public partial class VistaRegistroCompra : Form, IVistaRegistroCompra {
+    public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGestionDetallesCompraventaArticulos {
         private bool _modoEdicion;
 
         public VistaRegistroCompra() {
@@ -56,6 +61,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             set => fieldNombreArticulo.Text = value;
         }
 
+        public List<string[]>? Articulos { get; private set; }
+
         public int Cantidad {
             get => int.TryParse(fieldCantidad.Text, out var cantidad) ? cantidad : 0;
             set {
@@ -68,16 +75,29 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             get => decimal.TryParse(fieldTotalCompra.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total) ? total : 0;
             set => fieldTotalCompra.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
-        public List<string[]>? Articulos { get; }
+
+        public int AlturaContenedorVistas {
+            get => contenedorVistas.Height;
+        }
+
+        public int TuplasMaximasContenedor {
+            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
+        }
+
+        public IRepositorioVista? Vistas { get; private set; }
 
         public event EventHandler? ArticuloAgregado;
         public event EventHandler? ArticuloEliminado;
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
+        public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? Salir;
 
         public void Inicializar() {
+            Articulos = new List<string[]>();
+            Vistas = new RepositorioVistaBase(contenedorVistas);
+
             // Eventos
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke("exit", args);
@@ -87,7 +107,24 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
 
                 CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
             };
-            
+            fieldCantidad.TextChanged += delegate {
+                btnAdicionarArticulo.Enabled = Cantidad > 0;
+            };
+            fieldCantidad.KeyDown += delegate (object? sender, KeyEventArgs args) {
+                if (args.KeyCode != Keys.Enter)
+                    return;
+
+                AdicionarArticulo();
+
+                args.SuppressKeyPress = true;
+            };
+            btnAdicionarArticulo.Click += delegate (object? sender, EventArgs args) {
+                AdicionarArticulo();
+            };
+            ArticuloEliminado += delegate (object? sender, EventArgs args) {
+                ActualizarTuplasArticulos();
+                ActualizarTotal();
+            };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
                     EditarDatos?.Invoke(sender, args);
@@ -96,6 +133,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke("exit", args);
+            };
+            contenedorVistas.Resize += delegate {
+                AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
             };
         }
 
@@ -106,6 +146,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
         }
 
         public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
+            fieldNombreAlmacen.Items.Clear();
             fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
             fieldNombreAlmacen.SelectedIndex = 0;
         }
@@ -115,6 +156,123 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldNombreArticulo.AutoCompleteCustomSource.AddRange(nombresArticulos);
             fieldNombreArticulo.AutoCompleteMode = AutoCompleteMode.Suggest;
             fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+
+        public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
+            var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
+            var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
+            var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
+            var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
+            var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
+
+            if (!ModoEdicionDatos) {
+                // Verificar ID del artículo
+                if (idArticulo == 0) {
+                    NombreArticulo = string.Empty;
+
+                    fieldCantidad.Text = string.Empty;
+                    fieldNombreArticulo.Focus();
+
+                    return;
+                }
+            } else {
+                fieldNombreArticulo.ReadOnly = true;
+                fieldCantidad.ReadOnly = true;
+            }
+
+            var precioCompraBaseArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
+            var tuplaArticulo = new string[] {
+                    idArticulo.ToString(),
+                    adNombreArticulo,
+                    precioCompraBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
+                    adCantidad,
+                    idAlmacen.ToString()
+                };
+
+            // Verificar que el articulo ya se encuentre registrado
+            if (Articulos != null) {
+                var indiceArticulo = Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[4].Equals(idAlmacen.ToString()));
+                if (indiceArticulo != -1)
+                    Articulos[indiceArticulo][3] = (int.Parse(Articulos[indiceArticulo][3]) + int.Parse(adCantidad)).ToString();
+                else {
+                    Articulos.Add(tuplaArticulo);
+                    ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+                }
+            }
+
+            NombreArticulo = string.Empty;
+            Cantidad = 0;
+
+            ActualizarTuplasArticulos();
+            ActualizarTotal();
+
+            fieldNombreArticulo.Focus();
+        }
+        
+        private void ActualizarTuplasArticulos() {
+            foreach (var tupla in contenedorVistas.Controls) {
+                if (tupla is IVistaTuplaDetalleCompraventaArticulo vistaTupla) {
+                    vistaTupla.Cerrar();
+                }
+            }
+            contenedorVistas.Controls.Clear();
+
+            // Restablecer útima coordenada Y de la tupla
+            VariablesGlobales.CoordenadaYUltimaTupla = 0;
+
+            for (var i = 0; i < Articulos?.Count; i++) {
+                var articulo = Articulos[i];
+                var tuplaDetallesVentaArticulo = new VistaTuplaDetalleCompraventaArticulo();
+
+                tuplaDetallesVentaArticulo.IdArticulo = articulo[0];
+                tuplaDetallesVentaArticulo.NombreArticulo = articulo[1];
+                tuplaDetallesVentaArticulo.Precio = articulo[2];
+                tuplaDetallesVentaArticulo.Cantidad = articulo[3];
+                tuplaDetallesVentaArticulo.Habilitada = !ModoEdicionDatos;
+                tuplaDetallesVentaArticulo.MontoModificado += delegate (object? sender, EventArgs args) {
+                    if (sender is not IVistaTuplaDetalleCompraventaArticulo vista)
+                        return;
+
+                    var indiceArticulo = Articulos.FindIndex(a => a[0].Equals(vista.IdArticulo));
+
+                    if (indiceArticulo == -1)
+                        return;
+
+                    Articulos[indiceArticulo][2] = vista.Precio; // Actualizar precio de compra
+
+                    ActualizarTotal();
+                };
+                tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+                    articulo = sender as string[];
+
+                    Articulos.RemoveAt(Articulos.FindIndex(p => p[0].Equals(articulo?[0])));
+                    ArticuloEliminado?.Invoke(articulo, args);
+                };
+
+                // Registro y muestra
+                Vistas?.Registrar(
+                    $"vistaTupla{tuplaDetallesVentaArticulo.GetType().Name}{i}",
+                    tuplaDetallesVentaArticulo,
+                    new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
+                    new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
+                tuplaDetallesVentaArticulo.Mostrar();
+
+                // Incremento de la útima coordenada Y de la tupla
+                VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
+            }
+        }
+
+        private void ActualizarTotal() {
+            Total = 0;
+
+            if (Articulos == null) 
+                return;
+
+            foreach (var articulo in Articulos) {
+                var cantidad = int.TryParse(articulo[3], out var cantArticulos) ? cantArticulos : 0;
+
+                Total += (decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioCompraTotal) ? precioCompraTotal * cantidad : 0);
+            }
         }
 
         public void Mostrar() {

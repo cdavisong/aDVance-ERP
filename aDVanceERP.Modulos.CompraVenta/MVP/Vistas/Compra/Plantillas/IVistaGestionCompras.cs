@@ -9,5 +9,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas {
 
         event EventHandler? DescargarReporte;
         event EventHandler? ImprimirReporte;
+
+        void ActualizarValorBrutoCompras();
     }
 }

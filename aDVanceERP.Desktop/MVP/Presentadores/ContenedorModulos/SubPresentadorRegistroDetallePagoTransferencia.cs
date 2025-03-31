@@ -7,9 +7,9 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorRegistroDetallePagoTransferencia _registroDetallePagoTransferencia;
+        private PresentadorRegistroDetallePagoTransferencia? _registroDetallePagoTransferencia;
 
-        public string[] Transferencia { get; private set; } = new string[0];
+        private string[]? Transferencia { get; set; } = Array.Empty<string>();
 
         private void InicializarVistaRegistroDetallePagoTransferencia() {
             _registroDetallePagoTransferencia = new PresentadorRegistroDetallePagoTransferencia(new VistaRegistroDetallePagoTransferencia());
@@ -17,7 +17,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroDetallePagoTransferencia.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroDetallePagoTransferencia.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroDetallePagoTransferencia.Salir += delegate {
-                Transferencia = new string[] {
+                Transferencia = new[] {
                     _registroDetallePagoTransferencia.Vista.Alias,
                     _registroDetallePagoTransferencia.Vista.NumeroConfirmacion,
                     _registroDetallePagoTransferencia.Vista.NumeroTransaccion
@@ -28,10 +28,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaRegistroDetallePagoTransferencia(object? sender, EventArgs e) {
             InicializarVistaRegistroDetallePagoTransferencia();
 
-            if (_registroDetallePagoTransferencia != null) {
-                _registroDetallePagoTransferencia.Vista.Mostrar();
-            }
-
+            _registroDetallePagoTransferencia?.Vista.Mostrar();
             _registroDetallePagoTransferencia?.Dispose();
         }
 
@@ -46,7 +43,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroDetallePagoTransferencia?.Dispose();
         }
 
-        private void RegistrarTransferencia() {
+        private void RegistrarTransferenciaVenta() {
             if (Transferencia == null || Transferencia.Length == 0)
                 return;
 
@@ -60,7 +57,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 ));
             }
 
-            Transferencia = new string[0];
+            Transferencia = Array.Empty<string>();
         }
     }
 }

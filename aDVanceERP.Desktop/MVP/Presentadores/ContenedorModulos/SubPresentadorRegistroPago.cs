@@ -9,20 +9,21 @@ using System.Globalization;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorRegistroPago _registroPago;
+        private PresentadorRegistroPago? _registroPago;
 
-        public List<string[]> Pagos { get; private set; } = new List<string[]>();
+        private List<string[]> Pagos { get; set; } = new();
 
         private void InicializarVistaRegistroPago() {
             _registroPago = new PresentadorRegistroPago(new VistaRegistroPago());
             _registroPago.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroPago.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroPago.Vista.PagoEliminado += delegate (object? sender, EventArgs e) {
-                if (sender is string[] metodoPago && metodoPago[0].Contains("Transferencia")) {
-                    _registroPago.Vista.CargarMetodosPago();
+                if (sender is not string[] metodoPago || !metodoPago[0].Contains("Transferencia")) 
+                    return;
 
-                    Transferencia = new string[0];
-                }
+                _registroPago.Vista.CargarMetodosPago();
+
+                Transferencia = Array.Empty<string>();
             };
             _registroPago.Salir += delegate {
                 Pagos = _registroPago.Vista.Pagos;
@@ -40,6 +41,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 _registroPago.Vista.EfectuarTransferencia += delegate {
                     MostrarVistaRegistroDetallePagoTransferencia(sender, e);
                 };
+
                 _registroPago.Vista.Mostrar();
             }
 
@@ -60,8 +62,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroPago?.Dispose();
         }
 
-        private void RegistrarPagos() {
-            if (Pagos == null || Pagos.Count == 0)
+        private void RegistrarPagosVenta() {
+            if (Pagos.Count == 0)
                 return;
 
             using (var datosPago = new DatosPago()) {

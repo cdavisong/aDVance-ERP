@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
     public static class UtilesProveedor {
-        public static async Task<long> ObtenerIdProveedor(string nombreProveedor) {
+        public static async Task<long> ObtenerIdProveedor(string? nombreProveedor) {
             var idProveedor = 0;
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {

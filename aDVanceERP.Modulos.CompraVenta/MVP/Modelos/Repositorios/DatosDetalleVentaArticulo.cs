@@ -8,19 +8,50 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
     public class DatosDetalleVentaArticulo : RepositorioDatosBase<DetalleVentaArticulo, CriterioDetalleVentaArticulo>, IRepositorioDetalleVentaArticulo {
         public override string ComandoCantidad() {
-            return "SELECT COUNT(id_detalle_venta_articulo) FROM adv__detalle_venta_articulo;";
+            return """
+                   SELECT COUNT(id_detalle_venta_articulo) 
+                   FROM adv__detalle_venta_articulo;
+                   """;
         }
 
         public override string ComandoAdicionar(DetalleVentaArticulo objeto) {
-            return $"INSERT INTO adv__detalle_venta_articulo (id_venta, id_articulo, precio_unitario, cantidad) VALUES ({objeto.IdVenta}, {objeto.IdArticulo}, {objeto.PrecioUnitario.ToString(CultureInfo.InvariantCulture)}, {objeto.Cantidad});";
+            return $"""
+                    INSERT INTO adv__detalle_venta_articulo (
+                        id_venta, 
+                        id_articulo, 
+                        precio_compra_vigente, 
+                        precio_venta_final,
+                        cantidad
+                    ) 
+                    VALUES (
+                        {objeto.IdVenta}, 
+                        {objeto.IdArticulo}, 
+                        {objeto.PrecioCompraVigente.ToString(CultureInfo.InvariantCulture)}, 
+                        {objeto.PrecioVentaFinal.ToString(CultureInfo.InvariantCulture)}, 
+                        {objeto.Cantidad}
+                    );
+                    """;
         }
 
         public override string ComandoEditar(DetalleVentaArticulo objeto) {
-            return $"UPDATE adv__detalle_venta_articulo SET id_venta={objeto.IdVenta}, id_articulo={objeto.IdArticulo}, precio_unitario={objeto.PrecioUnitario.ToString(CultureInfo.InvariantCulture)}, cantidad={objeto.Cantidad} WHERE id_detalle_venta_articulo={objeto.Id};";
+            return $"""
+                    UPDATE adv__detalle_venta_articulo 
+                    SET 
+                        id_venta={objeto.IdVenta}, 
+                        id_articulo={objeto.IdArticulo}, 
+                        precio_compra_vigente={objeto.PrecioCompraVigente.ToString(CultureInfo.InvariantCulture)}, 
+                        precio_venta_final={objeto.PrecioVentaFinal.ToString(CultureInfo.InvariantCulture)}, 
+                        cantidad={objeto.Cantidad} 
+                    WHERE id_detalle_venta_articulo={objeto.Id};
+                    """;
         }
 
         public override string ComandoEliminar(long id) {
-            return $"DELETE FROM adv__detalle_venta_articulo WHERE id_detalle_venta_articulo={id};";
+            return $"""
+                    DELETE 
+                    FROM adv__detalle_venta_articulo 
+                    WHERE id_detalle_venta_articulo={id};
+                    """;
         }
 
         public override string ComandoObtener(CriterioDetalleVentaArticulo criterio, string dato) {
@@ -28,24 +59,35 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
 
             switch (criterio) {
                 case CriterioDetalleVentaArticulo.Id:
-                    comando = $"SELECT * FROM adv__detalle_venta_articulo WHERE id_detalle_venta_articulo={dato};";
+                    comando = $"""
+                               SELECT * 
+                               FROM adv__detalle_venta_articulo 
+                               WHERE id_detalle_venta_articulo={dato};
+                               """;
                     break;
                 case CriterioDetalleVentaArticulo.IdVenta:
-                    comando = $"SELECT * FROM adv__detalle_venta_articulo WHERE id_venta={dato};";
+                    comando = $"""
+                               SELECT * 
+                               FROM adv__detalle_venta_articulo 
+                               WHERE id_venta={dato};
+                               """;
                     break;
                 case CriterioDetalleVentaArticulo.IdArticulo:
-                    comando = $"SELECT * FROM adv__detalle_venta_articulo WHERE id_articulo={dato};";
+                    comando = $"""
+                               SELECT * 
+                               FROM adv__detalle_venta_articulo 
+                               WHERE id_articulo={dato};
+                               """;
                     break;
                 default:
-                    comando = "SELECT * FROM adv__detalle_venta_articulo;";
+                    comando = """
+                              SELECT * 
+                              FROM adv__detalle_venta_articulo;
+                              """;
                     break;
             }
 
             return comando;
-        }
-
-        public override string ComandoExiste(string dato) {
-            return $"SELECT COUNT(1) FROM adv__detalle_venta_articulo WHERE id_detalle_venta_articulo = {dato};";
         }
 
         public override DetalleVentaArticulo ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
@@ -53,9 +95,18 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
                 id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_venta_articulo")),
                 idVenta: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
                 idArticulo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_articulo")),
-                precioUnitario: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_unitario")),
+                precioCompraVigente: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra_vigente")),
+                precioVentaFinal: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_final")),
                 cantidad: lectorDatos.GetInt32(lectorDatos.GetOrdinal("cantidad"))
             );
+        }
+
+        public override string ComandoExiste(string dato) {
+            return $"""
+                    SELECT COUNT(1)
+                    FROM adv__detalle_venta_articulo
+                    WHERE id_detalle_venta_articulo = {dato};
+                    """;
         }
     }
 }

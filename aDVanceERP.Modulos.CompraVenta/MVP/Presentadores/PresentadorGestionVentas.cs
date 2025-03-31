@@ -17,13 +17,20 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
             var nombreCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
 
             presentadorTupla.Vista.Id = objeto.Id.ToString();
-            presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("dd/MM/yyyy");
+            presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("yyyy-MM-dd");
             presentadorTupla.Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
             presentadorTupla.Vista.NombreCliente = string.IsNullOrEmpty(nombreCliente) ? "Anónimo" : nombreCliente;
             presentadorTupla.Vista.CantidadProductos = UtilesVenta.ObtenerCantidadProductosVenta(objeto.Id).ToString();
             presentadorTupla.Vista.MontoTotal = objeto.Total.ToString("N2", CultureInfo.InvariantCulture);
 
             return presentadorTupla;
+        }
+
+        public override Task RefrescarListaObjetos() {
+            // Actualizar el valor bruto de las ventas al refrescar la lista de objetos.
+            Vista.ActualizarValorBrutoVentas();
+
+            return base.RefrescarListaObjetos();
         }
     }
 }

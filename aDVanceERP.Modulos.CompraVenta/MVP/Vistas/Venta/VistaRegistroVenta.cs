@@ -117,16 +117,17 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
                 btnAdicionarArticulo.Enabled = Cantidad > 0;
             };
             fieldCantidad.KeyDown += delegate (object? sender, KeyEventArgs args) {
-                if (args.KeyCode == Keys.Enter) {
-                    AdicionarArticulo();
+                if (args.KeyCode != Keys.Enter) 
+                    return;
 
-                    args.SuppressKeyPress = true;
-                }
+                AdicionarArticulo();
+
+                args.SuppressKeyPress = true;
             };
-            btnAdicionarArticulo.Click += delegate (object? sender, EventArgs args) {
+            btnAdicionarArticulo.Click += delegate {
                 AdicionarArticulo();
             };
-            ArticuloEliminado += delegate (object? sender, EventArgs args) {
+            ArticuloEliminado += delegate {
                 ActualizarTuplasArticulos();
                 ActualizarTotal();
             };
@@ -154,6 +155,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         }
 
         public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
+            fieldNombreAlmacen.Items.Clear();
             fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
             fieldNombreAlmacen.SelectedIndex = 0;
         }
@@ -185,34 +187,44 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
                 }
 
                 // Verificar que la cantidad no exceda el stock del artículo
-                var stockComprometido = Articulos.Where(a => a[0].Equals(idArticulo.ToString()) && a[4].Equals(idAlmacen.ToString())).Sum(a => int.Parse(a[3]));
-                if (int.Parse(adCantidad) + stockComprometido > stockArticulo) {
-                    fieldCantidad.ForeColor = Color.Firebrick;
-                    fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
-
-                    return;
-                } else {
-                    fieldCantidad.ForeColor = Color.Black;
-                    fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Regular);
+                if (Articulos != null) {
+                    var stockComprometido = Articulos.Where(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString())).Sum(a => int.Parse(a[4]));
+                    if (int.Parse(adCantidad) + stockComprometido > stockArticulo) {
+                        fieldCantidad.ForeColor = Color.Firebrick;
+                        fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
+                        fieldCantidad.Margin = new Padding(3);
+                        return;
+                    } else {
+                        fieldCantidad.ForeColor = Color.Black;
+                        fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Regular);
+                        fieldCantidad.Margin = new Padding(3);
+                    }
                 }
+            } else {
+                fieldNombreArticulo.ReadOnly = true;
+                fieldCantidad.ReadOnly = true;
             }
 
-            var precioUnitarioArticulo = await UtilesArticulo.ObtenerPrecioUnitarioArticulo(idArticulo);
+            var precioCompraVigenteArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
+            var precioVentaBaseArticulo = await UtilesArticulo.ObtenerPrecioVentaBase(idArticulo);
             var tuplaArticulo = new string[] {
                     idArticulo.ToString(),
                     adNombreArticulo,
-                    precioUnitarioArticulo.ToString("N2", CultureInfo.InvariantCulture),
-                    adCantidad.ToString(),
+                    precioCompraVigenteArticulo.ToString("N2", CultureInfo.InvariantCulture),
+                    precioVentaBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
+                    adCantidad,
                     idAlmacen.ToString()
                 };
 
             // Verificar que el articulo ya se encuentre registrado
-            var indiceArticulo = Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[4].Equals(idAlmacen.ToString()));
-            if (indiceArticulo != -1)
-                Articulos[indiceArticulo][3] = (int.Parse(Articulos[indiceArticulo][3]) + int.Parse(adCantidad)).ToString();
-            else {
-                Articulos.Add(tuplaArticulo);
-                ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+            if (Articulos != null) {
+                var indiceArticulo = Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()));
+                if (indiceArticulo != -1)
+                    Articulos[indiceArticulo][4] = (int.Parse(Articulos[indiceArticulo][4]) + int.Parse(adCantidad)).ToString();
+                else {
+                    Articulos.Add(tuplaArticulo);
+                    ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+                }
             }
 
             NombreArticulo = string.Empty;
@@ -241,25 +253,26 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
 
                 tuplaDetallesVentaArticulo.IdArticulo = articulo[0];
                 tuplaDetallesVentaArticulo.NombreArticulo = articulo[1];
-                tuplaDetallesVentaArticulo.Precio = articulo[2];
-                tuplaDetallesVentaArticulo.Cantidad = articulo[3];
+                tuplaDetallesVentaArticulo.Precio = articulo[3];
+                tuplaDetallesVentaArticulo.Cantidad = articulo[4];
+                tuplaDetallesVentaArticulo.Habilitada = !ModoEdicionDatos;
                 tuplaDetallesVentaArticulo.MontoModificado += delegate (object? sender, EventArgs args) {
                     if (sender is not IVistaTuplaDetalleCompraventaArticulo vista) 
                         return;
 
                     var indiceArticulo = Articulos.FindIndex(a => a[0].Equals(vista.IdArticulo));
-
+                    
                     if (indiceArticulo == -1)
                         return;
                     
-                    Articulos[indiceArticulo][2] = vista.Precio; // Actualizar precio unitario
+                    Articulos[indiceArticulo][3] = vista.Precio; // Actualizar precio de venta del artículo
 
                     ActualizarTotal();
                 };
                 tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                     articulo = sender as string[];
 
-                    Articulos.RemoveAt(Articulos.FindIndex(p => p[0].Equals(articulo[0])));
+                    Articulos.RemoveAt(Articulos.FindIndex(p => p[0].Equals(articulo?[0])));
                     ArticuloEliminado?.Invoke(articulo, args);
                 };
 
@@ -281,9 +294,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
 
             if (Articulos != null)
                 foreach (var articulo in Articulos) {
-                    var cantidad = int.TryParse(articulo[3], out var cantArticulos) ? cantArticulos : 0;
+                    var cantidad = int.TryParse(articulo[4], out var cantArticulos) ? cantArticulos : 0;
 
-                    Total += (decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioUnitario) ? precioUnitario * cantidad : 0);
+                    Total += (decimal.TryParse(articulo[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioVentaTotal) ? precioVentaTotal * cantidad : 0);
                 }
 
             btnEfectuarPago.Enabled = Total > 0;
@@ -300,6 +313,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreCliente.SelectedIndex = 0;
             NombreAlmacen = string.Empty;
             fieldNombreAlmacen.SelectedIndex = 0;
+            NombreArticulo = string.Empty;
             fieldNombreArticulo.AutoCompleteCustomSource.Clear();
             Total = 0;
             ModoEdicionDatos = false;

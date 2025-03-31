@@ -15,7 +15,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroVenta? _registroVentaArticulo;
 
-        public List<string[]>? Articulos { get; private set; } = new List<string[]>();
+        private List<string[]>? ArticulosVenta { get; set; } = new();
 
         private async Task InicializarVistaRegistroVentaArticulo() {
             try {
@@ -25,14 +25,14 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 _registroVentaArticulo.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
                 _registroVentaArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
                 _registroVentaArticulo.Vista.RegistrarDatos += delegate {
-                    Articulos = _registroVentaArticulo.Vista.Articulos;
+                    ArticulosVenta = _registroVentaArticulo.Vista.Articulos;
 
-                    RegistrarArticulos();
-                    RegistrarPagos();
-                    RegistrarTransferencia();
+                    RegistrarDetallesVentaArticulo();
+                    RegistrarPagosVenta();
+                    RegistrarTransferenciaVenta();
                 };
                 _registroVentaArticulo.Salir += async delegate {
-                    await _gestionVentas.RefrescarListaObjetos();
+                    await _gestionVentas?.RefrescarListaObjetos()!;
                 };
             } catch (ExcepcionConexionServidorMySQL e) {
                 CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
@@ -77,47 +77,54 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroVentaArticulo?.Dispose();
         }
 
-        private void RegistrarArticulos() {
-            if (Articulos == null || Articulos.Count == 0)
+        private void RegistrarDetallesVentaArticulo() {
+            if (ArticulosVenta == null || ArticulosVenta.Count == 0)
                 return;
 
             var ultimoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta");
 
-            foreach (var articulo in Articulos) {
+            foreach (var articulo in ArticulosVenta) {
                 var detalleVentaArticulo = new DetalleVentaArticulo(
                         0,
                         ultimoIdVenta,
                         long.Parse(articulo[0]),
-                        decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioUnitario) ? precioUnitario : 0.00m,
-                        int.Parse(articulo[3])
+                        decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioCompraVigente) ? precioCompraVigente : 0.00m,
+                        decimal.TryParse(articulo[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioVentaFinal) ? precioVentaFinal : 0.00m,
+                        int.Parse(articulo[4])
                     );
 
                 using (var datosArticulo = new DatosDetalleVentaArticulo()) {
                     datosArticulo.Adicionar(detalleVentaArticulo);
                 }
 
-                using (var datosMovimiento = new DatosMovimiento()) {
-                    datosMovimiento.Adicionar(new Movimiento(
-                        0,
-                        detalleVentaArticulo.IdArticulo,
-                        long.Parse(articulo[4]),
-                        0,
-                        DateTime.Now,
-                        detalleVentaArticulo.Cantidad,
-                        UtilesMovimiento.ObtenerIdTipoMovimiento("Venta")
-                        
-                    ));
-                }
-
-                UtilesMovimiento.ModificarStockArticuloAlmacen(
-                        detalleVentaArticulo.IdArticulo,
-                        long.Parse(articulo[4]),
-                        0,
-                        detalleVentaArticulo.Cantidad
-                    );
+                RegistrarMovimientoVentaArticulo(detalleVentaArticulo, articulo);
+                ModificarStockVentaArticulo(detalleVentaArticulo, articulo);
             }
 
-            Articulos.Clear();
+            ArticulosVenta.Clear();
+        }
+        
+        private static void RegistrarMovimientoVentaArticulo(DetalleVentaArticulo detalleVentaArticulo, IReadOnlyList<string> articulo) {
+            using (var datosMovimiento = new DatosMovimiento()) {
+                datosMovimiento.Adicionar(new Movimiento(
+                    0,
+                    detalleVentaArticulo.IdArticulo,
+                    long.Parse(articulo[4]),
+                    0,
+                    DateTime.Now,
+                    detalleVentaArticulo.Cantidad,
+                    UtilesMovimiento.ObtenerIdTipoMovimiento("Venta")
+                ));
+            }
+        }
+
+        private static void ModificarStockVentaArticulo(DetalleVentaArticulo detalleVentaArticulo, IReadOnlyList<string> articulo) {
+            UtilesMovimiento.ModificarStockArticuloAlmacen(
+                detalleVentaArticulo.IdArticulo,
+                long.Parse(articulo[5]),
+                0,
+                detalleVentaArticulo.Cantidad
+            );
         }
     }
 }
