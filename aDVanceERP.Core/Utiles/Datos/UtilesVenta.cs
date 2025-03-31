@@ -112,20 +112,20 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static int ObtenerTotalArticulosVendidosHoy() {
-            string query = @"
-                SELECT SUM(dva.cantidad) AS total_vendido_hoy
-                FROM adv__detalle_venta_articulo dva
-                INNER JOIN adv__venta v ON dva.id_venta = v.id_venta
-                WHERE DATE(v.fecha) = CURDATE();";
+            const string query = """
+                                 SELECT SUM(dva.cantidad) AS total_vendido_hoy
+                                 FROM adv__detalle_venta_articulo dva
+                                 INNER JOIN adv__venta v ON dva.id_venta = v.id_venta
+                                 WHERE DATE(v.fecha) = CURDATE();
+                                 """;
 
             return EjecutarConsultaEntero(query);
         }
 
-        public static int ObtenerCantidadProductosVenta(long idVenta) {
+        public static int ObtenerCantidadArticulosVenta(long idVenta) {
             const string query = """
-                                 SELECT 
-                                    SUM(cantidad) AS total_productos 
-                                 FROM adv__detalle_venta_articulo 
+                                 SELECT SUM(cantidad) AS total_productos
+                                 FROM adv__detalle_venta_articulo
                                  WHERE id_venta = @IdVenta;
                                  """;
             var parametros = new[] {
@@ -137,12 +137,13 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
         public static IEnumerable<string> ObtenerArticulosPorVenta(long idVenta) {
             const string query = """
-                                 SELECT 
-                                    a.nombre, 
-                                    d.cantidad
-                                 FROM adv__detalle_venta_articulo d
-                                 JOIN adv__articulo a ON d.id_articulo = a.id_articulo
-                                 WHERE d.id_venta = @IdVenta;
+                                 SELECT
+                                     a.nombre,
+                                     dva.cantidad,
+                                     dva.precio_venta_final
+                                 FROM adv__detalle_venta_articulo dva
+                                 JOIN adv__articulo a ON dva.id_articulo = a.id_articulo
+                                 WHERE dva.id_venta = @IdVenta;
                                  """;
             var parametros = new[]            {
                 new MySqlParameter("@IdVenta", idVenta)
@@ -152,11 +153,12 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static List<string> ObtenerPagosPorVenta(long idVenta) {
-            string query = @"
-                SELECT metodo_pago, monto
-                FROM adv__pago
-                WHERE id_venta = @IdVenta;";
-            var parametros = new MySqlParameter[]            {
+            const string query = """
+                                 SELECT metodo_pago, monto
+                                 FROM adv__pago
+                                 WHERE id_venta = @IdVenta;
+                                 """;
+            var parametros = new[]            {
                 new MySqlParameter("@IdVenta", idVenta)
             };
 
@@ -164,9 +166,12 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static decimal ObtenerValorBrutoVentaDia(DateTime fecha) {
-            string query = "SELECT SUM(total) AS total_dinero FROM adv__venta WHERE DATE(fecha) = @Fecha;";
-            var parametros = new MySqlParameter[]
-            {
+            const string query = """
+                                 SELECT SUM(total) AS total_dinero
+                                 FROM adv__venta
+                                 WHERE DATE(fecha) = @Fecha;
+                                 """;
+            var parametros = new[] {
                 new MySqlParameter("@Fecha", fecha.ToString("yyyy-MM-dd"))
             };
 
@@ -174,19 +179,16 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static decimal ObtenerValorGananciaTotalNegocio() {
-            string query = @"
-                SELECT SUM((dva.precio_unitario - a.precio_adquisicion) * dva.cantidad) AS ganancia_total
-                FROM adv__detalle_venta_articulo dva
-                JOIN adv__venta v ON dva.id_venta = v.id_venta
-                JOIN adv__articulo a ON dva.id_articulo = a.id_articulo;";
+            const string query = """
+                                 SELECT SUM((dva.precio_venta_final - dva.precio_compra_vigente) * dva.cantidad) AS ganancia_total
+                                 FROM adv__detalle_venta_articulo dva;
+                                 """;
 
             return EjecutarConsultaDecimal(query);
         }
 
         public static DatosEstadisticosVentas ObtenerDatosEstadisticosVentas(DateTime fecha) {
-            if (_datos == null) {
-                _datos = new DatosEstadisticosVentas();
-            }
+            _datos = new DatosEstadisticosVentas();
 
             ObtenerVentasPorHora(fecha);
             ObtenerVentasPorDia(fecha);
@@ -202,16 +204,16 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         private static void ObtenerVentasPorHora(DateTime fechaHora) {
-            string query = @"
-                SELECT HOUR(v.fecha) AS Hora, 
-                       SUM(d.precio_unitario * d.cantidad) AS Total
-                FROM adv__venta v
-                INNER JOIN adv__detalle_venta_articulo d ON v.id_venta = d.id_venta
-                WHERE DATE(v.fecha) = @fecha
-                GROUP BY HOUR(v.fecha)";
-
-            var parametros = new MySqlParameter[]
-            {
+            const string query = """
+                                 SELECT
+                                     HOUR(v.fecha) AS Hora,
+                                     SUM(dva.precio_venta_final * dva.cantidad) AS Total
+                                 FROM adv__venta v
+                                 INNER JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                                 WHERE DATE(v.fecha) = @fecha
+                                 GROUP BY HOUR(v.fecha);
+                                 """;
+            var parametros = new[] {
                 new MySqlParameter("@fecha", fechaHora.Date.ToString("yyyy-MM-dd"))
             };
 
@@ -219,16 +221,16 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         private static void ObtenerVentasPorDia(DateTime fechaHora) {
-            string query = @"
-                SELECT DAY(v.fecha) AS Dia, 
-                       SUM(d.precio_unitario * d.cantidad) AS Total
-                FROM adv__venta v
-                INNER JOIN adv__detalle_venta_articulo d ON v.id_venta = d.id_venta
-                WHERE MONTH(v.fecha) = @mes AND YEAR(v.fecha) = @anio
-                GROUP BY DAY(v.fecha)";
-
-            var parametros = new MySqlParameter[]
-            {
+            const string query = """
+                                 SELECT
+                                     DAY(v.fecha) AS Dia,
+                                     SUM(dva.precio_venta_final * dva.cantidad) AS Total
+                                 FROM adv__venta v
+                                 INNER JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                                 WHERE MONTH(v.fecha) = @mes AND YEAR(v.fecha) = @anio
+                                 GROUP BY DAY(v.fecha);
+                                 """;
+            var parametros = new[] {
                 new MySqlParameter("@mes", fechaHora.Month),
                 new MySqlParameter("@anio", fechaHora.Year)
             };
@@ -237,76 +239,71 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         private static void ObtenerVentasPorMes(DateTime fechaHora) {
-            string query = @"
-                SELECT MONTH(v.fecha) AS Mes, 
-                       SUM(d.precio_unitario * d.cantidad) AS Total
-                FROM adv__venta v
-                INNER JOIN adv__detalle_venta_articulo d ON v.id_venta = d.id_venta
-                WHERE YEAR(v.fecha) = @anio
-                GROUP BY MONTH(v.fecha)";
-
-            var parametros = new MySqlParameter[]
-            {
+            const string query = """
+                                 SELECT
+                                     MONTH(v.fecha) AS Mes,
+                                     SUM(dva.precio_venta_final * dva.cantidad) AS Total
+                                 FROM adv__venta v
+                                 INNER JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                                 WHERE YEAR(v.fecha) = @anio
+                                 GROUP BY MONTH(v.fecha);
+                                 """;
+            var parametros = new[] {
                 new MySqlParameter("@anio", fechaHora.Year)
             };
 
             EjecutarConsultaEstadistica(query, parametros, _datos.VentasPorMes, fechaHora);
         }
 
-        private static void EjecutarConsultaEstadistica(string query, MySqlParameter[] parameters, Dictionary<DateTime, decimal> datos, DateTime fecha) {
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                try {
-                    conexion.Open();
+        private static void EjecutarConsultaEstadistica(string query, MySqlParameter[]? parameters, Dictionary<DateTime, decimal> datos, DateTime fecha) {
+            using var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL());
+            
+            try {
+                conexion.Open();
 
-                    using (var comando = new MySqlCommand(query, conexion)) {
-                        if (parameters != null) {
-                            comando.Parameters.AddRange(parameters);
-                        }
+                using var comando = new MySqlCommand(query, conexion);
 
-                        datos.Clear();
+                if (parameters != null) 
+                    comando.Parameters.AddRange(parameters);
+                
+                datos.Clear();
 
-                        using (var reader = comando.ExecuteReader()) {
-                            while (reader.Read()) {
-                                DateTime fechaResultado = fecha.Date;
-                                if (query.Contains("HOUR")) {
-                                    fechaResultado = fechaResultado.AddHours(reader.GetInt32(0));
-                                } else if (query.Contains("DAY")) {
-                                    fechaResultado = new DateTime(fecha.Year, fecha.Month, reader.GetInt32(0));
-                                } else if (query.Contains("MONTH")) {
-                                    fechaResultado = new DateTime(fecha.Year, reader.GetInt32(0), 1);
-                                }
+                using var reader = comando.ExecuteReader();
 
-                                datos.Add(fechaResultado, reader.GetDecimal(1));
-                            }
-                        }
-                    }
-                } catch (MySqlException) {
-                    throw new ExcepcionConexionServidorMySQL();
+                while (reader.Read()) {
+                    var fechaResultado = query.Contains("HOUR")
+                        ? fecha.Date.AddHours(reader.GetInt32(0))
+                        : query.Contains("DAY")
+                            ? new DateTime(fecha.Year, fecha.Month, reader.GetInt32(0))
+                            : new DateTime(fecha.Year, reader.GetInt32(0), 1);
+
+                    datos.Add(fechaResultado, reader.GetDecimal(1));
                 }
+            } catch (MySqlException) {
+                throw new ExcepcionConexionServidorMySQL();
             }
         }
 
         private static void RellenarPeriodosVacios(DatosEstadisticosVentas datos, DateTime fecha) {
-            for (int hora = 0; hora < 24; hora++) {
-                DateTime horaFecha = fecha.Date.AddHours(hora);
-                if (!datos.VentasPorHora.ContainsKey(horaFecha)) {
-                    datos.VentasPorHora.Add(horaFecha, 0);
-                }
+            // Rellenar horas (0-23)
+            for (var hora = 0; hora < 24; hora++) {
+                var horaFecha = fecha.Date.AddHours(hora);
+
+                datos.VentasPorHora.TryAdd(horaFecha, 0);
             }
 
-            int diasEnMes = DateTime.DaysInMonth(fecha.Year, fecha.Month);
-            for (int dia = 1; dia <= diasEnMes; dia++) {
-                DateTime diaFecha = new DateTime(fecha.Year, fecha.Month, dia);
-                if (!datos.VentasPorDia.ContainsKey(diaFecha)) {
-                    datos.VentasPorDia.Add(diaFecha, 0);
-                }
+            // Rellenar días del mes
+            for (var dia = 1; dia <= DateTime.DaysInMonth(fecha.Year, fecha.Month); dia++) {
+                var diaFecha = new DateTime(fecha.Year, fecha.Month, dia);
+
+                datos.VentasPorDia.TryAdd(diaFecha, 0);
             }
 
-            for (int mes = 1; mes <= 12; mes++) {
-                DateTime mesFecha = new DateTime(fecha.Year, mes, 1);
-                if (!datos.VentasPorMes.ContainsKey(mesFecha)) {
-                    datos.VentasPorMes.Add(mesFecha, 0);
-                }
+            // Rellenar meses (1-12)
+            for (var mes = 1; mes <= 12; mes++) {
+                var mesFecha = new DateTime(fecha.Year, mes, 1);
+
+                datos.VentasPorMes.TryAdd(mesFecha, 0);
             }
         }
     }

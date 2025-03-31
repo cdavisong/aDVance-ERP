@@ -99,6 +99,12 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
                 RegistrarMovimientoVentaArticulo(detalleVentaArticulo, articulo);
                 ModificarStockVentaArticulo(detalleVentaArticulo, articulo);
+
+                // Actualizar precio de venta en tabla articulo
+                UtilesArticulo.ActualizarPrecioVentaBase(
+                    detalleVentaArticulo.IdArticulo,
+                    detalleVentaArticulo.PrecioVentaFinal
+                    );
             }
 
             ArticulosVenta.Clear();
