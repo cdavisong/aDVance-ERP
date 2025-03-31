@@ -25,7 +25,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         Id,
         NombreAlmacen,
         RazonSocialProveedor,
-        NombreArticulo,
         Fecha
     }
 
@@ -35,7 +34,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
             "Identificador de BD",
             "Nombre del almacén",
             "Razón social del proveedor",
-            "Nombre del artículo",
             "Fecha de la compra"
         };
     }

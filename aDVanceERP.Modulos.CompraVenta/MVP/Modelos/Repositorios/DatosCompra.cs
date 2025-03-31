@@ -67,13 +67,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
                                WHERE LOWER(p.razon_social) LIKE LOWER('%{dato}%');
                                """;
                     break;
-                case CriterioBusquedaCompra.NombreArticulo:
-                    comando = $"""
-                               SELECT c.* 
-                               FROM adv__compra c JOIN adv__articulo ar ON c.id_articulo = ar.id_articulo 
-                               WHERE LOWER(ar.nombre) LIKE LOWER('%{dato}%');
-                               """;
-                    break;
                 case CriterioBusquedaCompra.Fecha:
                     comando = $"""
                                SELECT * 
