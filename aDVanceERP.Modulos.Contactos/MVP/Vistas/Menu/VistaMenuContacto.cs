@@ -24,6 +24,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
         }
 
         public event EventHandler? VerProveedores;
+        public event EventHandler? VerMensajeros;
         public event EventHandler? VerClientes;
         public event EventHandler? VerContactos;
         public event EventHandler? CambioMenu;
@@ -34,11 +35,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
             btnProveedores.Click += delegate (object? sender, EventArgs e) {
                 PresionarBotonSeleccion(1, e);
             };
-            btnClientes.Click += delegate (object? sender, EventArgs e) {
+            btnMensajeros.Click += delegate (object? sender, EventArgs e) {
                 PresionarBotonSeleccion(2, e);
             };
-            btnContactos.Click += delegate (object? sender, EventArgs e) {
+            btnClientes.Click += delegate (object? sender, EventArgs e) {
                 PresionarBotonSeleccion(3, e);
+            };
+            btnContactos.Click += delegate (object? sender, EventArgs e) {
+                PresionarBotonSeleccion(4, e);
             };
         }
 
@@ -57,11 +61,16 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
                         btnProveedores.Checked = true;
                     break;
                 case 2:
+                    VerMensajeros?.Invoke(btnMensajeros, e);
+                    if (!btnMensajeros.Checked)
+                        btnMensajeros.Checked = true;
+                    break;
+                case 3:
                     VerClientes?.Invoke(btnClientes, e);
                     if (!btnClientes.Checked)
                         btnClientes.Checked = true;
                     break;
-                case 3:
+                case 4:
                     VerContactos?.Invoke(btnContactos, e);
                     if (!btnContactos.Checked)
                         btnContactos.Checked = true;
@@ -77,18 +86,22 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu {
 
         private void VerificarPermisos() {
             btnProveedores.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_PROVEEDORES")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+                                     || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_PROVEEDORES")
+                                     || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+            btnProveedores.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                                     || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_MENSAJEROS")
+                                     || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
             btnClientes.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_CLIENTES")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+                                  || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_CLIENTES")
+                                  || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
             btnContactos.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_CONTACTOS")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+                                   || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_CONTACTOS")
+                                   || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
         }
 
         public void Restaurar() {
             btnProveedores.Checked = false;
+            btnMensajeros.Checked = false;
             btnClientes.Checked = false;
             btnContactos.Checked = false;
         }

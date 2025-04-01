@@ -7,8 +7,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
     public class PresentadorGestionClientes : PresentadorGestionBase<PresentadorTuplaCliente, IVistaGestionClientes, IVistaTuplaCliente, Cliente, DatosCliente, CriterioBusquedaCliente> {
-        public PresentadorGestionClientes(IVistaGestionClientes vista) : base(vista) {
-        }
+        public PresentadorGestionClientes(IVistaGestionClientes vista) : base(vista) { }
 
         protected override PresentadorTuplaCliente ObtenerValoresTupla(Cliente objeto) {
             var presentadorTupla = new PresentadorTuplaCliente(new VistaTuplaCliente(), objeto);

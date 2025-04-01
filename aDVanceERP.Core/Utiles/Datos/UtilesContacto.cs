@@ -52,7 +52,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return nombreContacto;
         }
 
-        public static string[] ObtenerNombresContactos() {
+        public static object[] ObtenerNombresContactos() {
             var nombresContactos = new List<string>();
 
             using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {

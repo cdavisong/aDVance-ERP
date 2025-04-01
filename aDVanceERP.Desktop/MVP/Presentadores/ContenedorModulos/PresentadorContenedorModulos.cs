@@ -25,6 +25,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             InicializarVistaMenuContacto();
             InicializarVistaGestionProveedores();
+            InicializarVistaGestionMensajeros();
             InicializarVistaGestionClientes();
             InicializarVistaGestionContactos();
 

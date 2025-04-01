@@ -24,12 +24,12 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             set => Size = value;
         }
 
-        public string Numero {
+        public string? Numero {
             get => fieldNumero.Text;
             set => fieldNumero.Text = value;
         }
 
-        public string RazonSocial {
+        public string? RazonSocial {
             get => fieldRazonSocial.Text;
             set => fieldRazonSocial.Text = value;
         }
@@ -72,7 +72,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             };
         }
 
-        public void CargarNombresContactos(string[] nombresContactos) {
+        public void CargarNombresContactos(object[] nombresContactos) {
+            fieldNombreContacto.Items.Clear();
             fieldNombreContacto.Items.Add("Ninguno");
             fieldNombreContacto.Items.AddRange(nombresContactos);
             fieldNombreContacto.SelectedIndex = 0;

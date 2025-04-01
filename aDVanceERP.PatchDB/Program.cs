@@ -144,6 +144,21 @@ class Program {
 
             using (var cmd = new MySqlCommand(crearTablaDetalleCompra, conexion))
                 cmd.ExecuteNonQuery();
+
+            using (var cmd = new MySqlCommand(crearTablaCompra, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Crear tabla adv__mensajero
+            const string crearTablaMensajero = @"
+                CREATE TABLE IF NOT EXISTS adv__mensajero (
+                  id_mensajero INT(11) PRIMARY KEY AUTO_INCREMENT,
+                  nombre VARCHAR(100) COLLATE latin1_general_ci NOT NULL,
+                  activo TINYINT(1) NOT NULL DEFAULT 1,
+                  id_contacto INT(11) NOT NULL
+                );";
+
+            using (var cmd = new MySqlCommand(crearTablaMensajero, conexion))
+                cmd.ExecuteNonQuery();
         }
     }
 

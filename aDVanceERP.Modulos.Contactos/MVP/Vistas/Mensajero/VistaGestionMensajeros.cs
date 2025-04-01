@@ -3,14 +3,14 @@ using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
-using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas;
+using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
-    public partial class VistaGestionClientes : Form, IVistaGestionClientes {
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
+    public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
         private int _paginaActual = 1;
         private int _paginasTotales = 1;
 
-        public VistaGestionClientes() {
+        public VistaGestionMensajeros() {
             InitializeComponent();
             Inicializar();
         }
@@ -30,12 +30,12 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             set => Size = value;
         }
 
-        public CriterioBusquedaCliente CriterioBusqueda {
-            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaCliente) fieldCriterioBusqueda.SelectedIndex : default;
+        public CriterioBusquedaMensajero CriterioBusqueda {
+            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaMensajero) fieldCriterioBusqueda.SelectedIndex : default;
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
-        public string? DatoBusqueda {
+        public string DatoBusqueda {
             get => fieldDatoBusqueda.Text;
             set => fieldDatoBusqueda.Text = value;
         }
@@ -52,7 +52,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             get => _paginaActual;
             set {
                 _paginaActual = value;
-                fieldPaginaActual.Text = $"Página {value}";
+                fieldPaginaActual.Text = $@"Página {value}";
             }
         }
 
@@ -60,7 +60,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             get => _paginasTotales;
             set {
                 _paginasTotales = value;
-                fieldPaginasTotales.Text = $"de {value}";
+                fieldPaginasTotales.Text = $@"de {value}";
                 HabilitarBotonesPaginacion();
             }
         }
@@ -83,7 +83,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             // Variables locales
             Vistas = new RepositorioVistaBase(contenedorVistas);
 
-            // Eventos            
+            // Eventos
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(DatoBusqueda))
                     BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
@@ -159,9 +159,9 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             }
 
             btnRegistrar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CLIENTES_ADICIONAR")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CLIENTES_TODOS")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+                                   || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_MENSAJEROS_ADICIONAR")
+                                   || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_MENSAJEROS_TODOS")
+                                   || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
         }
 
         public void Restaurar() {

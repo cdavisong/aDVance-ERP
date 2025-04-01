@@ -103,7 +103,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             fieldTipoMoneda.SelectedIndex = 0;
         }
 
-        public void CargarNombresContactos(string[] nombresContactos) {
+        public void CargarNombresContactos(object[] nombresContactos) {
             fieldNombrePropietario.Items.Add("Ninguno");
             fieldNombrePropietario.Items.AddRange(nombresContactos);
             fieldNombrePropietario.SelectedIndex = -1;

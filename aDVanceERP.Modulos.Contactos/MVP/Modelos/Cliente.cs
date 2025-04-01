@@ -5,7 +5,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
         public Cliente() {
         }
 
-        public Cliente(long idCliente, string numero, string razonSocial, long idContacto) {
+        public Cliente(long idCliente, string? numero, string? razonSocial, long idContacto) {
             Id = idCliente;
             Numero = numero;
             RazonSocial = razonSocial;
@@ -26,7 +26,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
     }
 
     public static class UtilesBusquedaCliente {
-        public static string[] CriterioBusquedaCliente = new string[] {
+        public static readonly object[] CriterioBusquedaCliente = new string[] {
             "Todos los clientes",
             "Identificador de BD",
             "Número del cliente",

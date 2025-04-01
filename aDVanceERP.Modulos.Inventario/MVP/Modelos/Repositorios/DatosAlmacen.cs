@@ -1,9 +1,9 @@
-﻿namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios {
-    using aDVanceERP.Core.MVP.Modelos.Repositorios;
-    using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
 
-    using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 
+namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios {
     public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen {
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_almacen) FROM adv__almacen;";

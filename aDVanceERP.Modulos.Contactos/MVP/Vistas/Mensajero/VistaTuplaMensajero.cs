@@ -1,9 +1,12 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
-using aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas;
+using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
+using aDVanceERP.Modulos.Contactos.Properties;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
-    public partial class VistaTuplaContacto : Form, IVistaTuplaContacto {
-        public VistaTuplaContacto() {
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
+    public partial class VistaTuplaMensajero : Form, IVistaTuplaMensajero {
+        private bool _activo;
+
+        public VistaTuplaMensajero() {
             InitializeComponent();
             Inicializar();
         }
@@ -38,16 +41,19 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             set => fieldTelefonos.Text = value;
         }
 
-        public string CorreoElectronico {
-            get => fieldCorreoElectronico.Text;
-            set => fieldCorreoElectronico.Text = value;
-        }
-
         public string Direccion {
             get => fieldDireccion.Text;
             set {
                 fieldDireccion.Text = value;
                 fieldDireccion.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
+            }
+        }
+
+        public bool Activo {
+            get => _activo;
+            set {
+                _activo = value;
+                fieldActivo.Image = value ? Resources.active_state_20px : Resources.inactive_state_20px;
             }
         }
 
@@ -72,10 +78,10 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTelefonos.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldCorreoElectronico.Click += delegate (object? sender, EventArgs e) {
+            fieldDireccion.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
-            fieldDireccion.Click += delegate (object? sender, EventArgs e) {
+            fieldActivo.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
 
@@ -101,13 +107,13 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             }
 
             btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CONTACTOS_EDITAR")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CONTACTOS_TODOS")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_MENSAJEROS_EDITAR")
+                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_MENSAJEROS_TODOS")
+                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
             btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CONTACTOS_ELIMINAR")
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_CONTACTOS_TODOS")
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+                                  || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_MENSAJEROS_ELIMINAR")
+                                  || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_MENSAJEROS_TODOS")
+                                  || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
         }
 
         public void Restaurar() {

@@ -10,7 +10,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Cliente objeto) {
-            return $"INSERT INTO adv__cliente (numero, razon_social, id_contacto) VALUES ('{objeto.Numero}', '{objeto.RazonSocial}', '{objeto.Id}');";
+            return $"INSERT INTO adv__cliente (numero, razon_social, id_contacto) VALUES ('{objeto.Numero}', '{objeto.RazonSocial}', '{objeto.IdContacto}');";
         }
 
         public override string ComandoEditar(Cliente objeto) {

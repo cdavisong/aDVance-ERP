@@ -6,6 +6,6 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas {
         string NumeroIdentificacionTributaria { get; set; }
         string NombreRepresentante { get; set; }
 
-        void CargarNombresContactos(string[] nombresContactos);
+        void CargarNombresContactos(object[] nombresContactos);
     }
 }

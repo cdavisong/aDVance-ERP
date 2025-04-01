@@ -47,6 +47,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -62,6 +64,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreArticulo = new Guna2TextBox();
             layoutPago = new TableLayoutPanel();
             symbolPeso = new Label();
+            btnAsignarMensajería = new Guna2Button();
             fieldTotalVenta = new Label();
             fieldTituloTotalVenta = new Label();
             btnEfectuarPago = new Guna2Button();
@@ -358,15 +361,17 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             // layoutPago
             // 
-            layoutPago.ColumnCount = 4;
+            layoutPago.ColumnCount = 5;
             layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutPago.Controls.Add(symbolPeso, 0, 0);
-            layoutPago.Controls.Add(fieldTotalVenta, 0, 0);
-            layoutPago.Controls.Add(fieldTituloTotalVenta, 0, 0);
+            layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            layoutPago.Controls.Add(symbolPeso, 2, 0);
+            layoutPago.Controls.Add(btnAsignarMensajería, 4, 0);
             layoutPago.Controls.Add(btnEfectuarPago, 3, 0);
+            layoutPago.Controls.Add(fieldTotalVenta, 1, 0);
+            layoutPago.Controls.Add(fieldTituloTotalVenta, 0, 0);
             layoutPago.Dock = DockStyle.Fill;
             layoutPago.Location = new Point(50, 555);
             layoutPago.Margin = new Padding(0);
@@ -383,13 +388,32 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             symbolPeso.ForeColor = Color.Black;
             symbolPeso.ImageAlign = ContentAlignment.MiddleLeft;
             symbolPeso.ImeMode = ImeMode.NoControl;
-            symbolPeso.Location = new Point(290, 5);
+            symbolPeso.Location = new Point(300, 5);
             symbolPeso.Margin = new Padding(3, 5, 3, 3);
             symbolPeso.Name = "symbolPeso";
             symbolPeso.Size = new Size(14, 37);
             symbolPeso.TabIndex = 2;
             symbolPeso.Text = "$";
             symbolPeso.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnAsignarMensajería
+            // 
+            btnAsignarMensajería.Animated = true;
+            btnAsignarMensajería.BorderRadius = 18;
+            btnAsignarMensajería.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnAsignarMensajería.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnAsignarMensajería.CustomizableEdges = customizableEdges9;
+            btnAsignarMensajería.DialogResult = DialogResult.Cancel;
+            btnAsignarMensajería.Dock = DockStyle.Fill;
+            btnAsignarMensajería.Enabled = false;
+            btnAsignarMensajería.FillColor = Color.PeachPuff;
+            btnAsignarMensajería.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAsignarMensajería.ForeColor = Color.White;
+            btnAsignarMensajería.Location = new Point(370, 3);
+            btnAsignarMensajería.Name = "btnAsignarMensajería";
+            btnAsignarMensajería.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnAsignarMensajería.Size = new Size(44, 39);
+            btnAsignarMensajería.TabIndex = 4;
             // 
             // fieldTotalVenta
             // 
@@ -398,7 +422,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTotalVenta.ForeColor = Color.Black;
             fieldTotalVenta.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTotalVenta.ImeMode = ImeMode.NoControl;
-            fieldTotalVenta.Location = new Point(192, 5);
+            fieldTotalVenta.Location = new Point(202, 5);
             fieldTotalVenta.Margin = new Padding(15, 5, 3, 3);
             fieldTotalVenta.Name = "fieldTotalVenta";
             fieldTotalVenta.Size = new Size(92, 37);
@@ -417,7 +441,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloTotalVenta.Location = new Point(15, 5);
             fieldTituloTotalVenta.Margin = new Padding(15, 5, 3, 3);
             fieldTituloTotalVenta.Name = "fieldTituloTotalVenta";
-            fieldTituloTotalVenta.Size = new Size(159, 37);
+            fieldTituloTotalVenta.Size = new Size(169, 37);
             fieldTituloTotalVenta.TabIndex = 0;
             fieldTituloTotalVenta.Text = "      Precio total";
             fieldTituloTotalVenta.TextAlign = ContentAlignment.MiddleLeft;
@@ -426,19 +450,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             btnEfectuarPago.Animated = true;
             btnEfectuarPago.BorderRadius = 18;
-            btnEfectuarPago.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnEfectuarPago.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
             btnEfectuarPago.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEfectuarPago.CustomizableEdges = customizableEdges9;
+            btnEfectuarPago.CustomizableEdges = customizableEdges11;
             btnEfectuarPago.DialogResult = DialogResult.Cancel;
             btnEfectuarPago.Dock = DockStyle.Fill;
             btnEfectuarPago.Enabled = false;
             btnEfectuarPago.FillColor = Color.PeachPuff;
             btnEfectuarPago.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnEfectuarPago.ForeColor = Color.White;
-            btnEfectuarPago.Location = new Point(310, 3);
+            btnEfectuarPago.Location = new Point(320, 3);
             btnEfectuarPago.Name = "btnEfectuarPago";
-            btnEfectuarPago.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnEfectuarPago.Size = new Size(104, 39);
+            btnEfectuarPago.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnEfectuarPago.Size = new Size(44, 39);
             btnEfectuarPago.TabIndex = 3;
             // 
             // layoutEncabezadosTabla
@@ -594,7 +618,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreCliente.BackColor = Color.Transparent;
             fieldNombreCliente.BorderColor = Color.Gainsboro;
             fieldNombreCliente.BorderRadius = 16;
-            fieldNombreCliente.CustomizableEdges = customizableEdges11;
+            fieldNombreCliente.CustomizableEdges = customizableEdges13;
             fieldNombreCliente.Dock = DockStyle.Fill;
             fieldNombreCliente.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreCliente.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -606,7 +630,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreCliente.Location = new Point(5, 5);
             fieldNombreCliente.Margin = new Padding(5);
             fieldNombreCliente.Name = "fieldNombreCliente";
-            fieldNombreCliente.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            fieldNombreCliente.ShadowDecoration.CustomizableEdges = customizableEdges14;
             fieldNombreCliente.Size = new Size(198, 35);
             fieldNombreCliente.TabIndex = 0;
             fieldNombreCliente.TextOffset = new Point(10, 0);
@@ -617,7 +641,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreAlmacen.BackColor = Color.Transparent;
             fieldNombreAlmacen.BorderColor = Color.Gainsboro;
             fieldNombreAlmacen.BorderRadius = 16;
-            fieldNombreAlmacen.CustomizableEdges = customizableEdges13;
+            fieldNombreAlmacen.CustomizableEdges = customizableEdges15;
             fieldNombreAlmacen.Dock = DockStyle.Fill;
             fieldNombreAlmacen.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreAlmacen.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -629,7 +653,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreAlmacen.Location = new Point(213, 5);
             fieldNombreAlmacen.Margin = new Padding(5);
             fieldNombreAlmacen.Name = "fieldNombreAlmacen";
-            fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges16;
             fieldNombreAlmacen.Size = new Size(199, 35);
             fieldNombreAlmacen.TabIndex = 1;
             fieldNombreAlmacen.TextOffset = new Point(10, 0);
@@ -669,7 +693,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges15;
+            btnSalir.CustomizableEdges = customizableEdges17;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -679,7 +703,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 1;
             btnSalir.Text = "Cancelar";
@@ -688,7 +712,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges17;
+            btnRegistrar.CustomizableEdges = customizableEdges19;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.Enabled = false;
             btnRegistrar.FillColor = Color.PeachPuff;
@@ -696,7 +720,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 0;
             btnRegistrar.Text = "Registrar venta";
@@ -763,5 +787,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         private Guna2TextBox fieldNombreArticulo;
         private TableLayoutPanel layoutClienteAlmacen;
         private Guna2Separator separador2;
+        private Guna2Button btnAsignarMensajería;
     }
 }

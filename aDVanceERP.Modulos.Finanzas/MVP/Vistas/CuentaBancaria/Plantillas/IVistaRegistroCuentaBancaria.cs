@@ -8,6 +8,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas {
         string NombrePropietario { get; set; }
 
         void CargarTiposMoneda(string[] tiposMoneda);
-        void CargarNombresContactos(string[] nombresContactos);
+        void CargarNombresContactos(object[] nombresContactos);
     }
 }

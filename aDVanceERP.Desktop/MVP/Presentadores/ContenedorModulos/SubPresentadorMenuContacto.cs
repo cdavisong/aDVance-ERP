@@ -8,6 +8,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void InicializarVistaMenuContacto() {
             _menuContacto = new PresentadorMenuContacto(new VistaMenuContacto());
             _menuContacto.Vista.VerProveedores += MostrarVistaGestionProveedores;
+            _menuContacto.Vista.VerMensajeros += MostrarVistaGestionMensajeros;
             _menuContacto.Vista.VerClientes += MostrarVistaGestionClientes;
             _menuContacto.Vista.VerContactos += MostrarVistaGestionContactos;
             _menuContacto.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
@@ -19,7 +20,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _menuContacto.Vista.Restaurar();
             _menuContacto.Vista.Mostrar();
 
-            _menuContacto.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 3, e);
+            _menuContacto.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 4, e);
         }
     }
 }

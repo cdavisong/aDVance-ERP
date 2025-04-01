@@ -37,8 +37,16 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
         }
 
         public virtual async Task<long> AdicionarAsync(O objeto) {
-            await EjecutarComandoNoQueryAsync(ComandoAdicionar(objeto));
-            return await EjecutarConsultaEscalarAsync<long>("SELECT LAST_INSERT_ID();");
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                await conexion.OpenAsync().ConfigureAwait(false);
+
+                using (var comando = conexion.CreateCommand()) {
+                    comando.CommandText = ComandoAdicionar(objeto);
+                    await comando.ExecuteNonQueryAsync().ConfigureAwait(false);
+
+                    return comando.LastInsertedId; // Más directo y eficiente
+                }
+            }
         }
 
         public virtual bool Editar(O objeto, long nuevoId = 0) {

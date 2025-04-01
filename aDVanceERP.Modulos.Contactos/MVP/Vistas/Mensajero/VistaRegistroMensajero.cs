@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
+﻿using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
-    public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
+    public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
         private bool _modoEdicion;
 
-        public VistaRegistroProveedor() {
+        public VistaRegistroMensajero() {
             InitializeComponent();
             Inicializar();
         }
@@ -24,26 +24,24 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             set => Size = value;
         }
 
-        public string NumeroIdentificacionTributaria {
-            get => fieldNumero.Text;
-            set => fieldNumero.Text = value;
+        public string Nombre {
+            get => fieldNombre.Text;
+            set => fieldNombre.Text = value;
         }
 
-        public string RazonSocial {
-            get => fieldRazonSocial.Text;
-            set => fieldRazonSocial.Text = value;
-        }
-
-        public string NombreRepresentante {
+        public string NombreContacto {
             get => fieldNombreContacto.Text;
-            set => fieldNombreContacto.Text = value;
+            set {
+                fieldNombreContacto.Text = value;
+                fieldNombreContacto.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
+            }
         }
 
         public bool ModoEdicionDatos {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
-                btnRegistrar.Text = value ? "Actualizar cliente" : "Crear cliente";
+                btnRegistrar.Text = value ? "Actualizar contacto" : "Registrar contacto";
                 _modoEdicion = value;
             }
         }
@@ -70,6 +68,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
         }
 
         public void CargarNombresContactos(object[] nombresContactos) {
+            fieldNombreContacto.Items.Clear();
             fieldNombreContacto.Items.Add("Ninguno");
             fieldNombreContacto.Items.AddRange(nombresContactos);
             fieldNombreContacto.SelectedIndex = 0;
@@ -81,9 +80,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
         }
 
         public void Restaurar() {
-            NumeroIdentificacionTributaria = string.Empty;
-            RazonSocial = string.Empty;
-            NombreRepresentante = string.Empty;
+            Nombre = string.Empty;
+            NombreContacto = string.Empty;
             fieldNombreContacto.SelectedIndex = -1;
             ModoEdicionDatos = false;
         }

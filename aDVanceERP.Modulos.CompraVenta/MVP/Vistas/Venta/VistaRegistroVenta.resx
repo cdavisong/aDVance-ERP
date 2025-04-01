@@ -179,6 +179,30 @@
         fcl3tzuO1IYMsFLN+XW+AOuHr0ZSIaRYAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="resource.Image1" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAYpJREFUOE/V
+        1E2IzlEUx/GPsLCwUcpCiIWksdBESVlg7FjIfjZWM0VZjMUspJSNkpKsWViIpCallJciZTELahQWysuQ
+        hfL+2tH567jPI2bHt27/Oud3z3Pv+Z378L8xF8tzLWuTM2U2pvCtrHOtaCYszCLb8oQjmC75SbzCc4xi
+        DKtLvoeuYCfa1RRcjy24iQ+pjR/9LXvxFe/wJk9zvxVhPItdwoI2WXmCK5jAtdwUJ2rZnrkvf7pyXC+u
+        GazLTVdxAkuKbiBz93C0xHt4hjO4gDuN27eLbnHGjuFBifewH6/xEW/xKb+x+XrRrcrYUH7DzL5swnus
+        KLHW+WAYL9KQyG0tuV8Ilx9jfonFsEdvz+MwjqT7BzALd7PoKcwp+34QjY8xideypsTX4iwu5wTsy2LB
+        PGzGSxwse36yM4c2RiIM2oGV5X13axA38LkYF6+nh5M4jQ05i2FMdbuuR9iIQ3jYFurYg6fYjVvZu6V9
+        ThjXizHrdNGSvsTf1/Hs5UUsagXJ3+r+Qb4DQRxshbOREkwAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="resource.Image2" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAW9JREFUOE/V
+        079L1lEUx/EXlmZoWUORjmI0uFROLeIgFC3WIP0PCdEgRII/mvsBTi2uRYvgFi4lIeKmtaRBQQSBCelg
+        qKAWB+7z7evNerDtecMZ7rnnfu6555xLrdOK19jA9yr2BWdygZy72MQP9FaxHtTlAjlj+Ijrmb8ZT/AG
+        93Ak2/8rIRhPznmG9xjCKu7nATmdeIAVfMV5PMdJHMUWrqXYQSxm5wsi9QnsYQGvMI8raR1NOoYddKcz
+        t7GU6RSM4hsupXX5yU24iHq8xCxu4hMeljQKLmAbt0q+EJzBANbwE2/RkfzR/RepSX8wnW4u8zTN4Dru
+        oC1dGhd0ZRYJFfSlQkfxKwxjF+9wLvkepSwPsqjr2QhqwAc8LokFV0uFj4EdT9newOkDrKVy8BQmceK3
+        1j6OYyqN0OV887DE3EWXP+c1+h/iGXPp67Xnm/8i6hN/tb9k0dEQiobEMB+K6MxyEqhY/I4RNObBtc8v
+        PJ9YNMiiJ6kAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="fieldTituloTotalVenta.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAftJREFUOE/F
@@ -191,18 +215,6 @@
         ptQroiSaiNUkwxlC2CGg5wJ64p3hRJ7rMWOv1zJrIOArI9HsZMPNzRV7xdE9sWaxpnJxdFt13tGJlewO
         qKmOTP0KxqDt8I7u61B7R4fb8U7o/I3mcPQKFPUwP/hjswZ1wz/ri9EPIcDc1Qvyjk+2tb+L3IOvC+iH
         GuvX9Tdmyxj2zQFtvn6u7dg/wy/Lyhb5rCCxuAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="resource.Image1" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAW9JREFUOE/V
-        079L1lEUx/EXlmZoWUORjmI0uFROLeIgFC3WIP0PCdEgRII/mvsBTi2uRYvgFi4lIeKmtaRBQQSBCelg
-        qKAWB+7z7evNerDtecMZ7rnnfu6555xLrdOK19jA9yr2BWdygZy72MQP9FaxHtTlAjlj+Ijrmb8ZT/AG
-        93Ak2/8rIRhPznmG9xjCKu7nATmdeIAVfMV5PMdJHMUWrqXYQSxm5wsi9QnsYQGvMI8raR1NOoYddKcz
-        t7GU6RSM4hsupXX5yU24iHq8xCxu4hMeljQKLmAbt0q+EJzBANbwE2/RkfzR/RepSX8wnW4u8zTN4Dru
-        oC1dGhd0ZRYJFfSlQkfxKwxjF+9wLvkepSwPsqjr2QhqwAc8LokFV0uFj4EdT9newOkDrKVy8BQmceK3
-        1j6OYyqN0OV887DE3EWXP+c1+h/iGXPp67Xnm/8i6hN/tb9k0dEQiobEMB+K6MxyEqhY/I4RNObBtc8v
-        PJ9YNMiiJ6kAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="fieldTituloNombreCliente.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
