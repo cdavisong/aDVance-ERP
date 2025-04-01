@@ -195,7 +195,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
                 PaginaActual = 1;
                 HabilitarBotonesPaginacion();
             };
-            fieldCriterioBusqueda.SelectedIndex = 5;
+            fieldCriterioBusqueda.SelectedIndex = 4;
         }
 
         public void Mostrar() {
@@ -217,7 +217,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             PaginaActual = 1;
             PaginasTotales = 1;
 
-            fieldCriterioBusqueda.SelectedIndex = 5;
+            fieldCriterioBusqueda.SelectedIndex = 4;
         }
 
         public void Ocultar() {
