@@ -1,81 +1,80 @@
 ﻿using aDVanceERP.Core.Excepciones;
-
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.Utiles.Datos {
-    public static class UtilesModulo {
-        public static long ObtenerIdModulo(string nombreModulo) {
-            var idModulo = 0;
+namespace aDVanceERP.Core.Utiles.Datos; 
 
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                try {
-                    conexion.Open();
-                } catch (Exception) {
-                    throw new ExcepcionConexionServidorMySQL();
-                }
+public static class UtilesModulo {
+    public static long ObtenerIdModulo(string nombreModulo) {
+        var idModulo = 0;
 
-                using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT id_modulo FROM adv__modulo WHERE LOWER(nombre) LIKE LOWER('%{nombreModulo}%');";
-
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos != null && lectorDatos.Read()) {
-                            idModulo = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_modulo"));
-                        }
-                    }
-                }
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            }
+            catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
             }
 
-            return idModulo;
-        }
+            using (var comando = conexion.CreateCommand()) {
+                comando.CommandText =
+                    $"SELECT id_modulo FROM adv__modulo WHERE LOWER(nombre) LIKE LOWER('%{nombreModulo}%');";
 
-        public static string? ObtenerNombreModulo(long idModulo) {
-            var nombreModulo = string.Empty;
-
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                try {
-                    conexion.Open();
-                } catch (Exception) {
-                    throw new ExcepcionConexionServidorMySQL();
-                }
-
-                using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = $"SELECT nombre FROM adv__modulo WHERE id_modulo='{idModulo}';";
-
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos != null && lectorDatos.Read()) {
-                            nombreModulo = lectorDatos.GetString(lectorDatos.GetOrdinal("nombre"));
-                        }
-                    }
+                using (var lectorDatos = comando.ExecuteReader()) {
+                    if (lectorDatos != null && lectorDatos.Read())
+                        idModulo = lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_modulo"));
                 }
             }
-
-            return nombreModulo;
         }
 
-        public static string[] ObtenerNombresModulos() {
-            var nombresModuloes = new List<string>();
+        return idModulo;
+    }
 
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-                try {
-                    conexion.Open();
-                } catch (Exception) {
-                    throw new ExcepcionConexionServidorMySQL();
-                }
+    public static string? ObtenerNombreModulo(long idModulo) {
+        var nombreModulo = string.Empty;
 
-                using (var comando = conexion.CreateCommand()) {
-                    comando.CommandText = "SELECT nombre FROM adv__modulo;";
-
-                    using (var lectorDatos = comando.ExecuteReader()) {
-                        if (lectorDatos != null) {
-                            while (lectorDatos.Read()) {
-                                nombresModuloes.Add(lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")));
-                            }
-                        }
-                    }
-                }
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            }
+            catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
             }
 
-            return nombresModuloes.ToArray();
+            using (var comando = conexion.CreateCommand()) {
+                comando.CommandText = $"SELECT nombre FROM adv__modulo WHERE id_modulo='{idModulo}';";
+
+                using (var lectorDatos = comando.ExecuteReader()) {
+                    if (lectorDatos != null && lectorDatos.Read())
+                        nombreModulo = lectorDatos.GetString(lectorDatos.GetOrdinal("nombre"));
+                }
+            }
         }
+
+        return nombreModulo;
+    }
+
+    public static string[] ObtenerNombresModulos() {
+        var nombresModuloes = new List<string>();
+
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            }
+            catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
+            }
+
+            using (var comando = conexion.CreateCommand()) {
+                comando.CommandText = "SELECT nombre FROM adv__modulo;";
+
+                using (var lectorDatos = comando.ExecuteReader()) {
+                    if (lectorDatos != null)
+                        while (lectorDatos.Read())
+                            nombresModuloes.Add(lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")));
+                }
+            }
+        }
+
+        return nombresModuloes.ToArray();
     }
 }

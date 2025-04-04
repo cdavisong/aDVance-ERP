@@ -1,96 +1,96 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using System.Globalization;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
-
 using MySql.Data.MySqlClient;
 
-using System.Globalization;
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
-    public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IRepositorioVenta {
-        public override string ComandoCantidad() {
-            return "SELECT COUNT(id_venta) FROM adv__venta;";
+public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IRepositorioVenta {
+    public override string ComandoCantidad() {
+        return "SELECT COUNT(id_venta) FROM adv__venta;";
+    }
+
+    public override string ComandoAdicionar(Venta objeto) {
+        return $"""
+                INSERT INTO adv__venta (
+                    fecha,
+                    id_almacen,
+                    id_cliente,
+                    id_tipo_entrega,
+                    direccion_entrega,
+                    estado_entrega,
+                    total
+                )
+                VALUES (
+                    '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
+                    {objeto.IdAlmacen},
+                    {objeto.IdCliente},
+                    {objeto.IdTipoEntrega},
+                    '{objeto.DireccionEntrega}',
+                    '{objeto.EstadoEntrega}',
+                    {objeto.Total.ToString(CultureInfo.InvariantCulture)});
+                """;
+    }
+
+    public override string ComandoEditar(Venta objeto) {
+        return $"""
+                UPDATE adv__venta
+                SET
+                    fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
+                    id_almacen = {objeto.IdAlmacen},
+                    id_cliente = {objeto.IdCliente},
+                    id_tipo_entrega = {objeto.IdTipoEntrega},
+                    direccion_entrega = '{objeto.DireccionEntrega}',
+                    estado_entrega = '{objeto.EstadoEntrega}',
+                    total = {objeto.Total.ToString(CultureInfo.InvariantCulture)}
+                WHERE id_venta = {objeto.Id};
+                """;
+    }
+
+    public override string ComandoEliminar(long id) {
+        return $"DELETE FROM adv__venta WHERE id_venta={id};";
+    }
+
+    public override string ComandoObtener(CriterioBusquedaVenta criterio, string dato) {
+        var comando = string.Empty;
+
+        switch (criterio) {
+            case CriterioBusquedaVenta.Id:
+                comando = $"SELECT * FROM adv__venta WHERE id_venta={dato};";
+                break;
+            case CriterioBusquedaVenta.NombreAlmacen:
+                comando =
+                    $"SELECT v.* FROM adv__venta v JOIN adv__almacen a ON v.id_almacen = a.id_almacen WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
+                break;
+            case CriterioBusquedaVenta.RazonSocialCliente:
+                comando =
+                    $"SELECT v.* FROM adv__venta v JOIN adv__cliente c ON v.id_cliente = c.id_cliente WHERE LOWER(c.razon_social) LIKE LOWER('%{dato}%');";
+                break;
+            case CriterioBusquedaVenta.Fecha:
+                comando = $"SELECT * FROM adv__venta WHERE DATE(fecha) = '{dato}';";
+                break;
+            default:
+                comando = "SELECT * FROM adv__venta;";
+                break;
         }
 
-        public override string ComandoAdicionar(Venta objeto) {
-            return $"""
-                    INSERT INTO adv__venta (
-                        fecha, 
-                        id_almacen, 
-                        id_cliente, 
-                        id_tipo_entrega, 
-                        direccion_entrega, 
-                        estado_entrega, 
-                        total
-                    ) 
-                    VALUES (
-                        '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', 
-                        {objeto.IdAlmacen}, 
-                        {objeto.IdCliente}, 
-                        {objeto.IdTipoEntrega}, 
-                        '{objeto.DireccionEntrega}', 
-                        '{objeto.EstadoEntrega}', 
-                        {objeto.Total.ToString(CultureInfo.InvariantCulture)});
-                    """;
-        }
+        return comando;
+    }
 
-        public override string ComandoEditar(Venta objeto) {
-            return $"""
-                    UPDATE adv__venta 
-                    SET 
-                        fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', 
-                        id_almacen = {objeto.IdAlmacen}, 
-                        id_cliente = {objeto.IdCliente}, 
-                        id_tipo_entrega = {objeto.IdTipoEntrega}, 
-                        direccion_entrega = '{objeto.DireccionEntrega}',
-                        estado_entrega = '{objeto.EstadoEntrega}',
-                        total = {objeto.Total.ToString(CultureInfo.InvariantCulture)} 
-                    WHERE id_venta = {objeto.Id};
-                    """;
-        }
+    public override Venta ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        return new Venta(
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
+            lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_entrega")),
+            lectorDatos.GetString(lectorDatos.GetOrdinal("direccion_entrega")),
+            lectorDatos.GetString(lectorDatos.GetOrdinal("estado_entrega")),
+            lectorDatos.GetDecimal(lectorDatos.GetOrdinal("total"))
+        );
+    }
 
-        public override string ComandoEliminar(long id) {
-            return $"DELETE FROM adv__venta WHERE id_venta={id};";
-        }
-
-        public override string ComandoObtener(CriterioBusquedaVenta criterio, string dato) {
-            var comando = string.Empty;
-
-            switch (criterio) {
-                case CriterioBusquedaVenta.Id:
-                    comando = $"SELECT * FROM adv__venta WHERE id_venta={dato};";
-                    break;
-                case CriterioBusquedaVenta.NombreAlmacen:
-                    comando = $"SELECT v.* FROM adv__venta v JOIN adv__almacen a ON v.id_almacen = a.id_almacen WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
-                    break;
-                case CriterioBusquedaVenta.RazonSocialCliente:
-                    comando = $"SELECT v.* FROM adv__venta v JOIN adv__cliente c ON v.id_cliente = c.id_cliente WHERE LOWER(c.razon_social) LIKE LOWER('%{dato}%');";
-                    break;
-                case CriterioBusquedaVenta.Fecha:
-                    comando = $"SELECT * FROM adv__venta WHERE DATE(fecha) = '{dato}';";
-                    break;
-                default:
-                    comando = "SELECT * FROM adv__venta;";
-                    break;
-            }
-
-            return comando;
-        }
-
-        public override Venta ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
-            return new Venta(
-                id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
-                fecha: lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
-                idAlmacen: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
-                idCliente: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
-                idTipoEntrega: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_entrega")),
-                direccionEntrega: lectorDatos.GetString(lectorDatos.GetOrdinal("direccion_entrega")),
-                estadoEntrega: lectorDatos.GetString(lectorDatos.GetOrdinal("estado_entrega")),
-                total: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("total"))
-            );
-        }
-
-        public override string ComandoExiste(string dato) {
-            return $"SELECT COUNT(1) FROM adv__venta WHERE id_venta = {dato};";
-        }
+    public override string ComandoExiste(string dato) {
+        return $"SELECT COUNT(1) FROM adv__venta WHERE id_venta = {dato};";
     }
 }

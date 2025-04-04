@@ -2,15 +2,15 @@
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Core.MVP.Presentadores.Plantillas {
-    public interface IPresentadorRegistro<Vr, Do, O, C> : IPresentadorBase<Vr>
-        where Vr : IVistaRegistro
-        where Do : class, IRepositorioDatos<O, C>, new()
-        where O : class, IObjetoUnico, new()
-        where C : Enum {
-        Do DatosObjeto { get; }
+namespace aDVanceERP.Core.MVP.Presentadores.Plantillas; 
 
-        event EventHandler? DatosRegistradosActualizados;
-        event EventHandler? Salir;
-    }
+public interface IPresentadorRegistro<Vr, Do, O, C> : IPresentadorBase<Vr>
+    where Vr : IVistaRegistro
+    where Do : class, IRepositorioDatos<O, C>, new()
+    where O : class, IObjetoUnico, new()
+    where C : Enum {
+    Do DatosObjeto { get; }
+
+    event EventHandler? DatosRegistradosActualizados;
+    event EventHandler? Salir;
 }

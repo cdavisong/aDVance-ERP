@@ -1,23 +1,23 @@
 ﻿using aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos {
-        private PresentadorMenuFinanzas _menuFinanzas;
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-        private void InicializarVistaMenuFinanzas() {
-            _menuFinanzas = new PresentadorMenuFinanzas(new VistaMenuFinanzas());
-            _menuFinanzas.Vista.VerCuentas += MostrarVistaGestionCuentasBancarias;
-            _menuFinanzas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
+public partial class PresentadorContenedorModulos {
+    private PresentadorMenuFinanzas _menuFinanzas;
 
-            VistaPrincipal.Menus.Registrar("vistaMenuFinanzas", _menuFinanzas.Vista);
-        }
+    private void InicializarVistaMenuFinanzas() {
+        _menuFinanzas = new PresentadorMenuFinanzas(new VistaMenuFinanzas());
+        _menuFinanzas.Vista.VerCuentas += MostrarVistaGestionCuentasBancarias;
+        _menuFinanzas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
 
-        private void MostrarVistaMenuFinanzas(object? sender, EventArgs e) {
-            _menuFinanzas.Vista.Restaurar();
-            _menuFinanzas.Vista.Mostrar();
+        VistaPrincipal.Menus.Registrar("vistaMenuFinanzas", _menuFinanzas.Vista);
+    }
 
-            _menuFinanzas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 1, e);
-        }
+    private void MostrarVistaMenuFinanzas(object? sender, EventArgs e) {
+        _menuFinanzas.Vista.Restaurar();
+        _menuFinanzas.Vista.Mostrar();
+
+        _menuFinanzas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 1, e);
     }
 }

@@ -1,21 +1,21 @@
-﻿namespace aDVanceERP.Modulos.Inventario {
-    public static class ModuloInventario {
-        public const string Nombre = "MOD_INVENTARIO";
+﻿namespace aDVanceERP.Modulos.Inventario; 
 
-        public static readonly string[] Permisos = {
-            "MOD_INVENTARIO_TODOS",
-            "MOD_INVENTARIO_ARTICULOS_TODOS",
-            "MOD_INVENTARIO_ARTICULOS_ADICIONAR",
-            "MOD_INVENTARIO_ARTICULOS_EDITAR",
-            "MOD_INVENTARIO_ARTICULOS_ELIMINAR",
-            "MOD_INVENTARIO_MOVIMIENTOS_TODOS",
-            "MOD_INVENTARIO_MOVIMIENTOS_ADICIONAR",
-            "MOD_INVENTARIO_MOVIMIENTOS_EDITAR",
-            "MOD_INVENTARIO_MOVIMIENTOS_ELIMINAR",
-            "MOD_INVENTARIO_ALMACENES_TODOS",
-            "MOD_INVENTARIO_ALMACENES_ADICIONAR",
-            "MOD_INVENTARIO_ALMACENES_EDITAR",
-            "MOD_INVENTARIO_ALMACENES_ELIMINAR",
-        };
-    }
+public static class ModuloInventario {
+    public const string Nombre = "MOD_INVENTARIO";
+
+    public static readonly string[] Permisos = {
+        "MOD_INVENTARIO_TODOS",
+        "MOD_INVENTARIO_ARTICULOS_TODOS",
+        "MOD_INVENTARIO_ARTICULOS_ADICIONAR",
+        "MOD_INVENTARIO_ARTICULOS_EDITAR",
+        "MOD_INVENTARIO_ARTICULOS_ELIMINAR",
+        "MOD_INVENTARIO_MOVIMIENTOS_TODOS",
+        "MOD_INVENTARIO_MOVIMIENTOS_ADICIONAR",
+        "MOD_INVENTARIO_MOVIMIENTOS_EDITAR",
+        "MOD_INVENTARIO_MOVIMIENTOS_ELIMINAR",
+        "MOD_INVENTARIO_ALMACENES_TODOS",
+        "MOD_INVENTARIO_ALMACENES_ADICIONAR",
+        "MOD_INVENTARIO_ALMACENES_EDITAR",
+        "MOD_INVENTARIO_ALMACENES_ELIMINAR"
+    };
 }

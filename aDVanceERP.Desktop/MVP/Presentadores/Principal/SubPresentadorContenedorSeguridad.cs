@@ -1,20 +1,20 @@
 ﻿using aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
-    public partial class PresentadorPrincipal {
-        private PresentadorContenedorSeguridad? _contenedorSeguridad;
+namespace aDVanceERP.Desktop.MVP.Presentadores.Principal; 
 
-        private void InicializarVistaContenedorSeguridad() {
-            _contenedorSeguridad = new PresentadorContenedorSeguridad(Vista, new VistaContenedorSeguridad());
-            _contenedorSeguridad.UsuarioAutenticado += MostrarVistaContenedorModulos;
+public partial class PresentadorPrincipal {
+    private PresentadorContenedorSeguridad? _contenedorSeguridad;
 
-            Vista.Vistas?.Registrar("vistaContenedorSeguridad", _contenedorSeguridad.Vista);
-        }
+    private void InicializarVistaContenedorSeguridad() {
+        _contenedorSeguridad = new PresentadorContenedorSeguridad(Vista, new VistaContenedorSeguridad());
+        _contenedorSeguridad.UsuarioAutenticado += MostrarVistaContenedorModulos;
 
-        private void MostrarVistaContenedorSeguridad(object sender, EventArgs e) {
-            _contenedorSeguridad?.Vista.Restaurar();
-            _contenedorSeguridad?.Vista.Mostrar();
-        }
+        Vista.Vistas?.Registrar("vistaContenedorSeguridad", _contenedorSeguridad.Vista);
+    }
+
+    private void MostrarVistaContenedorSeguridad(object sender, EventArgs e) {
+        _contenedorSeguridad?.Vista.Restaurar();
+        _contenedorSeguridad?.Vista.Mostrar();
     }
 }

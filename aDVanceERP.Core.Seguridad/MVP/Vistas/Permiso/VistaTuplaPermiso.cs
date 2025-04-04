@@ -1,75 +1,73 @@
 ﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso {
-    public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
-        private string _idPermiso = string.Empty;
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso; 
 
-        public VistaTuplaPermiso() {
-            InitializeComponent();
-            Inicializar();
-        }
+public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
+    private string _idPermiso = string.Empty;
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+    public VistaTuplaPermiso() {
+        InitializeComponent();
+        Inicializar();
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public string? IdPermiso {
-            get => _idPermiso;
-            set => _idPermiso = value ?? string.Empty;
-        }
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public string? NombrePermiso {
-            get => fieldNombrePermiso.Text;
-            set => fieldNombrePermiso.Text = value;
-        }
+    public string? IdPermiso {
+        get => _idPermiso;
+        set => _idPermiso = value ?? string.Empty;
+    }
 
-        public Color ColorFondoTupla {
-            get => layoutVista.BackColor;
-            set => layoutVista.BackColor = value;
-        }
+    public string? NombrePermiso {
+        get => fieldNombrePermiso.Text;
+        set => fieldNombrePermiso.Text = value;
+    }
 
-        public event EventHandler? TuplaSeleccionada;
-        public event EventHandler? EditarDatosTupla;
-        public event EventHandler? EliminarDatosTupla;
-        public event EventHandler? Salir;
+    public Color ColorFondoTupla {
+        get => layoutVista.BackColor;
+        set => layoutVista.BackColor = value;
+    }
 
-        public void Inicializar() {
-            // Eventos            
-            fieldNombrePermiso.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
+    public event EventHandler? TuplaSeleccionada;
+    public event EventHandler? EditarDatosTupla;
+    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? Salir;
 
-            btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(new string[] { IdPermiso ?? string.Empty, NombrePermiso ?? string.Empty }, e);
-            };
-        }
+    public void Inicializar() {
+        // Eventos            
+        fieldNombrePermiso.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
-        public void Mostrar() {
-            BringToFront();
-            Show();
-        }
+        btnEliminar.Click += delegate(object? sender, EventArgs e) {
+            EliminarDatosTupla?.Invoke(new[] { IdPermiso ?? string.Empty, NombrePermiso ?? string.Empty }, e);
+        };
+    }
 
-        public void Restaurar() {
-            ColorFondoTupla = BackColor;
-        }
+    public void Mostrar() {
+        BringToFront();
+        Show();
+    }
 
-        public void Ocultar() {
-            Hide();
-        }
+    public void Restaurar() {
+        ColorFondoTupla = BackColor;
+    }
 
-        public void Cerrar() {
-            Dispose();
-        }
+    public void Ocultar() {
+        Hide();
+    }
+
+    public void Cerrar() {
+        Dispose();
     }
 }

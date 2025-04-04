@@ -1,7 +1,7 @@
-﻿namespace aDVanceERP.Core.MVP.Vistas.Plantillas {
-    public interface IVistaMenu : IVista {
-        event EventHandler? CambioMenu;
+﻿namespace aDVanceERP.Core.MVP.Vistas.Plantillas; 
 
-        void PresionarBotonSeleccion(object? sender, EventArgs e);
-    }
+public interface IVistaMenu : IVista {
+    event EventHandler? CambioMenu;
+
+    void PresionarBotonSeleccion(object? sender, EventArgs e);
 }

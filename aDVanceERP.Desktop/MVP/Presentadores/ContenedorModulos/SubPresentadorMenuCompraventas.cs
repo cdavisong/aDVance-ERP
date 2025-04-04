@@ -1,24 +1,24 @@
 ﻿using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos {
-        private PresentadorMenuCompraventas _menuCompraventas;
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-        private void InicializarVistaMenuCompraventas() {
-            _menuCompraventas = new PresentadorMenuCompraventas(new VistaMenuCompraventas());
-            _menuCompraventas.Vista.VerCompras += MostrarVistaGestionCompras;
-            _menuCompraventas.Vista.VerVentas += MostrarVistaGestionVentas;
-            _menuCompraventas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
+public partial class PresentadorContenedorModulos {
+    private PresentadorMenuCompraventas _menuCompraventas;
 
-            VistaPrincipal.Menus.Registrar("vistaMenuCompraventas", _menuCompraventas.Vista);
-        }
+    private void InicializarVistaMenuCompraventas() {
+        _menuCompraventas = new PresentadorMenuCompraventas(new VistaMenuCompraventas());
+        _menuCompraventas.Vista.VerCompras += MostrarVistaGestionCompras;
+        _menuCompraventas.Vista.VerVentas += MostrarVistaGestionVentas;
+        _menuCompraventas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
 
-        private void MostrarVistaMenuVentas(object? sender, EventArgs e) {
-            _menuCompraventas.Vista.Restaurar();
-            _menuCompraventas.Vista.Mostrar();
+        VistaPrincipal.Menus.Registrar("vistaMenuCompraventas", _menuCompraventas.Vista);
+    }
 
-            _menuCompraventas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 2, e);
-        }
+    private void MostrarVistaMenuVentas(object? sender, EventArgs e) {
+        _menuCompraventas.Vista.Restaurar();
+        _menuCompraventas.Vista.Mostrar();
+
+        _menuCompraventas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 2, e);
     }
 }

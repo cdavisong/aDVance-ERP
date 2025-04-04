@@ -1,29 +1,29 @@
 ﻿using aDVanceERP.Desktop.MVP.Presentadores.ContenedorEstadisticas;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos {
-        private PresentadorContenedorEstadisticas _contenedorEstadisticas;
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-        private void InicializarVistaContenedorEstadisticas() {
-            _contenedorEstadisticas = new PresentadorContenedorEstadisticas(new VistaContenedorEstadísticas());
-            _contenedorEstadisticas.Vista.MostrarVistaGestionArticulos += delegate {
-                Vista.PresionarBotonModulo(5, EventArgs.Empty);
-            };
-            _contenedorEstadisticas.Vista.MostrarVistaGestionVentas += delegate {
-                Vista.PresionarBotonModulo(6, EventArgs.Empty);
-            };
+public partial class PresentadorContenedorModulos {
+    private PresentadorContenedorEstadisticas _contenedorEstadisticas;
 
-            Vista.Vistas?.Registrar("vistaContenedorEstadisticas", _contenedorEstadisticas.Vista);
-        }
+    private void InicializarVistaContenedorEstadisticas() {
+        _contenedorEstadisticas = new PresentadorContenedorEstadisticas(new VistaContenedorEstadísticas());
+        _contenedorEstadisticas.Vista.MostrarVistaGestionArticulos += delegate {
+            Vista.PresionarBotonModulo(5, EventArgs.Empty);
+        };
+        _contenedorEstadisticas.Vista.MostrarVistaGestionVentas += delegate {
+            Vista.PresionarBotonModulo(6, EventArgs.Empty);
+        };
 
-        private void MostrarVistaContenedorEstadisticas(object? sender, EventArgs e) {
-            if ((_contenedorEstadisticas?.Vista) == null)
-                return;
+        Vista.Vistas?.Registrar("vistaContenedorEstadisticas", _contenedorEstadisticas.Vista);
+    }
 
-            _contenedorEstadisticas.Vista.Restaurar();
-            _contenedorEstadisticas.Vista.Mostrar();
-            _contenedorEstadisticas.RefrescarEstadísticas();
-        }
+    private void MostrarVistaContenedorEstadisticas(object? sender, EventArgs e) {
+        if (_contenedorEstadisticas?.Vista == null)
+            return;
+
+        _contenedorEstadisticas.Vista.Restaurar();
+        _contenedorEstadisticas.Vista.Mostrar();
+        _contenedorEstadisticas.RefrescarEstadísticas();
     }
 }

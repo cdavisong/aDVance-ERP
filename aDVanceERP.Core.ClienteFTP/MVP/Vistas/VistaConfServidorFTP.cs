@@ -1,79 +1,79 @@
 ﻿using aDVanceERP.Core.ClienteFTP.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Utiles;
 
-namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas {
-    public partial class VistaConfServidorFTP : Form, IVistaConfServidorFTP {
-        public VistaConfServidorFTP() {
-            InitializeComponent();
-            Inicializar();
-        }
+namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas; 
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+public partial class VistaConfServidorFTP : Form, IVistaConfServidorFTP {
+    public VistaConfServidorFTP() {
+        InitializeComponent();
+        Inicializar();
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public string Servidor {
-            get => fieldServidor.Text;
-            set => fieldServidor.Text = value;
-        }
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public string Usuario {
-            get => fieldNombreUsuario.Text;
-            set => fieldNombreUsuario.Text = value;
-        }
+    public string Servidor {
+        get => fieldServidor.Text;
+        set => fieldServidor.Text = value;
+    }
 
-        public string Password {
-            get => fieldPassword.Text;
-            set => fieldPassword.Text = value;
-        }
+    public string Usuario {
+        get => fieldNombreUsuario.Text;
+        set => fieldNombreUsuario.Text = value;
+    }
 
-        public event EventHandler? AlmacenarConfiguracion;
-        public event EventHandler? Salir;
+    public string Password {
+        get => fieldPassword.Text;
+        set => fieldPassword.Text = value;
+    }
 
-        public void Inicializar() {
-            // Eventos
-            btnAlmacenarConfiguracion.Click += delegate (object? sender, EventArgs args) {
-                AlmacenarConfiguracion?.Invoke(sender, args);
-            };
-            btnSalir.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
-                Ocultar();
-            };
-        }
+    public event EventHandler? AlmacenarConfiguracion;
+    public event EventHandler? Salir;
 
-        public void Mostrar() {
-            BringToFront();
-            Show();
-        }
+    public void Inicializar() {
+        // Eventos
+        btnAlmacenarConfiguracion.Click += delegate(object? sender, EventArgs args) {
+            AlmacenarConfiguracion?.Invoke(sender, args);
+        };
+        btnSalir.Click += delegate(object? sender, EventArgs args) {
+            Salir?.Invoke(sender, args);
+            Ocultar();
+        };
+    }
 
-        public void Restaurar() {
-            var confServidorFTP = UtilesConfServidores.ObtenerConfServidorFTP();
+    public void Mostrar() {
+        BringToFront();
+        Show();
+    }
 
-            if (confServidorFTP == null)
-                return;
+    public void Restaurar() {
+        var confServidorFTP = UtilesConfServidores.ObtenerConfServidorFTP();
 
-            Servidor = confServidorFTP.ElementAt(0);
-            Usuario = confServidorFTP.ElementAt(1);
-            Password = confServidorFTP.ElementAt(2);
-        }
+        if (confServidorFTP == null)
+            return;
 
-        public void Ocultar() {
-            Hide();
-        }
+        Servidor = confServidorFTP.ElementAt(0);
+        Usuario = confServidorFTP.ElementAt(1);
+        Password = confServidorFTP.ElementAt(2);
+    }
 
-        public void Cerrar() {
-            // ...
-        }
+    public void Ocultar() {
+        Hide();
+    }
+
+    public void Cerrar() {
+        // ...
     }
 }

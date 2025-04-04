@@ -1,85 +1,85 @@
 ﻿using aDVanceERP.Core.ClienteMySQL.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Utiles;
 
-namespace aDVanceERP.Core.ClienteMySQL.MVP.Vistas {
-    public partial class VistaConfServidorMySQL : Form, IVistaConfServidorMySQL {
-        public VistaConfServidorMySQL() {
-            InitializeComponent();
-            Inicializar();
-        }
+namespace aDVanceERP.Core.ClienteMySQL.MVP.Vistas; 
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+public partial class VistaConfServidorMySQL : Form, IVistaConfServidorMySQL {
+    public VistaConfServidorMySQL() {
+        InitializeComponent();
+        Inicializar();
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public string Servidor {
-            get => fieldServidor.Text;
-            set => fieldServidor.Text = value;
-        }
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public string BaseDatos {
-            get => fieldBaseDatos.Text;
-            set => fieldBaseDatos.Text = value;
-        }
+    public string Servidor {
+        get => fieldServidor.Text;
+        set => fieldServidor.Text = value;
+    }
 
-        public string Usuario {
-            get => fieldNombreUsuario.Text;
-            set => fieldNombreUsuario.Text = value;
-        }
+    public string BaseDatos {
+        get => fieldBaseDatos.Text;
+        set => fieldBaseDatos.Text = value;
+    }
 
-        public string Password {
-            get => fieldPassword.Text;
-            set => fieldPassword.Text = value;
-        }
+    public string Usuario {
+        get => fieldNombreUsuario.Text;
+        set => fieldNombreUsuario.Text = value;
+    }
 
-        public event EventHandler? AlmacenarConfiguracion;
-        public event EventHandler? Salir;
+    public string Password {
+        get => fieldPassword.Text;
+        set => fieldPassword.Text = value;
+    }
 
-        public void Inicializar() {
-            // Eventos
-            btnAlmacenarConfiguracion.Click += delegate (object? sender, EventArgs args) {
-                AlmacenarConfiguracion?.Invoke(sender, args);
-            };
-            btnSalir.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
-                Ocultar();
-            };
-        }
+    public event EventHandler? AlmacenarConfiguracion;
+    public event EventHandler? Salir;
 
-        public void Mostrar() {
-            BringToFront();
-            Show();
-        }
+    public void Inicializar() {
+        // Eventos
+        btnAlmacenarConfiguracion.Click += delegate(object? sender, EventArgs args) {
+            AlmacenarConfiguracion?.Invoke(sender, args);
+        };
+        btnSalir.Click += delegate(object? sender, EventArgs args) {
+            Salir?.Invoke(sender, args);
+            Ocultar();
+        };
+    }
 
-        public void Restaurar() {
-            var confServidorMySQL = UtilesConfServidores.ObtenerConfServidorMySQL();
+    public void Mostrar() {
+        BringToFront();
+        Show();
+    }
 
-            if (confServidorMySQL == null)
-                return;
+    public void Restaurar() {
+        var confServidorMySQL = UtilesConfServidores.ObtenerConfServidorMySQL();
 
-            Servidor = confServidorMySQL.ElementAt(0);
-            BaseDatos = confServidorMySQL.ElementAt(1);
-            Usuario = confServidorMySQL.ElementAt(2);
-            Password = confServidorMySQL.ElementAt(3);
-        }
+        if (confServidorMySQL == null)
+            return;
 
-        public void Ocultar() {
-            Hide();
-        }
+        Servidor = confServidorMySQL.ElementAt(0);
+        BaseDatos = confServidorMySQL.ElementAt(1);
+        Usuario = confServidorMySQL.ElementAt(2);
+        Password = confServidorMySQL.ElementAt(3);
+    }
 
-        public void Cerrar() {
-            // ...
-        }
+    public void Ocultar() {
+        Hide();
+    }
+
+    public void Cerrar() {
+        // ...
     }
 }

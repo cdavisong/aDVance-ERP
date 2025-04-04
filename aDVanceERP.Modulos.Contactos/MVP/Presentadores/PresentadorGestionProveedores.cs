@@ -5,20 +5,21 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
-    public class PresentadorGestionProveedores : PresentadorGestionBase<PresentadorTuplaProveedor, IVistaGestionProveedores, IVistaTuplaProveedor, Proveedor, DatosProveedor, CriterioBusquedaProveedor> {
-        public PresentadorGestionProveedores(IVistaGestionProveedores vista) : base(vista) {
-        }
+namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores; 
 
-        protected override PresentadorTuplaProveedor ObtenerValoresTupla(Proveedor objeto) {
-            var presentadorTupla = new PresentadorTuplaProveedor(new VistaTuplaProveedor(), objeto);
+public class PresentadorGestionProveedores : PresentadorGestionBase<PresentadorTuplaProveedor, IVistaGestionProveedores,
+    IVistaTuplaProveedor, Proveedor, DatosProveedor, CriterioBusquedaProveedor> {
+    public PresentadorGestionProveedores(IVistaGestionProveedores vista) : base(vista) { }
 
-            presentadorTupla.Vista.Id = objeto.Id.ToString();
-            presentadorTupla.Vista.NumeroIdentificacionTributaria = objeto.NumeroIdentificacionTributaria;
-            presentadorTupla.Vista.RazonSocial = objeto.RazonSocial;
-            presentadorTupla.Vista.NombreRepresentante = UtilesContacto.ObtenerNombreContacto(objeto.IdContactoRepresentante) ?? string.Empty;
+    protected override PresentadorTuplaProveedor ObtenerValoresTupla(Proveedor objeto) {
+        var presentadorTupla = new PresentadorTuplaProveedor(new VistaTuplaProveedor(), objeto);
 
-            return presentadorTupla;
-        }
+        presentadorTupla.Vista.Id = objeto.Id.ToString();
+        presentadorTupla.Vista.NumeroIdentificacionTributaria = objeto.NumeroIdentificacionTributaria;
+        presentadorTupla.Vista.RazonSocial = objeto.RazonSocial;
+        presentadorTupla.Vista.NombreRepresentante =
+            UtilesContacto.ObtenerNombreContacto(objeto.IdContactoRepresentante) ?? string.Empty;
+
+        return presentadorTupla;
     }
 }

@@ -1,27 +1,27 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos {
-    public class ArticuloAlmacen : IObjetoUnico {
-        public ArticuloAlmacen() {
-        }
+namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
 
-        public ArticuloAlmacen(long idArticuloAlmacen, long idArticulo, long idAlmacen, int stock) {
-            Id = idArticuloAlmacen;
-            IdArticulo = idArticulo;
-            IdAlmacen = idAlmacen;
-            Stock = stock;
-        }
+public class ArticuloAlmacen : IObjetoUnico {
+    public ArticuloAlmacen() { }
 
-        public long Id { get; set; }
-        public long IdArticulo { get; set; }
-        public long IdAlmacen { get; set; }
-        public int Stock { get; set; }
+    public ArticuloAlmacen(long idArticuloAlmacen, long idArticulo, long idAlmacen, int stock) {
+        Id = idArticuloAlmacen;
+        IdArticulo = idArticulo;
+        IdAlmacen = idAlmacen;
+        Stock = stock;
     }
 
-    public enum CriterioBusquedaArticuloAlmacen {
-        Todos,
-        Id,
-        IdArticulo,
-        IdAlmacen
-    }
+    public long IdArticulo { get; set; }
+    public long IdAlmacen { get; set; }
+    public int Stock { get; set; }
+
+    public long Id { get; set; }
+}
+
+public enum CriterioBusquedaArticuloAlmacen {
+    Todos,
+    Id,
+    IdArticulo,
+    IdAlmacen
 }

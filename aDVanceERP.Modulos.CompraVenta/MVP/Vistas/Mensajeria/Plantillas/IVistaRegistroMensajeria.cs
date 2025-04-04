@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria.Plantillas;
 
 public interface IVistaRegistroMensajeria : IVistaRegistro {
     string? NombreMensajero { get; set; }

@@ -2,27 +2,27 @@
 using aDVanceERP.Core.ClienteMySQL.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores;
 
-namespace aDVanceERP.Core.ClienteMySQL.MVP.Presentadores {
-    public class PresentadorConfServidorMySQL : PresentadorBase<IVistaConfServidorMySQL> {
-        public PresentadorConfServidorMySQL(IVistaConfServidorMySQL vista) : base(vista) {
-            Vista.AlmacenarConfiguracion += AlmacenarConfServidorMySQL;
-        }
+namespace aDVanceERP.Core.ClienteMySQL.MVP.Presentadores; 
 
-        private void AlmacenarConfServidorMySQL(object? sender, EventArgs e) {
-            var modelo = new ConfServidorMySQL(
-                Vista.Servidor,
-                Vista.BaseDatos,
-                Vista.Usuario,
-                Vista.Password);
+public class PresentadorConfServidorMySQL : PresentadorBase<IVistaConfServidorMySQL> {
+    public PresentadorConfServidorMySQL(IVistaConfServidorMySQL vista) : base(vista) {
+        Vista.AlmacenarConfiguracion += AlmacenarConfServidorMySQL;
+    }
 
-            // Almacenamiento en settings.
-            if (!Directory.Exists(@".\settings"))
-                Directory.CreateDirectory(@".\settings");
+    private void AlmacenarConfServidorMySQL(object? sender, EventArgs e) {
+        var modelo = new ConfServidorMySQL(
+            Vista.Servidor,
+            Vista.BaseDatos,
+            Vista.Usuario,
+            Vista.Password);
 
-            using (var fs = new FileStream(@".\settings\mysqlsrv.config", FileMode.Create)) {
-                using (var sw = new StreamWriter(fs)) {
-                    sw.Write(modelo.ToString());
-                }
+        // Almacenamiento en settings.
+        if (!Directory.Exists(@".\settings"))
+            Directory.CreateDirectory(@".\settings");
+
+        using (var fs = new FileStream(@".\settings\mysqlsrv.config", FileMode.Create)) {
+            using (var sw = new StreamWriter(fs)) {
+                sw.Write(modelo.ToString());
             }
         }
     }

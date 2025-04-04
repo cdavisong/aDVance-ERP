@@ -1,11 +1,12 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
 public class SeguimientoEntrega : IObjetoUnico {
     public SeguimientoEntrega() { }
 
-    public SeguimientoEntrega(long id, long idVenta, long idMensajero, DateTime fechaAsignacion, DateTime fechaEntrega, DateTime fechaPago, string? observaciones) {
+    public SeguimientoEntrega(long id, long idVenta, long idMensajero, DateTime fechaAsignacion, DateTime fechaEntrega,
+        DateTime fechaPago, string? observaciones) {
         Id = id;
         IdVenta = idVenta;
         IdMensajero = idMensajero;
@@ -15,13 +16,14 @@ public class SeguimientoEntrega : IObjetoUnico {
         Observaciones = observaciones;
     }
 
-    public long Id { get; set; }
     public long IdVenta { get; set; }
     public long IdMensajero { get; set; }
     public DateTime FechaAsignacion { get; set; }
     public DateTime FechaEntrega { get; set; }
     public DateTime FechaPago { get; set; }
     public string? Observaciones { get; set; }
+
+    public long Id { get; set; }
 }
 
 public enum CriterioBusquedaSeguimientoEntrega {

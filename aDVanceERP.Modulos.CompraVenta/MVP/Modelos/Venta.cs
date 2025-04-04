@@ -1,46 +1,47 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
-    public class Venta : IObjetoUnico {
-        public Venta() {
-        }
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
 
-        public Venta(long id, DateTime fecha, long idAlmacen, long idCliente, long idTipoEntrega, string direccionEntrega, string estadoEntrega, decimal total) {
-            Id = id;
-            Fecha = fecha;
-            IdAlmacen = idAlmacen;
-            IdCliente = idCliente;
-            IdTipoEntrega = idTipoEntrega;
-            DireccionEntrega = direccionEntrega;
-            EstadoEntrega = estadoEntrega;
-            Total = total;
-        }
+public class Venta : IObjetoUnico {
+    public Venta() { }
 
-        public long Id { get; set; }
-        public DateTime Fecha { get; set; }
-        public long IdAlmacen { get; set; }
-        public long IdCliente { get; set; }
-        public long IdTipoEntrega { get; set; }
-        public string DireccionEntrega { get; set; }
-        public string EstadoEntrega { get; set; }
-        public decimal Total { get; set; }
+    public Venta(long id, DateTime fecha, long idAlmacen, long idCliente, long idTipoEntrega, string direccionEntrega,
+        string estadoEntrega, decimal total) {
+        Id = id;
+        Fecha = fecha;
+        IdAlmacen = idAlmacen;
+        IdCliente = idCliente;
+        IdTipoEntrega = idTipoEntrega;
+        DireccionEntrega = direccionEntrega;
+        EstadoEntrega = estadoEntrega;
+        Total = total;
     }
 
-    public enum CriterioBusquedaVenta {
-        Todos,
-        Id,
-        NombreAlmacen,
-        RazonSocialCliente,
-        Fecha
-    }
+    public DateTime Fecha { get; set; }
+    public long IdAlmacen { get; set; }
+    public long IdCliente { get; set; }
+    public long IdTipoEntrega { get; set; }
+    public string DireccionEntrega { get; set; }
+    public string EstadoEntrega { get; set; }
+    public decimal Total { get; set; }
 
-    public static class UtilesBusquedaVenta {
-        public static object[] CriterioBusquedaVenta = new string[] {
-            "Todas las ventas",
-            "Identificador de BD",
-            "Nombre del almacén",
-            "Razón social del cliente",
-            "Fecha de la venta"
-        };
-    }
+    public long Id { get; set; }
+}
+
+public enum CriterioBusquedaVenta {
+    Todos,
+    Id,
+    NombreAlmacen,
+    RazonSocialCliente,
+    Fecha
+}
+
+public static class UtilesBusquedaVenta {
+    public static object[] CriterioBusquedaVenta = {
+        "Todas las ventas",
+        "Identificador de BD",
+        "Nombre del almacén",
+        "Razón social del cliente",
+        "Fecha de la venta"
+    };
 }

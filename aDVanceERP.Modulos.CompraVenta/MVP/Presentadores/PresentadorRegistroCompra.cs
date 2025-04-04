@@ -5,32 +5,33 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
-    public class PresentadorRegistroCompra : PresentadorRegistroBase<IVistaRegistroCompra, Compra, DatosCompra, CriterioBusquedaCompra> {
-        public PresentadorRegistroCompra(IVistaRegistroCompra vista) : base(vista) {
-        }
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
-        public override void PopularVistaDesdeObjeto(Compra objeto) {
-            Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
-            Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
-            Vista.ModoEdicionDatos = true;
+public class
+    PresentadorRegistroCompra : PresentadorRegistroBase<IVistaRegistroCompra, Compra, DatosCompra,
+        CriterioBusquedaCompra> {
+    public PresentadorRegistroCompra(IVistaRegistroCompra vista) : base(vista) { }
 
-            var articulosCompra = UtilesCompra.ObtenerArticulosPorCompra(objeto.Id);
+    public override void PopularVistaDesdeObjeto(Compra objeto) {
+        Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
+        Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
+        Vista.ModoEdicionDatos = true;
 
-            foreach (var articuloSplit in articulosCompra.Select(articulo => articulo.Split(':'))) {
-                ((IVistaGestionDetallesCompraventaArticulos) Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0], articuloSplit[1]);
-            }
+        var articulosCompra = UtilesCompra.ObtenerArticulosPorCompra(objeto.Id);
 
-            Objeto = objeto;
-        }
+        foreach (var articuloSplit in articulosCompra.Select(articulo => articulo.Split(':')))
+            ((IVistaGestionDetallesCompraventaArticulos)Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0],
+                articuloSplit[1]);
 
-        protected override async Task<Compra?> ObtenerObjetoDesdeVista() {
-            return new Compra(Objeto?.Id ?? 0,
-                   fecha: DateTime.Now,
-                   idAlmacen: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
-                   idProveedor: await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
-                   total: Vista.Total
-               );
-        }
+        Objeto = objeto;
+    }
+
+    protected override async Task<Compra?> ObtenerObjetoDesdeVista() {
+        return new Compra(Objeto?.Id ?? 0,
+            DateTime.Now,
+            await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
+            await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
+            Vista.Total
+        );
     }
 }

@@ -17,7 +17,9 @@ public partial class PresentadorContenedorModulos {
         _registroMensajeria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
         _registroMensajeria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajeria.Vista.CargarNombresMensajeros(await UtilesMensajero.ObtenerNombresMensajeros());
+
         #region Cargar tipos y descripciones de tipos de entregas
+
         var tiposDescripciones = await UtilesMensajero.ObtenerNombreDescripcionTiposEntrega();
         var tipos = new List<object>();
         var descripciones = new List<string>();
@@ -28,17 +30,15 @@ public partial class PresentadorContenedorModulos {
             if (partes.Length < 2)
                 continue;
 
-            tipos.Add(partes[0].Trim());            // Nombre (puede ser cualquier objeto)
-            descripciones.Add(partes[1].Trim());    // Descripción
+            tipos.Add(partes[0].Trim()); // Nombre (puede ser cualquier objeto)
+            descripciones.Add(partes[1].Trim()); // Descripción
         }
-        
-        _registroMensajeria.Vista.CargarTiposEntrega(tipos.ToArray(), descripciones.ToArray());
-        #endregion
-        
-        _registroMensajeria.Salir += delegate {
 
-            DatosMensajeria = _registroMensajeria.Vista.DatosMensajeria;
-        };
+        _registroMensajeria.Vista.CargarTiposEntrega(tipos.ToArray(), descripciones.ToArray());
+
+        #endregion
+
+        _registroMensajeria.Salir += delegate { DatosMensajeria = _registroMensajeria.Vista.DatosMensajeria; };
 
         DatosMensajeria.Clear();
     }
@@ -46,12 +46,12 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaRegistroMensajeria(object? sender, EventArgs e) {
         InicializarVistaRegistroMensajeria();
 
-        if (sender is not object[] datos) 
+        if (sender is not object[] datos) {
             throw new ArgumentNullException(nameof(datos));
-        else {
-            _registroMensajeria?.Vista.PopularDatosCliente(datos[0] as string[]);
-            _registroMensajeria?.Vista.PopularArticulosVenta(datos[1] as List<string[]>);
         }
+
+        _registroMensajeria?.Vista.PopularDatosCliente(datos[0] as string[]);
+        _registroMensajeria?.Vista.PopularArticulosVenta(datos[1] as List<string[]>);
 
         _registroMensajeria?.Vista.Mostrar();
         _registroMensajeria?.Dispose();
@@ -80,9 +80,9 @@ public partial class PresentadorContenedorModulos {
                 0,
                 ultimoIdVenta,
                 idMensajero,
-                DateTime.Now, 
+                DateTime.Now,
                 DateTime.MinValue,
-                DateTime.MinValue, 
+                DateTime.MinValue,
                 "No hay observaciones"
             ));
         }

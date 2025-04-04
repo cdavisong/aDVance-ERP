@@ -2,68 +2,68 @@
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos : PresentadorBase<IVistaContenedorModulos> {
-        public PresentadorContenedorModulos(IVistaPrincipal vistaPrincipal, IVistaContenedorModulos vista) : base(vista) {
-            VistaPrincipal = vistaPrincipal;
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-            // Eventos
-            Vista.MostrarVistaEstadisticas += MostrarVistaContenedorEstadisticas;
-            Vista.MostrarMenuContactos += MostrarVistaMenuContacto;
-            Vista.MostrarMenuFinanzas += MostrarVistaMenuFinanzas;
-            Vista.MostrarMenuInventario += MostrarVistaMenuInventario;
-            Vista.MostrarMenuVentas += MostrarVistaMenuVentas;
-            Vista.MostrarMenuSeguridad += MostrarVistaMenuSeguridad;
+public partial class PresentadorContenedorModulos : PresentadorBase<IVistaContenedorModulos> {
+    public PresentadorContenedorModulos(IVistaPrincipal vistaPrincipal, IVistaContenedorModulos vista) : base(vista) {
+        VistaPrincipal = vistaPrincipal;
 
-            #region Vista : Estadísticas
+        // Eventos
+        Vista.MostrarVistaEstadisticas += MostrarVistaContenedorEstadisticas;
+        Vista.MostrarMenuContactos += MostrarVistaMenuContacto;
+        Vista.MostrarMenuFinanzas += MostrarVistaMenuFinanzas;
+        Vista.MostrarMenuInventario += MostrarVistaMenuInventario;
+        Vista.MostrarMenuVentas += MostrarVistaMenuVentas;
+        Vista.MostrarMenuSeguridad += MostrarVistaMenuSeguridad;
 
-            InicializarVistaContenedorEstadisticas();
+        #region Vista : Estadísticas
 
-            #endregion
+        InicializarVistaContenedorEstadisticas();
 
-            #region Módulo : Contactos
+        #endregion
 
-            InicializarVistaMenuContacto();
-            InicializarVistaGestionProveedores();
-            InicializarVistaGestionMensajeros();
-            InicializarVistaGestionClientes();
-            InicializarVistaGestionContactos();
+        #region Módulo : Contactos
 
-            #endregion
+        InicializarVistaMenuContacto();
+        InicializarVistaGestionProveedores();
+        InicializarVistaGestionMensajeros();
+        InicializarVistaGestionClientes();
+        InicializarVistaGestionContactos();
 
-            #region Módulo : Finanzas
+        #endregion
 
-            InicializarVistaMenuFinanzas();
-            InicializarVistaGestionCuentasBancarias();
+        #region Módulo : Finanzas
 
-            #endregion
+        InicializarVistaMenuFinanzas();
+        InicializarVistaGestionCuentasBancarias();
 
-            #region Módulo : Inventario
+        #endregion
 
-            InicializarVistaMenuInventario();
-            InicializarVistaGestionArticulos();
-            InicializarVistaGestionMovimientos();
-            InicializarVistaGestionAlmacenes();
+        #region Módulo : Inventario
 
-            #endregion
+        InicializarVistaMenuInventario();
+        InicializarVistaGestionArticulos();
+        InicializarVistaGestionMovimientos();
+        InicializarVistaGestionAlmacenes();
 
-            #region Módulo : Compraventa
+        #endregion
 
-            InicializarVistaMenuCompraventas();
-            InicializarVistaGestionCompras();
-            InicializarVistaGestionVentas();
+        #region Módulo : Compraventa
 
-            #endregion
+        InicializarVistaMenuCompraventas();
+        InicializarVistaGestionCompras();
+        InicializarVistaGestionVentas();
 
-            #region Módulo : Seguridad
+        #endregion
 
-            InicializarVistaMenuSeguridad();
-            InicializarVistaGestionCuentasUsuarios();
-            InicializarVistaGestionRolesUsuarios();
+        #region Módulo : Seguridad
 
-            #endregion
-        }
+        InicializarVistaMenuSeguridad();
+        InicializarVistaGestionCuentasUsuarios();
+        InicializarVistaGestionRolesUsuarios();
 
-        private IVistaPrincipal VistaPrincipal { get; }
+        #endregion
     }
+
+    private IVistaPrincipal VistaPrincipal { get; }
 }

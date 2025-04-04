@@ -2,30 +2,32 @@
 using aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos {
-        private PresentadorGestionCuentasBancarias _gestionCuentasBancarias;
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-        private async void InicializarVistaGestionCuentasBancarias() {
-            _gestionCuentasBancarias = new PresentadorGestionCuentasBancarias(new VistaGestionCuentasBancarias());
-            _gestionCuentasBancarias.MostrarQrTupla += MostrarVistaQR;
-            _gestionCuentasBancarias.EditarObjeto += MostrarVistaEdicionCuentaBancaria;
-            _gestionCuentasBancarias.Vista.RegistrarDatos += MostrarVistaRegistroCuentaBancaria;
-            
+public partial class PresentadorContenedorModulos {
+    private PresentadorGestionCuentasBancarias _gestionCuentasBancarias;
 
-            if (Vista.Vistas != null)
-                await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasBancarias", _gestionCuentasBancarias.Vista));
-        }
+    private async void InicializarVistaGestionCuentasBancarias() {
+        _gestionCuentasBancarias = new PresentadorGestionCuentasBancarias(new VistaGestionCuentasBancarias());
+        _gestionCuentasBancarias.MostrarQrTupla += MostrarVistaQR;
+        _gestionCuentasBancarias.EditarObjeto += MostrarVistaEdicionCuentaBancaria;
+        _gestionCuentasBancarias.Vista.RegistrarDatos += MostrarVistaRegistroCuentaBancaria;
 
-        private async void MostrarVistaGestionCuentasBancarias(object? sender, EventArgs e) {
-            if ((_gestionCuentasBancarias?.Vista) == null)
-                return;
 
-            _gestionCuentasBancarias.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaBancaria.CriterioBusquedaCuentaBancaria);
-            _gestionCuentasBancarias.Vista.Restaurar();
-            _gestionCuentasBancarias.Vista.Mostrar();
+        if (Vista.Vistas != null)
+            await Task.Run(
+                () => Vista.Vistas?.Registrar("vistaGestionCuentasBancarias", _gestionCuentasBancarias.Vista));
+    }
 
-            await _gestionCuentasBancarias.RefrescarListaObjetos();
-        }
+    private async void MostrarVistaGestionCuentasBancarias(object? sender, EventArgs e) {
+        if (_gestionCuentasBancarias?.Vista == null)
+            return;
+
+        _gestionCuentasBancarias.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaBancaria
+            .CriterioBusquedaCuentaBancaria);
+        _gestionCuentasBancarias.Vista.Restaurar();
+        _gestionCuentasBancarias.Vista.Mostrar();
+
+        await _gestionCuentasBancarias.RefrescarListaObjetos();
     }
 }

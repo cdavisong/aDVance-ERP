@@ -1,13 +1,12 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using System.Security;
+using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-using System.Security;
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas; 
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas {
-    public interface IVistaRegistroUsuario : IVistaRegistro {
-        string NombreUsuario { get; }
-        SecureString? Password { get; }
-        bool ConfirmacionTerminosServicio { get; }
+public interface IVistaRegistroUsuario : IVistaRegistro {
+    string NombreUsuario { get; }
+    SecureString? Password { get; }
+    bool ConfirmacionTerminosServicio { get; }
 
-        event EventHandler? AutenticarUsuario;
-    }
+    event EventHandler? AutenticarUsuario;
 }

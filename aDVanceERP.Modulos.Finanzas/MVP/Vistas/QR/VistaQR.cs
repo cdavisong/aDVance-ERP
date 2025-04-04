@@ -1,77 +1,73 @@
 ﻿using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.QR.Plantillas;
 using aDVanceERP.Modulos.Finanzas.Properties;
-
 using QRCoder;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.QR {
-    public partial class VistaQR : Form, IVistaQR {
-        public VistaQR() {
-            InitializeComponent();
-            Inicializar();
-        }
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.QR; 
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+public partial class VistaQR : Form, IVistaQR {
+    public VistaQR() {
+        InitializeComponent();
+        Inicializar();
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public Image? QR {
-            get => fieldCodigoQr.BackgroundImage;
-            set => fieldCodigoQr.BackgroundImage = value;
-        }
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public event EventHandler? Salir;
+    public Image? QR {
+        get => fieldCodigoQr.BackgroundImage;
+        set => fieldCodigoQr.BackgroundImage = value;
+    }
 
-        public void Inicializar() {
-            // Eventos
-            btnCerrar.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
-            };
-        }
+    public event EventHandler? Salir;
 
-        public void Mostrar() {
-            BringToFront();
-            ShowDialog();
-        }
+    public void Inicializar() {
+        // Eventos
+        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+    }
 
-        public void Restaurar() {
-            
-        }
+    public void Mostrar() {
+        BringToFront();
+        ShowDialog();
+    }
 
-        public void Ocultar() {
-            Hide();
-        }
+    public void Restaurar() { }
 
-        public void Cerrar() {
-            Dispose();
-        }
+    public void Ocultar() {
+        Hide();
+    }
 
-        public void CargarCodigoQR(string datos) {
-            using (QRCodeGenerator qrGenerator = new QRCodeGenerator()) {
-                var datosSplit = datos.Split(',');
-                var datosTransferencia = $"TRANSFERMOVIL_ETECSA,TRANSFERENCIA,{datosSplit[1]},{datosSplit[2]},";
+    public void Cerrar() {
+        Dispose();
+    }
 
-                fieldAlias.Text = datosSplit[0];
-                fieldTarjeta.Text = datosSplit[1].AgregarEspacioCadaXCaracteres(4);
-                fieldMovil.Text = $"+53 {datosSplit[2]}";
+    public void CargarCodigoQR(string datos) {
+        using (var qrGenerator = new QRCodeGenerator()) {
+            var datosSplit = datos.Split(',');
+            var datosTransferencia = $"TRANSFERMOVIL_ETECSA,TRANSFERENCIA,{datosSplit[1]},{datosSplit[2]},";
 
-                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(datosTransferencia, QRCodeGenerator.ECCLevel.Q)) {
-                    using (QRCode qrCode = new QRCode(qrCodeData)) {
-                        var qrCodeImage = qrCode.GetGraphic(3, Color.FromArgb(40, 37, 35), Color.FromArgb(248, 244, 242), Resources.images2, 20);
+            fieldAlias.Text = datosSplit[0];
+            fieldTarjeta.Text = datosSplit[1].AgregarEspacioCadaXCaracteres(4);
+            fieldMovil.Text = $"+53 {datosSplit[2]}";
 
-                        QR = qrCodeImage;
-                    }
+            using (var qrCodeData = qrGenerator.CreateQrCode(datosTransferencia, QRCodeGenerator.ECCLevel.Q)) {
+                using (var qrCode = new QRCode(qrCodeData)) {
+                    var qrCodeImage = qrCode.GetGraphic(3, Color.FromArgb(40, 37, 35), Color.FromArgb(248, 244, 242),
+                        Resources.images2, 20);
+
+                    QR = qrCodeImage;
                 }
             }
         }

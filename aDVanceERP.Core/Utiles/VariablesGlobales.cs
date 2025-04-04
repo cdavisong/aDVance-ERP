@@ -1,16 +1,16 @@
-﻿namespace aDVanceERP.Core.Utiles {
-    public static class VariablesGlobales {
-        public static readonly Color ColorResaltadoTupla = Color.FromArgb(252, 225, 205);
-        public const int AlturaTuplaPredeterminada = 42;
-        public static int CoordenadaYUltimaTupla = 0;
-        public const int AlturaBarraTituloPredeterminada = 56;
+﻿namespace aDVanceERP.Core.Utiles; 
 
-        public static string StringConexionBaseDatos { get; set; } = string.Empty;
+public static class VariablesGlobales {
+    public const int AlturaTuplaPredeterminada = 42;
+    public const int AlturaBarraTituloPredeterminada = 56;
+    public static readonly Color ColorResaltadoTupla = Color.FromArgb(252, 225, 205);
+    public static int CoordenadaYUltimaTupla = 0;
 
-        public static long ObtenerVariableIdNull(this object id) {
-            var idString = id.ToString();
+    public static string StringConexionBaseDatos { get; set; } = string.Empty;
 
-            return string.IsNullOrEmpty(idString) ? 0 : long.Parse(idString);
-        }
+    public static long ObtenerVariableIdNull(this object id) {
+        var idString = id.ToString();
+
+        return string.IsNullOrEmpty(idString) ? 0 : long.Parse(idString);
     }
 }

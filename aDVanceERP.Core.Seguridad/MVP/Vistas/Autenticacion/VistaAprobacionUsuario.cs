@@ -1,53 +1,52 @@
 ﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
-    public partial class VistaAprobacionUsuario : Form, IVistaAprobacionUsuario {
-        public VistaAprobacionUsuario() {
-            InitializeComponent();
-            Inicializar();
-        }
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion; 
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+public partial class VistaAprobacionUsuario : Form, IVistaAprobacionUsuario {
+    public VistaAprobacionUsuario() {
+        InitializeComponent();
+        Inicializar();
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public event EventHandler? CambiarDeUsuario;
-        public event EventHandler? Salir;
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public void Inicializar() {
-            // Eventos            
-            btnCambiarUsuario.Click += delegate (object? sender, EventArgs args) {
-                CambiarDeUsuario?.Invoke("change-user", args);
-                Salir?.Invoke(sender, args);
-                Ocultar();
-            };
-        }
+    public event EventHandler? CambiarDeUsuario;
+    public event EventHandler? Salir;
 
-        public void Mostrar() {
-            BringToFront();
-            Show();
-        }
+    public void Inicializar() {
+        // Eventos            
+        btnCambiarUsuario.Click += delegate(object? sender, EventArgs args) {
+            CambiarDeUsuario?.Invoke("change-user", args);
+            Salir?.Invoke(sender, args);
+            Ocultar();
+        };
+    }
 
-        public void Restaurar() {
-        }
+    public void Mostrar() {
+        BringToFront();
+        Show();
+    }
 
-        public void Ocultar() {
-            Hide();
-        }
+    public void Restaurar() { }
 
-        public void Cerrar() {
-            Dispose();
-        }
+    public void Ocultar() {
+        Hide();
+    }
+
+    public void Cerrar() {
+        Dispose();
     }
 }

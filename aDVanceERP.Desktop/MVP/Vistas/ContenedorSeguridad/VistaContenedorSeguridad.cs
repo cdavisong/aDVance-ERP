@@ -4,63 +4,63 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad {
-    public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad {
-        public VistaContenedorSeguridad() {
-            InitializeComponent();
-            Inicializar();
-        }
+namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad; 
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad {
+    public VistaContenedorSeguridad() {
+        InitializeComponent();
+        Inicializar();
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public int AlturaContenedorVistas {
-            get => contenedorVistas.Height;
-        }
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public int TuplasMaximasContenedor {
-            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
-        }
+    public int AlturaContenedorVistas {
+        get => contenedorVistas.Height;
+    }
 
-        public IRepositorioVista? Vistas { get; private set; }
+    public int TuplasMaximasContenedor {
+        get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
+    }
 
-        public event EventHandler? Salir;
+    public IRepositorioVista? Vistas { get; private set; }
 
-        public void Inicializar() {
-            // Propiedades locales
-            Vistas = new RepositorioVistaBase(contenedorVistas);
-        }
+    public event EventHandler? Salir;
 
-        public void Mostrar() {
-            BringToFront();
-            Show();
-        }
+    public void Inicializar() {
+        // Propiedades locales
+        Vistas = new RepositorioVistaBase(contenedorVistas);
+    }
 
-        public void Restaurar() {
-            Vistas?.Restaurar("vistaAutenticacionUsuario");
+    public void Mostrar() {
+        BringToFront();
+        Show();
+    }
 
-            // Restablecer el usuario autenticado
-            UtilesCuentaUsuario.UsuarioAutenticado = null;
-        }
+    public void Restaurar() {
+        Vistas?.Restaurar("vistaAutenticacionUsuario");
 
-        public void Ocultar() {
-            Hide();
-        }
+        // Restablecer el usuario autenticado
+        UtilesCuentaUsuario.UsuarioAutenticado = null;
+    }
 
-        public void Cerrar() {
-            Vistas?.Cerrar();
-        }
+    public void Ocultar() {
+        Hide();
+    }
+
+    public void Cerrar() {
+        Vistas?.Cerrar();
     }
 }

@@ -1,12 +1,11 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Utiles;
-
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.PatchDB;
 
-class Program {
-    static void Main(string[] args) {
+internal class Program {
+    private static void Main(string[] args) {
         Console.CursorVisible = false;
         Console.Title = "aDVance ERP º Sistema de Parches";
         var version = "desconocida";
@@ -28,7 +27,7 @@ class Program {
                ██║  ██║██████╔╝ ╚████╔╝ ██║  ██║██║ ╚████║╚██████╗███████╗
                ╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝");
         Console.ResetColor();
-        Console.WriteLine($"               E R P  -  S I S T E M A  D E  P A R C H E S");
+        Console.WriteLine("               E R P  -  S I S T E M A  D E  P A R C H E S");
         Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.WriteLine($"               versión {version}\n");
 
@@ -42,7 +41,8 @@ class Program {
             ExecuteStep(MigrarPreciosCompraADetallesCompra, "Registro de compra inicial");
 
             RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             RenderStatus($"Error crítico: {ex.Message}", ConsoleColor.Red);
         }
 
@@ -53,58 +53,12 @@ class Program {
         Console.ReadKey();
     }
 
-    #region Funciones de Interfaz
-    static void ExecuteStep(Action step, string title) {
-        RenderProgressBar(title, ConsoleColor.White);
-        try {
-            step.Invoke();
-            Console.SetCursorPosition(60, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write("[");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("COMPLETADO");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("]");
-        } catch (Exception ex) {
-            Console.SetCursorPosition(60, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write("[");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("FALLIDO");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("]");
-            throw;
-        }
-        Console.ResetColor();
-    }
-
-    static void RenderStatus(string message, ConsoleColor color) {
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine($"\n[{DateTime.Now:HH:mm:ss}]");
-        Console.ForegroundColor = color;
-        Console.Write(" » ");
-        Console.ForegroundColor = color;
-        Console.Write(message, color);
-        Console.WriteLine("\n");
-        Console.ResetColor();
-    }
-
-    static void RenderProgressBar(string text, ConsoleColor color) {
-        Console.ForegroundColor = ConsoleColor.DarkCyan;
-        Console.Write($" [{DateTime.Now:HH:mm:ss}]");
-        Console.ForegroundColor = ConsoleColor.Blue;
-        Console.Write(" -");
-        Console.ForegroundColor = color;
-        Console.Write($" {text,-40}");
-        Console.ResetColor();
-    }
-    #endregion
-
-    static void CrearTablasNuevas() {
+    private static void CrearTablasNuevas() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -116,8 +70,9 @@ class Program {
                         efecto ENUM('Carga', 'Descarga', 'Transferencia') NOT NULL
                     );";
 
-            using (var cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion))
+            using (var cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Crear tabla adv__compra
             const string crearTablaCompra = @"
@@ -129,8 +84,9 @@ class Program {
                     total DECIMAL(10,2) NOT NULL                    
                 );";
 
-            using (var cmd = new MySqlCommand(crearTablaCompra, conexion))
+            using (var cmd = new MySqlCommand(crearTablaCompra, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Crear tabla adv__detalle_compra
             const string crearTablaDetalleCompra = @"
@@ -142,8 +98,9 @@ class Program {
                    precio_compra DECIMAL(10,2) NOT NULL
                 );";
 
-            using (var cmd = new MySqlCommand(crearTablaDetalleCompra, conexion))
+            using (var cmd = new MySqlCommand(crearTablaDetalleCompra, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Crear tabla adv__mensajero
             const string crearTablaMensajero = @"
@@ -154,8 +111,9 @@ class Program {
                   id_contacto INT(11) NOT NULL
                 );";
 
-            using (var cmd = new MySqlCommand(crearTablaMensajero, conexion))
+            using (var cmd = new MySqlCommand(crearTablaMensajero, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Crear tabla adv__tipo_entrega
             const string crearTablaTipoEntrega = @"
@@ -166,8 +124,9 @@ class Program {
                   requiere_pago_previo TINYINT(1) NOT NULL DEFAULT 0
                 );";
 
-            using (var cmd = new MySqlCommand(crearTablaTipoEntrega, conexion))
+            using (var cmd = new MySqlCommand(crearTablaTipoEntrega, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Crear tabla adv__seguimiento_entrega
             const string crearTablaSeguimientoEntrega = @"
@@ -181,16 +140,18 @@ class Program {
                   observaciones TEXT COLLATE latin1_general_ci DEFAULT NULL
                 );";
 
-            using (var cmd = new MySqlCommand(crearTablaSeguimientoEntrega, conexion))
+            using (var cmd = new MySqlCommand(crearTablaSeguimientoEntrega, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
         }
     }
 
-    static void ModificarTablasExistentes() {
+    private static void ModificarTablasExistentes() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -199,56 +160,63 @@ class Program {
                 ALTER TABLE adv__movimiento 
                 ADD COLUMN id_tipo_movimiento INT NOT NULL DEFAULT 0;";
 
-            using (var cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion))
+            using (var cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Modificar columna precio_adquisicion a la tabla adv__articulo
             const string modificarPrecioAdquisicionTablaArticulo = @"
                 ALTER TABLE adv__articulo 
                 CHANGE precio_adquisicion precio_compra_base DECIMAL(10,2) NOT NULL;";
 
-            using (var cmd = new MySqlCommand(modificarPrecioAdquisicionTablaArticulo, conexion))
+            using (var cmd = new MySqlCommand(modificarPrecioAdquisicionTablaArticulo, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Modificar columna precio_cesion a la tabla adv__articulo
             const string modificarPrecioCesionTablaArticulo = @"
                 ALTER TABLE adv__articulo 
                 CHANGE precio_cesion precio_venta_base DECIMAL(10,2) NOT NULL;";
 
-            using (var cmd = new MySqlCommand(modificarPrecioCesionTablaArticulo, conexion))
+            using (var cmd = new MySqlCommand(modificarPrecioCesionTablaArticulo, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Eliminar columna stock_minimo de la tabla adv__articulo
             const string eliminarStockMinimoTablaArticulo = @"
                 ALTER TABLE adv__articulo 
                 DROP COLUMN stock_minimo;";
 
-            using (var cmd = new MySqlCommand(eliminarStockMinimoTablaArticulo, conexion))
+            using (var cmd = new MySqlCommand(eliminarStockMinimoTablaArticulo, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Eliminar columna pedido_minimo de la tabla adv__articulo
             const string eliminarPedidoMinimoTablaArticulo = @"
                 ALTER TABLE adv__articulo 
                 DROP COLUMN pedido_minimo;";
 
-            using (var cmd = new MySqlCommand(eliminarPedidoMinimoTablaArticulo, conexion))
+            using (var cmd = new MySqlCommand(eliminarPedidoMinimoTablaArticulo, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Modificar columna precio_unitario a la tabla adv__detalle_venta_articulo
             const string modificarPrecioUnitarioTablaDetalleVentaArticulo = @"
                 ALTER TABLE adv__detalle_venta_articulo 
                 CHANGE precio_unitario precio_venta_final DECIMAL(10,2) NOT NULL;";
 
-            using (var cmd = new MySqlCommand(modificarPrecioUnitarioTablaDetalleVentaArticulo, conexion))
+            using (var cmd = new MySqlCommand(modificarPrecioUnitarioTablaDetalleVentaArticulo, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Agregar columna precio_venta_vigente a la tabla adv__detalle_venta_articulo
             const string agregarPrecioVentaVigenteTablaDetalleVentaArticulo = @"
                 ALTER TABLE adv__detalle_venta_articulo 
                 ADD COLUMN precio_compra_vigente DECIMAL(10,2) NOT NULL AFTER id_articulo;";
 
-            using (var cmd = new MySqlCommand(agregarPrecioVentaVigenteTablaDetalleVentaArticulo, conexion))
+            using (var cmd = new MySqlCommand(agregarPrecioVentaVigenteTablaDetalleVentaArticulo, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Insertar los tipos de entrega a la tabla adv__tipo_entrega
             const string insertarTiposTablaTipoEntrega = @"
@@ -257,8 +225,9 @@ class Program {
                 (2, 'Mensajería (con fondo)', 'Mensajero paga y lleva el producto al cliente', 0),
                 (3, 'Mensajería (sin fondo)', 'Mensajero transporta el producto y luego se cobra', 0);";
 
-            using (var cmd = new MySqlCommand(insertarTiposTablaTipoEntrega, conexion))
+            using (var cmd = new MySqlCommand(insertarTiposTablaTipoEntrega, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Modificar la tabla de adv__ventas para incluir el tipo de entrega
             const string agregarTipoDireccionEstadoEntregaTablaVenta = @"
@@ -267,8 +236,9 @@ class Program {
                 ADD COLUMN direccion_entrega VARCHAR(255) COLLATE latin1_general_ci DEFAULT NULL AFTER id_tipo_entrega,
                 ADD COLUMN estado_entrega VARCHAR(50) COLLATE latin1_general_ci DEFAULT 'Pendiente' AFTER direccion_entrega;";
 
-            using (var cmd = new MySqlCommand(agregarTipoDireccionEstadoEntregaTablaVenta, conexion))
+            using (var cmd = new MySqlCommand(agregarTipoDireccionEstadoEntregaTablaVenta, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Modificar la tabla adv__pago para manejar pagos diferidos
             const string agregarEstadoFechaConfirmacionTablaPago = @"
@@ -276,16 +246,18 @@ class Program {
                 ADD COLUMN estado VARCHAR(20) COLLATE latin1_general_ci NOT NULL DEFAULT 'Completado',
                 ADD COLUMN fecha_confirmacion DATETIME DEFAULT NULL AFTER monto;";
 
-            using (var cmd = new MySqlCommand(agregarEstadoFechaConfirmacionTablaPago, conexion))
+            using (var cmd = new MySqlCommand(agregarEstadoFechaConfirmacionTablaPago, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
         }
     }
 
-    static void ActualizarColumnasMontosADecimal() {
+    private static void ActualizarColumnasMontosADecimal() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -298,16 +270,18 @@ class Program {
                     ALTER TABLE adv__detalle_venta_articulo MODIFY precio_venta_final DECIMAL(10, 2) NOT NULL;
                     ALTER TABLE adv__pago MODIFY monto DECIMAL(10, 2) NOT NULL;";
 
-            using (var cmd = new MySqlCommand(actualizarColumnas, conexion))
+            using (var cmd = new MySqlCommand(actualizarColumnas, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
         }
     }
 
-    static void MigrarDatosMotivoATipoMovimiento() {
+    private static void MigrarDatosMotivoATipoMovimiento() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -320,8 +294,9 @@ class Program {
                     ('Baja por defecto', 'Descarga'),
                     ('Uso interno', 'Transferencia');";
 
-            using (var cmd = new MySqlCommand(insertarTiposMovimiento, conexion))
+            using (var cmd = new MySqlCommand(insertarTiposMovimiento, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Paso 2: Actualizar adv__movimiento con id_tipo_movimiento
             const string actualizarMovimientos = @"
@@ -329,47 +304,52 @@ class Program {
                 JOIN adv__tipo_movimiento tm ON m.motivo = tm.nombre
                 SET m.id_tipo_movimiento = tm.id_tipo_movimiento;";
 
-            using (var cmd = new MySqlCommand(actualizarMovimientos, conexion))
+            using (var cmd = new MySqlCommand(actualizarMovimientos, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
 
             // Paso 3: Eliminar la columna 'motivo'
             const string eliminarColumnaMotivo = @"
                 ALTER TABLE adv__movimiento 
                 DROP COLUMN motivo;";
 
-            using (var cmd = new MySqlCommand(eliminarColumnaMotivo, conexion))
+            using (var cmd = new MySqlCommand(eliminarColumnaMotivo, conexion)) {
                 cmd.ExecuteNonQuery();
+            }
         }
     }
 
-    static void EliminarVentasYMovimientosAsociados() {
+    private static void EliminarVentasYMovimientosAsociados() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
             // Orden de eliminación recomendado
             string[] consultasEliminacion = {
-                "DELETE FROM adv__detalle_pago_transferencia;",                 // Detalles específicos de transferencias
-                "DELETE FROM adv__pago;",                                       // Pagos generales
-                "DELETE FROM adv__detalle_venta_articulo;",                     // Detalles de ventas
-                "DELETE FROM adv__movimiento WHERE id_tipo_movimiento = 2;",    // Movimientos de ventas (tipo 2)
-                "DELETE FROM adv__venta;"                                       // Cabecera de ventas
+                "DELETE FROM adv__detalle_pago_transferencia;", // Detalles específicos de transferencias
+                "DELETE FROM adv__pago;", // Pagos generales
+                "DELETE FROM adv__detalle_venta_articulo;", // Detalles de ventas
+                "DELETE FROM adv__movimiento WHERE id_tipo_movimiento = 2;", // Movimientos de ventas (tipo 2)
+                "DELETE FROM adv__venta;" // Cabecera de ventas
             };
 
             foreach (var consulta in consultasEliminacion)
-                using (var cmd = new MySqlCommand(consulta, conexion))
+                using (var cmd = new MySqlCommand(consulta, conexion)) {
                     cmd.ExecuteNonQuery();
+                }
         }
     }
 
-    static void EliminarModuloVentasYPermisos() {
+    private static void EliminarModuloVentasYPermisos() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -404,11 +384,12 @@ class Program {
         }
     }
 
-    static void MigrarPreciosCompraADetallesCompra() {
+    private static void MigrarPreciosCompraADetallesCompra() {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -484,4 +465,55 @@ class Program {
             }
         }
     }
+
+    #region Funciones de Interfaz
+
+    private static void ExecuteStep(Action step, string title) {
+        RenderProgressBar(title, ConsoleColor.White);
+        try {
+            step.Invoke();
+            Console.SetCursorPosition(60, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("COMPLETADO");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("]");
+        }
+        catch (Exception ex) {
+            Console.SetCursorPosition(60, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("FALLIDO");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("]");
+            throw;
+        }
+
+        Console.ResetColor();
+    }
+
+    private static void RenderStatus(string message, ConsoleColor color) {
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.WriteLine($"\n[{DateTime.Now:HH:mm:ss}]");
+        Console.ForegroundColor = color;
+        Console.Write(" » ");
+        Console.ForegroundColor = color;
+        Console.Write(message, color);
+        Console.WriteLine("\n");
+        Console.ResetColor();
+    }
+
+    private static void RenderProgressBar(string text, ConsoleColor color) {
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
+        Console.Write($" [{DateTime.Now:HH:mm:ss}]");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.Write(" -");
+        Console.ForegroundColor = color;
+        Console.Write($" {text,-40}");
+        Console.ResetColor();
+    }
+
+    #endregion
 }

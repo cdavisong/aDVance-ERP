@@ -2,13 +2,13 @@
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
 public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMensajero>, IRepositorioMensajero {
     public override string ComandoCantidad() {
         return """
-               SELECT 
-                COUNT(id_mensajero) 
+               SELECT
+                COUNT(id_mensajero)
                FROM adv__mensajero;
                """;
     }
@@ -16,13 +16,13 @@ public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMe
     public override string ComandoAdicionar(Mensajero objeto) {
         return $"""
                 INSERT INTO adv__mensajero (
-                    nombre, 
-                    activo, 
+                    nombre,
+                    activo,
                     id_contacto
-                ) 
+                )
                 VALUES (
-                    '{objeto.Nombre}', 
-                    '{(objeto.Activo ? 1 : 0)}', 
+                    '{objeto.Nombre}',
+                    '{(objeto.Activo ? 1 : 0)}',
                     '{objeto.IdContacto}'
                 );
                 """;
@@ -31,7 +31,7 @@ public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMe
     public override string ComandoEditar(Mensajero objeto) {
         return $"""
                 UPDATE adv__mensajero
-                SET 
+                SET
                     nombre='{objeto.Nombre}',
                     activo='{(objeto.Activo ? 1 : 0)}',
                     id_contacto='{objeto.IdContacto}'
@@ -52,21 +52,21 @@ public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMe
         switch (criterio) {
             case CriterioBusquedaMensajero.Id:
                 comando = $"""
-                           SELECT * 
-                           FROM adv__mensajero 
+                           SELECT *
+                           FROM adv__mensajero
                            WHERE id_mensajero={dato};
                            """;
                 break;
             case CriterioBusquedaMensajero.Nombre:
                 comando = $"""
-                             SELECT * 
-                             FROM adv__mensajero 
-                             WHERE LOWER(nombre) LIKE LOWER('%{dato}%');
-                            """;
+                            SELECT *
+                            FROM adv__mensajero
+                            WHERE LOWER(nombre) LIKE LOWER('%{dato}%');
+                           """;
                 break;
             default:
                 comando = """
-                          SELECT * 
+                          SELECT *
                           FROM adv__mensajero;
                           """;
                 break;
@@ -77,17 +77,19 @@ public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMe
 
     public override Mensajero ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
         return new Mensajero(
-            id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_mensajero")),
-            nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
-            activo: lectorDatos.GetBoolean(lectorDatos.GetOrdinal("activo")),
-            idContacto: long.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("id_contacto")).ToString(), out var idContacto) ? idContacto : 0
-            );
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_mensajero")),
+            lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
+            lectorDatos.GetBoolean(lectorDatos.GetOrdinal("activo")),
+            long.TryParse(lectorDatos.GetValue(lectorDatos.GetOrdinal("id_contacto")).ToString(), out var idContacto)
+                ? idContacto
+                : 0
+        );
     }
 
     public override string ComandoExiste(string dato) {
         return $"""
-                SELECT * 
-                FROM adv__mensajero 
+                SELECT *
+                FROM adv__mensajero
                 WHERE nombre='{dato}';
                 """;
     }

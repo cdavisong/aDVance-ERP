@@ -1,13 +1,12 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using System.Security;
+using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-using System.Security;
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas; 
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas {
-    public interface IVistaAutenticacionUsuario : IVista {
-        string NombreUsuario { get; }
-        SecureString Password { get; }
+public interface IVistaAutenticacionUsuario : IVista {
+    string NombreUsuario { get; }
+    SecureString Password { get; }
 
-        event EventHandler? Autenticar;
-        event EventHandler? RegistrarCuenta;
-    }
+    event EventHandler? Autenticar;
+    event EventHandler? RegistrarCuenta;
 }

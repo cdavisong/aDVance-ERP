@@ -1,15 +1,15 @@
 ﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas {
-    public interface IVistaRegistroRolUsuario : IVistaRegistro {
-        string? NombreRolUsuario { get; set; }
-        string? NombreModulo { get; set; }
-        string? NombrePermiso { get; set; }
-        List<string[]>? Permisos { get; }
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas; 
 
-        event EventHandler? PermisoAgregado;
-        event EventHandler? PermisoEliminado;
+public interface IVistaRegistroRolUsuario : IVistaRegistro {
+    string? NombreRolUsuario { get; set; }
+    string? NombreModulo { get; set; }
+    string? NombrePermiso { get; set; }
+    List<string[]>? Permisos { get; }
 
-        void CargarNombresModulos(string[] nombresModulos);
-    }
+    event EventHandler? PermisoAgregado;
+    event EventHandler? PermisoEliminado;
+
+    void CargarNombresModulos(string[] nombresModulos);
 }

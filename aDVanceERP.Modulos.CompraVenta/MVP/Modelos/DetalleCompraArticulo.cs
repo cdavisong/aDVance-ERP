@@ -1,29 +1,29 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
-    public class DetalleCompraArticulo : IObjetoUnico {
-        public DetalleCompraArticulo() {
-        }
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
 
-        public DetalleCompraArticulo(long id, long idCompra, long idArticulo, int cantidad, decimal precioCompra) {
-            Id = id;
-            IdCompra = idCompra;
-            IdArticulo = idArticulo;
-            Cantidad = cantidad;
-            PrecioCompra = precioCompra;
-        }
+public class DetalleCompraArticulo : IObjetoUnico {
+    public DetalleCompraArticulo() { }
 
-        public long Id { get; set; }
-        public long IdCompra { get; set; }
-        public long IdArticulo { get; set; }
-        public int Cantidad { get; set; }
-        public decimal PrecioCompra { get; set; }
+    public DetalleCompraArticulo(long id, long idCompra, long idArticulo, int cantidad, decimal precioCompra) {
+        Id = id;
+        IdCompra = idCompra;
+        IdArticulo = idArticulo;
+        Cantidad = cantidad;
+        PrecioCompra = precioCompra;
     }
 
-    public enum CriterioDetalleCompraArticulo {
-        Todos,
-        Id,
-        IdCompra,
-        IdArticulo
-    }
+    public long IdCompra { get; set; }
+    public long IdArticulo { get; set; }
+    public int Cantidad { get; set; }
+    public decimal PrecioCompra { get; set; }
+
+    public long Id { get; set; }
+}
+
+public enum CriterioDetalleCompraArticulo {
+    Todos,
+    Id,
+    IdCompra,
+    IdArticulo
 }

@@ -1,42 +1,42 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
-    public enum TipoMoneda {
-        CUP,
-        CUC,
-        USD
+namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos; 
+
+public enum TipoMoneda {
+    CUP,
+    CUC,
+    USD
+}
+
+public class CuentaBancaria : IObjetoUnico {
+    public CuentaBancaria() { }
+
+    public CuentaBancaria(long id, string alias, string numeroTarjeta, TipoMoneda moneda, long idContacto) {
+        Id = id;
+        Alias = alias;
+        NumeroTarjeta = numeroTarjeta;
+        Moneda = moneda;
+        IdContacto = idContacto;
     }
 
-    public class CuentaBancaria : IObjetoUnico {
-        public CuentaBancaria() {
-        }
+    public string? Alias { get; }
+    public string? NumeroTarjeta { get; }
+    public TipoMoneda Moneda { get; }
+    public long IdContacto { get; set; }
 
-        public CuentaBancaria(long id, string alias, string numeroTarjeta, TipoMoneda moneda, long idContacto) {
-            Id = id;
-            Alias = alias;
-            NumeroTarjeta = numeroTarjeta;
-            Moneda = moneda;
-            IdContacto = idContacto;
-        }
+    public long Id { get; set; }
+}
 
-        public long Id { get; set; }
-        public string? Alias { get; }
-        public string? NumeroTarjeta { get; }
-        public TipoMoneda Moneda { get; }
-        public long IdContacto { get; set; }
-    }
+public enum CriterioBusquedaCuentaBancaria {
+    Todos,
+    Id,
+    Alias
+}
 
-    public enum CriterioBusquedaCuentaBancaria {
-        Todos,
-        Id,
-        Alias
-    }
-
-    public static class UtilesBusquedaCuentaBancaria {
-        public static string[] CriterioBusquedaCuentaBancaria = new string[] {
-            "Todas las cuentas",
-            "Identificador de BD",
-            "Alias de la cuenta"
-        };
-    }
+public static class UtilesBusquedaCuentaBancaria {
+    public static string[] CriterioBusquedaCuentaBancaria = {
+        "Todas las cuentas",
+        "Identificador de BD",
+        "Alias de la cuenta"
+    };
 }

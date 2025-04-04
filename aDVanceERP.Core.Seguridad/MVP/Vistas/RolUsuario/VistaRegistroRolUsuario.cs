@@ -7,193 +7,182 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
-    public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, IVistaGestionPermisos {
-        private bool _modoEdicion;
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario; 
 
-        public VistaRegistroRolUsuario() {
-            InitializeComponent();
-            Inicializar();
+public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, IVistaGestionPermisos {
+    private bool _modoEdicion;
+
+    public VistaRegistroRolUsuario() {
+        InitializeComponent();
+        Inicializar();
+    }
+
+    public int AlturaContenedorVistas {
+        get => contenedorVistas.Height;
+    }
+
+    public int TuplasMaximasContenedor {
+        get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
+    }
+
+    public IRepositorioVista? Vistas { get; private set; }
+
+    public void AdicionarPermisoRol(string nombrePermiso = "") {
+        var adNombrePermiso = string.IsNullOrEmpty(nombrePermiso) ? NombrePermiso : nombrePermiso;
+        var idPermiso = UtilesPermiso.ObtenerIdPermiso(adNombrePermiso);
+
+        var tuplaPermiso = new[] {
+            idPermiso.ToString(),
+            adNombrePermiso
+        };
+
+        // Verificar que el permiso ya se encuentre registrado
+        var indiceArticulo = Permisos?.FindIndex(a => a[0].Equals(idPermiso.ToString()));
+
+        if (indiceArticulo != -1) return;
+
+        Permisos?.Add(tuplaPermiso);
+        PermisoAgregado?.Invoke(tuplaPermiso, EventArgs.Empty);
+
+        ActualizarTuplasPermisosRoles();
+    }
+
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
+
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
+
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
+
+    public string? NombreRolUsuario {
+        get => fieldNombreRolUsuario.Text;
+        set => fieldNombreRolUsuario.Text = value;
+    }
+
+    public string? NombreModulo {
+        get => fieldNombreModulo.Text;
+        set => fieldNombreModulo.Text = value;
+    }
+
+    public string? NombrePermiso {
+        get => fieldNombrePermiso.Text;
+        set => fieldNombrePermiso.Text = value;
+    }
+
+    public bool ModoEdicionDatos {
+        get => _modoEdicion;
+        set {
+            fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
+            btnRegistrar.Text = value ? "Actualizar rol" : "Registrar rol";
+            _modoEdicion = value;
         }
+    }
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+    public List<string[]>? Permisos { get; private set; }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public event EventHandler? PermisoAgregado;
+    public event EventHandler? PermisoEliminado;
+    public event EventHandler? RegistrarDatos;
+    public event EventHandler? EditarDatos;
+    public event EventHandler? EliminarDatos;
+    public event EventHandler? Salir;
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public void Inicializar() {
+        Permisos = new List<string[]>();
+        Vistas = new RepositorioVistaBase(contenedorVistas);
 
-        public string? NombreRolUsuario {
-            get => fieldNombreRolUsuario.Text;
-            set => fieldNombreRolUsuario.Text = value;
-        }
+        // Eventos
+        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        fieldNombreModulo.SelectedIndexChanged += delegate {
+            var idModulo = UtilesModulo.ObtenerIdModulo(NombreModulo);
 
-        public string? NombreModulo {
-            get => fieldNombreModulo.Text;
-            set => fieldNombreModulo.Text = value;
-        }
+            if (idModulo != 0)
+                CargarNombresPermisos(UtilesPermiso.ObtenerNombresPermisos(idModulo));
+        };
+        btnAdicionarPermiso.Click += delegate { AdicionarPermisoRol(); };
+        PermisoEliminado += delegate { ActualizarTuplasPermisosRoles(); };
+        btnRegistrar.Click += delegate(object? sender, EventArgs args) {
+            if (ModoEdicionDatos)
+                EditarDatos?.Invoke(sender, args);
+            else
+                RegistrarDatos?.Invoke(sender, args);
+        };
+        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+    }
 
-        public string? NombrePermiso {
-            get => fieldNombrePermiso.Text;
-            set => fieldNombrePermiso.Text = value;
-        }
+    public void CargarNombresModulos(string[] nombresModulos) {
+        fieldNombreModulo.Items.AddRange(nombresModulos);
+        fieldNombreModulo.SelectedIndex = -1;
+    }
 
-        public bool ModoEdicionDatos {
-            get => _modoEdicion;
-            set {
-                fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
-                btnRegistrar.Text = value ? "Actualizar rol" : "Registrar rol";
-                _modoEdicion = value;
-            }
-        }
+    public void Mostrar() {
+        BringToFront();
+        ShowDialog();
+    }
 
-        public List<string[]>? Permisos { get; private set; }
+    public void Restaurar() {
+        NombreRolUsuario = string.Empty;
+        fieldNombreModulo.SelectedIndex = 0;
+        fieldNombrePermiso.SelectedIndex = 0;
+        ModoEdicionDatos = false;
+    }
 
-        public int AlturaContenedorVistas {
-            get => contenedorVistas.Height;
-        }
+    public void Ocultar() {
+        Hide();
+    }
 
-        public int TuplasMaximasContenedor {
-            get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
-        }
+    public void Cerrar() {
+        Dispose();
+    }
 
-        public IRepositorioVista? Vistas { get; private set; }
+    public event EventHandler? AlturaContenedorTuplasModificada;
 
-        public event EventHandler? PermisoAgregado;
-        public event EventHandler? PermisoEliminado;
-        public event EventHandler? RegistrarDatos;
-        public event EventHandler? EditarDatos;
-        public event EventHandler? EliminarDatos;
-        public event EventHandler? AlturaContenedorTuplasModificada;
-        public event EventHandler? Salir;
+    private void CargarNombresPermisos(string[] nombresPermisos) {
+        fieldNombrePermiso.Items.Clear();
+        fieldNombrePermiso.Items.AddRange(nombresPermisos);
+        fieldNombrePermiso.SelectedIndex = 0;
+    }
 
-        public void Inicializar() {
-            Permisos = new List<string[]>();
-            Vistas = new RepositorioVistaBase(contenedorVistas);
+    private void ActualizarTuplasPermisosRoles() {
+        foreach (var tupla in contenedorVistas.Controls)
+            if (tupla is IVistaTuplaPermiso vistaTupla)
+                vistaTupla.Cerrar();
+        contenedorVistas.Controls.Clear();
 
-            // Eventos
-            btnCerrar.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
+        // Restablecer útima coordenada Y de la tupla
+        VariablesGlobales.CoordenadaYUltimaTupla = 0;
+
+        for (var i = 0; i < Permisos?.Count; i++) {
+            var permiso = Permisos[i];
+            var tuplaPermisoRol = new VistaTuplaPermiso();
+
+            tuplaPermisoRol.IdPermiso = permiso[0];
+            tuplaPermisoRol.NombrePermiso = permiso[1];
+            tuplaPermisoRol.EliminarDatosTupla += delegate(object? sender, EventArgs args) {
+                permiso = sender as string[];
+
+                Permisos.RemoveAt(Permisos.FindIndex(p => p[0].Equals(permiso[0])));
+                PermisoEliminado?.Invoke(permiso, args);
             };
-            fieldNombreModulo.SelectedIndexChanged += delegate {
-                var idModulo = UtilesModulo.ObtenerIdModulo(NombreModulo);
 
-                if (idModulo != 0)
-                    CargarNombresPermisos(UtilesPermiso.ObtenerNombresPermisos(idModulo));
-            };
-            btnAdicionarPermiso.Click += delegate (object? sender, EventArgs args) {
-                AdicionarPermisoRol();
-            };
-            PermisoEliminado += delegate (object? sender, EventArgs args) {
-                ActualizarTuplasPermisosRoles();
-            };
-            btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
-                    EditarDatos?.Invoke(sender, args);
-                else
-                    RegistrarDatos?.Invoke(sender, args);
-            };
-            btnSalir.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
-            };
-        }
+            // Registro y muestra
+            Vistas?.Registrar(
+                $"vistaTupla{tuplaPermisoRol.GetType().Name}{i}",
+                tuplaPermisoRol,
+                new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
+                new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
+            tuplaPermisoRol.Mostrar();
 
-        public void CargarNombresModulos(string[] nombresModulos) {
-            fieldNombreModulo.Items.AddRange(nombresModulos);
-            fieldNombreModulo.SelectedIndex = -1;
-        }
-
-        private void CargarNombresPermisos(string[] nombresPermisos) {
-            fieldNombrePermiso.Items.Clear();
-            fieldNombrePermiso.Items.AddRange(nombresPermisos);
-            fieldNombrePermiso.SelectedIndex = 0;
-        }
-
-        public void AdicionarPermisoRol(string nombrePermiso = "") {
-            var adNombrePermiso = string.IsNullOrEmpty(nombrePermiso) ? NombrePermiso : nombrePermiso;
-            var idPermiso = UtilesPermiso.ObtenerIdPermiso(adNombrePermiso);
-
-            var tuplaPermiso = new string[] {
-                    idPermiso.ToString(),
-                    adNombrePermiso
-                };
-
-            // Verificar que el permiso ya se encuentre registrado
-            var indiceArticulo = Permisos?.FindIndex(a => a[0].Equals(idPermiso.ToString()));
-
-            if (indiceArticulo != -1)
-                return;
-            else {
-                Permisos?.Add(tuplaPermiso);
-                PermisoAgregado?.Invoke(tuplaPermiso, EventArgs.Empty);
-            }
-
-            ActualizarTuplasPermisosRoles();
-        }
-
-        private void ActualizarTuplasPermisosRoles() {
-            foreach (var tupla in contenedorVistas.Controls) {
-                if (tupla is IVistaTuplaPermiso vistaTupla) {
-                    vistaTupla.Cerrar();
-                }
-            }
-            contenedorVistas.Controls.Clear();
-
-            // Restablecer útima coordenada Y de la tupla
-            VariablesGlobales.CoordenadaYUltimaTupla = 0;
-
-            for (int i = 0; i < Permisos?.Count; i++) {
-                var permiso = Permisos[i];
-                var tuplaPermisoRol = new VistaTuplaPermiso();
-
-                tuplaPermisoRol.IdPermiso = permiso[0];
-                tuplaPermisoRol.NombrePermiso = permiso[1];
-                tuplaPermisoRol.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
-                    permiso = sender as string[];
-
-                    Permisos.RemoveAt(Permisos.FindIndex(p => p[0].Equals(permiso[0])));
-                    PermisoEliminado?.Invoke(permiso, args);
-                };
-
-                // Registro y muestra
-                Vistas?.Registrar(
-                    $"vistaTupla{tuplaPermisoRol.GetType().Name}{i}",
-                    tuplaPermisoRol,
-                    new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-                    new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
-                tuplaPermisoRol.Mostrar();
-
-                // Incremento de la útima coordenada Y de la tupla
-                VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
-            }
-        }
-
-        public void Mostrar() {
-            BringToFront();
-            ShowDialog();
-        }
-
-        public void Restaurar() {
-            NombreRolUsuario = string.Empty;
-            fieldNombreModulo.SelectedIndex = 0;
-            fieldNombrePermiso.SelectedIndex = 0;
-            ModoEdicionDatos = false;
-        }
-
-        public void Ocultar() {
-            Hide();
-        }
-
-        public void Cerrar() {
-            Dispose();
+            // Incremento de la útima coordenada Y de la tupla
+            VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
         }
     }
 }

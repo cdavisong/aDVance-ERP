@@ -1,25 +1,23 @@
 ﻿using aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
-    public partial class PresentadorPrincipal {
-        private PresentadorContenedorModulos? _contenedorModulos;
+namespace aDVanceERP.Desktop.MVP.Presentadores.Principal; 
 
-        private void InicializarVistaContenedorModulos() {
-            _contenedorModulos = new PresentadorContenedorModulos(Vista, new VistaContenedorModulos());
-            _contenedorModulos.Vista.CambioModulo += delegate {
-                Vista.Menus.Ocultar(true);
-            };
+public partial class PresentadorPrincipal {
+    private PresentadorContenedorModulos? _contenedorModulos;
 
-            Vista.Vistas?.Registrar("vistaContenedorModulos", _contenedorModulos.Vista);
-        }
+    private void InicializarVistaContenedorModulos() {
+        _contenedorModulos = new PresentadorContenedorModulos(Vista, new VistaContenedorModulos());
+        _contenedorModulos.Vista.CambioModulo += delegate { Vista.Menus.Ocultar(true); };
 
-        private void MostrarVistaContenedorModulos(object? sender, EventArgs e) {
-            _contenedorModulos?.Vista.Restaurar();
-            _contenedorModulos?.Vista.Mostrar();
+        Vista.Vistas?.Registrar("vistaContenedorModulos", _contenedorModulos.Vista);
+    }
 
-            // TODO: Mostrar el botón de sub-menu para usuarios
-            //Vista.BtnSubmenuUsuarioDisponible = true;
-        }
+    private void MostrarVistaContenedorModulos(object? sender, EventArgs e) {
+        _contenedorModulos?.Vista.Restaurar();
+        _contenedorModulos?.Vista.Mostrar();
+
+        // TODO: Mostrar el botón de sub-menu para usuarios
+        //Vista.BtnSubmenuUsuarioDisponible = true;
     }
 }

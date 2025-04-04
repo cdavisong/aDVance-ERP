@@ -1,36 +1,37 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
-    public class Proveedor : IObjetoUnico {
-        public Proveedor() {
-        }
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos; 
 
-        public Proveedor(long idProveedor, string razonSocial, string numeroIdentificacionTributaria, long idContactoRepresentante) {
-            Id = idProveedor;
-            RazonSocial = razonSocial;
-            NumeroIdentificacionTributaria = numeroIdentificacionTributaria;
-            IdContactoRepresentante = idContactoRepresentante;
-        }
+public class Proveedor : IObjetoUnico {
+    public Proveedor() { }
 
-        public long Id { get; set; }
-        public string? RazonSocial { get; }
-        public string? NumeroIdentificacionTributaria { get; }
-        public long IdContactoRepresentante { get; }
+    public Proveedor(long idProveedor, string razonSocial, string numeroIdentificacionTributaria,
+        long idContactoRepresentante) {
+        Id = idProveedor;
+        RazonSocial = razonSocial;
+        NumeroIdentificacionTributaria = numeroIdentificacionTributaria;
+        IdContactoRepresentante = idContactoRepresentante;
     }
 
-    public enum CriterioBusquedaProveedor {
-        Todos,
-        Id,
-        RazonSocial,
-        NIT
-    }
+    public string? RazonSocial { get; }
+    public string? NumeroIdentificacionTributaria { get; }
+    public long IdContactoRepresentante { get; }
 
-    public static class UtilesBusquedaProveedor {
-        public static string[] CriterioBusquedaProveedor = new string[] {
-            "Todos los proveedores",
-            "Identificador de BD",
-            "Razón Social del proveedor",
-            "No. Identificación Tributaria"
-        };
-    }
+    public long Id { get; set; }
+}
+
+public enum CriterioBusquedaProveedor {
+    Todos,
+    Id,
+    RazonSocial,
+    NIT
+}
+
+public static class UtilesBusquedaProveedor {
+    public static string[] CriterioBusquedaProveedor = {
+        "Todos los proveedores",
+        "Identificador de BD",
+        "Razón Social del proveedor",
+        "No. Identificación Tributaria"
+    };
 }

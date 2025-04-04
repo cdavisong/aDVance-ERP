@@ -7,68 +7,74 @@ using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
-    public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<PresentadorTuplaCuentaUsuario, IVistaGestionCuentasUsuarios, IVistaTuplaCuentaUsuario, CuentaUsuario, DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
-        public PresentadorGestionCuentasUsuarios(IVistaGestionCuentasUsuarios vista) : base(vista) {
-            vista.AprobarSolicitudCuenta += AprobarSolicitudCuentaUsuario;
-            vista.EditarDatos += delegate { Vista.HabilitarBtnAprobacionSolicitudCuenta = false; };
-        }
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
-        protected override PresentadorTuplaCuentaUsuario ObtenerValoresTupla(CuentaUsuario objeto) {
-            var presentadorTupla = new PresentadorTuplaCuentaUsuario(new VistaTuplaCuentaUsuario(), objeto);
+public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<PresentadorTuplaCuentaUsuario,
+    IVistaGestionCuentasUsuarios, IVistaTuplaCuentaUsuario, CuentaUsuario, DatosCuentaUsuario,
+    CriterioBusquedaCuentaUsuario> {
+    public PresentadorGestionCuentasUsuarios(IVistaGestionCuentasUsuarios vista) : base(vista) {
+        vista.AprobarSolicitudCuenta += AprobarSolicitudCuentaUsuario;
+        vista.EditarDatos += delegate { Vista.HabilitarBtnAprobacionSolicitudCuenta = false; };
+    }
 
-            presentadorTupla.Vista.Id = objeto.Id.ToString();
-            presentadorTupla.Vista.NombreUsuario = objeto.Nombre;
-            presentadorTupla.Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
-            presentadorTupla.Vista.EstadoCuentaUsuario = objeto.Aprobado ? "Activa" : "Esperando aprobación";
-            presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
-            presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
+    protected override PresentadorTuplaCuentaUsuario ObtenerValoresTupla(CuentaUsuario objeto) {
+        var presentadorTupla = new PresentadorTuplaCuentaUsuario(new VistaTuplaCuentaUsuario(), objeto);
 
-            return presentadorTupla;
-        }
+        presentadorTupla.Vista.Id = objeto.Id.ToString();
+        presentadorTupla.Vista.NombreUsuario = objeto.Nombre;
+        presentadorTupla.Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
+        presentadorTupla.Vista.EstadoCuentaUsuario = objeto.Aprobado ? "Activa" : "Esperando aprobación";
+        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
+        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
 
-        private void AprobarSolicitudCuentaUsuario(object? sender, EventArgs e) {
-            var usuariosRol0 = 0;
+        return presentadorTupla;
+    }
 
-            foreach (var tupla in _tuplasObjetos) {
-                if (tupla.TuplaSeleccionada) {
-                    if (tupla.Objeto.IdRolUsuario != 0) {
-                        tupla.Objeto.Aprobado = true;
+    private void AprobarSolicitudCuentaUsuario(object? sender, EventArgs e) {
+        var usuariosRol0 = 0;
 
-                        // Editar la cuenta de usuario
-                        DatosObjeto.Editar(tupla.Objeto);
-                    } else
-                        usuariosRol0++;
+        foreach (var tupla in _tuplasObjetos)
+            if (tupla.TuplaSeleccionada) {
+                if (tupla.Objeto.IdRolUsuario != 0) {
+                    tupla.Objeto.Aprobado = true;
 
-                    break;
+                    // Editar la cuenta de usuario
+                    DatosObjeto.Editar(tupla.Objeto);
                 }
+                else {
+                    usuariosRol0++;
+                }
+
+                break;
             }
 
-            if (usuariosRol0 > 0) {
-                CentroNotificaciones.Mostrar(
-                    $"{(usuariosRol0 <= 1 ? "El usuario" : "Existen usuarios")} seleccionado{(usuariosRol0 == 1 ? "" : "s")} {(usuariosRol0 == 1 ? "no tiene" : "sin")} un rolUsuario asignado, por lo que no se puede aprobar la solicitud de cuenta. Por favor, edite el usuario para asignarle un rol.",
-                    TipoNotificacion.Advertencia);
-                return;
-            }
-
-            Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
-
-            _ = RefrescarListaObjetos();
+        if (usuariosRol0 > 0) {
+            CentroNotificaciones.Mostrar(
+                $"{(usuariosRol0 <= 1 ? "El usuario" : "Existen usuarios")} seleccionado{(usuariosRol0 == 1 ? "" : "s")} {(usuariosRol0 == 1 ? "no tiene" : "sin")} un rolUsuario asignado, por lo que no se puede aprobar la solicitud de cuenta. Por favor, edite el usuario para asignarle un rol.",
+                TipoNotificacion.Advertencia);
+            return;
         }
 
-        private void CambiarVisibilidadBtnAprobacionCuentasUsuarios(object? sender, EventArgs e) {
-            if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
-                foreach (var tupla in _tuplasObjetos) {
-                    if (tupla.TuplaSeleccionada) {
-                        if (!tupla.Objeto.Aprobado)
-                            Vista.HabilitarBtnAprobacionSolicitudCuenta = true;
-                        else {
-                            Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
-                            return;
-                        }
+        Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
+
+        _ = RefrescarListaObjetos();
+    }
+
+    private void CambiarVisibilidadBtnAprobacionCuentasUsuarios(object? sender, EventArgs e) {
+        if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
+            foreach (var tupla in _tuplasObjetos)
+                if (tupla.TuplaSeleccionada) {
+                    if (!tupla.Objeto.Aprobado) {
+                        Vista.HabilitarBtnAprobacionSolicitudCuenta = true;
+                    }
+                    else {
+                        Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
+                        return;
                     }
                 }
-            } else Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
+        }
+        else {
+            Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
         }
     }
 }

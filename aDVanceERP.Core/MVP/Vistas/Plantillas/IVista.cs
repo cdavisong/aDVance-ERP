@@ -1,15 +1,15 @@
-﻿namespace aDVanceERP.Core.MVP.Vistas.Plantillas {
-    public interface IVista {
-        bool Habilitada { get; set; }
-        Point Coordenadas { get; set; }
-        Size Dimensiones { get; set; }
+﻿namespace aDVanceERP.Core.MVP.Vistas.Plantillas; 
 
-        event EventHandler? Salir;
+public interface IVista {
+    bool Habilitada { get; set; }
+    Point Coordenadas { get; set; }
+    Size Dimensiones { get; set; }
 
-        void Inicializar();
-        void Mostrar();
-        void Restaurar();
-        void Ocultar();
-        void Cerrar();
-    }
+    event EventHandler? Salir;
+
+    void Inicializar();
+    void Mostrar();
+    void Restaurar();
+    void Ocultar();
+    void Cerrar();
 }

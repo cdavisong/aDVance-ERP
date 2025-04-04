@@ -1,26 +1,26 @@
 ﻿using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
-    public partial class PresentadorContenedorSeguridad {
-        private PresentadorAutenticacionUsuario? _autenticacionUsuario;
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad; 
 
-        private void InicializarVistaAutenticacionUsuario() {
-            _autenticacionUsuario = new PresentadorAutenticacionUsuario(new VistaAutenticacionUsuario());
-            _autenticacionUsuario.MostrarVistaRegistroCuentaUsuario += MostrarVistaRegistroUsuario;
-            _autenticacionUsuario.UsuarioAutenticado += VerificarAprobacionUsuario;
+public partial class PresentadorContenedorSeguridad {
+    private PresentadorAutenticacionUsuario? _autenticacionUsuario;
 
-            Vista.Vistas?.Registrar("vistaAutenticacionUsuario", _autenticacionUsuario.Vista);
-        }
+    private void InicializarVistaAutenticacionUsuario() {
+        _autenticacionUsuario = new PresentadorAutenticacionUsuario(new VistaAutenticacionUsuario());
+        _autenticacionUsuario.MostrarVistaRegistroCuentaUsuario += MostrarVistaRegistroUsuario;
+        _autenticacionUsuario.UsuarioAutenticado += VerificarAprobacionUsuario;
 
-        private void MostrarVistaAutenticacionUsuario(object? sender, EventArgs e) {
-            var message = sender as string;
+        Vista.Vistas?.Registrar("vistaAutenticacionUsuario", _autenticacionUsuario.Vista);
+    }
 
-            if (string.IsNullOrEmpty(message) || message.Equals("register-user"))
-                return;
+    private void MostrarVistaAutenticacionUsuario(object? sender, EventArgs e) {
+        var message = sender as string;
 
-            _autenticacionUsuario?.Vista.Restaurar();
-            _autenticacionUsuario?.Vista.Mostrar();
-        }
+        if (string.IsNullOrEmpty(message) || message.Equals("register-user"))
+            return;
+
+        _autenticacionUsuario?.Vista.Restaurar();
+        _autenticacionUsuario?.Vista.Mostrar();
     }
 }

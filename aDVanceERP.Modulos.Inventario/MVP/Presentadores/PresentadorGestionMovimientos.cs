@@ -5,25 +5,29 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores {
-    public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorTuplaMovimiento, IVistaGestionMovimientos, IVistaTuplaMovimiento, Movimiento, DatosMovimiento, CriterioBusquedaMovimiento> {
-        public PresentadorGestionMovimientos(IVistaGestionMovimientos vista) : base(vista) {
-        }
+namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
 
-        protected override PresentadorTuplaMovimiento ObtenerValoresTupla(Movimiento objeto) {
-            var presentadorTupla = new PresentadorTuplaMovimiento(new VistaTuplaMovimiento(), objeto);
+public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorTuplaMovimiento, IVistaGestionMovimientos
+    , IVistaTuplaMovimiento, Movimiento, DatosMovimiento, CriterioBusquedaMovimiento> {
+    public PresentadorGestionMovimientos(IVistaGestionMovimientos vista) : base(vista) { }
 
-            presentadorTupla.Vista.Id = objeto.Id.ToString();
-            presentadorTupla.Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
-            presentadorTupla.Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
-            presentadorTupla.Vista.ActualizarIconoStock(UtilesMovimiento.ObtenerEfectoTipoMovimiento(objeto.IdTipoMovimiento));
-            presentadorTupla.Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
-            presentadorTupla.Vista.CantidadMovida = objeto.CantidadMovida.ToString();
-            presentadorTupla.Vista.TipoMovimiento = UtilesMovimiento.ObtenerNombreTipoMovimiento(objeto.IdTipoMovimiento) ?? string.Empty;
-            presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("yyyy-MM-dd");
+    protected override PresentadorTuplaMovimiento ObtenerValoresTupla(Movimiento objeto) {
+        var presentadorTupla = new PresentadorTuplaMovimiento(new VistaTuplaMovimiento(), objeto);
 
-            return presentadorTupla;
-        }
+        presentadorTupla.Vista.Id = objeto.Id.ToString();
+        presentadorTupla.Vista.NombreArticulo =
+            UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
+        presentadorTupla.Vista.NombreAlmacenOrigen =
+            UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
+        presentadorTupla.Vista.ActualizarIconoStock(
+            UtilesMovimiento.ObtenerEfectoTipoMovimiento(objeto.IdTipoMovimiento));
+        presentadorTupla.Vista.NombreAlmacenDestino =
+            UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
+        presentadorTupla.Vista.CantidadMovida = objeto.CantidadMovida.ToString();
+        presentadorTupla.Vista.TipoMovimiento =
+            UtilesMovimiento.ObtenerNombreTipoMovimiento(objeto.IdTipoMovimiento) ?? string.Empty;
+        presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("yyyy-MM-dd");
+
+        return presentadorTupla;
     }
-
 }

@@ -1,13 +1,13 @@
 ﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Core.Mensajes.MVP.Vistas.Notificacion.Plantillas {
-    public interface IVistaNotificacion : IVista {
-        string? Mensaje { get; set; }
+namespace aDVanceERP.Core.Mensajes.MVP.Vistas.Notificacion.Plantillas; 
 
-        TipoNotificacion Tipo { get; set; }
+public interface IVistaNotificacion : IVista {
+    string? Mensaje { get; set; }
 
-        void ActualizarPosicionObjetivo(Point objetivo);
-        void EstablecerPosicionObjetivo(Point objetivo);
-    }
+    TipoNotificacion Tipo { get; set; }
+
+    void ActualizarPosicionObjetivo(Point objetivo);
+    void EstablecerPosicionObjetivo(Point objetivo);
 }

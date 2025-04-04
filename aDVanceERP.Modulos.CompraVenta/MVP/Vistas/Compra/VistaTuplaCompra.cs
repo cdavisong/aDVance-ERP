@@ -1,124 +1,111 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
-    public partial class VistaTuplaCompra : Form, IVistaTuplaCompra {
-        public VistaTuplaCompra() {
-            InitializeComponent();
-            Inicializar();
-        }
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra; 
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+public partial class VistaTuplaCompra : Form, IVistaTuplaCompra {
+    public VistaTuplaCompra() {
+        InitializeComponent();
+        Inicializar();
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public string Id {
-            get => fieldId.Text;
-            set => fieldId.Text = value;
-        }
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public string Fecha {
-            get => fieldFecha.Text;
-            set => fieldFecha.Text = value;
-        }
+    public string Id {
+        get => fieldId.Text;
+        set => fieldId.Text = value;
+    }
 
-        public string NombreAlmacen {
-            get => fieldNombreAlmacen.Text;
-            set => fieldNombreAlmacen.Text = value;
-        }
+    public string Fecha {
+        get => fieldFecha.Text;
+        set => fieldFecha.Text = value;
+    }
 
-        public string NombreProveedor {
-            get => fieldNombreProveedor.Text;
-            set => fieldNombreProveedor.Text = value;
-        }
+    public string NombreAlmacen {
+        get => fieldNombreAlmacen.Text;
+        set => fieldNombreAlmacen.Text = value;
+    }
 
-        public string CantidadProductos {
-            get => fieldCantidadProductos.Text;
-            set => fieldCantidadProductos.Text = value;
-        }
+    public string NombreProveedor {
+        get => fieldNombreProveedor.Text;
+        set => fieldNombreProveedor.Text = value;
+    }
 
-        public string MontoTotal {
-            get => fieldMontoTotal.Text;
-            set => fieldMontoTotal.Text = value;
-        }
+    public string CantidadProductos {
+        get => fieldCantidadProductos.Text;
+        set => fieldCantidadProductos.Text = value;
+    }
 
-        public Color ColorFondoTupla {
-            get => layoutVista.BackColor;
-            set => layoutVista.BackColor = value;
-        }
+    public string MontoTotal {
+        get => fieldMontoTotal.Text;
+        set => fieldMontoTotal.Text = value;
+    }
 
-        public event EventHandler? TuplaSeleccionada;
-        public event EventHandler? EditarDatosTupla;
-        public event EventHandler? EliminarDatosTupla;
-        public event EventHandler? Salir;
+    public Color ColorFondoTupla {
+        get => layoutVista.BackColor;
+        set => layoutVista.BackColor = value;
+    }
 
-        public void Inicializar() {
-            // Eventos
-            fieldId.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldFecha.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldNombreAlmacen.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldNombreProveedor.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldCantidadProductos.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldMontoTotal.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
+    public event EventHandler? TuplaSeleccionada;
+    public event EventHandler? EditarDatosTupla;
+    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? Salir;
 
-            btnEditar.Click += delegate (object? sender, EventArgs e) {
-                EditarDatosTupla?.Invoke(this, e);
-            };
-            btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(this, e);
-            };
-        }
+    public void Inicializar() {
+        // Eventos
+        fieldId.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldFecha.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNombreAlmacen.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNombreProveedor.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldCantidadProductos.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldMontoTotal.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
-        public void Mostrar() {
-            VerificarPermisos();
-            BringToFront();
-            Show();
-        }
+        btnEditar.Click += delegate(object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
+        btnEliminar.Click += delegate(object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
+    }
 
-        private void VerificarPermisos() {
-            btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_EDITAR")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_TODOS")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
-            btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_ELIMINAR")
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_TODOS")
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
-        }
+    public void Mostrar() {
+        VerificarPermisos();
+        BringToFront();
+        Show();
+    }
 
-        public void Restaurar() {
-            ColorFondoTupla = BackColor;
-        }
+    public void Restaurar() {
+        ColorFondoTupla = BackColor;
+    }
 
-        public void Ocultar() {
-            Hide();
-        }
+    public void Ocultar() {
+        Hide();
+    }
 
-        public void Cerrar() {
-            Dispose();
-        }
+    public void Cerrar() {
+        Dispose();
+    }
+
+    private void VerificarPermisos() {
+        btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
+                                "MOD_COMPRAVENTA_COMPRA_EDITAR")
+                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA_TODOS")
+                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
+        btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                              || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
+                                  "MOD_COMPRAVENTA_COMPRA_ELIMINAR")
+                              || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
+                                  "MOD_COMPRAVENTA_COMPRA_TODOS")
+                              || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
     }
 }

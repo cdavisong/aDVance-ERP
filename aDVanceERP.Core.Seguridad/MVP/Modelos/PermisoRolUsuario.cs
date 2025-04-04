@@ -1,23 +1,23 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Modelos {
-    public class PermisoRolUsuario : IObjetoUnico {
-        public PermisoRolUsuario() {
-        }
+namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-        public PermisoRolUsuario(long id, long idRolUsuario, long idPermiso) {
-            Id = id;
-            IdRolUsuario = idRolUsuario;
-            IdPermiso = idPermiso;
-        }
+public class PermisoRolUsuario : IObjetoUnico {
+    public PermisoRolUsuario() { }
 
-        public long Id { get; set; }
-        public long IdRolUsuario { get; }
-        public long IdPermiso { get; }
+    public PermisoRolUsuario(long id, long idRolUsuario, long idPermiso) {
+        Id = id;
+        IdRolUsuario = idRolUsuario;
+        IdPermiso = idPermiso;
     }
 
-    public enum CriterioBusquedaPermisoRolUsuario {
-        Todos,
-        Id
-    }
+    public long IdRolUsuario { get; }
+    public long IdPermiso { get; }
+
+    public long Id { get; set; }
+}
+
+public enum CriterioBusquedaPermisoRolUsuario {
+    Todos,
+    Id
 }

@@ -9,47 +9,51 @@ using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Finanzas;
 using aDVanceERP.Modulos.Inventario;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
-    public partial class PresentadorPrincipal {
-        public PresentadorPrincipal() {
-            Vista = new VistaPrincipal();
+namespace aDVanceERP.Desktop.MVP.Presentadores.Principal; 
 
-            // Eventos
-            //Vista.SubMenuUsuario += MostrarSubMenuUsuario;
-            Vista.Salir += DisponerModulos;
+public partial class PresentadorPrincipal {
+    public PresentadorPrincipal() {
+        Vista = new VistaPrincipal();
 
-            #region Contenedores
+        // Eventos
+        //Vista.SubMenuUsuario += MostrarSubMenuUsuario;
+        Vista.Salir += DisponerModulos;
 
-            InicializarVistaContenedorSeguridad();
-            InicializarVistaContenedorModulos();
+        #region Contenedores
 
-            #endregion
+        InicializarVistaContenedorSeguridad();
+        InicializarVistaContenedorModulos();
 
-            #region Seguridad de los módulos en la aplicación
+        #endregion
 
-            InicializarPermisosModulos();
+        #region Seguridad de los módulos en la aplicación
 
-            #endregion
+        InicializarPermisosModulos();
 
-            // Otros
-            MostrarVistaContenedorSeguridad(this, EventArgs.Empty);
+        #endregion
+
+        // Otros
+        MostrarVistaContenedorSeguridad(this, EventArgs.Empty);
+    }
+
+    public IVistaPrincipal Vista { get; }
+
+    private void InicializarPermisosModulos() {
+        try {
+            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloContactos.Nombre,
+                ModuloContactos.Permisos);
+            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloFinanzas.Nombre, ModuloFinanzas.Permisos);
+            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloInventario.Nombre,
+                ModuloInventario.Permisos);
+            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloCompraventa.Nombre,
+                ModuloCompraventa.Permisos);
         }
-
-        public IVistaPrincipal Vista { get; }
-
-        private void InicializarPermisosModulos() {
-            try {
-                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloContactos.Nombre, ModuloContactos.Permisos);
-                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloFinanzas.Nombre, ModuloFinanzas.Permisos);
-                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloInventario.Nombre, ModuloInventario.Permisos);
-                UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloCompraventa.Nombre, ModuloCompraventa.Permisos);
-            } catch (ExcepcionConexionServidorMySQL e) {
-                CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
-            }            
+        catch (ExcepcionConexionServidorMySQL e) {
+            CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
         }
+    }
 
-        private void DisponerModulos(object? sender, EventArgs e) {
-            _contenedorModulos?.Vista.Vistas?.Cerrar(true);
-        }
+    private void DisponerModulos(object? sender, EventArgs e) {
+        _contenedorModulos?.Vista.Vistas?.Cerrar(true);
     }
 }

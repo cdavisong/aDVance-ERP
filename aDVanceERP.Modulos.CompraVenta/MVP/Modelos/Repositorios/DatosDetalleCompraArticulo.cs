@@ -3,9 +3,10 @@ using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosDetalleCompraArticulo : RepositorioDatosBase<DetalleCompraArticulo, CriterioDetalleCompraArticulo>, IRepositorioDetalleCompraArticulo {
+public class DatosDetalleCompraArticulo : RepositorioDatosBase<DetalleCompraArticulo, CriterioDetalleCompraArticulo>,
+    IRepositorioDetalleCompraArticulo {
     public override string ComandoCantidad() {
         return """
                SELECT COUNT(id_detalle_compra_articulo)
@@ -94,11 +95,11 @@ public class DatosDetalleCompraArticulo : RepositorioDatosBase<DetalleCompraArti
 
     public override DetalleCompraArticulo ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
         return new DetalleCompraArticulo(
-            id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_compra_articulo")),
-            idCompra: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
-            idArticulo: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_articulo")),
-            cantidad: lectorDatos.GetInt32(lectorDatos.GetOrdinal("cantidad")),
-            precioCompra: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra"))
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_compra_articulo")),
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_articulo")),
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("cantidad")),
+            lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra"))
         );
     }
 

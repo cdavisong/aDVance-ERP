@@ -4,28 +4,28 @@ using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
-    public class PresentadorRegistroCuentaUsuario : PresentadorRegistroBase<IVistaRegistroCuentaUsuario, CuentaUsuario, DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
-        public PresentadorRegistroCuentaUsuario(IVistaRegistroCuentaUsuario vista) : base(vista) {
-        }
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
-        public override void PopularVistaDesdeObjeto(CuentaUsuario objeto) {
-            Vista.NombreUsuario = objeto.Nombre;
-            Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
-            Vista.ModoEdicionDatos = true;
+public class PresentadorRegistroCuentaUsuario : PresentadorRegistroBase<IVistaRegistroCuentaUsuario, CuentaUsuario,
+    DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
+    public PresentadorRegistroCuentaUsuario(IVistaRegistroCuentaUsuario vista) : base(vista) { }
 
-            Objeto = objeto;
-        }
+    public override void PopularVistaDesdeObjeto(CuentaUsuario objeto) {
+        Vista.NombreUsuario = objeto.Nombre;
+        Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
+        Vista.ModoEdicionDatos = true;
 
-        protected override async Task<CuentaUsuario?> ObtenerObjetoDesdeVista() {
-            var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
+        Objeto = objeto;
+    }
 
-            return new CuentaUsuario(Objeto?.Id ?? 0,
-                nombre: Vista.NombreUsuario,
-                passwordHash: passwordSeguro.hash,
-                passwordSalt: passwordSeguro.salt,
-                idRolUsuario: await UtilesRolUsuario.ObtenerIdRolUsuario(Vista.NombreRolUsuario)
-                );
-        }
+    protected override async Task<CuentaUsuario?> ObtenerObjetoDesdeVista() {
+        var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
+
+        return new CuentaUsuario(Objeto?.Id ?? 0,
+            Vista.NombreUsuario,
+            passwordSeguro.hash,
+            passwordSeguro.salt,
+            await UtilesRolUsuario.ObtenerIdRolUsuario(Vista.NombreRolUsuario)
+        );
     }
 }

@@ -1,140 +1,122 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
-    public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
-        public VistaTuplaVenta() {
-            InitializeComponent();
-            Inicializar();
-        }
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta; 
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
+    public VistaTuplaVenta() {
+        InitializeComponent();
+        Inicializar();
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public string Id {
-            get => fieldId.Text;
-            set => fieldId.Text = value;
-        }
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public string Fecha {
-            get => fieldFecha.Text;
-            set => fieldFecha.Text = value;
-        }
+    public string Id {
+        get => fieldId.Text;
+        set => fieldId.Text = value;
+    }
 
-        public string NombreAlmacen {
-            get => fieldNombreAlmacen.Text;
-            set => fieldNombreAlmacen.Text = value;
-        }
+    public string Fecha {
+        get => fieldFecha.Text;
+        set => fieldFecha.Text = value;
+    }
 
-        public string NombreCliente {
-            get => fieldNombreCliente.Text;
-            set => fieldNombreCliente.Text = value;
-        }
+    public string NombreAlmacen {
+        get => fieldNombreAlmacen.Text;
+        set => fieldNombreAlmacen.Text = value;
+    }
 
-        public string CantidadProductos {
-            get => fieldCantidadProductos.Text;
-            set => fieldCantidadProductos.Text = value;
-        }
+    public string NombreCliente {
+        get => fieldNombreCliente.Text;
+        set => fieldNombreCliente.Text = value;
+    }
 
-        public string MontoTotal {
-            get => fieldMontoTotal.Text;
-            set => fieldMontoTotal.Text = value;
-        }
+    public string CantidadProductos {
+        get => fieldCantidadProductos.Text;
+        set => fieldCantidadProductos.Text = value;
+    }
 
-        public string EstadoEntrega {
-            get => fieldEstadoEntrega.Text;
-            set => fieldEstadoEntrega.Text = value;
-        }
+    public string MontoTotal {
+        get => fieldMontoTotal.Text;
+        set => fieldMontoTotal.Text = value;
+    }
 
-        public string EstadoPago {
-            get => fieldEstadoPago.Text;
-            set => fieldEstadoPago.Text = value;
-        }
+    public string EstadoEntrega {
+        get => fieldEstadoEntrega.Text;
+        set => fieldEstadoEntrega.Text = value;
+    }
 
-        public Color ColorFondoTupla {
-            get => layoutVista.BackColor;
-            set => layoutVista.BackColor = value;
-        }
+    public string EstadoPago {
+        get => fieldEstadoPago.Text;
+        set => fieldEstadoPago.Text = value;
+    }
 
-        public event EventHandler? TuplaSeleccionada;
-        public event EventHandler? EditarDatosTupla;
-        public event EventHandler? EliminarDatosTupla;
-        public event EventHandler? Salir;
+    public Color ColorFondoTupla {
+        get => layoutVista.BackColor;
+        set => layoutVista.BackColor = value;
+    }
 
-        public void Inicializar() {
-            // Eventos
-            fieldId.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldFecha.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldNombreAlmacen.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldNombreCliente.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldCantidadProductos.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldMontoTotal.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldEstadoEntrega.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldEstadoPago.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
+    public event EventHandler? TuplaSeleccionada;
+    public event EventHandler? EditarDatosTupla;
+    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? Salir;
 
-            btnEditar.Click += delegate (object? sender, EventArgs e) {
-                EditarDatosTupla?.Invoke(this, e);
-            };
-            btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(this, e);
-            };
-        }
+    public void Inicializar() {
+        // Eventos
+        fieldId.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldFecha.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNombreAlmacen.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNombreCliente.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldCantidadProductos.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldMontoTotal.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldEstadoEntrega.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldEstadoPago.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
-        public void Mostrar() {
-            VerificarPermisos();
-            BringToFront();
-            Show();
-        }
+        btnEditar.Click += delegate(object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
+        btnEliminar.Click += delegate(object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
+    }
 
-        private void VerificarPermisos() {
-            btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_EDITAR")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_TODOS")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
-            btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_ELIMINAR")
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_TODOS")
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
-        }
+    public void Mostrar() {
+        VerificarPermisos();
+        BringToFront();
+        Show();
+    }
 
-        public void Restaurar() {
-            ColorFondoTupla = BackColor;
-        }
+    public void Restaurar() {
+        ColorFondoTupla = BackColor;
+    }
 
-        public void Ocultar() {
-            Hide();
-        }
+    public void Ocultar() {
+        Hide();
+    }
 
-        public void Cerrar() {
-            Dispose();
-        }
+    public void Cerrar() {
+        Dispose();
+    }
+
+    private void VerificarPermisos() {
+        btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_EDITAR")
+                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_VENTA_TODOS")
+                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
+        btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                              || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
+                                  "MOD_COMPRAVENTA_VENTA_ELIMINAR")
+                              || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
+                                  "MOD_COMPRAVENTA_VENTA_TODOS")
+                              || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
     }
 }

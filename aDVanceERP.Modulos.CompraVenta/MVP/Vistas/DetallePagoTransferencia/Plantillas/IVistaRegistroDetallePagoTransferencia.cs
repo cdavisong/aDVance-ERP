@@ -1,14 +1,14 @@
 ﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia.Plantillas {
-    public interface IVistaRegistroDetallePagoTransferencia : IVistaRegistro {
-        string Alias { get; set; }
-        string NumeroConfirmacion { get; set; }
-        string NumeroTransaccion { get; set; }
-        bool RecordarNumeroConfirmacion { set; }
-        Image? QR { get; set; }
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia.Plantillas; 
 
-        void CargarAliasTarjetas(string[] aliasTarjetas);
-        void CargarCodigoQR(string datos);
-    }
+public interface IVistaRegistroDetallePagoTransferencia : IVistaRegistro {
+    string Alias { get; set; }
+    string NumeroConfirmacion { get; set; }
+    string NumeroTransaccion { get; set; }
+    bool RecordarNumeroConfirmacion { set; }
+    Image? QR { get; set; }
+
+    void CargarAliasTarjetas(string[] aliasTarjetas);
+    void CargarCodigoQR(string datos);
 }

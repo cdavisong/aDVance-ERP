@@ -1,10 +1,10 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 
-namespace aDVanceERP.Core.MVP.Vistas.Plantillas {
-    public interface IVistaContenedor : IVista {
-        int AlturaContenedorVistas { get; }
-        int TuplasMaximasContenedor { get; }
+namespace aDVanceERP.Core.MVP.Vistas.Plantillas; 
 
-        IRepositorioVista? Vistas { get; }
-    }
+public interface IVistaContenedor : IVista {
+    int AlturaContenedorVistas { get; }
+    int TuplasMaximasContenedor { get; }
+
+    IRepositorioVista? Vistas { get; }
 }

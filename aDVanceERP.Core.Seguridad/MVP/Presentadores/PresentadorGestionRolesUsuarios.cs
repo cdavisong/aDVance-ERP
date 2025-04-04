@@ -5,22 +5,22 @@ using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
-    public class PresentadorGestionRolesUsuarios : PresentadorGestionBase<PresentadorTuplaRolUsuario, IVistaGestionRolesUsuarios, IVistaTuplaRolUsuario, RolUsuario, DatosRolUsuario, CriterioBusquedaRolUsuario> {
-        public PresentadorGestionRolesUsuarios(IVistaGestionRolesUsuarios vista) : base(vista) {
-        }
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
-        protected override PresentadorTuplaRolUsuario ObtenerValoresTupla(RolUsuario objeto) {
-            var presentadorTupla = new PresentadorTuplaRolUsuario(new VistaTuplaRolUsuario(), objeto);
+public class PresentadorGestionRolesUsuarios : PresentadorGestionBase<PresentadorTuplaRolUsuario,
+    IVistaGestionRolesUsuarios, IVistaTuplaRolUsuario, RolUsuario, DatosRolUsuario, CriterioBusquedaRolUsuario> {
+    public PresentadorGestionRolesUsuarios(IVistaGestionRolesUsuarios vista) : base(vista) { }
 
-            presentadorTupla.Vista.Id = objeto.Id.ToString();
-            presentadorTupla.Vista.NombreRolUsuario = objeto.Nombre;
-            presentadorTupla.Vista.CantidadPermisos = (objeto.Nombre?.Equals("Administrador") ?? false)
-                ? UtilesPermiso.ObtenerTotalPermisos().ToString()
-                : UtilesRolUsuario.CantidadPermisosRol(objeto.Id).ToString();
-            presentadorTupla.Vista.CantidadUsuarios = UtilesRolUsuario.CantidadUsuariosNombreRol(objeto.Nombre).ToString();
+    protected override PresentadorTuplaRolUsuario ObtenerValoresTupla(RolUsuario objeto) {
+        var presentadorTupla = new PresentadorTuplaRolUsuario(new VistaTuplaRolUsuario(), objeto);
 
-            return presentadorTupla;
-        }
+        presentadorTupla.Vista.Id = objeto.Id.ToString();
+        presentadorTupla.Vista.NombreRolUsuario = objeto.Nombre;
+        presentadorTupla.Vista.CantidadPermisos = objeto.Nombre?.Equals("Administrador") ?? false
+            ? UtilesPermiso.ObtenerTotalPermisos().ToString()
+            : UtilesRolUsuario.CantidadPermisosRol(objeto.Id).ToString();
+        presentadorTupla.Vista.CantidadUsuarios = UtilesRolUsuario.CantidadUsuariosNombreRol(objeto.Nombre).ToString();
+
+        return presentadorTupla;
     }
 }

@@ -2,31 +2,31 @@
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
-    public partial class PresentadorContenedorSeguridad {
-        private PresentadorAprobacionUsuario _aprobacionUsuario;
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad; 
 
-        public event EventHandler? UsuarioAutenticado;
+public partial class PresentadorContenedorSeguridad {
+    private PresentadorAprobacionUsuario _aprobacionUsuario;
 
-        private void InicializarVistaAprobacionUsuario() {
-            _aprobacionUsuario = new PresentadorAprobacionUsuario(new VistaAprobacionUsuario());
-            _aprobacionUsuario.Vista.CambiarDeUsuario += MostrarVistaAutenticacionUsuario;
+    public event EventHandler? UsuarioAutenticado;
 
-            Vista.Vistas?.Registrar("vistaAprobacionUsuario", _aprobacionUsuario.Vista);
-        }
+    private void InicializarVistaAprobacionUsuario() {
+        _aprobacionUsuario = new PresentadorAprobacionUsuario(new VistaAprobacionUsuario());
+        _aprobacionUsuario.Vista.CambiarDeUsuario += MostrarVistaAutenticacionUsuario;
 
-        private void MostrarVistaAprobacionUsuario(object? sender, EventArgs e) {
-            _aprobacionUsuario.Vista.Mostrar();
-        }
+        Vista.Vistas?.Registrar("vistaAprobacionUsuario", _aprobacionUsuario.Vista);
+    }
 
-        private void VerificarAprobacionUsuario(object? sender, EventArgs e) {
-            if (UtilesCuentaUsuario.UsuarioAutenticado == null)
-                return;
+    private void MostrarVistaAprobacionUsuario(object? sender, EventArgs e) {
+        _aprobacionUsuario.Vista.Mostrar();
+    }
 
-            if (UtilesCuentaUsuario.UsuarioAutenticado != null && UtilesCuentaUsuario.UsuarioAutenticado.Aprobado)
-                UsuarioAutenticado?.Invoke(sender, e);
+    private void VerificarAprobacionUsuario(object? sender, EventArgs e) {
+        if (UtilesCuentaUsuario.UsuarioAutenticado == null)
+            return;
 
-            else MostrarVistaAprobacionUsuario(sender, e);
-        }
+        if (UtilesCuentaUsuario.UsuarioAutenticado != null && UtilesCuentaUsuario.UsuarioAutenticado.Aprobado)
+            UsuarioAutenticado?.Invoke(sender, e);
+
+        else MostrarVistaAprobacionUsuario(sender, e);
     }
 }

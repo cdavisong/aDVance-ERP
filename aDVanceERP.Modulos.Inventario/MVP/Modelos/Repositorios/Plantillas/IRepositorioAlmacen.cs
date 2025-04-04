@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas {
-    public interface IRepositorioAlmacen : IRepositorioDatos<Almacen, CriterioBusquedaAlmacen> { }
-}
+namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas; 
+
+public interface IRepositorioAlmacen : IRepositorioDatos<Almacen, CriterioBusquedaAlmacen> { }

@@ -4,11 +4,12 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegistroMensajero, Mensajero, DatosMensajero, CriterioBusquedaMensajero> {
+public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegistroMensajero, Mensajero, DatosMensajero,
+    CriterioBusquedaMensajero> {
     public PresentadorRegistroMensajero(IVistaRegistroMensajero vista) : base(vista) { }
-    
+
     public override void PopularVistaDesdeObjeto(Mensajero objeto) {
         Vista.Nombre = objeto.Nombre;
         Vista.NombreContacto = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
@@ -19,9 +20,9 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
 
     protected override async Task<Mensajero?> ObtenerObjetoDesdeVista() {
         return new Mensajero(Objeto?.Id ?? 0,
-                nombre: Vista.Nombre,
-                activo: true,
-                idContacto: await UtilesContacto.ObtenerIdContacto(Vista.NombreContacto)
-            );
+            Vista.Nombre,
+            true,
+            await UtilesContacto.ObtenerIdContacto(Vista.NombreContacto)
+        );
     }
 }

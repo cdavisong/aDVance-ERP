@@ -3,102 +3,98 @@ using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Core.MVP.Presentadores {
-    public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>, IDisposable
-        where Vr : class, IVistaRegistro
-        where Do : class, IRepositorioDatos<O, C>, new()
-        where O : class, IObjetoUnico, new()
-        where C : Enum {
-        private bool _disposed = false; // Para evitar llamadas redundantes a Dispose
+namespace aDVanceERP.Core.MVP.Presentadores; 
 
-        protected PresentadorRegistroBase(Vr vista) : base(vista) {
-            Vista.RegistrarDatos += RegistrarDatosObjeto;
-            Vista.EditarDatos += EditarDatosObjeto;
-            Vista.Salir += OnSalir;
-        }
+public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>,
+    IDisposable
+    where Vr : class, IVistaRegistro
+    where Do : class, IRepositorioDatos<O, C>, new()
+    where O : class, IObjetoUnico, new()
+    where C : Enum {
+    private bool _disposed; // Para evitar llamadas redundantes a Dispose
 
-        protected O? Objeto { get; set; } // Objeto que se va a registrar o editar
+    protected PresentadorRegistroBase(Vr vista) : base(vista) {
+        Vista.RegistrarDatos += RegistrarDatosObjeto;
+        Vista.EditarDatos += EditarDatosObjeto;
+        Vista.Salir += OnSalir;
+    }
 
-        public Do DatosObjeto {
-            get => new();
-        }
+    protected O? Objeto { get; set; } // Objeto que se va a registrar o editar
 
-        public event EventHandler? DatosRegistradosActualizados;
-        public event EventHandler? Salir;
+    // Implementación de IDisposable
+    public void Dispose() {
+        Dispose(true);
+        GC.SuppressFinalize(this); // Evitar que el GC llame al finalizador
+    }
 
-        public abstract void PopularVistaDesdeObjeto(O objeto);
+    public Do DatosObjeto {
+        get => new();
+    }
 
-        protected abstract Task<O?> ObtenerObjetoDesdeVista();
+    public event EventHandler? DatosRegistradosActualizados;
+    public event EventHandler? Salir;
 
-        protected virtual bool RegistroEdicionDatosAutorizado() {
-            return true;
-        }
+    public abstract void PopularVistaDesdeObjeto(O objeto);
 
-        protected virtual void RegistroAuxiliar() { }
+    protected abstract Task<O?> ObtenerObjetoDesdeVista();
 
-        protected virtual void RegistrarDatosObjeto(object? sender, EventArgs e) {
-            _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
-        }
+    protected virtual bool RegistroEdicionDatosAutorizado() {
+        return true;
+    }
 
-        protected virtual void EditarDatosObjeto(object? sender, EventArgs e) {
-            _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
-        }
+    protected virtual void RegistroAuxiliar() { }
 
-        private async Task RegistrarEditarObjetoAsync(object? sender, EventArgs e) {
-            if (!RegistroEdicionDatosAutorizado())
-                return;
+    protected virtual void RegistrarDatosObjeto(object? sender, EventArgs e) {
+        _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
+    }
 
-            Objeto = await ObtenerObjetoDesdeVista();
+    protected virtual void EditarDatosObjeto(object? sender, EventArgs e) {
+        _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
+    }
 
-            if (Objeto == null)
-                return;
+    private async Task RegistrarEditarObjetoAsync(object? sender, EventArgs e) {
+        if (!RegistroEdicionDatosAutorizado())
+            return;
 
-            if (Vista.ModoEdicionDatos && Objeto.Id != 0) {
-                await DatosObjeto.EditarAsync(Objeto);
-            } else if (Objeto.Id != 0) {
-                await DatosObjeto.EditarAsync(Objeto);
-            } else {
-                Objeto.Id = await DatosObjeto.AdicionarAsync(Objeto);
-            }
+        Objeto = await ObtenerObjetoDesdeVista();
 
-            RegistroAuxiliar();
+        if (Objeto == null)
+            return;
 
-            DatosRegistradosActualizados?.Invoke(sender, e);
-            Salir?.Invoke(sender, e);
-            Vista.Cerrar();
-        }
+        if (Vista.ModoEdicionDatos && Objeto.Id != 0)
+            await DatosObjeto.EditarAsync(Objeto);
+        else if (Objeto.Id != 0)
+            await DatosObjeto.EditarAsync(Objeto);
+        else
+            Objeto.Id = await DatosObjeto.AdicionarAsync(Objeto);
 
-        private void OnSalir(object? sender, EventArgs e) {
-            Salir?.Invoke(sender, e);
-            Vista.Cerrar();
-        }
+        RegistroAuxiliar();
 
-        // Implementación de IDisposable
-        public void Dispose() {
-            Dispose(true);
-            GC.SuppressFinalize(this); // Evitar que el GC llame al finalizador
-        }
+        DatosRegistradosActualizados?.Invoke(sender, e);
+        Salir?.Invoke(sender, e);
+        Vista.Cerrar();
+    }
 
-        protected virtual void Dispose(bool disposing) {
-            if (_disposed) 
-                return;
+    private void OnSalir(object? sender, EventArgs e) {
+        Salir?.Invoke(sender, e);
+        Vista.Cerrar();
+    }
 
-            if (disposing) {
-                // Liberar recursos administrados
-                if (Vista is IDisposable disposableVista) {
-                    disposableVista.Dispose();
-                }
+    protected virtual void Dispose(bool disposing) {
+        if (_disposed)
+            return;
 
-                // Liberar otros recursos administrados si es necesario
-            }
+        if (disposing)
+            // Liberar recursos administrados
+            if (Vista is IDisposable disposableVista)
+                disposableVista.Dispose();
+        // Liberar otros recursos administrados si es necesario
+        // Liberar recursos no administrados si es necesario
 
-            // Liberar recursos no administrados si es necesario
+        _disposed = true;
+    }
 
-            _disposed = true;
-        }
-
-        ~PresentadorRegistroBase() {
-            Dispose(false);
-        }
+    ~PresentadorRegistroBase() {
+        Dispose(false);
     }
 }

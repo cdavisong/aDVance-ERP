@@ -1,22 +1,22 @@
 ﻿using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad {
-    public partial class PresentadorContenedorSeguridad {
-        private PresentadorRegistroUsuario? _registroUsuario;
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad; 
 
-        private void InicializarVistaRegistroUsuario() {
-            _registroUsuario = new PresentadorRegistroUsuario(new VistaRegistroUsuario());
-            _registroUsuario.MostrarVistaAutenticacionUsuario += MostrarVistaAutenticacionUsuario;
-            _registroUsuario.UsuarioRegistrado += MostrarVistaAutenticacionUsuario;
-            _registroUsuario.DatosRegistradosActualizados += MostrarVistaAprobacionUsuario;
+public partial class PresentadorContenedorSeguridad {
+    private PresentadorRegistroUsuario? _registroUsuario;
 
-            Vista.Vistas?.Registrar("vistaRegistroUsuario", _registroUsuario.Vista);
-        }
+    private void InicializarVistaRegistroUsuario() {
+        _registroUsuario = new PresentadorRegistroUsuario(new VistaRegistroUsuario());
+        _registroUsuario.MostrarVistaAutenticacionUsuario += MostrarVistaAutenticacionUsuario;
+        _registroUsuario.UsuarioRegistrado += MostrarVistaAutenticacionUsuario;
+        _registroUsuario.DatosRegistradosActualizados += MostrarVistaAprobacionUsuario;
 
-        private void MostrarVistaRegistroUsuario(object? sender, EventArgs e) {
-            _registroUsuario?.Vista.Restaurar();
-            _registroUsuario?.Vista.Mostrar();
-        }
+        Vista.Vistas?.Registrar("vistaRegistroUsuario", _registroUsuario.Vista);
+    }
+
+    private void MostrarVistaRegistroUsuario(object? sender, EventArgs e) {
+        _registroUsuario?.Vista.Restaurar();
+        _registroUsuario?.Vista.Mostrar();
     }
 }

@@ -1,109 +1,103 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
-    public partial class VistaTuplaProveedor : Form, IVistaTuplaProveedor {
-        public VistaTuplaProveedor() {
-            InitializeComponent();
-            Inicializar();
-        }
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor; 
 
-        public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
-        }
+public partial class VistaTuplaProveedor : Form, IVistaTuplaProveedor {
+    public VistaTuplaProveedor() {
+        InitializeComponent();
+        Inicializar();
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public bool Habilitada {
+        get => Enabled;
+        set => Enabled = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public string Id {
-            get => fieldId.Text;
-            set => fieldId.Text = value;
-        }
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public string NumeroIdentificacionTributaria {
-            get => fieldNumeroIdentificacionTributaria.Text;
-            set => fieldNumeroIdentificacionTributaria.Text = value;
-        }
+    public string Id {
+        get => fieldId.Text;
+        set => fieldId.Text = value;
+    }
 
-        public string RazonSocial {
-            get => fieldRazonSocial.Text;
-            set => fieldRazonSocial.Text = value;
-        }
+    public string NumeroIdentificacionTributaria {
+        get => fieldNumeroIdentificacionTributaria.Text;
+        set => fieldNumeroIdentificacionTributaria.Text = value;
+    }
 
-        public string NombreRepresentante {
-            get => fieldNombreRepresentante.Text;
-            set => fieldNombreRepresentante.Text = value;
-        }
+    public string RazonSocial {
+        get => fieldRazonSocial.Text;
+        set => fieldRazonSocial.Text = value;
+    }
 
-        public Color ColorFondoTupla {
-            get => layoutVista.BackColor;
-            set => layoutVista.BackColor = value;
-        }
+    public string NombreRepresentante {
+        get => fieldNombreRepresentante.Text;
+        set => fieldNombreRepresentante.Text = value;
+    }
+
+    public Color ColorFondoTupla {
+        get => layoutVista.BackColor;
+        set => layoutVista.BackColor = value;
+    }
 
 
-        public event EventHandler? TuplaSeleccionada;
-        public event EventHandler? EditarDatosTupla;
-        public event EventHandler? EliminarDatosTupla;
-        public event EventHandler? Salir;
+    public event EventHandler? TuplaSeleccionada;
+    public event EventHandler? EditarDatosTupla;
+    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? Salir;
 
-        public void Inicializar() {
-            // Eventos
-            fieldId.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldNumeroIdentificacionTributaria.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldRazonSocial.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldNombreRepresentante.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
+    public void Inicializar() {
+        // Eventos
+        fieldId.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNumeroIdentificacionTributaria.Click += delegate(object? sender, EventArgs e) {
+            TuplaSeleccionada?.Invoke(this, e);
+        };
+        fieldRazonSocial.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNombreRepresentante.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
-            btnEditar.Click += delegate (object? sender, EventArgs e) {
-                EditarDatosTupla?.Invoke(this, e);
-            };
-            btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(this, e);
-            };
-        }
+        btnEditar.Click += delegate(object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
+        btnEliminar.Click += delegate(object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
+    }
 
-        public void Mostrar() {
-            VerificarPermisos();
-            BringToFront();
-            Show();
-        }
+    public void Mostrar() {
+        VerificarPermisos();
+        BringToFront();
+        Show();
+    }
 
-        private void VerificarPermisos() {
-            btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_PROVEEDORES_EDITAR")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_PROVEEDORES_TODOS")
-                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
-            btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_PROVEEDORES_ELIMINAR")
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_PROVEEDORES_TODOS")
-               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
-        }
+    public void Restaurar() {
+        ColorFondoTupla = BackColor;
+    }
 
-        public void Restaurar() {
-            ColorFondoTupla = BackColor;
-        }
+    public void Ocultar() {
+        Hide();
+    }
 
-        public void Ocultar() {
-            Hide();
-        }
+    public void Cerrar() {
+        Dispose();
+    }
 
-        public void Cerrar() {
-            Dispose();
-        }
+    private void VerificarPermisos() {
+        btnEditar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
+                                "MOD_CONTACTO_PROVEEDORES_EDITAR")
+                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
+                                "MOD_CONTACTO_PROVEEDORES_TODOS")
+                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
+        btnEliminar.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                              || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
+                                  "MOD_CONTACTO_PROVEEDORES_ELIMINAR")
+                              || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
+                                  "MOD_CONTACTO_PROVEEDORES_TODOS")
+                              || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
     }
 }

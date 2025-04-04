@@ -5,28 +5,26 @@ using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
-    public class PresentadorRegistroRolUsuario : PresentadorRegistroBase<IVistaRegistroRolUsuario, RolUsuario, DatosRolUsuario, CriterioBusquedaRolUsuario> {
-        public PresentadorRegistroRolUsuario(IVistaRegistroRolUsuario vista) : base(vista) {
-        }
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
-        public override void PopularVistaDesdeObjeto(RolUsuario objeto) {
-            Vista.NombreRolUsuario = objeto.Nombre;
-            Vista.ModoEdicionDatos = true;
+public class PresentadorRegistroRolUsuario : PresentadorRegistroBase<IVistaRegistroRolUsuario, RolUsuario,
+    DatosRolUsuario, CriterioBusquedaRolUsuario> {
+    public PresentadorRegistroRolUsuario(IVistaRegistroRolUsuario vista) : base(vista) { }
 
-            var permisosRoles = UtilesRolUsuario.ObtenerPermisosDeRol(objeto.Id);
+    public override void PopularVistaDesdeObjeto(RolUsuario objeto) {
+        Vista.NombreRolUsuario = objeto.Nombre;
+        Vista.ModoEdicionDatos = true;
 
-            foreach (var permisoRol in permisosRoles) {
-                ((IVistaGestionPermisos) Vista).AdicionarPermisoRol(permisoRol);
-            }
+        var permisosRoles = UtilesRolUsuario.ObtenerPermisosDeRol(objeto.Id);
 
-            Objeto = objeto;
-        }
+        foreach (var permisoRol in permisosRoles) ((IVistaGestionPermisos)Vista).AdicionarPermisoRol(permisoRol);
 
-        protected override async Task<RolUsuario?> ObtenerObjetoDesdeVista() {
-            return new RolUsuario(Objeto?.Id ?? 0,
-                nombre: Vista.NombreRolUsuario
-                );
-        }
+        Objeto = objeto;
+    }
+
+    protected override async Task<RolUsuario?> ObtenerObjetoDesdeVista() {
+        return new RolUsuario(Objeto?.Id ?? 0,
+            Vista.NombreRolUsuario
+        );
     }
 }

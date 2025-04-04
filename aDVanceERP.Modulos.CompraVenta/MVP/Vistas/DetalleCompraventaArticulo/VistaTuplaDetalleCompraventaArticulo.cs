@@ -1,113 +1,106 @@
 ﻿using System.Globalization;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
-    public partial class VistaTuplaDetalleCompraventaArticulo : Form, IVistaTuplaDetalleCompraventaArticulo {
-        private bool _enabled = true;
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo; 
 
-        public VistaTuplaDetalleCompraventaArticulo() {
-            InitializeComponent();
-            Inicializar();
+public partial class VistaTuplaDetalleCompraventaArticulo : Form, IVistaTuplaDetalleCompraventaArticulo {
+    private bool _enabled = true;
+
+    public VistaTuplaDetalleCompraventaArticulo() {
+        InitializeComponent();
+        Inicializar();
+    }
+
+    public bool Habilitada {
+        get => _enabled;
+        set {
+            _enabled = value;
+            fieldPrecio.ReadOnly = !value;
+            btnEliminar.Enabled = value;
         }
+    }
 
-        public bool Habilitada {
-            get => _enabled;
-            set {
-                _enabled = value;
-                fieldPrecio.ReadOnly = !value;
-                btnEliminar.Enabled = value;
-            }
-        }
+    public Point Coordenadas {
+        get => Location;
+        set => Location = value;
+    }
 
-        public Point Coordenadas {
-            get => Location;
-            set => Location = value;
-        }
+    public Size Dimensiones {
+        get => Size;
+        set => Size = value;
+    }
 
-        public Size Dimensiones {
-            get => Size;
-            set => Size = value;
-        }
+    public string IdArticulo { get; set; }
 
-        public string IdArticulo { get; set; }
+    public string NombreArticulo {
+        get => fieldNombreArticulo.Text;
+        set => fieldNombreArticulo.Text = value;
+    }
 
-        public string NombreArticulo {
-            get => fieldNombreArticulo.Text;
-            set => fieldNombreArticulo.Text = value;
-        }
+    public string Precio {
+        get => fieldPrecio.Text;
+        set => fieldPrecio.Text = value;
+    }
 
-        public string Precio {
-            get => fieldPrecio.Text;
-            set => fieldPrecio.Text = value;
-        }
+    public string Cantidad {
+        get => fieldCantidad.Text;
+        set => fieldCantidad.Text = value;
+    }
 
-        public string Cantidad {
-            get => fieldCantidad.Text;
-            set => fieldCantidad.Text = value;
-        }
+    public Color ColorFondoTupla {
+        get => layoutVista.BackColor;
+        set => layoutVista.BackColor = value;
+    }
 
-        public Color ColorFondoTupla {
-            get => layoutVista.BackColor;
-            set => layoutVista.BackColor = value;
-        }
+    public event EventHandler? MontoModificado;
+    public event EventHandler? TuplaSeleccionada;
+    public event EventHandler? EditarDatosTupla;
+    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? Salir;
 
-        public event EventHandler? MontoModificado;
-        public event EventHandler? TuplaSeleccionada;
-        public event EventHandler? EditarDatosTupla;
-        public event EventHandler? EliminarDatosTupla;
-        public event EventHandler? Salir;
-
-        public void Inicializar() {
-            // Eventos
-            fieldNombreArticulo.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldPrecio.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-            fieldPrecio.LostFocus += delegate {
-                FormatearMontoModificado();
-            };
-            fieldPrecio.KeyDown += delegate (object? sender, KeyEventArgs args) {
-                if (args.KeyCode != Keys.Enter) 
-                    return;
-                
-                FormatearMontoModificado();
-
-                args.SuppressKeyPress = true;
-            };
-            fieldCantidad.Click += delegate (object? sender, EventArgs e) {
-                TuplaSeleccionada?.Invoke(this, e);
-            };
-
-            btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(new[] { IdArticulo, NombreArticulo, Precio, Cantidad }, e);
-            };
-        }
-
-        private void FormatearMontoModificado() {
-            if (!decimal.TryParse(Precio, NumberStyles.Any, CultureInfo.InvariantCulture, out var monto)) 
+    public void Inicializar() {
+        // Eventos
+        fieldNombreArticulo.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldPrecio.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldPrecio.LostFocus += delegate { FormatearMontoModificado(); };
+        fieldPrecio.KeyDown += delegate(object? sender, KeyEventArgs args) {
+            if (args.KeyCode != Keys.Enter)
                 return;
 
-            Precio = monto.ToString("N2", CultureInfo.InvariantCulture);
-            MontoModificado?.Invoke(this, EventArgs.Empty); // Dispara el evento para notificar que se ha modificado el monto
-        }
+            FormatearMontoModificado();
 
-        public void Mostrar() {
-            BringToFront();
-            Show();
-        }
+            args.SuppressKeyPress = true;
+        };
+        fieldCantidad.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
-        public void Restaurar() {
-            ColorFondoTupla = BackColor;
-        }
+        btnEliminar.Click += delegate(object? sender, EventArgs e) {
+            EliminarDatosTupla?.Invoke(new[] { IdArticulo, NombreArticulo, Precio, Cantidad }, e);
+        };
+    }
 
-        public void Ocultar() {
-            Hide();
-        }
+    public void Mostrar() {
+        BringToFront();
+        Show();
+    }
 
-        public void Cerrar() {
-            Dispose();
-        }
+    public void Restaurar() {
+        ColorFondoTupla = BackColor;
+    }
+
+    public void Ocultar() {
+        Hide();
+    }
+
+    public void Cerrar() {
+        Dispose();
+    }
+
+    private void FormatearMontoModificado() {
+        if (!decimal.TryParse(Precio, NumberStyles.Any, CultureInfo.InvariantCulture, out var monto))
+            return;
+
+        Precio = monto.ToString("N2", CultureInfo.InvariantCulture);
+        MontoModificado?.Invoke(this,
+            EventArgs.Empty); // Dispara el evento para notificar que se ha modificado el monto
     }
 }

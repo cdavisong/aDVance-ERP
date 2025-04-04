@@ -1,13 +1,13 @@
 ﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas {
-    public interface IVistaTuplaCuentaBancaria : IVistaTupla {
-        string Id { get; set; }
-        string Alias { get; set; }
-        string NumeroTarjeta { get; set; }
-        string Moneda { get; set; }
-        string NombrePropietario { get; set; }
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas; 
 
-        event EventHandler? MostrarQR;
-    }
+public interface IVistaTuplaCuentaBancaria : IVistaTupla {
+    string Id { get; set; }
+    string Alias { get; set; }
+    string NumeroTarjeta { get; set; }
+    string Moneda { get; set; }
+    string NombrePropietario { get; set; }
+
+    event EventHandler? MostrarQR;
 }

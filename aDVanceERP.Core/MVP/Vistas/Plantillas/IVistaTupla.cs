@@ -1,9 +1,9 @@
-﻿namespace aDVanceERP.Core.MVP.Vistas.Plantillas {
-    public interface IVistaTupla : IVista {
-        Color ColorFondoTupla { get; set; }
+﻿namespace aDVanceERP.Core.MVP.Vistas.Plantillas; 
 
-        event EventHandler? TuplaSeleccionada;
-        event EventHandler? EditarDatosTupla;
-        event EventHandler? EliminarDatosTupla;
-    }
+public interface IVistaTupla : IVista {
+    Color ColorFondoTupla { get; set; }
+
+    event EventHandler? TuplaSeleccionada;
+    event EventHandler? EditarDatosTupla;
+    event EventHandler? EliminarDatosTupla;
 }
