@@ -249,6 +249,24 @@ internal class Program {
             using (var cmd = new MySqlCommand(agregarEstadoFechaConfirmacionTablaPago, conexion)) {
                 cmd.ExecuteNonQuery();
             }
+
+            // Eliminar los usuarios registrados
+            const string eliminarUsuariosRegistrados = @"
+                TRUNCATE TABLE `adv__cuenta_usuario`;
+                ALTER TABLE `adv__cuenta_usuario` AUTO_INCREMENT = 1;";
+
+            using (var cmd = new MySqlCommand(eliminarUsuariosRegistrados, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
+
+            // Eliminar los telefonos de contacto registrados
+            const string eliminarTelefonosRegistrados = @"
+                TRUNCATE TABLE `adv__telefono_contacto`;
+                ALTER TABLE `adv__telefono_contacto` AUTO_INCREMENT = 1;";
+
+            using (var cmd = new MySqlCommand(eliminarTelefonosRegistrados, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 
