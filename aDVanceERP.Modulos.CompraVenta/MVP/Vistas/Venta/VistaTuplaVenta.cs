@@ -1,8 +1,6 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-using System.Globalization;
-
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
     public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
         public VistaTuplaVenta() {
@@ -55,6 +53,16 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             set => fieldMontoTotal.Text = value;
         }
 
+        public string EstadoEntrega {
+            get => fieldEstadoEntrega.Text;
+            set => fieldEstadoEntrega.Text = value;
+        }
+
+        public string EstadoPago {
+            get => fieldEstadoPago.Text;
+            set => fieldEstadoPago.Text = value;
+        }
+
         public Color ColorFondoTupla {
             get => layoutVista.BackColor;
             set => layoutVista.BackColor = value;
@@ -83,6 +91,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
                 TuplaSeleccionada?.Invoke(this, e);
             };
             fieldMontoTotal.Click += delegate (object? sender, EventArgs e) {
+                TuplaSeleccionada?.Invoke(this, e);
+            };
+            fieldEstadoEntrega.Click += delegate (object? sender, EventArgs e) {
+                TuplaSeleccionada?.Invoke(this, e);
+            };
+            fieldEstadoPago.Click += delegate (object? sender, EventArgs e) {
                 TuplaSeleccionada?.Invoke(this, e);
             };
 

@@ -10,12 +10,16 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
             IdVenta = idVenta;
             MetodoPago = metodoPago;
             Monto = monto;
+            FechaConfirmacion = DateTime.Now;
+            Estado = "Pendiente";
         }
 
         public long Id { get; set; }
         public long IdVenta { get; set; }
         public string? MetodoPago { get; set; }
         public decimal Monto { get; set; }
+        public DateTime FechaConfirmacion { get; set; }
+        public string? Estado { get; set; }
     }
 
     public enum CriterioBusquedaPago {

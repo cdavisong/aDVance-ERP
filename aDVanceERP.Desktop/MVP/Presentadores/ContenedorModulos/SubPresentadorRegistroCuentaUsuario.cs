@@ -6,7 +6,7 @@ using aDVanceERP.Desktop.Utiles;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorRegistroCuentaUsuario _registroCuentaUsuario;
+        private PresentadorRegistroCuentaUsuario? _registroCuentaUsuario;
 
         private async Task InicializarVistaRegistroCuentaUsuario() {
             _registroCuentaUsuario = new PresentadorRegistroCuentaUsuario(new VistaRegistroCuentaUsuario());
@@ -14,10 +14,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroCuentaUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width); ;
             _registroCuentaUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroCuentaUsuario.Salir += async (sender, e) => {
-                if (_gestionCuentasUsuarios != null) {
-                    _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
-                    await _gestionCuentasUsuarios.RefrescarListaObjetos();
-                }
+                _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
+                await _gestionCuentasUsuarios.RefrescarListaObjetos();
             };
         }
 

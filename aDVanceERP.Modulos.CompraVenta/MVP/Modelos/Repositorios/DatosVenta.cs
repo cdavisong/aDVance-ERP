@@ -12,11 +12,40 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Venta objeto) {
-            return $"INSERT INTO adv__venta (fecha, id_almacen, id_cliente, total) VALUES ('{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', {objeto.IdAlmacen}, {objeto.IdCliente}, {objeto.Total.ToString(CultureInfo.InvariantCulture)});";
+            return $"""
+                    INSERT INTO adv__venta (
+                        fecha, 
+                        id_almacen, 
+                        id_cliente, 
+                        id_tipo_entrega, 
+                        direccion_entrega, 
+                        estado_entrega, 
+                        total
+                    ) 
+                    VALUES (
+                        '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', 
+                        {objeto.IdAlmacen}, 
+                        {objeto.IdCliente}, 
+                        {objeto.IdTipoEntrega}, 
+                        '{objeto.DireccionEntrega}', 
+                        '{objeto.EstadoEntrega}', 
+                        {objeto.Total.ToString(CultureInfo.InvariantCulture)});
+                    """;
         }
 
         public override string ComandoEditar(Venta objeto) {
-            return $"UPDATE adv__venta SET fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', id_almacen={objeto.IdAlmacen}, id_cliente={objeto.IdCliente}, total={objeto.Total.ToString(CultureInfo.InvariantCulture)} WHERE id_venta={objeto.Id};";
+            return $"""
+                    UPDATE adv__venta 
+                    SET 
+                        fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}', 
+                        id_almacen = {objeto.IdAlmacen}, 
+                        id_cliente = {objeto.IdCliente}, 
+                        id_tipo_entrega = {objeto.IdTipoEntrega}, 
+                        direccion_entrega = '{objeto.DireccionEntrega}',
+                        estado_entrega = '{objeto.EstadoEntrega}',
+                        total = {objeto.Total.ToString(CultureInfo.InvariantCulture)} 
+                    WHERE id_venta = {objeto.Id};
+                    """;
         }
 
         public override string ComandoEliminar(long id) {
@@ -53,6 +82,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
                 fecha: lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
                 idAlmacen: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
                 idCliente: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
+                idTipoEntrega: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_entrega")),
+                direccionEntrega: lectorDatos.GetString(lectorDatos.GetOrdinal("direccion_entrega")),
+                estadoEntrega: lectorDatos.GetString(lectorDatos.GetOrdinal("estado_entrega")),
                 total: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("total"))
             );
         }

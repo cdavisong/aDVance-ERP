@@ -2,7 +2,6 @@
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
 using System.Globalization;
@@ -26,8 +25,15 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 Transferencia = Array.Empty<string>();
             };
             _registroPago.Salir += delegate {
+                if (_gestionVentas != null) {
+                    _gestionVentas.Vista.HabilitarBtnConfirmarEntrega = false;
+                    _gestionVentas.Vista.HabilitarBtnConfirmarPagos = false;
+                }
+
                 Pagos = _registroPago.Vista.Pagos;
             };
+
+            Pagos.Clear();
         }
 
         private void MostrarVistaRegistroPago(object? sender, EventArgs e) {
@@ -63,23 +69,34 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private void RegistrarPagosVenta() {
-            if (Pagos.Count == 0)
+            if (Pagos.Count == 0 || DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)")
                 return;
 
             using (var datosPago = new DatosPago()) {
                 var ultimoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta");
-
                 foreach (var pago in Pagos) {
                     datosPago.Adicionar(new Pago(
                         0,
                         ultimoIdVenta,
                         pago[0],
                         decimal.TryParse(pago[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0.00m
-                    ));
+                    ) {
+                        FechaConfirmacion = DateTime.Now,
+                        Estado = "Confirmado"
+                    });
+                }
+
+                // Actualizar el seguimiento de entrega
+                using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
+                    var objetoSeguimiento = datosSeguimiento.Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, ultimoIdVenta.ToString()).FirstOrDefault();
+
+                    if (objetoSeguimiento != null) {
+                        objetoSeguimiento.FechaPago = DateTime.Now;
+
+                        datosSeguimiento.Editar(objetoSeguimiento);
+                    }
                 }
             }
-
-            Pagos.Clear();
         }
     }
 }

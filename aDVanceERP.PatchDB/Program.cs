@@ -145,9 +145,6 @@ class Program {
             using (var cmd = new MySqlCommand(crearTablaDetalleCompra, conexion))
                 cmd.ExecuteNonQuery();
 
-            using (var cmd = new MySqlCommand(crearTablaCompra, conexion))
-                cmd.ExecuteNonQuery();
-
             // Crear tabla adv__mensajero
             const string crearTablaMensajero = @"
                 CREATE TABLE IF NOT EXISTS adv__mensajero (
@@ -158,6 +155,33 @@ class Program {
                 );";
 
             using (var cmd = new MySqlCommand(crearTablaMensajero, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Crear tabla adv__tipo_entrega
+            const string crearTablaTipoEntrega = @"
+                CREATE TABLE IF NOT EXISTS adv__tipo_entrega (
+                  id_tipo_entrega INT(11) PRIMARY KEY AUTO_INCREMENT,
+                  nombre VARCHAR(50) COLLATE latin1_general_ci NOT NULL,
+                  descripcion TEXT COLLATE latin1_general_ci DEFAULT NULL,
+                  requiere_pago_previo TINYINT(1) NOT NULL DEFAULT 0
+                );";
+
+            using (var cmd = new MySqlCommand(crearTablaTipoEntrega, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Crear tabla adv__seguimiento_entrega
+            const string crearTablaSeguimientoEntrega = @"
+                CREATE TABLE IF NOT EXISTS adv__seguimiento_entrega (
+                  id_seguimiento_entrega INT(11) PRIMARY KEY AUTO_INCREMENT,
+                  id_venta INT(11) NOT NULL,
+                  id_mensajero INT(11) DEFAULT NULL,
+                  fecha_asignacion DATETIME DEFAULT NULL,
+                  fecha_entrega DATETIME DEFAULT NULL,
+                  fecha_pago DATETIME DEFAULT NULL,
+                  observaciones TEXT COLLATE latin1_general_ci DEFAULT NULL
+                );";
+
+            using (var cmd = new MySqlCommand(crearTablaSeguimientoEntrega, conexion))
                 cmd.ExecuteNonQuery();
         }
     }
@@ -224,6 +248,35 @@ class Program {
                 ADD COLUMN precio_compra_vigente DECIMAL(10,2) NOT NULL AFTER id_articulo;";
 
             using (var cmd = new MySqlCommand(agregarPrecioVentaVigenteTablaDetalleVentaArticulo, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Insertar los tipos de entrega a la tabla adv__tipo_entrega
+            const string insertarTiposTablaTipoEntrega = @"
+                INSERT INTO adv__tipo_entrega (id_tipo_entrega, nombre, descripcion, requiere_pago_previo) VALUES
+                (1, 'Presencial', 'Cliente recibe el producto en el local', 1),
+                (2, 'Mensajería (con fondo)', 'Mensajero paga y lleva el producto al cliente', 0),
+                (3, 'Mensajería (sin fondo)', 'Mensajero transporta el producto y luego se cobra', 0);";
+
+            using (var cmd = new MySqlCommand(insertarTiposTablaTipoEntrega, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Modificar la tabla de adv__ventas para incluir el tipo de entrega
+            const string agregarTipoDireccionEstadoEntregaTablaVenta = @"
+                ALTER TABLE adv__venta
+                ADD COLUMN id_tipo_entrega INT(11) NOT NULL DEFAULT 1 AFTER id_cliente,
+                ADD COLUMN direccion_entrega VARCHAR(255) COLLATE latin1_general_ci DEFAULT NULL AFTER id_tipo_entrega,
+                ADD COLUMN estado_entrega VARCHAR(50) COLLATE latin1_general_ci DEFAULT 'Pendiente' AFTER direccion_entrega;";
+
+            using (var cmd = new MySqlCommand(agregarTipoDireccionEstadoEntregaTablaVenta, conexion))
+                cmd.ExecuteNonQuery();
+
+            // Modificar la tabla adv__pago para manejar pagos diferidos
+            const string agregarEstadoFechaConfirmacionTablaPago = @"
+                ALTER TABLE adv__pago
+                ADD COLUMN estado VARCHAR(20) COLLATE latin1_general_ci NOT NULL DEFAULT 'Completado',
+                ADD COLUMN fecha_confirmacion DATETIME DEFAULT NULL AFTER monto;";
+
+            using (var cmd = new MySqlCommand(agregarEstadoFechaConfirmacionTablaPago, conexion))
                 cmd.ExecuteNonQuery();
         }
     }

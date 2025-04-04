@@ -32,19 +32,19 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         // Método auxiliar para ejecutar consultas y devolver una lista
-        private static async Task<List<T>> EjecutarConsultaLista<T>(string query, Func<MySqlDataReader, T> mapper, params MySqlParameter[] parameters) {
+        private static async Task<List<T>> EjecutarConsultaLista<T>(string query, Func<MySqlDataReader, T> mapper, params MySqlParameter[]? parameters) {
             var resultados = new List<T>();
 
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            await using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
                 try {
                     await conexion.OpenAsync().ConfigureAwait(false);
 
-                    using (var comando = new MySqlCommand(query, conexion)) {
+                    await using (var comando = new MySqlCommand(query, conexion)) {
                         if (parameters != null) {
                             comando.Parameters.AddRange(parameters);
                         }
 
-                        using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
+                        await using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
                             while (await lectorDatos.ReadAsync().ConfigureAwait(false)) {
                                 resultados.Add(mapper((MySqlDataReader) lectorDatos));
                             }

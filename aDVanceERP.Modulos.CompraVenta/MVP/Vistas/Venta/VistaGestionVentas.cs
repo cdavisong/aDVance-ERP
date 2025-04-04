@@ -38,6 +38,16 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             set => fieldFormatoReporte.Text = value;
         }
 
+        public bool HabilitarBtnConfirmarEntrega {
+            get => btnConfirmarEntrega.Visible;
+            set => btnConfirmarEntrega.Visible = value;
+        }
+
+        public bool HabilitarBtnConfirmarPagos {
+            get => btnConfirmarPagos.Visible;
+            set => btnConfirmarPagos.Visible = value;
+        }
+
         public CriterioBusquedaVenta CriterioBusqueda {
             get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaVenta) fieldCriterioBusqueda.SelectedIndex : default;
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
@@ -91,6 +101,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         public event EventHandler? SincronizarDatos;
         public event EventHandler? Salir;
         public event EventHandler? RegistrarDatos;
+        public event EventHandler? ConfirmarEntrega;
+        public event EventHandler? ConfirmarPagos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
         public event EventHandler? DescargarReporte;
@@ -132,6 +144,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
+            };
+            btnConfirmarEntrega.Click += delegate (object? sender, EventArgs e) {
+                ConfirmarEntrega?.Invoke(sender, e);
+            };
+            btnConfirmarPagos.Click += delegate (object? sender, EventArgs e) {
+                ConfirmarPagos?.Invoke(sender, e);
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
                 PaginaActual = 1;
@@ -216,6 +234,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
+            HabilitarBtnConfirmarEntrega = false;
+            HabilitarBtnConfirmarPagos = false;
 
             fieldCriterioBusqueda.SelectedIndex = 4;
         }

@@ -154,7 +154,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
         public static List<string> ObtenerPagosPorVenta(long idVenta) {
             const string query = """
-                                 SELECT metodo_pago, monto
+                                 SELECT metodo_pago, monto, estado, id_pago
                                  FROM adv__pago
                                  WHERE id_venta = @IdVenta;
                                  """;

@@ -73,13 +73,23 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             set => fieldTotalVenta.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
+        public long IdTipoEntrega { get; set; } = 0;
+
+        public string Direccion { get; set; } = string.Empty;
+
         public bool PagoConfirmado {
             get => btnRegistrar.Enabled;
             set {
-                if (!ModoEdicionDatos)
+                if (!ModoEdicionDatos) {
+                    fieldNombreArticulo.ReadOnly = value;
+                    fieldCantidad.ReadOnly = value;
+                    btnEfectuarPago.Enabled = !value;
                     btnRegistrar.Enabled = value;
+                }
             }
         }
+
+        public string EstadoEntrega { get; set; }
 
         public int AlturaContenedorVistas {
             get => contenedorVistas.Height;
@@ -94,6 +104,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         public event EventHandler? ArticuloAgregado;
         public event EventHandler? ArticuloEliminado;
         public event EventHandler? EfectuarPago;
+        public event EventHandler? AsignarMensajeria;
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
@@ -134,6 +145,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEfectuarPago.Click += delegate (object? sender, EventArgs args) {
                 EfectuarPago?.Invoke(sender, args);
             };
+            btnAsignarMensajería.Click += delegate (object? sender, EventArgs args) {
+                AsignarMensajeria?.Invoke(sender, args);
+            };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
                     EditarDatos?.Invoke(sender, args);
@@ -149,6 +163,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         }
 
         public void CargarRazonesSocialesClientes(object[] nombresClientes) {
+            fieldNombreCliente.Items.Clear();
             fieldNombreCliente.Items.Add("Anónimo");
             fieldNombreCliente.Items.AddRange(nombresClientes);
             fieldNombreCliente.SelectedIndex = 0;
@@ -300,6 +315,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
                 }
 
             btnEfectuarPago.Enabled = Total > 0;
+            btnAsignarMensajería.Enabled = Total > 0;
         }
 
         public void Mostrar() {

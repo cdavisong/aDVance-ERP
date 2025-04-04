@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MVP\Vistas\Mensajeria\" />
+    <Folder Include="MVP\Vistas\Mensajeria\Plantillas\" />
   </ItemGroup>
 
 </Project>

@@ -198,6 +198,30 @@
         5QhoWVEAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="btnConfirmarPagos.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAFZSURBVDhPvdTNSpdBFMfxT1ZmEJIVhBRBC0lJauEuVHATunDfql1E3UUgCOLbFeTKG3Ch4M7L
+        SCko6G0RLXpRV8aBeWSc/zzxd6FfGDic35nznDlnnuGc6cEoptIaKQO6ZQCL+I4j/MLvZH/EG9woN7Ux
+        gW/YxWvczLTbeIUPKWYy06qM4xALuFiKGVewgjE8K8WG6+mry6XQQi828CnZHczjHS6XQoWr2MZ7DGG2
+        DIhpfsWLUqjQJIs+3sPzVGXkOOZRmuBg7qxwDTtZsuBu2vsgD5zBn9xRoZas4S+e5o5awrdYS9PuwyY+
+        l5XgAvYxnTtrR36MH1jHFr5UkgV30t6HubNtKHHPfqZkw4XW8DJVfmIoQdu1uZ8aXyNi9zBXCsFpL3aw
+        mqrvL4WGbn+9S1jCAZ6UYsn/HodbyRfHjJ5HAV1Re75ihR2+OEG06NSUD2zYHdM8U/4BL5xJ2IFawnUA
+        AAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btnConfirmarEntrega.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAFZSURBVDhPvdTNSpdBFMfxT1ZmEJIVhBRBC0lJauEuVHATunDfql1E3UUgCOLbFeTKG3Ch4M7L
+        SCko6G0RLXpRV8aBeWSc/zzxd6FfGDic35nznDlnnuGc6cEoptIaKQO6ZQCL+I4j/MLvZH/EG9woN7Ux
+        gW/YxWvczLTbeIUPKWYy06qM4xALuFiKGVewgjE8K8WG6+mry6XQQi828CnZHczjHS6XQoWr2MZ7DGG2
+        DIhpfsWLUqjQJIs+3sPzVGXkOOZRmuBg7qxwDTtZsuBu2vsgD5zBn9xRoZas4S+e5o5awrdYS9PuwyY+
+        l5XgAvYxnTtrR36MH1jHFr5UkgV30t6HubNtKHHPfqZkw4XW8DJVfmIoQdu1uZ8aXyNi9zBXCsFpL3aw
+        mqrvL4WGbn+9S1jCAZ6UYsn/HodbyRfHjJ5HAV1Re75ihR2+OEG06NSUD2zYHdM8U/4BL5xJ2IFawnUA
+        AAAASUVORK5CYII=
+</value>
+  </data>
   <data name="btnRegistrar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAGVJREFUOE9j

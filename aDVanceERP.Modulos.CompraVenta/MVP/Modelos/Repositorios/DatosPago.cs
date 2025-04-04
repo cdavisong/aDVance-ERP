@@ -12,11 +12,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Pago objeto) {
-            return $"INSERT INTO adv__pago (id_venta, metodo_pago, monto) VALUES ({objeto.IdVenta}, '{objeto.MetodoPago}', {objeto.Monto.ToString(CultureInfo.InvariantCulture)});";
+            return $"INSERT INTO adv__pago (id_venta, metodo_pago, monto, fecha_confirmacion, estado) VALUES ({objeto.IdVenta}, '{objeto.MetodoPago}', {objeto.Monto.ToString(CultureInfo.InvariantCulture)}, '{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', '{objeto.Estado}');";
         }
 
         public override string ComandoEditar(Pago objeto) {
-            return $"UPDATE adv__pago SET id_venta={objeto.IdVenta}, metodo_pago='{objeto.MetodoPago}', monto={objeto.Monto.ToString(CultureInfo.InvariantCulture)} WHERE id_pago={objeto.Id};";
+            return $"UPDATE adv__pago SET id_venta={objeto.IdVenta}, metodo_pago='{objeto.MetodoPago}', monto={objeto.Monto.ToString(CultureInfo.InvariantCulture)}, fecha_confirmacion='{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', estado='{objeto.Estado}' WHERE id_pago={objeto.Id};";
         }
 
         public override string ComandoEliminar(long id) {
@@ -51,7 +51,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios {
                 idVenta: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
                 metodoPago: lectorDatos.GetString(lectorDatos.GetOrdinal("metodo_pago")),
                 monto: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("monto"))
-            );
+            ) {
+                FechaConfirmacion = lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha_confirmacion")),
+                Estado = lectorDatos.GetString(lectorDatos.GetOrdinal("estado"))
+            };
         }
     }
 }

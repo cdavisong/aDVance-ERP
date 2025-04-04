@@ -10,9 +10,13 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
         public PresentadorRegistroVenta(IVistaRegistroVenta vista) : base(vista) {
         }
 
-        public override void PopularVistaDesdeObjeto(Venta objeto) {
+        public override async void PopularVistaDesdeObjeto(Venta objeto) {
             Vista.RazonSocialCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
             Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
+            Vista.RazonSocialCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
+            Vista.IdTipoEntrega = await UtilesMensajero.ObtenerIdTipoEntrega(objeto.IdTipoEntrega.ToString());
+            Vista.Direccion = objeto.DireccionEntrega;
+            Vista.EstadoEntrega = objeto.EstadoEntrega;
             Vista.ModoEdicionDatos = true;
 
             var articulosVenta = UtilesVenta.ObtenerArticulosPorVenta(objeto.Id);
@@ -28,7 +32,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
             return new Venta(Objeto?.Id ?? 0,
                    fecha: DateTime.Now,
                    idAlmacen: await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
-                   idCliente: await UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),
+                   idCliente: UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),
+                   idTipoEntrega: Vista.IdTipoEntrega,
+                   direccionEntrega: Vista.Direccion,
+                   estadoEntrega: Vista.EstadoEntrega,
                    total: Vista.Total
                );
         }

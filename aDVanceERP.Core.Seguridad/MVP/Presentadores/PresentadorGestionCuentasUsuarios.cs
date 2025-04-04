@@ -1,4 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
@@ -42,11 +44,16 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores {
                 }
             }
 
-            if (usuariosRol0 > 0)
+            if (usuariosRol0 > 0) {
+                CentroNotificaciones.Mostrar(
+                    $"{(usuariosRol0 <= 1 ? "El usuario" : "Existen usuarios")} seleccionado{(usuariosRol0 == 1 ? "" : "s")} {(usuariosRol0 == 1 ? "no tiene" : "sin")} un rolUsuario asignado, por lo que no se puede aprobar la solicitud de cuenta. Por favor, edite el usuario para asignarle un rol.",
+                    TipoNotificacion.Advertencia);
                 return;
-            //Vista.Mensaje.Mostrar($"{(usuariosRol0 == 1 ? "El usuario" : "Existen usuarios")} seleccionado{(usuariosRol0 == 1 ? "" : "s")} {(usuariosRol0 == 1 ? "no tiene" : "sin")} un rolUsuario asignado, por lo que no se puede aprobar la solicitud de cuenta. Por favor, edite el usuario para asignarle un rol.", TipoMensaje.Error);
+            }
 
-            RefrescarListaObjetos();
+            Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
+
+            _ = RefrescarListaObjetos();
         }
 
         private void CambiarVisibilidadBtnAprobacionCuentasUsuarios(object? sender, EventArgs e) {

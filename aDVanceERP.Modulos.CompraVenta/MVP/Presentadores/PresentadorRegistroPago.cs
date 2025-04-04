@@ -25,7 +25,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores {
             Objeto = objeto;
         }
 
-        protected override async Task<Pago?> ObtenerObjetoDesdeVista() {
+        protected override Task<Pago?> ObtenerObjetoDesdeVista() {
             throw new NotImplementedException();
         }
     }

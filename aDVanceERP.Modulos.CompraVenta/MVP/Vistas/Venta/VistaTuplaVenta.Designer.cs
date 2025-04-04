@@ -43,6 +43,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnEditar = new Guna2Button();
             btnEliminar = new Guna2Button();
             symbolPeso = new Label();
+            fieldEstadoEntrega = new Label();
+            fieldEstadoPago = new Label();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             SuspendLayout();
@@ -64,7 +66,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // layoutVista
             // 
             layoutVista.BackColor = Color.White;
-            layoutVista.ColumnCount = 11;
+            layoutVista.ColumnCount = 13;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
@@ -72,6 +74,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
@@ -82,9 +86,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutVista.Controls.Add(fieldNombreCliente, 3, 0);
             layoutVista.Controls.Add(fieldCantidadProductos, 4, 0);
             layoutVista.Controls.Add(fieldMontoTotal, 5, 0);
-            layoutVista.Controls.Add(btnEditar, 9, 0);
-            layoutVista.Controls.Add(btnEliminar, 10, 0);
+            layoutVista.Controls.Add(btnEditar, 11, 0);
+            layoutVista.Controls.Add(btnEliminar, 12, 0);
             layoutVista.Controls.Add(symbolPeso, 6, 0);
+            layoutVista.Controls.Add(fieldEstadoEntrega, 7, 0);
+            layoutVista.Controls.Add(fieldEstadoPago, 8, 0);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(0, 0, 0, 1);
@@ -240,6 +246,34 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             symbolPeso.Text = "$";
             symbolPeso.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // fieldEstadoEntrega
+            // 
+            fieldEstadoEntrega.Dock = DockStyle.Fill;
+            fieldEstadoEntrega.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldEstadoEntrega.ForeColor = Color.DimGray;
+            fieldEstadoEntrega.ImeMode = ImeMode.NoControl;
+            fieldEstadoEntrega.Location = new Point(765, 1);
+            fieldEstadoEntrega.Margin = new Padding(5, 1, 1, 1);
+            fieldEstadoEntrega.Name = "fieldEstadoEntrega";
+            fieldEstadoEntrega.Size = new Size(114, 39);
+            fieldEstadoEntrega.TabIndex = 31;
+            fieldEstadoEntrega.Text = "estadoEntrega";
+            fieldEstadoEntrega.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldEstadoPago
+            // 
+            fieldEstadoPago.Dock = DockStyle.Fill;
+            fieldEstadoPago.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldEstadoPago.ForeColor = Color.DimGray;
+            fieldEstadoPago.ImeMode = ImeMode.NoControl;
+            fieldEstadoPago.Location = new Point(885, 1);
+            fieldEstadoPago.Margin = new Padding(5, 1, 1, 1);
+            fieldEstadoPago.Name = "fieldEstadoPago";
+            fieldEstadoPago.Size = new Size(114, 39);
+            fieldEstadoPago.TabIndex = 32;
+            fieldEstadoPago.Text = "estadoPago";
+            fieldEstadoPago.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // VistaTuplaVenta
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -273,5 +307,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         private Guna2Button btnEditar;
         private Guna2Button btnEliminar;
         private Label symbolPeso;
+        private Label fieldEstadoEntrega;
+        private Label fieldEstadoPago;
     }
 }

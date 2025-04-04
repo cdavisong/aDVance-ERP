@@ -5,11 +5,14 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public Venta() {
         }
 
-        public Venta(long id, DateTime fecha, long idAlmacen, long idCliente, decimal total) {
+        public Venta(long id, DateTime fecha, long idAlmacen, long idCliente, long idTipoEntrega, string direccionEntrega, string estadoEntrega, decimal total) {
             Id = id;
             Fecha = fecha;
             IdAlmacen = idAlmacen;
             IdCliente = idCliente;
+            IdTipoEntrega = idTipoEntrega;
+            DireccionEntrega = direccionEntrega;
+            EstadoEntrega = estadoEntrega;
             Total = total;
         }
 
@@ -17,6 +20,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos {
         public DateTime Fecha { get; set; }
         public long IdAlmacen { get; set; }
         public long IdCliente { get; set; }
+        public long IdTipoEntrega { get; set; }
+        public string DireccionEntrega { get; set; }
+        public string EstadoEntrega { get; set; }
         public decimal Total { get; set; }
     }
 

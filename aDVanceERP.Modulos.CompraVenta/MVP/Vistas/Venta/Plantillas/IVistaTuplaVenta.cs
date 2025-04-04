@@ -8,5 +8,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas {
         string NombreCliente { get; set; }
         string CantidadProductos { get; set; }
         string MontoTotal { get; set; }
+        string EstadoEntrega { get; set; }
+        string EstadoPago { get; set; }
     }
 }
