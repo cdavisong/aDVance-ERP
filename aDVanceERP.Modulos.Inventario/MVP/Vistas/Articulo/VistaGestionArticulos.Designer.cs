@@ -783,7 +783,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldTituloPrecioAdquisicion.Name = "fieldTituloPrecioAdquisicion";
             fieldTituloPrecioAdquisicion.Size = new Size(108, 56);
             fieldTituloPrecioAdquisicion.TabIndex = 17;
-            fieldTituloPrecioAdquisicion.Text = "Precio de\r\nadquisición";
+            fieldTituloPrecioAdquisicion.Text = "Precio de compra base";
             fieldTituloPrecioAdquisicion.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloPrecioCesion
@@ -797,7 +797,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo {
             fieldTituloPrecioCesion.Name = "fieldTituloPrecioCesion";
             fieldTituloPrecioCesion.Size = new Size(108, 56);
             fieldTituloPrecioCesion.TabIndex = 18;
-            fieldTituloPrecioCesion.Text = "Precio de\r\ncesión";
+            fieldTituloPrecioCesion.Text = "Precio de venta base";
             fieldTituloPrecioCesion.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloStock
