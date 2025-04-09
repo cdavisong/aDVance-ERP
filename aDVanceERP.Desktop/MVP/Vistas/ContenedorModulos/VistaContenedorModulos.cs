@@ -7,6 +7,8 @@ using aDVanceERP.Modulos.CompraVenta;
 using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Finanzas;
 using aDVanceERP.Modulos.Inventario;
+using System;
+
 using TheArtOfDevHtmlRenderer.Core.Entities;
 
 namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos; 
@@ -63,13 +65,6 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
         btnInicio.Checked = true;
 
         // Eventos
-        fieldTextoBienvenida.LinkClicked += delegate(object? sender, HtmlLinkClickedEventArgs e) {
-            if (UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(ModuloCompraventa.Nombre)) {
-                CambioModulo?.Invoke(sender, e);
-                MostrarMenuVentas?.Invoke(sender, e);
-                btnModuloVentas.Checked = true;
-            }
-        };
         btnInicio.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(1, e); };
         btnEstadisticas.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(2, e); };
         btnModuloContactos.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(3, e); };
@@ -78,6 +73,8 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
         btnModuloVentas.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(6, e); };
         btnModuloSeguridad.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(7, e); };
         CambioModulo += delegate { Restaurar(); };
+
+        MostrarMensajePortada();
     }
 
     public void PresionarBotonModulo(object? sender, EventArgs e) {
@@ -144,6 +141,113 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
 
         BringToFront();
         Show();
+    }
+
+    private void MostrarMensajePortada() {
+        var version = "v0.0.0.1-alpha"; // Valor por defecto
+
+        if (File.Exists(@".\app.ver"))
+            using (var fs = new FileStream(@".\app.ver", FileMode.Open)) {
+                using (var sr = new StreamReader(fs)) {
+                    version = sr.ReadToEnd().Trim();
+                }
+            }
+
+        var textoHTML = @"
+<!DOCTYPE html>
+<html lang=""es"">
+<head>
+    <meta charset=""UTF-8"">
+    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+    <title>Bienvenido a aDVance ERP</title>
+    <style>
+        body {
+            font-family: Segoe UI, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .header {
+            color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .logo {
+            font-family: Segoe UI, sans-serif;
+            font-size: 24px; /* Tamaño de fuente ajustado */
+        }
+        .dv {
+            color: Gray;
+            font-weight: bold;
+        }
+        .advance {
+            color: #333333;
+            font-weight: bold;
+        }
+        .erp {
+            background-color: Firebrick;
+            color: white;
+            font-weight: bold;
+            padding: 2px;
+        }
+        .version {
+            color: Gray;
+            font-size: 10px;
+        }
+        .welcome-text {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        .description {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        .start-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 30px;
+            background-color: #FFDAB9;
+            color: #333333;
+            text-decoration: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .start-button:hover {
+            background-color: #FFDAB9;
+        }
+    </style>
+</head>
+<body>
+    <div class=""header"">
+        <div class=""logo"">
+            <span class=""advance"">a</span><span class=""dv"">DV</span><span class=""advance"">ance</span> <span class=""erp"">ERP</span> <span class=""version"">" + version + @"</span>  
+        </div>
+    </div>
+    <div class=""welcome-text"">
+        <p>¡Estamos encantados de tenerte aquí!</p>
+        <p>La solución integral para la gestión de tus recursos empresariales comienza ahora.</p>
+    </div>
+    <div class=""description"">
+        <p>Con aDVance ERP, optimiza tus procesos, mejora la eficiencia y lleva tu negocio al siguiente nivel.</p>
+        <p>Explora nuestras funcionalidades y descubre cómo podemos ayudarte a alcanzar el éxito.</p>
+    </div>
+    <p></p>
+    <p></p>
+    <a href=""/inicio"" class=""start-button"">Comienza Ahora</a>
+</body>
+</html>
+";
+
+        fieldTextoBienvenida.Text = textoHTML;
+        fieldTextoBienvenida.LinkClicked += delegate (object? sender, HtmlLinkClickedEventArgs e) {
+            if (UtilesCuentaUsuario.PermisosUsuario != null && !UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(ModuloCompraventa.Nombre)) 
+                return;
+
+            CambioModulo?.Invoke(sender, e);
+            MostrarMenuVentas?.Invoke(sender, e);
+            btnModuloVentas.Checked = true;
+        };
+        fieldTextoBienvenida.Visible = true;
     }
 
     public void Restaurar() {

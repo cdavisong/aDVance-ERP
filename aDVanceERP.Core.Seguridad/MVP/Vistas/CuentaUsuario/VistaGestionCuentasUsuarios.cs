@@ -136,6 +136,7 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+        fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {
             fieldDatoBusqueda.Text = string.Empty;

@@ -126,6 +126,7 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+        fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {
             fieldDatoBusqueda.Text = string.Empty;

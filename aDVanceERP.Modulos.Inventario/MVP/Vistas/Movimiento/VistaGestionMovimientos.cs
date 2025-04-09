@@ -130,6 +130,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+        fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {
             if (CriterioBusqueda == CriterioBusquedaMovimiento.Fecha) {
