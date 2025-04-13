@@ -41,6 +41,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -55,10 +59,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
             layoutSeparadores = new TableLayoutPanel();
@@ -77,6 +77,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloReporte = new Label();
             fieldTituloFiltrosBusqueda = new Label();
             panelBotonesGestion = new Panel();
+            btnConfirmarPagos = new Guna2Button();
+            btnConfirmarEntrega = new Guna2Button();
             btnRegistrar = new Guna2Button();
             layoutEncabezadosTabla = new TableLayoutPanel();
             fieldTituloMonto = new Label();
@@ -85,6 +87,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloNombreCliente = new Label();
             fieldTituloFecha = new Label();
             fieldTituloAlmacen = new Label();
+            fieldTituloEstadoEntrega = new Label();
+            fieldTituloEstadoPago = new Label();
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
@@ -106,10 +110,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutPago = new TableLayoutPanel();
             symbolPeso = new Label();
             fieldTotalVenta = new Label();
-            fieldTituloEstadoEntrega = new Label();
-            fieldTituloEstadoPago = new Label();
-            btnConfirmarEntrega = new Guna2Button();
-            btnConfirmarPagos = new Guna2Button();
             layoutVista.SuspendLayout();
             layoutSeparadores.SuspendLayout();
             layoutHerramientas.SuspendLayout();
@@ -472,6 +472,46 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             panelBotonesGestion.Size = new Size(1286, 45);
             panelBotonesGestion.TabIndex = 38;
             // 
+            // btnConfirmarPagos
+            // 
+            btnConfirmarPagos.Animated = true;
+            btnConfirmarPagos.BackColor = Color.White;
+            btnConfirmarPagos.BorderRadius = 18;
+            btnConfirmarPagos.CustomizableEdges = customizableEdges13;
+            btnConfirmarPagos.Dock = DockStyle.Left;
+            btnConfirmarPagos.FillColor = Color.PeachPuff;
+            btnConfirmarPagos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnConfirmarPagos.ForeColor = Color.Black;
+            btnConfirmarPagos.Image = (Image) resources.GetObject("btnConfirmarPagos.Image");
+            btnConfirmarPagos.ImageOffset = new Point(-5, 0);
+            btnConfirmarPagos.Location = new Point(643, 3);
+            btnConfirmarPagos.Margin = new Padding(0);
+            btnConfirmarPagos.Name = "btnConfirmarPagos";
+            btnConfirmarPagos.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnConfirmarPagos.Size = new Size(320, 39);
+            btnConfirmarPagos.TabIndex = 9;
+            btnConfirmarPagos.Text = "Confirmar los pagos de la venta";
+            // 
+            // btnConfirmarEntrega
+            // 
+            btnConfirmarEntrega.Animated = true;
+            btnConfirmarEntrega.BackColor = Color.White;
+            btnConfirmarEntrega.BorderRadius = 18;
+            btnConfirmarEntrega.CustomizableEdges = customizableEdges15;
+            btnConfirmarEntrega.Dock = DockStyle.Left;
+            btnConfirmarEntrega.FillColor = Color.PeachPuff;
+            btnConfirmarEntrega.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnConfirmarEntrega.ForeColor = Color.Black;
+            btnConfirmarEntrega.Image = (Image) resources.GetObject("btnConfirmarEntrega.Image");
+            btnConfirmarEntrega.ImageOffset = new Point(-5, 0);
+            btnConfirmarEntrega.Location = new Point(323, 3);
+            btnConfirmarEntrega.Margin = new Padding(0);
+            btnConfirmarEntrega.Name = "btnConfirmarEntrega";
+            btnConfirmarEntrega.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnConfirmarEntrega.Size = new Size(320, 39);
+            btnConfirmarEntrega.TabIndex = 8;
+            btnConfirmarEntrega.Text = "Confirmar la entrega de artículos";
+            // 
             // btnRegistrar
             // 
             btnRegistrar.Animated = true;
@@ -608,6 +648,34 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloAlmacen.TabIndex = 15;
             fieldTituloAlmacen.Text = "Almacén";
             fieldTituloAlmacen.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloEstadoEntrega
+            // 
+            fieldTituloEstadoEntrega.Dock = DockStyle.Fill;
+            fieldTituloEstadoEntrega.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloEstadoEntrega.ForeColor = Color.Black;
+            fieldTituloEstadoEntrega.ImeMode = ImeMode.NoControl;
+            fieldTituloEstadoEntrega.Location = new Point(761, 1);
+            fieldTituloEstadoEntrega.Margin = new Padding(1);
+            fieldTituloEstadoEntrega.Name = "fieldTituloEstadoEntrega";
+            fieldTituloEstadoEntrega.Size = new Size(118, 56);
+            fieldTituloEstadoEntrega.TabIndex = 17;
+            fieldTituloEstadoEntrega.Text = "Estado de la entrega";
+            fieldTituloEstadoEntrega.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloEstadoPago
+            // 
+            fieldTituloEstadoPago.Dock = DockStyle.Fill;
+            fieldTituloEstadoPago.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloEstadoPago.ForeColor = Color.Black;
+            fieldTituloEstadoPago.ImeMode = ImeMode.NoControl;
+            fieldTituloEstadoPago.Location = new Point(881, 1);
+            fieldTituloEstadoPago.Margin = new Padding(1);
+            fieldTituloEstadoPago.Name = "fieldTituloEstadoPago";
+            fieldTituloEstadoPago.Size = new Size(118, 56);
+            fieldTituloEstadoPago.TabIndex = 18;
+            fieldTituloEstadoPago.Text = "Estado del pago";
+            fieldTituloEstadoPago.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // layoutTitulo
             // 
@@ -982,74 +1050,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTotalVenta.TabIndex = 1;
             fieldTotalVenta.Text = "0";
             fieldTotalVenta.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // fieldTituloEstadoEntrega
-            // 
-            fieldTituloEstadoEntrega.Dock = DockStyle.Fill;
-            fieldTituloEstadoEntrega.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloEstadoEntrega.ForeColor = Color.Black;
-            fieldTituloEstadoEntrega.ImeMode = ImeMode.NoControl;
-            fieldTituloEstadoEntrega.Location = new Point(761, 1);
-            fieldTituloEstadoEntrega.Margin = new Padding(1);
-            fieldTituloEstadoEntrega.Name = "fieldTituloEstadoEntrega";
-            fieldTituloEstadoEntrega.Size = new Size(118, 56);
-            fieldTituloEstadoEntrega.TabIndex = 17;
-            fieldTituloEstadoEntrega.Text = "Estado de la entrega";
-            fieldTituloEstadoEntrega.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldTituloEstadoPago
-            // 
-            fieldTituloEstadoPago.Dock = DockStyle.Fill;
-            fieldTituloEstadoPago.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloEstadoPago.ForeColor = Color.Black;
-            fieldTituloEstadoPago.ImeMode = ImeMode.NoControl;
-            fieldTituloEstadoPago.Location = new Point(881, 1);
-            fieldTituloEstadoPago.Margin = new Padding(1);
-            fieldTituloEstadoPago.Name = "fieldTituloEstadoPago";
-            fieldTituloEstadoPago.Size = new Size(118, 56);
-            fieldTituloEstadoPago.TabIndex = 18;
-            fieldTituloEstadoPago.Text = "Estado del pago";
-            fieldTituloEstadoPago.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnConfirmarEntrega
-            // 
-            btnConfirmarEntrega.Animated = true;
-            btnConfirmarEntrega.BackColor = Color.White;
-            btnConfirmarEntrega.BorderRadius = 18;
-            btnConfirmarEntrega.CustomizableEdges = customizableEdges15;
-            btnConfirmarEntrega.Dock = DockStyle.Left;
-            btnConfirmarEntrega.FillColor = Color.PeachPuff;
-            btnConfirmarEntrega.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnConfirmarEntrega.ForeColor = Color.Black;
-            btnConfirmarEntrega.Image = (Image) resources.GetObject("btnConfirmarEntrega.Image");
-            btnConfirmarEntrega.ImageOffset = new Point(-5, 0);
-            btnConfirmarEntrega.Location = new Point(323, 3);
-            btnConfirmarEntrega.Margin = new Padding(0);
-            btnConfirmarEntrega.Name = "btnConfirmarEntrega";
-            btnConfirmarEntrega.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            btnConfirmarEntrega.Size = new Size(320, 39);
-            btnConfirmarEntrega.TabIndex = 8;
-            btnConfirmarEntrega.Text = "Confirmar la entrega de artículos";
-            // 
-            // btnConfirmarPagos
-            // 
-            btnConfirmarPagos.Animated = true;
-            btnConfirmarPagos.BackColor = Color.White;
-            btnConfirmarPagos.BorderRadius = 18;
-            btnConfirmarPagos.CustomizableEdges = customizableEdges13;
-            btnConfirmarPagos.Dock = DockStyle.Left;
-            btnConfirmarPagos.FillColor = Color.PeachPuff;
-            btnConfirmarPagos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnConfirmarPagos.ForeColor = Color.Black;
-            btnConfirmarPagos.Image = (Image) resources.GetObject("btnConfirmarPagos.Image");
-            btnConfirmarPagos.ImageOffset = new Point(-5, 0);
-            btnConfirmarPagos.Location = new Point(643, 3);
-            btnConfirmarPagos.Margin = new Padding(0);
-            btnConfirmarPagos.Name = "btnConfirmarPagos";
-            btnConfirmarPagos.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            btnConfirmarPagos.Size = new Size(320, 39);
-            btnConfirmarPagos.TabIndex = 9;
-            btnConfirmarPagos.Text = "Confirmar los pagos de la venta";
             // 
             // VistaGestionVentas
             // 
