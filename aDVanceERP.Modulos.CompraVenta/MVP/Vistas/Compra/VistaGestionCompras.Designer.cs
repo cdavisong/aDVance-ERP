@@ -80,6 +80,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldTituloNombreProveedor = new Label();
             fieldTituloFecha = new Label();
             fieldTituloAlmacen = new Label();
+            fieldTituloCantidadArticulos = new Label();
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
@@ -98,7 +99,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnSincronizarDatos = new Guna2Button();
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
-            fieldTituloCantidadArticulos = new Label();
             layoutVista.SuspendLayout();
             layoutSeparadores.SuspendLayout();
             layoutHerramientas.SuspendLayout();
@@ -577,6 +577,20 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldTituloAlmacen.Text = "Almacén";
             fieldTituloAlmacen.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // fieldTituloCantidadArticulos
+            // 
+            fieldTituloCantidadArticulos.Dock = DockStyle.Fill;
+            fieldTituloCantidadArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloCantidadArticulos.ForeColor = Color.Black;
+            fieldTituloCantidadArticulos.ImeMode = ImeMode.NoControl;
+            fieldTituloCantidadArticulos.Location = new Point(521, 1);
+            fieldTituloCantidadArticulos.Margin = new Padding(1);
+            fieldTituloCantidadArticulos.Name = "fieldTituloCantidadArticulos";
+            fieldTituloCantidadArticulos.Size = new Size(108, 56);
+            fieldTituloCantidadArticulos.TabIndex = 17;
+            fieldTituloCantidadArticulos.Text = "Cantidad de artículos";
+            fieldTituloCantidadArticulos.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // layoutTitulo
             // 
             layoutTitulo.ColumnCount = 2;
@@ -905,20 +919,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldPaginasTotales.TabIndex = 6;
             fieldPaginasTotales.Text = "de 1";
             fieldPaginasTotales.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fieldTituloCantidadArticulos
-            // 
-            fieldTituloCantidadArticulos.Dock = DockStyle.Fill;
-            fieldTituloCantidadArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloCantidadArticulos.ForeColor = Color.Black;
-            fieldTituloCantidadArticulos.ImeMode = ImeMode.NoControl;
-            fieldTituloCantidadArticulos.Location = new Point(521, 1);
-            fieldTituloCantidadArticulos.Margin = new Padding(1);
-            fieldTituloCantidadArticulos.Name = "fieldTituloCantidadArticulos";
-            fieldTituloCantidadArticulos.Size = new Size(108, 56);
-            fieldTituloCantidadArticulos.TabIndex = 17;
-            fieldTituloCantidadArticulos.Text = "Cantidad de artículos";
-            fieldTituloCantidadArticulos.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // VistaGestionCompras
             // 
