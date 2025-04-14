@@ -65,9 +65,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutPago = new TableLayoutPanel();
             symbolPeso = new Label();
             btnAsignarMensajería = new Guna2Button();
+            btnEfectuarPago = new Guna2Button();
             fieldTotalVenta = new Label();
             fieldTituloTotalVenta = new Label();
-            btnEfectuarPago = new Guna2Button();
             layoutEncabezadosTabla = new TableLayoutPanel();
             fieldTituloCantidad = new Label();
             fieldTituloPrecio = new Label();
@@ -415,6 +415,25 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnAsignarMensajería.Size = new Size(44, 39);
             btnAsignarMensajería.TabIndex = 4;
             // 
+            // btnEfectuarPago
+            // 
+            btnEfectuarPago.Animated = true;
+            btnEfectuarPago.BorderRadius = 18;
+            btnEfectuarPago.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
+            btnEfectuarPago.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnEfectuarPago.CustomizableEdges = customizableEdges11;
+            btnEfectuarPago.DialogResult = DialogResult.Cancel;
+            btnEfectuarPago.Dock = DockStyle.Fill;
+            btnEfectuarPago.Enabled = false;
+            btnEfectuarPago.FillColor = Color.PeachPuff;
+            btnEfectuarPago.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnEfectuarPago.ForeColor = Color.White;
+            btnEfectuarPago.Location = new Point(320, 3);
+            btnEfectuarPago.Name = "btnEfectuarPago";
+            btnEfectuarPago.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnEfectuarPago.Size = new Size(44, 39);
+            btnEfectuarPago.TabIndex = 3;
+            // 
             // fieldTotalVenta
             // 
             fieldTotalVenta.Dock = DockStyle.Fill;
@@ -445,25 +464,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloTotalVenta.TabIndex = 0;
             fieldTituloTotalVenta.Text = "      Precio total";
             fieldTituloTotalVenta.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // btnEfectuarPago
-            // 
-            btnEfectuarPago.Animated = true;
-            btnEfectuarPago.BorderRadius = 18;
-            btnEfectuarPago.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
-            btnEfectuarPago.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEfectuarPago.CustomizableEdges = customizableEdges11;
-            btnEfectuarPago.DialogResult = DialogResult.Cancel;
-            btnEfectuarPago.Dock = DockStyle.Fill;
-            btnEfectuarPago.Enabled = false;
-            btnEfectuarPago.FillColor = Color.PeachPuff;
-            btnEfectuarPago.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnEfectuarPago.ForeColor = Color.White;
-            btnEfectuarPago.Location = new Point(320, 3);
-            btnEfectuarPago.Name = "btnEfectuarPago";
-            btnEfectuarPago.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            btnEfectuarPago.Size = new Size(44, 39);
-            btnEfectuarPago.TabIndex = 3;
             // 
             // layoutEncabezadosTabla
             // 

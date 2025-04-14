@@ -8,13 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\aDVanceERP.Core\aDVanceERP.Core.csproj" />
-    <ProjectReference Include="..\aDVanceERP.Modulos.CompraVenta\aDVanceERP.Modulos.CompraVenta.csproj" />
+    <Compile Remove="MVP\Modelo\**" />
+    <Compile Remove="MVP\Presentadores\**" />
+    <EmbeddedResource Remove="MVP\Modelo\**" />
+    <EmbeddedResource Remove="MVP\Presentadores\**" />
+    <None Remove="MVP\Modelo\**" />
+    <None Remove="MVP\Presentadores\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MVP\Modelo\" />
-    <Folder Include="MVP\Presentadores\" />
+    <ProjectReference Include="..\aDVanceERP.Core\aDVanceERP.Core.csproj" />
+    <ProjectReference Include="..\aDVanceERP.Modulos.CompraVenta\aDVanceERP.Modulos.CompraVenta.csproj" />
+    <ProjectReference Include="..\aDVanceERP.Modulos.Inventario\aDVanceERP.Modulos.Inventario.csproj" />
   </ItemGroup>
 
   <ItemGroup>
