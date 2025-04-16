@@ -9,11 +9,8 @@
 
   <ItemGroup>
     <Compile Remove="MVP\Modelo\**" />
-    <Compile Remove="MVP\Presentadores\**" />
     <EmbeddedResource Remove="MVP\Modelo\**" />
-    <EmbeddedResource Remove="MVP\Presentadores\**" />
     <None Remove="MVP\Modelo\**" />
-    <None Remove="MVP\Presentadores\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -245,10 +245,10 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
             tuplaDetallesVentaArticulo.IdArticulo = articulo[0];
             tuplaDetallesVentaArticulo.NombreArticulo = articulo[1];
-            tuplaDetallesVentaArticulo.Precio = articulo[2];
+            tuplaDetallesVentaArticulo.PrecioCompraventaFinal = articulo[2];
             tuplaDetallesVentaArticulo.Cantidad = articulo[3];
             tuplaDetallesVentaArticulo.Habilitada = !ModoEdicionDatos;
-            tuplaDetallesVentaArticulo.MontoModificado += delegate(object? sender, EventArgs args) {
+            tuplaDetallesVentaArticulo.PrecioCompraventaModificado += delegate(object? sender, EventArgs args) {
                 if (sender is not IVistaTuplaDetalleCompraventaArticulo vista)
                     return;
 
@@ -257,7 +257,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
                 if (indiceArticulo == -1)
                     return;
 
-                Articulos[indiceArticulo][2] = vista.Precio; // Actualizar precio de compra
+                Articulos[indiceArticulo][2] = vista.PrecioCompraventaFinal; // Actualizar precio de compra
 
                 ActualizarTotal();
             };

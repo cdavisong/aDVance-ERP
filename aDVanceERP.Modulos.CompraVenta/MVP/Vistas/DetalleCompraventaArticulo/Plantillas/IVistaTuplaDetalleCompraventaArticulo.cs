@@ -5,8 +5,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.P
 public interface IVistaTuplaDetalleCompraventaArticulo : IVistaTupla {
     string IdArticulo { get; set; }
     string NombreArticulo { get; set; }
-    string Precio { get; set; }
+    string PrecioCompraventaFinal { get; set; }
     string Cantidad { get; set; }
 
-    event EventHandler? MontoModificado;
+    event EventHandler? PrecioCompraventaModificado;
 }

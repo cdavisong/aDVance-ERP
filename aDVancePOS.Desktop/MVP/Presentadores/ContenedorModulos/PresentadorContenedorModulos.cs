@@ -10,10 +10,11 @@ public partial class PresentadorContenedorModulos : PresentadorBase<IVistaConten
         VistaPrincipal = vistaPrincipal;
 
         // Eventos
+        Vista.MostrarVistaPuntoVenta += MostrarVistaTerminalVenta;
 
-        #region Módulo : Punto de Venta
+        #region Módulo : Terminal de Venta
 
-
+        InicializarVistaTerminalVenta();
 
         #endregion
     }

@@ -39,7 +39,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
             btnEliminar = new Guna2Button();
             fieldNombreArticulo = new Label();
             fieldCantidad = new Label();
-            fieldPrecio = new Guna2TextBox();
+            fieldPrecioCompraventa = new Guna2TextBox();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             SuspendLayout();
@@ -75,7 +75,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutVista.Controls.Add(fieldPrecio, 0, 0);
+            layoutVista.Controls.Add(fieldPrecioCompraventa, 0, 0);
             layoutVista.Controls.Add(btnEliminar, 3, 0);
             layoutVista.Controls.Add(fieldNombreArticulo, 0, 0);
             layoutVista.Controls.Add(fieldCantidad, 2, 0);
@@ -141,35 +141,35 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
             // 
             // fieldPrecio
             // 
-            fieldPrecio.Animated = true;
-            fieldPrecio.BorderColor = Color.Gainsboro;
-            fieldPrecio.BorderRadius = 16;
-            fieldPrecio.Cursor = Cursors.IBeam;
-            fieldPrecio.CustomizableEdges = customizableEdges7;
-            fieldPrecio.DefaultText = "";
-            fieldPrecio.DisabledState.BorderColor = Color.White;
-            fieldPrecio.DisabledState.ForeColor = Color.DimGray;
-            fieldPrecio.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldPrecio.Dock = DockStyle.Fill;
-            fieldPrecio.FocusedState.BorderColor = Color.SandyBrown;
-            fieldPrecio.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldPrecio.ForeColor = Color.Black;
-            fieldPrecio.HoverState.BorderColor = Color.SandyBrown;
-            fieldPrecio.IconLeftOffset = new Point(10, 0);
-            fieldPrecio.IconRight = (Image) resources.GetObject("fieldPrecio.IconRight");
-            fieldPrecio.IconRightOffset = new Point(6, 0);
-            fieldPrecio.IconRightSize = new Size(12, 12);
-            fieldPrecio.Location = new Point(200, 3);
-            fieldPrecio.Name = "fieldPrecio";
-            fieldPrecio.PasswordChar = '\0';
-            fieldPrecio.PlaceholderForeColor = Color.DimGray;
-            fieldPrecio.PlaceholderText = "Precio";
-            fieldPrecio.SelectedText = "";
-            fieldPrecio.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldPrecio.Size = new Size(124, 35);
-            fieldPrecio.TabIndex = 5;
-            fieldPrecio.TextAlign = HorizontalAlignment.Right;
-            fieldPrecio.TextOffset = new Point(5, 0);
+            fieldPrecioCompraventa.Animated = true;
+            fieldPrecioCompraventa.BorderColor = Color.Gainsboro;
+            fieldPrecioCompraventa.BorderRadius = 16;
+            fieldPrecioCompraventa.Cursor = Cursors.IBeam;
+            fieldPrecioCompraventa.CustomizableEdges = customizableEdges7;
+            fieldPrecioCompraventa.DefaultText = "";
+            fieldPrecioCompraventa.DisabledState.BorderColor = Color.White;
+            fieldPrecioCompraventa.DisabledState.ForeColor = Color.DimGray;
+            fieldPrecioCompraventa.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldPrecioCompraventa.Dock = DockStyle.Fill;
+            fieldPrecioCompraventa.FocusedState.BorderColor = Color.SandyBrown;
+            fieldPrecioCompraventa.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldPrecioCompraventa.ForeColor = Color.Black;
+            fieldPrecioCompraventa.HoverState.BorderColor = Color.SandyBrown;
+            fieldPrecioCompraventa.IconLeftOffset = new Point(10, 0);
+            fieldPrecioCompraventa.IconRight = (Image) resources.GetObject("fieldPrecio.IconRight");
+            fieldPrecioCompraventa.IconRightOffset = new Point(6, 0);
+            fieldPrecioCompraventa.IconRightSize = new Size(12, 12);
+            fieldPrecioCompraventa.Location = new Point(200, 3);
+            fieldPrecioCompraventa.Name = "fieldPrecio";
+            fieldPrecioCompraventa.PasswordChar = '\0';
+            fieldPrecioCompraventa.PlaceholderForeColor = Color.DimGray;
+            fieldPrecioCompraventa.PlaceholderText = "Precio";
+            fieldPrecioCompraventa.SelectedText = "";
+            fieldPrecioCompraventa.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            fieldPrecioCompraventa.Size = new Size(124, 35);
+            fieldPrecioCompraventa.TabIndex = 5;
+            fieldPrecioCompraventa.TextAlign = HorizontalAlignment.Right;
+            fieldPrecioCompraventa.TextOffset = new Point(5, 0);
             // 
             // VistaTuplaDetalleCompraventaArticulo
             // 
@@ -198,6 +198,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo {
         private Guna2Button btnEliminar;
         private Label fieldNombreArticulo;
         private Label fieldCantidad;
-        private Guna2TextBox fieldPrecio;
+        private Guna2TextBox fieldPrecioCompraventa;
     }
 }
