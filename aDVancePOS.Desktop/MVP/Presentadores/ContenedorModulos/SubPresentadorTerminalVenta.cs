@@ -1,4 +1,5 @@
-﻿using aDVancePOS.Modulos.TerminalVenta.MVP.Presentadores;
+﻿using aDVanceERP.Core.Utiles.Datos;
+using aDVancePOS.Modulos.TerminalVenta.MVP.Presentadores;
 using aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta;
 
 namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos;
@@ -10,6 +11,7 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaTerminalVenta() {
         _terminalVenta = new PresentadorTerminalVenta(new VistaTerminalVenta());
+        _terminalVenta.Vista.CargarNombresArticulos(UtilesArticulo.ObtenerNombresArticulos(UtilesAlmacen.ObtenerIdAlmacen("Punto de venta").Result).Result);
 
         Vista.Vistas?.Registrar("terminalVenta", _terminalVenta.Vista);
     }

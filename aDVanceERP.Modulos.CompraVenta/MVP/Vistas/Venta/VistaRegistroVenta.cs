@@ -207,7 +207,9 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
             args.SuppressKeyPress = true;
         };
-        btnAdicionarArticulo.Click += delegate { AdicionarArticulo(); };
+        btnAdicionarArticulo.Click += delegate {
+            AdicionarArticulo();
+        };
         ArticuloEliminado += delegate {
             ActualizarTuplasArticulos();
             ActualizarTotal();

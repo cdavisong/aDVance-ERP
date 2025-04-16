@@ -5,6 +5,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas;
 public interface IVistaTerminalVenta : IVistaRegistro {
     string? CriterioArticulo { get; set; }
     List<string[]>? Articulos { get; }
+    int Cantidad { get; set; }
     decimal Subtotal { get; set; }
     decimal Descuento { get; set; }
     decimal Total { get; set; }

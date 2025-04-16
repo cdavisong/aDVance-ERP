@@ -330,6 +330,7 @@ namespace aDVancePOS.Desktop.MVP.Vistas.Principal {
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon) resources.GetObject("$this.Icon");
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaPrincipal";
             StartPosition = FormStartPosition.Manual;

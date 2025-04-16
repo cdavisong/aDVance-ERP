@@ -36,9 +36,9 @@
             fieldId = new Label();
             btnEliminar = new Guna.UI2.WinForms.Guna2Button();
             simboloPeso1 = new Label();
-            fieldPrecio = new Guna.UI2.WinForms.Guna2TextBox();
             fieldNombreArticulo = new Label();
             fieldSubtotal = new Label();
+            fieldPrecio = new Guna.UI2.WinForms.Guna2TextBox();
             fieldCantidad = new Guna.UI2.WinForms.Guna2TextBox();
             layoutVista.SuspendLayout();
             SuspendLayout();
@@ -130,6 +130,33 @@
             simboloPeso1.Text = "$";
             simboloPeso1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // fieldNombreArticulo
+            // 
+            fieldNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreArticulo.ForeColor = Color.DimGray;
+            fieldNombreArticulo.ImeMode = ImeMode.NoControl;
+            fieldNombreArticulo.Location = new Point(61, 1);
+            fieldNombreArticulo.Margin = new Padding(1);
+            fieldNombreArticulo.Name = "fieldNombreArticulo";
+            fieldNombreArticulo.Size = new Size(195, 39);
+            fieldNombreArticulo.TabIndex = 1;
+            fieldNombreArticulo.Text = "nombreArticulo";
+            fieldNombreArticulo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // fieldSubtotal
+            // 
+            fieldSubtotal.Dock = DockStyle.Fill;
+            fieldSubtotal.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldSubtotal.ForeColor = Color.Black;
+            fieldSubtotal.ImeMode = ImeMode.NoControl;
+            fieldSubtotal.Location = new Point(641, 1);
+            fieldSubtotal.Margin = new Padding(1);
+            fieldSubtotal.Name = "fieldSubtotal";
+            fieldSubtotal.Size = new Size(108, 40);
+            fieldSubtotal.TabIndex = 32;
+            fieldSubtotal.Text = "subtotal";
+            fieldSubtotal.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // fieldPrecio
             // 
             fieldPrecio.Animated = true;
@@ -163,33 +190,6 @@
             fieldPrecio.TextAlign = HorizontalAlignment.Right;
             fieldPrecio.TextOffset = new Point(5, 0);
             // 
-            // fieldNombreArticulo
-            // 
-            fieldNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreArticulo.ForeColor = Color.DimGray;
-            fieldNombreArticulo.ImeMode = ImeMode.NoControl;
-            fieldNombreArticulo.Location = new Point(61, 1);
-            fieldNombreArticulo.Margin = new Padding(1);
-            fieldNombreArticulo.Name = "fieldNombreArticulo";
-            fieldNombreArticulo.Size = new Size(195, 39);
-            fieldNombreArticulo.TabIndex = 1;
-            fieldNombreArticulo.Text = "nombreArticulo";
-            fieldNombreArticulo.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fieldSubtotal
-            // 
-            fieldSubtotal.Dock = DockStyle.Fill;
-            fieldSubtotal.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldSubtotal.ForeColor = Color.Black;
-            fieldSubtotal.ImeMode = ImeMode.NoControl;
-            fieldSubtotal.Location = new Point(641, 1);
-            fieldSubtotal.Margin = new Padding(1);
-            fieldSubtotal.Name = "fieldSubtotal";
-            fieldSubtotal.Size = new Size(108, 40);
-            fieldSubtotal.TabIndex = 32;
-            fieldSubtotal.Text = "subtotal";
-            fieldSubtotal.TextAlign = ContentAlignment.MiddleRight;
-            // 
             // fieldCantidad
             // 
             fieldCantidad.Animated = true;
@@ -216,6 +216,7 @@
             fieldCantidad.PasswordChar = '\0';
             fieldCantidad.PlaceholderForeColor = Color.DimGray;
             fieldCantidad.PlaceholderText = "Cant.";
+            fieldCantidad.ReadOnly = true;
             fieldCantidad.SelectedText = "";
             fieldCantidad.ShadowDecoration.CustomizableEdges = customizableEdges6;
             fieldCantidad.Size = new Size(122, 32);
@@ -223,7 +224,7 @@
             fieldCantidad.TextAlign = HorizontalAlignment.Right;
             fieldCantidad.TextOffset = new Point(5, 0);
             // 
-            // VistaTuplaVenta
+            // VistaTuplaVentaArticulo
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(810, 42);
@@ -231,7 +232,7 @@
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
-            Name = "VistaTuplaVenta";
+            Name = "VistaTuplaVentaArticulo";
             Text = "VistaTuplaVenta";
             layoutVista.ResumeLayout(false);
             ResumeLayout(false);

@@ -31,7 +31,10 @@ public partial class VistaTuplaVentaArticulo : Form, IVistaTuplaVentaArticulo {
         set => Size = value;
     }
 
-    public string IdArticulo { get; set; }
+    public string IdArticulo {
+        get => fieldId.Text;
+        set => fieldId.Text = value;
+    }
 
     public string NombreArticulo {
         get => fieldNombreArticulo.Text;
