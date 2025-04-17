@@ -37,12 +37,18 @@ public partial class VistaTuplaMovimiento : Form, IVistaTuplaMovimiento {
 
     public string NombreAlmacenOrigen {
         get => fieldNombreAlmacenOrigen.Text;
-        set => fieldNombreAlmacenOrigen.Text = string.IsNullOrEmpty(value) ? "Ninguno" : value;
+        set {
+            fieldNombreAlmacenOrigen.Text = string.IsNullOrEmpty(value) ? "Ninguno" : value;
+            fieldNombreAlmacenOrigen.Margin = new Padding(1, value?.Length > 16 ? 10 : 1, 1, 1);
+        }
     }
 
     public string NombreAlmacenDestino {
         get => fieldNombreAlmacenDestino.Text;
-        set => fieldNombreAlmacenDestino.Text = string.IsNullOrEmpty(value) ? "Ninguno" : value;
+        set {
+            fieldNombreAlmacenDestino.Text = string.IsNullOrEmpty(value) ? "Ninguno" : value;
+            fieldNombreAlmacenDestino.Margin = new Padding(1, value?.Length > 16 ? 10 : 1, 1, 1);
+        }
     }
 
     public string CantidadMovida {

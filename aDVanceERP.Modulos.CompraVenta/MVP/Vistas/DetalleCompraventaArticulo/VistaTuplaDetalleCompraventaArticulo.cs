@@ -34,7 +34,10 @@ public partial class VistaTuplaDetalleCompraventaArticulo : Form, IVistaTuplaDet
 
     public string NombreArticulo {
         get => fieldNombreArticulo.Text;
-        set => fieldNombreArticulo.Text = value;
+        set {
+            fieldNombreArticulo.Text = value;
+            fieldNombreArticulo.Margin = new Padding(1, value?.Length > 20 ? 10 : 1, 1, 1);
+        }
     }
 
     public string PrecioCompraventaFinal {

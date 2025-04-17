@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas;
@@ -15,7 +16,7 @@ public class PresentadorTerminalVenta : PresentadorRegistroBase<IVistaTerminalVe
     protected override async Task<Venta?> ObtenerObjetoDesdeVista() {
         return new Venta(Objeto?.Id ?? 0,
             DateTime.Now,
-            0, //await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
+            await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
             0, //UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),
             Vista.IdTipoEntrega,
             "", //Vista.Direccion,

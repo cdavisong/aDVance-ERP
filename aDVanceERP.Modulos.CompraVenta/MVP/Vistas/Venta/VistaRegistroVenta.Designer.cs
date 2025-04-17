@@ -554,6 +554,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutTituloClienteAlmacen.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             layoutTituloClienteAlmacen.Controls.Add(fieldTituloNombreCliente, 0, 0);
             layoutTituloClienteAlmacen.Controls.Add(fieldTituloNombreAlmacen, 1, 0);
+            layoutTituloClienteAlmacen.Dock = DockStyle.Fill;
             layoutTituloClienteAlmacen.Location = new Point(50, 130);
             layoutTituloClienteAlmacen.Margin = new Padding(0);
             layoutTituloClienteAlmacen.Name = "layoutTituloClienteAlmacen";

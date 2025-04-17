@@ -11,8 +11,8 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaTerminalVenta() {
         _terminalVenta = new PresentadorTerminalVenta(new VistaTerminalVenta());
-        _terminalVenta.Vista.CargarNombresArticulos(UtilesArticulo.ObtenerNombresArticulos(UtilesAlmacen.ObtenerIdAlmacen("Punto de venta").Result).Result);
-
+        _terminalVenta.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
+        
         Vista.Vistas?.Registrar("terminalVenta", _terminalVenta.Vista);
     }
 

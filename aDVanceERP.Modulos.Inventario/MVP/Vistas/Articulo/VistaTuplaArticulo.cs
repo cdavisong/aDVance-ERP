@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.CodeDom;
+using System.Globalization;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.Utiles;
@@ -50,7 +51,10 @@ public partial class VistaTuplaArticulo : Form, IVistaTuplaArticulo {
 
     public string Descripcion {
         get => fieldDescripcion.Text;
-        set => fieldDescripcion.Text = value;
+        set {
+            fieldDescripcion.Text = value;
+            fieldDescripcion.Margin = new Padding(1, value?.Length > 30 ? 10 : 1, 1, 1);
+        }
     }
 
     public decimal PrecioCompraBase {

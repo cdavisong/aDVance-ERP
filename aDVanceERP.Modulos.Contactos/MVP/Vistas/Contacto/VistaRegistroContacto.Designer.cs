@@ -189,7 +189,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldNombreUsuario.Name = "fieldNombreUsuario";
             fieldNombreUsuario.PasswordChar = '\0';
             fieldNombreUsuario.PlaceholderForeColor = Color.DimGray;
-            fieldNombreUsuario.PlaceholderText = "Nombre de usuario";
+            fieldNombreUsuario.PlaceholderText = "Nombre del contacto";
             fieldNombreUsuario.SelectedText = "";
             fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges2;
             fieldNombreUsuario.Size = new Size(407, 35);

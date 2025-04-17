@@ -4,7 +4,6 @@ using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
 
 using aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas;
@@ -36,9 +35,14 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             set { }
         }
 
-        public string? CriterioArticulo {
-            get => fieldCriterioArticulo.Text;
-            set => fieldCriterioArticulo.Text = value;
+        public string? NombreAlmacen {
+            get => fieldNombreAlmacen.Text;
+            set => fieldNombreAlmacen.Text = value;
+        }
+
+        public string? NombreArticulo {
+            get => fieldNombreArticulo.Text;
+            set => fieldNombreArticulo.Text = value;
         }
 
         public List<string[]>? Articulos { get; private set; }
@@ -95,7 +99,12 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             Vistas = new RepositorioVistaBase(contenedorVistas);
 
             // Eventos
-            fieldCriterioArticulo.KeyDown += delegate (object? sender, KeyEventArgs args) {
+            fieldNombreAlmacen.SelectedIndexChanged += async delegate {
+                var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
+
+                CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
+            };
+            fieldNombreArticulo.KeyDown += delegate (object? sender, KeyEventArgs args) {
                 if (args.KeyCode != Keys.Enter)
                     return;
 
@@ -110,6 +119,10 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                 ActualizarTuplasArticulos();
                 ActualizarSubtotal();
             };
+            btnEliminarArticulos.Click += delegate(object? sender, EventArgs args) {
+                Articulos.Clear();
+                ArticuloEliminado?.Invoke(sender, args);
+            };
             btnGestionarPago.Click += delegate(object? sender, EventArgs args) {
                 EfectuarPago?.Invoke(sender, args);
             };
@@ -118,20 +131,35 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             };
         }
 
+        public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
+            fieldNombreAlmacen.Items.Clear();
+            fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
+            fieldNombreAlmacen.SelectedIndex = 0;
+        }
+
         public void CargarNombresArticulos(string[] nombresArticulos) {
-            fieldCriterioArticulo.AutoCompleteCustomSource.Clear();
-            fieldCriterioArticulo.AutoCompleteCustomSource.AddRange(nombresArticulos);
-            fieldCriterioArticulo.AutoCompleteMode = AutoCompleteMode.Suggest;
-            fieldCriterioArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            fieldNombreArticulo.AutoCompleteCustomSource.Clear();
+            fieldNombreArticulo.AutoCompleteCustomSource.AddRange(nombresArticulos);
+            fieldNombreArticulo.AutoCompleteMode = AutoCompleteMode.Suggest;
+            fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
-            var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? "Punto de venta" : nombreAlmacen;
+            var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
             var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(nombreAlmacen);
-            var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? CriterioArticulo : nombreArticulo;
+            var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
             var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
             var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
             var stockArticulo = await UtilesArticulo.ObtenerStockArticulo(adNombreArticulo, adNombreAlmacen);
+
+            // Verificar ID y stock del artículo
+            if (idArticulo == 0 || stockArticulo == 0) {
+                NombreArticulo = string.Empty;
+
+                fieldNombreArticulo.Focus();
+
+                return;
+            }
 
             // Verificar que la cantidad no exceda el stock del artículo
             if (Articulos != null) {
@@ -174,13 +202,13 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                 }
             }
 
-            CriterioArticulo = string.Empty;
+            NombreArticulo = string.Empty;
             Cantidad = 1;
 
             ActualizarTuplasArticulos();
             ActualizarSubtotal();
 
-            fieldCriterioArticulo.Focus();
+            fieldNombreArticulo.Focus();
         }
 
         private void ActualizarTuplasArticulos() {
@@ -255,7 +283,14 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                 }
 
             btnGestionarPago.Enabled = Subtotal > 0;
+            KeyPago.Visible = Subtotal > 0;
             btnAsignarMensajeria.Enabled = Subtotal > 0;
+
+            ActualizarTotal();
+        }
+
+        private void ActualizarTotal() {
+            Total = Subtotal - Descuento;
         }
 
         public void Mostrar() {
@@ -267,7 +302,12 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         public void Restaurar() {
             Habilitada = true;
             Fecha = DateTime.Now;
-            CriterioArticulo = string.Empty;
+            NombreAlmacen = string.Empty;
+            fieldNombreAlmacen.SelectedIndex = 0;
+            NombreArticulo = string.Empty;
+            btnGestionarPago.Enabled = false;
+            KeyPago.Visible = false;
+            btnAsignarMensajeria.Enabled = false;
             Subtotal = 0;
             Descuento = 0;
             Total = 0;

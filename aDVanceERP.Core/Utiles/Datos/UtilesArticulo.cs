@@ -13,21 +13,22 @@ public static class UtilesArticulo {
 
                 await using var comando = new MySqlCommand(query, conexion);
 
-                if (parameters != null) comando.Parameters.AddRange(parameters);
+                if (parameters != null && parameters.Length > 0)
+                    comando.Parameters.AddRange(parameters);
 
                 await using var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false);
 
-                if (await lectorDatos.ReadAsync().ConfigureAwait(false)) return mapper((MySqlDataReader)lectorDatos);
-            }
-            catch (MySqlException) {
+                if (!await lectorDatos.ReadAsync().ConfigureAwait(false)) 
+                    return default;
+                
+                // Verificar si el valor es DBNull antes de mapear
+                return !lectorDatos.IsDBNull(0) ? mapper((MySqlDataReader)lectorDatos) : default;
+            } catch (MySqlException) {
                 throw new ExcepcionConexionServidorMySQL();
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new Exception("Error inesperado al ejecutar la consulta.", ex);
             }
         }
-
-        return default;
     }
 
     // Método auxiliar para ejecutar consultas y devolver una lista
@@ -44,7 +45,8 @@ public static class UtilesArticulo {
 
                     await using (var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false)) {
                         while (await lectorDatos.ReadAsync().ConfigureAwait(false))
-                            resultados.Add(mapper((MySqlDataReader)lectorDatos));
+                            if (!lectorDatos.IsDBNull(0))
+                                resultados.Add(mapper((MySqlDataReader)lectorDatos));
                     }
                 }
             }

@@ -28,9 +28,9 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTerminalVenta));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTerminalVenta));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -65,11 +65,14 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges37 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges38 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
             layoutHerramientas = new TableLayoutPanel();
+            fieldNombreAlmacen = new Guna2ComboBox();
             btnAdicionarArticulo = new Guna2Button();
-            fieldCriterioArticulo = new Guna2TextBox();
+            fieldNombreArticulo = new Guna2TextBox();
             separador1 = new Guna2Separator();
             layoutDistribución1 = new TableLayoutPanel();
             layoutDistribucionControlesVenta = new TableLayoutPanel();
@@ -91,7 +94,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutBotonesVenta1 = new TableLayoutPanel();
             btnCantidadArticulo = new Guna2Button();
             btnNuevaVenta = new Guna2Button();
-            btnEliminarArticulo = new Guna2Button();
+            btnEliminarArticulos = new Guna2Button();
             btnBuscarArticulo = new Guna2Button();
             layoutMetodosPago = new FlowLayoutPanel();
             layoutDistribucionVentaArticulo = new TableLayoutPanel();
@@ -170,12 +173,14 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             // 
             // layoutHerramientas
             // 
-            layoutHerramientas.ColumnCount = 2;
+            layoutHerramientas.ColumnCount = 3;
+            layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 234F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutHerramientas.Controls.Add(btnAdicionarArticulo, 1, 0);
-            layoutHerramientas.Controls.Add(fieldCriterioArticulo, 0, 0);
+            layoutHerramientas.Controls.Add(fieldNombreAlmacen, 0, 0);
+            layoutHerramientas.Controls.Add(btnAdicionarArticulo, 2, 0);
+            layoutHerramientas.Controls.Add(fieldNombreArticulo, 1, 0);
             layoutHerramientas.Dock = DockStyle.Fill;
             layoutHerramientas.Location = new Point(20, 20);
             layoutHerramientas.Margin = new Padding(0);
@@ -185,57 +190,79 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutHerramientas.Size = new Size(1316, 45);
             layoutHerramientas.TabIndex = 38;
             // 
+            // fieldNombreAlmacen
+            // 
+            fieldNombreAlmacen.Animated = true;
+            fieldNombreAlmacen.BackColor = Color.Transparent;
+            fieldNombreAlmacen.BorderColor = Color.Gainsboro;
+            fieldNombreAlmacen.BorderRadius = 16;
+            fieldNombreAlmacen.CustomizableEdges = customizableEdges1;
+            fieldNombreAlmacen.Dock = DockStyle.Fill;
+            fieldNombreAlmacen.DrawMode = DrawMode.OwnerDrawFixed;
+            fieldNombreAlmacen.DropDownStyle = ComboBoxStyle.DropDownList;
+            fieldNombreAlmacen.FocusedColor = Color.SandyBrown;
+            fieldNombreAlmacen.FocusedState.BorderColor = Color.SandyBrown;
+            fieldNombreAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreAlmacen.ForeColor = Color.Black;
+            fieldNombreAlmacen.ItemHeight = 29;
+            fieldNombreAlmacen.Location = new Point(5, 5);
+            fieldNombreAlmacen.Margin = new Padding(5);
+            fieldNombreAlmacen.Name = "fieldNombreAlmacen";
+            fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldNombreAlmacen.Size = new Size(224, 35);
+            fieldNombreAlmacen.TabIndex = 29;
+            fieldNombreAlmacen.TextOffset = new Point(10, 0);
+            // 
             // btnAdicionarArticulo
             // 
             btnAdicionarArticulo.Animated = true;
             btnAdicionarArticulo.BorderRadius = 18;
             btnAdicionarArticulo.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnAdicionarArticulo.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAdicionarArticulo.CustomizableEdges = customizableEdges1;
+            btnAdicionarArticulo.CustomizableEdges = customizableEdges3;
             btnAdicionarArticulo.DialogResult = DialogResult.Cancel;
             btnAdicionarArticulo.Dock = DockStyle.Fill;
-            btnAdicionarArticulo.Enabled = false;
             btnAdicionarArticulo.FillColor = Color.PeachPuff;
             btnAdicionarArticulo.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAdicionarArticulo.ForeColor = Color.White;
             btnAdicionarArticulo.Location = new Point(1271, 5);
             btnAdicionarArticulo.Margin = new Padding(5);
             btnAdicionarArticulo.Name = "btnAdicionarArticulo";
-            btnAdicionarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnAdicionarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnAdicionarArticulo.Size = new Size(40, 35);
             btnAdicionarArticulo.TabIndex = 28;
             // 
-            // fieldCriterioArticulo
+            // fieldNombreArticulo
             // 
-            fieldCriterioArticulo.Animated = true;
-            fieldCriterioArticulo.BackColor = Color.FromArgb(  254,   254,   253);
-            fieldCriterioArticulo.BorderColor = Color.Gainsboro;
-            fieldCriterioArticulo.BorderRadius = 18;
-            fieldCriterioArticulo.Cursor = Cursors.IBeam;
-            fieldCriterioArticulo.CustomizableEdges = customizableEdges3;
-            fieldCriterioArticulo.DefaultText = "";
-            fieldCriterioArticulo.DisabledState.BorderColor = Color.White;
-            fieldCriterioArticulo.DisabledState.ForeColor = Color.DimGray;
-            fieldCriterioArticulo.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldCriterioArticulo.Dock = DockStyle.Fill;
-            fieldCriterioArticulo.FocusedState.BorderColor = Color.SandyBrown;
-            fieldCriterioArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldCriterioArticulo.ForeColor = Color.Black;
-            fieldCriterioArticulo.HoverState.BorderColor = Color.SandyBrown;
-            fieldCriterioArticulo.IconLeft = (Image) resources.GetObject("fieldCriterioArticulo.IconLeft");
-            fieldCriterioArticulo.IconLeftOffset = new Point(10, 1);
-            fieldCriterioArticulo.IconRightOffset = new Point(10, 0);
-            fieldCriterioArticulo.Location = new Point(5, 5);
-            fieldCriterioArticulo.Margin = new Padding(5);
-            fieldCriterioArticulo.Name = "fieldCriterioArticulo";
-            fieldCriterioArticulo.PasswordChar = '\0';
-            fieldCriterioArticulo.PlaceholderForeColor = Color.DimGray;
-            fieldCriterioArticulo.PlaceholderText = "Obtener artículos por nombre";
-            fieldCriterioArticulo.SelectedText = "";
-            fieldCriterioArticulo.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            fieldCriterioArticulo.Size = new Size(1256, 35);
-            fieldCriterioArticulo.TabIndex = 9;
-            fieldCriterioArticulo.TextOffset = new Point(5, 0);
+            fieldNombreArticulo.Animated = true;
+            fieldNombreArticulo.BackColor = Color.FromArgb(  254,   254,   253);
+            fieldNombreArticulo.BorderColor = Color.Gainsboro;
+            fieldNombreArticulo.BorderRadius = 18;
+            fieldNombreArticulo.Cursor = Cursors.IBeam;
+            fieldNombreArticulo.CustomizableEdges = customizableEdges5;
+            fieldNombreArticulo.DefaultText = "";
+            fieldNombreArticulo.DisabledState.BorderColor = Color.White;
+            fieldNombreArticulo.DisabledState.ForeColor = Color.DimGray;
+            fieldNombreArticulo.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldNombreArticulo.Dock = DockStyle.Fill;
+            fieldNombreArticulo.FocusedState.BorderColor = Color.SandyBrown;
+            fieldNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreArticulo.ForeColor = Color.Black;
+            fieldNombreArticulo.HoverState.BorderColor = Color.SandyBrown;
+            fieldNombreArticulo.IconLeft = (Image) resources.GetObject("fieldNombreArticulo.IconLeft");
+            fieldNombreArticulo.IconLeftOffset = new Point(10, 1);
+            fieldNombreArticulo.IconRightOffset = new Point(10, 0);
+            fieldNombreArticulo.Location = new Point(239, 5);
+            fieldNombreArticulo.Margin = new Padding(5);
+            fieldNombreArticulo.Name = "fieldNombreArticulo";
+            fieldNombreArticulo.PasswordChar = '\0';
+            fieldNombreArticulo.PlaceholderForeColor = Color.DimGray;
+            fieldNombreArticulo.PlaceholderText = "Obtener artículos por nombre";
+            fieldNombreArticulo.SelectedText = "";
+            fieldNombreArticulo.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldNombreArticulo.Size = new Size(1022, 35);
+            fieldNombreArticulo.TabIndex = 9;
+            fieldNombreArticulo.TextOffset = new Point(5, 0);
             // 
             // separador1
             // 
@@ -311,7 +338,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnClientes.Animated = true;
             btnClientes.BackColor = Color.WhiteSmoke;
             btnClientes.BorderRadius = 10;
-            btnClientes.CustomizableEdges = customizableEdges5;
+            btnClientes.CustomizableEdges = customizableEdges7;
             btnClientes.Dock = DockStyle.Fill;
             btnClientes.FillColor = Color.Gainsboro;
             btnClientes.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -320,7 +347,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnClientes.Location = new Point(248, 2);
             btnClientes.Margin = new Padding(2);
             btnClientes.Name = "btnClientes";
-            btnClientes.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnClientes.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnClientes.Size = new Size(119, 60);
             btnClientes.TabIndex = 11;
             btnClientes.Text = "Clientes";
@@ -331,7 +358,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnOrdenes.Animated = true;
             btnOrdenes.BackColor = Color.WhiteSmoke;
             btnOrdenes.BorderRadius = 10;
-            btnOrdenes.CustomizableEdges = customizableEdges7;
+            btnOrdenes.CustomizableEdges = customizableEdges9;
             btnOrdenes.Dock = DockStyle.Fill;
             btnOrdenes.FillColor = Color.Gainsboro;
             btnOrdenes.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -340,7 +367,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnOrdenes.Location = new Point(371, 2);
             btnOrdenes.Margin = new Padding(2);
             btnOrdenes.Name = "btnOrdenes";
-            btnOrdenes.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnOrdenes.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnOrdenes.Size = new Size(121, 60);
             btnOrdenes.TabIndex = 10;
             btnOrdenes.Text = "Órdenes";
@@ -351,7 +378,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnDescuento.Animated = true;
             btnDescuento.BackColor = Color.WhiteSmoke;
             btnDescuento.BorderRadius = 10;
-            btnDescuento.CustomizableEdges = customizableEdges9;
+            btnDescuento.CustomizableEdges = customizableEdges11;
             btnDescuento.Dock = DockStyle.Fill;
             btnDescuento.FillColor = Color.Gainsboro;
             btnDescuento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -360,7 +387,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnDescuento.Location = new Point(2, 2);
             btnDescuento.Margin = new Padding(2);
             btnDescuento.Name = "btnDescuento";
-            btnDescuento.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnDescuento.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnDescuento.Size = new Size(119, 60);
             btnDescuento.TabIndex = 9;
             btnDescuento.Text = "Descuento";
@@ -371,7 +398,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnComentarios.Animated = true;
             btnComentarios.BackColor = Color.WhiteSmoke;
             btnComentarios.BorderRadius = 10;
-            btnComentarios.CustomizableEdges = customizableEdges11;
+            btnComentarios.CustomizableEdges = customizableEdges13;
             btnComentarios.Dock = DockStyle.Fill;
             btnComentarios.FillColor = Color.Gainsboro;
             btnComentarios.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -380,7 +407,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnComentarios.Location = new Point(125, 2);
             btnComentarios.Margin = new Padding(2);
             btnComentarios.Name = "btnComentarios";
-            btnComentarios.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnComentarios.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnComentarios.Size = new Size(119, 60);
             btnComentarios.TabIndex = 8;
             btnComentarios.Text = "Comentario";
@@ -412,10 +439,11 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnGestionarPago.Animated = true;
             btnGestionarPago.BackColor = Color.WhiteSmoke;
             btnGestionarPago.BorderRadius = 10;
-            customizableEdges13.BottomRight = false;
-            customizableEdges13.TopRight = false;
-            btnGestionarPago.CustomizableEdges = customizableEdges13;
+            customizableEdges15.BottomRight = false;
+            customizableEdges15.TopRight = false;
+            btnGestionarPago.CustomizableEdges = customizableEdges15;
             btnGestionarPago.Dock = DockStyle.Fill;
+            btnGestionarPago.Enabled = false;
             btnGestionarPago.FillColor = Color.DarkSeaGreen;
             btnGestionarPago.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnGestionarPago.ForeColor = Color.Black;
@@ -423,7 +451,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnGestionarPago.Location = new Point(248, 2);
             btnGestionarPago.Margin = new Padding(2, 2, 1, 2);
             btnGestionarPago.Name = "btnGestionarPago";
-            btnGestionarPago.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnGestionarPago.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnGestionarPago.Size = new Size(120, 60);
             btnGestionarPago.TabIndex = 11;
             btnGestionarPago.Text = "Pago";
@@ -434,10 +462,11 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnAsignarMensajeria.Animated = true;
             btnAsignarMensajeria.BackColor = Color.WhiteSmoke;
             btnAsignarMensajeria.BorderRadius = 10;
-            customizableEdges15.BottomLeft = false;
-            customizableEdges15.TopLeft = false;
-            btnAsignarMensajeria.CustomizableEdges = customizableEdges15;
+            customizableEdges17.BottomLeft = false;
+            customizableEdges17.TopLeft = false;
+            btnAsignarMensajeria.CustomizableEdges = customizableEdges17;
             btnAsignarMensajeria.Dock = DockStyle.Fill;
+            btnAsignarMensajeria.Enabled = false;
             btnAsignarMensajeria.FillColor = Color.DarkSeaGreen;
             btnAsignarMensajeria.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnAsignarMensajeria.ForeColor = Color.Black;
@@ -445,7 +474,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnAsignarMensajeria.Location = new Point(370, 2);
             btnAsignarMensajeria.Margin = new Padding(1, 2, 2, 2);
             btnAsignarMensajeria.Name = "btnAsignarMensajeria";
-            btnAsignarMensajeria.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnAsignarMensajeria.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnAsignarMensajeria.Size = new Size(122, 60);
             btnAsignarMensajeria.TabIndex = 10;
             btnAsignarMensajeria.Text = "Mensajería";
@@ -456,7 +485,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnGuardarOrden.Animated = true;
             btnGuardarOrden.BackColor = Color.WhiteSmoke;
             btnGuardarOrden.BorderRadius = 10;
-            btnGuardarOrden.CustomizableEdges = customizableEdges17;
+            btnGuardarOrden.CustomizableEdges = customizableEdges19;
             btnGuardarOrden.Dock = DockStyle.Fill;
             btnGuardarOrden.FillColor = Color.Gainsboro;
             btnGuardarOrden.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -465,7 +494,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnGuardarOrden.Location = new Point(2, 2);
             btnGuardarOrden.Margin = new Padding(2);
             btnGuardarOrden.Name = "btnGuardarOrden";
-            btnGuardarOrden.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnGuardarOrden.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnGuardarOrden.Size = new Size(119, 60);
             btnGuardarOrden.TabIndex = 9;
             btnGuardarOrden.Text = "Guardar";
@@ -476,7 +505,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnReembolsoOrden.Animated = true;
             btnReembolsoOrden.BackColor = Color.WhiteSmoke;
             btnReembolsoOrden.BorderRadius = 10;
-            btnReembolsoOrden.CustomizableEdges = customizableEdges19;
+            btnReembolsoOrden.CustomizableEdges = customizableEdges21;
             btnReembolsoOrden.Dock = DockStyle.Fill;
             btnReembolsoOrden.FillColor = Color.Gainsboro;
             btnReembolsoOrden.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -485,7 +514,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnReembolsoOrden.Location = new Point(125, 2);
             btnReembolsoOrden.Margin = new Padding(2);
             btnReembolsoOrden.Name = "btnReembolsoOrden";
-            btnReembolsoOrden.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnReembolsoOrden.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnReembolsoOrden.Size = new Size(119, 60);
             btnReembolsoOrden.TabIndex = 8;
             btnReembolsoOrden.Text = "Reembolso";
@@ -517,7 +546,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnAnularOrden.Animated = true;
             btnAnularOrden.BackColor = Color.WhiteSmoke;
             btnAnularOrden.BorderRadius = 10;
-            btnAnularOrden.CustomizableEdges = customizableEdges21;
+            btnAnularOrden.CustomizableEdges = customizableEdges23;
             btnAnularOrden.Dock = DockStyle.Fill;
             btnAnularOrden.FillColor = Color.LightCoral;
             btnAnularOrden.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -526,7 +555,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnAnularOrden.Location = new Point(248, 2);
             btnAnularOrden.Margin = new Padding(2);
             btnAnularOrden.Name = "btnAnularOrden";
-            btnAnularOrden.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            btnAnularOrden.ShadowDecoration.CustomizableEdges = customizableEdges24;
             btnAnularOrden.Size = new Size(119, 60);
             btnAnularOrden.TabIndex = 11;
             btnAnularOrden.Text = "Anular orden";
@@ -537,7 +566,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnMenuOpciones.Animated = true;
             btnMenuOpciones.BackColor = Color.WhiteSmoke;
             btnMenuOpciones.BorderRadius = 10;
-            btnMenuOpciones.CustomizableEdges = customizableEdges23;
+            btnMenuOpciones.CustomizableEdges = customizableEdges25;
             btnMenuOpciones.Dock = DockStyle.Fill;
             btnMenuOpciones.FillColor = Color.Gainsboro;
             btnMenuOpciones.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -546,7 +575,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnMenuOpciones.Location = new Point(371, 2);
             btnMenuOpciones.Margin = new Padding(2);
             btnMenuOpciones.Name = "btnMenuOpciones";
-            btnMenuOpciones.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            btnMenuOpciones.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnMenuOpciones.Size = new Size(121, 60);
             btnMenuOpciones.TabIndex = 10;
             btnMenuOpciones.Tile = true;
@@ -556,7 +585,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnBloquearVenta.Animated = true;
             btnBloquearVenta.BackColor = Color.WhiteSmoke;
             btnBloquearVenta.BorderRadius = 10;
-            btnBloquearVenta.CustomizableEdges = customizableEdges25;
+            btnBloquearVenta.CustomizableEdges = customizableEdges27;
             btnBloquearVenta.Dock = DockStyle.Fill;
             btnBloquearVenta.FillColor = Color.Gainsboro;
             btnBloquearVenta.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -565,7 +594,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnBloquearVenta.Location = new Point(2, 2);
             btnBloquearVenta.Margin = new Padding(2);
             btnBloquearVenta.Name = "btnBloquearVenta";
-            btnBloquearVenta.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            btnBloquearVenta.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnBloquearVenta.Size = new Size(119, 60);
             btnBloquearVenta.TabIndex = 9;
             btnBloquearVenta.Text = "Bloquear";
@@ -576,7 +605,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnTransferirProductos.Animated = true;
             btnTransferirProductos.BackColor = Color.WhiteSmoke;
             btnTransferirProductos.BorderRadius = 10;
-            btnTransferirProductos.CustomizableEdges = customizableEdges27;
+            btnTransferirProductos.CustomizableEdges = customizableEdges29;
             btnTransferirProductos.Dock = DockStyle.Fill;
             btnTransferirProductos.FillColor = Color.Gainsboro;
             btnTransferirProductos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -585,7 +614,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnTransferirProductos.Location = new Point(125, 2);
             btnTransferirProductos.Margin = new Padding(2);
             btnTransferirProductos.Name = "btnTransferirProductos";
-            btnTransferirProductos.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            btnTransferirProductos.ShadowDecoration.CustomizableEdges = customizableEdges30;
             btnTransferirProductos.Size = new Size(119, 60);
             btnTransferirProductos.TabIndex = 8;
             btnTransferirProductos.Text = "Transferir";
@@ -600,7 +629,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutBotonesVenta1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             layoutBotonesVenta1.Controls.Add(btnCantidadArticulo, 0, 0);
             layoutBotonesVenta1.Controls.Add(btnNuevaVenta, 0, 0);
-            layoutBotonesVenta1.Controls.Add(btnEliminarArticulo, 0, 0);
+            layoutBotonesVenta1.Controls.Add(btnEliminarArticulos, 0, 0);
             layoutBotonesVenta1.Controls.Add(btnBuscarArticulo, 0, 0);
             layoutBotonesVenta1.Dock = DockStyle.Fill;
             layoutBotonesVenta1.Location = new Point(0, 0);
@@ -617,7 +646,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnCantidadArticulo.Animated = true;
             btnCantidadArticulo.BackColor = Color.WhiteSmoke;
             btnCantidadArticulo.BorderRadius = 10;
-            btnCantidadArticulo.CustomizableEdges = customizableEdges29;
+            btnCantidadArticulo.CustomizableEdges = customizableEdges31;
             btnCantidadArticulo.Dock = DockStyle.Fill;
             btnCantidadArticulo.FillColor = Color.Gainsboro;
             btnCantidadArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -626,7 +655,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnCantidadArticulo.Location = new Point(248, 2);
             btnCantidadArticulo.Margin = new Padding(2);
             btnCantidadArticulo.Name = "btnCantidadArticulo";
-            btnCantidadArticulo.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            btnCantidadArticulo.ShadowDecoration.CustomizableEdges = customizableEdges32;
             btnCantidadArticulo.Size = new Size(119, 60);
             btnCantidadArticulo.TabIndex = 11;
             btnCantidadArticulo.Text = "Cantidad";
@@ -637,7 +666,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnNuevaVenta.Animated = true;
             btnNuevaVenta.BackColor = Color.WhiteSmoke;
             btnNuevaVenta.BorderRadius = 10;
-            btnNuevaVenta.CustomizableEdges = customizableEdges31;
+            btnNuevaVenta.CustomizableEdges = customizableEdges33;
             btnNuevaVenta.Dock = DockStyle.Fill;
             btnNuevaVenta.FillColor = Color.Gainsboro;
             btnNuevaVenta.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -646,38 +675,38 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnNuevaVenta.Location = new Point(371, 2);
             btnNuevaVenta.Margin = new Padding(2);
             btnNuevaVenta.Name = "btnNuevaVenta";
-            btnNuevaVenta.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            btnNuevaVenta.ShadowDecoration.CustomizableEdges = customizableEdges34;
             btnNuevaVenta.Size = new Size(121, 60);
             btnNuevaVenta.TabIndex = 10;
             btnNuevaVenta.Text = "Nueva venta";
             btnNuevaVenta.Tile = true;
             // 
-            // btnEliminarArticulo
+            // btnEliminarArticulos
             // 
-            btnEliminarArticulo.Animated = true;
-            btnEliminarArticulo.BackColor = Color.WhiteSmoke;
-            btnEliminarArticulo.BorderRadius = 10;
-            btnEliminarArticulo.CustomizableEdges = customizableEdges33;
-            btnEliminarArticulo.Dock = DockStyle.Fill;
-            btnEliminarArticulo.FillColor = Color.Gainsboro;
-            btnEliminarArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnEliminarArticulo.ForeColor = Color.Black;
-            btnEliminarArticulo.Image = (Image) resources.GetObject("btnEliminarArticulo.Image");
-            btnEliminarArticulo.Location = new Point(2, 2);
-            btnEliminarArticulo.Margin = new Padding(2);
-            btnEliminarArticulo.Name = "btnEliminarArticulo";
-            btnEliminarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges34;
-            btnEliminarArticulo.Size = new Size(119, 60);
-            btnEliminarArticulo.TabIndex = 9;
-            btnEliminarArticulo.Text = "Eliminar";
-            btnEliminarArticulo.Tile = true;
+            btnEliminarArticulos.Animated = true;
+            btnEliminarArticulos.BackColor = Color.WhiteSmoke;
+            btnEliminarArticulos.BorderRadius = 10;
+            btnEliminarArticulos.CustomizableEdges = customizableEdges35;
+            btnEliminarArticulos.Dock = DockStyle.Fill;
+            btnEliminarArticulos.FillColor = Color.Gainsboro;
+            btnEliminarArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEliminarArticulos.ForeColor = Color.Black;
+            btnEliminarArticulos.Image = (Image) resources.GetObject("btnEliminarArticulos.Image");
+            btnEliminarArticulos.Location = new Point(2, 2);
+            btnEliminarArticulos.Margin = new Padding(2);
+            btnEliminarArticulos.Name = "btnEliminarArticulos";
+            btnEliminarArticulos.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            btnEliminarArticulos.Size = new Size(119, 60);
+            btnEliminarArticulos.TabIndex = 9;
+            btnEliminarArticulos.Text = "Eliminar art.";
+            btnEliminarArticulos.Tile = true;
             // 
             // btnBuscarArticulo
             // 
             btnBuscarArticulo.Animated = true;
             btnBuscarArticulo.BackColor = Color.WhiteSmoke;
             btnBuscarArticulo.BorderRadius = 10;
-            btnBuscarArticulo.CustomizableEdges = customizableEdges35;
+            btnBuscarArticulo.CustomizableEdges = customizableEdges37;
             btnBuscarArticulo.Dock = DockStyle.Fill;
             btnBuscarArticulo.FillColor = Color.Gainsboro;
             btnBuscarArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -686,7 +715,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnBuscarArticulo.Location = new Point(125, 2);
             btnBuscarArticulo.Margin = new Padding(2);
             btnBuscarArticulo.Name = "btnBuscarArticulo";
-            btnBuscarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            btnBuscarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges38;
             btnBuscarArticulo.Size = new Size(119, 60);
             btnBuscarArticulo.TabIndex = 8;
             btnBuscarArticulo.Text = "Buscar";
@@ -964,11 +993,9 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutEncabezadosTabla.Controls.Add(fieldTituloNombreArticulo, 0, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloTotalArticulo, 4, 0);
@@ -992,7 +1019,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloNombreArticulo.Location = new Point(61, 1);
             fieldTituloNombreArticulo.Margin = new Padding(1);
             fieldTituloNombreArticulo.Name = "fieldTituloNombreArticulo";
-            fieldTituloNombreArticulo.Size = new Size(338, 60);
+            fieldTituloNombreArticulo.Size = new Size(318, 60);
             fieldTituloNombreArticulo.TabIndex = 19;
             fieldTituloNombreArticulo.Text = "Nombre del artículo";
             fieldTituloNombreArticulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -1031,10 +1058,10 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloCantidadArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloCantidadArticulo.ForeColor = Color.Black;
             fieldTituloCantidadArticulo.ImeMode = ImeMode.NoControl;
-            fieldTituloCantidadArticulo.Location = new Point(531, 1);
+            fieldTituloCantidadArticulo.Location = new Point(511, 1);
             fieldTituloCantidadArticulo.Margin = new Padding(1);
             fieldTituloCantidadArticulo.Name = "fieldTituloCantidadArticulo";
-            fieldTituloCantidadArticulo.Size = new Size(108, 60);
+            fieldTituloCantidadArticulo.Size = new Size(128, 60);
             fieldTituloCantidadArticulo.TabIndex = 20;
             fieldTituloCantidadArticulo.Text = "Cantidad";
             fieldTituloCantidadArticulo.TextAlign = ContentAlignment.MiddleCenter;
@@ -1045,7 +1072,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloPrecioArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloPrecioArticulo.ForeColor = Color.Black;
             fieldTituloPrecioArticulo.ImeMode = ImeMode.NoControl;
-            fieldTituloPrecioArticulo.Location = new Point(401, 1);
+            fieldTituloPrecioArticulo.Location = new Point(381, 1);
             fieldTituloPrecioArticulo.Margin = new Padding(1);
             fieldTituloPrecioArticulo.Name = "fieldTituloPrecioArticulo";
             fieldTituloPrecioArticulo.Size = new Size(128, 60);
@@ -1142,13 +1169,13 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         private TableLayoutPanel layoutVista;
         private Guna2Separator separador1;
         private TableLayoutPanel layoutHerramientas;
-        private Guna2TextBox fieldCriterioArticulo;
+        private Guna2TextBox fieldNombreArticulo;
         private TableLayoutPanel layoutDistribución1;
         private TableLayoutPanel layoutDistribucionControlesVenta;
         private TableLayoutPanel layoutBotonesVenta1;
         private Guna2Button btnCantidadArticulo;
         private Guna2Button btnNuevaVenta;
-        private Guna2Button btnEliminarArticulo;
+        private Guna2Button btnEliminarArticulos;
         private Guna2Button btnBuscarArticulo;
         private FlowLayoutPanel layoutMetodosPago;
         private TableLayoutPanel layoutDistribucionVentaArticulo;
@@ -1198,5 +1225,6 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         private Guna2NotificationPaint KeyCantidad;
         private Guna2NotificationPaint KeyGuardar;
         private Guna2NotificationPaint KeyPago;
+        private Guna2ComboBox fieldNombreAlmacen;
     }
 }

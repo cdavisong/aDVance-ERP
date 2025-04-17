@@ -3,7 +3,8 @@
 namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas;
 
 public interface IVistaTerminalVenta : IVistaRegistro {
-    string? CriterioArticulo { get; set; }
+    string? NombreAlmacen { get; set; }
+    string? NombreArticulo { get; set; }
     List<string[]>? Articulos { get; }
     int Cantidad { get; set; }
     decimal Subtotal { get; set; }
@@ -16,5 +17,6 @@ public interface IVistaTerminalVenta : IVistaRegistro {
     event EventHandler? EfectuarPago;
     event EventHandler? AsignarMensajeria;
 
+    void CargarNombresAlmacenes(object[] nombresAlmacenes);
     void CargarNombresArticulos(string[] nombresArticulos);
 }

@@ -60,11 +60,11 @@ public partial class VistaQR : Form, IVistaQR {
 
             fieldAlias.Text = datosSplit[0];
             fieldTarjeta.Text = datosSplit[1].AgregarEspacioCadaXCaracteres(4);
-            fieldMovil.Text = $"+53 {datosSplit[2]}";
+            fieldMovil.Text = $@"+53 {datosSplit[2]}";
 
             using (var qrCodeData = qrGenerator.CreateQrCode(datosTransferencia, QRCodeGenerator.ECCLevel.Q)) {
                 using (var qrCode = new QRCode(qrCodeData)) {
-                    var qrCodeImage = qrCode.GetGraphic(3, Color.FromArgb(40, 37, 35), Color.FromArgb(248, 244, 242),
+                    var qrCodeImage = qrCode.GetGraphic(3, Color.FromArgb(40, 37, 35), Color.White,
                         Resources.images2, 20);
 
                     QR = qrCodeImage;

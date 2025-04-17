@@ -168,7 +168,9 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
 
             using (var comando = conexion.CreateCommand()) {
                 comando.CommandText = comandoTexto;
+                
                 var result = await comando.ExecuteScalarAsync().ConfigureAwait(false);
+                
                 return (T)Convert.ChangeType(result, typeof(T));
             }
         }

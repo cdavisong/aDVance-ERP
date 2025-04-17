@@ -126,11 +126,11 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
 
             fieldAliasQR.Text = datosSplit[0];
             fieldTarjetaQR.Text = datosSplit[1].AgregarEspacioCadaXCaracteres(4);
-            fieldNumeroMovilConfirmacionQR.Text = $"+53 {datosSplit[2]}";
+            fieldNumeroMovilConfirmacionQR.Text = $@"+53 {datosSplit[2]}";
 
             using (var qrCodeData = qrGenerator.CreateQrCode(datosTransferencia, QRCodeGenerator.ECCLevel.Q)) {
                 using (var qrCode = new QRCode(qrCodeData)) {
-                    var qrCodeImage = qrCode.GetGraphic(3, Color.FromArgb(40, 37, 35), Color.FromArgb(248, 244, 242),
+                    var qrCodeImage = qrCode.GetGraphic(3, Color.FromArgb(40, 37, 35), Color.White,
                         Resources.images2, 20);
 
                     QR = qrCodeImage;
