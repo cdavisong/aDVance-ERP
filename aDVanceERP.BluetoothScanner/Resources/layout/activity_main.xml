@@ -94,11 +94,25 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
             android:text="9002"
+            android:inputType="number"
+            android:digits="0123456789"
+            android:maxLength="5"
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:background="#FAFAFA"
             android:padding="8dp"/>
     </LinearLayout>
+
+    <!-- Estado de conexión -->
+    <TextView
+      android:id="@+id/connectionStatus"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Estado: Desconectado"
+      android:textSize="14sp"
+      android:textColor="@android:color/black"
+      android:layout_marginBottom="16dp"
+      android:padding="8dp"/>
 
     <!-- Botón Conectar -->
     <Button
@@ -109,18 +123,7 @@
         android:textSize="14sp"
         android:textColor="@android:color/black"
         android:background="@drawable/rounded_button"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- Estado de conexión -->
-    <TextView
-        android:id="@+id/connectionStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Estado: Desconectado"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="16dp"
-        android:padding="8dp"/>
+        android:layout_marginBottom="16dp"/>    
 
     <!-- Botón Escanear -->
     <Button
