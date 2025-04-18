@@ -1,5 +1,6 @@
 using System.Net.Sockets;
 using System.Text;
+
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Support.V4.App;
@@ -8,9 +9,10 @@ using Android.Views;
 
 using ZXing;
 using ZXing.Mobile;
+
 using Environment = System.Environment;
 
-namespace aDVanceERP.BluetoothScanner {
+namespace aDVanceSCANNER {
     [Activity(Label = "@string/app_name", MainLauncher = true)]
     public class MainActivity : Activity {
         // Componentes UI
