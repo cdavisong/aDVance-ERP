@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ance"
+            android:text="ance "
             android:textSize="24sp"
             android:textColor="@android:color/black"
             android:textStyle="bold"/>
@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ERP"
+            android:text="SCANNER"
             android:textSize="24sp"
             android:textColor="@android:color/white"
             android:background="#B22222"
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="0dp"
         android:padding="8dp"
         android:gravity="center_vertical">
 
@@ -77,6 +77,36 @@
             android:textColor="@android:color/black"
             android:background="@android:color/white"
             android:padding="8dp"/>
+    </LinearLayout>
+
+    <!-- Campo del puerto -->
+    <LinearLayout
+      android:id="@+id/portText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_marginBottom="16dp"
+      android:padding="8dp"
+      android:gravity="center_vertical">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Puerto:"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:layout_marginRight="8dp"/>
+
+      <EditText
+        android:id="@+id/portText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="9002"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:background="@android:color/white"
+        android:padding="8dp"/>
     </LinearLayout>
 
     <!-- Botón Conectar -->
