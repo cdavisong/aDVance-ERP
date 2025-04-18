@@ -1,6 +1,7 @@
 using System.Net.Sockets;
 using System.Text;
-
+using _Microsoft.Android.Resource.Designer;
+using aDVanceSCANNER.MVP.Modelos;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Support.V4.App;
@@ -16,15 +17,20 @@ namespace aDVanceSCANNER {
     [Activity(Label = "@string/app_name", MainLauncher = true)]
     public class MainActivity : Activity {
         // Componentes UI
+        //  - Configuración de red y conexión del cliente
+        private LinearLayout? _layoutDireccionPuerto;
+        private EditText? _fieldDireccionIp;
+        private EditText? _fieldPuerto;
+        private Button? _btnConectar;
+
         private Button btnScan;
-        private Button btnConnect;
+       
         private TextView txtResult;
         private TextView txtStatus;
-        private EditText txtIpAddress;
+        
 
         // Servicios
-        private TcpClient tcpClient;
-        private NetworkStream networkStream;
+        private ClienteTCP _clienteTcp;
         private MobileBarcodeScanner barcodeScanner;
 
         // Permisos
@@ -34,30 +40,74 @@ namespace aDVanceSCANNER {
         protected override void OnCreate(Bundle? savedInstanceState) {
             base.OnCreate(savedInstanceState);
 
-            // Pantalla completa (oculta barra de estado y barra de navegación)
-            Window.AddFlags(WindowManagerFlags.Fullscreen);
-            Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
+            // Configurar pantalla completa (oculta barra de estado y barra de navegación)
+            RequestWindowFeature(WindowFeatures.NoTitle);
+            Window?.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
+            OcultarInterfazSistema();
 
             // Configurar vista
-            SetContentView(Resource.Layout.activity_main);
+            SetContentView(ResourceConstant.Layout.activity_main);
 
             // Inicializar escáner
             MobileBarcodeScanner.Initialize(Application);
             barcodeScanner = new MobileBarcodeScanner();
 
+            // Inicializar cliente TCP
+            _clienteTcp = new ClienteTCP();
+
             // Obtener referencias UI
-            btnScan = FindViewById<Button>(Resource.Id.scanButton);
-            btnConnect = FindViewById<Button>(Resource.Id.connectButton);
-            txtResult = FindViewById<TextView>(Resource.Id.resultText);
-            txtStatus = FindViewById<TextView>(Resource.Id.connectionStatus);
-            txtIpAddress = FindViewById<EditText>(Resource.Id.ipAddressText);
+            //  - Configuración de red
+            _layoutDireccionPuerto = FindViewById<LinearLayout>(ResourceConstant.Id.layoutDireccionPuerto);
+            _fieldDireccionIp = FindViewById<EditText>(ResourceConstant.Id.fieldDireccionIp);
+            _fieldPuerto = FindViewById<EditText>(ResourceConstant.Id.fieldPuerto);
+            _btnConectar = FindViewById<Button>(ResourceConstant.Id.connectButton);
+
+            btnScan = FindViewById<Button>(ResourceConstant.Id.scanButton);
+            txtResult = FindViewById<TextView>(ResourceConstant.Id.resultText);
+            txtStatus = FindViewById<TextView>(ResourceConstant.Id.connectionStatus);
 
             // Configurar eventos
+            if (_btnConectar != null) _btnConectar.Click += ConectarCliente;
             btnScan.Click += BtnScan_Click;
-            btnConnect.Click += BtnConnect_Click;
 
             // Verificar permisos
             CheckPermissions();
+        }
+
+        protected override void OnResume() {
+            base.OnResume();
+            
+            // Restaurar pantalla completa cuando la actividad se reanuda
+            OcultarInterfazSistema();
+        }
+
+        private async void ConectarCliente(object? sender, EventArgs e) {
+            var textoDireccionIp = _fieldDireccionIp?.Text?.Trim();
+            var textoPuerto = _fieldPuerto?.Text?.Trim();
+
+            if (string.IsNullOrEmpty(textoDireccionIp) || !_clienteTcp.EstablecerDireccionIp(textoDireccionIp)) {
+                Toast.MakeText(this, "Ingrese una dirección IP válida", ToastLength.Long)?.Show();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(textoPuerto) || !_clienteTcp.EstablecerPuerto(int.TryParse(textoPuerto, out var puerto) ? puerto : 0)) {
+                Toast.MakeText(this, "Ingrese un puerto válido", ToastLength.Long)?.Show();
+                return;
+            }
+
+            txtStatus.Text = "Conectando...";
+
+            try {
+                txtStatus.Text = _clienteTcp.Conectar();
+
+                Toast.MakeText(this, "Conexión exitosa", ToastLength.Short)?.Show();
+
+                if (_layoutDireccionPuerto != null) _layoutDireccionPuerto.Visibility = ViewStates.Gone;
+                if (_btnConectar != null) _btnConectar.Text = "Desconectar";
+            } catch (Exception ex) {
+                txtStatus.Text = "Error de conexión";
+                Toast.MakeText(this, $"Error: {ex.Message}", ToastLength.Long)?.Show();
+            }
         }
 
         private void CheckPermissions() {
@@ -70,50 +120,21 @@ namespace aDVanceSCANNER {
 
             // Permiso de internet
             if (ContextCompat.CheckSelfPermission(this, Android.Manifest.Permission.Internet) != Permission.Granted) {
-                ActivityCompat.RequestPermissions(this, new string[] { Android.Manifest.Permission.Internet }, REQUEST_INTERNET);
+                ActivityCompat.RequestPermissions(this, new string[] { Android.Manifest.Permission.Internet },
+                    REQUEST_INTERNET);
             }
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults) {
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            if (requestCode == REQUEST_CAMERA) {
-                if (grantResults.Length > 0 && grantResults[0] == Permission.Granted) {
-                    Toast.MakeText(this, "Permiso de cámara concedido", ToastLength.Short).Show();
-                } else {
-                    Toast.MakeText(this, "Se necesita permiso de cámara para escanear", ToastLength.Long).Show();
-                }
-            }
-        }
-
-        private async void BtnConnect_Click(object sender, EventArgs e) {
-            string ipAddress = txtIpAddress.Text.Trim();
-
-            if (string.IsNullOrEmpty(ipAddress)) {
-                Toast.MakeText(this, "Ingrese una dirección IP válida", ToastLength.Long).Show();
+            if (requestCode != REQUEST_CAMERA) 
                 return;
-            }
 
-            txtStatus.Text = "Conectando...";
-
-            try {
-                // Cerrar conexión existente
-                if (tcpClient != null) {
-                    networkStream?.Close();
-                    tcpClient?.Close();
-                }
-
-                // Crear nueva conexión
-                tcpClient = new TcpClient();
-                await tcpClient.ConnectAsync(ipAddress, 9002);
-
-                networkStream = tcpClient.GetStream();
-                txtStatus.Text = $"Conectado a {ipAddress}";
-                Toast.MakeText(this, "Conexión exitosa", ToastLength.Short).Show();
-            } catch (Exception ex) {
-                txtStatus.Text = "Error de conexión";
-                Toast.MakeText(this, $"Error: {ex.Message}", ToastLength.Long).Show();
-            }
+            if (grantResults.Length > 0 && grantResults[0] == Permission.Granted)
+                Toast.MakeText(this, "Permiso de cámara concedido", ToastLength.Short)?.Show();
+            else
+                Toast.MakeText(this, "Se necesita permiso de cámara para escanear", ToastLength.Long)?.Show();
         }
 
         private async void BtnScan_Click(object sender, EventArgs e) {
@@ -130,30 +151,48 @@ namespace aDVanceSCANNER {
                     UseFrontCameraIfAvailable = false // Usar siempre la cámara trasera
                 };
 
-                // Configurar overlay personalizado
+                // Configurar el escáner para pantalla completa
                 barcodeScanner.UseCustomOverlay = false;
                 barcodeScanner.TopText = "Escaneo de código QR/Barra";
+                barcodeScanner.FlashButtonText = "Flash";
+                barcodeScanner.CancelButtonText = "Cancelar";
+
+                // Forzar pantalla completa en la vista del escáner
+                barcodeScanner.CustomOverlay = new LinearLayout(this) {
+                    LayoutParameters = new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MatchParent,
+                        ViewGroup.LayoutParams.MatchParent)
+                };
 
                 var result = await barcodeScanner.Scan(options);
 
-                if (result != null) {
-                    txtResult.Text = result.Text;
+                if (result == null) 
+                    return;
 
-                    // Mostrar tipo de código detectado
-                    string codeType = result.BarcodeFormat.ToString();
-                    Toast.MakeText(this, $"Tipo: {codeType}", ToastLength.Short).Show();
+                txtResult.Text = result.Text;
 
-                    if (networkStream?.CanWrite == true) {
-                        byte[] data = Encoding.UTF8.GetBytes(result.Text + Environment.NewLine);
-                        await networkStream.WriteAsync(data, 0, data.Length);
-                        Toast.MakeText(this, "Datos enviados", ToastLength.Short).Show();
-                    } else {
-                        Toast.MakeText(this, "No hay conexión WiFi activa", ToastLength.Long).Show();
-                    }
-                }
+                // Mostrar tipo de código detectado
+                var codeType = result.BarcodeFormat.ToString();
+
+                Toast.MakeText(this, $"Tipo: {codeType}", ToastLength.Short)?.Show();
+
+                // Enviar datos al servidor
+                _clienteTcp.Enviar(result.Text);
             } catch (Exception ex) {
-                Toast.MakeText(this, $"Error: {ex.Message}", ToastLength.Long).Show();
+                Toast.MakeText(this, $"Error: {ex.Message}", ToastLength.Long)?.Show();
             }
+        }
+
+        [Obsolete("Obsolete")]
+        private void OcultarInterfazSistema() {
+            if (Window != null)
+                Window.DecorView.SystemUiVisibility = (StatusBarVisibility)
+                    (SystemUiFlags.LayoutStable |
+                     SystemUiFlags.LayoutHideNavigation |
+                     SystemUiFlags.LayoutFullscreen |
+                     SystemUiFlags.HideNavigation |
+                     SystemUiFlags.Fullscreen |
+                     SystemUiFlags.ImmersiveSticky);
         }
 
         protected override void OnDestroy() {
@@ -161,9 +200,11 @@ namespace aDVanceSCANNER {
 
             // Cerrar conexiones
             try {
-                networkStream?.Close();
-                tcpClient?.Close();
-            } catch { }
+                _clienteTcp.Dispose();
+            }
+            catch {
+                // ignored
+            }
         }
     }
 }

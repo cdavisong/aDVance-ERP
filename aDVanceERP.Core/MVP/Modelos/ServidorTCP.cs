@@ -21,7 +21,7 @@ public sealed class ServidorTCP : IDisposable {
             return;
 
         _cts = new CancellationTokenSource();
-        _listener = new TcpListener(new IPEndPoint(IPAddress.Parse("192.168.140.149"), 9002));
+        _listener = new TcpListener(IPAddress.Any, 9002);
 
         try {
             _listener.Start();
