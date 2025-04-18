@@ -17,96 +17,6 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         Inicializar();
     }
 
-    public DateTime Fecha {
-        get => DateTime.Now;
-        set { }
-    }
-
-    public int AlturaContenedorVistas {
-        get => contenedorVistas.Height;
-    }
-
-    public int TuplasMaximasContenedor {
-        get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
-    }
-
-    public IRepositorioVista? Vistas { get; private set; }
-
-    public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
-        var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
-        var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
-        var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
-        var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
-        var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
-        var stockArticulo = await UtilesArticulo.ObtenerStockArticulo(adNombreArticulo, adNombreAlmacen);
-
-        if (!ModoEdicionDatos) {
-            // Verificar ID y stock del artículo
-            if (idArticulo == 0 || stockArticulo == 0) {
-                NombreArticulo = string.Empty;
-
-                fieldCantidad.Text = string.Empty;
-                fieldNombreArticulo.Focus();
-
-                return;
-            }
-
-            // Verificar que la cantidad no exceda el stock del artículo
-            if (Articulos != null) {
-                var stockComprometido = Articulos
-                    .Where(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()))
-                    .Sum(a => int.Parse(a[4]));
-                if (int.Parse(adCantidad) + stockComprometido > stockArticulo) {
-                    fieldCantidad.ForeColor = Color.Firebrick;
-                    fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
-                    fieldCantidad.Margin = new Padding(3);
-                    return;
-                }
-
-                fieldCantidad.ForeColor = Color.Black;
-                fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Regular);
-                fieldCantidad.Margin = new Padding(3);
-            }
-        }
-        else {
-            fieldNombreArticulo.ReadOnly = true;
-            fieldCantidad.ReadOnly = true;
-        }
-
-        var precioCompraVigenteArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
-        var precioVentaBaseArticulo = await UtilesArticulo.ObtenerPrecioVentaBase(idArticulo);
-        var tuplaArticulo = new[] {
-            idArticulo.ToString(),
-            adNombreArticulo,
-            precioCompraVigenteArticulo.ToString("N2", CultureInfo.InvariantCulture),
-            precioVentaBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
-            adCantidad,
-            idAlmacen.ToString()
-        };
-
-        // Verificar que el articulo ya se encuentre registrado
-        if (Articulos != null) {
-            var indiceArticulo =
-                Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()));
-            if (indiceArticulo != -1) {
-                Articulos[indiceArticulo][4] =
-                    (int.Parse(Articulos[indiceArticulo][4]) + int.Parse(adCantidad)).ToString();
-            }
-            else {
-                Articulos.Add(tuplaArticulo);
-                ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
-            }
-        }
-
-        NombreArticulo = string.Empty;
-        Cantidad = 0;
-
-        ActualizarTuplasArticulos();
-        ActualizarTotal();
-
-        fieldNombreArticulo.Focus();
-    }
-
     public bool Habilitada {
         get => Enabled;
         set => Enabled = value;
@@ -122,6 +32,16 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         set => Size = value;
     }
 
+    public int AlturaContenedorVistas {
+        get => contenedorVistas.Height;
+    }
+
+    public int TuplasMaximasContenedor {
+        get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
+    }
+
+    public IRepositorioVista? Vistas { get; private set; }
+
     public bool ModoEdicionDatos {
         get => _modoEdicion;
         set {
@@ -129,6 +49,11 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             btnRegistrar.Text = value ? "Actualizar venta" : "Registrar venta";
             _modoEdicion = value;
         }
+    }
+
+    public DateTime Fecha {
+        get => DateTime.Now;
+        set { }
     }
 
     public string? RazonSocialCliente {
@@ -178,6 +103,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
     public string EstadoEntrega { get; set; }
 
+    public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? ArticuloAgregado;
     public event EventHandler? ArticuloEliminado;
     public event EventHandler? EfectuarPago;
@@ -192,13 +118,17 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos            
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate(object? sender, EventArgs args) {
+            Salir?.Invoke(sender, args);
+        };
         fieldNombreAlmacen.SelectedIndexChanged += async delegate {
             var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
 
             CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
         };
-        fieldCantidad.TextChanged += delegate { btnAdicionarArticulo.Enabled = Cantidad > 0; };
+        fieldCantidad.TextChanged += delegate {
+            btnAdicionarArticulo.Enabled = Cantidad > 0;
+        };
         fieldCantidad.KeyDown += delegate(object? sender, KeyEventArgs args) {
             if (args.KeyCode != Keys.Enter)
                 return;
@@ -214,7 +144,9 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             ActualizarTuplasArticulos();
             ActualizarTotal();
         };
-        btnEfectuarPago.Click += delegate(object? sender, EventArgs args) { EfectuarPago?.Invoke(sender, args); };
+        btnEfectuarPago.Click += delegate(object? sender, EventArgs args) {
+            EfectuarPago?.Invoke(sender, args);
+        };
         btnAsignarMensajería.Click += delegate(object? sender, EventArgs args) {
             AsignarMensajeria?.Invoke(sender, args);
         };
@@ -224,8 +156,15 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
-        contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
+        btnSalir.Click += delegate(object? sender, EventArgs args) {
+            Salir?.Invoke(sender, args);
+        };
+        contenedorVistas.Resize += delegate {
+            AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
+        };
+
+        // Enlace de scanner
+        UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
 
     public void CargarRazonesSocialesClientes(object[] nombresClientes) {
@@ -248,32 +187,91 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
     }
 
-    public void Mostrar() {
-        BringToFront();
-        ShowDialog();
+    private void ProcesarDatosScanner(string codigo) {
+        var nombreArticulo = UtilesArticulo.ObtenerNombreArticulo(codigo.Replace("\0", "")).Result;
+
+        if (string.IsNullOrEmpty(nombreArticulo))
+            return;
+
+        Invoke((MethodInvoker) delegate {
+            NombreArticulo = nombreArticulo;
+            
+            fieldCantidad.Focus();
+        });
     }
 
-    public void Restaurar() {
-        Fecha = DateTime.Now;
-        RazonSocialCliente = string.Empty;
-        fieldNombreCliente.SelectedIndex = 0;
-        NombreAlmacen = string.Empty;
-        fieldNombreAlmacen.SelectedIndex = 0;
+    public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
+        var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
+        var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
+        var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
+        var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
+        var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
+        var stockArticulo = await UtilesArticulo.ObtenerStockArticulo(adNombreArticulo, adNombreAlmacen);
+
+        if (!ModoEdicionDatos) {
+            // Verificar ID y stock del artículo
+            if (idArticulo == 0 || stockArticulo == 0) {
+                NombreArticulo = string.Empty;
+
+                fieldCantidad.Text = string.Empty;
+                fieldNombreArticulo.Focus();
+
+                return;
+            }
+
+            // Verificar que la cantidad no exceda el stock del artículo
+            if (Articulos != null) {
+                var stockComprometido = Articulos
+                    .Where(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()))
+                    .Sum(a => int.Parse(a[4]));
+                if (int.Parse(adCantidad) + stockComprometido > stockArticulo) {
+                    fieldCantidad.ForeColor = Color.Firebrick;
+                    fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
+                    fieldCantidad.Margin = new Padding(3);
+                    return;
+                }
+
+                fieldCantidad.ForeColor = Color.Black;
+                fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Regular);
+                fieldCantidad.Margin = new Padding(3);
+            }
+        } else {
+            fieldNombreArticulo.ReadOnly = true;
+            fieldCantidad.ReadOnly = true;
+        }
+
+        var precioCompraVigenteArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
+        var precioVentaBaseArticulo = await UtilesArticulo.ObtenerPrecioVentaBase(idArticulo);
+        var tuplaArticulo = new[] {
+            idArticulo.ToString(),
+            adNombreArticulo,
+            precioCompraVigenteArticulo.ToString("N2", CultureInfo.InvariantCulture),
+            precioVentaBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
+            adCantidad,
+            idAlmacen.ToString()
+        };
+
+        // Verificar que el articulo ya se encuentre registrado
+        if (Articulos != null) {
+            var indiceArticulo =
+                Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()));
+            if (indiceArticulo != -1) {
+                Articulos[indiceArticulo][4] =
+                    (int.Parse(Articulos[indiceArticulo][4]) + int.Parse(adCantidad)).ToString();
+            } else {
+                Articulos.Add(tuplaArticulo);
+                ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+            }
+        }
+
         NombreArticulo = string.Empty;
-        fieldNombreArticulo.AutoCompleteCustomSource.Clear();
-        Total = 0;
-        ModoEdicionDatos = false;
-    }
+        Cantidad = 0;
 
-    public void Ocultar() {
-        Hide();
-    }
+        ActualizarTuplasArticulos();
+        ActualizarTotal();
 
-    public void Cerrar() {
-        Dispose();
+        fieldNombreArticulo.Focus();
     }
-
-    public event EventHandler? AlturaContenedorTuplasModificada;
 
     private void ActualizarTuplasArticulos() {
         foreach (var tupla in contenedorVistas.Controls)
@@ -293,7 +291,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             tuplaDetallesVentaArticulo.PrecioCompraventaFinal = articulo[3];
             tuplaDetallesVentaArticulo.Cantidad = articulo[4];
             tuplaDetallesVentaArticulo.Habilitada = !ModoEdicionDatos;
-            tuplaDetallesVentaArticulo.PrecioCompraventaModificado += delegate(object? sender, EventArgs args) {
+            tuplaDetallesVentaArticulo.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
                 if (sender is not IVistaTuplaDetalleCompraventaArticulo vista)
                     return;
 
@@ -306,7 +304,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
                 ActualizarTotal();
             };
-            tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate(object? sender, EventArgs args) {
+            tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                 articulo = sender as string[];
 
                 Articulos.RemoveAt(Articulos.FindIndex(p => p[0].Equals(articulo?[0])));
@@ -341,5 +339,32 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
         btnEfectuarPago.Enabled = Total > 0;
         btnAsignarMensajería.Enabled = Total > 0;
+    }
+
+    public void Mostrar() {
+        BringToFront();
+        ShowDialog();
+    }
+
+    public void Restaurar() {
+        Fecha = DateTime.Now;
+        RazonSocialCliente = string.Empty;
+        fieldNombreCliente.SelectedIndex = 0;
+        NombreAlmacen = string.Empty;
+        fieldNombreAlmacen.SelectedIndex = 0;
+        NombreArticulo = string.Empty;
+        fieldNombreArticulo.AutoCompleteCustomSource.Clear();
+        Total = 0;
+        ModoEdicionDatos = false;
+    }
+
+    public void Ocultar() {
+        Hide();
+    }
+
+    public void Cerrar() {
+        UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
+
+        Dispose();
     }
 }

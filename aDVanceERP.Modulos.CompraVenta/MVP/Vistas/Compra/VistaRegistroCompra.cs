@@ -31,62 +31,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     }
 
     public IRepositorioVista? Vistas { get; private set; }
-
-    public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
-        var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
-        var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
-        var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
-        var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
-        var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
-
-        if (!ModoEdicionDatos) {
-            // Verificar ID del artículo
-            if (idArticulo == 0) {
-                NombreArticulo = string.Empty;
-
-                fieldCantidad.Text = string.Empty;
-                fieldNombreArticulo.Focus();
-
-                return;
-            }
-        }
-        else {
-            fieldNombreArticulo.ReadOnly = true;
-            fieldCantidad.ReadOnly = true;
-        }
-
-        var precioCompraBaseArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
-        var tuplaArticulo = new[] {
-            idArticulo.ToString(),
-            adNombreArticulo,
-            precioCompraBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
-            adCantidad,
-            idAlmacen.ToString()
-        };
-
-        // Verificar que el articulo ya se encuentre registrado
-        if (Articulos != null) {
-            var indiceArticulo =
-                Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[4].Equals(idAlmacen.ToString()));
-            if (indiceArticulo != -1) {
-                Articulos[indiceArticulo][3] =
-                    (int.Parse(Articulos[indiceArticulo][3]) + int.Parse(adCantidad)).ToString();
-            }
-            else {
-                Articulos.Add(tuplaArticulo);
-                ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
-            }
-        }
-
-        NombreArticulo = string.Empty;
-        Cantidad = 0;
-
-        ActualizarTuplasArticulos();
-        ActualizarTotal();
-
-        fieldNombreArticulo.Focus();
-    }
-
+    
     public bool Habilitada {
         get => Enabled;
         set => Enabled = value;
@@ -143,6 +88,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         set => fieldTotalCompra.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
+    public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? ArticuloAgregado;
     public event EventHandler? ArticuloEliminado;
     public event EventHandler? RegistrarDatos;
@@ -155,13 +101,17 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke("exit", args); };
+        btnCerrar.Click += delegate(object? sender, EventArgs args) {
+            Salir?.Invoke("exit", args);
+        };
         fieldNombreAlmacen.SelectedIndexChanged += async delegate {
             var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
 
             CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
         };
-        fieldCantidad.TextChanged += delegate { btnAdicionarArticulo.Enabled = Cantidad > 0; };
+        fieldCantidad.TextChanged += delegate {
+            btnAdicionarArticulo.Enabled = Cantidad > 0;
+        };
         fieldCantidad.KeyDown += delegate(object? sender, KeyEventArgs args) {
             if (args.KeyCode != Keys.Enter)
                 return;
@@ -170,7 +120,9 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
             args.SuppressKeyPress = true;
         };
-        btnAdicionarArticulo.Click += delegate { AdicionarArticulo(); };
+        btnAdicionarArticulo.Click += delegate {
+            AdicionarArticulo();
+        };
         ArticuloEliminado += delegate {
             ActualizarTuplasArticulos();
             ActualizarTotal();
@@ -181,8 +133,15 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke("exit", args); };
-        contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
+        btnSalir.Click += delegate(object? sender, EventArgs args) {
+            Salir?.Invoke("exit", args);
+        };
+        contenedorVistas.Resize += delegate {
+            AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
+        };
+
+        // Enlace de scanner
+        UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
 
     public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
@@ -204,31 +163,71 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
     }
 
-    public void Mostrar() {
-        BringToFront();
-        ShowDialog();
+    private void ProcesarDatosScanner(string codigo) {
+        var nombreArticulo = UtilesArticulo.ObtenerNombreArticulo(codigo.Replace("\0", "")).Result;
+
+        if (string.IsNullOrEmpty(nombreArticulo))
+            return;
+
+        Invoke((MethodInvoker) delegate {
+            NombreArticulo = nombreArticulo;
+
+            fieldCantidad.Focus();
+        });
     }
 
-    public void Restaurar() {
-        Fecha = DateTime.Now;
-        RazonSocialProveedor = string.Empty;
-        fieldNombreProveedor.SelectedIndex = 0;
-        NombreAlmacen = string.Empty;
-        fieldNombreAlmacen.SelectedIndex = 0;
-        fieldNombreArticulo.AutoCompleteCustomSource.Clear();
-        Total = 0;
-        ModoEdicionDatos = false;
-    }
+    public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
+        var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
+        var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
+        var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
+        var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
+        var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
 
-    public void Ocultar() {
-        Hide();
-    }
+        if (!ModoEdicionDatos) {
+            // Verificar ID del artículo
+            if (idArticulo == 0) {
+                NombreArticulo = string.Empty;
 
-    public void Cerrar() {
-        Dispose();
-    }
+                fieldCantidad.Text = string.Empty;
+                fieldNombreArticulo.Focus();
 
-    public event EventHandler? AlturaContenedorTuplasModificada;
+                return;
+            }
+        } else {
+            fieldNombreArticulo.ReadOnly = true;
+            fieldCantidad.ReadOnly = true;
+        }
+
+        var precioCompraBaseArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
+        var tuplaArticulo = new[] {
+            idArticulo.ToString(),
+            adNombreArticulo,
+            precioCompraBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
+            adCantidad,
+            idAlmacen.ToString()
+        };
+
+        // Verificar que el articulo ya se encuentre registrado
+        if (Articulos != null) {
+            var indiceArticulo =
+                Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[4].Equals(idAlmacen.ToString()));
+            if (indiceArticulo != -1) {
+                Articulos[indiceArticulo][3] =
+                    (int.Parse(Articulos[indiceArticulo][3]) + int.Parse(adCantidad)).ToString();
+            } else {
+                Articulos.Add(tuplaArticulo);
+                ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+            }
+        }
+
+        NombreArticulo = string.Empty;
+        Cantidad = 0;
+
+        ActualizarTuplasArticulos();
+        ActualizarTotal();
+
+        fieldNombreArticulo.Focus();
+    }
 
     private void ActualizarTuplasArticulos() {
         foreach (var tupla in contenedorVistas.Controls)
@@ -248,7 +247,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             tuplaDetallesVentaArticulo.PrecioCompraventaFinal = articulo[2];
             tuplaDetallesVentaArticulo.Cantidad = articulo[3];
             tuplaDetallesVentaArticulo.Habilitada = !ModoEdicionDatos;
-            tuplaDetallesVentaArticulo.PrecioCompraventaModificado += delegate(object? sender, EventArgs args) {
+            tuplaDetallesVentaArticulo.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
                 if (sender is not IVistaTuplaDetalleCompraventaArticulo vista)
                     return;
 
@@ -261,7 +260,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
                 ActualizarTotal();
             };
-            tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate(object? sender, EventArgs args) {
+            tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                 articulo = sender as string[];
 
                 Articulos.RemoveAt(Articulos.FindIndex(p => p[0].Equals(articulo?[0])));
@@ -295,5 +294,31 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
                 ? precioCompraTotal * cantidad
                 : 0;
         }
+    }
+
+    public void Mostrar() {
+        BringToFront();
+        ShowDialog();
+    }
+
+    public void Restaurar() {
+        Fecha = DateTime.Now;
+        RazonSocialProveedor = string.Empty;
+        fieldNombreProveedor.SelectedIndex = 0;
+        NombreAlmacen = string.Empty;
+        fieldNombreAlmacen.SelectedIndex = 0;
+        fieldNombreArticulo.AutoCompleteCustomSource.Clear();
+        Total = 0;
+        ModoEdicionDatos = false;
+    }
+
+    public void Ocultar() {
+        Hide();
+    }
+
+    public void Cerrar() {
+        UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
+
+        Dispose();
     }
 }

@@ -37,11 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVanceERP.Core.Mensajes", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVanceERP.BluetoothScanner", "aDVanceERP.BluetoothScanner\aDVanceERP.BluetoothScanner.csproj", "{3569A842-95E7-4C16-8DC5-E20801F84F93}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scanner Test", "Scanner Test\Scanner Test.csproj", "{22544C11-0144-47CE-A67B-A29BEB09DCE6}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVancePOS.Desktop", "aDVancePOS.Desktop\aDVancePOS.Desktop.csproj", "{84A41C22-44C4-43DD-8D30-0560A7A331C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aDVancePOS.Modulos.TerminalVenta", "aDVancePOS.Modulos.TerminalVenta\aDVancePOS.Modulos.TerminalVenta.csproj", "{AC9AAA73-0AF7-4E18-BF0D-3DFD965FBEBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVancePOS.Modulos.TerminalVenta", "aDVancePOS.Modulos.TerminalVenta\aDVancePOS.Modulos.TerminalVenta.csproj", "{AC9AAA73-0AF7-4E18-BF0D-3DFD965FBEBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,10 +101,6 @@ Global
 		{3569A842-95E7-4C16-8DC5-E20801F84F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3569A842-95E7-4C16-8DC5-E20801F84F93}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3569A842-95E7-4C16-8DC5-E20801F84F93}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{22544C11-0144-47CE-A67B-A29BEB09DCE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22544C11-0144-47CE-A67B-A29BEB09DCE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22544C11-0144-47CE-A67B-A29BEB09DCE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22544C11-0144-47CE-A67B-A29BEB09DCE6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84A41C22-44C4-43DD-8D30-0560A7A331C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84A41C22-44C4-43DD-8D30-0560A7A331C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84A41C22-44C4-43DD-8D30-0560A7A331C6}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
@@ -99,6 +100,9 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+
+        // Enlace de scanner
+        UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
 
     public void CargarNombresArticulos(string[] nombresArticulos) {
@@ -124,6 +128,17 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         fieldTipoMovimiento.Items.Clear();
         fieldTipoMovimiento.Items.AddRange(tiposMovimientos);
         fieldTipoMovimiento.SelectedIndex = 0;
+    }
+
+    private void ProcesarDatosScanner(string codigo) {
+        var nombreArticulo = UtilesArticulo.ObtenerNombreArticulo(codigo.Replace("\0", "")).Result;
+
+        if (string.IsNullOrEmpty(nombreArticulo))
+            return;
+
+        Invoke((MethodInvoker) delegate {
+            NombreArticulo = nombreArticulo;
+        });
     }
 
     public void ActualizarCamposAlmacenes() {
@@ -168,6 +183,8 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
     }
 
     public void Cerrar() {
+        UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
+
         Dispose();
     }
 

@@ -84,7 +84,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
 
         public bool ModoEdicionDatos { get; set; }
 
-
+        public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
@@ -129,6 +129,12 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnAsignarMensajeria.Click += delegate (object? sender, EventArgs args) {
                 AsignarMensajeria?.Invoke(sender, args);
             };
+            contenedorVistas.Resize += delegate {
+                AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
+            };
+
+            // Enlace de scanner
+            UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
         }
 
         public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
@@ -142,6 +148,19 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldNombreArticulo.AutoCompleteCustomSource.AddRange(nombresArticulos);
             fieldNombreArticulo.AutoCompleteMode = AutoCompleteMode.Suggest;
             fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        }
+
+        private void ProcesarDatosScanner(string codigo) {
+            var nombreArticulo = UtilesArticulo.ObtenerNombreArticulo(codigo.Replace("\0", "")).Result;
+
+            if (string.IsNullOrEmpty(nombreArticulo))
+                return;
+
+            Invoke((MethodInvoker) delegate {
+                NombreArticulo = nombreArticulo;
+
+                AdicionarArticulo();
+            });
         }
 
         public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
@@ -319,7 +338,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         }
 
         public void Cerrar() {
-            // ...
+            UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System.Globalization;
+
+using aDVanceERP.Core.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo; 
@@ -85,6 +88,9 @@ public partial class VistaRegistroArticulo : Form, IVistaRegistroArticulo {
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+
+        // Enlace de scanner
+        UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
 
     public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
@@ -92,6 +98,15 @@ public partial class VistaRegistroArticulo : Form, IVistaRegistroArticulo {
         fieldNombreProveedor.Items.Add("Ninguno");
         fieldNombreProveedor.Items.AddRange(nombresProveedores);
         fieldNombreProveedor.SelectedIndex = 0;
+    }
+
+    private void ProcesarDatosScanner(string codigo) {
+        if (string.IsNullOrEmpty(codigo))
+            return;
+
+        Invoke((MethodInvoker) delegate {
+            Codigo = codigo.Replace("\0", "");
+        });
     }
 
     public void Mostrar() {
@@ -115,6 +130,8 @@ public partial class VistaRegistroArticulo : Form, IVistaRegistroArticulo {
     }
 
     public void Cerrar() {
+        UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
+
         Dispose();
     }
 }

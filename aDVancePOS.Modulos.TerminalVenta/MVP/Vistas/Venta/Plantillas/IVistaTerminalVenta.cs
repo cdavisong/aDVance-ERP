@@ -12,6 +12,7 @@ public interface IVistaTerminalVenta : IVistaRegistro {
     decimal Total { get; set; }
     long IdTipoEntrega { get; set; }
 
+    event EventHandler? AlturaContenedorTuplasModificada;
     event EventHandler? ArticuloAgregado;
     event EventHandler? ArticuloEliminado;
     event EventHandler? EfectuarPago;

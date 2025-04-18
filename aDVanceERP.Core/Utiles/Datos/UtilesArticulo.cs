@@ -90,6 +90,21 @@ public static class UtilesArticulo {
             parametros);
     }
 
+    public static async Task<string?> ObtenerNombreArticulo(string codigo) {
+        const string query = """
+                             SELECT
+                                nombre
+                             FROM adv__articulo
+                             WHERE codigo = @codigo;
+                             """;
+        var parametros = new[] {
+            new MySqlParameter("@codigo", codigo)
+        };
+
+        return await EjecutarConsultaEscalar(query, lector => lector.GetString(lector.GetOrdinal("nombre")),
+            parametros);
+    }
+
     public static async Task<string[]> ObtenerNombresArticulos() {
         const string query = """
                              SELECT

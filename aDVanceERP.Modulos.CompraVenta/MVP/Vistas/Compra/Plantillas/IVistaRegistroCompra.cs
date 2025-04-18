@@ -10,6 +10,7 @@ public interface IVistaRegistroCompra : IVistaRegistro {
     int Cantidad { get; set; }
     decimal Total { get; set; }
 
+    event EventHandler? AlturaContenedorTuplasModificada;
     event EventHandler? ArticuloAgregado;
     event EventHandler? ArticuloEliminado;
 

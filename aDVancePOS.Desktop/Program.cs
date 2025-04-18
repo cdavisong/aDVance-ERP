@@ -1,3 +1,4 @@
+using aDVanceERP.Core.Utiles;
 using aDVancePOS.Desktop.MVP.Presentadores.Principal;
 
 namespace aDVancePOS.Desktop {
@@ -7,10 +8,15 @@ namespace aDVancePOS.Desktop {
         /// </summary>
         [STAThread]
         static void Main() {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
+            // Iniciar el servidor TCP
+            UtilesServidorScanner.Servidor.IniciarAsync();
+
+            // Configuración de la aplicación
             ApplicationConfiguration.Initialize();
             Application.Run((Form) new PresentadorPrincipal().Vista);
+
+            // Detener el servidor TCP
+            UtilesServidorScanner.Servidor.Detener();
         }
     }
 }

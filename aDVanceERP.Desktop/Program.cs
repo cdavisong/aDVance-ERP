@@ -1,7 +1,8 @@
-using System;
 using System.Diagnostics;
+
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Presentadores.Principal;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Desktop; 
@@ -16,9 +17,15 @@ internal static class Program {
     private static void Main() {
         // Verificar y ejecutar el patch si es necesario
         if (VerificarEjecutarParcheBD()) {
+            // Iniciar el servidor TCP
+            UtilesServidorScanner.Servidor.IniciarAsync();
+
             // Configuración de la aplicación
             ApplicationConfiguration.Initialize();
             Application.Run((Form) new PresentadorPrincipal().Vista);
+
+            // Detener el servidor TCP
+            UtilesServidorScanner.Servidor.Detener();
         } else {
             MessageBox.Show(@"Error al actualizar la base de datos. La aplicación no puede continuar.",
                 @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

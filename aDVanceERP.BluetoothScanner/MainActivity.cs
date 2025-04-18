@@ -103,7 +103,7 @@ namespace aDVanceERP.BluetoothScanner {
 
                 // Crear nueva conexión
                 tcpClient = new TcpClient();
-                await tcpClient.ConnectAsync(ipAddress, 8080);
+                await tcpClient.ConnectAsync(ipAddress, 9002);
 
                 networkStream = tcpClient.GetStream();
                 txtStatus.Text = $"Conectado a {ipAddress}";

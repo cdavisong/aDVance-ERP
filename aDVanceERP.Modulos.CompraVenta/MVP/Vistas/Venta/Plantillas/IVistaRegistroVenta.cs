@@ -14,6 +14,7 @@ public interface IVistaRegistroVenta : IVistaRegistro {
     bool PagoConfirmado { get; set; }
     string EstadoEntrega { get; set; }
 
+    event EventHandler? AlturaContenedorTuplasModificada;
     event EventHandler? ArticuloAgregado;
     event EventHandler? ArticuloEliminado;
     event EventHandler? EfectuarPago;
