@@ -13,6 +13,10 @@ public class ClienteTCP : IDisposable {
         _configuracionRed = new ConfiguracionRed();
     }
 
+    public bool Conectado {
+        get => _clienteTcp is { Connected: true };
+    }
+
     public ClienteTCP(ConfiguracionRed configuracionRed) {
         _configuracionRed = configuracionRed;
     }

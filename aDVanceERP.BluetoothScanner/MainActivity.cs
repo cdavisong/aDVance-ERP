@@ -1,7 +1,10 @@
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using _Microsoft.Android.Resource.Designer;
 using aDVanceSCANNER.MVP.Modelos;
+
+using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Support.V4.App;
@@ -22,16 +25,17 @@ namespace aDVanceSCANNER {
         private EditText? _fieldDireccionIp;
         private EditText? _fieldPuerto;
         private Button? _btnConectar;
-
         private Button btnScan;
-       
         private TextView txtResult;
         private TextView txtStatus;
-        
+        private LinearLayout historyContainer;
 
         // Servicios
         private ClienteTCP _clienteTcp;
         private MobileBarcodeScanner barcodeScanner;
+
+        // Lista para almacenar el historial
+        private List<string> scanHistory = new List<string>(); 
 
         // Permisos
         private const int REQUEST_CAMERA = 1;
@@ -65,6 +69,11 @@ namespace aDVanceSCANNER {
             btnScan = FindViewById<Button>(ResourceConstant.Id.scanButton);
             txtResult = FindViewById<TextView>(ResourceConstant.Id.resultText);
             txtStatus = FindViewById<TextView>(ResourceConstant.Id.connectionStatus);
+            historyContainer = FindViewById<LinearLayout>(ResourceConstant.Id.historyContainer);
+
+            // Preferencias de conexión
+            var preferenciasConex = GetSharedPreferences("PreferenciasConexion", FileCreationMode.Private);
+            if (_fieldDireccionIp != null) _fieldDireccionIp.Text = preferenciasConex?.GetString("ultimoIP", "192.168.1.");
 
             // Configurar eventos
             if (_btnConectar != null) _btnConectar.Click += ConectarCliente;
@@ -101,6 +110,14 @@ namespace aDVanceSCANNER {
                 txtStatus.Text = _clienteTcp.Conectar();
 
                 Toast.MakeText(this, "Conexión exitosa", ToastLength.Short)?.Show();
+
+                if (_clienteTcp.Conectado) {
+                    var prefs = GetSharedPreferences("PreferenciasConexion", FileCreationMode.Private);
+                    var editor = prefs?.Edit();
+
+                    editor?.PutString("ultimoIP", textoDireccionIp);
+                    editor?.Commit();
+                }
 
                 if (_layoutDireccionPuerto != null) _layoutDireccionPuerto.Visibility = ViewStates.Gone;
                 if (_btnConectar != null) _btnConectar.Text = "Desconectar";
@@ -171,15 +188,46 @@ namespace aDVanceSCANNER {
 
                 txtResult.Text = result.Text;
 
-                // Mostrar tipo de código detectado
-                var codeType = result.BarcodeFormat.ToString();
-
-                Toast.MakeText(this, $"Tipo: {codeType}", ToastLength.Short)?.Show();
+                // Añadir al historial
+                AdicionarResultadoHistorial(result.Text, result.BarcodeFormat.ToString());
 
                 // Enviar datos al servidor
                 _clienteTcp.Enviar(result.Text);
             } catch (Exception ex) {
                 Toast.MakeText(this, $"Error: {ex.Message}", ToastLength.Long)?.Show();
+            }
+        }
+
+        private void AdicionarResultadoHistorial(string code, string format) {
+            // Añadir a la lista en memoria
+            scanHistory.Insert(0, $"{DateTime.Now:HH:mm:ss} - {format}: {code}");
+
+            // Limitar el historial a los últimos 50 escaneos (opcional)
+            if (scanHistory.Count > 50) {
+                scanHistory.RemoveAt(scanHistory.Count - 1);
+            }
+
+            // Actualizar la UI
+            ActualizarInterfazHistorial();
+        }
+
+        private void ActualizarInterfazHistorial() {
+            // Limpiar el contenedor
+            historyContainer.RemoveAllViews();
+
+            // Añadir cada elemento del historial
+            foreach (var textView in scanHistory.Select(item => new TextView(this) {
+                         Text = item,
+                         TextSize = 12,
+                         LayoutParameters = new LinearLayout.LayoutParams(
+                             ViewGroup.LayoutParams.MatchParent,
+                             ViewGroup.LayoutParams.WrapContent)
+                     })) {
+
+                // Añadir margen inferior
+                ((LinearLayout.LayoutParams) textView.LayoutParameters!).BottomMargin = 8;
+
+                historyContainer.AddView(textView);
             }
         }
 
