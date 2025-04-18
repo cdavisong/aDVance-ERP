@@ -6,15 +6,16 @@ namespace aDVanceSCANNER.MVP.Modelos;
 public class ClienteTCP : IDisposable {
     private readonly ConfiguracionRed _configuracionRed;
 
-    private TcpClient? _clienteTcp;
-    private NetworkStream? _hiloRed;
-
     public ClienteTCP() {
         _configuracionRed = new ConfiguracionRed();
     }
 
+    public TcpClient? Cliente { get; private set; }
+
+    public NetworkStream? HiloRed { get; private set; }
+
     public bool Conectado {
-        get => _clienteTcp is { Connected: true };
+        get => Cliente is { Connected: true };
     }
 
     public ClienteTCP(ConfiguracionRed configuracionRed) {
@@ -32,18 +33,18 @@ public class ClienteTCP : IDisposable {
     public string Conectar() {
         try {
             // Cerrar la conexión existente
-            if (_clienteTcp != null) {
-                _hiloRed?.Close();
-                _clienteTcp?.Close();
+            if (Cliente != null) {
+                HiloRed?.Close();
+                Cliente?.Close();
             }
 
             // Crear una nueva conexión
             if (_configuracionRed.DireccionIP == null)
                 return "La dirección IP especificada no es válida o no existe";
 
-            _clienteTcp = new TcpClient();
-            _clienteTcp.Connect(_configuracionRed.DireccionIP, _configuracionRed.Puerto);
-            _hiloRed = _clienteTcp.GetStream();
+            Cliente = new TcpClient();
+            Cliente.Connect(_configuracionRed.DireccionIP, _configuracionRed.Puerto);
+            HiloRed = Cliente.GetStream();
             
             return $"Conectado a {_configuracionRed.DireccionIP}";
         }
@@ -54,18 +55,18 @@ public class ClienteTCP : IDisposable {
     }
 
     public string Enviar(string datos) {
-        if (_hiloRed?.CanWrite != true) 
+        if (HiloRed?.CanWrite != true) 
             return "No hay conexión de red activa";
 
         var bytesDatos = Encoding.UTF8.GetBytes(datos + Environment.NewLine);
             
-        _hiloRed.Write(bytesDatos, 0, bytesDatos.Length);
+        HiloRed.Write(bytesDatos, 0, bytesDatos.Length);
             
         return "Datos enviados";
     }
     
     public void Dispose() {
-        _clienteTcp?.Dispose();
-        _hiloRed?.Dispose();
+        Cliente?.Dispose();
+        HiloRed?.Dispose();
     }
 }

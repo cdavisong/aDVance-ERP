@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
 using _Microsoft.Android.Resource.Designer;
@@ -91,7 +92,7 @@ namespace aDVanceSCANNER {
             OcultarInterfazSistema();
         }
 
-        private async void ConectarCliente(object? sender, EventArgs e) {
+        private void ConectarCliente(object? sender, EventArgs e) {
             OcultarTeclado();
 
             var textoDireccionIp = _fieldDireccionIp?.Text?.Trim();
@@ -110,6 +111,18 @@ namespace aDVanceSCANNER {
             txtStatus.Text = "Conectando...";
 
             try {
+                if (_clienteTcp.Conectado) {
+                    _clienteTcp.Dispose();
+
+                    txtStatus.Text = "Desconectado";
+
+                    MostrarCamposConexion();
+
+                    Toast.MakeText(this, "Desconectado manualmente", ToastLength.Short)?.Show();
+
+                    return;
+                }
+
                 txtStatus.Text = _clienteTcp.Conectar();
 
                 Toast.MakeText(this, "Conexión exitosa", ToastLength.Short)?.Show();
@@ -122,10 +135,12 @@ namespace aDVanceSCANNER {
                     editor?.Commit();
                 }
 
-                if (_layoutDireccionPuerto != null) _layoutDireccionPuerto.Visibility = ViewStates.Gone;
-                if (_btnConectar != null) _btnConectar.Text = "Desconectar";
+                OcultarCamposConexion();
             } catch (Exception ex) {
                 txtStatus.Text = "Error de conexión";
+
+                MostrarCamposConexion();
+
                 Toast.MakeText(this, $"Error: {ex.Message}", ToastLength.Long)?.Show();
             }
         }
@@ -246,6 +261,26 @@ namespace aDVanceSCANNER {
                      SystemUiFlags.ImmersiveSticky);
         }
 
+        private void OcultarCamposConexion() {
+            RunOnUiThread(() => {
+                if (_layoutDireccionPuerto != null) _layoutDireccionPuerto.Visibility = ViewStates.Gone;
+                if (_btnConectar != null) _btnConectar.Text = "Desconectar";
+
+                // Asegurarse que los otros elementos se redibujen correctamente
+                _layoutDireccionPuerto?.RequestLayout();
+            });
+        }
+
+        private void MostrarCamposConexion() {
+            RunOnUiThread(() => {
+                if (_layoutDireccionPuerto != null) _layoutDireccionPuerto.Visibility = ViewStates.Visible;
+                if (_btnConectar != null) _btnConectar.Text = "Conectar";
+
+                // Asegurarse que los otros elementos se redibujen correctamente
+                _layoutDireccionPuerto?.RequestLayout();
+            });
+        }
+
         private void OcultarTeclado() {
             var inputMethodManager = (InputMethodManager) GetSystemService(InputMethodService)!;
             var currentFocus = CurrentFocus;
@@ -257,6 +292,8 @@ namespace aDVanceSCANNER {
             _fieldDireccionIp?.ClearFocus();
             _fieldPuerto?.ClearFocus();
         }
+
+
 
         protected override void OnDestroy() {
             base.OnDestroy();
