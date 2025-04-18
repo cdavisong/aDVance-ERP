@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Android.Views;
+using Android.Views.InputMethods;
 
 using ZXing;
 using ZXing.Mobile;
@@ -91,6 +92,8 @@ namespace aDVanceSCANNER {
         }
 
         private async void ConectarCliente(object? sender, EventArgs e) {
+            OcultarTeclado();
+
             var textoDireccionIp = _fieldDireccionIp?.Text?.Trim();
             var textoPuerto = _fieldPuerto?.Text?.Trim();
 
@@ -241,6 +244,18 @@ namespace aDVanceSCANNER {
                      SystemUiFlags.HideNavigation |
                      SystemUiFlags.Fullscreen |
                      SystemUiFlags.ImmersiveSticky);
+        }
+
+        private void OcultarTeclado() {
+            var inputMethodManager = (InputMethodManager) GetSystemService(InputMethodService)!;
+            var currentFocus = CurrentFocus;
+
+            if (currentFocus != null)
+                inputMethodManager.HideSoftInputFromWindow(currentFocus.WindowToken, HideSoftInputFlags.None);
+
+            // También limpia el foco del EditText
+            _fieldDireccionIp?.ClearFocus();
+            _fieldPuerto?.ClearFocus();
         }
 
         protected override void OnDestroy() {
