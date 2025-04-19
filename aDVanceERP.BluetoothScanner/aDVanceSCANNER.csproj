@@ -15,7 +15,4 @@
   <ItemGroup>
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MVP\Modelos\" />
-  </ItemGroup>
 </Project>

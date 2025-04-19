@@ -1,12 +1,14 @@
 ﻿using System.Net;
 
-namespace aDVanceSCANNER.MVP.Modelos; 
+namespace aDVanceSCANNER.Modelos;
 
-public class ConfiguracionRed {
+public class ConfiguracionRed
+{
     public string? DireccionIP { get; private set; } = "127.0.0.1";
     public int Puerto { get; private set; } = 9002;
 
-    public bool EstablecerDireccionIp(string direccionIP) {
+    public bool EstablecerDireccionIp(string direccionIP)
+    {
         if (!IPAddress.TryParse(direccionIP, out var ip))
             return false;
 
@@ -15,7 +17,8 @@ public class ConfiguracionRed {
         return true;
     }
 
-    public bool EstablecerPuerto(int puerto) {
+    public bool EstablecerPuerto(int puerto)
+    {
         if (puerto is < 1 or > 65535)
             return false;
 
