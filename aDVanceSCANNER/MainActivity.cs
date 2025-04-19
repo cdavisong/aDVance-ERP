@@ -54,6 +54,8 @@ namespace aDVanceSCANNER
         }
 
         private async void ConectarCliente(object? sender, EventArgs e) {
+            OcultarTeclado();
+
             if (_clienteTcp != null && _controladorUI?.DireccionIP != null && !_clienteTcp.EstablecerDireccionIp(_controladorUI.DireccionIP)) {
                 Toast.MakeText(this, "Ingrese una dirección IP válida", ToastLength.Long)?.Show();
                 return;
@@ -78,9 +80,13 @@ namespace aDVanceSCANNER
                 var estado = await _clienteTcp?.ConectarAsync()!;
                 
                 _controladorUI?.ActualizarEstadoConexion(estado);
+                
+                SalvarOpcionesConexion(_controladorUI?.DireccionIP ?? "192.168.1.", int.Parse(_controladorUI?.Puerto ?? "0"));
+
+                if (_clienteTcp is not { Conectado: true }) 
+                    return;
 
                 Toast.MakeText(this, "Conexión exitosa", ToastLength.Short)?.Show();
-                SalvarOpcionesConexion(_controladorUI?.DireccionIP ?? "192.168.1.", int.Parse(_controladorUI?.Puerto ?? "0"));
 
                 _controladorUI?.OcultarCamposConexion();
             } catch (Exception ex) {

@@ -60,7 +60,8 @@ public sealed class ServidorTCP : IDisposable {
         try {
             using (var reader = new StreamReader(_hiloRed, Encoding.UTF8)) {
                 while (!ct.IsCancellationRequested && _cliente.Connected) {
-                    var data = await reader.ReadLineAsync().ConfigureAwait(false);
+                    var data = await reader.ReadLineAsync(ct).ConfigureAwait(false);
+                    
                     if (data != null) {
                         OnDataReceived(data);
                     } else {
