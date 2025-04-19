@@ -8,6 +8,22 @@
     <ApplicationId>cu.advanceerp.bluetoothscanner</ApplicationId>
     <ApplicationVersion>1</ApplicationVersion>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <SignAssembly>False</SignAssembly>
+    <AndroidSigningKeyStore>advance_scanner.keystore</AndroidSigningKeyStore>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AndroidLinkTool>r8</AndroidLinkTool>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningStorePass>solrac0809</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>advance_scanner</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>solrac0809</AndroidSigningKeyPass>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningStorePass>solrac0809</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>advance_scanner</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>solrac0809</AndroidSigningKeyPass>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Resources\drawable\rounded_button.xml" />
