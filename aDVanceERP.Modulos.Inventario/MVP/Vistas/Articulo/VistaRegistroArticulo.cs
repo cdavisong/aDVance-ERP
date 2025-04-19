@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 
 using aDVanceERP.Core.Utiles;
-using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Articulo; 
