@@ -58,6 +58,8 @@ public partial class PresentadorContenedorModulos {
         else
             await InicializarVistaRegistroMovimiento(string.Empty, string.Empty);
 
+        MostrarVistaPanelTransparente(_registroMovimiento.Vista);
+
         _registroMovimiento?.Vista.Mostrar();
         _registroMovimiento?.Dispose();
     }
@@ -66,6 +68,9 @@ public partial class PresentadorContenedorModulos {
         await InicializarVistaRegistroMovimiento(string.Empty, string.Empty);
 
         if (_registroMovimiento != null && sender is Movimiento movimiento) {
+
+            MostrarVistaPanelTransparente(_registroMovimiento.Vista);
+
             _registroMovimiento.PopularVistaDesdeObjeto(movimiento);
             _registroMovimiento.Vista.Mostrar();
         }

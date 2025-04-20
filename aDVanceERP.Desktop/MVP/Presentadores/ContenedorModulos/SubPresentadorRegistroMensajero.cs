@@ -24,6 +24,8 @@ public partial class PresentadorContenedorModulos {
     private async void MostrarVistaRegistroMensajero(object? sender, EventArgs e) {
         await InicializarVistaRegistroMensajero();
 
+        MostrarVistaPanelTransparente(_registroMensajero.Vista);
+
         _registroMensajero?.Vista.Mostrar();
         _registroMensajero?.Dispose();
     }
@@ -32,6 +34,9 @@ public partial class PresentadorContenedorModulos {
         await InicializarVistaRegistroMensajero();
 
         if (sender is Mensajero mensajero) {
+
+            MostrarVistaPanelTransparente(_registroMensajero.Vista);
+
             _registroMensajero?.PopularVistaDesdeObjeto(mensajero);
             _registroMensajero?.Vista.Mostrar();
         }

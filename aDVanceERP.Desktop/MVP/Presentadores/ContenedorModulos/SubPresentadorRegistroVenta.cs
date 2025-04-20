@@ -125,6 +125,9 @@ public partial class PresentadorContenedorModulos {
             _registroVentaArticulo.Vista.PagoConfirmado = DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)";
             _registroVentaArticulo.Vista.EstadoEntrega = "Pendiente";
         };
+
+        MostrarVistaPanelTransparente(_registroVentaArticulo.Vista);
+
         _registroVentaArticulo?.Vista.Mostrar();
         _registroVentaArticulo?.Dispose();
     }
@@ -148,6 +151,9 @@ public partial class PresentadorContenedorModulos {
                 _registroVentaArticulo.Vista.PagoConfirmado =
                     DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)";
             };
+
+            MostrarVistaPanelTransparente(_registroVentaArticulo.Vista);
+
             _registroVentaArticulo.Vista.Mostrar();
         }
 

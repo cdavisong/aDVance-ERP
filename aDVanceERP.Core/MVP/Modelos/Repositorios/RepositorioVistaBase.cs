@@ -43,6 +43,12 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
 
                     _contenedorVistas.Controls.Add(vistaUserControl);
                 }
+                else if (vista is Panel vistaPanel) {
+                    vistaPanel.Name = nombre;
+                    vistaPanel.Location = coordenadas;
+
+                    _contenedorVistas.Controls.Add(vistaPanel);
+                }
 
                 Vistas?.Add(vista);
 

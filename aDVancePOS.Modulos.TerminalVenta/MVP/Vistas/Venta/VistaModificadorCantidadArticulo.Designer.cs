@@ -53,10 +53,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -71,7 +67,6 @@
             btnEliminar = new Guna.UI2.WinForms.Guna2Button();
             btnEscape = new Guna.UI2.WinForms.Guna2Button();
             layoutTecladoFila3 = new TableLayoutPanel();
-            btnPuntoDecimal = new Guna.UI2.WinForms.Guna2Button();
             btnNumero3 = new Guna.UI2.WinForms.Guna2Button();
             btnNumero6 = new Guna.UI2.WinForms.Guna2Button();
             btnNumero9 = new Guna.UI2.WinForms.Guna2Button();
@@ -81,7 +76,6 @@
             btnNumero5 = new Guna.UI2.WinForms.Guna2Button();
             btnNumero8 = new Guna.UI2.WinForms.Guna2Button();
             layoutTecladoFila1 = new TableLayoutPanel();
-            btnSimboloMenos = new Guna.UI2.WinForms.Guna2Button();
             btnNumero1 = new Guna.UI2.WinForms.Guna2Button();
             btnNumero4 = new Guna.UI2.WinForms.Guna2Button();
             btnNumero7 = new Guna.UI2.WinForms.Guna2Button();
@@ -157,7 +151,7 @@
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(298, 433);
-            layoutVista.TabIndex = 1;
+            layoutVista.TabIndex = 0;
             // 
             // fieldCantidad
             // 
@@ -185,7 +179,7 @@
             fieldCantidad.SelectedText = "";
             fieldCantidad.ShadowDecoration.CustomizableEdges = customizableEdges2;
             fieldCantidad.Size = new Size(248, 35);
-            fieldCantidad.TabIndex = 2;
+            fieldCantidad.TabIndex = 0;
             fieldCantidad.TextAlign = HorizontalAlignment.Right;
             fieldCantidad.TextOffset = new Point(5, 0);
             // 
@@ -199,7 +193,7 @@
             fieldSubtitulo.Margin = new Padding(5, 5, 1, 1);
             fieldSubtitulo.Name = "fieldSubtitulo";
             fieldSubtitulo.Size = new Size(252, 44);
-            fieldSubtitulo.TabIndex = 0;
+            fieldSubtitulo.TabIndex = 3;
             fieldSubtitulo.Text = "Establezca la cantidad del siguiente artículo";
             // 
             // layoutTitulo
@@ -215,7 +209,7 @@
             layoutTitulo.RowCount = 1;
             layoutTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutTitulo.Size = new Size(258, 45);
-            layoutTitulo.TabIndex = 8;
+            layoutTitulo.TabIndex = 2;
             // 
             // fieldTitulo
             // 
@@ -287,7 +281,7 @@
             btnIntro.Name = "btnIntro";
             btnIntro.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnIntro.Size = new Size(58, 111);
-            btnIntro.TabIndex = 16;
+            btnIntro.TabIndex = 1;
             // 
             // btnEliminar
             // 
@@ -306,7 +300,7 @@
             btnEliminar.Name = "btnEliminar";
             btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnEliminar.Size = new Size(58, 52);
-            btnEliminar.TabIndex = 14;
+            btnEliminar.TabIndex = 2;
             // 
             // btnEscape
             // 
@@ -325,14 +319,13 @@
             btnEscape.Name = "btnEscape";
             btnEscape.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnEscape.Size = new Size(58, 52);
-            btnEscape.TabIndex = 15;
+            btnEscape.TabIndex = 0;
             // 
             // layoutTecladoFila3
             // 
             layoutTecladoFila3.ColumnCount = 1;
             layoutTecladoFila3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutTecladoFila3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutTecladoFila3.Controls.Add(btnPuntoDecimal, 0, 3);
             layoutTecladoFila3.Controls.Add(btnNumero3, 0, 0);
             layoutTecladoFila3.Controls.Add(btnNumero6, 0, 1);
             layoutTecladoFila3.Controls.Add(btnNumero9, 0, 2);
@@ -348,31 +341,12 @@
             layoutTecladoFila3.Size = new Size(62, 227);
             layoutTecladoFila3.TabIndex = 2;
             // 
-            // btnPuntoDecimal
-            // 
-            btnPuntoDecimal.Animated = true;
-            btnPuntoDecimal.BackColor = Color.WhiteSmoke;
-            btnPuntoDecimal.BorderRadius = 10;
-            btnPuntoDecimal.CustomizableEdges = customizableEdges9;
-            btnPuntoDecimal.Dock = DockStyle.Fill;
-            btnPuntoDecimal.FillColor = Color.Gainsboro;
-            btnPuntoDecimal.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnPuntoDecimal.ForeColor = Color.Black;
-            btnPuntoDecimal.ImageSize = new Size(32, 32);
-            btnPuntoDecimal.Location = new Point(2, 170);
-            btnPuntoDecimal.Margin = new Padding(2);
-            btnPuntoDecimal.Name = "btnPuntoDecimal";
-            btnPuntoDecimal.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnPuntoDecimal.Size = new Size(58, 55);
-            btnPuntoDecimal.TabIndex = 14;
-            btnPuntoDecimal.Text = ".";
-            // 
             // btnNumero3
             // 
             btnNumero3.Animated = true;
             btnNumero3.BackColor = Color.WhiteSmoke;
             btnNumero3.BorderRadius = 10;
-            btnNumero3.CustomizableEdges = customizableEdges11;
+            btnNumero3.CustomizableEdges = customizableEdges9;
             btnNumero3.Dock = DockStyle.Fill;
             btnNumero3.FillColor = Color.Gainsboro;
             btnNumero3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -380,9 +354,9 @@
             btnNumero3.Location = new Point(2, 2);
             btnNumero3.Margin = new Padding(2);
             btnNumero3.Name = "btnNumero3";
-            btnNumero3.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnNumero3.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnNumero3.Size = new Size(58, 52);
-            btnNumero3.TabIndex = 11;
+            btnNumero3.TabIndex = 2;
             btnNumero3.Text = "3";
             // 
             // btnNumero6
@@ -390,7 +364,7 @@
             btnNumero6.Animated = true;
             btnNumero6.BackColor = Color.WhiteSmoke;
             btnNumero6.BorderRadius = 10;
-            btnNumero6.CustomizableEdges = customizableEdges13;
+            btnNumero6.CustomizableEdges = customizableEdges11;
             btnNumero6.Dock = DockStyle.Fill;
             btnNumero6.FillColor = Color.Gainsboro;
             btnNumero6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -398,9 +372,9 @@
             btnNumero6.Location = new Point(2, 58);
             btnNumero6.Margin = new Padding(2);
             btnNumero6.Name = "btnNumero6";
-            btnNumero6.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnNumero6.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnNumero6.Size = new Size(58, 52);
-            btnNumero6.TabIndex = 12;
+            btnNumero6.TabIndex = 3;
             btnNumero6.Text = "6";
             // 
             // btnNumero9
@@ -408,7 +382,7 @@
             btnNumero9.Animated = true;
             btnNumero9.BackColor = Color.WhiteSmoke;
             btnNumero9.BorderRadius = 10;
-            btnNumero9.CustomizableEdges = customizableEdges15;
+            btnNumero9.CustomizableEdges = customizableEdges13;
             btnNumero9.Dock = DockStyle.Fill;
             btnNumero9.FillColor = Color.Gainsboro;
             btnNumero9.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -416,9 +390,9 @@
             btnNumero9.Location = new Point(2, 114);
             btnNumero9.Margin = new Padding(2);
             btnNumero9.Name = "btnNumero9";
-            btnNumero9.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnNumero9.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnNumero9.Size = new Size(58, 52);
-            btnNumero9.TabIndex = 13;
+            btnNumero9.TabIndex = 0;
             btnNumero9.Text = "9";
             // 
             // layoutTecladoFila2
@@ -447,7 +421,7 @@
             btnNumero0.Animated = true;
             btnNumero0.BackColor = Color.WhiteSmoke;
             btnNumero0.BorderRadius = 10;
-            btnNumero0.CustomizableEdges = customizableEdges17;
+            btnNumero0.CustomizableEdges = customizableEdges15;
             btnNumero0.Dock = DockStyle.Fill;
             btnNumero0.FillColor = Color.Gainsboro;
             btnNumero0.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -455,9 +429,9 @@
             btnNumero0.Location = new Point(2, 170);
             btnNumero0.Margin = new Padding(2);
             btnNumero0.Name = "btnNumero0";
-            btnNumero0.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnNumero0.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnNumero0.Size = new Size(58, 55);
-            btnNumero0.TabIndex = 14;
+            btnNumero0.TabIndex = 2;
             btnNumero0.Text = "0";
             // 
             // btnNumero2
@@ -465,7 +439,7 @@
             btnNumero2.Animated = true;
             btnNumero2.BackColor = Color.WhiteSmoke;
             btnNumero2.BorderRadius = 10;
-            btnNumero2.CustomizableEdges = customizableEdges19;
+            btnNumero2.CustomizableEdges = customizableEdges17;
             btnNumero2.Dock = DockStyle.Fill;
             btnNumero2.FillColor = Color.Gainsboro;
             btnNumero2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -473,9 +447,9 @@
             btnNumero2.Location = new Point(2, 2);
             btnNumero2.Margin = new Padding(2);
             btnNumero2.Name = "btnNumero2";
-            btnNumero2.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnNumero2.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnNumero2.Size = new Size(58, 52);
-            btnNumero2.TabIndex = 11;
+            btnNumero2.TabIndex = 3;
             btnNumero2.Text = "2";
             // 
             // btnNumero5
@@ -483,7 +457,7 @@
             btnNumero5.Animated = true;
             btnNumero5.BackColor = Color.WhiteSmoke;
             btnNumero5.BorderRadius = 10;
-            btnNumero5.CustomizableEdges = customizableEdges21;
+            btnNumero5.CustomizableEdges = customizableEdges19;
             btnNumero5.Dock = DockStyle.Fill;
             btnNumero5.FillColor = Color.Gainsboro;
             btnNumero5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -491,9 +465,9 @@
             btnNumero5.Location = new Point(2, 58);
             btnNumero5.Margin = new Padding(2);
             btnNumero5.Name = "btnNumero5";
-            btnNumero5.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            btnNumero5.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnNumero5.Size = new Size(58, 52);
-            btnNumero5.TabIndex = 12;
+            btnNumero5.TabIndex = 0;
             btnNumero5.Text = "5";
             // 
             // btnNumero8
@@ -501,7 +475,7 @@
             btnNumero8.Animated = true;
             btnNumero8.BackColor = Color.WhiteSmoke;
             btnNumero8.BorderRadius = 10;
-            btnNumero8.CustomizableEdges = customizableEdges23;
+            btnNumero8.CustomizableEdges = customizableEdges21;
             btnNumero8.Dock = DockStyle.Fill;
             btnNumero8.FillColor = Color.Gainsboro;
             btnNumero8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -509,9 +483,9 @@
             btnNumero8.Location = new Point(2, 114);
             btnNumero8.Margin = new Padding(2);
             btnNumero8.Name = "btnNumero8";
-            btnNumero8.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            btnNumero8.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnNumero8.Size = new Size(58, 52);
-            btnNumero8.TabIndex = 13;
+            btnNumero8.TabIndex = 1;
             btnNumero8.Text = "8";
             // 
             // layoutTecladoFila1
@@ -519,7 +493,6 @@
             layoutTecladoFila1.ColumnCount = 1;
             layoutTecladoFila1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutTecladoFila1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutTecladoFila1.Controls.Add(btnSimboloMenos, 0, 3);
             layoutTecladoFila1.Controls.Add(btnNumero1, 0, 0);
             layoutTecladoFila1.Controls.Add(btnNumero4, 0, 1);
             layoutTecladoFila1.Controls.Add(btnNumero7, 0, 2);
@@ -535,31 +508,12 @@
             layoutTecladoFila1.Size = new Size(62, 227);
             layoutTecladoFila1.TabIndex = 0;
             // 
-            // btnSimboloMenos
-            // 
-            btnSimboloMenos.Animated = true;
-            btnSimboloMenos.BackColor = Color.WhiteSmoke;
-            btnSimboloMenos.BorderRadius = 10;
-            btnSimboloMenos.CustomizableEdges = customizableEdges25;
-            btnSimboloMenos.Dock = DockStyle.Fill;
-            btnSimboloMenos.FillColor = Color.Gainsboro;
-            btnSimboloMenos.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnSimboloMenos.ForeColor = Color.Black;
-            btnSimboloMenos.Image = (Image) resources.GetObject("btnSimboloMenos.Image");
-            btnSimboloMenos.ImageSize = new Size(24, 24);
-            btnSimboloMenos.Location = new Point(2, 170);
-            btnSimboloMenos.Margin = new Padding(2);
-            btnSimboloMenos.Name = "btnSimboloMenos";
-            btnSimboloMenos.ShadowDecoration.CustomizableEdges = customizableEdges26;
-            btnSimboloMenos.Size = new Size(58, 55);
-            btnSimboloMenos.TabIndex = 13;
-            // 
             // btnNumero1
             // 
             btnNumero1.Animated = true;
             btnNumero1.BackColor = Color.WhiteSmoke;
             btnNumero1.BorderRadius = 10;
-            btnNumero1.CustomizableEdges = customizableEdges27;
+            btnNumero1.CustomizableEdges = customizableEdges23;
             btnNumero1.Dock = DockStyle.Fill;
             btnNumero1.FillColor = Color.Gainsboro;
             btnNumero1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -567,9 +521,9 @@
             btnNumero1.Location = new Point(2, 2);
             btnNumero1.Margin = new Padding(2);
             btnNumero1.Name = "btnNumero1";
-            btnNumero1.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            btnNumero1.ShadowDecoration.CustomizableEdges = customizableEdges24;
             btnNumero1.Size = new Size(58, 52);
-            btnNumero1.TabIndex = 10;
+            btnNumero1.TabIndex = 1;
             btnNumero1.Text = "1";
             // 
             // btnNumero4
@@ -577,7 +531,7 @@
             btnNumero4.Animated = true;
             btnNumero4.BackColor = Color.WhiteSmoke;
             btnNumero4.BorderRadius = 10;
-            btnNumero4.CustomizableEdges = customizableEdges29;
+            btnNumero4.CustomizableEdges = customizableEdges25;
             btnNumero4.Dock = DockStyle.Fill;
             btnNumero4.FillColor = Color.Gainsboro;
             btnNumero4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -585,9 +539,9 @@
             btnNumero4.Location = new Point(2, 58);
             btnNumero4.Margin = new Padding(2);
             btnNumero4.Name = "btnNumero4";
-            btnNumero4.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            btnNumero4.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnNumero4.Size = new Size(58, 52);
-            btnNumero4.TabIndex = 11;
+            btnNumero4.TabIndex = 2;
             btnNumero4.Text = "4";
             // 
             // btnNumero7
@@ -595,7 +549,7 @@
             btnNumero7.Animated = true;
             btnNumero7.BackColor = Color.WhiteSmoke;
             btnNumero7.BorderRadius = 10;
-            btnNumero7.CustomizableEdges = customizableEdges31;
+            btnNumero7.CustomizableEdges = customizableEdges27;
             btnNumero7.Dock = DockStyle.Fill;
             btnNumero7.FillColor = Color.Gainsboro;
             btnNumero7.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
@@ -603,14 +557,14 @@
             btnNumero7.Location = new Point(2, 114);
             btnNumero7.Margin = new Padding(2);
             btnNumero7.Name = "btnNumero7";
-            btnNumero7.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            btnNumero7.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnNumero7.Size = new Size(58, 52);
-            btnNumero7.TabIndex = 12;
+            btnNumero7.TabIndex = 3;
             btnNumero7.Text = "7";
             // 
             // VistaModificadorCantidadArticulo
             // 
-            AutoScaleDimensions = new SizeF(8F, 19F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(300, 445);
@@ -660,10 +614,8 @@
         private Guna.UI2.WinForms.Guna2Button btnNumero7;
         private Guna.UI2.WinForms.Guna2Button btnNumero9;
         private Guna.UI2.WinForms.Guna2Button btnNumero0;
-        private Guna.UI2.WinForms.Guna2Button btnSimboloMenos;
         private Guna.UI2.WinForms.Guna2Button btnIntro;
         private Guna.UI2.WinForms.Guna2Button btnEliminar;
         private Guna.UI2.WinForms.Guna2Button btnEscape;
-        private Guna.UI2.WinForms.Guna2Button btnPuntoDecimal;
     }
 }

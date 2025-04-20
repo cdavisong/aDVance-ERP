@@ -12,11 +12,12 @@ public partial class PresentadorContenedorModulos {
     private void InicializarVistaTerminalVenta() {
         _terminalVenta = new PresentadorTerminalVenta(new VistaTerminalVenta());
         _terminalVenta.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
+        _terminalVenta.Vista.ModificarCantidadArticulos += MostrarVistaModificadorCantidadArticulo; 
         
         Vista.Vistas?.Registrar("terminalVenta", _terminalVenta.Vista);
     }
 
-    private void MostrarVistaTerminalVenta(object? sender, EventArgs e) {
+    private void MostrarVistaTerminalVenta(object? sender, EventArgs e) { 
         if (_terminalVenta?.Vista == null)
             return;
 

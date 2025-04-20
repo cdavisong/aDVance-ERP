@@ -32,15 +32,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
 
         public void Inicializar() {
             // Eventos
-            btnEliminar.Click += delegate(object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
-            };
-            fieldCantidad.Leave += delegate {
-                if (fieldCantidad.Text.StartsWith("."))
-                    fieldCantidad.Text = @"0" + fieldCantidad.Text;
-                else if (fieldCantidad.Text == @"-.") 
-                    fieldCantidad.Text = @"-0.";
-            };
+            fieldCantidad.Focus();
             btnNumero0.Click += delegate {
                 AdicionarCaracterTeclado(btnNumero0);
             };
@@ -71,11 +63,13 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnNumero9.Click += delegate {
                 AdicionarCaracterTeclado(btnNumero9);
             };
-            btnSimboloMenos.Click += delegate {
-                AdicionarCaracterTeclado(btnSimboloMenos);
+            btnEliminar.Click += delegate {
+                AdicionarCaracterTeclado(btnEliminar);
             };
-            btnPuntoDecimal.Click += delegate {
-                AdicionarCaracterTeclado(btnPuntoDecimal);
+            btnEscape.Click += delegate (object? sender, EventArgs args) {
+                Salir?.Invoke(sender, args);
+
+                Cerrar();
             };
         }
 
@@ -86,18 +80,17 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                 fieldCantidad.Text += btnCaracter.Text;
 
             switch (btnCaracter.Name) {
-                case "btnSimboloMenos":
-                    fieldCantidad.Text = textoCantidad.StartsWith("-") ? textoCantidad[1..] : $@"-{textoCantidad}";
+                case "btnEliminar":
+                    fieldCantidad.Text = textoCantidad[..^1];
                     break;
-                case "btnPuntoDecimal": {
-                    if (textoCantidad.Contains('.') || string.IsNullOrEmpty(fieldCantidad.Text))
-                        fieldCantidad.Text += @".";
-                    break;
-                }
             }
+
+            fieldCantidad.Focus();
         }
 
         public void Mostrar() {
+            fieldCantidad.Focus();
+
             BringToFront();
             ShowDialog();
         }

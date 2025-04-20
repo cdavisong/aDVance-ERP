@@ -90,6 +90,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         public event EventHandler? EliminarDatos;
         public event EventHandler? ArticuloAgregado;
         public event EventHandler? ArticuloEliminado;
+        public event EventHandler? ModificarCantidadArticulos;
         public event EventHandler? EfectuarPago;
         public event EventHandler? AsignarMensajeria;
         public event EventHandler? Salir;
@@ -119,11 +120,14 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                 ActualizarTuplasArticulos();
                 ActualizarSubtotal();
             };
-            btnEliminarArticulos.Click += delegate(object? sender, EventArgs args) {
+            btnEliminarArticulos.Click += delegate (object? sender, EventArgs args) {
                 Articulos.Clear();
                 ArticuloEliminado?.Invoke(sender, args);
             };
-            btnGestionarPago.Click += delegate(object? sender, EventArgs args) {
+            btnCantidadArticulo.Click += delegate (object? sender, EventArgs args) {
+                ModificarCantidadArticulos?.Invoke(sender, args);
+            };
+            btnGestionarPago.Click += delegate (object? sender, EventArgs args) {
                 EfectuarPago?.Invoke(sender, args);
             };
             btnAsignarMensajeria.Click += delegate (object? sender, EventArgs args) {

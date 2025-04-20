@@ -7,9 +7,9 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorRegistroProveedor _registroProveedor;
+    private PresentadorRegistroProveedor? _registroProveedor;
 
-    private async Task InicializarVistaRegistroProveedor() {
+    private void InicializarVistaRegistroProveedor() {
         _registroProveedor = new PresentadorRegistroProveedor(new VistaRegistroProveedor());
         _registroProveedor.Vista.CargarNombresContactos(UtilesContacto.ObtenerNombresContactos());
         _registroProveedor.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
@@ -19,18 +19,25 @@ public partial class PresentadorContenedorModulos {
         };
     }
 
-    private async void MostrarVistaRegistroProveedor(object? sender, EventArgs e) {
-        await InicializarVistaRegistroProveedor();
+    private void MostrarVistaRegistroProveedor(object? sender, EventArgs e) {
+        InicializarVistaRegistroProveedor();
 
-        if (_registroProveedor != null) _registroProveedor.Vista.Mostrar();
+        if (_registroProveedor == null)
+            return;
 
+        MostrarVistaPanelTransparente(_registroProveedor.Vista);
+
+        _registroProveedor?.Vista.Mostrar();
         _registroProveedor?.Dispose();
     }
 
-    private async void MostrarVistaEdicionProveedor(object? sender, EventArgs e) {
-        await InicializarVistaRegistroProveedor();
+    private void MostrarVistaEdicionProveedor(object? sender, EventArgs e) {
+        InicializarVistaRegistroProveedor();
 
         if (_registroProveedor != null && sender is Proveedor proveedor) {
+
+            MostrarVistaPanelTransparente(_registroProveedor.Vista);
+
             _registroProveedor.PopularVistaDesdeObjeto(proveedor);
             _registroProveedor.Vista.Mostrar();
         }

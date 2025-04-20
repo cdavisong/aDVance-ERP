@@ -9,7 +9,7 @@ using aDVanceERP.Desktop.Utiles;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorRegistroRolUsuario _registroRolUsuario;
+    private PresentadorRegistroRolUsuario? _registroRolUsuario;
 
     public List<string[]>? Permisos { get; private set; } = new();
 
@@ -34,8 +34,12 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaRegistroRolUsuario(object? sender, EventArgs e) {
         InicializarVistaRegistroRolUsuario();
 
-        if (_registroRolUsuario != null) _registroRolUsuario.Vista.Mostrar();
+        if (_registroRolUsuario == null)
+            return;
 
+        MostrarVistaPanelTransparente(_registroRolUsuario.Vista);
+
+        _registroRolUsuario?.Vista.Mostrar();
         _registroRolUsuario?.Dispose();
     }
 

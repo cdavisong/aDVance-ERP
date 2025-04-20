@@ -24,8 +24,12 @@ public partial class PresentadorContenedorModulos {
     private async void MostrarVistaRegistroCuentaUsuario(object? sender, EventArgs e) {
         await InicializarVistaRegistroCuentaUsuario();
 
-        if (_registroCuentaUsuario != null) _registroCuentaUsuario.Vista.Mostrar();
+        if (_registroCuentaUsuario == null)
+            return;
 
+        MostrarVistaPanelTransparente(_registroCuentaUsuario.Vista);
+
+        _registroCuentaUsuario?.Vista.Mostrar();
         _registroCuentaUsuario?.Dispose();
     }
 
@@ -33,6 +37,9 @@ public partial class PresentadorContenedorModulos {
         await InicializarVistaRegistroCuentaUsuario();
 
         if (_registroCuentaUsuario != null && sender is CuentaUsuario cuentaUsuario) {
+
+            MostrarVistaPanelTransparente(_registroCuentaUsuario.Vista);
+
             _registroCuentaUsuario.PopularVistaDesdeObjeto(cuentaUsuario);
             _registroCuentaUsuario.Vista.Mostrar();
         }
