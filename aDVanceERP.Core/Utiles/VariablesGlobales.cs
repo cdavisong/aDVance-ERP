@@ -3,6 +3,7 @@
 public static class VariablesGlobales {
     public const int AlturaTuplaPredeterminada = 42;
     public const int AlturaBarraTituloPredeterminada = 56;
+    public const int AlturaBarraPiePagina = 25;
     public static readonly Color ColorResaltadoTupla = Color.FromArgb(252, 225, 205);
     public static int CoordenadaYUltimaTupla = 0;
 

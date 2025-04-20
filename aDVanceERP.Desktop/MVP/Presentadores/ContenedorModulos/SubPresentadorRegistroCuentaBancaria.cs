@@ -15,7 +15,7 @@ public partial class PresentadorContenedorModulos {
         _registroCuentaBancaria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
         _registroCuentaBancaria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroCuentaBancaria.Salir += async (sender, e) => {
-            if (_gestionCuentasBancarias != null) await _gestionCuentasBancarias.RefrescarListaObjetos();
+            await _gestionCuentasBancarias.RefrescarListaObjetos();
         };
     }
 
@@ -27,19 +27,20 @@ public partial class PresentadorContenedorModulos {
 
         MostrarVistaPanelTransparente(_registroCuentaBancaria.Vista);
 
-        _registroCuentaBancaria?.Vista.Mostrar();
-        _registroCuentaBancaria?.Dispose();
+        _registroCuentaBancaria.Vista.Mostrar();
+        _registroCuentaBancaria.Dispose();
     }
 
     private async void MostrarVistaEdicionCuentaBancaria(object? sender, EventArgs e) {
         InicializarVistaRegistroCuentaBancaria();
 
-        if (_registroCuentaBancaria != null && sender is CuentaBancaria cuentaBancaria) {
+        if (sender is CuentaBancaria cuentaBancaria) {
+            if (_registroCuentaBancaria != null) {
+                MostrarVistaPanelTransparente(_registroCuentaBancaria.Vista);
 
-            MostrarVistaPanelTransparente(_registroCuentaBancaria.Vista);
-
-            _registroCuentaBancaria.PopularVistaDesdeObjeto(cuentaBancaria);
-            _registroCuentaBancaria.Vista.Mostrar();
+                _registroCuentaBancaria.PopularVistaDesdeObjeto(cuentaBancaria);
+                _registroCuentaBancaria.Vista.Mostrar();
+            }
         }
 
         _registroCuentaBancaria?.Dispose();

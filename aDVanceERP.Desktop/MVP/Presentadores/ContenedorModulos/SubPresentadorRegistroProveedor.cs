@@ -15,7 +15,7 @@ public partial class PresentadorContenedorModulos {
         _registroProveedor.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
         _registroProveedor.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroProveedor.Salir += async (sender, e) => {
-            if (_gestionProveedores != null) await _gestionProveedores.RefrescarListaObjetos();
+            await _gestionProveedores.RefrescarListaObjetos();
         };
     }
 
@@ -34,12 +34,13 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaEdicionProveedor(object? sender, EventArgs e) {
         InicializarVistaRegistroProveedor();
 
-        if (_registroProveedor != null && sender is Proveedor proveedor) {
+        if (sender is Proveedor proveedor) {
+            if (_registroProveedor != null) {
+                MostrarVistaPanelTransparente(_registroProveedor.Vista);
 
-            MostrarVistaPanelTransparente(_registroProveedor.Vista);
-
-            _registroProveedor.PopularVistaDesdeObjeto(proveedor);
-            _registroProveedor.Vista.Mostrar();
+                _registroProveedor.PopularVistaDesdeObjeto(proveedor);
+                _registroProveedor.Vista.Mostrar();
+            }
         }
 
         _registroProveedor?.Dispose();

@@ -50,19 +50,24 @@ public partial class PresentadorContenedorModulos {
             throw new ArgumentNullException(nameof(datos));
         }
 
-        _registroMensajeria?.Vista.PopularDatosCliente(datos[0] as string[]);
-        _registroMensajeria?.Vista.PopularArticulosVenta(datos[1] as List<string[]>);
+        if (_registroMensajeria == null) 
+            return;
 
-        _registroMensajeria?.Vista.Mostrar();
-        _registroMensajeria?.Dispose();
+        _registroMensajeria.Vista.PopularDatosCliente(datos[0] as string[]);
+        _registroMensajeria.Vista.PopularArticulosVenta(datos[1] as List<string[]>);
+
+        _registroMensajeria.Vista.Mostrar();
+        _registroMensajeria.Dispose();
     }
 
     private void MostrarVistaEdicionMensajeria(object? sender, EventArgs e) {
         InicializarVistaRegistroMensajeria();
 
-        if (_registroMensajeria != null && sender is SeguimientoEntrega seguimientoEntrega) {
-            _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
-            _registroMensajeria.Vista.Mostrar();
+        if (sender is SeguimientoEntrega seguimientoEntrega) {
+            if (_registroMensajeria != null) {
+                _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
+                _registroMensajeria.Vista.Mostrar();
+            }
         }
 
         _registroMensajeria?.Dispose();

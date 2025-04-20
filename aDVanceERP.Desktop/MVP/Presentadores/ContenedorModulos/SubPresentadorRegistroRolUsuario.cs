@@ -11,7 +11,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroRolUsuario? _registroRolUsuario;
 
-    public List<string[]>? Permisos { get; private set; } = new();
+    private List<string[]>? Permisos { get; set; } = new();
 
     private void InicializarVistaRegistroRolUsuario() {
         _registroRolUsuario = new PresentadorRegistroRolUsuario(new VistaRegistroRolUsuario());
@@ -23,8 +23,7 @@ public partial class PresentadorContenedorModulos {
         _registroRolUsuario.DatosRegistradosActualizados += async delegate {
             Permisos = _registroRolUsuario.Vista.Permisos;
 
-            RegistrarEditarPermisosRol(
-                await UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario));
+            RegistrarEditarPermisosRol(await UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario!));
         };
         _registroRolUsuario.Salir += async (sender, e) => {
             if (_gestionRolesUsuarios != null) await _gestionRolesUsuarios.RefrescarListaObjetos();
@@ -46,9 +45,13 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaEdicionRolUsuario(object? sender, EventArgs e) {
         InicializarVistaRegistroRolUsuario();
 
-        if (_registroRolUsuario != null && sender is RolUsuario rolUsuario) {
-            _registroRolUsuario.PopularVistaDesdeObjeto(rolUsuario);
-            _registroRolUsuario.Vista.Mostrar();
+        if (sender is RolUsuario rolUsuario) {
+            if (_registroRolUsuario != null) {
+                MostrarVistaPanelTransparente(_registroRolUsuario.Vista);
+
+                _registroRolUsuario.PopularVistaDesdeObjeto(rolUsuario);
+                _registroRolUsuario.Vista.Mostrar();
+            }
         }
 
         _registroRolUsuario?.Dispose();

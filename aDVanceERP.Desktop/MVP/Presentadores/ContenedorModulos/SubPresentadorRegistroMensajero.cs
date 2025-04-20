@@ -24,21 +24,25 @@ public partial class PresentadorContenedorModulos {
     private async void MostrarVistaRegistroMensajero(object? sender, EventArgs e) {
         await InicializarVistaRegistroMensajero();
 
+        if (_registroMensajero == null) 
+            return;
+
         MostrarVistaPanelTransparente(_registroMensajero.Vista);
 
-        _registroMensajero?.Vista.Mostrar();
-        _registroMensajero?.Dispose();
+        _registroMensajero.Vista.Mostrar();
+        _registroMensajero.Dispose();
     }
 
     private async void MostrarVistaEdicionMensajero(object? sender, EventArgs e) {
         await InicializarVistaRegistroMensajero();
 
         if (sender is Mensajero mensajero) {
+            if (_registroMensajero != null) {
+                MostrarVistaPanelTransparente(_registroMensajero.Vista);
 
-            MostrarVistaPanelTransparente(_registroMensajero.Vista);
-
-            _registroMensajero?.PopularVistaDesdeObjeto(mensajero);
-            _registroMensajero?.Vista.Mostrar();
+                _registroMensajero.PopularVistaDesdeObjeto(mensajero);
+                _registroMensajero.Vista.Mostrar();
+            }
         }
 
         _registroMensajero?.Dispose();

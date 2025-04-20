@@ -6,15 +6,14 @@ namespace aDVanceERP.Desktop.Utiles;
 public static class Extensiones {
     public static void EstablecerCoordenadasVistaRegistro(this IVista vista, int anchoContenedorVistas) {
         vista.Coordenadas = new Point(
-            anchoContenedorVistas - vista.Dimensiones.Width - 20,
+            anchoContenedorVistas - vista.Dimensiones.Width,
             VariablesGlobales.AlturaBarraTituloPredeterminada
         );
     }
 
     public static void EstablecerDimensionesVistaRegistro(this IVista vista, int alturaContenedorVistas) {
-        vista.Dimensiones = new Size(
-            vista.Dimensiones.Width,
-            alturaContenedorVistas
-        );
+        vista.Dimensiones = vista.Dimensiones with {
+            Height = alturaContenedorVistas + VariablesGlobales.AlturaBarraPiePagina
+        };
     }
 }

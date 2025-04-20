@@ -29,19 +29,20 @@ public partial class PresentadorContenedorModulos {
 
         MostrarVistaPanelTransparente(_registroCuentaUsuario.Vista);
 
-        _registroCuentaUsuario?.Vista.Mostrar();
-        _registroCuentaUsuario?.Dispose();
+        _registroCuentaUsuario.Vista.Mostrar();
+        _registroCuentaUsuario.Dispose();
     }
 
     private async void MostrarVistaEdicionCuentaUsuario(object? sender, EventArgs e) {
         await InicializarVistaRegistroCuentaUsuario();
 
-        if (_registroCuentaUsuario != null && sender is CuentaUsuario cuentaUsuario) {
+        if (sender is CuentaUsuario cuentaUsuario) {
+            if (_registroCuentaUsuario != null) {
+                MostrarVistaPanelTransparente(_registroCuentaUsuario.Vista);
 
-            MostrarVistaPanelTransparente(_registroCuentaUsuario.Vista);
-
-            _registroCuentaUsuario.PopularVistaDesdeObjeto(cuentaUsuario);
-            _registroCuentaUsuario.Vista.Mostrar();
+                _registroCuentaUsuario.PopularVistaDesdeObjeto(cuentaUsuario);
+                _registroCuentaUsuario.Vista.Mostrar();
+            }
         }
 
         _registroCuentaUsuario?.Dispose();

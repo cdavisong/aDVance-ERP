@@ -9,29 +9,38 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroArticulo? _registroArticulo;
 
-    private Task InicializarVistaRegistroArticulo() {
+    private void InicializarVistaRegistroArticulo() {
         _registroArticulo = new PresentadorRegistroArticulo(new VistaRegistroArticulo());
         _registroArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
         _registroArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
         _registroArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroArticulo.Salir += async delegate { await _gestionArticulos?.RefrescarListaObjetos()!; };
-
-        return Task.CompletedTask;
+        _registroArticulo.Salir += async delegate {
+            await _gestionArticulos?.RefrescarListaObjetos()!;
+        };
     }
 
-    private async void MostrarVistaRegistroArticulo(object? sender, EventArgs e) {
-        await InicializarVistaRegistroArticulo();
+    private void MostrarVistaRegistroArticulo(object? sender, EventArgs e) {
+        InicializarVistaRegistroArticulo();
 
-        _registroArticulo?.Vista.Mostrar();
-        _registroArticulo?.Dispose();
+        if (_registroArticulo == null) 
+            return;
+
+        MostrarVistaPanelTransparente(_registroArticulo.Vista);
+
+        _registroArticulo.Vista.Mostrar();
+        _registroArticulo.Dispose();
     }
 
-    private async void MostrarVistaEdicionArticulo(object? sender, EventArgs e) {
-        await InicializarVistaRegistroArticulo();
+    private void MostrarVistaEdicionArticulo(object? sender, EventArgs e) {
+        InicializarVistaRegistroArticulo();
 
-        if (_registroArticulo != null && sender is Articulo articulo) {
-            _registroArticulo.PopularVistaDesdeObjeto(articulo);
-            _registroArticulo.Vista.Mostrar();
+        if (sender is Articulo articulo) {
+            if (_registroArticulo != null) {
+                MostrarVistaPanelTransparente(_registroArticulo.Vista);
+
+                _registroArticulo.PopularVistaDesdeObjeto(articulo);
+                _registroArticulo.Vista.Mostrar();
+            }
         }
 
         _registroArticulo?.Dispose();

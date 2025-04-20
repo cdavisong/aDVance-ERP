@@ -53,7 +53,7 @@ public partial class VistaQR : Form, IVistaQR {
         Dispose();
     }
 
-    public void CargarCodigoQR(string datos) {
+    public void CargarCodigoQR(string? datos) {
         using (var qrGenerator = new QRCodeGenerator()) {
             var datosSplit = datos.Split(',');
             var datosTransferencia = $"TRANSFERMOVIL_ETECSA,TRANSFERENCIA,{datosSplit[1]},{datosSplit[2]},";

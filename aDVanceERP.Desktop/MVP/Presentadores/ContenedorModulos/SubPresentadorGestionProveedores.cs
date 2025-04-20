@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorGestionProveedores _gestionProveedores;
+    private PresentadorGestionProveedores? _gestionProveedores;
 
     private async void InicializarVistaGestionProveedores() {
         _gestionProveedores = new PresentadorGestionProveedores(new VistaGestionProveedores());
@@ -17,7 +17,7 @@ public partial class PresentadorContenedorModulos {
     }
 
     private async void MostrarVistaGestionProveedores(object? sender, EventArgs e) {
-        if (_gestionProveedores?.Vista == null)
+        if (_gestionProveedores == null)
             return;
 
         _gestionProveedores.Vista.CargarCriteriosBusqueda(UtilesBusquedaProveedor.CriterioBusquedaProveedor);

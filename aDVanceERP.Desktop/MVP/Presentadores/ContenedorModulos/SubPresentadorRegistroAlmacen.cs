@@ -8,7 +8,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroAlmacen? _registroAlmacen;
 
-    private async Task InicializarVistaRegistroAlmacen() {
+    private void InicializarVistaRegistroAlmacen() {
         _registroAlmacen = new PresentadorRegistroAlmacen(new VistaRegistroAlmacen());
 
         // Configurar coordenadas y dimensiones de la vista
@@ -19,20 +19,28 @@ public partial class PresentadorContenedorModulos {
         };
     }
 
-    private async void MostrarVistaRegistroAlmacen(object? sender, EventArgs e) {
-        await InicializarVistaRegistroAlmacen();
+    private void MostrarVistaRegistroAlmacen(object? sender, EventArgs e) {
+        InicializarVistaRegistroAlmacen();
 
-        if (_registroAlmacen != null) _registroAlmacen?.Vista.Mostrar();
+        if (_registroAlmacen == null) 
+            return;
 
-        _registroAlmacen?.Dispose();
+        MostrarVistaPanelTransparente(_registroAlmacen.Vista);
+
+        _registroAlmacen.Vista.Mostrar();
+        _registroAlmacen.Dispose();
     }
 
-    private async void MostrarVistaEdicionAlmacen(object? sender, EventArgs e) {
-        await InicializarVistaRegistroAlmacen();
+    private void MostrarVistaEdicionAlmacen(object? sender, EventArgs e) {
+        InicializarVistaRegistroAlmacen();
 
-        if (_registroAlmacen != null && sender is Almacen almacen) {
-            _registroAlmacen.PopularVistaDesdeObjeto(almacen);
-            _registroAlmacen.Vista.Mostrar();
+        if (sender is Almacen almacen) {
+            if (_registroAlmacen != null) {
+                MostrarVistaPanelTransparente(_registroAlmacen.Vista);
+
+                _registroAlmacen.PopularVistaDesdeObjeto(almacen);
+                _registroAlmacen.Vista.Mostrar();
+            }
         }
 
         _registroAlmacen?.Dispose();

@@ -28,7 +28,7 @@ public enum CriterioBusquedaProveedor {
 }
 
 public static class UtilesBusquedaProveedor {
-    public static string[] CriterioBusquedaProveedor = {
+    public static object[] CriterioBusquedaProveedor = {
         "Todos los proveedores",
         "Identificador de BD",
         "Razón Social del proveedor",

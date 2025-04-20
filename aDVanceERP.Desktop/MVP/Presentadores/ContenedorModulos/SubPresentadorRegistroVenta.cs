@@ -154,7 +154,7 @@ public partial class PresentadorContenedorModulos {
 
             MostrarVistaPanelTransparente(_registroVentaArticulo.Vista);
 
-            _registroVentaArticulo.Vista.Mostrar();
+            _registroVentaArticulo?.Vista.Mostrar();
         }
 
         _registroVentaArticulo?.Dispose();

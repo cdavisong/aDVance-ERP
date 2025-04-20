@@ -42,16 +42,25 @@ public partial class PresentadorContenedorModulos {
     private async void MostrarVistaRegistroCompraArticulo(object? sender, EventArgs e) {
         await InicializarVistaRegistroCompraArticulo();
 
-        _registroCompraArticulo?.Vista.Mostrar();
-        _registroCompraArticulo?.Dispose();
+        if (_registroCompraArticulo == null) 
+            return;
+
+        MostrarVistaPanelTransparente(_registroCompraArticulo.Vista);
+
+        _registroCompraArticulo.Vista.Mostrar();
+        _registroCompraArticulo.Dispose();
     }
 
     private async void MostrarVistaEdicionCompraArticulo(object? sender, EventArgs e) {
         await InicializarVistaRegistroCompraArticulo();
 
-        if (_registroCompraArticulo != null && sender is Compra compra) {
-            _registroCompraArticulo.PopularVistaDesdeObjeto(compra);
-            _registroCompraArticulo.Vista.Mostrar();
+        if (sender is Compra compra) {
+            if (_registroCompraArticulo != null) {
+                MostrarVistaPanelTransparente(_registroCompraArticulo.Vista);
+
+                _registroCompraArticulo.PopularVistaDesdeObjeto(compra);
+                _registroCompraArticulo.Vista.Mostrar();
+            }
         }
 
         _registroCompraArticulo?.Dispose();
