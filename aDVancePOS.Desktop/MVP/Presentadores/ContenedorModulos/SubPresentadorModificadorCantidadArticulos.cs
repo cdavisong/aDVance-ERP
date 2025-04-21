@@ -27,7 +27,9 @@ namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos {
 
             _modificadorCantidadArticulos.Vista.Restaurar();
             _modificadorCantidadArticulos.Vista.Mostrar();
-
+            
+            // Actualizar la cantidad en el terminal de venta
+            if (_terminalVenta != null) _terminalVenta.Vista.Cantidad = Cantidad;
         }
     }
 }

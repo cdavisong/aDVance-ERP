@@ -10,6 +10,8 @@ using aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas;
 
 namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
     public partial class VistaTerminalVenta : Form, IVistaTerminalVenta, IVistaGestionDetallesCompraventaArticulos {
+        private int _cantidad = 0;
+
         public VistaTerminalVenta() {
             InitializeComponent();
             Inicializar();
@@ -47,7 +49,14 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
 
         public List<string[]>? Articulos { get; private set; }
 
-        public int Cantidad { get; set; } = 1;
+        public int Cantidad {
+            get => _cantidad;
+            set {
+                _cantidad = value;
+
+                btnCantidadArticulo.Text = $@"Cantidad ({_cantidad})";
+            }
+        }
 
         public decimal Subtotal {
             get => decimal.TryParse(fieldSubtotal.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total)
@@ -70,7 +79,19 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             set => fieldTotal.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
+        public bool PagoConfirmado { get; set; }
+        
+        #region Mensajería
+
         public long IdTipoEntrega { get; set; } = 0;
+
+        public string? RazonSocialCliente { get; set; }
+
+        public string Direccion { get; set; }
+
+        public string EstadoEntrega { get; set; }
+
+        #endregion
 
         public int AlturaContenedorVistas {
             get => contenedorVistas.Height;
@@ -106,10 +127,16 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                 CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
             };
             fieldNombreArticulo.KeyDown += delegate (object? sender, KeyEventArgs args) {
-                if (args.KeyCode != Keys.Enter)
-                    return;
+                switch (args.KeyCode) {
+                    case Keys.Enter:
+                        AdicionarArticulo();
+                        break;
+                    case Keys.F3:
+                        ModificarCantidadArticulos?.Invoke(sender, args);
+                        break;
+                }
 
-                AdicionarArticulo();
+                fieldNombreArticulo.Focus();
 
                 args.SuppressKeyPress = true;
             };
@@ -119,19 +146,29 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             ArticuloEliminado += delegate {
                 ActualizarTuplasArticulos();
                 ActualizarSubtotal();
+
+                fieldNombreArticulo.Focus();
             };
             btnEliminarArticulos.Click += delegate (object? sender, EventArgs args) {
                 Articulos.Clear();
                 ArticuloEliminado?.Invoke(sender, args);
+
+                fieldNombreArticulo.Focus();
             };
             btnCantidadArticulo.Click += delegate (object? sender, EventArgs args) {
                 ModificarCantidadArticulos?.Invoke(sender, args);
+
+                fieldNombreArticulo.Focus();
             };
             btnGestionarPago.Click += delegate (object? sender, EventArgs args) {
                 EfectuarPago?.Invoke(sender, args);
+
+                fieldNombreArticulo.Focus();
             };
             btnAsignarMensajeria.Click += delegate (object? sender, EventArgs args) {
                 AsignarMensajeria?.Invoke(sender, args);
+
+                fieldNombreArticulo.Focus();
             };
             contenedorVistas.Resize += delegate {
                 AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
@@ -320,6 +357,8 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             Habilitada = true;
             BringToFront();
             Show();
+
+            fieldNombreArticulo.Focus();
         }
 
         public void Restaurar() {
@@ -331,6 +370,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnGestionarPago.Enabled = false;
             KeyPago.Visible = false;
             btnAsignarMensajeria.Enabled = false;
+            Cantidad = 1;
             Subtotal = 0;
             Descuento = 0;
             Total = 0;

@@ -169,7 +169,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(1356, 608);
-            layoutVista.TabIndex = 4;
+            layoutVista.TabIndex = 0;
             // 
             // layoutHerramientas
             // 
@@ -188,7 +188,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutHerramientas.RowCount = 1;
             layoutHerramientas.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutHerramientas.Size = new Size(1316, 45);
-            layoutHerramientas.TabIndex = 38;
+            layoutHerramientas.TabIndex = 0;
             // 
             // fieldNombreAlmacen
             // 
@@ -210,7 +210,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldNombreAlmacen.Name = "fieldNombreAlmacen";
             fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges2;
             fieldNombreAlmacen.Size = new Size(224, 35);
-            fieldNombreAlmacen.TabIndex = 29;
+            fieldNombreAlmacen.TabIndex = 0;
             fieldNombreAlmacen.TextOffset = new Point(10, 0);
             // 
             // btnAdicionarArticulo
@@ -261,7 +261,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldNombreArticulo.SelectedText = "";
             fieldNombreArticulo.ShadowDecoration.CustomizableEdges = customizableEdges6;
             fieldNombreArticulo.Size = new Size(1022, 35);
-            fieldNombreArticulo.TabIndex = 9;
+            fieldNombreArticulo.TabIndex = 1;
             fieldNombreArticulo.TextOffset = new Point(5, 0);
             // 
             // separador1
@@ -271,7 +271,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             separador1.Location = new Point(23, 68);
             separador1.Name = "separador1";
             separador1.Size = new Size(1310, 14);
-            separador1.TabIndex = 36;
+            separador1.TabIndex = 1;
             // 
             // layoutDistribución1
             // 
@@ -287,7 +287,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutDistribución1.RowCount = 1;
             layoutDistribución1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutDistribución1.Size = new Size(1316, 503);
-            layoutDistribución1.TabIndex = 39;
+            layoutDistribución1.TabIndex = 2;
             // 
             // layoutDistribucionControlesVenta
             // 
@@ -349,7 +349,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnClientes.Name = "btnClientes";
             btnClientes.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnClientes.Size = new Size(119, 60);
-            btnClientes.TabIndex = 11;
+            btnClientes.TabIndex = 2;
             btnClientes.Text = "Clientes";
             btnClientes.Tile = true;
             // 
@@ -369,7 +369,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnOrdenes.Name = "btnOrdenes";
             btnOrdenes.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnOrdenes.Size = new Size(121, 60);
-            btnOrdenes.TabIndex = 10;
+            btnOrdenes.TabIndex = 3;
             btnOrdenes.Text = "Órdenes";
             btnOrdenes.Tile = true;
             // 
@@ -389,7 +389,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnDescuento.Name = "btnDescuento";
             btnDescuento.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnDescuento.Size = new Size(119, 60);
-            btnDescuento.TabIndex = 9;
+            btnDescuento.TabIndex = 0;
             btnDescuento.Text = "Descuento";
             btnDescuento.Tile = true;
             // 
@@ -409,7 +409,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnComentarios.Name = "btnComentarios";
             btnComentarios.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnComentarios.Size = new Size(119, 60);
-            btnComentarios.TabIndex = 8;
+            btnComentarios.TabIndex = 1;
             btnComentarios.Text = "Comentario";
             btnComentarios.Tile = true;
             // 
@@ -453,7 +453,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnGestionarPago.Name = "btnGestionarPago";
             btnGestionarPago.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnGestionarPago.Size = new Size(120, 60);
-            btnGestionarPago.TabIndex = 11;
+            btnGestionarPago.TabIndex = 2;
             btnGestionarPago.Text = "Pago";
             btnGestionarPago.Tile = true;
             // 
@@ -476,7 +476,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnAsignarMensajeria.Name = "btnAsignarMensajeria";
             btnAsignarMensajeria.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnAsignarMensajeria.Size = new Size(122, 60);
-            btnAsignarMensajeria.TabIndex = 10;
+            btnAsignarMensajeria.TabIndex = 3;
             btnAsignarMensajeria.Text = "Mensajería";
             btnAsignarMensajeria.Tile = true;
             // 
@@ -496,7 +496,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnGuardarOrden.Name = "btnGuardarOrden";
             btnGuardarOrden.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnGuardarOrden.Size = new Size(119, 60);
-            btnGuardarOrden.TabIndex = 9;
+            btnGuardarOrden.TabIndex = 0;
             btnGuardarOrden.Text = "Guardar";
             btnGuardarOrden.Tile = true;
             // 
@@ -516,7 +516,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnReembolsoOrden.Name = "btnReembolsoOrden";
             btnReembolsoOrden.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnReembolsoOrden.Size = new Size(119, 60);
-            btnReembolsoOrden.TabIndex = 8;
+            btnReembolsoOrden.TabIndex = 1;
             btnReembolsoOrden.Text = "Reembolso";
             btnReembolsoOrden.Tile = true;
             // 
@@ -557,7 +557,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnAnularOrden.Name = "btnAnularOrden";
             btnAnularOrden.ShadowDecoration.CustomizableEdges = customizableEdges24;
             btnAnularOrden.Size = new Size(119, 60);
-            btnAnularOrden.TabIndex = 11;
+            btnAnularOrden.TabIndex = 2;
             btnAnularOrden.Text = "Anular orden";
             btnAnularOrden.Tile = true;
             // 
@@ -577,7 +577,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnMenuOpciones.Name = "btnMenuOpciones";
             btnMenuOpciones.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnMenuOpciones.Size = new Size(121, 60);
-            btnMenuOpciones.TabIndex = 10;
+            btnMenuOpciones.TabIndex = 3;
             btnMenuOpciones.Tile = true;
             // 
             // btnBloquearVenta
@@ -596,7 +596,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnBloquearVenta.Name = "btnBloquearVenta";
             btnBloquearVenta.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnBloquearVenta.Size = new Size(119, 60);
-            btnBloquearVenta.TabIndex = 9;
+            btnBloquearVenta.TabIndex = 0;
             btnBloquearVenta.Text = "Bloquear";
             btnBloquearVenta.Tile = true;
             // 
@@ -616,7 +616,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnTransferirProductos.Name = "btnTransferirProductos";
             btnTransferirProductos.ShadowDecoration.CustomizableEdges = customizableEdges30;
             btnTransferirProductos.Size = new Size(119, 60);
-            btnTransferirProductos.TabIndex = 8;
+            btnTransferirProductos.TabIndex = 1;
             btnTransferirProductos.Text = "Transferir";
             btnTransferirProductos.Tile = true;
             // 
@@ -657,7 +657,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnCantidadArticulo.Name = "btnCantidadArticulo";
             btnCantidadArticulo.ShadowDecoration.CustomizableEdges = customizableEdges32;
             btnCantidadArticulo.Size = new Size(119, 60);
-            btnCantidadArticulo.TabIndex = 11;
+            btnCantidadArticulo.TabIndex = 2;
             btnCantidadArticulo.Text = "Cantidad";
             btnCantidadArticulo.Tile = true;
             // 
@@ -677,7 +677,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnNuevaVenta.Name = "btnNuevaVenta";
             btnNuevaVenta.ShadowDecoration.CustomizableEdges = customizableEdges34;
             btnNuevaVenta.Size = new Size(121, 60);
-            btnNuevaVenta.TabIndex = 10;
+            btnNuevaVenta.TabIndex = 3;
             btnNuevaVenta.Text = "Nueva venta";
             btnNuevaVenta.Tile = true;
             // 
@@ -697,7 +697,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnEliminarArticulos.Name = "btnEliminarArticulos";
             btnEliminarArticulos.ShadowDecoration.CustomizableEdges = customizableEdges36;
             btnEliminarArticulos.Size = new Size(119, 60);
-            btnEliminarArticulos.TabIndex = 9;
+            btnEliminarArticulos.TabIndex = 0;
             btnEliminarArticulos.Text = "Eliminar art.";
             btnEliminarArticulos.Tile = true;
             // 
@@ -717,7 +717,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnBuscarArticulo.Name = "btnBuscarArticulo";
             btnBuscarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges38;
             btnBuscarArticulo.Size = new Size(119, 60);
-            btnBuscarArticulo.TabIndex = 8;
+            btnBuscarArticulo.TabIndex = 1;
             btnBuscarArticulo.Text = "Buscar";
             btnBuscarArticulo.Tile = true;
             // 
@@ -759,7 +759,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             separador3.Location = new Point(3, 352);
             separador3.Name = "separador3";
             separador3.Size = new Size(804, 14);
-            separador3.TabIndex = 37;
+            separador3.TabIndex = 2;
             // 
             // layoutResumenVenta
             // 
@@ -781,7 +781,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutResumenVenta.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             layoutResumenVenta.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutResumenVenta.Size = new Size(810, 128);
-            layoutResumenVenta.TabIndex = 22;
+            layoutResumenVenta.TabIndex = 3;
             // 
             // layoutTotal
             // 
@@ -828,7 +828,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTotal.Margin = new Padding(15, 5, 3, 3);
             fieldTotal.Name = "fieldTotal";
             fieldTotal.Size = new Size(92, 27);
-            fieldTotal.TabIndex = 1;
+            fieldTotal.TabIndex = 0;
             fieldTotal.Text = "0.00";
             fieldTotal.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -843,7 +843,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloTotal.Margin = new Padding(15, 5, 3, 3);
             fieldTituloTotal.Name = "fieldTituloTotal";
             fieldTituloTotal.Size = new Size(192, 27);
-            fieldTituloTotal.TabIndex = 0;
+            fieldTituloTotal.TabIndex = 1;
             fieldTituloTotal.Text = "TOTAL";
             fieldTituloTotal.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -892,7 +892,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldDescuento.Margin = new Padding(15, 5, 3, 3);
             fieldDescuento.Name = "fieldDescuento";
             fieldDescuento.Size = new Size(92, 27);
-            fieldDescuento.TabIndex = 1;
+            fieldDescuento.TabIndex = 0;
             fieldDescuento.Text = "0.00";
             fieldDescuento.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -907,7 +907,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloDescuento.Margin = new Padding(15, 5, 3, 3);
             fieldTituloDescuento.Name = "fieldTituloDescuento";
             fieldTituloDescuento.Size = new Size(192, 27);
-            fieldTituloDescuento.TabIndex = 0;
+            fieldTituloDescuento.TabIndex = 1;
             fieldTituloDescuento.Text = "Descuento";
             fieldTituloDescuento.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -956,7 +956,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldSubtotal.Margin = new Padding(15, 5, 3, 3);
             fieldSubtotal.Name = "fieldSubtotal";
             fieldSubtotal.Size = new Size(92, 27);
-            fieldSubtotal.TabIndex = 1;
+            fieldSubtotal.TabIndex = 0;
             fieldSubtotal.Text = "0.00";
             fieldSubtotal.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -971,7 +971,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloSubtotal.Margin = new Padding(15, 5, 3, 3);
             fieldTituloSubtotal.Name = "fieldTituloSubtotal";
             fieldTituloSubtotal.Size = new Size(192, 27);
-            fieldTituloSubtotal.TabIndex = 0;
+            fieldTituloSubtotal.TabIndex = 1;
             fieldTituloSubtotal.Text = "Subtotal";
             fieldTituloSubtotal.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -1008,7 +1008,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutEncabezadosTabla.RowCount = 1;
             layoutEncabezadosTabla.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.Size = new Size(810, 62);
-            layoutEncabezadosTabla.TabIndex = 20;
+            layoutEncabezadosTabla.TabIndex = 0;
             // 
             // fieldTituloNombreArticulo
             // 
@@ -1020,7 +1020,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloNombreArticulo.Margin = new Padding(1);
             fieldTituloNombreArticulo.Name = "fieldTituloNombreArticulo";
             fieldTituloNombreArticulo.Size = new Size(318, 60);
-            fieldTituloNombreArticulo.TabIndex = 19;
+            fieldTituloNombreArticulo.TabIndex = 1;
             fieldTituloNombreArticulo.Text = "Nombre del artículo";
             fieldTituloNombreArticulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -1034,7 +1034,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloId.Margin = new Padding(1);
             fieldTituloId.Name = "fieldTituloId";
             fieldTituloId.Size = new Size(58, 60);
-            fieldTituloId.TabIndex = 14;
+            fieldTituloId.TabIndex = 0;
             fieldTituloId.Text = "Id";
             fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -1048,7 +1048,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloTotalArticulo.Margin = new Padding(1);
             fieldTituloTotalArticulo.Name = "fieldTituloTotalArticulo";
             fieldTituloTotalArticulo.Size = new Size(128, 60);
-            fieldTituloTotalArticulo.TabIndex = 18;
+            fieldTituloTotalArticulo.TabIndex = 4;
             fieldTituloTotalArticulo.Text = "Monto total";
             fieldTituloTotalArticulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -1062,7 +1062,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloCantidadArticulo.Margin = new Padding(1);
             fieldTituloCantidadArticulo.Name = "fieldTituloCantidadArticulo";
             fieldTituloCantidadArticulo.Size = new Size(128, 60);
-            fieldTituloCantidadArticulo.TabIndex = 20;
+            fieldTituloCantidadArticulo.TabIndex = 3;
             fieldTituloCantidadArticulo.Text = "Cantidad";
             fieldTituloCantidadArticulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -1076,7 +1076,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloPrecioArticulo.Margin = new Padding(1);
             fieldTituloPrecioArticulo.Name = "fieldTituloPrecioArticulo";
             fieldTituloPrecioArticulo.Size = new Size(128, 60);
-            fieldTituloPrecioArticulo.TabIndex = 21;
+            fieldTituloPrecioArticulo.TabIndex = 2;
             fieldTituloPrecioArticulo.Text = "Precio";
             fieldTituloPrecioArticulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -1087,7 +1087,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             contenedorVistas.Margin = new Padding(0);
             contenedorVistas.Name = "contenedorVistas";
             contenedorVistas.Size = new Size(810, 275);
-            contenedorVistas.TabIndex = 21;
+            contenedorVistas.TabIndex = 1;
             // 
             // KeyBuscar
             // 

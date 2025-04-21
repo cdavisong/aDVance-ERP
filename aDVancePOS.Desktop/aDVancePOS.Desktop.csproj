@@ -19,6 +19,7 @@
     <ProjectReference Include="..\aDVanceERP.Core.Seguridad\aDVanceERP.Core.Seguridad.csproj" />
     <ProjectReference Include="..\aDVanceERP.Core\aDVanceERP.Core.csproj" />
     <ProjectReference Include="..\aDVanceERP.Modulos.CompraVenta\aDVanceERP.Modulos.CompraVenta.csproj" />
+    <ProjectReference Include="..\aDVanceERP.Modulos.Contactos\aDVanceERP.Modulos.Contactos.csproj" />
     <ProjectReference Include="..\aDVancePOS.Modulos.TerminalVenta\aDVancePOS.Modulos.TerminalVenta.csproj" />
   </ItemGroup>
 

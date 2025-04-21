@@ -10,7 +10,11 @@ public interface IVistaTerminalVenta : IVistaRegistro {
     decimal Subtotal { get; set; }
     decimal Descuento { get; set; }
     decimal Total { get; set; }
+    bool PagoConfirmado { get; set; }
+    string? RazonSocialCliente { get; set; }
     long IdTipoEntrega { get; set; }
+    string Direccion { get; set; }
+    string EstadoEntrega { get; set; }
 
     event EventHandler? AlturaContenedorTuplasModificada;    
     event EventHandler? ArticuloAgregado;

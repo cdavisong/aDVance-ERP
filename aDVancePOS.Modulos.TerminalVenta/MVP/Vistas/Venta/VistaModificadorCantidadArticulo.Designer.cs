@@ -158,7 +158,7 @@
             fieldCantidad.Animated = true;
             fieldCantidad.BorderColor = Color.Gainsboro;
             fieldCantidad.BorderRadius = 16;
-            fieldCantidad.Cursor = Cursors.IBeam;
+            fieldCantidad.Cursor = Cursors.No;
             fieldCantidad.CustomizableEdges = customizableEdges1;
             fieldCantidad.DefaultText = "1";
             fieldCantidad.DisabledState.BorderColor = Color.White;
@@ -564,8 +564,7 @@
             // 
             // VistaModificadorCantidadArticulo
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
             ClientSize = new Size(300, 445);
             Controls.Add(layoutBase);
