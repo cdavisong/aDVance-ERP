@@ -1,4 +1,7 @@
 ﻿using System.Globalization;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
+
+using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
@@ -87,7 +90,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
     public long IdTipoEntrega { get; set; } = 0;
 
-    public string Direccion { get; set; } = string.Empty;
+    public string? Direccion { get; set; } = string.Empty;
 
     public bool PagoConfirmado {
         get => btnRegistrar.Enabled;
@@ -101,7 +104,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         }
     }
 
-    public string EstadoEntrega { get; set; }
+    public string? EstadoEntrega { get; set; } = "Completada";
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? ArticuloAgregado;
@@ -204,63 +207,70 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
         var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
         var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
-        var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
-        var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
-        var stockArticulo = await UtilesArticulo.ObtenerStockArticulo(adNombreArticulo, adNombreAlmacen);
+        
+        if (adNombreArticulo != null) {
+            var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
+            var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
+            var stockArticulo = await UtilesArticulo.ObtenerStockArticulo(adNombreArticulo, adNombreAlmacen);
 
-        if (!ModoEdicionDatos) {
-            // Verificar ID y stock del artículo
-            if (idArticulo == 0 || stockArticulo == 0) {
-                NombreArticulo = string.Empty;
+            if (!ModoEdicionDatos) {
+                // Verificar ID y stock del artículo
+                if (idArticulo == 0 || stockArticulo == 0) {
+                    CentroNotificaciones.Mostrar($"El artículo {adNombreArticulo} no existe o no tiene stock disponible en el almacén {adNombreAlmacen}. Rectifique los datos.", TipoNotificacion.Advertencia);
 
-                fieldCantidad.Text = string.Empty;
-                fieldNombreArticulo.Focus();
+                    NombreArticulo = string.Empty;
 
-                return;
-            }
+                    fieldCantidad.Text = string.Empty;
+                    fieldNombreArticulo.Focus();
 
-            // Verificar que la cantidad no exceda el stock del artículo
-            if (Articulos != null) {
-                var stockComprometido = Articulos
-                    .Where(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()))
-                    .Sum(a => int.Parse(a[4]));
-                if (int.Parse(adCantidad) + stockComprometido > stockArticulo) {
-                    fieldCantidad.ForeColor = Color.Firebrick;
-                    fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
-                    fieldCantidad.Margin = new Padding(3);
                     return;
                 }
 
-                fieldCantidad.ForeColor = Color.Black;
-                fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Regular);
-                fieldCantidad.Margin = new Padding(3);
-            }
-        } else {
-            fieldNombreArticulo.ReadOnly = true;
-            fieldCantidad.ReadOnly = true;
-        }
+                // Verificar que la cantidad no exceda el stock del artículo
+                if (Articulos != null) {
+                    var stockComprometido = Articulos
+                        .Where(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()))
+                        .Sum(a => int.Parse(a[4]));
+                    if (int.Parse(adCantidad) + stockComprometido > stockArticulo) {
+                        fieldCantidad.ForeColor = Color.Firebrick;
+                        fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
+                        fieldCantidad.Margin = new Padding(3);
 
-        var precioCompraVigenteArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
-        var precioVentaBaseArticulo = await UtilesArticulo.ObtenerPrecioVentaBase(idArticulo);
-        var tuplaArticulo = new[] {
-            idArticulo.ToString(),
-            adNombreArticulo,
-            precioCompraVigenteArticulo.ToString("N2", CultureInfo.InvariantCulture),
-            precioVentaBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
-            adCantidad,
-            idAlmacen.ToString()
-        };
+                        CentroNotificaciones.Mostrar($"La cantidad del artículo {adNombreArticulo} excede el stock disponible ({stockArticulo}). Rectifique los datos o aumente la cantidad disponible en almacén.", TipoNotificacion.Advertencia);
+                        return;
+                    }
 
-        // Verificar que el articulo ya se encuentre registrado
-        if (Articulos != null) {
-            var indiceArticulo =
-                Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()));
-            if (indiceArticulo != -1) {
-                Articulos[indiceArticulo][4] =
-                    (int.Parse(Articulos[indiceArticulo][4]) + int.Parse(adCantidad)).ToString();
+                    fieldCantidad.ForeColor = Color.Black;
+                    fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Regular);
+                    fieldCantidad.Margin = new Padding(3);
+                }
             } else {
-                Articulos.Add(tuplaArticulo);
-                ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+                fieldNombreArticulo.ReadOnly = true;
+                fieldCantidad.ReadOnly = true;
+            }
+
+            var precioCompraVigenteArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
+            var precioVentaBaseArticulo = await UtilesArticulo.ObtenerPrecioVentaBase(idArticulo);
+            var tuplaArticulo = new[] {
+                idArticulo.ToString(),
+                adNombreArticulo,
+                precioCompraVigenteArticulo.ToString("N2", CultureInfo.InvariantCulture),
+                precioVentaBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
+                adCantidad,
+                idAlmacen.ToString()
+            };
+
+            // Verificar que el articulo ya se encuentre registrado
+            if (Articulos != null) {
+                var indiceArticulo =
+                    Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()));
+                if (indiceArticulo != -1) {
+                    Articulos[indiceArticulo][4] =
+                        (int.Parse(Articulos[indiceArticulo][4]) + int.Parse(adCantidad)).ToString();
+                } else {
+                    Articulos.Add(tuplaArticulo);
+                    ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+                }
             }
         }
 

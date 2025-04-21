@@ -1,4 +1,5 @@
 ﻿using aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas;
+
 using Guna.UI2.WinForms;
 
 namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
@@ -33,10 +34,18 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         public void Inicializar() {
             // Eventos
             fieldCantidad.KeyDown += delegate (object? sender, KeyEventArgs args) {
+                if (args.KeyCode is >= Keys.A and <= Keys.Z) {
+                    args.SuppressKeyPress = true;
+
+                    return;
+                }
+
                 switch (args.KeyCode) {
                     case Keys.Enter or Keys.Escape:
                         if (args.KeyCode == Keys.Escape)
                             CantidadArticulo = 1;
+
+                        args.SuppressKeyPress = true;
 
                         Salir?.Invoke(sender, args);
 
@@ -44,40 +53,10 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                         break;
                     case Keys.Back or Keys.Delete:
                         AdicionarCaracterTeclado(btnEliminar);
-                        break;
-                    case Keys.D0 or Keys.NumPad0:
-                        AdicionarCaracterTeclado(btnNumero0);
-                        break;
-                    case Keys.D1 or Keys.NumPad1:
-                        AdicionarCaracterTeclado(btnNumero1);
-                        break;
-                    case Keys.D2 or Keys.NumPad2:
-                        AdicionarCaracterTeclado(btnNumero2);
-                        break;
-                    case Keys.D3 or Keys.NumPad3:
-                        AdicionarCaracterTeclado(btnNumero3);
-                        break;
-                    case Keys.D4 or Keys.NumPad4:
-                        AdicionarCaracterTeclado(btnNumero4);
-                        break;
-                    case Keys.D5 or Keys.NumPad5:
-                        AdicionarCaracterTeclado(btnNumero5);
-                        break;
-                    case Keys.D6 or Keys.NumPad6:
-                        AdicionarCaracterTeclado(btnNumero6);
-                        break;
-                    case Keys.D7 or Keys.NumPad7:
-                        AdicionarCaracterTeclado(btnNumero7);
-                        break;
-                    case Keys.D8 or Keys.NumPad8:
-                        AdicionarCaracterTeclado(btnNumero0);
-                        break;
-                    case Keys.D9 or Keys.NumPad9:
-                        AdicionarCaracterTeclado(btnNumero9);
+
+                        args.SuppressKeyPress = true;
                         break;
                 }
-
-                args.SuppressKeyPress = true;
             };
             btnNumero0.Click += delegate {
                 AdicionarCaracterTeclado(btnNumero0);

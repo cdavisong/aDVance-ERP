@@ -9,7 +9,7 @@ namespace aDVancePOS.Desktop {
         [STAThread]
         static void Main() {
             // Iniciar el servidor TCP
-            UtilesServidorScanner.Servidor.IniciarAsync();
+            UtilesServidorScanner.Servidor.IniciarAsync(9509);
 
             // Configuración de la aplicación
             ApplicationConfiguration.Initialize();

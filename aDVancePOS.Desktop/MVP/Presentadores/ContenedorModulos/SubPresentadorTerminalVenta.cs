@@ -104,8 +104,7 @@ public partial class PresentadorContenedorModulos {
             if (DatosMensajeria.Count == 0)
                 return;
 
-            _terminalVenta.Vista.IdTipoEntrega =
-                await UtilesMensajero.ObtenerIdTipoEntrega(DatosMensajeria.ElementAt(0)[0]);
+            _terminalVenta.Vista.IdTipoEntrega = await UtilesMensajero.ObtenerIdTipoEntrega(DatosMensajeria.ElementAt(0)[0]);
             _terminalVenta.Vista.Direccion = DatosMensajeria.ElementAt(2)[2];
             _terminalVenta.Vista.PagoConfirmado = DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)";
             _terminalVenta.Vista.EstadoEntrega = "Pendiente";

@@ -17,10 +17,10 @@ public class PresentadorTerminalVenta : PresentadorRegistroBase<IVistaTerminalVe
         return new Venta(Objeto?.Id ?? 0,
             DateTime.Now,
             await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
-            0, //UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),
+            UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),
             Vista.IdTipoEntrega,
-            "", //Vista.Direccion,
-            "", //Vista.EstadoEntrega,
+            Vista.Direccion,
+            Vista.EstadoEntrega,
             Vista.Total
         );
     }

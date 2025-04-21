@@ -5,8 +5,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 public class Venta : IObjetoUnico {
     public Venta() { }
 
-    public Venta(long id, DateTime fecha, long idAlmacen, long idCliente, long idTipoEntrega, string direccionEntrega,
-        string estadoEntrega, decimal total) {
+    public Venta(long id, DateTime fecha, long idAlmacen, long idCliente, long idTipoEntrega, string? direccionEntrega,
+        string? estadoEntrega, decimal total) {
         Id = id;
         Fecha = fecha;
         IdAlmacen = idAlmacen;
@@ -21,8 +21,8 @@ public class Venta : IObjetoUnico {
     public long IdAlmacen { get; set; }
     public long IdCliente { get; set; }
     public long IdTipoEntrega { get; set; }
-    public string DireccionEntrega { get; set; }
-    public string EstadoEntrega { get; set; }
+    public string? DireccionEntrega { get; set; }
+    public string? EstadoEntrega { get; set; }
     public decimal Total { get; set; }
 
     public long Id { get; set; }
@@ -37,7 +37,7 @@ public enum CriterioBusquedaVenta {
 }
 
 public static class UtilesBusquedaVenta {
-    public static object[] CriterioBusquedaVenta = {
+    public static readonly object[] CriterioBusquedaVenta = {
         "Todas las ventas",
         "Identificador de BD",
         "Nombre del almacén",

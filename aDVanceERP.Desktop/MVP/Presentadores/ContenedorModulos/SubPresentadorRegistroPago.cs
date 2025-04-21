@@ -70,7 +70,7 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void RegistrarPagosVenta() {
-        if (Pagos.Count == 0 || DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)")
+        if (Pagos.Count == 0 || (DatosMensajeria.Count > 0 && DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)"))
             return;
 
         using (var datosPago = new DatosPago()) {

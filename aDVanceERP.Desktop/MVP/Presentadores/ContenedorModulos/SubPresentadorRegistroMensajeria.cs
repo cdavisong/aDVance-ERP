@@ -10,7 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroMensajeria? _registroMensajeria;
 
-    private List<string[]> DatosMensajeria { get; set; } = new();
+    private List<string?[]> DatosMensajeria { get; set; } = new();
 
     private async void InicializarVistaRegistroMensajeria() {
         _registroMensajeria = new PresentadorRegistroMensajeria(new VistaRegistroMensajeria());
@@ -53,7 +53,7 @@ public partial class PresentadorContenedorModulos {
         if (_registroMensajeria == null) 
             return;
 
-        _registroMensajeria.Vista.PopularDatosCliente(datos[0] as string[]);
+        _registroMensajeria.Vista.PopularDatosCliente(datos[0] as string?[]);
         _registroMensajeria.Vista.PopularArticulosVenta(datos[1] as List<string[]>);
 
         _registroMensajeria.Vista.Mostrar();

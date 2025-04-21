@@ -9,6 +9,6 @@ public interface IVistaTuplaVenta : IVistaTupla {
     string NombreCliente { get; set; }
     string CantidadProductos { get; set; }
     string MontoTotal { get; set; }
-    string EstadoEntrega { get; set; }
+    string? EstadoEntrega { get; set; }
     string EstadoPago { get; set; }
 }

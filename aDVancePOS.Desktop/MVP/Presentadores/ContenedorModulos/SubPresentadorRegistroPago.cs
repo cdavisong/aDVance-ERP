@@ -60,7 +60,7 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void RegistrarPagosVenta() {
-        if (Pagos.Count == 0 || DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)")
+        if (Pagos.Count == 0 || (DatosMensajeria.Count > 0 && DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)"))
             return;
 
         using (var datosPago = new DatosPago()) {
@@ -80,14 +80,13 @@ public partial class PresentadorContenedorModulos {
 
             // Actualizar el seguimiento de entrega
             using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
-                var objetoSeguimiento = datosSeguimiento
-                    .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, ultimoIdVenta.ToString()).FirstOrDefault();
+                var objetoSeguimiento = datosSeguimiento.Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, ultimoIdVenta.ToString()).FirstOrDefault();
 
-                if (objetoSeguimiento != null) {
-                    objetoSeguimiento.FechaPago = DateTime.Now;
+                if (objetoSeguimiento == null)
+                    return;
 
-                    datosSeguimiento.Editar(objetoSeguimiento);
-                }
+                objetoSeguimiento.FechaPago = DateTime.Now;
+                datosSeguimiento.Editar(objetoSeguimiento);
             }
         }
     }

@@ -59,7 +59,7 @@ public static class UtilesMensajero {
         return resultados;
     }
 
-    public static async Task<long> ObtenerIdMensajero(string nombreMensajero) {
+    public static async Task<long> ObtenerIdMensajero(string? nombreMensajero) {
         const string query = """
                              SELECT
                                 id_mensajero
@@ -97,7 +97,7 @@ public static class UtilesMensajero {
         return nombres.ToArray();
     }
 
-    public static async Task<long> ObtenerIdTipoEntrega(string nombreTipoEntrega) {
+    public static async Task<long> ObtenerIdTipoEntrega(string? nombreTipoEntrega) {
         const string query = """
                              SELECT
                                 id_tipo_entrega

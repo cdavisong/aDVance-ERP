@@ -13,8 +13,8 @@ public interface IVistaTerminalVenta : IVistaRegistro {
     bool PagoConfirmado { get; set; }
     string? RazonSocialCliente { get; set; }
     long IdTipoEntrega { get; set; }
-    string Direccion { get; set; }
-    string EstadoEntrega { get; set; }
+    string? Direccion { get; set; }
+    string? EstadoEntrega { get; set; }
 
     event EventHandler? AlturaContenedorTuplasModificada;    
     event EventHandler? ArticuloAgregado;

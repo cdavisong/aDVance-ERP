@@ -8,8 +8,8 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
     private List<string[]>? _articulosVenta = new();
     private string[] _descripcionesTiposEntrega = Array.Empty<string>();
     private bool _modoEdicion;
-    private string _nombreCliente = string.Empty;
-    private string _telefonosCliente = string.Empty;
+    private string? _nombreCliente = string.Empty;
+    private string? _telefonosCliente = string.Empty;
 
     public VistaRegistroMensajeria() {
         InitializeComponent();
@@ -46,7 +46,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         set => fieldDescripcionTipoEntrega.Text = value;
     }
 
-    public string Direccion {
+    public string? Direccion {
         get => fieldDireccion.Text;
         set {
             fieldDireccion.Text = value;
@@ -68,7 +68,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         }
     }
 
-    public List<string[]> DatosMensajeria { get; private set; }
+    public List<string?[]> DatosMensajeria { get; private set; }
 
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
@@ -76,7 +76,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
     public event EventHandler? Salir;
 
     public void Inicializar() {
-        DatosMensajeria = new List<string[]>();
+        DatosMensajeria = new List<string?[]>();
 
         // Eventos
         btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
@@ -116,7 +116,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         _descripcionesTiposEntrega = descripciones;
     }
 
-    public void PopularDatosCliente(string[]? datosCliente) {
+    public void PopularDatosCliente(string?[]? datosCliente) {
         _nombreCliente = datosCliente[0];
         _telefonosCliente = datosCliente[1];
 

@@ -16,12 +16,12 @@ public sealed class ServidorTCP : IDisposable {
     public event Action<string>? DatosRecibidos;
     public event Action<string>? CambioEstado;
 
-    public async void IniciarAsync(int puerto = 9002) {
+    public async void IniciarAsync(int puerto) {
         if (ServicioActivo || _disposed)
             return;
 
         _cts = new CancellationTokenSource();
-        _listener = new TcpListener(IPAddress.Any, 9002);
+        _listener = new TcpListener(IPAddress.Any, puerto);
 
         try {
             _listener.Start();

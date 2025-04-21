@@ -54,7 +54,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
         set => fieldMontoTotal.Text = value;
     }
 
-    public string EstadoEntrega {
+    public string? EstadoEntrega {
         get => fieldEstadoEntrega.Text;
         set => fieldEstadoEntrega.Text = value;
     }
