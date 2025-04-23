@@ -18,7 +18,9 @@ namespace aDVanceERP.Core.MVP.Vistas.PanelTransparente {
             Size = new Size(resolucionPantalla.Width, resolucionPantalla.Height - VariablesGlobales.AlturaBarraTituloPredeterminada);
             Location = new Point(0, VariablesGlobales.AlturaBarraTituloPredeterminada);
 
-            parentForm.Salir += (sender, e) => Cerrar();
+            ((Control)parentForm).Disposed += delegate {
+                Cerrar();
+            };
 
             Inicializar();
         }

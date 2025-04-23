@@ -48,7 +48,39 @@ public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IR
     }
 
     public override string ComandoEliminar(long id) {
-        return $"DELETE FROM adv__venta WHERE id_venta={id};";
+        return $"""
+                START TRANSACTION;
+                    
+                UPDATE adv__articulo_almacen aa
+                JOIN adv__detalle_venta_articulo dva ON aa.id_articulo = dva.id_articulo
+                JOIN adv__venta v ON dva.id_venta = v.id_venta
+                SET aa.stock = aa.stock + dva.cantidad
+                WHERE dva.id_venta = {id} AND aa.id_almacen = v.id_almacen;
+
+                DELETE m FROM adv__movimiento m
+                JOIN adv__detalle_venta_articulo dva ON m.id_articulo = dva.id_articulo
+                JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
+                WHERE tm.nombre = 'Venta' AND tm.efecto = 'Descarga' AND dva.id_venta = {id};
+
+                DELETE FROM adv__seguimiento_entrega 
+                WHERE id_venta = {id};
+
+                DELETE FROM adv__detalle_pago_transferencia 
+                WHERE id_venta = {id};
+
+                DELETE FROM adv__pago 
+                WHERE id_venta = {id};
+
+                DELETE FROM adv__detalle_venta_articulo 
+                WHERE id_venta = {id};
+
+                DELETE FROM adv__venta 
+                WHERE id_venta = {id};
+
+                COMMIT;
+
+                SELECT 1 AS Resultado;
+                """;
     }
 
     public override string ComandoObtener(CriterioBusquedaVenta criterio, string dato) {

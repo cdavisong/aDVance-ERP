@@ -35,8 +35,7 @@ public partial class PresentadorContenedorModulos {
                 RegistrarSeguimientoEntrega();
                 RegistrarPagosVenta();
                 RegistrarTransferenciaVenta();
-            };
-            _registroVentaArticulo.Salir += delegate {
+
                 if (_gestionVentas == null)
                     return;
 
