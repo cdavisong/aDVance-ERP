@@ -18,6 +18,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroVenta? _registroVentaArticulo;
 
+    private long _proximoIdVenta = 0;
     private List<string[]>? ArticulosVenta { get; set; } = new();
 
     private async Task InicializarVistaRegistroVentaArticulo() {
@@ -33,7 +34,6 @@ public partial class PresentadorContenedorModulos {
 
                 RegistrarDetallesVentaArticulo();
                 RegistrarSeguimientoEntrega();
-                RegistrarPagosVenta();
                 RegistrarTransferenciaVenta();
 
                 if (_gestionVentas == null)
@@ -42,6 +42,24 @@ public partial class PresentadorContenedorModulos {
                 _gestionVentas.Vista.HabilitarBtnConfirmarEntrega = false;
                 _gestionVentas.Vista.HabilitarBtnConfirmarPagos = false;
                 _ = _gestionVentas?.RefrescarListaObjetos();
+            };
+            _registroVentaArticulo.Vista.Salir += delegate {
+                var ventaCancelada = !UtilesVenta.ExisteVenta(_proximoIdVenta);
+                
+                if (ventaCancelada) {
+                    // Eliminar pagos registrados si se cancela la venta
+                    var pagosVenta = UtilesVenta.ObtenerPagosPorVenta(_proximoIdVenta);
+
+                    if (pagosVenta.Count > 0) {
+                        using (var datosPago = new DatosPago()) {
+                            foreach (var pago in pagosVenta) {
+                                var pagoSplit = pago.Split("|");
+
+                                datosPago.Eliminar(long.Parse(pagoSplit[0]));
+                            }
+                        }
+                    }
+                }
             };
 
             ArticulosVenta?.Clear();
@@ -57,13 +75,9 @@ public partial class PresentadorContenedorModulos {
         if (_registroVentaArticulo == null)
             return;
 
+        _proximoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta") + 1;
         _registroVentaArticulo.Vista.EfectuarPago += delegate {
-            if (_registroVentaArticulo == null)
-                return;
-
-            MostrarVistaRegistroPago(_registroVentaArticulo.Vista.Total, e);
-
-            _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
+            MostrarVistaRegistroPago(sender, e);
         };
         _registroVentaArticulo.Vista.AsignarMensajeria += async delegate {
             ArticulosVenta = _registroVentaArticulo.Vista.Articulos;
@@ -138,8 +152,6 @@ public partial class PresentadorContenedorModulos {
             _registroVentaArticulo.PopularVistaDesdeObjeto(venta);
             _registroVentaArticulo.Vista.EfectuarPago += delegate {
                 MostrarVistaEdicionPago(sender, e);
-
-                _registroVentaArticulo.Vista.PagoConfirmado = Pagos.Count > 0;
             };
             _registroVentaArticulo.Vista.AsignarMensajeria += async delegate {
                 MostrarVistaEdicionMensajeria(sender, e);

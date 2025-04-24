@@ -140,7 +140,7 @@ public static class UtilesMensajero {
             var nombre = reader.GetString("nombre");
             var descripcion = reader.GetString("descripcion");
 
-            return $"{nombre}:{descripcion}";
+            return $"{nombre}|{descripcion}";
         }
     }
 }

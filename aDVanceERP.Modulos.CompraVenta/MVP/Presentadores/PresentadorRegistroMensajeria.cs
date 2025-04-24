@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
@@ -24,6 +25,21 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
         }
 
         Objeto = objeto;
+    }
+
+    protected override bool RegistroEdicionDatosAutorizado() {
+        var nombreOk = !string.IsNullOrEmpty(Vista.NombreMensajero) && !Vista.NombreMensajero.Equals("Ninguno");
+        var tipoEntregaOk = !string.IsNullOrEmpty(Vista.TipoEntrega);
+        var direccionOk = !string.IsNullOrEmpty(Vista.Direccion);
+
+        if (!nombreOk)
+            CentroNotificaciones.Mostrar("El nombre del mensajero es obligatorio para registro de una orden de mensajería, elija un mensajero desde la lista correspondiente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+        if (!tipoEntregaOk)
+            CentroNotificaciones.Mostrar("Debe especificarse el tipo de entrega para la orden de mensajería, elija un tipo entrega desde la lista correspondiente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+        if (!direccionOk)
+            CentroNotificaciones.Mostrar("Debe especificarse una dirección válida de envío para la orden de mensajería, rellene el campo dirección correctamente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+
+        return nombreOk && tipoEntregaOk && direccionOk;
     }
 
     protected override Task<SeguimientoEntrega?> ObtenerObjetoDesdeVista() {

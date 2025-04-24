@@ -19,7 +19,7 @@ public class
 
         var articulosCompra = UtilesCompra.ObtenerArticulosPorCompra(objeto.Id);
 
-        foreach (var articuloSplit in articulosCompra.Select(articulo => articulo.Split(':')))
+        foreach (var articuloSplit in articulosCompra.Select(articulo => articulo.Split('|')))
             ((IVistaGestionDetallesCompraventaArticulos)Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0],
                 articuloSplit[1]);
 

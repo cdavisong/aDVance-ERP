@@ -11,7 +11,7 @@ public class Pago : IObjetoUnico {
         MetodoPago = metodoPago;
         Monto = monto;
         FechaConfirmacion = DateTime.Now;
-        Estado = "Pendiente";
+        Estado = "Completado";
     }
 
     public long IdVenta { get; set; }

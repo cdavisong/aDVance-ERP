@@ -90,6 +90,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
             new Size(0, VariablesGlobales.AlturaTuplaPredeterminada), "H");
 
         presentadorTupla.Vista.Mostrar();
+
         VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
@@ -104,8 +105,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
                 await RefrescarListaObjetos();
             }
             catch (Exception ex) {
-                //TODO: Manejar la excepción (por ejemplo, mostrar un mensaje al usuario)
-                Console.WriteLine($"Error al eliminar el objeto: {ex.Message}");
+                throw new Exception($"Error al eliminar el objeto: {ex.Message}");
             }
     }
 

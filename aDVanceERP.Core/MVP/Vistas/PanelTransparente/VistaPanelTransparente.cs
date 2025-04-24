@@ -4,7 +4,7 @@ using aDVanceERP.Core.Utiles;
 
 namespace aDVanceERP.Core.MVP.Vistas.PanelTransparente {
     public partial class VistaPanelTransparente : Form, IVistaPanelTransparente {
-        public VistaPanelTransparente(IVista parentForm) {
+        public VistaPanelTransparente(IVista parent) {
             InitializeComponent();
 
             FormBorderStyle = FormBorderStyle.None;
@@ -18,8 +18,20 @@ namespace aDVanceERP.Core.MVP.Vistas.PanelTransparente {
             Size = new Size(resolucionPantalla.Width, resolucionPantalla.Height - VariablesGlobales.AlturaBarraTituloPredeterminada);
             Location = new Point(0, VariablesGlobales.AlturaBarraTituloPredeterminada);
 
-            ((Control)parentForm).Disposed += delegate {
-                Cerrar();
+            var parentControl = parent as Control;
+
+            if (parentControl != null) {
+                parentControl.Disposed += delegate {
+                    if (!parentControl.IsDisposed)
+                        Cerrar();
+                };                
+            }
+
+            parent.Salir += delegate {
+                if (parentControl != null && !parentControl.IsDisposed)
+                    Cerrar();
+                else if (parentControl == null)
+                    Cerrar();
             };
 
             Inicializar();

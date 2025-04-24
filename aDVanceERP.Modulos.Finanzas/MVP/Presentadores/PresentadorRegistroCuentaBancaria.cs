@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
@@ -18,6 +19,21 @@ public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaR
         Vista.ModoEdicionDatos = true;
 
         Objeto = objeto;
+    }
+
+    protected override bool RegistroEdicionDatosAutorizado() {
+        var aliasOk = !string.IsNullOrEmpty(Vista.Alias);
+        var noLetrasNumeroTarjetaOk = !Vista.NumeroTarjeta.Replace(" ", "").Any(char.IsLetter);
+        var numeroDijitosTarjeta = Vista.NumeroTarjeta.Select(char.IsDigit).Count(result => result == true);
+        var numeroDijitosTarjetaOk = numeroDijitosTarjeta == 16;
+        var numeroTarjetaOk = !string.IsNullOrEmpty(Vista.NumeroTarjeta) && noLetrasNumeroTarjetaOk && numeroDijitosTarjetaOk;
+        
+        if (!aliasOk)
+            CentroNotificaciones.Mostrar("El campo de alias es obligatorio para registro de cuenta bancaria, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+        if (!numeroTarjetaOk)
+            CentroNotificaciones.Mostrar("Debe especificar un número de tarjeta válido, el campo no puede estar vacío ni contener caracteres incorrectos", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+
+        return aliasOk && numeroTarjetaOk;
     }
 
     protected override async Task<CuentaBancaria?> ObtenerObjetoDesdeVista() {

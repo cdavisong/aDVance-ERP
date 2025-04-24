@@ -34,7 +34,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         var pagosVenta = UtilesVenta.ObtenerPagosPorVenta(objeto.Id);
 
         presentadorTupla.Vista.EstadoPago =
-            pagosVenta.Count == 0 || pagosVenta.Any(p => !p.Split(':')[2].Equals("Confirmado"))
+            pagosVenta.Count == 0 || pagosVenta.Any(p => !p.Split('|')[5].Equals("Confirmado"))
                 ? "Pendiente"
                 : "Confirmado";
         presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnConfirmarEntrega;
@@ -119,12 +119,12 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 else {
                     // Actualizar pagos existentes
                     foreach (var pago in pagos) {
-                        var pagoSplit = pago.Split(':');
+                        var pagoSplit = pago.Split('|');
                         var pagoActualizado = new Pago(
-                            long.Parse(pagoSplit[3]),
+                            long.Parse(pagoSplit[0]),
                             ventaId,
-                            pagoSplit[0],
-                            decimal.Parse(pagoSplit[1], CultureInfo.InvariantCulture)) {
+                            pagoSplit[2],
+                            decimal.Parse(pagoSplit[3], CultureInfo.InvariantCulture)) {
                             Estado = "Confirmado",
                             FechaConfirmacion = ahora
                         };

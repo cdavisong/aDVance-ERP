@@ -61,7 +61,9 @@ public partial class VistaAutenticacionUsuario : Form, IVistaAutenticacionUsuari
                 args.SuppressKeyPress = true;
             }
         };
-        btnAutenticarUsuario.Click += delegate { Autenticar?.Invoke(this, EventArgs.Empty); };
+        btnAutenticarUsuario.Click += delegate { 
+            Autenticar?.Invoke(this, EventArgs.Empty); 
+        };
         btnRegistrarCuenta.Click += delegate(object? sender, EventArgs e) {
             RegistrarCuenta?.Invoke(sender, e);
             Ocultar();

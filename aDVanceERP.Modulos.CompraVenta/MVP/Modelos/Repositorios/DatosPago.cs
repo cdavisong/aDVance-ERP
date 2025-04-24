@@ -11,13 +11,11 @@ public class DatosPago : RepositorioDatosBase<Pago, CriterioBusquedaPago>, IRepo
     }
 
     public override string ComandoAdicionar(Pago objeto) {
-        return
-            $"INSERT INTO adv__pago (id_venta, metodo_pago, monto, fecha_confirmacion, estado) VALUES ({objeto.IdVenta}, '{objeto.MetodoPago}', {objeto.Monto.ToString(CultureInfo.InvariantCulture)}, '{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', '{objeto.Estado}');";
+        return $"INSERT INTO adv__pago (id_venta, metodo_pago, monto, fecha_confirmacion, estado) VALUES ({objeto.IdVenta}, '{objeto.MetodoPago}', {objeto.Monto.ToString(CultureInfo.InvariantCulture)}, '{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', '{objeto.Estado}');";
     }
 
     public override string ComandoEditar(Pago objeto) {
-        return
-            $"UPDATE adv__pago SET id_venta={objeto.IdVenta}, metodo_pago='{objeto.MetodoPago}', monto={objeto.Monto.ToString(CultureInfo.InvariantCulture)}, fecha_confirmacion='{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', estado='{objeto.Estado}' WHERE id_pago={objeto.Id};";
+        return $"UPDATE adv__pago SET id_venta={objeto.IdVenta}, metodo_pago='{objeto.MetodoPago}', monto={objeto.Monto.ToString(CultureInfo.InvariantCulture)}, fecha_confirmacion='{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', estado='{objeto.Estado}' WHERE id_pago={objeto.Id};";
     }
 
     public override string ComandoEliminar(long id) {

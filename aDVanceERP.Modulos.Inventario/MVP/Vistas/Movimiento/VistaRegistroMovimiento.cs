@@ -91,9 +91,6 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
             EliminarTipoMovimiento?.Invoke(TipoMovimiento, args);
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (!MovimientoStockCorrecto())
-                return;
-
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
@@ -186,33 +183,5 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
 
         Dispose();
-    }
-
-    private bool MovimientoStockCorrecto() {
-        if (string.IsNullOrEmpty(NombreArticulo))
-            return false;
-
-        var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(TipoMovimiento);
-
-        if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Carga"))
-            return !string.Equals(NombreAlmacenDestino, "Ninguno");
-
-        if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Descarga") &&
-            string.Equals(NombreAlmacenOrigen, "Ninguno"))
-            return false;
-
-        var cantidadInicialOrigen = UtilesArticulo.ObtenerStockArticulo(NombreArticulo, NombreAlmacenOrigen).Result;
-
-        if (cantidadInicialOrigen - CantidadMovida >= 0)
-            return true;
-
-        fieldCantidadMovida.ForeColor = Color.Firebrick;
-        fieldCantidadMovida.Font = new Font(fieldCantidadMovida.Font, FontStyle.Bold);
-
-        CentroNotificaciones.Mostrar(
-            $"No se puede mover una cantidad de artículos hacia el destino menor que la cantidad orígen ({cantidadInicialOrigen} unidades) en el almacén {NombreAlmacenOrigen}",
-            TipoNotificacion.Advertencia);
-
-        return false;
     }
 }

@@ -77,13 +77,13 @@ public static class UtilesCompra {
                                 // Verificar si el valor es decimal y formatearlo correctamente
                                 if (reader.GetFieldType(i) == typeof(decimal)) {
                                     var valorDecimal = reader.GetDecimal(i);
-                                    fila += valorDecimal.ToString("N2", CultureInfo.InvariantCulture) + ":";
+                                    fila += valorDecimal.ToString("N2", CultureInfo.InvariantCulture) + "|";
                                 }
                                 else {
-                                    fila += reader[i] + ":";
+                                    fila += reader[i] + "|";
                                 }
 
-                            resultado.Add(fila.TrimEnd(':'));
+                            resultado.Add(fila.TrimEnd('|'));
                         }
                     }
                 }

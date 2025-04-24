@@ -85,13 +85,13 @@ public static class UtilesVenta {
                                 // Verificar si el valor es decimal y formatearlo correctamente
                                 if (reader.GetFieldType(i) == typeof(decimal)) {
                                     var valorDecimal = reader.GetDecimal(i);
-                                    fila += valorDecimal.ToString("N2", CultureInfo.InvariantCulture) + ":";
+                                    fila += valorDecimal.ToString("N2", CultureInfo.InvariantCulture) + "|";
                                 }
                                 else {
-                                    fila += reader[i] + ":";
+                                    fila += reader[i] + "|";
                                 }
 
-                            resultado.Add(fila.TrimEnd(':'));
+                            resultado.Add(fila.TrimEnd('|'));
                         }
                     }
                 }
@@ -105,6 +105,16 @@ public static class UtilesVenta {
         }
 
         return resultado;
+    }
+
+    public static bool ExisteVenta(long idVenta) {
+        string query = $"""
+                        SELECT COUNT(1) 
+                        FROM adv__venta 
+                        WHERE id_venta = {idVenta};
+                        """;
+
+        return EjecutarConsultaEntero(query) > 0;
     }
 
     public static int ObtenerTotalArticulosVendidosHoy() {
@@ -150,7 +160,7 @@ public static class UtilesVenta {
 
     public static List<string> ObtenerPagosPorVenta(long idVenta) {
         const string query = """
-                             SELECT metodo_pago, monto, estado, id_pago
+                             SELECT *
                              FROM adv__pago
                              WHERE id_venta = @IdVenta;
                              """;

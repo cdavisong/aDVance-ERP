@@ -25,26 +25,6 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
     public IRepositorioVista Vistas { get; private set; }
 
-    public void AdicionarPago(string metodoPago = "", decimal monto = -1) {
-        var adMetodoPago = string.IsNullOrEmpty(metodoPago) ? MetodoPago : metodoPago;
-        var adMonto = monto < 0 ? Monto : monto;
-        var tuplaPago = new[] {
-            adMetodoPago,
-            adMonto.ToString("N2", CultureInfo.InvariantCulture)
-        };
-
-        Pagos.Add(tuplaPago);
-
-        ActualizarTuplasPagos();
-        ActualizarSuma();
-
-        if (adMetodoPago.Contains("Transferencia"))
-            fieldMetodoPago.Items.Remove(adMetodoPago);
-
-        fieldMetodoPago.SelectedIndex = 0;
-        fieldMonto.Text = string.Empty;
-    }
-
     public bool Habilitada {
         get => Enabled;
         set => Enabled = value;
@@ -59,6 +39,8 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         get => Size;
         set => Size = value;
     }
+
+    public long IdVenta { get; set; }
 
     public string MetodoPago {
         get => fieldMetodoPago.Text;
@@ -114,7 +96,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             ? total
             : 0;
         set => fieldDevolucion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
-    }
+    }    
 
     public event EventHandler? EfectuarTransferencia;
     public event EventHandler? PagoAgregado;
@@ -142,12 +124,14 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         fieldMonto.TextChanged += delegate { btnAdicionarPago.Enabled = Monto > 0; };
         fieldMonto.KeyDown += delegate(object? sender, KeyEventArgs args) {
             if (args.KeyCode == Keys.Enter) {
-                AdicionarPago();
+                AdicionarPago(0, IdVenta, MetodoPago, Monto);
 
                 args.SuppressKeyPress = true;
             }
         };
-        btnAdicionarPago.Click += delegate { AdicionarPago(); };
+        btnAdicionarPago.Click += delegate { 
+            AdicionarPago(0, IdVenta, MetodoPago, Monto); 
+        };
         PagoEliminado += delegate {
             ActualizarTuplasPagos();
             ActualizarSuma();
@@ -156,9 +140,33 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
-                Salir?.Invoke(sender, args);
+                RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnSalir.Click += delegate(object? sender, EventArgs args) { 
+            Salir?.Invoke(sender, args); 
+        };
+    }
+
+    public void AdicionarPago(long id, long idVenta, string metodoPago, decimal monto) {
+        var adMetodoPago = string.IsNullOrEmpty(metodoPago) ? MetodoPago : metodoPago;
+        var adMonto = monto < 0 ? Monto : monto;
+        var tuplaPago = new[] {
+            id.ToString(),
+            IdVenta.ToString(),
+            adMetodoPago,
+            adMonto.ToString("N2", CultureInfo.InvariantCulture)
+        };
+
+        Pagos.Add(tuplaPago);
+
+        ActualizarTuplasPagos();
+        ActualizarSuma();
+
+        if (adMetodoPago.Contains("Transferencia"))
+            fieldMetodoPago.Items.Remove(adMetodoPago);
+
+        fieldMetodoPago.SelectedIndex = 0;
+        fieldMonto.Text = string.Empty;
     }
 
     public void CargarMetodosPago() {
@@ -185,7 +193,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
     public void Cerrar() {
         Dispose();
-    }
+    }    
 
     private void ActualizarTuplasPagos() {
         foreach (var tupla in contenedorVistas.Controls)
@@ -200,13 +208,15 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             var pago = Pagos[i];
             var tuplaPago = new VistaTuplaPago();
 
-            tuplaPago.MetodoPago = pago[0];
-            tuplaPago.Monto = pago[1];
+            tuplaPago.MetodoPago = pago[2];
+            tuplaPago.Monto = pago[3];
             tuplaPago.EliminarDatosTupla += delegate(object? sender, EventArgs args) {
                 pago = sender as string[];
 
-                Pagos.RemoveAt(Pagos.FindIndex(p => p[0].Equals(pago[0]) && p[1].Equals(pago[1])));
-                PagoEliminado?.Invoke(pago, args);
+                if (pago != null) {
+                    Pagos.RemoveAt(Pagos.FindIndex(p => p[2].Equals(pago[0]) && p[3].Equals(pago[1])));
+                    PagoEliminado?.Invoke(pago, args);
+                }
             };
 
             // Registro y muestra
@@ -226,7 +236,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         Suma = 0;
 
         foreach (var pago in Pagos)
-            Suma += decimal.TryParse(pago[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var pagoParcial)
+            Suma += decimal.TryParse(pago[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var pagoParcial)
                 ? pagoParcial
                 : 0;
 

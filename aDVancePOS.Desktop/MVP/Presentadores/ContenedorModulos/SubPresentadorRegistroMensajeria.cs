@@ -25,7 +25,7 @@ public partial class PresentadorContenedorModulos {
         var descripciones = new List<string>();
 
         foreach (var item in tiposDescripciones) {
-            var partes = item.Split(':');
+            var partes = item.Split('|');
 
             if (partes.Length < 2)
                 continue;
