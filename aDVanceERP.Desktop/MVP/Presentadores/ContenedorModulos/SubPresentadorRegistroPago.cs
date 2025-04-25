@@ -25,7 +25,7 @@ public partial class PresentadorContenedorModulos {
             if (_registroVentaArticulo != null)
                 _registroVentaArticulo.Vista.PagoConfirmado = _registroPago.Vista.Pagos.Count > 0;
 
-            // Actualizar el seguimiento de entrega
+            // Actualizar el seguimiento de entrega al registrar un pago
             using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
                 var objetoSeguimiento = datosSeguimiento.Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, _registroPago.Vista.IdVenta.ToString()).FirstOrDefault();
 
@@ -54,15 +54,18 @@ public partial class PresentadorContenedorModulos {
         _registroPago?.Dispose();
     }
 
+    //TODO: Trabajar en la edicion de pagos
     private void MostrarVistaEdicionPago(object? sender, EventArgs e) {
         InicializarVistaRegistroPago();
 
-        if (_registroPago != null && sender is Venta venta) {
-            _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta?.Id ?? 0, string.Empty, venta?.Total ?? 0));
-            _registroPago.Vista.EfectuarTransferencia += delegate {
-                MostrarVistaEdicionDetallePagoTransferencia(sender, e);
-            };
-            _registroPago.Vista.Mostrar();
+        if (sender is Venta venta) {
+            if (_registroPago != null) {
+                _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta?.Id ?? 0, string.Empty, venta?.Total ?? 0));
+                _registroPago.Vista.EfectuarTransferencia += delegate {
+                    MostrarVistaEdicionDetallePagoTransferencia(sender, e);
+                };
+                _registroPago.Vista.Mostrar();
+            }
         }
 
         _registroPago?.Dispose();

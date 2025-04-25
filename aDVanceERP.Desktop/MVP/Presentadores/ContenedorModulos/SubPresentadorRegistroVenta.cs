@@ -8,8 +8,6 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 
@@ -33,7 +31,6 @@ public partial class PresentadorContenedorModulos {
                 ArticulosVenta = _registroVentaArticulo.Vista.Articulos;
 
                 RegistrarDetallesVentaArticulo();
-                RegistrarSeguimientoEntrega();
                 RegistrarTransferenciaVenta();
 
                 if (_gestionVentas == null)
@@ -59,6 +56,8 @@ public partial class PresentadorContenedorModulos {
                             }
                         }
                     }
+
+                    //TODO: Eliminar seguimientos de entrega registrados si se cancela la venta
                 }
             };
 
@@ -79,64 +78,15 @@ public partial class PresentadorContenedorModulos {
         _registroVentaArticulo.Vista.EfectuarPago += delegate {
             MostrarVistaRegistroPago(sender, e);
         };
-        _registroVentaArticulo.Vista.AsignarMensajeria += async delegate {
-            ArticulosVenta = _registroVentaArticulo.Vista.Articulos;
-
-            #region Datos del cliente
-
-            using var datosCliente = new DatosCliente();
-            var cliente = datosCliente.Obtener(CriterioBusquedaCliente.Id,
-                    UtilesCliente.ObtenerIdCliente(_registroVentaArticulo.Vista.RazonSocialCliente).ToString())
-                .FirstOrDefault();
-
-            if (cliente == null) {
+        _registroVentaArticulo.Vista.AsignarMensajeria += delegate {
+            if (string.IsNullOrEmpty(_registroVentaArticulo.Vista.RazonSocialCliente) || _registroVentaArticulo.Vista.RazonSocialCliente.Equals("Anónimo")) {
                 CentroNotificaciones.Mostrar(
-                    "Para asignar una mensajería a la venta actual debe primero especificar un cliente válido desde la lista de clientes",
+                    "Debe asignar un cliente válido desde la lista antes de asignar una orden de entrega para la mensajería de los artículos seleccionados",
                     TipoNotificacion.Advertencia);
-
                 return;
             }
 
-            #endregion
-
-            #region Datos de contacto asociados al cliente
-
-            string telefonoString;
-            string direccion;
-            using (var datosContacto = new DatosContacto()) {
-                var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, cliente.IdContacto.ToString())
-                    .FirstOrDefault();
-
-                using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
-                    var telefonosContacto = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto,
-                        contacto?.Id.ToString());
-                    telefonoString = telefonosContacto.Aggregate(string.Empty,
-                        (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
-
-                    if (!string.IsNullOrEmpty(telefonoString))
-                        telefonoString = telefonoString[..^2];
-                }
-
-                direccion = contacto?.Direccion ?? string.Empty;
-            }
-
-            #endregion
-
-            var datos = new object[] {
-                new[] { cliente.RazonSocial ?? string.Empty, telefonoString, direccion },
-                ArticulosVenta
-            };
-
-            MostrarVistaRegistroMensajeria(datos, e);
-
-            if (DatosMensajeria.Count == 0)
-                return;
-
-            _registroVentaArticulo.Vista.IdTipoEntrega =
-                await UtilesMensajero.ObtenerIdTipoEntrega(DatosMensajeria.ElementAt(0)[0]);
-            _registroVentaArticulo.Vista.Direccion = DatosMensajeria.ElementAt(2)[2];
-            _registroVentaArticulo.Vista.PagoConfirmado = DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)";
-            _registroVentaArticulo.Vista.EstadoEntrega = "Pendiente";
+            MostrarVistaRegistroMensajeria(sender, e);
         };
 
         MostrarVistaPanelTransparente(_registroVentaArticulo.Vista);
@@ -155,12 +105,6 @@ public partial class PresentadorContenedorModulos {
             };
             _registroVentaArticulo.Vista.AsignarMensajeria += async delegate {
                 MostrarVistaEdicionMensajeria(sender, e);
-
-                _registroVentaArticulo.Vista.IdTipoEntrega =
-                    await UtilesMensajero.ObtenerIdTipoEntrega(DatosMensajeria.ElementAt(0)[0]);
-                _registroVentaArticulo.Vista.Direccion = DatosMensajeria.ElementAt(2)[2];
-                _registroVentaArticulo.Vista.PagoConfirmado =
-                    DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)";
             };
 
             MostrarVistaPanelTransparente(_registroVentaArticulo.Vista);

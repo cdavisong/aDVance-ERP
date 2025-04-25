@@ -37,10 +37,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -55,17 +57,18 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldTituloTipoEntrega = new Label();
             fieldTipoEntrega = new Guna2ComboBox();
             fieldDescripcionTipoEntrega = new Label();
-            panelResumenEntrega = new Panel();
-            fieldResumenEntrega = new Guna2HtmlLabel();
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
+            panelResumenEntrega = new Panel();
+            fieldResumenEntrega = new Guna2HtmlLabel();
+            fieldObservaciones = new Guna2TextBox();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutTitulo.SuspendLayout();
-            panelResumenEntrega.SuspendLayout();
             layoutBotones.SuspendLayout();
+            panelResumenEntrega.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -82,18 +85,18 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             // 
             layoutBase.BackColor = Color.Gainsboro;
             layoutBase.ColumnCount = 2;
-            layoutBase.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
+            layoutBase.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 420F));
             layoutBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutBase.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutBase.Controls.Add(layoutVista, 1, 0);
             layoutBase.Controls.Add(layoutBotones, 1, 1);
+            layoutBase.Controls.Add(panelResumenEntrega, 0, 0);
             layoutBase.Dock = DockStyle.Fill;
             layoutBase.Location = new Point(0, 0);
             layoutBase.Name = "layoutBase";
             layoutBase.RowCount = 2;
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 65F));
-            layoutBase.Size = new Size(500, 685);
+            layoutBase.Size = new Size(910, 685);
             layoutBase.TabIndex = 2;
             // 
             // layoutVista
@@ -113,12 +116,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             layoutVista.Controls.Add(fieldTituloTipoEntrega, 2, 7);
             layoutVista.Controls.Add(fieldTipoEntrega, 2, 8);
             layoutVista.Controls.Add(fieldDescripcionTipoEntrega, 2, 9);
-            layoutVista.Controls.Add(panelResumenEntrega, 2, 12);
+            layoutVista.Controls.Add(fieldObservaciones, 2, 13);
             layoutVista.Dock = DockStyle.Fill;
-            layoutVista.Location = new Point(13, 0);
+            layoutVista.Location = new Point(423, 0);
             layoutVista.Margin = new Padding(3, 0, 0, 0);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 14;
+            layoutVista.RowCount = 16;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
@@ -131,9 +134,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(487, 620);
             layoutVista.TabIndex = 0;
@@ -333,27 +336,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldDescripcionTipoEntrega.TabIndex = 27;
             fieldDescripcionTipoEntrega.Text = "...";
             // 
-            // panelResumenEntrega
-            // 
-            panelResumenEntrega.AutoScroll = true;
-            panelResumenEntrega.Controls.Add(fieldResumenEntrega);
-            panelResumenEntrega.Dock = DockStyle.Fill;
-            panelResumenEntrega.Location = new Point(53, 435);
-            panelResumenEntrega.Name = "panelResumenEntrega";
-            panelResumenEntrega.Size = new Size(411, 162);
-            panelResumenEntrega.TabIndex = 28;
-            // 
-            // fieldResumenEntrega
-            // 
-            fieldResumenEntrega.BackColor = Color.Transparent;
-            fieldResumenEntrega.Dock = DockStyle.Top;
-            fieldResumenEntrega.Location = new Point(0, 0);
-            fieldResumenEntrega.Margin = new Padding(10, 3, 10, 3);
-            fieldResumenEntrega.Name = "fieldResumenEntrega";
-            fieldResumenEntrega.Size = new Size(3, 2);
-            fieldResumenEntrega.TabIndex = 29;
-            fieldResumenEntrega.Text = null;
-            // 
             // layoutBotones
             // 
             layoutBotones.BackColor = Color.White;
@@ -365,7 +347,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             layoutBotones.Controls.Add(btnSalir, 2, 0);
             layoutBotones.Controls.Add(btnRegistrar, 1, 0);
             layoutBotones.Dock = DockStyle.Fill;
-            layoutBotones.Location = new Point(13, 620);
+            layoutBotones.Location = new Point(423, 620);
             layoutBotones.Margin = new Padding(3, 0, 0, 0);
             layoutBotones.Name = "layoutBotones";
             layoutBotones.RowCount = 2;
@@ -380,7 +362,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges9;
+            btnSalir.CustomizableEdges = customizableEdges11;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -390,7 +372,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 14;
             btnSalir.Text = "Salir";
@@ -399,22 +381,77 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges11;
+            btnRegistrar.CustomizableEdges = customizableEdges13;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Asignar mensajería";
             // 
+            // panelResumenEntrega
+            // 
+            panelResumenEntrega.AutoScroll = true;
+            panelResumenEntrega.Controls.Add(fieldResumenEntrega);
+            panelResumenEntrega.Dock = DockStyle.Fill;
+            panelResumenEntrega.Location = new Point(30, 20);
+            panelResumenEntrega.Margin = new Padding(30, 20, 3, 3);
+            panelResumenEntrega.Name = "panelResumenEntrega";
+            panelResumenEntrega.Size = new Size(387, 597);
+            panelResumenEntrega.TabIndex = 29;
+            // 
+            // fieldResumenEntrega
+            // 
+            fieldResumenEntrega.AutoSize = false;
+            fieldResumenEntrega.AutoSizeHeightOnly = true;
+            fieldResumenEntrega.BackColor = Color.Transparent;
+            fieldResumenEntrega.Dock = DockStyle.Top;
+            fieldResumenEntrega.Location = new Point(0, 0);
+            fieldResumenEntrega.Margin = new Padding(10, 3, 10, 3);
+            fieldResumenEntrega.Name = "fieldResumenEntrega";
+            fieldResumenEntrega.Size = new Size(387, 1);
+            fieldResumenEntrega.TabIndex = 29;
+            fieldResumenEntrega.Text = null;
+            // 
+            // fieldObservaciones
+            // 
+            fieldObservaciones.Animated = true;
+            fieldObservaciones.BorderColor = Color.Gainsboro;
+            fieldObservaciones.BorderRadius = 16;
+            fieldObservaciones.Cursor = Cursors.IBeam;
+            fieldObservaciones.CustomizableEdges = customizableEdges9;
+            fieldObservaciones.DefaultText = "";
+            fieldObservaciones.DisabledState.BorderColor = Color.White;
+            fieldObservaciones.DisabledState.ForeColor = Color.DimGray;
+            fieldObservaciones.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldObservaciones.Dock = DockStyle.Fill;
+            fieldObservaciones.FocusedState.BorderColor = Color.SandyBrown;
+            fieldObservaciones.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldObservaciones.ForeColor = Color.Black;
+            fieldObservaciones.HoverState.BorderColor = Color.SandyBrown;
+            fieldObservaciones.IconLeft = (Image) resources.GetObject("fieldObservaciones.IconLeft");
+            fieldObservaciones.IconLeftOffset = new Point(10, -11);
+            fieldObservaciones.Location = new Point(55, 447);
+            fieldObservaciones.Margin = new Padding(5);
+            fieldObservaciones.Multiline = true;
+            fieldObservaciones.Name = "fieldObservaciones";
+            fieldObservaciones.PasswordChar = '\0';
+            fieldObservaciones.PlaceholderForeColor = Color.DimGray;
+            fieldObservaciones.PlaceholderText = "Observaciones";
+            fieldObservaciones.SelectedText = "";
+            fieldObservaciones.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            fieldObservaciones.Size = new Size(407, 62);
+            fieldObservaciones.TabIndex = 28;
+            fieldObservaciones.TextOffset = new Point(5, 0);
+            // 
             // VistaRegistroMensajeria
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(500, 685);
+            ClientSize = new Size(910, 685);
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
             FormBorderStyle = FormBorderStyle.None;
@@ -428,9 +465,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             layoutVista.ResumeLayout(false);
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutTitulo.ResumeLayout(false);
-            panelResumenEntrega.ResumeLayout(false);
-            panelResumenEntrega.PerformLayout();
             layoutBotones.ResumeLayout(false);
+            panelResumenEntrega.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -455,5 +491,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
         private Label fieldDescripcionTipoEntrega;
         private Panel panelResumenEntrega;
         private Guna2HtmlLabel fieldResumenEntrega;
+        private Guna2TextBox fieldObservaciones;
     }
 }

@@ -26,7 +26,8 @@ public static class UtilesVenta {
 
                     var result = comando.ExecuteScalar();
 
-                    if (result != null && result != DBNull.Value) resultado = Convert.ToDecimal(result);
+                    if (result != null && result != DBNull.Value) 
+                        resultado = Convert.ToDecimal(result);
                 }
             }
             catch (MySqlException) {

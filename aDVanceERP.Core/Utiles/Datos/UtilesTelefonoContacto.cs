@@ -1,31 +1,42 @@
 ﻿using aDVanceERP.Core.Excepciones;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.Utiles.Datos; 
+namespace aDVanceERP.Core.Utiles.Datos;
 
 public static class UtilesTelefonoContacto {
-    public static string? ObtenerTelefonoContacto(long idContacto, bool categoriaMovil) {
-        var telefonoContacto = string.Empty;
+    private static string? ObtenerTelefonoDesdeBD(string query) {
+        using var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL());
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
-            try {
-                conexion.Open();
-            }
-            catch (Exception) {
-                throw new ExcepcionConexionServidorMySQL();
-            }
-
-            using (var comando = conexion.CreateCommand()) {
-                comando.CommandText =
-                    $"SELECT numero FROM adv__telefono_contacto WHERE id_contacto='{idContacto}' AND categoria='{(categoriaMovil ? "Movil" : "Fijo")}';";
-
-                using (var lectorDatos = comando.ExecuteReader()) {
-                    if (lectorDatos != null && lectorDatos.Read())
-                        telefonoContacto = lectorDatos.GetString(lectorDatos.GetOrdinal("numero"));
-                }
-            }
+        try {
+            conexion.Open();
+        } catch (Exception) {
+            throw new ExcepcionConexionServidorMySQL();
         }
 
-        return telefonoContacto;
+        using var comando = conexion.CreateCommand();
+        comando.CommandText = query;
+
+        using var lectorDatos = comando.ExecuteReader();
+
+        return lectorDatos.Read() ? lectorDatos.GetString(lectorDatos.GetOrdinal("numero")) : null;
+    }
+
+    public static string? ObtenerTelefonoContacto(long idContacto, bool categoriaMovil) {
+        string query = $@"SELECT numero FROM adv__telefono_contacto 
+                         WHERE id_contacto='{idContacto}' 
+                         AND categoria='{(categoriaMovil ? "Movil" : "Fijo")}';";
+
+        return ObtenerTelefonoDesdeBD(query);
+    }
+
+    public static string? ObtenerTelefonoCliente(long idCliente, bool categoriaMovil) {
+        string query = $@"SELECT tc.numero FROM adv__telefono_contacto tc 
+                         JOIN adv__contacto co ON tc.id_contacto = co.id_contacto 
+                         JOIN adv__cliente cl ON co.id_contacto = cl.id_contacto 
+                         WHERE cl.id_cliente = '{idCliente}' 
+                         AND tc.categoria = '{(categoriaMovil ? "Movil" : "Fijo")}';";
+
+        return ObtenerTelefonoDesdeBD(query);
     }
 }

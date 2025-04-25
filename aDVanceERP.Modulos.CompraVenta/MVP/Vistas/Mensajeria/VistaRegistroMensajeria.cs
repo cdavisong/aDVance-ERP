@@ -1,15 +1,12 @@
-﻿using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria;
 
 public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
-    private List<string[]>? _articulosVenta = new();
-    private string[] _descripcionesTiposEntrega = Array.Empty<string>();
     private bool _modoEdicion;
-    private string? _nombreCliente = string.Empty;
-    private string? _telefonosCliente = string.Empty;
+    private string[] _descripcionesTiposEntrega = Array.Empty<string>();
+    private List<string[]>? _articulosVenta = new();
 
     public VistaRegistroMensajeria() {
         InitializeComponent();
@@ -30,6 +27,12 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         get => Size;
         set => Size = value;
     }
+
+    public long IdVenta { get; set; }
+
+    public string? NombreCliente { get; private set; }
+
+    public string? TelefonosCliente { get; private set; }
 
     public string? NombreMensajero {
         get => fieldNombreMensajero.Text;
@@ -68,7 +71,10 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         }
     }
 
-    public List<string?[]> DatosMensajeria { get; private set; }
+    public string? Observaciones {
+        get => fieldObservaciones.Text;
+        set => fieldObservaciones.Text = value;
+    }
 
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
@@ -76,30 +82,33 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
     public event EventHandler? Salir;
 
     public void Inicializar() {
-        DatosMensajeria = new List<string?[]>();
-
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
-        fieldNombreMensajero.SelectedIndexChanged += delegate { ActualizarResumenEntrega(); };
+        btnCerrar.Click += delegate (object? sender, EventArgs args) {
+            Salir?.Invoke(sender, args);
+        };
+        fieldNombreMensajero.SelectedIndexChanged += delegate {
+            ActualizarResumenEntrega();
+        };
         fieldTipoEntrega.SelectedIndexChanged += delegate {
             DescripcionTipoEntrega = _descripcionesTiposEntrega[fieldTipoEntrega.SelectedIndex];
 
             ActualizarResumenEntrega();
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (string.IsNullOrEmpty(TipoEntrega) || TipoEntrega.Equals("Presencial")) {
-                CentroNotificaciones.Mostrar(
-                    "El tipo de entrega para una mensajería no puede ser nulo o del tipo presencial, rectifique los datos proporcionados.");
-
-                return;
-            }
-
+        fieldDireccion.TextChanged += delegate {
+            ActualizarResumenEntrega();
+        };
+        fieldObservaciones.TextChanged += delegate {
+            ActualizarResumenEntrega();
+        };
+        btnRegistrar.Click += delegate (object? sender, EventArgs args) {
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
-                Salir?.Invoke(sender, args);
+                RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnSalir.Click += delegate (object? sender, EventArgs args) {
+            Salir?.Invoke(sender, args);
+        };
     }
 
     public void CargarNombresMensajeros(object[] nombresMensajeros) {
@@ -108,19 +117,41 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         fieldNombreMensajero.SelectedIndex = -1;
     }
 
-    public void CargarTiposEntrega(object[] tiposEntrega, string[] descripciones) {
+    public void CargarTiposEntrega() {
+        #region Obtención de tipos y descripciones
+
+        var tiposDescripciones = UtilesEntrega.ObtenerNombreDescripcionTiposEntrega(false).Result;
+        var tipos = new List<object>();
+        var descripciones = new List<string>();
+
+        foreach (var item in tiposDescripciones) {
+            var partes = item.Split('|');
+
+            if (partes.Length < 2)
+                continue;
+
+            tipos.Add(partes[0].Trim()); // Nombre
+            descripciones.Add(partes[1].Trim()); // Descripción
+        }
+
+        #endregion
+
         fieldTipoEntrega.Items.Clear();
-        fieldTipoEntrega.Items.AddRange(tiposEntrega);
+        fieldTipoEntrega.Items.AddRange(tipos.ToArray());
         fieldTipoEntrega.SelectedIndex = -1;
 
-        _descripcionesTiposEntrega = descripciones;
+        _descripcionesTiposEntrega = descripciones.ToArray();
     }
 
-    public void PopularDatosCliente(string?[]? datosCliente) {
-        _nombreCliente = datosCliente[0];
-        _telefonosCliente = datosCliente[1];
+    public void PopularDatosCliente(string? nombreCliente) {
+        if (nombreCliente != null) {
+            NombreCliente = nombreCliente;
 
-        Direccion = datosCliente[2];
+            var idCliente = UtilesCliente.ObtenerIdCliente(nombreCliente);
+
+            TelefonosCliente = UtilesTelefonoContacto.ObtenerTelefonoCliente(idCliente, true) ?? UtilesTelefonoContacto.ObtenerTelefonoCliente(idCliente, false);
+            Direccion = UtilesCliente.ObtenerDireccionCliente(idCliente);
+        }
     }
 
     public void PopularArticulosVenta(List<string[]>? datosArticulos) {
@@ -162,9 +193,10 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
     <div class='seccion-cliente' style='margin-bottom: 10px;'>
         <h4 style='margin-bottom: 5px;'>Datos del cliente</h4>
         <hr style='margin: 5px 0;'>
-        <p style='margin: 2px 0;'><strong>Nombre:</strong> {_nombreCliente}</p>
-        <p style='margin: 2px 0;'><strong>Teléfonos:</strong> {_telefonosCliente}</p>
+        <p style='margin: 2px 0;'><strong>Nombre:</strong> {NombreCliente}</p>
+        <p style='margin: 2px 0;'><strong>Teléfonos:</strong> {TelefonosCliente}</p>
         <p style='margin: 2px 0;'><strong>Dirección:</strong> {Direccion}</p>
+        <p style='margin: 2px 0;'><strong>Observaciones:</strong> {Observaciones}</p>
     </div>
     
     <div class='seccion-articulos'>
@@ -181,14 +213,5 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
 </div>";
 
         ResumenEntrega = resumenHtml;
-
-        ActualizarDatosMensajeria();
-    }
-
-    private void ActualizarDatosMensajeria() {
-        DatosMensajeria.Clear();
-        DatosMensajeria.Add(new[] { NombreMensajero ?? string.Empty });
-        DatosMensajeria.Add(new[] { TipoEntrega ?? string.Empty });
-        DatosMensajeria.Add(new[] { _nombreCliente, _telefonosCliente, Direccion });
     }
 }

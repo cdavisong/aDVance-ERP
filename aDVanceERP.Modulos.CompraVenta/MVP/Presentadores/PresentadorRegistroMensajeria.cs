@@ -20,7 +20,7 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
             if (venta == null)
                 return;
 
-            Vista.TipoEntrega = await UtilesMensajero.ObtenerNombreTipoEntrega(venta.IdTipoEntrega);
+            Vista.TipoEntrega = await UtilesEntrega.ObtenerNombreTipoEntrega(venta.IdTipoEntrega);
             Vista.Direccion = venta.DireccionEntrega;
         }
 
@@ -29,20 +29,26 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
 
     protected override bool RegistroEdicionDatosAutorizado() {
         var nombreOk = !string.IsNullOrEmpty(Vista.NombreMensajero) && !Vista.NombreMensajero.Equals("Ninguno");
-        var tipoEntregaOk = !string.IsNullOrEmpty(Vista.TipoEntrega);
+        var tipoEntregaOk = !string.IsNullOrEmpty(Vista.TipoEntrega) && !Vista.TipoEntrega.Equals("Presencial");
         var direccionOk = !string.IsNullOrEmpty(Vista.Direccion);
 
         if (!nombreOk)
             CentroNotificaciones.Mostrar("El nombre del mensajero es obligatorio para registro de una orden de mensajería, elija un mensajero desde la lista correspondiente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!tipoEntregaOk)
-            CentroNotificaciones.Mostrar("Debe especificarse el tipo de entrega para la orden de mensajería, elija un tipo entrega desde la lista correspondiente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+            CentroNotificaciones.Mostrar("Debe especificarse el tipo de entrega (no presencial) para la orden de mensajería, elija un tipo entrega desde la lista correspondiente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!direccionOk)
             CentroNotificaciones.Mostrar("Debe especificarse una dirección válida de envío para la orden de mensajería, rellene el campo dirección correctamente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
 
         return nombreOk && tipoEntregaOk && direccionOk;
     }
 
-    protected override Task<SeguimientoEntrega?> ObtenerObjetoDesdeVista() {
-        throw new NotImplementedException();
+    protected override async Task<SeguimientoEntrega?> ObtenerObjetoDesdeVista() {
+        return new SeguimientoEntrega(Objeto?.Id ?? 0,
+            Vista.IdVenta,
+            await UtilesMensajero.ObtenerIdMensajero(Vista.NombreMensajero),
+            DateTime.Now,
+            DateTime.MinValue,
+            DateTime.MinValue,
+            Vista.Observaciones);
     }
 }

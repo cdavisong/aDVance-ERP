@@ -3,6 +3,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria;
+
 using aDVancePOS.Desktop.Utiles;
 
 namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos;
@@ -17,27 +18,7 @@ public partial class PresentadorContenedorModulos {
         _registroMensajeria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
         _registroMensajeria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajeria.Vista.CargarNombresMensajeros(await UtilesMensajero.ObtenerNombresMensajeros());
-
-        #region Cargar tipos y descripciones de tipos de entregas
-
-        var tiposDescripciones = await UtilesMensajero.ObtenerNombreDescripcionTiposEntrega();
-        var tipos = new List<object>();
-        var descripciones = new List<string>();
-
-        foreach (var item in tiposDescripciones) {
-            var partes = item.Split('|');
-
-            if (partes.Length < 2)
-                continue;
-
-            tipos.Add(partes[0].Trim()); // Nombre (puede ser cualquier objeto)
-            descripciones.Add(partes[1].Trim()); // Descripción
-        }
-
-        _registroMensajeria.Vista.CargarTiposEntrega(tipos.ToArray(), descripciones.ToArray());
-
-        #endregion
-
+        _registroMensajeria.Vista.CargarTiposEntrega();
         _registroMensajeria.Salir += delegate { DatosMensajeria = _registroMensajeria.Vista.DatosMensajeria; };
 
         DatosMensajeria.Clear();
@@ -50,11 +31,11 @@ public partial class PresentadorContenedorModulos {
             throw new ArgumentNullException(nameof(datos));
         }
 
-        if (_registroMensajeria == null) 
+        if (_registroMensajeria == null)
             return;
-        
+
         MostrarVistaPanelTransparente(_registroMensajeria.Vista);
-        
+
         _registroMensajeria.Vista.PopularDatosCliente(datos[0] as string?[]);
         _registroMensajeria.Vista.PopularArticulosVenta(datos[1] as List<string[]>);
 

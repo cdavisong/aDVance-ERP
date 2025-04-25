@@ -57,16 +57,16 @@ internal class Program {
             }
 
             // Crear tabla adv__tipo_movimiento
-            const string crearTablaTipoMovimiento = @"
-                    CREATE TABLE IF NOT EXISTS adv__tipo_movimiento (
-                        id_tipo_movimiento INT PRIMARY KEY AUTO_INCREMENT,
-                        nombre VARCHAR(50) NOT NULL,
-                        efecto ENUM('Carga', 'Descarga', 'Transferencia') NOT NULL
-                    );";
+            //const string crearTablaTipoMovimiento = @"
+            //        CREATE TABLE IF NOT EXISTS adv__tipo_movimiento (
+            //            id_tipo_movimiento INT PRIMARY KEY AUTO_INCREMENT,
+            //            nombre VARCHAR(50) NOT NULL,
+            //            efecto ENUM('Carga', 'Descarga', 'Transferencia') NOT NULL
+            //        );";
 
-            using (var cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion)) {
-                cmd.ExecuteNonQuery();
-            }
+            //using (var cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion)) {
+            //    cmd.ExecuteNonQuery();
+            //}
         }
     }
 
@@ -79,13 +79,13 @@ internal class Program {
             }
 
             // Agregar columna id_tipo_movimiento a la tabla adv__movimiento
-            const string agregarTipoMovimientoTablaMovimiento = @"
-                ALTER TABLE adv__movimiento 
-                ADD COLUMN id_tipo_movimiento INT NOT NULL DEFAULT 0;";
+            //const string agregarTipoMovimientoTablaMovimiento = @"
+            //    ALTER TABLE adv__movimiento 
+            //    ADD COLUMN id_tipo_movimiento INT NOT NULL DEFAULT 0;";
 
-            using (var cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion)) {
-                cmd.ExecuteNonQuery();
-            }
+            //using (var cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion)) {
+            //    cmd.ExecuteNonQuery();
+            //}
         }
     }
 
