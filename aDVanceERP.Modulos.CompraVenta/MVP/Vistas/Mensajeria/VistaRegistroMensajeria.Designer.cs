@@ -37,12 +37,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -57,12 +57,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldTituloTipoEntrega = new Label();
             fieldTipoEntrega = new Guna2ComboBox();
             fieldDescripcionTipoEntrega = new Label();
+            fieldObservaciones = new Guna2TextBox();
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
             panelResumenEntrega = new Panel();
             fieldResumenEntrega = new Guna2HtmlLabel();
-            fieldObservaciones = new Guna2TextBox();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
@@ -336,6 +336,37 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldDescripcionTipoEntrega.TabIndex = 27;
             fieldDescripcionTipoEntrega.Text = "...";
             // 
+            // fieldObservaciones
+            // 
+            fieldObservaciones.Animated = true;
+            fieldObservaciones.BorderColor = Color.Gainsboro;
+            fieldObservaciones.BorderRadius = 16;
+            fieldObservaciones.Cursor = Cursors.IBeam;
+            fieldObservaciones.CustomizableEdges = customizableEdges9;
+            fieldObservaciones.DefaultText = "";
+            fieldObservaciones.DisabledState.BorderColor = Color.White;
+            fieldObservaciones.DisabledState.ForeColor = Color.DimGray;
+            fieldObservaciones.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldObservaciones.Dock = DockStyle.Fill;
+            fieldObservaciones.FocusedState.BorderColor = Color.SandyBrown;
+            fieldObservaciones.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldObservaciones.ForeColor = Color.Black;
+            fieldObservaciones.HoverState.BorderColor = Color.SandyBrown;
+            fieldObservaciones.IconLeft = (Image) resources.GetObject("fieldObservaciones.IconLeft");
+            fieldObservaciones.IconLeftOffset = new Point(10, -11);
+            fieldObservaciones.Location = new Point(55, 447);
+            fieldObservaciones.Margin = new Padding(5);
+            fieldObservaciones.Multiline = true;
+            fieldObservaciones.Name = "fieldObservaciones";
+            fieldObservaciones.PasswordChar = '\0';
+            fieldObservaciones.PlaceholderForeColor = Color.DimGray;
+            fieldObservaciones.PlaceholderText = "Observaciones";
+            fieldObservaciones.SelectedText = "";
+            fieldObservaciones.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            fieldObservaciones.Size = new Size(407, 62);
+            fieldObservaciones.TabIndex = 28;
+            fieldObservaciones.TextOffset = new Point(5, 0);
+            // 
             // layoutBotones
             // 
             layoutBotones.BackColor = Color.White;
@@ -383,6 +414,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             btnRegistrar.BorderRadius = 18;
             btnRegistrar.CustomizableEdges = customizableEdges13;
             btnRegistrar.Dock = DockStyle.Fill;
+            btnRegistrar.Enabled = false;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrar.ForeColor = Color.Black;
@@ -416,37 +448,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldResumenEntrega.Size = new Size(387, 1);
             fieldResumenEntrega.TabIndex = 29;
             fieldResumenEntrega.Text = null;
-            // 
-            // fieldObservaciones
-            // 
-            fieldObservaciones.Animated = true;
-            fieldObservaciones.BorderColor = Color.Gainsboro;
-            fieldObservaciones.BorderRadius = 16;
-            fieldObservaciones.Cursor = Cursors.IBeam;
-            fieldObservaciones.CustomizableEdges = customizableEdges9;
-            fieldObservaciones.DefaultText = "";
-            fieldObservaciones.DisabledState.BorderColor = Color.White;
-            fieldObservaciones.DisabledState.ForeColor = Color.DimGray;
-            fieldObservaciones.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldObservaciones.Dock = DockStyle.Fill;
-            fieldObservaciones.FocusedState.BorderColor = Color.SandyBrown;
-            fieldObservaciones.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldObservaciones.ForeColor = Color.Black;
-            fieldObservaciones.HoverState.BorderColor = Color.SandyBrown;
-            fieldObservaciones.IconLeft = (Image) resources.GetObject("fieldObservaciones.IconLeft");
-            fieldObservaciones.IconLeftOffset = new Point(10, -11);
-            fieldObservaciones.Location = new Point(55, 447);
-            fieldObservaciones.Margin = new Padding(5);
-            fieldObservaciones.Multiline = true;
-            fieldObservaciones.Name = "fieldObservaciones";
-            fieldObservaciones.PasswordChar = '\0';
-            fieldObservaciones.PlaceholderForeColor = Color.DimGray;
-            fieldObservaciones.PlaceholderText = "Observaciones";
-            fieldObservaciones.SelectedText = "";
-            fieldObservaciones.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            fieldObservaciones.Size = new Size(407, 62);
-            fieldObservaciones.TabIndex = 28;
-            fieldObservaciones.TextOffset = new Point(5, 0);
             // 
             // VistaRegistroMensajeria
             // 

@@ -36,7 +36,10 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
 
     public string NombreAlmacen {
         get => fieldNombreAlmacen.Text;
-        set => fieldNombreAlmacen.Text = value;
+        set {
+            fieldNombreAlmacen.Text = string.IsNullOrEmpty(value) ? "Ninguno" : value;
+            fieldNombreAlmacen.Margin = new Padding(1, value.Length > 16 ? 10 : 1, 1, 1);
+        }
     }
 
     public string NombreCliente {

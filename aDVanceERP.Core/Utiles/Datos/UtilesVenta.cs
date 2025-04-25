@@ -109,11 +109,11 @@ public static class UtilesVenta {
     }
 
     public static bool ExisteVenta(long idVenta) {
-        string query = $"""
-                        SELECT COUNT(1) 
-                        FROM adv__venta 
-                        WHERE id_venta = {idVenta};
-                        """;
+        var query = $"""
+                     SELECT COUNT(1)
+                     FROM adv__venta
+                     WHERE id_venta = {idVenta};
+                     """;
 
         return EjecutarConsultaEntero(query) > 0;
     }
@@ -159,6 +159,57 @@ public static class UtilesVenta {
         return EjecutarConsultaLista(query, parametros);
     }
 
+    public static string ObtenerEstadoPagoVenta(long idVenta) {
+        const string queryTotalVenta = """
+                                       SELECT total
+                                       FROM adv__venta
+                                       WHERE id_venta = @IdVenta;
+                                       """;
+
+        const string queryPagosConfirmados = """
+                                             SELECT SUM(monto)
+                                             FROM adv__pago
+                                             WHERE id_venta = @IdVenta
+                                             AND estado = 'Confirmado';
+                                             """;
+
+        var parametros = new[] {
+            new MySqlParameter("@IdVenta", idVenta)
+        };
+
+        var totalVenta = EjecutarConsultaDecimal(queryTotalVenta, parametros);
+        var pagosConfirmados = EjecutarConsultaDecimal(queryPagosConfirmados, parametros);
+
+        if (pagosConfirmados == 0)
+            return "Sin pagos";
+
+        if (pagosConfirmados < totalVenta)
+            return "Pago parcial";
+
+        return pagosConfirmados == totalVenta ? "Completado" : "Sobrepago";
+    }
+
+    public static List<long> ObtenerVentasPendientes() {
+        const string query = """
+                             SELECT v.id_venta
+                             FROM adv__venta v
+                             WHERE NOT EXISTS (
+                                 SELECT 1
+                                 FROM adv__pago p
+                                 WHERE p.id_venta = v.id_venta
+                                 AND p.estado = 'Confirmado'
+                             ) OR (
+                                 SELECT COALESCE(SUM(p.monto), 0)
+                                 FROM adv__pago p
+                                 WHERE p.id_venta = v.id_venta
+                                 AND p.estado = 'Confirmado'
+                             ) < v.total;
+                             """;
+
+        var resultados = EjecutarConsultaLista(query);
+        return resultados.Select(r => long.Parse(r.Split('|')[0])).ToList();
+    }
+
     public static List<string> ObtenerPagosPorVenta(long idVenta) {
         const string query = """
                              SELECT *
@@ -174,9 +225,15 @@ public static class UtilesVenta {
 
     public static decimal ObtenerValorBrutoVentaDia(DateTime fecha) {
         const string query = """
-                             SELECT SUM(total) AS total_dinero
-                             FROM adv__venta
-                             WHERE DATE(fecha) = @Fecha;
+                             SELECT SUM(v.total)
+                             FROM adv__venta v
+                             WHERE DATE(v.fecha) = @Fecha
+                             AND EXISTS (
+                                 SELECT 1
+                                 FROM adv__pago p
+                                 WHERE p.id_venta = v.id_venta
+                                 AND p.estado = 'Confirmado'
+                             );
                              """;
         var parametros = new[] {
             new MySqlParameter("@Fecha", fecha.ToString("yyyy-MM-dd"))
@@ -188,7 +245,14 @@ public static class UtilesVenta {
     public static decimal ObtenerValorGananciaTotalNegocio() {
         const string query = """
                              SELECT SUM((dva.precio_venta_final - dva.precio_compra_vigente) * dva.cantidad) AS ganancia_total
-                             FROM adv__detalle_venta_articulo dva;
+                             FROM adv__detalle_venta_articulo dva
+                             JOIN adv__venta v ON dva.id_venta = v.id_venta
+                             WHERE (
+                                 SELECT COALESCE(SUM(p.monto), 0)
+                                 FROM adv__pago p
+                                 WHERE p.id_venta = v.id_venta
+                                 AND p.estado = 'Confirmado'
+                             ) >= v.total;
                              """;
 
         return EjecutarConsultaDecimal(query);
@@ -216,8 +280,14 @@ public static class UtilesVenta {
                                  HOUR(v.fecha) AS Hora,
                                  SUM(dva.precio_venta_final * dva.cantidad) AS Total
                              FROM adv__venta v
-                             INNER JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                             JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
                              WHERE DATE(v.fecha) = @fecha
+                             AND (
+                                 SELECT COALESCE(SUM(p.monto), 0)
+                                 FROM adv__pago p
+                                 WHERE p.id_venta = v.id_venta
+                                 AND p.estado = 'Confirmado'
+                             ) >= v.total
                              GROUP BY HOUR(v.fecha);
                              """;
         var parametros = new[] {
@@ -226,15 +296,22 @@ public static class UtilesVenta {
 
         EjecutarConsultaEstadistica(query, parametros, _datos.VentasPorHora, fechaHora);
     }
-
+    
     private static void ObtenerVentasPorDia(DateTime fechaHora) {
         const string query = """
                              SELECT
                                  DAY(v.fecha) AS Dia,
                                  SUM(dva.precio_venta_final * dva.cantidad) AS Total
                              FROM adv__venta v
-                             INNER JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
-                             WHERE MONTH(v.fecha) = @mes AND YEAR(v.fecha) = @anio
+                             JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                             WHERE MONTH(v.fecha) = @mes 
+                             AND YEAR(v.fecha) = @anio
+                             AND (
+                                 SELECT COALESCE(SUM(p.monto), 0)
+                                 FROM adv__pago p
+                                 WHERE p.id_venta = v.id_venta
+                                 AND p.estado = 'Confirmado'
+                             ) >= v.total
                              GROUP BY DAY(v.fecha);
                              """;
         var parametros = new[] {
@@ -251,8 +328,14 @@ public static class UtilesVenta {
                                  MONTH(v.fecha) AS Mes,
                                  SUM(dva.precio_venta_final * dva.cantidad) AS Total
                              FROM adv__venta v
-                             INNER JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                             JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
                              WHERE YEAR(v.fecha) = @anio
+                             AND (
+                                 SELECT COALESCE(SUM(p.monto), 0)
+                                 FROM adv__pago p
+                                 WHERE p.id_venta = v.id_venta
+                                 AND p.estado = 'Confirmado'
+                             ) >= v.total
                              GROUP BY MONTH(v.fecha);
                              """;
         var parametros = new[] {

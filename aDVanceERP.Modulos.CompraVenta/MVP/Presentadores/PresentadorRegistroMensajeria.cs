@@ -9,9 +9,11 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegistroMensajeria, SeguimientoEntrega,
     DatosSeguimientoEntrega, CriterioBusquedaSeguimientoEntrega> {
-    public PresentadorRegistroMensajeria(IVistaRegistroMensajeria vista) : base(vista) { }
+    public PresentadorRegistroMensajeria(IVistaRegistroMensajeria vista) : base(vista) {
+    }
 
     public override async void PopularVistaDesdeObjeto(SeguimientoEntrega objeto) {
+        Vista.ModoEdicionDatos = true;
         Vista.NombreMensajero = await UtilesMensajero.ObtenerNombreMensajero(objeto.IdMensajero);
 
         using (var datosVenta = new DatosVenta()) {
@@ -22,6 +24,7 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
 
             Vista.TipoEntrega = await UtilesEntrega.ObtenerNombreTipoEntrega(venta.IdTipoEntrega);
             Vista.Direccion = venta.DireccionEntrega;
+            Vista.Observaciones = objeto.Observaciones;
         }
 
         Objeto = objeto;

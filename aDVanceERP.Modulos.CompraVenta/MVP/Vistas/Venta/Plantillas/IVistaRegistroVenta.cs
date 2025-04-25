@@ -11,7 +11,9 @@ public interface IVistaRegistroVenta : IVistaRegistro {
     decimal Total { get; set; }
     long IdTipoEntrega { get; set; }
     string? Direccion { get; set; }
-    bool PagoConfirmado { get; set; }
+    bool PagoEfectuado { get; set; }
+    bool MensajeriaConfigurada { get; set; }
+    string? TipoEntrega { get; set; }
     string? EstadoEntrega { get; set; }
 
     event EventHandler? AlturaContenedorTuplasModificada;

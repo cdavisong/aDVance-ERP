@@ -21,20 +21,13 @@ public partial class PresentadorContenedorModulos {
 
             Transferencia = Array.Empty<string>();
         };
-        _registroPago.Vista.RegistrarDatos += delegate {
-            if (_registroVentaArticulo != null)
-                _registroVentaArticulo.Vista.PagoConfirmado = _registroPago.Vista.Pagos.Count > 0;
+        _registroPago.DatosRegistradosActualizados += delegate {
+            if (_registroVentaArticulo == null) 
+                return;
 
-            // Actualizar el seguimiento de entrega al registrar un pago
-            using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
-                var objetoSeguimiento = datosSeguimiento.Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, _registroPago.Vista.IdVenta.ToString()).FirstOrDefault();
+            _registroVentaArticulo.Vista.PagoEfectuado = true;
 
-                if (objetoSeguimiento != null) {
-                    objetoSeguimiento.FechaPago = DateTime.Now;
-
-                    datosSeguimiento.Editar(objetoSeguimiento);
-                }
-            }
+            ActualizarSeguimientoEntrega();
         };
     }
 
@@ -59,8 +52,8 @@ public partial class PresentadorContenedorModulos {
         InicializarVistaRegistroPago();
 
         if (sender is Venta venta) {
-            if (_registroPago != null) {
-                _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta?.Id ?? 0, string.Empty, venta?.Total ?? 0));
+            if (_registroPago != null && _registroVentaArticulo != null) {
+                _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta.Id, string.Empty, venta.Total));
                 _registroPago.Vista.EfectuarTransferencia += delegate {
                     MostrarVistaEdicionDetallePagoTransferencia(sender, e);
                 };
@@ -69,5 +62,19 @@ public partial class PresentadorContenedorModulos {
         }
 
         _registroPago?.Dispose();
+    }
+
+    private void ActualizarSeguimientoEntrega() {
+        using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
+            var objetoSeguimiento = datosSeguimiento
+                .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString())
+                .FirstOrDefault();
+
+            if (objetoSeguimiento == null)
+                return;
+
+            objetoSeguimiento.FechaPago = DateTime.Now;
+            datosSeguimiento.Editar(objetoSeguimiento);
+        }
     }
 }

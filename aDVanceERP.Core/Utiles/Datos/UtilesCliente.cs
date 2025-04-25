@@ -53,7 +53,7 @@ public static class UtilesCliente {
         return EjecutarConsulta(query, lector => lector.GetString(lector.GetOrdinal("razon_social")));
     }
 
-    public static string[] ObtenerRazonesSocialesClientes() {
+    public static object[] ObtenerRazonesSocialesClientes() {
         string query = "SELECT razon_social FROM adv__cliente;";
         return EjecutarConsultaMultiple(query, lector => lector.GetString(lector.GetOrdinal("razon_social"))).ToArray();
     }

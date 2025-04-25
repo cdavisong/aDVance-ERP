@@ -29,10 +29,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaMovimiento));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -131,7 +131,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
             btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges5;
+            btnEliminar.CustomizableEdges = customizableEdges1;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.White;
             btnEliminar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -141,19 +141,21 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 11;
             // 
             // fieldNombreAlmacenDestino
             // 
+            fieldNombreAlmacenDestino.AutoEllipsis = true;
+            fieldNombreAlmacenDestino.Dock = DockStyle.Fill;
             fieldNombreAlmacenDestino.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreAlmacenDestino.ForeColor = Color.DimGray;
             fieldNombreAlmacenDestino.ImeMode = ImeMode.NoControl;
             fieldNombreAlmacenDestino.Location = new Point(441, 1);
             fieldNombreAlmacenDestino.Margin = new Padding(1);
             fieldNombreAlmacenDestino.Name = "fieldNombreAlmacenDestino";
-            fieldNombreAlmacenDestino.Size = new Size(118, 38);
+            fieldNombreAlmacenDestino.Size = new Size(118, 39);
             fieldNombreAlmacenDestino.TabIndex = 4;
             fieldNombreAlmacenDestino.Text = "nombreAlmacenDestino";
             fieldNombreAlmacenDestino.TextAlign = ContentAlignment.MiddleLeft;
@@ -181,7 +183,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
             btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges7;
+            btnEditar.CustomizableEdges = customizableEdges3;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
             btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -190,7 +192,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnEditar.HoverState.FillColor = Color.PeachPuff;
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 9;
             // 
@@ -251,6 +253,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             // 
             // fieldNombreAlmacenOrigen
             // 
+            fieldNombreAlmacenOrigen.AutoEllipsis = true;
             fieldNombreAlmacenOrigen.Dock = DockStyle.Fill;
             fieldNombreAlmacenOrigen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreAlmacenOrigen.ForeColor = Color.DimGray;

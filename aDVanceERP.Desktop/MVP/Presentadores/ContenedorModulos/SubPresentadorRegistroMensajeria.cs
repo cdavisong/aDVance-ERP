@@ -1,6 +1,7 @@
 ﻿using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria;
 
@@ -15,6 +16,15 @@ public partial class PresentadorContenedorModulos {
         _registroMensajeria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajeria.Vista.CargarNombresMensajeros(await UtilesMensajero.ObtenerNombresMensajeros());
         _registroMensajeria.Vista.CargarTiposEntrega();
+        _registroMensajeria.DatosRegistradosActualizados += delegate {
+            if (_registroVentaArticulo == null) 
+                return;
+
+            _registroVentaArticulo.Vista.Direccion = _registroMensajeria.Vista.Direccion;
+            _registroVentaArticulo.Vista.TipoEntrega = _registroMensajeria.Vista.TipoEntrega;
+            _registroVentaArticulo.Vista.EstadoEntrega = "Pendiente";
+            _registroVentaArticulo.Vista.MensajeriaConfigurada = true;
+        };
     }
 
     private void MostrarVistaRegistroMensajeria(object? sender, EventArgs e) {
@@ -33,12 +43,18 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaEdicionMensajeria(object? sender, EventArgs e) {
         InicializarVistaRegistroMensajeria();
 
-        if (sender is SeguimientoEntrega seguimientoEntrega) {
+        if (sender is Venta venta) {
             if (_registroMensajeria != null && _registroVentaArticulo != null) {
-                _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
-                _registroMensajeria.Vista.PopularDatosCliente(_registroVentaArticulo.Vista.RazonSocialCliente);
-                _registroMensajeria.Vista.PopularArticulosVenta(_registroVentaArticulo.Vista.Articulos);
-                _registroMensajeria.Vista.Mostrar();
+                using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega()) {
+                    var seguimientoEntrega = datosSeguimientoEntrega.Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, venta.Id.ToString()).FirstOrDefault();
+
+                    if (seguimientoEntrega != null) {
+                        _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
+                        _registroMensajeria.Vista.PopularDatosCliente(_registroVentaArticulo.Vista.RazonSocialCliente);
+                        _registroMensajeria.Vista.PopularArticulosVenta(_registroVentaArticulo.Vista.Articulos);
+                        _registroMensajeria.Vista.Mostrar();
+                    }
+                }
             }
         }
 

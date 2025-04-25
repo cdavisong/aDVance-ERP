@@ -23,7 +23,7 @@ public partial class PresentadorContenedorModulos {
     private async Task InicializarVistaTerminalVenta() {
         _terminalVenta = new PresentadorTerminalVenta(new VistaTerminalVenta());
         _terminalVenta.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
-        _terminalVenta.Vista.IdTipoEntrega = await UtilesMensajero.ObtenerIdTipoEntrega("Presencial");
+        _terminalVenta.Vista.IdTipoEntrega = await UtilesEntrega.ObtenerIdTipoEntrega("Presencial");
         _terminalVenta.Vista.ModificarCantidadArticulos += MostrarVistaModificadorCantidadArticulo;
         _terminalVenta.Vista.RegistrarDatos += delegate {
             ArticulosVenta = _terminalVenta.Vista.Articulos;
@@ -104,7 +104,7 @@ public partial class PresentadorContenedorModulos {
             if (DatosMensajeria.Count == 0)
                 return;
 
-            _terminalVenta.Vista.IdTipoEntrega = await UtilesMensajero.ObtenerIdTipoEntrega(DatosMensajeria.ElementAt(0)[0]);
+            _terminalVenta.Vista.IdTipoEntrega = await UtilesEntrega.ObtenerIdTipoEntrega(DatosMensajeria.ElementAt(0)[0]);
             _terminalVenta.Vista.Direccion = DatosMensajeria.ElementAt(2)[2];
             _terminalVenta.Vista.PagoConfirmado = DatosMensajeria.ElementAt(1)[0] == "Mensajería (sin fondo)";
             _terminalVenta.Vista.EstadoEntrega = "Pendiente";

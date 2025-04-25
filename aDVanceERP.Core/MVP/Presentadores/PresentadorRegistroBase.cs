@@ -80,6 +80,10 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
         Vista.Cerrar();
     }
 
+    protected void InvokeDatosRegistradosActualizados(object? sender, EventArgs e) {
+        DatosRegistradosActualizados?.Invoke(sender, e);
+    }
+
     protected virtual void Dispose(bool disposing) {
         if (_disposed)
             return;

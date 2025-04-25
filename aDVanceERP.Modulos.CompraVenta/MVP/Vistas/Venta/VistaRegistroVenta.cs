@@ -14,6 +14,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
 public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGestionDetallesCompraventaArticulos {
     private bool _modoEdicion;
+    private bool _pagoEfectuado;
+    private bool _mensajeriaConfigurada;
+    private string? _tipoEntrega;
+    private long _idTipoEntrega = 0;
 
     public VistaRegistroVenta() {
         InitializeComponent();
@@ -88,19 +92,59 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         set => fieldTotalVenta.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
-    public long IdTipoEntrega { get; set; } = 0;
+    public long IdTipoEntrega {
+        get => _idTipoEntrega;
+        set {
+            _idTipoEntrega = value;
+
+            var idTipoEntregaPresencial = UtilesEntrega.ObtenerIdTipoEntrega("Presencial").Result;
+
+            if (ModoEdicionDatos && value.Equals(idTipoEntregaPresencial))
+                btnAsignarMensajería.Enabled = false;
+        }
+    }
 
     public string? Direccion { get; set; } = string.Empty;
 
-    public bool PagoConfirmado {
-        get => btnRegistrar.Enabled;
+    public bool PagoEfectuado {
+        get => _pagoEfectuado;
         set {
+            _pagoEfectuado = value;
+
             if (!ModoEdicionDatos) {
                 fieldNombreArticulo.ReadOnly = value;
                 fieldCantidad.ReadOnly = value;
                 btnEfectuarPago.Enabled = !value;
                 btnRegistrar.Enabled = value;
+                btnAsignarMensajería.Enabled = !value;
             }
+        }
+    }
+
+    public bool MensajeriaConfigurada {
+        get => _mensajeriaConfigurada;
+        set {
+            _mensajeriaConfigurada = value;
+
+            if (!ModoEdicionDatos) {
+                if (TipoEntrega == "Mensajería (sin fondo)") {
+                    fieldNombreArticulo.ReadOnly = true;
+                    fieldCantidad.ReadOnly = true;
+                    btnEfectuarPago.Enabled = false;
+                    btnRegistrar.Enabled = true;
+                }
+
+                btnAsignarMensajería.Enabled = !value;
+            }
+        }
+    }
+
+    public string? TipoEntrega {
+        get => _tipoEntrega;
+        set {
+            _tipoEntrega = value;
+
+            IdTipoEntrega = UtilesEntrega.ObtenerIdTipoEntrega(value).Result;
         }
     }
 

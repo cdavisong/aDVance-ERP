@@ -54,6 +54,20 @@ namespace aDVanceERP.Core.Utiles.Datos {
             return resultados;
         }
 
+        public static async Task<long> ObtenerIdSeguimientoEntrega(long idVenta) {
+            const string query = """
+                                 SELECT
+                                    id_seguimiento_entrega
+                                 FROM adv__seguimiento_entrega
+                                 WHERE id_venta = @idVenta;
+                                 """;
+            var parametros = new[] {
+                new MySqlParameter("@idVenta", idVenta)
+            };
+
+            return await EjecutarConsultaEscalar(query, lector => lector.GetInt64("id_seguimiento_entrega"), parametros);
+        }
+
         public static async Task<long> ObtenerIdTipoEntrega(string? nombreTipoEntrega) {
             const string query = """
                              SELECT

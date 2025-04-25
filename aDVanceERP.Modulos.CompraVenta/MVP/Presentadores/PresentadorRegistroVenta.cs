@@ -11,20 +11,20 @@ public class
     PresentadorRegistroVenta : PresentadorRegistroBase<IVistaRegistroVenta, Venta, DatosVenta, CriterioBusquedaVenta> {
     public PresentadorRegistroVenta(IVistaRegistroVenta vista) : base(vista) { }
 
-    public override async void PopularVistaDesdeObjeto(Venta objeto) {
+    public override void PopularVistaDesdeObjeto(Venta objeto) {
+        Vista.ModoEdicionDatos = true;
         Vista.RazonSocialCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
         Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
-        Vista.RazonSocialCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
-        Vista.IdTipoEntrega = await UtilesMensajero.ObtenerIdTipoEntrega(objeto.IdTipoEntrega.ToString());
         Vista.Direccion = objeto.DireccionEntrega;
         Vista.EstadoEntrega = objeto.EstadoEntrega;
-        Vista.ModoEdicionDatos = true;
 
         var articulosVenta = UtilesVenta.ObtenerArticulosPorVenta(objeto.Id);
 
         foreach (var articuloSplit in articulosVenta.Select(articulo => articulo.Split('|')))
             ((IVistaGestionDetallesCompraventaArticulos)Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0],
                 articuloSplit[1]);
+
+        Vista.IdTipoEntrega = objeto.IdTipoEntrega;
 
         Objeto = objeto;
     }

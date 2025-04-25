@@ -10,7 +10,7 @@ public interface IVistaRegistroMensajeria : IVistaRegistro {
     string? TipoEntrega { get; set; }
     string DescripcionTipoEntrega { get; set; }
     string? Direccion { get; set; }
-    string? Observaciones { get; }
+    string? Observaciones { get; set; }
     string ResumenEntrega { get; set; }
 
     void CargarNombresMensajeros(object[] nombresMensajeros);

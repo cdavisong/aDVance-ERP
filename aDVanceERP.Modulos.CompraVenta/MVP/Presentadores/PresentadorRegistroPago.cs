@@ -14,9 +14,9 @@ public class
     public PresentadorRegistroPago(IVistaRegistroPago vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Pago objeto) {
+        Vista.ModoEdicionDatos = true;
         Vista.IdVenta = objeto.IdVenta;
         Vista.Total = objeto.Monto;
-        Vista.ModoEdicionDatos = true;
 
         var pagos = UtilesVenta.ObtenerPagosPorVenta(objeto.IdVenta);
 
@@ -71,6 +71,7 @@ public class
                 objeto.Id = DatosObjeto.AdicionarAsync(objeto).Result;            
         };
 
+        InvokeDatosRegistradosActualizados(sender, e);
         Dispose();
         Vista.Cerrar();
     }

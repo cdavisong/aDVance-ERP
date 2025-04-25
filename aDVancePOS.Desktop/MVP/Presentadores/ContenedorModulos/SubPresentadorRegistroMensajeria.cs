@@ -19,7 +19,6 @@ public partial class PresentadorContenedorModulos {
         _registroMensajeria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajeria.Vista.CargarNombresMensajeros(await UtilesMensajero.ObtenerNombresMensajeros());
         _registroMensajeria.Vista.CargarTiposEntrega();
-        _registroMensajeria.Salir += delegate { DatosMensajeria = _registroMensajeria.Vista.DatosMensajeria; };
 
         DatosMensajeria.Clear();
     }
@@ -36,7 +35,7 @@ public partial class PresentadorContenedorModulos {
 
         MostrarVistaPanelTransparente(_registroMensajeria.Vista);
 
-        _registroMensajeria.Vista.PopularDatosCliente(datos[0] as string?[]);
+        //_registroMensajeria.Vista.PopularDatosCliente(datos[0] as string?[]);
         _registroMensajeria.Vista.PopularArticulosVenta(datos[1] as List<string[]>);
 
         _registroMensajeria.Vista.Mostrar();

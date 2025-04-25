@@ -46,7 +46,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     //    set => btnModuloAdministracion.Visible = value;
     //}
 
-    public IRepositorioVista Vistas { get; private set; }
+    public IRepositorioVista? Vistas { get; private set; }
 
     public event EventHandler? MostrarVistaInicio;
     public event EventHandler? MostrarVistaEstadisticas;

@@ -13,7 +13,7 @@ namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos;
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroPago? _registroPago;
 
-    private List<string[]> Pagos { get; set; } = new();
+    private List<string[]>? Pagos { get; set; } = new();
 
     private void InicializarVistaRegistroPago() {
         _registroPago = new PresentadorRegistroPago(new VistaRegistroPago());

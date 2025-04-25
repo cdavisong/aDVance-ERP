@@ -23,7 +23,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public IRepositorioVista Vistas { get; private set; }
+    public IRepositorioVista? Vistas { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -54,7 +54,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         set => fieldMonto.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
-    public List<string[]> Pagos { get; private set; }
+    public List<string[]>? Pagos { get; private set; }
 
     public bool ModoEdicionDatos {
         get => _modoEdicion;
@@ -157,7 +157,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             adMonto.ToString("N2", CultureInfo.InvariantCulture)
         };
 
-        Pagos.Add(tuplaPago);
+        Pagos?.Add(tuplaPago);
 
         ActualizarTuplasPagos();
         ActualizarSuma();
@@ -210,6 +210,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
             tuplaPago.MetodoPago = pago[2];
             tuplaPago.Monto = pago[3];
+            tuplaPago.Habilitada = !ModoEdicionDatos;
             tuplaPago.EliminarDatosTupla += delegate(object? sender, EventArgs args) {
                 pago = sender as string[];
 
@@ -220,7 +221,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             };
 
             // Registro y muestra
-            Vistas.Registrar(
+            Vistas?.Registrar(
                 $"vistaTupla{tuplaPago.GetType().Name}{i}",
                 tuplaPago,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),

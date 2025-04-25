@@ -29,10 +29,10 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaCompra));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -120,6 +120,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // 
             // fieldNombreAlmacen
             // 
+            fieldNombreAlmacen.AutoEllipsis = true;
             fieldNombreAlmacen.Dock = DockStyle.Fill;
             fieldNombreAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreAlmacen.ForeColor = Color.DimGray;
@@ -148,6 +149,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // 
             // fieldNombreProveedor
             // 
+            fieldNombreProveedor.AutoEllipsis = true;
             fieldNombreProveedor.Dock = DockStyle.Fill;
             fieldNombreProveedor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreProveedor.ForeColor = Color.DimGray;
@@ -183,7 +185,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
             btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges5;
+            btnEditar.CustomizableEdges = customizableEdges1;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
             btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -192,7 +194,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnEditar.HoverState.FillColor = Color.PeachPuff;
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 21;
             // 
@@ -205,7 +207,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
             btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges7;
+            btnEliminar.CustomizableEdges = customizableEdges3;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.Enabled = false;
             btnEliminar.FillColor = Color.White;
@@ -216,7 +218,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 22;
             // 

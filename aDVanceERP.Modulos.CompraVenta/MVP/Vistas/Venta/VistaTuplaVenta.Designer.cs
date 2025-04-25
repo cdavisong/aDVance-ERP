@@ -116,6 +116,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             // fieldNombreAlmacen
             // 
+            fieldNombreAlmacen.AutoEllipsis = true;
             fieldNombreAlmacen.Dock = DockStyle.Fill;
             fieldNombreAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreAlmacen.ForeColor = Color.DimGray;
@@ -144,6 +145,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             // fieldNombreCliente
             // 
+            fieldNombreCliente.AutoEllipsis = true;
             fieldNombreCliente.Dock = DockStyle.Fill;
             fieldNombreCliente.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldNombreCliente.ForeColor = Color.DimGray;

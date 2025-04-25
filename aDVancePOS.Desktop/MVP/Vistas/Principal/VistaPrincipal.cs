@@ -10,7 +10,7 @@ namespace aDVancePOS.Desktop.MVP.Vistas.Principal {
             Inicializar();
         }
 
-        public IRepositorioVista Vistas { get; private set; }
+        public IRepositorioVista? Vistas { get; private set; }
 
         public IRepositorioVista Menus { get; private set; }
 

@@ -212,6 +212,17 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
     </div>
 </div>";
 
+        // Actualizar el resúmen de entrega
         ResumenEntrega = resumenHtml;
+        
+        if (ModoEdicionDatos) 
+            return;
+
+        // Verificar si la entrega es válida
+        var mensajeroOk = !string.IsNullOrEmpty(NombreMensajero);
+        var tipoEntregaOk = !string.IsNullOrEmpty(TipoEntrega);
+        var direccionOk = !string.IsNullOrEmpty(Direccion);
+
+        btnRegistrar.Enabled = mensajeroOk && tipoEntregaOk && direccionOk;
     }
 }

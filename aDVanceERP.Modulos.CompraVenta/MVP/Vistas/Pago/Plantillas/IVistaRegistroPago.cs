@@ -6,7 +6,7 @@ public interface IVistaRegistroPago : IVistaRegistro {
     long IdVenta { get; set; }
     string MetodoPago { get; set; }
     decimal Monto { get; set; }
-    List<string[]> Pagos { get; }
+    List<string[]>? Pagos { get; }
     decimal Total { get; set; }
     decimal Suma { get; set; }
     decimal Pendiente { get; set; }

@@ -3,14 +3,19 @@
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago; 
 
 public partial class VistaTuplaPago : Form, IVistaTuplaPago {
+    private bool _enabled = true;
+
     public VistaTuplaPago() {
         InitializeComponent();
         Inicializar();
     }
 
     public bool Habilitada {
-        get => Enabled;
-        set => Enabled = value;
+        get => _enabled;
+        set {
+            _enabled = value;
+            btnEliminar.Enabled = value;
+        }
     }
 
     public Point Coordenadas {

@@ -26,7 +26,7 @@ public partial class PresentadorContenedorModulos {
             _registroVentaArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroVentaArticulo.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
             _registroVentaArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
-            _registroVentaArticulo.Vista.IdTipoEntrega = await UtilesMensajero.ObtenerIdTipoEntrega("Presencial");
+            _registroVentaArticulo.Vista.IdTipoEntrega = await UtilesEntrega.ObtenerIdTipoEntrega("Presencial");
             _registroVentaArticulo.Vista.RegistrarDatos += delegate {
                 ArticulosVenta = _registroVentaArticulo.Vista.Articulos;
 
@@ -41,24 +41,9 @@ public partial class PresentadorContenedorModulos {
                 _ = _gestionVentas?.RefrescarListaObjetos();
             };
             _registroVentaArticulo.Vista.Salir += delegate {
-                var ventaCancelada = !UtilesVenta.ExisteVenta(_proximoIdVenta);
-                
-                if (ventaCancelada) {
-                    // Eliminar pagos registrados si se cancela la venta
-                    var pagosVenta = UtilesVenta.ObtenerPagosPorVenta(_proximoIdVenta);
-
-                    if (pagosVenta.Count > 0) {
-                        using (var datosPago = new DatosPago()) {
-                            foreach (var pago in pagosVenta) {
-                                var pagoSplit = pago.Split("|");
-
-                                datosPago.Eliminar(long.Parse(pagoSplit[0]));
-                            }
-                        }
-                    }
-
-                    //TODO: Eliminar seguimientos de entrega registrados si se cancela la venta
-                }
+                // Verificar cancelación de la venta
+                if (!_registroVentaArticulo.Vista.ModoEdicionDatos && !UtilesVenta.ExisteVenta(_proximoIdVenta))
+                    CancelarVenta();
             };
 
             ArticulosVenta?.Clear();
@@ -66,6 +51,27 @@ public partial class PresentadorContenedorModulos {
         catch (ExcepcionConexionServidorMySQL e) {
             CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
         }
+    }
+
+    private void CancelarVenta() {
+        // Eliminar pagos registrados si se cancela la venta
+        var pagosVenta = UtilesVenta.ObtenerPagosPorVenta(_proximoIdVenta);
+
+        if (pagosVenta.Count > 0) {
+            using (var datosPago = new DatosPago())
+                foreach (var pago in pagosVenta) {
+                    var pagoSplit = pago.Split("|");
+
+                    datosPago.Eliminar(long.Parse(pagoSplit[0]));
+                }
+        }
+
+        // Eliminar seguimientos de entrega registrados si se cancela la venta
+        var idSeguimientoEntrega = UtilesEntrega.ObtenerIdSeguimientoEntrega(_proximoIdVenta).Result;
+
+        if (idSeguimientoEntrega != 0)
+            using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega())
+                datosSeguimientoEntrega.Eliminar(idSeguimientoEntrega);
     }
 
     private async void MostrarVistaRegistroVentaArticulo(object? sender, EventArgs e) {

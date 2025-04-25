@@ -11,7 +11,7 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         Inicializar();
     }
 
-    public IRepositorioVista Vistas { get; private set; }
+    public IRepositorioVista? Vistas { get; private set; }
 
     public IRepositorioVista Menus { get; private set; }
 
