@@ -40,13 +40,10 @@ public partial class PresentadorPrincipal {
 
     private void InicializarPermisosModulos() {
         try {
-            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloContactos.Nombre,
-                ModuloContactos.Permisos);
+            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloContactos.Nombre, ModuloContactos.Permisos);
             UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloFinanzas.Nombre, ModuloFinanzas.Permisos);
-            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloInventario.Nombre,
-                ModuloInventario.Permisos);
-            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloCompraventa.Nombre,
-                ModuloCompraventa.Permisos);
+            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloInventario.Nombre, ModuloInventario.Permisos);
+            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloCompraventa.Nombre, ModuloCompraventa.Permisos);
         }
         catch (ExcepcionConexionServidorMySQL e) {
             CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);

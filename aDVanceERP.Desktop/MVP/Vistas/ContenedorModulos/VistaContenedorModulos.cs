@@ -124,6 +124,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     }
 
     public void Mostrar() {
+        btnEstadisticas.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
         btnModuloContactos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
                                      (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(
                                          ModuloContactos.Nombre) ?? false);
