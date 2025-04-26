@@ -11,11 +11,11 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaRegistroProveedor() {
         _registroProveedor = new PresentadorRegistroProveedor(new VistaRegistroProveedor());
-        _registroProveedor.Vista.CargarNombresContactos(UtilesContacto.ObtenerNombresContactos());
         _registroProveedor.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
         _registroProveedor.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroProveedor.Salir += async (sender, e) => {
-            await _gestionProveedores.RefrescarListaObjetos();
+        _registroProveedor.Salir += async delegate {
+            if (_gestionProveedores != null)
+                await _gestionProveedores.RefrescarListaObjetos();
         };
     }
 

@@ -13,12 +13,12 @@ public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaPr
 
     public override string ComandoAdicionar(Proveedor objeto) {
         return
-            $"INSERT INTO adv__proveedor (razon_social, nit, id_contacto) VALUES ('{objeto.RazonSocial}', '{objeto.NumeroIdentificacionTributaria}', '{objeto.IdContactoRepresentante}');";
+            $"INSERT INTO adv__proveedor (razon_social, nit, id_contacto) VALUES ('{objeto.RazonSocial}', '{objeto.NumeroIdentificacionTributaria}', '{objeto.IdContacto}');";
     }
 
     public override string ComandoEditar(Proveedor objeto) {
         return
-            $"UPDATE adv__proveedor SET razon_social='{objeto.RazonSocial}', nit='{objeto.NumeroIdentificacionTributaria}', id_contacto='{objeto.IdContactoRepresentante}' WHERE id_proveedor={objeto.Id};";
+            $"UPDATE adv__proveedor SET razon_social='{objeto.RazonSocial}', nit='{objeto.NumeroIdentificacionTributaria}', id_contacto='{objeto.IdContacto}' WHERE id_proveedor={objeto.Id};";
     }
 
     public override string ComandoEliminar(long id) {

@@ -26,8 +26,6 @@ public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegist
                 Vista.Direccion = contacto.Direccion ?? string.Empty;
             }            
         }
-        
-        Vista.NombreRepresentante = UtilesContacto.ObtenerNombreContacto(objeto.IdContactoRepresentante) ?? string.Empty;
 
         Objeto = objeto;
     }
@@ -78,7 +76,11 @@ public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegist
                 "Proveedor");
 
             var idContacto = datosContacto.Adicionar(contacto);
-            
+
+            // Actualizar el ID del contacto
+            if (Objeto != null)
+                Objeto.IdContacto = idContacto;
+
             using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
                 var telefonos = new List<TelefonoContacto>();
 
@@ -105,6 +107,9 @@ public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegist
                 foreach (var telefono in telefonos)
                     datosTelefonoContacto.Adicionar(telefono);
             }
+
+            using (var datosProveedor = new DatosProveedor())
+                datosProveedor.Editar(Objeto);
         }
     }
 
@@ -112,7 +117,7 @@ public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegist
         return new Proveedor(Objeto?.Id ?? 0,            
             Vista.RazonSocial,
             Vista.NumeroIdentificacionTributaria,
-            await UtilesContacto.ObtenerIdContacto(Vista.NombreRepresentante)
+            await UtilesContacto.ObtenerIdContacto(Vista.RazonSocial)
         );
     }
 }

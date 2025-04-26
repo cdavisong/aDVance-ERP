@@ -1,23 +1,22 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos;
 
 public class Proveedor : IObjetoUnico {
     public Proveedor() { }
 
     public Proveedor(long idProveedor, string razonSocial, string numeroIdentificacionTributaria,
-        long idContactoRepresentante) {
+        long idContacto) {
         Id = idProveedor;
         RazonSocial = razonSocial;
         NumeroIdentificacionTributaria = numeroIdentificacionTributaria;
-        IdContactoRepresentante = idContactoRepresentante;
+        IdContacto = idContacto;
     }
 
+    public long Id { get; set; }
     public string? RazonSocial { get; }
     public string? NumeroIdentificacionTributaria { get; }
-    public long IdContactoRepresentante { get; }
-
-    public long Id { get; set; }
+    public long IdContacto { get; set; }
 }
 
 public enum CriterioBusquedaProveedor {

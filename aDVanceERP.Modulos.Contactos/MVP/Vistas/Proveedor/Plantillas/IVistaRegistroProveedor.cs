@@ -9,7 +9,4 @@ public interface IVistaRegistroProveedor : IVistaRegistro {
     string TelefonoFijo { get; set; }
     string CorreoElectronico { get; set; }
     string Direccion { get; set; }
-    string NombreRepresentante { get; set; }
-
-    void CargarNombresContactos(object[] nombresContactos);
 }

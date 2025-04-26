@@ -14,7 +14,7 @@ public class Cliente : IObjetoUnico {
 
     public string? Numero { get; }
     public string? RazonSocial { get; }
-    public long IdContacto { get; }
+    public long IdContacto { get; set; }
 
     public long Id { get; set; }
 }

@@ -41,7 +41,7 @@ public class PresentadorGestionProveedores : PresentadorGestionBase<PresentadorT
             }
         }
 
-        presentadorTupla.Vista.NombreRepresentante = UtilesContacto.ObtenerNombreContacto(objeto.IdContactoRepresentante) ?? string.Empty;
+        presentadorTupla.Vista.NombreRepresentante = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
 
         return presentadorTupla;
     }

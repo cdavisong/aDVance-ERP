@@ -58,11 +58,6 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
         }
     }
 
-    public string NombreRepresentante {
-        get => fieldNombreContacto.Text;
-        set => fieldNombreContacto.Text = value;
-    }
-
     public bool ModoEdicionDatos {
         get => _modoEdicion;
         set {
@@ -93,12 +88,6 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
         btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
     }
 
-    public void CargarNombresContactos(object[] nombresContactos) {
-        fieldNombreContacto.Items.Add("Ninguno");
-        fieldNombreContacto.Items.AddRange(nombresContactos);
-        fieldNombreContacto.SelectedIndex = 0;
-    }
-
     public void Mostrar() {
         BringToFront();
         ShowDialog();
@@ -111,8 +100,6 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
         TelefonoFijo = string.Empty;
         CorreoElectronico = string.Empty;
         Direccion = string.Empty;
-        NombreRepresentante = string.Empty;
-        fieldNombreContacto.SelectedIndex = -1;
         ModoEdicionDatos = false;
     }
 

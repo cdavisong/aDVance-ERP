@@ -40,11 +40,6 @@ public partial class VistaRegistroCliente : Form, IVistaRegistroCliente {
         set => fieldTelefonoMovil.Text = value;
     }
 
-    public string TelefonoFijo {
-        get => fieldTelefonoFijo.Text;
-        set => fieldTelefonoFijo.Text = value;
-    }
-
     public string Direccion {
         get => fieldDireccion.Text;
         set {
@@ -57,7 +52,6 @@ public partial class VistaRegistroCliente : Form, IVistaRegistroCliente {
         get => _modoEdicion;
         set {
             fieldTelefonoMovil.ReadOnly = value;
-            fieldTelefonoFijo.ReadOnly = value;
             fieldDireccion.ReadOnly = value;
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
             btnRegistrar.Text = value ? "Actualizar cliente" : "Crear cliente";
@@ -95,7 +89,6 @@ public partial class VistaRegistroCliente : Form, IVistaRegistroCliente {
         Numero = string.Empty;
         RazonSocial = string.Empty;
         TelefonoMovil = string.Empty;
-        TelefonoFijo = string.Empty;
         Direccion = string.Empty;
         ModoEdicionDatos = false;
     }

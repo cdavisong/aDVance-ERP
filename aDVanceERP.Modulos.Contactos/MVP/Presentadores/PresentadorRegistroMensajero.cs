@@ -29,6 +29,7 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
     protected override bool RegistroEdicionDatosAutorizado() {
         var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0;
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
+        var telefonoOk = !string.IsNullOrEmpty(Vista.TelefonoMovil);
 
         if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
             var noLetrasTelefonosOk = !Vista.TelefonoMovil.Replace(" ", "").Any(char.IsLetter);
@@ -43,9 +44,10 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
 
         if (!nombreOk)
             CentroNotificaciones.Mostrar("Existe un contacto con el mismo nombre registrado o el campo de nombre se encuentra vacío, corrija los datos por favor", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+        if (!telefonoOk)
+            CentroNotificaciones.Mostrar("EL campo del teléfono móvil es obligatorio para el mensajero, rellene los datos necesarios de forma correcta y proceda al registro", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
 
-
-        return nombreOk;
+        return nombreOk && telefonoOk;
     }
 
     protected override void RegistroAuxiliar() {
@@ -62,12 +64,12 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
 
             var idContacto = datosContacto.Adicionar(contacto);
 
-            using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
-                var telefonos = new List<TelefonoContacto>();
+            // Actualizar el ID del contacto
+            if (Objeto != null)
+                Objeto.IdContacto = idContacto;
 
-                // Teléfono móvil
-                if (!string.IsNullOrEmpty(Vista.TelefonoMovil))
-                    telefonos.Add(new TelefonoContacto(
+            using (var datosTelefonoContacto = new DatosTelefonoContacto())
+                datosTelefonoContacto.Adicionar(new TelefonoContacto(
                         0,
                         "+53",
                         Vista.TelefonoMovil,
@@ -75,9 +77,8 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
                         idContacto
                     ));
 
-                foreach (var telefono in telefonos)
-                    datosTelefonoContacto.Adicionar(telefono);
-            }
+            using (var datosMensajero = new DatosMensajero())
+                datosMensajero.Editar(Objeto);
         }
     }
 
