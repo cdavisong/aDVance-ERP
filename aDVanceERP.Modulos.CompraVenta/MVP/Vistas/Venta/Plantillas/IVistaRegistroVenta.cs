@@ -22,7 +22,6 @@ public interface IVistaRegistroVenta : IVistaRegistro {
     event EventHandler? EfectuarPago;
     event EventHandler? AsignarMensajeria;
 
-    void CargarRazonesSocialesClientes(object[] nombresClientes);
     void CargarNombresAlmacenes(object[] nombresAlmacenes);
     void CargarNombresArticulos(string[] nombresArticulos);
 }

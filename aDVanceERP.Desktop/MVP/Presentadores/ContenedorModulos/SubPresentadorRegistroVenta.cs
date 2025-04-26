@@ -24,10 +24,9 @@ public partial class PresentadorContenedorModulos {
             _registroVentaArticulo = new PresentadorRegistroVenta(new VistaRegistroVenta());
             _registroVentaArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroVentaArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroVentaArticulo.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
             _registroVentaArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
             _registroVentaArticulo.Vista.IdTipoEntrega = await UtilesEntrega.ObtenerIdTipoEntrega("Presencial");
-            _registroVentaArticulo.Vista.RegistrarDatos += delegate {
+            _registroVentaArticulo.DatosRegistradosActualizados += delegate {
                 ArticulosVenta = _registroVentaArticulo.Vista.Articulos;
 
                 RegistrarDetallesVentaArticulo();
@@ -85,13 +84,6 @@ public partial class PresentadorContenedorModulos {
             MostrarVistaRegistroPago(sender, e);
         };
         _registroVentaArticulo.Vista.AsignarMensajeria += delegate {
-            if (string.IsNullOrEmpty(_registroVentaArticulo.Vista.RazonSocialCliente) || _registroVentaArticulo.Vista.RazonSocialCliente.Equals("Anónimo")) {
-                CentroNotificaciones.Mostrar(
-                    "Debe asignar un cliente válido desde la lista antes de asignar una orden de entrega para la mensajería de los artículos seleccionados",
-                    TipoNotificacion.Advertencia);
-                return;
-            }
-
             MostrarVistaRegistroMensajeria(sender, e);
         };
 

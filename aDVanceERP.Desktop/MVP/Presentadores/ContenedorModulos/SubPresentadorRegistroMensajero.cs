@@ -14,7 +14,7 @@ public partial class PresentadorContenedorModulos {
         _registroMensajero.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
         _registroMensajero.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajero.DatosRegistradosActualizados += async delegate {
-            if (_gestionMensajeros != null) 
+            if (_gestionMensajeros != null)
                 await _gestionMensajeros.RefrescarListaObjetos();
         };
 
@@ -24,10 +24,19 @@ public partial class PresentadorContenedorModulos {
     private async void MostrarVistaRegistroMensajero(object? sender, EventArgs e) {
         await InicializarVistaRegistroMensajero();
 
-        if (_registroMensajero == null) 
+        if (_registroMensajero == null)
             return;
 
-        MostrarVistaPanelTransparente(_registroMensajero.Vista);
+        if (_registroMensajeria == null || ((Form) _registroMensajeria.Vista).IsDisposed)
+            MostrarVistaPanelTransparente(_registroMensajero.Vista);
+        else
+            _registroMensajero.DatosRegistradosActualizados += delegate {
+                if (_registroMensajeria == null)
+                    return;
+
+                _registroMensajeria.Vista.CargarNombresMensajeros(UtilesMensajero.ObtenerNombresMensajeros().Result);
+                _registroMensajeria.Vista.NombreMensajero = _registroMensajero.Vista.Nombre;
+            };
 
         _registroMensajero.Vista.Mostrar();
         _registroMensajero.Dispose();

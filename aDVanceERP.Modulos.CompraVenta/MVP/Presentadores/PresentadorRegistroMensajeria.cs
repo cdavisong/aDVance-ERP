@@ -31,18 +31,22 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
-        var nombreOk = !string.IsNullOrEmpty(Vista.NombreMensajero) && !Vista.NombreMensajero.Equals("Ninguno");
+        var nombreMensajeroOk = !string.IsNullOrEmpty(Vista.NombreMensajero) && !Vista.NombreMensajero.Equals("Ninguno");
         var tipoEntregaOk = !string.IsNullOrEmpty(Vista.TipoEntrega) && !Vista.TipoEntrega.Equals("Presencial");
+        var razonSocialValida = UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente) != 0;
+        var razonSocialClienteOk = !string.IsNullOrEmpty(Vista.RazonSocialCliente) && razonSocialValida;
         var direccionOk = !string.IsNullOrEmpty(Vista.Direccion);
 
-        if (!nombreOk)
+        if (!nombreMensajeroOk)
             CentroNotificaciones.Mostrar("El nombre del mensajero es obligatorio para registro de una orden de mensajería, elija un mensajero desde la lista correspondiente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!tipoEntregaOk)
             CentroNotificaciones.Mostrar("Debe especificarse el tipo de entrega (no presencial) para la orden de mensajería, elija un tipo entrega desde la lista correspondiente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+        if (!razonSocialClienteOk)
+            CentroNotificaciones.Mostrar("Debe especificarse un nombre de cliente válido para el envío, si no existe el cliente que busca, regístrelo haciendo click en el botón a la derecha del campo cliente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!direccionOk)
             CentroNotificaciones.Mostrar("Debe especificarse una dirección válida de envío para la orden de mensajería, rellene el campo dirección correctamente", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
 
-        return nombreOk && tipoEntregaOk && direccionOk;
+        return nombreMensajeroOk && tipoEntregaOk && direccionOk;
     }
 
     protected override async Task<SeguimientoEntrega?> ObtenerObjetoDesdeVista() {

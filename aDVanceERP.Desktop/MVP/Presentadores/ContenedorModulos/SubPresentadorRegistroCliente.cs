@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Desktop.Utiles;
+﻿using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente;
@@ -24,7 +25,16 @@ public partial class PresentadorContenedorModulos {
         if (_registroCliente == null) 
             return;
 
-        MostrarVistaPanelTransparente(_registroCliente.Vista);
+        if (_registroMensajeria == null || ((Form) _registroMensajeria.Vista).IsDisposed)
+            MostrarVistaPanelTransparente(_registroCliente.Vista);
+        else
+            _registroCliente.DatosRegistradosActualizados += delegate {
+                if (_registroMensajeria == null)
+                    return;
+
+                _registroMensajeria.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
+                _registroMensajeria.Vista.RazonSocialCliente = _registroCliente.Vista.RazonSocial;
+            };
 
         _registroCliente.Vista.Mostrar();
         _registroCliente.Dispose();

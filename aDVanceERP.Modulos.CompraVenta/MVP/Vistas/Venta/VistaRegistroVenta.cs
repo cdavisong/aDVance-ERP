@@ -63,10 +63,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         set { }
     }
 
-    public string? RazonSocialCliente {
-        get => fieldNombreCliente.Text;
-        set => fieldNombreCliente.Text = value;
-    }
+    public string? RazonSocialCliente { get; set; } = "Anónimo";
 
     public string? NombreAlmacen {
         get => fieldNombreAlmacen.Text;
@@ -172,9 +169,19 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
 
             CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
+
+            fieldNombreArticulo.Focus();
         };
         fieldCantidad.TextChanged += delegate {
             btnAdicionarArticulo.Enabled = Cantidad > 0;
+        };
+        fieldNombreArticulo.KeyDown += delegate (object? sender, KeyEventArgs args) {
+            if (args.KeyCode != Keys.Enter)
+                return;
+
+            fieldCantidad.Focus();
+
+            args.SuppressKeyPress = true;
         };
         fieldCantidad.KeyDown += delegate(object? sender, KeyEventArgs args) {
             if (args.KeyCode != Keys.Enter)
@@ -213,14 +220,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         // Enlace de scanner
         UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
-
-    public void CargarRazonesSocialesClientes(object[] nombresClientes) {
-        fieldNombreCliente.Items.Clear();
-        fieldNombreCliente.Items.Add("Anónimo");
-        fieldNombreCliente.Items.AddRange(nombresClientes);
-        fieldNombreCliente.SelectedIndex = 0;
-    }
-
+        
     public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
         fieldNombreAlmacen.Items.Clear();
         fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
@@ -403,13 +403,14 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     public void Restaurar() {
         Fecha = DateTime.Now;
         RazonSocialCliente = string.Empty;
-        fieldNombreCliente.SelectedIndex = 0;
         NombreAlmacen = string.Empty;
         fieldNombreAlmacen.SelectedIndex = 0;
         NombreArticulo = string.Empty;
         fieldNombreArticulo.AutoCompleteCustomSource.Clear();
         Total = 0;
         ModoEdicionDatos = false;
+
+        fieldNombreArticulo.Focus();
     }
 
     public void Ocultar() {

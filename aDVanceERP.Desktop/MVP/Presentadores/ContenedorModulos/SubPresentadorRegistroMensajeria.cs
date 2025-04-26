@@ -16,10 +16,12 @@ public partial class PresentadorContenedorModulos {
         _registroMensajeria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajeria.Vista.CargarNombresMensajeros(await UtilesMensajero.ObtenerNombresMensajeros());
         _registroMensajeria.Vista.CargarTiposEntrega();
+        _registroMensajeria.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
         _registroMensajeria.DatosRegistradosActualizados += delegate {
             if (_registroVentaArticulo == null) 
                 return;
 
+            _registroVentaArticulo.Vista.RazonSocialCliente = _registroMensajeria.Vista.RazonSocialCliente;
             _registroVentaArticulo.Vista.Direccion = _registroMensajeria.Vista.Direccion;
             _registroVentaArticulo.Vista.TipoEntrega = _registroMensajeria.Vista.TipoEntrega;
             _registroVentaArticulo.Vista.EstadoEntrega = "Pendiente";
@@ -32,8 +34,9 @@ public partial class PresentadorContenedorModulos {
 
         if (_registroMensajeria != null && _registroVentaArticulo != null) {
             _registroMensajeria.Vista.IdVenta = _proximoIdVenta;
-            _registroMensajeria.Vista.PopularDatosCliente(_registroVentaArticulo.Vista.RazonSocialCliente);
             _registroMensajeria.Vista.PopularArticulosVenta(_registroVentaArticulo.Vista.Articulos);
+            _registroMensajeria.Vista.AsignarNuevoMensajero += MostrarVistaRegistroMensajero;
+            _registroMensajeria.Vista.AsignarNuevoCliente += MostrarVistaRegistroCliente;
             _registroMensajeria.Vista.Mostrar();
         }
 
@@ -50,7 +53,7 @@ public partial class PresentadorContenedorModulos {
 
                     if (seguimientoEntrega != null) {
                         _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
-                        _registroMensajeria.Vista.PopularDatosCliente(_registroVentaArticulo.Vista.RazonSocialCliente);
+                        _registroMensajeria.Vista.RazonSocialCliente = _registroVentaArticulo.Vista.RazonSocialCliente;
                         _registroMensajeria.Vista.PopularArticulosVenta(_registroVentaArticulo.Vista.Articulos);
                         _registroMensajeria.Vista.Mostrar();
                     }

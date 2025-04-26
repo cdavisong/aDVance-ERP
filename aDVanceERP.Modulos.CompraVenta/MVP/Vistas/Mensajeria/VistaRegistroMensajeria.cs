@@ -30,7 +30,14 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
 
     public long IdVenta { get; set; }
 
-    public string? NombreCliente { get; private set; }
+    public string? RazonSocialCliente {
+        get => fieldRazonSocialCliente.Text;
+        set { 
+            fieldRazonSocialCliente.Text = value;
+
+            PopularDatosCliente(value);
+        }
+    }
 
     public string? TelefonosCliente { get; private set; }
 
@@ -65,6 +72,8 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
     public bool ModoEdicionDatos {
         get => _modoEdicion;
         set {
+            btnAdicionarMensajero.Enabled = !value;
+            btnAdicionarCliente.Enabled = !value;
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
             btnRegistrar.Text = value ? "Actualizar contacto" : "Registrar contacto";
             _modoEdicion = value;
@@ -76,15 +85,23 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         set => fieldObservaciones.Text = value;
     }
 
+    public event EventHandler? AsignarNuevoMensajero;
+    public event EventHandler? AsignarNuevoCliente;
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+    public event EventHandler? Salir;    
 
     public void Inicializar() {
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) {
             Salir?.Invoke(sender, args);
+        };
+        btnAdicionarMensajero.Click += delegate (object? sender, EventArgs args) {
+            AsignarNuevoMensajero?.Invoke(sender, args);
+        };
+        btnAdicionarCliente.Click += delegate (object? sender, EventArgs args) {
+            AsignarNuevoCliente?.Invoke(sender, args);
         };
         fieldNombreMensajero.SelectedIndexChanged += delegate {
             ActualizarResumenEntrega();
@@ -92,6 +109,10 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         fieldTipoEntrega.SelectedIndexChanged += delegate {
             DescripcionTipoEntrega = _descripcionesTiposEntrega[fieldTipoEntrega.SelectedIndex];
 
+            ActualizarResumenEntrega();
+        };
+        fieldRazonSocialCliente.TextChanged += delegate { 
+            PopularDatosCliente(RazonSocialCliente);
             ActualizarResumenEntrega();
         };
         fieldDireccion.TextChanged += delegate {
@@ -143,11 +164,19 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         _descripcionesTiposEntrega = descripciones.ToArray();
     }
 
-    public void PopularDatosCliente(string? nombreCliente) {
-        if (nombreCliente != null) {
-            NombreCliente = nombreCliente;
+    public void CargarRazonesSocialesClientes(string[] razonesSocialesClientes) {
+        fieldRazonSocialCliente.AutoCompleteCustomSource.Clear();
+        fieldRazonSocialCliente.AutoCompleteCustomSource.AddRange(razonesSocialesClientes);
+        fieldRazonSocialCliente.AutoCompleteMode = AutoCompleteMode.Suggest;
+        fieldRazonSocialCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
+    }
 
+    private void PopularDatosCliente(string? nombreCliente) {
+        if (nombreCliente != null) {
             var idCliente = UtilesCliente.ObtenerIdCliente(nombreCliente);
+
+            if (idCliente == 0)
+                return;
 
             TelefonosCliente = UtilesTelefonoContacto.ObtenerTelefonoCliente(idCliente, true) ?? UtilesTelefonoContacto.ObtenerTelefonoCliente(idCliente, false);
             Direccion = UtilesCliente.ObtenerDireccionCliente(idCliente);
@@ -193,7 +222,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
     <div class='seccion-cliente' style='margin-bottom: 10px;'>
         <h4 style='margin-bottom: 5px;'>Datos del cliente</h4>
         <hr style='margin: 5px 0;'>
-        <p style='margin: 2px 0;'><strong>Nombre:</strong> {NombreCliente}</p>
+        <p style='margin: 2px 0;'><strong>Nombre:</strong> {RazonSocialCliente}</p>
         <p style='margin: 2px 0;'><strong>Teléfonos:</strong> {TelefonosCliente}</p>
         <p style='margin: 2px 0;'><strong>Dirección:</strong> {Direccion}</p>
         <p style='margin: 2px 0;'><strong>Observaciones:</strong> {Observaciones}</p>

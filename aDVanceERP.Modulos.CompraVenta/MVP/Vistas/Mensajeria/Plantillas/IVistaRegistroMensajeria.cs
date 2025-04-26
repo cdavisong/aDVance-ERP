@@ -4,7 +4,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria.Plantillas;
 
 public interface IVistaRegistroMensajeria : IVistaRegistro {
     long IdVenta { get; set; }
-    string? NombreCliente { get; }
+    string? RazonSocialCliente { get; set; }
     string? TelefonosCliente { get; }
     string? NombreMensajero { get; set; }
     string? TipoEntrega { get; set; }
@@ -13,8 +13,11 @@ public interface IVistaRegistroMensajeria : IVistaRegistro {
     string? Observaciones { get; set; }
     string ResumenEntrega { get; set; }
 
+    event EventHandler? AsignarNuevoMensajero;
+    event EventHandler? AsignarNuevoCliente;
+
     void CargarNombresMensajeros(object[] nombresMensajeros);
     void CargarTiposEntrega();
-    void PopularDatosCliente(string? nombreCliente);
+    void CargarRazonesSocialesClientes(string[] razonesSocialesClientes);
     void PopularArticulosVenta(List<string[]>? datosArticulos);
 }
