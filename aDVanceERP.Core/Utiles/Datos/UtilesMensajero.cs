@@ -89,7 +89,8 @@ public static class UtilesMensajero {
     public static async Task<object[]> ObtenerNombresMensajeros() {
         const string query = """
                              SELECT nombre
-                             FROM adv__mensajero;
+                             FROM adv__mensajero
+                             WHERE activo = '1';
                              """;
 
         var nombres = await EjecutarConsultaLista(query, lector => lector.GetString(lector.GetOrdinal("nombre")));

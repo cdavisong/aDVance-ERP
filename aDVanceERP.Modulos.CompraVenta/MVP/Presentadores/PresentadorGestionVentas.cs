@@ -79,8 +79,6 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 break;
             }
 
-        Vista.HabilitarBtnConfirmarEntrega = false;
-
         _ = RefrescarListaObjetos();
     }
 

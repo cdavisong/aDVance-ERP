@@ -5,7 +5,7 @@ using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero;
 
 public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
     private int _paginaActual = 1;
@@ -33,14 +33,19 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
 
     public CriterioBusquedaMensajero CriterioBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaMensajero)fieldCriterioBusqueda.SelectedIndex
+            ? (CriterioBusquedaMensajero) fieldCriterioBusqueda.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldCriterioBusqueda.SelectedIndex = (int) value;
     }
 
     public string DatoBusqueda {
         get => fieldDatoBusqueda.Text;
         set => fieldDatoBusqueda.Text = value;
+    }
+
+    public bool MostrarBtnHabilitarDeshabilitarMensajero {
+        get => btnHabilitarDeshabilitarMensajero.Visible;
+        set => btnHabilitarDeshabilitarMensajero.Visible = value;
     }
 
     public int AlturaContenedorVistas {
@@ -81,47 +86,53 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
     public event EventHandler? BuscarDatos;
+    public event EventHandler? HabilitarDeshabilitarMensajero;
 
     public void Inicializar() {
         // Variables locales
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
+        fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
-        btnCerrar.Click += delegate(object? sender, EventArgs e) {
+        btnCerrar.Click += delegate (object? sender, EventArgs e) {
             Salir?.Invoke(sender, e);
             Ocultar();
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
-        btnPrimeraPagina.Click += delegate(object? sender, EventArgs e) {
+        btnHabilitarDeshabilitarMensajero.Click += delegate (object? sender, EventArgs e) {
+            HabilitarDeshabilitarMensajero?.Invoke(sender, e);
+        };
+        btnRegistrar.Click += delegate (object? sender, EventArgs e) { 
+            RegistrarDatos?.Invoke(sender, e); 
+        };
+        btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = 1;
             MostrarPrimeraPagina?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnPaginaAnterior.Click += delegate(object? sender, EventArgs e) {
+        btnPaginaAnterior.Click += delegate (object? sender, EventArgs e) {
             PaginaActual--;
             MostrarPaginaAnterior?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnPaginaSiguiente.Click += delegate(object? sender, EventArgs e) {
+        btnPaginaSiguiente.Click += delegate (object? sender, EventArgs e) {
             PaginaActual++;
             MostrarPaginaSiguiente?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnUltimaPagina.Click += delegate(object? sender, EventArgs e) {
+        btnUltimaPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = PaginasTotales;
             MostrarUltimaPagina?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnSincronizarDatos.Click += delegate(object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
+        btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
         contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
     }
 
@@ -153,6 +164,7 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
         Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
+        MostrarBtnHabilitarDeshabilitarMensajero = false;
 
         fieldCriterioBusqueda.SelectedIndex = 0;
     }

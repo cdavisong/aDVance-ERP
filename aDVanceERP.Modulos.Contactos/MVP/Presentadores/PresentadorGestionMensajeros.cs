@@ -8,7 +8,12 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
 public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTuplaMensajero, IVistaGestionMensajeros,
     IVistaTuplaMensajero, Mensajero, DatosMensajero, CriterioBusquedaMensajero> {
-    public PresentadorGestionMensajeros(IVistaGestionMensajeros vista) : base(vista) { }
+    public PresentadorGestionMensajeros(IVistaGestionMensajeros vista) : base(vista) {
+        vista.HabilitarDeshabilitarMensajero += IntercambiarHabilitacionMensajero;
+        vista.EditarDatos += delegate {
+            Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
+        };
+    }
 
     protected override PresentadorTuplaMensajero ObtenerValoresTupla(Mensajero objeto) {
         var presentadorTupla = new PresentadorTuplaMensajero(new VistaTuplaMensajero(), objeto);
@@ -40,7 +45,48 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         }
 
         presentadorTupla.Vista.Activo = objeto.Activo;
+        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnHabilitacionMensajero;
+        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnHabilitacionMensajero;
 
         return presentadorTupla;
+    }
+
+    public override Task RefrescarListaObjetos() {
+        // Cambiar la visibilidad de los botones
+        Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
+
+        return base.RefrescarListaObjetos();
+    }
+
+    private void IntercambiarHabilitacionMensajero(object? sender, EventArgs e) {
+        // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
+        var tuplasSeleccionadas = _tuplasObjetos.Where(t => t.TuplaSeleccionada).ToList();
+
+        if (!tuplasSeleccionadas.Any()) {
+            Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
+            return;
+        }
+
+        // 2. Mover la instancia de DatosMensajero fuera del bucle
+        using (var datosMensajero = new DatosMensajero()) {
+            foreach (var tupla in tuplasSeleccionadas) {
+                var mensajero = new Mensajero(
+                        long.Parse(tupla.Vista.Id),
+                        tupla.Vista.Nombre,
+                        !tupla.Vista.Activo,
+                        tupla.Objeto.IdContacto
+                    );
+
+                // 3. Actualizar el mensajero 1 vez por tupla
+                datosMensajero.Editar(mensajero);
+            }
+        }
+
+        Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
+        _ = RefrescarListaObjetos();
+    }
+
+    private void CambiarVisibilidadBtnHabilitacionMensajero(object? sender, EventArgs e) {
+        Vista.MostrarBtnHabilitarDeshabilitarMensajero = _tuplasObjetos.Any(t => t.TuplaSeleccionada);
     }
 }
