@@ -28,10 +28,10 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaCliente));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -39,8 +39,9 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldNumero = new Label();
             fieldId = new Label();
             btnEditar = new Guna2Button();
-            fieldNombreContacto = new Label();
             fieldRazonSocial = new Label();
+            fieldTelefonos = new Label();
+            fieldDireccion = new Label();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             SuspendLayout();
@@ -70,21 +71,23 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             // layoutVista
             // 
             layoutVista.BackColor = Color.White;
-            layoutVista.ColumnCount = 8;
+            layoutVista.ColumnCount = 9;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutVista.Controls.Add(btnEliminar, 7, 0);
+            layoutVista.Controls.Add(btnEliminar, 8, 0);
             layoutVista.Controls.Add(fieldNumero, 1, 0);
             layoutVista.Controls.Add(fieldId, 0, 0);
-            layoutVista.Controls.Add(btnEditar, 6, 0);
-            layoutVista.Controls.Add(fieldNombreContacto, 3, 0);
+            layoutVista.Controls.Add(btnEditar, 7, 0);
             layoutVista.Controls.Add(fieldRazonSocial, 2, 0);
+            layoutVista.Controls.Add(fieldTelefonos, 3, 0);
+            layoutVista.Controls.Add(fieldDireccion, 4, 0);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(0, 0, 0, 1);
@@ -103,7 +106,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
             btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges1;
+            btnEliminar.CustomizableEdges = customizableEdges9;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.White;
             btnEliminar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -113,7 +116,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 11;
             // 
@@ -128,7 +131,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldNumero.Name = "fieldNumero";
             fieldNumero.Size = new Size(128, 39);
             fieldNumero.TabIndex = 4;
-            fieldNumero.Text = "CTL-521-C-4313";
+            fieldNumero.Text = "numeroIdentidad";
             fieldNumero.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldId
@@ -154,7 +157,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
             btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges3;
+            btnEditar.CustomizableEdges = customizableEdges11;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
             btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -163,23 +166,9 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             btnEditar.HoverState.FillColor = Color.PeachPuff;
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 9;
-            // 
-            // fieldNombreContacto
-            // 
-            fieldNombreContacto.Dock = DockStyle.Fill;
-            fieldNombreContacto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreContacto.ForeColor = Color.DimGray;
-            fieldNombreContacto.ImeMode = ImeMode.NoControl;
-            fieldNombreContacto.Location = new Point(441, 1);
-            fieldNombreContacto.Margin = new Padding(1);
-            fieldNombreContacto.Name = "fieldNombreContacto";
-            fieldNombreContacto.Size = new Size(248, 39);
-            fieldNombreContacto.TabIndex = 14;
-            fieldNombreContacto.Text = "nombreContacto";
-            fieldNombreContacto.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldRazonSocial
             // 
@@ -195,6 +184,36 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldRazonSocial.TabIndex = 6;
             fieldRazonSocial.Text = "razonSocial";
             fieldRazonSocial.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // fieldTelefonos
+            // 
+            fieldTelefonos.AutoEllipsis = true;
+            fieldTelefonos.Dock = DockStyle.Fill;
+            fieldTelefonos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTelefonos.ForeColor = Color.DimGray;
+            fieldTelefonos.ImeMode = ImeMode.NoControl;
+            fieldTelefonos.Location = new Point(441, 1);
+            fieldTelefonos.Margin = new Padding(1);
+            fieldTelefonos.Name = "fieldTelefonos";
+            fieldTelefonos.Size = new Size(248, 39);
+            fieldTelefonos.TabIndex = 16;
+            fieldTelefonos.Text = "telefonos";
+            fieldTelefonos.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // fieldDireccion
+            // 
+            fieldDireccion.AutoEllipsis = true;
+            fieldDireccion.Dock = DockStyle.Fill;
+            fieldDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDireccion.ForeColor = Color.DimGray;
+            fieldDireccion.ImeMode = ImeMode.NoControl;
+            fieldDireccion.Location = new Point(691, 1);
+            fieldDireccion.Margin = new Padding(1);
+            fieldDireccion.Name = "fieldDireccion";
+            fieldDireccion.Size = new Size(248, 39);
+            fieldDireccion.TabIndex = 17;
+            fieldDireccion.Text = "direccion";
+            fieldDireccion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // VistaTuplaCliente
             // 
@@ -224,7 +243,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
         private Label fieldNumero;
         private Label fieldId;
         private Guna2Button btnEditar;
-        private Label fieldNombreContacto;
         private Label fieldRazonSocial;
+        private Label fieldTelefonos;
+        private Label fieldDireccion;
     }
 }

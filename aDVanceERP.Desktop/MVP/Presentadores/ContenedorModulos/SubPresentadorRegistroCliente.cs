@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Desktop.Utiles;
+﻿using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente;
@@ -11,11 +10,11 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaRegistroCliente() {
         _registroCliente = new PresentadorRegistroCliente(new VistaRegistroCliente());
-        _registroCliente.Vista.CargarNombresContactos(UtilesContacto.ObtenerNombresContactos());
         _registroCliente.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
         _registroCliente.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCliente.Salir += async (sender, e) => {
-            await _gestionClientes.RefrescarListaObjetos();
+        _registroCliente.DatosRegistradosActualizados += async delegate {
+            if (_gestionClientes != null)
+                await _gestionClientes.RefrescarListaObjetos();
         };
     }
 

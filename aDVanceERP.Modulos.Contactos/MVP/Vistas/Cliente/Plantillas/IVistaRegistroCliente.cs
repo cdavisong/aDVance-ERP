@@ -2,10 +2,10 @@
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas; 
 
-public interface IVistaRegistroCliente : IVistaRegistro {
-    string? Numero { get; set; }
+public interface IVistaRegistroCliente : IVistaRegistro {    
     string? RazonSocial { get; set; }
-    string NombreContacto { get; set; }
-
-    void CargarNombresContactos(object[] nombresContactos);
+    string? Numero { get; set; }
+    string TelefonoMovil { get; set; }
+    string TelefonoFijo { get; set; }
+    string Direccion { get; set; }
 }

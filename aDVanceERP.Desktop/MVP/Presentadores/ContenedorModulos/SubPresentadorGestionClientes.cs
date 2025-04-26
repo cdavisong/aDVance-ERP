@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorGestionClientes _gestionClientes;
+    private PresentadorGestionClientes? _gestionClientes;
 
     private async void InicializarVistaGestionClientes() {
         _gestionClientes = new PresentadorGestionClientes(new VistaGestionClientes());

@@ -24,8 +24,16 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     public virtual long Adicionar(O objeto) {
-        EjecutarComandoNoQuery(ComandoAdicionar(objeto));
-        return EjecutarConsultaEscalar<long>("SELECT LAST_INSERT_ID();");
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            conexion.Open();
+
+            using (var comando = conexion.CreateCommand()) {
+                comando.CommandText = ComandoAdicionar(objeto);
+                comando.ExecuteNonQuery();
+
+                return comando.LastInsertedId;
+            }
+        }
     }
 
     public virtual async Task<long> AdicionarAsync(O objeto) {

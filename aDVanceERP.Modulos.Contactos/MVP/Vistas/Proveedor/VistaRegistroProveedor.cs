@@ -35,6 +35,29 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
         set => fieldRazonSocial.Text = value;
     }
 
+    public string TelefonoMovil {
+        get => fieldTelefonoMovil.Text;
+        set => fieldTelefonoMovil.Text = value;
+    }
+
+    public string TelefonoFijo {
+        get => fieldTelefonoFijo.Text;
+        set => fieldTelefonoFijo.Text = value;
+    }
+
+    public string CorreoElectronico {
+        get => fieldCorreoElectronico.Text;
+        set => fieldCorreoElectronico.Text = value;
+    }
+
+    public string Direccion {
+        get => fieldDireccion.Text;
+        set {
+            fieldDireccion.Text = value;
+            fieldDireccion.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
+        }
+    }
+
     public string NombreRepresentante {
         get => fieldNombreContacto.Text;
         set => fieldNombreContacto.Text = value;
@@ -43,6 +66,10 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
     public bool ModoEdicionDatos {
         get => _modoEdicion;
         set {
+            fieldTelefonoMovil.ReadOnly = value;
+            fieldTelefonoFijo.ReadOnly = value;
+            fieldCorreoElectronico.ReadOnly = value;
+            fieldDireccion.ReadOnly = value;
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
             btnRegistrar.Text = value ? "Actualizar cliente" : "Crear cliente";
             _modoEdicion = value;
@@ -80,6 +107,10 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
     public void Restaurar() {
         NumeroIdentificacionTributaria = string.Empty;
         RazonSocial = string.Empty;
+        TelefonoMovil = string.Empty;
+        TelefonoFijo = string.Empty;
+        CorreoElectronico = string.Empty;
+        Direccion = string.Empty;
         NombreRepresentante = string.Empty;
         fieldNombreContacto.SelectedIndex = -1;
         ModoEdicionDatos = false;

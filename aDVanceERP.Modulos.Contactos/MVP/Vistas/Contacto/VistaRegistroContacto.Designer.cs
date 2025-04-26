@@ -29,24 +29,24 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaRegistroContacto));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -120,7 +120,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             layoutVista.Location = new Point(13, 0);
             layoutVista.Margin = new Padding(3, 0, 0, 0);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 16;
+            layoutVista.RowCount = 15;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
@@ -136,8 +136,6 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(487, 620);
             layoutVista.TabIndex = 0;
             // 
@@ -172,7 +170,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldNombreUsuario.BorderColor = Color.Gainsboro;
             fieldNombreUsuario.BorderRadius = 16;
             fieldNombreUsuario.Cursor = Cursors.IBeam;
-            fieldNombreUsuario.CustomizableEdges = customizableEdges1;
+            fieldNombreUsuario.CustomizableEdges = customizableEdges19;
             fieldNombreUsuario.DefaultText = "";
             fieldNombreUsuario.DisabledState.BorderColor = Color.White;
             fieldNombreUsuario.DisabledState.ForeColor = Color.DimGray;
@@ -191,7 +189,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldNombreUsuario.PlaceholderForeColor = Color.DimGray;
             fieldNombreUsuario.PlaceholderText = "Nombre del contacto";
             fieldNombreUsuario.SelectedText = "";
-            fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges20;
             fieldNombreUsuario.Size = new Size(407, 35);
             fieldNombreUsuario.TabIndex = 1;
             fieldNombreUsuario.TextOffset = new Point(5, 0);
@@ -218,7 +216,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges3;
+            btnCerrar.CustomizableEdges = customizableEdges31;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -227,7 +225,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(370, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges32;
             btnCerrar.Size = new Size(44, 39);
             btnCerrar.TabIndex = 1;
             // 
@@ -250,7 +248,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldCorreoElectronico.BorderColor = Color.Gainsboro;
             fieldCorreoElectronico.BorderRadius = 16;
             fieldCorreoElectronico.Cursor = Cursors.IBeam;
-            fieldCorreoElectronico.CustomizableEdges = customizableEdges5;
+            fieldCorreoElectronico.CustomizableEdges = customizableEdges21;
             fieldCorreoElectronico.DefaultText = "";
             fieldCorreoElectronico.DisabledState.BorderColor = Color.White;
             fieldCorreoElectronico.DisabledState.ForeColor = Color.DimGray;
@@ -269,7 +267,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldCorreoElectronico.PlaceholderForeColor = Color.DimGray;
             fieldCorreoElectronico.PlaceholderText = "Correo electrónico";
             fieldCorreoElectronico.SelectedText = "";
-            fieldCorreoElectronico.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldCorreoElectronico.ShadowDecoration.CustomizableEdges = customizableEdges22;
             fieldCorreoElectronico.Size = new Size(407, 35);
             fieldCorreoElectronico.TabIndex = 3;
             fieldCorreoElectronico.TextOffset = new Point(5, 0);
@@ -280,9 +278,9 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTelefonoMovil.BorderColor = Color.Gainsboro;
             fieldTelefonoMovil.BorderRadius = 16;
             fieldTelefonoMovil.Cursor = Cursors.IBeam;
-            customizableEdges7.BottomLeft = false;
-            customizableEdges7.BottomRight = false;
-            fieldTelefonoMovil.CustomizableEdges = customizableEdges7;
+            customizableEdges23.BottomLeft = false;
+            customizableEdges23.BottomRight = false;
+            fieldTelefonoMovil.CustomizableEdges = customizableEdges23;
             fieldTelefonoMovil.DefaultText = "";
             fieldTelefonoMovil.DisabledState.BorderColor = Color.White;
             fieldTelefonoMovil.DisabledState.ForeColor = Color.DimGray;
@@ -301,7 +299,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTelefonoMovil.PlaceholderForeColor = Color.DimGray;
             fieldTelefonoMovil.PlaceholderText = "Teléfono móvil";
             fieldTelefonoMovil.SelectedText = "";
-            fieldTelefonoMovil.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            fieldTelefonoMovil.ShadowDecoration.CustomizableEdges = customizableEdges24;
             fieldTelefonoMovil.Size = new Size(407, 37);
             fieldTelefonoMovil.TabIndex = 15;
             fieldTelefonoMovil.TextOffset = new Point(5, 0);
@@ -312,9 +310,9 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTelefonoFijo.BorderColor = Color.Gainsboro;
             fieldTelefonoFijo.BorderRadius = 16;
             fieldTelefonoFijo.Cursor = Cursors.IBeam;
-            customizableEdges9.TopLeft = false;
-            customizableEdges9.TopRight = false;
-            fieldTelefonoFijo.CustomizableEdges = customizableEdges9;
+            customizableEdges25.TopLeft = false;
+            customizableEdges25.TopRight = false;
+            fieldTelefonoFijo.CustomizableEdges = customizableEdges25;
             fieldTelefonoFijo.DefaultText = "";
             fieldTelefonoFijo.DisabledState.BorderColor = Color.White;
             fieldTelefonoFijo.DisabledState.ForeColor = Color.DimGray;
@@ -333,7 +331,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldTelefonoFijo.PlaceholderForeColor = Color.DimGray;
             fieldTelefonoFijo.PlaceholderText = "Teléfono fijo";
             fieldTelefonoFijo.SelectedText = "";
-            fieldTelefonoFijo.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            fieldTelefonoFijo.ShadowDecoration.CustomizableEdges = customizableEdges26;
             fieldTelefonoFijo.Size = new Size(407, 37);
             fieldTelefonoFijo.TabIndex = 16;
             fieldTelefonoFijo.TextOffset = new Point(5, 0);
@@ -344,7 +342,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldDireccion.BorderColor = Color.Gainsboro;
             fieldDireccion.BorderRadius = 16;
             fieldDireccion.Cursor = Cursors.IBeam;
-            fieldDireccion.CustomizableEdges = customizableEdges11;
+            fieldDireccion.CustomizableEdges = customizableEdges27;
             fieldDireccion.DefaultText = "";
             fieldDireccion.DisabledState.BorderColor = Color.White;
             fieldDireccion.DisabledState.ForeColor = Color.DimGray;
@@ -364,7 +362,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldDireccion.PlaceholderForeColor = Color.DimGray;
             fieldDireccion.PlaceholderText = "Dirección";
             fieldDireccion.SelectedText = "";
-            fieldDireccion.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            fieldDireccion.ShadowDecoration.CustomizableEdges = customizableEdges28;
             fieldDireccion.Size = new Size(407, 62);
             fieldDireccion.TabIndex = 21;
             fieldDireccion.TextOffset = new Point(5, 0);
@@ -375,7 +373,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldNotas.BorderColor = Color.Gainsboro;
             fieldNotas.BorderRadius = 16;
             fieldNotas.Cursor = Cursors.IBeam;
-            fieldNotas.CustomizableEdges = customizableEdges13;
+            fieldNotas.CustomizableEdges = customizableEdges29;
             fieldNotas.DefaultText = "";
             fieldNotas.DisabledState.BorderColor = Color.White;
             fieldNotas.DisabledState.ForeColor = Color.DimGray;
@@ -395,7 +393,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             fieldNotas.PlaceholderForeColor = Color.DimGray;
             fieldNotas.PlaceholderText = "Notas";
             fieldNotas.SelectedText = "";
-            fieldNotas.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldNotas.ShadowDecoration.CustomizableEdges = customizableEdges30;
             fieldNotas.Size = new Size(407, 62);
             fieldNotas.TabIndex = 22;
             fieldNotas.TextOffset = new Point(5, 0);
@@ -426,7 +424,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges15;
+            btnSalir.CustomizableEdges = customizableEdges33;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -436,7 +434,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges34;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 14;
             btnSalir.Text = "Salir";
@@ -445,14 +443,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto {
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges17;
+            btnRegistrar.CustomizableEdges = customizableEdges35;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges36;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Registrar contacto";

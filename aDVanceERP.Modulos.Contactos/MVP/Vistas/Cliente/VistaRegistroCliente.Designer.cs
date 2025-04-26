@@ -32,6 +32,10 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -45,16 +49,17 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             layoutVista = new TableLayoutPanel();
             fieldIcono = new PictureBox();
             fieldSubtitulo = new Label();
-            fieldNumero = new Guna2TextBox();
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
             fieldRazonSocial = new Guna2TextBox();
-            fieldTituloNombreContacto = new Label();
-            fieldNombreContacto = new Guna2ComboBox();
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
+            fieldNumero = new Guna2TextBox();
+            fieldTelefonoMovil = new Guna2TextBox();
+            fieldTelefonoFijo = new Guna2TextBox();
+            fieldDireccion = new Guna2TextBox();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
@@ -100,11 +105,12 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.Controls.Add(fieldIcono, 1, 1);
             layoutVista.Controls.Add(fieldSubtitulo, 2, 2);
-            layoutVista.Controls.Add(fieldNumero, 2, 4);
             layoutVista.Controls.Add(layoutTitulo, 2, 1);
-            layoutVista.Controls.Add(fieldRazonSocial, 2, 6);
-            layoutVista.Controls.Add(fieldTituloNombreContacto, 2, 8);
-            layoutVista.Controls.Add(fieldNombreContacto, 2, 9);
+            layoutVista.Controls.Add(fieldRazonSocial, 2, 4);
+            layoutVista.Controls.Add(fieldNumero, 2, 6);
+            layoutVista.Controls.Add(fieldTelefonoMovil, 2, 8);
+            layoutVista.Controls.Add(fieldTelefonoFijo, 2, 9);
+            layoutVista.Controls.Add(fieldDireccion, 2, 11);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(13, 0);
             layoutVista.Margin = new Padding(3, 0, 0, 0);
@@ -118,14 +124,11 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 43F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 43F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(487, 620);
@@ -156,38 +159,6 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldSubtitulo.TabIndex = 0;
             fieldSubtitulo.Text = "Registro";
             // 
-            // fieldNumero
-            // 
-            fieldNumero.Animated = true;
-            fieldNumero.BorderColor = Color.Gainsboro;
-            fieldNumero.BorderRadius = 16;
-            fieldNumero.Cursor = Cursors.IBeam;
-            fieldNumero.CustomizableEdges = customizableEdges1;
-            fieldNumero.DefaultText = "";
-            fieldNumero.DisabledState.BorderColor = Color.Gainsboro;
-            fieldNumero.DisabledState.BorderColor = Color.White;
-            fieldNumero.DisabledState.ForeColor = Color.DimGray;
-            fieldNumero.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldNumero.Dock = DockStyle.Fill;
-            fieldNumero.FillColor = Color.White;
-            fieldNumero.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNumero.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNumero.ForeColor = Color.Black;
-            fieldNumero.HoverState.BorderColor = Color.SandyBrown;
-            fieldNumero.IconLeft = (Image) resources.GetObject("fieldNumero.IconLeft");
-            fieldNumero.IconLeftOffset = new Point(10, 0);
-            fieldNumero.Location = new Point(55, 135);
-            fieldNumero.Margin = new Padding(5);
-            fieldNumero.Name = "fieldNumero";
-            fieldNumero.PasswordChar = '\0';
-            fieldNumero.PlaceholderForeColor = Color.DimGray;
-            fieldNumero.PlaceholderText = "Número de identificación del cliente";
-            fieldNumero.SelectedText = "";
-            fieldNumero.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            fieldNumero.Size = new Size(407, 35);
-            fieldNumero.TabIndex = 1;
-            fieldNumero.TextOffset = new Point(5, 0);
-            // 
             // layoutTitulo
             // 
             layoutTitulo.ColumnCount = 2;
@@ -210,7 +181,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges3;
+            btnCerrar.CustomizableEdges = customizableEdges1;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -219,7 +190,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(370, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnCerrar.Size = new Size(44, 39);
             btnCerrar.TabIndex = 1;
             // 
@@ -242,71 +213,29 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             fieldRazonSocial.BorderColor = Color.Gainsboro;
             fieldRazonSocial.BorderRadius = 16;
             fieldRazonSocial.Cursor = Cursors.IBeam;
-            fieldRazonSocial.CustomizableEdges = customizableEdges5;
+            fieldRazonSocial.CustomizableEdges = customizableEdges3;
             fieldRazonSocial.DefaultText = "";
-            fieldRazonSocial.DisabledState.BorderColor = Color.Gainsboro;
             fieldRazonSocial.DisabledState.BorderColor = Color.White;
             fieldRazonSocial.DisabledState.ForeColor = Color.DimGray;
             fieldRazonSocial.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldRazonSocial.Dock = DockStyle.Fill;
-            fieldRazonSocial.FillColor = Color.White;
             fieldRazonSocial.FocusedState.BorderColor = Color.SandyBrown;
             fieldRazonSocial.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldRazonSocial.ForeColor = Color.Black;
             fieldRazonSocial.HoverState.BorderColor = Color.SandyBrown;
             fieldRazonSocial.IconLeft = (Image) resources.GetObject("fieldRazonSocial.IconLeft");
             fieldRazonSocial.IconLeftOffset = new Point(10, 0);
-            fieldRazonSocial.Location = new Point(55, 190);
+            fieldRazonSocial.Location = new Point(55, 135);
             fieldRazonSocial.Margin = new Padding(5);
             fieldRazonSocial.Name = "fieldRazonSocial";
             fieldRazonSocial.PasswordChar = '\0';
             fieldRazonSocial.PlaceholderForeColor = Color.DimGray;
             fieldRazonSocial.PlaceholderText = "Razón social";
             fieldRazonSocial.SelectedText = "";
-            fieldRazonSocial.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldRazonSocial.ShadowDecoration.CustomizableEdges = customizableEdges4;
             fieldRazonSocial.Size = new Size(407, 35);
             fieldRazonSocial.TabIndex = 3;
             fieldRazonSocial.TextOffset = new Point(5, 0);
-            // 
-            // fieldTituloNombreContacto
-            // 
-            fieldTituloNombreContacto.Dock = DockStyle.Fill;
-            fieldTituloNombreContacto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldTituloNombreContacto.ForeColor = Color.DimGray;
-            fieldTituloNombreContacto.Image = (Image) resources.GetObject("fieldTituloNombreContacto.Image");
-            fieldTituloNombreContacto.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloNombreContacto.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreContacto.Location = new Point(65, 245);
-            fieldTituloNombreContacto.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloNombreContacto.Name = "fieldTituloNombreContacto";
-            fieldTituloNombreContacto.Size = new Size(399, 27);
-            fieldTituloNombreContacto.TabIndex = 24;
-            fieldTituloNombreContacto.Text = "      Nombre del contacto :";
-            fieldTituloNombreContacto.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fieldNombreContacto
-            // 
-            fieldNombreContacto.Animated = true;
-            fieldNombreContacto.BackColor = Color.Transparent;
-            fieldNombreContacto.BorderColor = Color.Gainsboro;
-            fieldNombreContacto.BorderRadius = 16;
-            fieldNombreContacto.CustomizableEdges = customizableEdges7;
-            fieldNombreContacto.Dock = DockStyle.Fill;
-            fieldNombreContacto.DrawMode = DrawMode.OwnerDrawFixed;
-            fieldNombreContacto.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldNombreContacto.FillColor = Color.White;
-            fieldNombreContacto.FocusedColor = Color.White;
-            fieldNombreContacto.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreContacto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreContacto.ForeColor = Color.Black;
-            fieldNombreContacto.ItemHeight = 29;
-            fieldNombreContacto.Location = new Point(55, 280);
-            fieldNombreContacto.Margin = new Padding(5);
-            fieldNombreContacto.Name = "fieldNombreContacto";
-            fieldNombreContacto.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldNombreContacto.Size = new Size(407, 35);
-            fieldNombreContacto.TabIndex = 25;
-            fieldNombreContacto.TextOffset = new Point(10, 0);
             // 
             // layoutBotones
             // 
@@ -334,7 +263,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges9;
+            btnSalir.CustomizableEdges = customizableEdges13;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -344,7 +273,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 14;
             btnSalir.Text = "Salir";
@@ -353,17 +282,142 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges11;
+            btnRegistrar.CustomizableEdges = customizableEdges15;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Crear cliente";
+            // 
+            // fieldNumero
+            // 
+            fieldNumero.Animated = true;
+            fieldNumero.BorderColor = Color.Gainsboro;
+            fieldNumero.BorderRadius = 16;
+            fieldNumero.Cursor = Cursors.IBeam;
+            fieldNumero.CustomizableEdges = customizableEdges5;
+            fieldNumero.DefaultText = "";
+            fieldNumero.DisabledState.BorderColor = Color.White;
+            fieldNumero.DisabledState.ForeColor = Color.DimGray;
+            fieldNumero.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldNumero.Dock = DockStyle.Fill;
+            fieldNumero.FocusedState.BorderColor = Color.SandyBrown;
+            fieldNumero.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNumero.ForeColor = Color.Black;
+            fieldNumero.HoverState.BorderColor = Color.SandyBrown;
+            fieldNumero.IconLeft = (Image) resources.GetObject("fieldNumero.IconLeft");
+            fieldNumero.IconLeftOffset = new Point(10, 0);
+            fieldNumero.Location = new Point(55, 190);
+            fieldNumero.Margin = new Padding(5);
+            fieldNumero.Name = "fieldNumero";
+            fieldNumero.PasswordChar = '\0';
+            fieldNumero.PlaceholderForeColor = Color.DimGray;
+            fieldNumero.PlaceholderText = "Número de Identificación";
+            fieldNumero.SelectedText = "";
+            fieldNumero.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldNumero.Size = new Size(407, 35);
+            fieldNumero.TabIndex = 15;
+            fieldNumero.TextOffset = new Point(5, 0);
+            // 
+            // fieldTelefonoMovil
+            // 
+            fieldTelefonoMovil.Animated = true;
+            fieldTelefonoMovil.BorderColor = Color.Gainsboro;
+            fieldTelefonoMovil.BorderRadius = 16;
+            fieldTelefonoMovil.Cursor = Cursors.IBeam;
+            customizableEdges7.BottomLeft = false;
+            customizableEdges7.BottomRight = false;
+            fieldTelefonoMovil.CustomizableEdges = customizableEdges7;
+            fieldTelefonoMovil.DefaultText = "";
+            fieldTelefonoMovil.DisabledState.BorderColor = Color.White;
+            fieldTelefonoMovil.DisabledState.ForeColor = Color.DimGray;
+            fieldTelefonoMovil.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldTelefonoMovil.Dock = DockStyle.Fill;
+            fieldTelefonoMovil.FocusedState.BorderColor = Color.SandyBrown;
+            fieldTelefonoMovil.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTelefonoMovil.ForeColor = Color.Black;
+            fieldTelefonoMovil.HoverState.BorderColor = Color.SandyBrown;
+            fieldTelefonoMovil.IconLeft = (Image) resources.GetObject("fieldTelefonoMovil.IconLeft");
+            fieldTelefonoMovil.IconLeftOffset = new Point(10, 0);
+            fieldTelefonoMovil.Location = new Point(55, 244);
+            fieldTelefonoMovil.Margin = new Padding(5, 4, 5, 2);
+            fieldTelefonoMovil.Name = "fieldTelefonoMovil";
+            fieldTelefonoMovil.PasswordChar = '\0';
+            fieldTelefonoMovil.PlaceholderForeColor = Color.DimGray;
+            fieldTelefonoMovil.PlaceholderText = "Teléfono móvil";
+            fieldTelefonoMovil.SelectedText = "";
+            fieldTelefonoMovil.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            fieldTelefonoMovil.Size = new Size(407, 37);
+            fieldTelefonoMovil.TabIndex = 27;
+            fieldTelefonoMovil.TextOffset = new Point(5, 0);
+            // 
+            // fieldTelefonoFijo
+            // 
+            fieldTelefonoFijo.Animated = true;
+            fieldTelefonoFijo.BorderColor = Color.Gainsboro;
+            fieldTelefonoFijo.BorderRadius = 16;
+            fieldTelefonoFijo.Cursor = Cursors.IBeam;
+            customizableEdges9.TopLeft = false;
+            customizableEdges9.TopRight = false;
+            fieldTelefonoFijo.CustomizableEdges = customizableEdges9;
+            fieldTelefonoFijo.DefaultText = "";
+            fieldTelefonoFijo.DisabledState.BorderColor = Color.White;
+            fieldTelefonoFijo.DisabledState.ForeColor = Color.DimGray;
+            fieldTelefonoFijo.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldTelefonoFijo.Dock = DockStyle.Fill;
+            fieldTelefonoFijo.FocusedState.BorderColor = Color.SandyBrown;
+            fieldTelefonoFijo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTelefonoFijo.ForeColor = Color.Black;
+            fieldTelefonoFijo.HoverState.BorderColor = Color.SandyBrown;
+            fieldTelefonoFijo.IconLeft = (Image) resources.GetObject("fieldTelefonoFijo.IconLeft");
+            fieldTelefonoFijo.IconLeftOffset = new Point(10, 0);
+            fieldTelefonoFijo.Location = new Point(55, 285);
+            fieldTelefonoFijo.Margin = new Padding(5, 2, 5, 4);
+            fieldTelefonoFijo.Name = "fieldTelefonoFijo";
+            fieldTelefonoFijo.PasswordChar = '\0';
+            fieldTelefonoFijo.PlaceholderForeColor = Color.DimGray;
+            fieldTelefonoFijo.PlaceholderText = "Teléfono fijo";
+            fieldTelefonoFijo.SelectedText = "";
+            fieldTelefonoFijo.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            fieldTelefonoFijo.Size = new Size(407, 37);
+            fieldTelefonoFijo.TabIndex = 28;
+            fieldTelefonoFijo.TextOffset = new Point(5, 0);
+            // 
+            // fieldDireccion
+            // 
+            fieldDireccion.Animated = true;
+            fieldDireccion.BorderColor = Color.Gainsboro;
+            fieldDireccion.BorderRadius = 16;
+            fieldDireccion.Cursor = Cursors.IBeam;
+            fieldDireccion.CustomizableEdges = customizableEdges11;
+            fieldDireccion.DefaultText = "";
+            fieldDireccion.DisabledState.BorderColor = Color.White;
+            fieldDireccion.DisabledState.ForeColor = Color.DimGray;
+            fieldDireccion.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldDireccion.Dock = DockStyle.Fill;
+            fieldDireccion.FocusedState.BorderColor = Color.SandyBrown;
+            fieldDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDireccion.ForeColor = Color.Black;
+            fieldDireccion.HoverState.BorderColor = Color.SandyBrown;
+            fieldDireccion.IconLeft = (Image) resources.GetObject("fieldDireccion.IconLeft");
+            fieldDireccion.IconLeftOffset = new Point(10, -11);
+            fieldDireccion.Location = new Point(55, 341);
+            fieldDireccion.Margin = new Padding(5);
+            fieldDireccion.Multiline = true;
+            fieldDireccion.Name = "fieldDireccion";
+            fieldDireccion.PasswordChar = '\0';
+            fieldDireccion.PlaceholderForeColor = Color.DimGray;
+            fieldDireccion.PlaceholderText = "Dirección";
+            fieldDireccion.SelectedText = "";
+            fieldDireccion.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            fieldDireccion.Size = new Size(407, 62);
+            fieldDireccion.TabIndex = 30;
+            fieldDireccion.TextOffset = new Point(5, 0);
             // 
             // VistaRegistroCliente
             // 
@@ -393,15 +447,16 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente {
         private TableLayoutPanel layoutVista;
         private PictureBox fieldIcono;
         private Label fieldSubtitulo;
-        private Guna2TextBox fieldNumero;
         private TableLayoutPanel layoutTitulo;
         private Guna2Button btnCerrar;
         private Label fieldTitulo;
         private Guna2TextBox fieldRazonSocial;
-        private Label fieldTituloNombreContacto;
-        private Guna2ComboBox fieldNombreContacto;
         private TableLayoutPanel layoutBotones;
         private Guna2Button btnSalir;
         private Guna2Button btnRegistrar;
+        private Guna2TextBox fieldNumero;
+        private Guna2TextBox fieldTelefonoMovil;
+        private Guna2TextBox fieldTelefonoFijo;
+        private Guna2TextBox fieldDireccion;
     }
 }

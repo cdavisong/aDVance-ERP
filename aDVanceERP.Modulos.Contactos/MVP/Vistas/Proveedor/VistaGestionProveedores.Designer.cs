@@ -82,6 +82,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             separador1 = new Guna2Separator();
             fieldSubtitulo = new Label();
             infoIcon = new Guna2NotificationPaint(components);
+            fieldTituloTelefonos = new Label();
+            fieldTituloDireccion = new Label();
             layoutVista.SuspendLayout();
             layoutHelp.SuspendLayout();
             layoutHerramientas.SuspendLayout();
@@ -542,9 +544,11 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             // layoutEncabezadosTabla
             // 
             layoutEncabezadosTabla.BackColor = Color.WhiteSmoke;
-            layoutEncabezadosTabla.ColumnCount = 8;
+            layoutEncabezadosTabla.ColumnCount = 10;
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 250F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -553,8 +557,10 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.Controls.Add(fieldTituloNumeroIdentificacionTributaria, 0, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloNombreRepresentante, 3, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloNombreRepresentante, 5, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloRazonSocial, 2, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloTelefonos, 2, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloDireccion, 3, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
             layoutEncabezadosTabla.Location = new Point(51, 326);
             layoutEncabezadosTabla.Margin = new Padding(1);
@@ -598,7 +604,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldTituloNombreRepresentante.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             fieldTituloNombreRepresentante.ForeColor = Color.Black;
             fieldTituloNombreRepresentante.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreRepresentante.Location = new Point(431, 1);
+            fieldTituloNombreRepresentante.Location = new Point(901, 1);
             fieldTituloNombreRepresentante.Margin = new Padding(1);
             fieldTituloNombreRepresentante.Name = "fieldTituloNombreRepresentante";
             fieldTituloNombreRepresentante.Size = new Size(248, 56);
@@ -615,7 +621,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             fieldTituloRazonSocial.Location = new Point(181, 1);
             fieldTituloRazonSocial.Margin = new Padding(1);
             fieldTituloRazonSocial.Name = "fieldTituloRazonSocial";
-            fieldTituloRazonSocial.Size = new Size(248, 56);
+            fieldTituloRazonSocial.Size = new Size(218, 56);
             fieldTituloRazonSocial.TabIndex = 4;
             fieldTituloRazonSocial.Text = "Razón social";
             fieldTituloRazonSocial.TextAlign = ContentAlignment.MiddleCenter;
@@ -695,6 +701,34 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
             infoIcon.TargetControl = layoutHelp;
             infoIcon.Text = "i";
             // 
+            // fieldTituloTelefonos
+            // 
+            fieldTituloTelefonos.Dock = DockStyle.Fill;
+            fieldTituloTelefonos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloTelefonos.ForeColor = Color.Black;
+            fieldTituloTelefonos.ImeMode = ImeMode.NoControl;
+            fieldTituloTelefonos.Location = new Point(401, 1);
+            fieldTituloTelefonos.Margin = new Padding(1);
+            fieldTituloTelefonos.Name = "fieldTituloTelefonos";
+            fieldTituloTelefonos.Size = new Size(248, 56);
+            fieldTituloTelefonos.TabIndex = 16;
+            fieldTituloTelefonos.Text = "Teléfonos";
+            fieldTituloTelefonos.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloDireccion
+            // 
+            fieldTituloDireccion.Dock = DockStyle.Fill;
+            fieldTituloDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloDireccion.ForeColor = Color.Black;
+            fieldTituloDireccion.ImeMode = ImeMode.NoControl;
+            fieldTituloDireccion.Location = new Point(651, 1);
+            fieldTituloDireccion.Margin = new Padding(1);
+            fieldTituloDireccion.Name = "fieldTituloDireccion";
+            fieldTituloDireccion.Size = new Size(248, 56);
+            fieldTituloDireccion.TabIndex = 17;
+            fieldTituloDireccion.Text = "Dirección";
+            fieldTituloDireccion.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // VistaGestionProveedores
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -756,5 +790,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor {
         private Label fieldTitulo;
         private TableLayoutPanel layoutHelp;
         private Guna2Button fieldInformacion;
+        private Label fieldTituloTelefonos;
+        private Label fieldTituloDireccion;
     }
 }

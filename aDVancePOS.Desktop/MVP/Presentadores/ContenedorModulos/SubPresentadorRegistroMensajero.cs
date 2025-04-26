@@ -11,12 +11,8 @@ public partial class PresentadorContenedorModulos {
 
     private Task InicializarVistaRegistroMensajero() {
         _registroMensajero = new PresentadorRegistroMensajero(new VistaRegistroMensajero());
-        _registroMensajero.Vista.CargarNombresContactos(UtilesContacto.ObtenerNombresContactos());
         _registroMensajero.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
         _registroMensajero.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroMensajero.Salir += async delegate {
-            
-        };
 
         return Task.CompletedTask;
     }

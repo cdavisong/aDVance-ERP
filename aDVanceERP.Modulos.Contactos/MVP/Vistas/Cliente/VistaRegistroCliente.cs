@@ -24,28 +24,41 @@ public partial class VistaRegistroCliente : Form, IVistaRegistroCliente {
         get => Size;
         set => Size = value;
     }
+    
+    public string? RazonSocial {
+        get => fieldRazonSocial.Text;
+        set => fieldRazonSocial.Text = value;
+    }
 
     public string? Numero {
         get => fieldNumero.Text;
         set => fieldNumero.Text = value;
     }
 
-    public string? RazonSocial {
-        get => fieldRazonSocial.Text;
-        set => fieldRazonSocial.Text = value;
+    public string TelefonoMovil {
+        get => fieldTelefonoMovil.Text;
+        set => fieldTelefonoMovil.Text = value;
     }
 
-    public string NombreContacto {
-        get => fieldNombreContacto.Text;
+    public string TelefonoFijo {
+        get => fieldTelefonoFijo.Text;
+        set => fieldTelefonoFijo.Text = value;
+    }
+
+    public string Direccion {
+        get => fieldDireccion.Text;
         set {
-            fieldNombreContacto.Text = value;
-            fieldNombreContacto.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
+            fieldDireccion.Text = value;
+            fieldDireccion.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
         }
     }
 
     public bool ModoEdicionDatos {
         get => _modoEdicion;
         set {
+            fieldTelefonoMovil.ReadOnly = value;
+            fieldTelefonoFijo.ReadOnly = value;
+            fieldDireccion.ReadOnly = value;
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
             btnRegistrar.Text = value ? "Actualizar cliente" : "Crear cliente";
             _modoEdicion = value;
@@ -59,21 +72,18 @@ public partial class VistaRegistroCliente : Form, IVistaRegistroCliente {
 
     public void Inicializar() {
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate(object? sender, EventArgs args) { 
+            Salir?.Invoke(sender, args); 
+        };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
-    }
-
-    public void CargarNombresContactos(object[] nombresContactos) {
-        fieldNombreContacto.Items.Clear();
-        fieldNombreContacto.Items.Add("Ninguno");
-        fieldNombreContacto.Items.AddRange(nombresContactos);
-        fieldNombreContacto.SelectedIndex = 0;
+        btnSalir.Click += delegate(object? sender, EventArgs args) { 
+            Salir?.Invoke(sender, args); 
+        };
     }
 
     public void Mostrar() {
@@ -84,8 +94,9 @@ public partial class VistaRegistroCliente : Form, IVistaRegistroCliente {
     public void Restaurar() {
         Numero = string.Empty;
         RazonSocial = string.Empty;
-        NombreContacto = string.Empty;
-        fieldNombreContacto.SelectedIndex = -1;
+        TelefonoMovil = string.Empty;
+        TelefonoFijo = string.Empty;
+        Direccion = string.Empty;
         ModoEdicionDatos = false;
     }
 

@@ -16,23 +16,27 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         presentadorTupla.Vista.Id = objeto.Id.ToString();
         presentadorTupla.Vista.Nombre = objeto.Nombre;
 
-        using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
-            var telefonosContacto = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto,
-                objeto.IdContacto.ToString());
-            var telefonoString = telefonosContacto.Aggregate(string.Empty,
-                (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
-
-            if (!string.IsNullOrEmpty(telefonoString))
-                telefonoString = telefonoString[..^2];
-
-            presentadorTupla.Vista.Telefonos = telefonoString;
-        }
-
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString())
-                .FirstOrDefault();
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Nombre, objeto.Nombre).FirstOrDefault();
 
-            presentadorTupla.Vista.Direccion = contacto?.Direccion ?? string.Empty;
+            if (contacto != null) {
+                using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+                    var telefonosContacto =
+                        datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
+                    var telefonoString = telefonosContacto.Aggregate(string.Empty,
+                        (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
+
+                    if (!string.IsNullOrEmpty(telefonoString))
+                        telefonoString = telefonoString[..^2];
+
+                    presentadorTupla.Vista.Telefonos = telefonoString;
+                }
+
+                presentadorTupla.Vista.Direccion = contacto.Direccion ?? string.Empty;
+            } else {
+                presentadorTupla.Vista.Telefonos = string.Empty;
+                presentadorTupla.Vista.Direccion = string.Empty;
+            }
         }
 
         presentadorTupla.Vista.Activo = objeto.Activo;

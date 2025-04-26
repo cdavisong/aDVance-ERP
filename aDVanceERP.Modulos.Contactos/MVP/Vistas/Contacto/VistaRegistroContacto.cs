@@ -74,14 +74,18 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
 
     public void Inicializar() {
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate(object? sender, EventArgs args) { 
+            Salir?.Invoke(sender, args); 
+        };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnSalir.Click += delegate(object? sender, EventArgs args) { 
+            Salir?.Invoke(sender, args); 
+        };
     }
 
     public void Mostrar() {

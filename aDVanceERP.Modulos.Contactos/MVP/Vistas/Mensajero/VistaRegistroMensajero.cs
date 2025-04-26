@@ -1,4 +1,6 @@
-﻿using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
+﻿using System.CodeDom;
+
+using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero; 
 
@@ -30,17 +32,15 @@ public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
         set => fieldNombre.Text = value;
     }
 
-    public string NombreContacto {
-        get => fieldNombreContacto.Text;
-        set {
-            fieldNombreContacto.Text = value;
-            fieldNombreContacto.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
-        }
+    public string TelefonoMovil {
+        get => fieldTelefonoMovil.Text;
+        set => fieldTelefonoMovil.Text = value;
     }
 
     public bool ModoEdicionDatos {
         get => _modoEdicion;
         set {
+            fieldTelefonoMovil.ReadOnly = value;
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
             btnRegistrar.Text = value ? "Actualizar contacto" : "Registrar contacto";
             _modoEdicion = value;
@@ -54,21 +54,18 @@ public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
 
     public void Inicializar() {
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate(object? sender, EventArgs args) { 
+            Salir?.Invoke(sender, args); 
+        };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
-    }
-
-    public void CargarNombresContactos(object[] nombresContactos) {
-        fieldNombreContacto.Items.Clear();
-        fieldNombreContacto.Items.Add("Ninguno");
-        fieldNombreContacto.Items.AddRange(nombresContactos);
-        fieldNombreContacto.SelectedIndex = 0;
+        btnSalir.Click += delegate(object? sender, EventArgs args) { 
+            Salir?.Invoke(sender, args); 
+        };
     }
 
     public void Mostrar() {
@@ -78,8 +75,7 @@ public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
 
     public void Restaurar() {
         Nombre = string.Empty;
-        NombreContacto = string.Empty;
-        fieldNombreContacto.SelectedIndex = -1;
+        TelefonoMovil = string.Empty;
         ModoEdicionDatos = false;
     }
 

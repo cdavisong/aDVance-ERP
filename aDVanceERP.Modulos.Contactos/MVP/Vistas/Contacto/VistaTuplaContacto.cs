@@ -48,7 +48,7 @@ public partial class VistaTuplaContacto : Form, IVistaTuplaContacto {
         get => fieldDireccion.Text;
         set {
             fieldDireccion.Text = value;
-            fieldDireccion.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
+            fieldDireccion.Margin = new Padding(1, value?.Length > 28 ? 10 : 1, 1, 1);
         }
     }
 

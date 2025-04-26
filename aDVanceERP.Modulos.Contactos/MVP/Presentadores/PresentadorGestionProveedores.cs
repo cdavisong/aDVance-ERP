@@ -15,10 +15,33 @@ public class PresentadorGestionProveedores : PresentadorGestionBase<PresentadorT
         var presentadorTupla = new PresentadorTuplaProveedor(new VistaTuplaProveedor(), objeto);
 
         presentadorTupla.Vista.Id = objeto.Id.ToString();
-        presentadorTupla.Vista.NumeroIdentificacionTributaria = objeto.NumeroIdentificacionTributaria;
-        presentadorTupla.Vista.RazonSocial = objeto.RazonSocial;
-        presentadorTupla.Vista.NombreRepresentante =
-            UtilesContacto.ObtenerNombreContacto(objeto.IdContactoRepresentante) ?? string.Empty;
+        presentadorTupla.Vista.NumeroIdentificacionTributaria = objeto.NumeroIdentificacionTributaria ?? string.Empty;
+        presentadorTupla.Vista.RazonSocial = objeto.RazonSocial ?? string.Empty;
+        
+        using (var datosContacto = new DatosContacto()) {
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Nombre, objeto.RazonSocial).FirstOrDefault();
+
+            if (contacto != null) {
+                using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+                    var telefonosContacto =
+                        datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
+                    var telefonoString = telefonosContacto.Aggregate(string.Empty,
+                        (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
+
+                    if (!string.IsNullOrEmpty(telefonoString))
+                        telefonoString = telefonoString[..^2];
+
+                    presentadorTupla.Vista.Telefonos = telefonoString;
+                }
+
+                presentadorTupla.Vista.Direccion = contacto.Direccion ?? string.Empty;
+            } else {
+                presentadorTupla.Vista.Telefonos = string.Empty;
+                presentadorTupla.Vista.Direccion = string.Empty;
+            }
+        }
+
+        presentadorTupla.Vista.NombreRepresentante = UtilesContacto.ObtenerNombreContacto(objeto.IdContactoRepresentante) ?? string.Empty;
 
         return presentadorTupla;
     }

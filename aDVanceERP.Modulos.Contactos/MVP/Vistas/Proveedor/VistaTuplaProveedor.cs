@@ -39,6 +39,19 @@ public partial class VistaTuplaProveedor : Form, IVistaTuplaProveedor {
         set => fieldRazonSocial.Text = value;
     }
 
+    public string Telefonos {
+        get => fieldTelefonos.Text;
+        set => fieldTelefonos.Text = value;
+    }
+
+    public string Direccion {
+        get => fieldDireccion.Text;
+        set {
+            fieldDireccion.Text = value;
+            fieldDireccion.Margin = new Padding(1, value?.Length > 28 ? 10 : 1, 1, 1);
+        }
+    }
+
     public string NombreRepresentante {
         get => fieldNombreRepresentante.Text;
         set => fieldNombreRepresentante.Text = value;
@@ -58,11 +71,11 @@ public partial class VistaTuplaProveedor : Form, IVistaTuplaProveedor {
     public void Inicializar() {
         // Eventos
         fieldId.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldNumeroIdentificacionTributaria.Click += delegate(object? sender, EventArgs e) {
-            TuplaSeleccionada?.Invoke(this, e);
-        };
+        fieldNumeroIdentificacionTributaria.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldRazonSocial.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldNombreRepresentante.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldTelefonos.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldDireccion.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
         btnEditar.Click += delegate(object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
         btnEliminar.Click += delegate(object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
