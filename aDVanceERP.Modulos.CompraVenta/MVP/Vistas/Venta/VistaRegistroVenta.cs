@@ -211,7 +211,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) {
-            Salir?.Invoke(sender, args);
+            Salir?.Invoke("exit", args);
         };
         contenedorVistas.Resize += delegate {
             AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);

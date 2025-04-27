@@ -108,9 +108,19 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
 
             CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
+
+            fieldNombreArticulo.Focus();
         };
         fieldCantidad.TextChanged += delegate {
             btnAdicionarArticulo.Enabled = Cantidad > 0;
+        };
+        fieldNombreArticulo.KeyDown += delegate (object? sender, KeyEventArgs args) {
+            if (args.KeyCode != Keys.Enter)
+                return;
+
+            fieldCantidad.Focus();
+
+            args.SuppressKeyPress = true;
         };
         fieldCantidad.KeyDown += delegate(object? sender, KeyEventArgs args) {
             if (args.KeyCode != Keys.Enter)
@@ -145,6 +155,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     }
 
     public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
+        fieldNombreProveedor.Items.Clear();
         fieldNombreProveedor.Items.Add("Anónimo");
         fieldNombreProveedor.Items.AddRange(nombresProveedores);
         fieldNombreProveedor.SelectedIndex = 0;
