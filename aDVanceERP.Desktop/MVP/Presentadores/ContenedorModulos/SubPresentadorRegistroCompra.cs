@@ -15,6 +15,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroCompra? _registroCompraArticulo;
+    private long _proximoIdCompra = 0;
 
     private List<string[]>? ArticulosCompra { get; set; } = new();
 
@@ -23,16 +24,24 @@ public partial class PresentadorContenedorModulos {
             _registroCompraArticulo = new PresentadorRegistroCompra(new VistaRegistroCompra());
             _registroCompraArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
             _registroCompraArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroCompraArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor
-                .ObtenerRazonesSocialesProveedores());
+            _registroCompraArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
             _registroCompraArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
             _registroCompraArticulo.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
-            _registroCompraArticulo.Vista.RegistrarDatos += delegate {
+            _registroCompraArticulo.DatosRegistradosActualizados += delegate {
                 ArticulosCompra = _registroCompraArticulo.Vista.Articulos;
 
                 RegistrarDetallesCompraArticulo();
+
+                if (_gestionCompras == null)
+                    return;
+
+                _gestionCompras.RefrescarListaObjetos();
             };
-            _registroCompraArticulo.Salir += async delegate { await _gestionCompras?.RefrescarListaObjetos()!; };
+            _registroCompraArticulo.Vista.Salir += delegate {
+                // Verificar cancelación de la compra
+            };
+
+            ArticulosCompra?.Clear();
         }
         catch (ExcepcionConexionServidorMySQL e) {
             CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
@@ -45,6 +54,7 @@ public partial class PresentadorContenedorModulos {
         if (_registroCompraArticulo == null) 
             return;
 
+        _proximoIdCompra = UtilesBD.ObtenerUltimoIdTabla("compra") + 1;
         MostrarVistaPanelTransparente(_registroCompraArticulo.Vista);
 
         _registroCompraArticulo.Vista.Mostrar();

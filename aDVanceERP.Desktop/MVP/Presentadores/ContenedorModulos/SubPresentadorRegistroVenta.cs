@@ -15,8 +15,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroVenta? _registroVentaArticulo;
-
     private long _proximoIdVenta = 0;
+
     private List<string[]>? ArticulosVenta { get; set; } = new();
 
     private async Task InicializarVistaRegistroVentaArticulo() {
@@ -37,7 +37,7 @@ public partial class PresentadorContenedorModulos {
 
                 _gestionVentas.Vista.HabilitarBtnConfirmarEntrega = false;
                 _gestionVentas.Vista.HabilitarBtnConfirmarPagos = false;
-                _ = _gestionVentas?.RefrescarListaObjetos();
+                _gestionVentas.RefrescarListaObjetos();
             };
             _registroVentaArticulo.Vista.Salir += delegate {
                 // Verificar cancelación de la venta
@@ -89,25 +89,25 @@ public partial class PresentadorContenedorModulos {
 
         MostrarVistaPanelTransparente(_registroVentaArticulo.Vista);
 
-        _registroVentaArticulo?.Vista.Mostrar();
-        _registroVentaArticulo?.Dispose();
+        _registroVentaArticulo.Vista.Mostrar();
+        _registroVentaArticulo.Dispose();
     }
 
     private async void MostrarVistaEdicionVentaArticulo(object? sender, EventArgs e) {
         await InicializarVistaRegistroVentaArticulo();
 
-        if (_registroVentaArticulo != null && sender is Venta venta) {
-            _registroVentaArticulo.PopularVistaDesdeObjeto(venta);
+        if (_registroVentaArticulo != null && sender is Venta venta) {            
             _registroVentaArticulo.Vista.EfectuarPago += delegate {
                 MostrarVistaEdicionPago(sender, e);
             };
-            _registroVentaArticulo.Vista.AsignarMensajeria += async delegate {
+            _registroVentaArticulo.Vista.AsignarMensajeria += delegate {
                 MostrarVistaEdicionMensajeria(sender, e);
             };
 
             MostrarVistaPanelTransparente(_registroVentaArticulo.Vista);
 
-            _registroVentaArticulo?.Vista.Mostrar();
+            _registroVentaArticulo.PopularVistaDesdeObjeto(venta);
+            _registroVentaArticulo.Vista.Mostrar();
         }
 
         _registroVentaArticulo?.Dispose();
