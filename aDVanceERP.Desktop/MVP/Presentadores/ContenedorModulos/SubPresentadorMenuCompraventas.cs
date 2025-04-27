@@ -18,7 +18,6 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaMenuVentas(object? sender, EventArgs e) {
         _menuCompraventas.Vista.Restaurar();
         _menuCompraventas.Vista.Mostrar();
-
-        _menuCompraventas.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 2, e);
+        _menuCompraventas.Vista.MostrarCaracteristicaInicial();
     }
 }

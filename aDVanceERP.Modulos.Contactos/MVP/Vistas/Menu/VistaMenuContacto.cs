@@ -39,6 +39,17 @@ public partial class VistaMenuContacto : Form, IVistaMenuContacto {
         btnContactos.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(4, e); };
     }
 
+    public void MostrarCaracteristicaInicial() {
+        if (btnProveedores.Visible)
+            btnProveedores.PerformClick();
+        else if (btnMensajeros.Visible)
+            btnMensajeros.PerformClick();
+        else if (btnClientes.Visible)
+            btnClientes.PerformClick();
+        else if (btnContactos.Visible)
+            btnContactos.PerformClick();
+    }
+
     public void PresionarBotonSeleccion(object? sender, EventArgs e) {
         var indiceValido = int.TryParse(sender?.ToString() ?? string.Empty, out var indice);
 

@@ -37,6 +37,15 @@ public partial class VistaMenuInventario : Form, IVistaMenuInventario {
         btnAlmacenes.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(3, e); };
     }
 
+    public void MostrarCaracteristicaInicial() {
+        if (btnArticulos.Visible)
+            btnArticulos.PerformClick();
+        else if (btnMovimientos.Visible)
+            btnMovimientos.PerformClick();
+        else if (btnAlmacenes.Visible)
+            btnAlmacenes.PerformClick();
+    }
+
     public void PresionarBotonSeleccion(object? sender, EventArgs e) {
         var indiceValido = int.TryParse(sender?.ToString() ?? string.Empty, out var indice);
 

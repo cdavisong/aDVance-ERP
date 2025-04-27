@@ -13,9 +13,9 @@ public class
     public PresentadorRegistroCompra(IVistaRegistroCompra vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Compra objeto) {
-        Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
-        Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
         Vista.ModoEdicionDatos = true;
+        Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
+        Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;        
 
         var articulosCompra = UtilesCompra.ObtenerArticulosPorCompra(objeto.Id);
 

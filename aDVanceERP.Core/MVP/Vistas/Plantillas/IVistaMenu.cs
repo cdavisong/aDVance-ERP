@@ -3,5 +3,6 @@
 public interface IVistaMenu : IVista {
     event EventHandler? CambioMenu;
 
+    void MostrarCaracteristicaInicial();
     void PresionarBotonSeleccion(object? sender, EventArgs e);
 }

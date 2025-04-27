@@ -31,9 +31,16 @@ public partial class VistaMenuCompraventas : Form, IVistaMenuVentas {
 
 
     public void Inicializar() {
-        // Eventos
-        btnCompra.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
-        btnVenta.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(2, e); };
+        // Eventos        
+        btnVenta.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
+        btnCompra.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(2, e); };
+    }
+
+    public void MostrarCaracteristicaInicial() {
+        if (btnVenta.Visible)
+            btnVenta.PerformClick();
+        else if (btnCompra.Visible)
+            btnCompra.PerformClick();
     }
 
     public void PresionarBotonSeleccion(object? sender, EventArgs e) {
@@ -44,16 +51,16 @@ public partial class VistaMenuCompraventas : Form, IVistaMenuVentas {
 
         CambioMenu?.Invoke(sender, e);
 
-        switch (indice) {
+        switch (indice) {            
             case 1:
-                VerCompras?.Invoke(btnCompra, e);
-                if (!btnCompra.Checked)
-                    btnCompra.Checked = true;
-                break;
-            case 2:
                 VerVentas?.Invoke(btnVenta, e);
                 if (!btnVenta.Checked)
                     btnVenta.Checked = true;
+                break;
+            case 2:
+                VerCompras?.Invoke(btnCompra, e);
+                if (!btnCompra.Checked)
+                    btnCompra.Checked = true;
                 break;
         }
     }

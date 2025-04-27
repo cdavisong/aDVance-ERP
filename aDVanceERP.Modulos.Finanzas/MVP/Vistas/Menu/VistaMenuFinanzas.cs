@@ -33,6 +33,10 @@ public partial class VistaMenuFinanzas : Form, IVistaMenuFinanzas {
         btnCuentasBancarias.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
     }
 
+    public void MostrarCaracteristicaInicial() {
+        if (btnCuentasBancarias.Visible)
+            btnCuentasBancarias.PerformClick();
+    }
     public void PresionarBotonSeleccion(object? sender, EventArgs e) {
         var indiceValido = int.TryParse(sender?.ToString() ?? string.Empty, out var indice);
 

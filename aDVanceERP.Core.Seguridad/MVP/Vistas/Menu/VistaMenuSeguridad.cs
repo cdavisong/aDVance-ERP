@@ -34,6 +34,13 @@ public partial class VistaMenuSeguridad : Form, IVistaMenuSeguridad {
         btnRolesUsuarios.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(2, e); };
     }
 
+    public void MostrarCaracteristicaInicial() {
+        if (btnUsuarios.Visible)
+            btnUsuarios.PerformClick();
+        else if (btnRolesUsuarios.Visible)
+            btnRolesUsuarios.PerformClick();
+    }
+
     public void PresionarBotonSeleccion(object? sender, EventArgs e) {
         var indiceValido = int.TryParse(sender?.ToString() ?? string.Empty, out var indice);
 

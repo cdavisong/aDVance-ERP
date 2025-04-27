@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
     private PresentadorMenuInventario _menuInventario;
@@ -19,7 +19,6 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaMenuInventario(object? sender, EventArgs e) {
         _menuInventario.Vista.Restaurar();
         _menuInventario.Vista.Mostrar();
-
-        _menuInventario.Vista.PresionarBotonSeleccion(sender is int opcion ? opcion : 1, e);
+        _menuInventario.Vista.MostrarCaracteristicaInicial();
     }
 }
