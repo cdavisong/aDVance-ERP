@@ -78,6 +78,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
         var presentadorTupla = ObtenerValoresTupla(objeto);
         if (presentadorTupla == null) return;
 
+        presentadorTupla.ObjetoSeleccionado += delegate { DeseleccionarTuplas(presentadorTupla.Vista); };
         presentadorTupla.EditarObjeto += (sender, e) => EditarObjeto?.Invoke(sender, e);
         presentadorTupla.EliminarObjeto += EliminarObjeto;
 
@@ -92,6 +93,13 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
         presentadorTupla.Vista.Mostrar();
 
         VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
+    }
+
+    private void DeseleccionarTuplas(Vt vista) {
+        _tuplasObjetos.ForEach(tupla => { 
+            if (!tupla.Vista.Equals(vista)) 
+                tupla.TuplaSeleccionada = false; 
+        });
     }
 
     protected abstract Pt ObtenerValoresTupla(O objeto);

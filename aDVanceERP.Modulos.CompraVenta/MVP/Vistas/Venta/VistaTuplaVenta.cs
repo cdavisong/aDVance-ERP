@@ -1,7 +1,8 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
 public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
     public VistaTuplaVenta() {
@@ -59,12 +60,20 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
 
     public string? EstadoEntrega {
         get => fieldEstadoEntrega.Text;
-        set => fieldEstadoEntrega.Text = value;
+        set {
+            fieldEstadoEntrega.Text = value;
+
+            ColorFondoTupla = ObtenerColorTupla();
+        }
     }
 
-    public string EstadoPago {
+    public string? EstadoPago {
         get => fieldEstadoPago.Text;
-        set => fieldEstadoPago.Text = value;
+        set {
+            fieldEstadoPago.Text = value;
+
+            ColorFondoTupla = ObtenerColorTupla();
+        }
     }
 
     public Color ColorFondoTupla {
@@ -78,18 +87,21 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
     public event EventHandler? Salir;
 
     public void Inicializar() {
-        // Eventos
-        fieldId.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldFecha.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldNombreAlmacen.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldNombreCliente.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldCantidadProductos.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldMontoTotal.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldEstadoEntrega.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldEstadoPago.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        // VAriables
+        ColorFondoTupla = ObtenerColorTupla();
 
-        btnEditar.Click += delegate(object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
-        btnEliminar.Click += delegate(object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
+        // Eventos
+        fieldId.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldFecha.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNombreAlmacen.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNombreCliente.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldCantidadProductos.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldMontoTotal.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldEstadoEntrega.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldEstadoPago.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+
+        btnEditar.Click += delegate (object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
+        btnEliminar.Click += delegate (object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
     }
 
     public void Mostrar() {
@@ -99,7 +111,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
     }
 
     public void Restaurar() {
-        ColorFondoTupla = BackColor;
+        ColorFondoTupla = ObtenerColorTupla();
     }
 
     public void Ocultar() {
@@ -121,5 +133,14 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
                                   "MOD_COMPRAVENTA_VENTA_TODOS")
                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
+    }
+
+    private Color ObtenerColorTupla() {
+        if (EstadoPago?.Equals("Pendiente") ?? false)
+            return VariablesGlobales.ColorPagoPendienteTupla;
+        else if (EstadoEntrega?.Equals("Pendiente") ?? false)
+            return VariablesGlobales.ColorEntregaPendienteTupla;
+
+        return BackColor;
     }
 }
