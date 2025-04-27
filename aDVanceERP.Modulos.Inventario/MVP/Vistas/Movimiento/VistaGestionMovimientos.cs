@@ -87,12 +87,12 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
+        fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
-        fieldDatoBusquedaFecha.ValueChanged += delegate(object? sender, EventArgs e) {
+        fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
             BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                 e);
         };
@@ -136,8 +136,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
             if (CriterioBusqueda == CriterioBusquedaMovimiento.Fecha) {
                 fieldDatoBusquedaFecha.Value = DateTime.Now;
                 fieldDatoBusquedaFecha.Focus();
-            }
-            else {
+            } else {
                 fieldDatoBusqueda.Text = string.Empty;
                 fieldDatoBusqueda.Focus();
             }
@@ -154,6 +153,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
+
         fieldCriterioBusqueda.SelectedIndex = 0;
     }
 

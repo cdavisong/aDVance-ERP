@@ -211,6 +211,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
+
         fieldCriterioBusqueda.SelectedIndex = 4;
     }
 

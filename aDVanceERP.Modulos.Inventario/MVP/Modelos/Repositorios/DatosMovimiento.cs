@@ -53,7 +53,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
 
         switch (criterio) {
             case CriterioBusquedaMovimiento.Id:
-                comando = $"SELECT * FROM adv__movimiento WHERE id_movimiento='{dato}';";
+                comando = $"SELECT * FROM adv__movimiento WHERE id_movimiento = '{dato}';";
                 break;
             case CriterioBusquedaMovimiento.Articulo:
                 comando =
@@ -72,10 +72,9 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
                 break;
             case CriterioBusquedaMovimiento.TipoMovimiento:
                 comando =
-                    $"SELECT (id_articulo, id_almacen_origen, id_almacen_destino, cantidad_movida, id_tipo_movimiento, fecha) " +
+                    $"SELECT * " +
                     $"FROM adv__movimiento m " +
-                    $"JOIN adv__tipo_movimiento tm " +
-                    $"ON m.id_tipo_movimiento = tm.id_tipo_movimiento " +
+                    $"JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento " +
                     $"WHERE LOWER(tm.nombre) LIKE LOWER('%{dato}%');";
                 break;
             default:
