@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu;
 
 public partial class VistaMenuInventario : Form, IVistaMenuInventario {
     public VistaMenuInventario() {
@@ -32,9 +32,9 @@ public partial class VistaMenuInventario : Form, IVistaMenuInventario {
 
     public void Inicializar() {
         // Eventos
-        btnArticulos.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
-        btnMovimientos.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(2, e); };
-        btnAlmacenes.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(3, e); };
+        btnArticulos.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
+        btnMovimientos.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(2, e); };
+        btnAlmacenes.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(3, e); };
     }
 
     public void PresionarBotonSeleccion(object? sender, EventArgs e) {
@@ -84,14 +84,13 @@ public partial class VistaMenuInventario : Form, IVistaMenuInventario {
     }
 
     private void VerificarPermisos() {
-        btnArticulos.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+        btnArticulos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_INVENTARIO_ARTICULOS")
                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_TODOS");
-        btnMovimientos.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(
-                                     "MOD_INVENTARIO_MOVIMIENTOS")
+        btnMovimientos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_INVENTARIO_MOVIMIENTOS")
                                  || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_TODOS");
-        btnAlmacenes.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+        btnAlmacenes.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_INVENTARIO_ALMACENES")
                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_TODOS");
     }

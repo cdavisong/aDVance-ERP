@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu; 
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu;
 
 public partial class VistaMenuFinanzas : Form, IVistaMenuFinanzas {
     public VistaMenuFinanzas() {
@@ -30,7 +30,7 @@ public partial class VistaMenuFinanzas : Form, IVistaMenuFinanzas {
 
     public void Inicializar() {
         // Eventos
-        btnCuentasBancarias.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
+        btnCuentasBancarias.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
     }
 
     public void PresionarBotonSeleccion(object? sender, EventArgs e) {
@@ -69,10 +69,8 @@ public partial class VistaMenuFinanzas : Form, IVistaMenuFinanzas {
     }
 
     private void VerificarPermisos() {
-        btnCuentasBancarias.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                                      || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(
-                                          "MOD_FINANZAS_CUENTAS_BANCARIAS")
-                                      || UtilesCuentaUsuario.PermisosUsuario
-                                          .ContienePermisoExacto("MOD_FINANZAS_TODOS");
+        btnCuentasBancarias.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                                      || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_FINANZAS_CUENTAS_BANCARIAS")
+                                      || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_FINANZAS_TODOS");
     }
 }

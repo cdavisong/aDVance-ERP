@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu;
 
 public partial class VistaMenuContacto : Form, IVistaMenuContacto {
     public VistaMenuContacto() {
@@ -33,10 +33,10 @@ public partial class VistaMenuContacto : Form, IVistaMenuContacto {
 
     public void Inicializar() {
         // Eventos
-        btnProveedores.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
-        btnMensajeros.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(2, e); };
-        btnClientes.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(3, e); };
-        btnContactos.Click += delegate(object? sender, EventArgs e) { PresionarBotonSeleccion(4, e); };
+        btnProveedores.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
+        btnMensajeros.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(2, e); };
+        btnClientes.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(3, e); };
+        btnContactos.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(4, e); };
     }
 
     public void PresionarBotonSeleccion(object? sender, EventArgs e) {
@@ -93,18 +93,16 @@ public partial class VistaMenuContacto : Form, IVistaMenuContacto {
     }
 
     private void VerificarPermisos() {
-        btnProveedores.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(
-                                     "MOD_CONTACTO_PROVEEDORES")
+        btnProveedores.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_PROVEEDORES")
                                  || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
-        btnProveedores.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(
-                                     "MOD_CONTACTO_MENSAJEROS")
+        btnMensajeros.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                                 || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_MENSAJEROS")
                                  || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
-        btnClientes.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+        btnClientes.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_CLIENTES")
                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
-        btnContactos.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+        btnContactos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_CONTACTO_CONTACTOS")
                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_CONTACTO_TODOS");
     }

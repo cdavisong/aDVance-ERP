@@ -77,10 +77,10 @@ public partial class VistaMenuCompraventas : Form, IVistaMenuVentas {
     }
 
     private void VerificarPermisos() {
-        btnCompra.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+        btnCompra.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                             || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_COMPRAVENTA_COMPRA")
                             || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_COMPRA");
-        btnVenta.Enabled = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+        btnVenta.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_COMPRAVENTA_VENTA")
                            || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_COMPRAVENTA_TODOS");
     }

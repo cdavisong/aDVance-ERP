@@ -35,11 +35,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
             fieldTitulo = new Label();
-            panelRelleno = new Panel();
+            panelBotones = new Panel();
             btnVenta = new Guna2Button();
             btnCompra = new Guna2Button();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
+            panelBotones.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -67,15 +68,13 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             // layoutDistribucion
             // 
             layoutDistribucion.BackColor = Color.WhiteSmoke;
-            layoutDistribucion.ColumnCount = 4;
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
-            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
+            layoutDistribucion.ColumnCount = 2;
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutDistribucion.Controls.Add(btnCompra, 0, 0);
+            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutDistribucion.Controls.Add(fieldTitulo, 0, 0);
-            layoutDistribucion.Controls.Add(panelRelleno, 3, 0);
-            layoutDistribucion.Controls.Add(btnVenta, 2, 0);
+            layoutDistribucion.Controls.Add(panelBotones, 1, 0);
             layoutDistribucion.Dock = DockStyle.Fill;
             layoutDistribucion.Location = new Point(0, 0);
             layoutDistribucion.Margin = new Padding(0);
@@ -100,16 +99,18 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             fieldTitulo.Text = "Compraventas";
             fieldTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // panelRelleno
+            // panelBotones
             // 
-            panelRelleno.BackColor = Color.WhiteSmoke;
-            panelRelleno.Dock = DockStyle.Fill;
-            panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            panelRelleno.Location = new Point(480, 0);
-            panelRelleno.Margin = new Padding(0);
-            panelRelleno.Name = "panelRelleno";
-            panelRelleno.Size = new Size(514, 50);
-            panelRelleno.TabIndex = 0;
+            panelBotones.BackColor = Color.WhiteSmoke;
+            panelBotones.Controls.Add(btnCompra);
+            panelBotones.Controls.Add(btnVenta);
+            panelBotones.Dock = DockStyle.Fill;
+            panelBotones.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            panelBotones.Location = new Point(160, 0);
+            panelBotones.Margin = new Padding(0);
+            panelBotones.Name = "panelBotones";
+            panelBotones.Size = new Size(834, 50);
+            panelBotones.TabIndex = 0;
             // 
             // btnVenta
             // 
@@ -123,16 +124,16 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             btnVenta.CustomImages.ImageOffset = new Point(0, 32);
             btnVenta.CustomImages.ImageSize = new Size(131, 8);
             btnVenta.CustomizableEdges = customizableEdges3;
-            btnVenta.Dock = DockStyle.Fill;
+            btnVenta.Dock = DockStyle.Left;
             btnVenta.FillColor = Color.WhiteSmoke;
             btnVenta.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnVenta.ForeColor = Color.Black;
-            btnVenta.Location = new Point(320, 0);
+            btnVenta.Location = new Point(0, 0);
             btnVenta.Margin = new Padding(0);
             btnVenta.Name = "btnVenta";
             btnVenta.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnVenta.Size = new Size(160, 50);
-            btnVenta.TabIndex = 9;
+            btnVenta.TabIndex = 12;
             btnVenta.Text = "Venta";
             // 
             // btnCompra
@@ -147,7 +148,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             btnCompra.CustomImages.ImageOffset = new Point(0, 32);
             btnCompra.CustomImages.ImageSize = new Size(131, 8);
             btnCompra.CustomizableEdges = customizableEdges1;
-            btnCompra.Dock = DockStyle.Fill;
+            btnCompra.Dock = DockStyle.Left;
             btnCompra.FillColor = Color.WhiteSmoke;
             btnCompra.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnCompra.ForeColor = Color.Black;
@@ -156,7 +157,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             btnCompra.Name = "btnCompra";
             btnCompra.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnCompra.Size = new Size(160, 50);
-            btnCompra.TabIndex = 10;
+            btnCompra.TabIndex = 13;
             btnCompra.Text = "Compra";
             // 
             // VistaMenuCompraventas
@@ -175,6 +176,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
             Text = "VistaMenu";
             layoutBase.ResumeLayout(false);
             layoutDistribucion.ResumeLayout(false);
+            panelBotones.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -183,7 +185,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu {
         private Guna2BorderlessForm formatoBase;
         private TableLayoutPanel layoutBase;
         private TableLayoutPanel layoutDistribucion;
-        private Panel panelRelleno;
+        private Panel panelBotones;
         private Label fieldTitulo;
         private Guna2Button btnVenta;
         private Guna2Button btnCompra;
