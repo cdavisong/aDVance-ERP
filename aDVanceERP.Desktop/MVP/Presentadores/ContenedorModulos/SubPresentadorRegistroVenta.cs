@@ -155,7 +155,7 @@ public partial class PresentadorContenedorModulos {
             datosMovimiento.Adicionar(new Movimiento(
                 0,
                 detalleVentaArticulo.IdArticulo,
-                long.Parse(articulo[4]),
+                long.Parse(articulo[5]),
                 0,
                 DateTime.Now,
                 detalleVentaArticulo.Cantidad,
