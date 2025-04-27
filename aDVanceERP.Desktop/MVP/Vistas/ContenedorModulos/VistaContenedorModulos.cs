@@ -159,7 +159,6 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
 <head>
     <meta charset=""UTF-8"">
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-    <title>Bienvenido a aDVance ERP</title>
     <style>
         body {
             font-family: Segoe UI, sans-serif;
@@ -201,20 +200,6 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
             margin-top: 10px;
             font-size: 16px;
         }
-        .start-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 10px 30px;
-            background-color: #FFDAB9;
-            color: #333333;
-            text-decoration: none;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .start-button:hover {
-            background-color: #FFDAB9;
-        }
     </style>
 </head>
 <body>
@@ -232,21 +217,11 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
         <p>Explora nuestras funcionalidades y descubre cómo podemos ayudarte a alcanzar el éxito.</p>
     </div>
     <p></p>
-    <p></p>
-    <a href=""/inicio"" class=""start-button"">Comienza Ahora</a>
 </body>
 </html>
 ";
 
         fieldTextoBienvenida.Text = textoHTML;
-        fieldTextoBienvenida.LinkClicked += delegate (object? sender, HtmlLinkClickedEventArgs e) {
-            if (UtilesCuentaUsuario.PermisosUsuario != null && !UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial(ModuloCompraventa.Nombre)) 
-                return;
-
-            CambioModulo?.Invoke(sender, e);
-            MostrarMenuVentas?.Invoke(sender, e);
-            btnModuloVentas.Checked = true;
-        };
         fieldTextoBienvenida.Visible = true;
     }
 
