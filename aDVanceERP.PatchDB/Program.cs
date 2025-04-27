@@ -34,7 +34,7 @@ internal class Program {
 
         try {
             //ExecuteStep(CrearTablasNuevas, "Creación de estructura modular");
-            //ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+            ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
 
             RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
         } catch (Exception ex) {

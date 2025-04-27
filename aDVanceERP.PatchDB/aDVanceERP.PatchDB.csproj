@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <StartupObject>aDVanceERP.PatchDB.Program</StartupObject>
-    <BaseOutputPath>D:\Carlitos\Proyectos\[PROJECT] aDVance ERP\aDVanceERP\aDVanceERP.Desktop\bin</BaseOutputPath>
+    <BaseOutputPath></BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
