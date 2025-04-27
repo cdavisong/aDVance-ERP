@@ -78,14 +78,43 @@ internal class Program {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
-            // Agregar columna id_tipo_movimiento a la tabla adv__movimiento
-            //const string agregarTipoMovimientoTablaMovimiento = @"
-            //    ALTER TABLE adv__movimiento 
-            //    ADD COLUMN id_tipo_movimiento INT NOT NULL DEFAULT 0;";
+            // Actualizar registros de pago donde fecha_confirmacion es NULL
+            const string query1 = @"
+                UPDATE adv__pago
+                SET fecha_confirmacion = NOW()
+                WHERE fecha_confirmacion IS NULL;";
 
-            //using (var cmd = new MySqlCommand(agregarTipoMovimientoTablaMovimiento, conexion)) {
-            //    cmd.ExecuteNonQuery();
-            //}
+            using (var cmd = new MySqlCommand(query1, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
+
+            // Actualizar registros de pago donde el estado es Confirmado
+            const string query2 = @"
+                UPDATE adv__pago
+                SET estado = 'Confirmado'
+                WHERE estado = 'Completado';";
+
+            using (var cmd = new MySqlCommand(query2, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
+
+            const string query3 = @"
+                UPDATE adv__venta
+                SET direccion_entrega = ''
+                WHERE direccion_entrega IS NULL;";
+
+            using (var cmd = new MySqlCommand(query3, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
+
+            const string query4 = @"
+                UPDATE adv__venta
+                SET estado_entrega = 'Completada'
+                WHERE id_tipo_entrega = 1;";
+
+            using (var cmd = new MySqlCommand(query4, conexion)) {
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 
