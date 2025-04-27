@@ -58,7 +58,10 @@ public partial class VistaTuplaMovimiento : Form, IVistaTuplaMovimiento {
 
     public string TipoMovimiento {
         get => fieldTipoMovimiento.Text;
-        set => fieldTipoMovimiento.Text = value;
+        set {
+            fieldTipoMovimiento.Text = string.IsNullOrEmpty(value) ? "ERROR" : value;
+            fieldTipoMovimiento.Margin = new Padding(1, value?.Length > 23 ? 10 : 1, 1, 1);
+        }
     }
 
     public string Fecha {

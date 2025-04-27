@@ -198,6 +198,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             // 
             // fieldTipoMovimiento
             // 
+            fieldTipoMovimiento.AutoEllipsis = true;
             fieldTipoMovimiento.Dock = DockStyle.Fill;
             fieldTipoMovimiento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             fieldTipoMovimiento.ForeColor = Color.DimGray;
