@@ -5,6 +5,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra; 
@@ -105,20 +106,33 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
 
         // Eventos
         btnDescargar.Click += delegate {
-            var tuplasCompras = contenedorVistas.Controls.OfType<IVistaTuplaCompra>();
             var filas = new List<string[]>();
 
-            foreach (var tuplaCompra in tuplasCompras) {
-                var fila = new string[5];
+            using (var datosCompras = new DatosCompra()) {
+                var comprasFecha = datosCompras.Obtener(CriterioBusquedaCompra.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
 
-                fila[0] = tuplaCompra.NombreAlmacen;
-                fila[1] = tuplaCompra.NombreProveedor;
-                fila[2] = tuplaCompra.MontoTotal;
+                foreach (var venta in comprasFecha) {
+                    using (var datosCompraArticulo = new DatosDetalleCompraArticulo()) {
+                        var detalleCompraArticulo = datosCompraArticulo.Obtener(CriterioDetalleCompraArticulo.IdCompra, venta.Id.ToString());
 
-                filas.Add(fila);
+                        foreach (var ventaArticulo in detalleCompraArticulo) {
+                            var fila = new string[7];
+
+                            fila[0] = ventaArticulo.Id.ToString();
+                            fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? string.Empty;
+                            fila[2] = ventaArticulo.Cantidad.ToString();
+                            fila[3] = ventaArticulo.PrecioCompra.ToString("N", CultureInfo.InvariantCulture);
+                            fila[4] = "0";
+                            fila[5] = "0.00%";
+                            fila[6] = (ventaArticulo.PrecioCompra * ventaArticulo.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+
+                            filas.Add(fila);
+                        }
+                    }
+                }
             }
 
-            //TODO: Generar el reporte de compras
+            UtilesReportes.GenerarEntradaMercancias(fieldDatoBusquedaFecha.Value, filas);
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))

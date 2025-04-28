@@ -1,13 +1,15 @@
 ﻿using System.Globalization;
+
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
 public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     private int _paginaActual = 1;
@@ -50,9 +52,9 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
 
     public CriterioBusquedaVenta CriterioBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaVenta)fieldCriterioBusqueda.SelectedIndex
+            ? (CriterioBusquedaVenta) fieldCriterioBusqueda.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldCriterioBusqueda.SelectedIndex = (int) value;
     }
 
     public string? DatoBusqueda {
@@ -117,62 +119,74 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
 
         // Eventos
         btnDescargar.Click += delegate {
-            var tuplasVentas = contenedorVistas.Controls.OfType<IVistaTuplaVenta>();
             var filas = new List<string[]>();
 
-            foreach (var tuplaVenta in tuplasVentas) {
-                var fila = new string[3];
+            using (var datosVentas = new DatosVenta()) {
+                var ventasFecha = datosVentas.Obtener(CriterioBusquedaVenta.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
 
-                fila[0] = tuplaVenta.NombreAlmacen;
-                fila[1] = tuplaVenta.CantidadProductos;
-                fila[2] = tuplaVenta.MontoTotal;
+                foreach (var venta in ventasFecha) {
+                    using (var datosVentaArticulo = new DatosDetalleVentaArticulo()) {
+                        var detalleVentaArticulo = datosVentaArticulo.Obtener(CriterioDetalleVentaArticulo.IdVenta, venta.Id.ToString());
 
-                filas.Add(fila);
+                        foreach (var ventaArticulo in detalleVentaArticulo) {
+                            var fila = new string[6];
+
+                            fila[0] = ventaArticulo.Id.ToString();
+                            fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? string.Empty;
+                            fila[2] = "U";
+                            fila[3] = ventaArticulo.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
+                            fila[4] = ventaArticulo.Cantidad.ToString();
+                            fila[5] = (ventaArticulo.PrecioVentaFinal * ventaArticulo.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+
+                            filas.Add(fila);
+                        }
+                    }
+                }
             }
 
             UtilesReportes.GenerarReporteVentas(fieldDatoBusquedaFecha.Value, filas);
         };
-        fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
+        fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
-        fieldDatoBusquedaFecha.ValueChanged += delegate(object? sender, EventArgs e) {
+        fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
             BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                 e);
         };
-        btnCerrar.Click += delegate(object? sender, EventArgs e) {
+        btnCerrar.Click += delegate (object? sender, EventArgs e) {
             Salir?.Invoke(sender, e);
             Ocultar();
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
-        btnConfirmarEntrega.Click += delegate(object? sender, EventArgs e) { ConfirmarEntrega?.Invoke(sender, e); };
-        btnConfirmarPagos.Click += delegate(object? sender, EventArgs e) { ConfirmarPagos?.Invoke(sender, e); };
-        btnPrimeraPagina.Click += delegate(object? sender, EventArgs e) {
+        btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
+        btnConfirmarEntrega.Click += delegate (object? sender, EventArgs e) { ConfirmarEntrega?.Invoke(sender, e); };
+        btnConfirmarPagos.Click += delegate (object? sender, EventArgs e) { ConfirmarPagos?.Invoke(sender, e); };
+        btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = 1;
             MostrarPrimeraPagina?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnPaginaAnterior.Click += delegate(object? sender, EventArgs e) {
+        btnPaginaAnterior.Click += delegate (object? sender, EventArgs e) {
             PaginaActual--;
             MostrarPaginaAnterior?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnPaginaSiguiente.Click += delegate(object? sender, EventArgs e) {
+        btnPaginaSiguiente.Click += delegate (object? sender, EventArgs e) {
             PaginaActual++;
             MostrarPaginaSiguiente?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnUltimaPagina.Click += delegate(object? sender, EventArgs e) {
+        btnUltimaPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = PaginasTotales;
             MostrarUltimaPagina?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnSincronizarDatos.Click += delegate(object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
+        btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
         contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
     }
 
@@ -191,8 +205,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                 fieldDatoBusquedaFecha.Focus();
 
                 ActualizarValorBrutoVentas();
-            }
-            else {
+            } else {
                 layoutValorBrutoVenta.Visible = false;
 
                 fieldDatoBusqueda.Text = string.Empty;
