@@ -26,43 +26,23 @@ namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            components = new Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaConfServidorFTP));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
             layoutContenedor = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
-            btnAlmacenarConfiguracion = new Guna2Button();
             fieldTitulo = new Label();
             fieldCopyright = new Label();
-            fieldPassword = new Guna2TextBox();
-            fieldNombreUsuario = new Guna2TextBox();
-            fieldServidor = new Guna2TextBox();
-            fieldMensaje = new Guna2HtmlLabel();
-            btnSalir = new Guna2Button();
+            fieldServidor = new CuoreUI.Controls.cuiTextBox();
+            fieldNombreUsuario = new CuoreUI.Controls.cuiTextBox();
+            fieldPassword = new CuoreUI.Controls.cuiTextBox();
+            btnAlmacenarConfiguracion = new CuoreUI.Controls.cuiButton();
+            btnSalir = new CuoreUI.Controls.cuiButton();
+            fieldInformacion = new CuoreUI.Controls.cuiLabel();
             layoutBase.SuspendLayout();
             layoutContenedor.SuspendLayout();
             layoutVista.SuspendLayout();
             SuspendLayout();
-            // 
-            // formatoBase
-            // 
-            formatoBase.ContainerControl = this;
-            formatoBase.DockIndicatorTransparencyValue = 0.6D;
-            formatoBase.DragForm = false;
-            formatoBase.HasFormShadow = false;
-            formatoBase.TransparentWhileDrag = true;
             // 
             // layoutBase
             // 
@@ -74,7 +54,7 @@ namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas {
             layoutBase.Name = "layoutBase";
             layoutBase.RowCount = 1;
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            layoutBase.Size = new Size(440, 768);
+            layoutBase.Size = new Size(440, 749);
             layoutBase.TabIndex = 0;
             // 
             // layoutDistribucion
@@ -87,7 +67,7 @@ namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas {
             layoutDistribucion.Name = "layoutDistribucion";
             layoutDistribucion.RowCount = 1;
             layoutDistribucion.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            layoutDistribucion.Size = new Size(438, 766);
+            layoutDistribucion.Size = new Size(438, 747);
             layoutDistribucion.TabIndex = 0;
             // 
             // layoutContenedor
@@ -101,7 +81,7 @@ namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas {
             layoutContenedor.Name = "layoutContenedor";
             layoutContenedor.RowCount = 1;
             layoutContenedor.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            layoutContenedor.Size = new Size(440, 768);
+            layoutContenedor.Size = new Size(440, 749);
             layoutContenedor.TabIndex = 3;
             // 
             // layoutVista
@@ -111,14 +91,14 @@ namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutVista.Controls.Add(btnAlmacenarConfiguracion, 1, 10);
             layoutVista.Controls.Add(fieldTitulo, 1, 1);
             layoutVista.Controls.Add(fieldCopyright, 1, 14);
-            layoutVista.Controls.Add(fieldPassword, 1, 8);
-            layoutVista.Controls.Add(fieldNombreUsuario, 1, 6);
             layoutVista.Controls.Add(fieldServidor, 1, 4);
-            layoutVista.Controls.Add(fieldMensaje, 1, 2);
+            layoutVista.Controls.Add(fieldNombreUsuario, 1, 6);
+            layoutVista.Controls.Add(fieldPassword, 1, 8);
+            layoutVista.Controls.Add(btnAlmacenarConfiguracion, 1, 10);
             layoutVista.Controls.Add(btnSalir, 1, 12);
+            layoutVista.Controls.Add(fieldInformacion, 1, 2);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(1, 1);
             layoutVista.Margin = new Padding(1);
@@ -142,29 +122,13 @@ namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas {
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.Size = new Size(438, 766);
+            layoutVista.Size = new Size(438, 747);
             layoutVista.TabIndex = 0;
-            // 
-            // btnAlmacenarConfiguracion
-            // 
-            btnAlmacenarConfiguracion.Animated = true;
-            btnAlmacenarConfiguracion.BorderRadius = 18;
-            btnAlmacenarConfiguracion.CustomizableEdges = customizableEdges1;
-            btnAlmacenarConfiguracion.Dock = DockStyle.Fill;
-            btnAlmacenarConfiguracion.FillColor = Color.PeachPuff;
-            btnAlmacenarConfiguracion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnAlmacenarConfiguracion.ForeColor = Color.Black;
-            btnAlmacenarConfiguracion.Location = new Point(23, 435);
-            btnAlmacenarConfiguracion.Name = "btnAlmacenarConfiguracion";
-            btnAlmacenarConfiguracion.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnAlmacenarConfiguracion.Size = new Size(392, 39);
-            btnAlmacenarConfiguracion.TabIndex = 6;
-            btnAlmacenarConfiguracion.Text = "Almacenar la configuración";
             // 
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 24F);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(23, 20);
@@ -177,157 +141,199 @@ namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas {
             // fieldCopyright
             // 
             fieldCopyright.Dock = DockStyle.Fill;
-            fieldCopyright.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCopyright.Font = new Font("Segoe UI", 9.75F);
             fieldCopyright.ForeColor = Color.DimGray;
             fieldCopyright.ImeMode = ImeMode.NoControl;
-            fieldCopyright.Location = new Point(23, 665);
+            fieldCopyright.Location = new Point(23, 646);
             fieldCopyright.Name = "fieldCopyright";
             fieldCopyright.Size = new Size(392, 80);
             fieldCopyright.TabIndex = 8;
             fieldCopyright.Text = "Copyright 2025©";
             fieldCopyright.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldPassword
+            // fieldServidor
             // 
-            fieldPassword.Animated = true;
-            fieldPassword.BackColor = Color.FromArgb(  254,   254,   253);
-            fieldPassword.BorderColor = Color.Gainsboro;
-            fieldPassword.BorderRadius = 14;
-            fieldPassword.Cursor = Cursors.IBeam;
-            fieldPassword.CustomizableEdges = customizableEdges3;
-            fieldPassword.DefaultText = "";
-            fieldPassword.DisabledState.BorderColor = Color.Gainsboro;
-            fieldPassword.DisabledState.BorderColor = Color.White;
-            fieldPassword.DisabledState.ForeColor = Color.DimGray;
-            fieldPassword.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldPassword.Dock = DockStyle.Fill;
-            fieldPassword.FillColor = Color.White;
-            fieldPassword.FocusedState.BorderColor = Color.SandyBrown;
-            fieldPassword.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldPassword.ForeColor = Color.Black;
-            fieldPassword.HoverState.BorderColor = Color.SandyBrown;
-            fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
-            fieldPassword.IconLeftOffset = new Point(10, 0);
-            fieldPassword.Location = new Point(23, 357);
-            fieldPassword.Margin = new Padding(3, 7, 3, 7);
-            fieldPassword.Name = "fieldPassword";
-            fieldPassword.PasswordChar = '●';
-            fieldPassword.PlaceholderForeColor = Color.DimGray;
-            fieldPassword.PlaceholderText = "Contraseña";
-            fieldPassword.SelectedText = "";
-            fieldPassword.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            fieldPassword.Size = new Size(392, 31);
-            fieldPassword.TabIndex = 3;
-            fieldPassword.TextOffset = new Point(5, 0);
-            fieldPassword.UseSystemPasswordChar = true;
+            fieldServidor.BackgroundColor = Color.White;
+            fieldServidor.BorderColor = Color.Gainsboro;
+            fieldServidor.Content = "";
+            fieldServidor.Dock = DockStyle.Fill;
+            fieldServidor.FocusBackgroundColor = Color.White;
+            fieldServidor.FocusBorderColor = Color.PeachPuff;
+            fieldServidor.FocusImageTint = Color.White;
+            fieldServidor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point,  0);
+            fieldServidor.ForeColor = Color.Gray;
+            fieldServidor.Image = (Image) resources.GetObject("fieldServidor.Image");
+            fieldServidor.ImageExpand = new Point(0, 0);
+            fieldServidor.ImageOffset = new Point(0, 0);
+            fieldServidor.Location = new Point(24, 244);
+            fieldServidor.Margin = new Padding(4);
+            fieldServidor.Multiline = false;
+            fieldServidor.Name = "fieldServidor";
+            fieldServidor.NormalImageTint = Color.White;
+            fieldServidor.Padding = new Padding(50, 8, 50, 0);
+            fieldServidor.PasswordChar = false;
+            fieldServidor.PlaceholderColor = Color.DarkGray;
+            fieldServidor.PlaceholderText = "Servidor";
+            fieldServidor.Rounding = new Padding(8);
+            fieldServidor.Size = new Size(390, 37);
+            fieldServidor.TabIndex = 14;
+            fieldServidor.TextOffset = new Size(30, 0);
+            fieldServidor.UnderlinedStyle = true;
             // 
             // fieldNombreUsuario
             // 
-            fieldNombreUsuario.Animated = true;
-            fieldNombreUsuario.BackColor = Color.FromArgb(  254,   254,   253);
+            fieldNombreUsuario.BackgroundColor = Color.White;
             fieldNombreUsuario.BorderColor = Color.Gainsboro;
-            fieldNombreUsuario.BorderRadius = 14;
-            fieldNombreUsuario.Cursor = Cursors.IBeam;
-            fieldNombreUsuario.CustomizableEdges = customizableEdges5;
-            fieldNombreUsuario.DefaultText = "";
-            fieldNombreUsuario.DisabledState.BorderColor = Color.Gainsboro;
-            fieldNombreUsuario.DisabledState.BorderColor = Color.White;
-            fieldNombreUsuario.DisabledState.ForeColor = Color.DimGray;
-            fieldNombreUsuario.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldNombreUsuario.Content = "";
             fieldNombreUsuario.Dock = DockStyle.Fill;
-            fieldNombreUsuario.FillColor = Color.White;
-            fieldNombreUsuario.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreUsuario.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreUsuario.ForeColor = Color.Black;
-            fieldNombreUsuario.HoverState.BorderColor = Color.SandyBrown;
-            fieldNombreUsuario.IconLeft = (Image) resources.GetObject("fieldNombreUsuario.IconLeft");
-            fieldNombreUsuario.IconLeftOffset = new Point(10, 0);
-            fieldNombreUsuario.Location = new Point(23, 302);
-            fieldNombreUsuario.Margin = new Padding(3, 7, 3, 7);
+            fieldNombreUsuario.FocusBackgroundColor = Color.White;
+            fieldNombreUsuario.FocusBorderColor = Color.PeachPuff;
+            fieldNombreUsuario.FocusImageTint = Color.White;
+            fieldNombreUsuario.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point,  0);
+            fieldNombreUsuario.ForeColor = Color.Gray;
+            fieldNombreUsuario.Image = (Image) resources.GetObject("fieldNombreUsuario.Image");
+            fieldNombreUsuario.ImageExpand = new Point(0, 0);
+            fieldNombreUsuario.ImageOffset = new Point(0, 0);
+            fieldNombreUsuario.Location = new Point(24, 299);
+            fieldNombreUsuario.Margin = new Padding(4);
+            fieldNombreUsuario.Multiline = false;
             fieldNombreUsuario.Name = "fieldNombreUsuario";
-            fieldNombreUsuario.PasswordChar = '\0';
-            fieldNombreUsuario.PlaceholderForeColor = Color.DimGray;
+            fieldNombreUsuario.NormalImageTint = Color.White;
+            fieldNombreUsuario.Padding = new Padding(50, 8, 50, 0);
+            fieldNombreUsuario.PasswordChar = false;
+            fieldNombreUsuario.PlaceholderColor = Color.DarkGray;
             fieldNombreUsuario.PlaceholderText = "Nombre de usuario";
-            fieldNombreUsuario.SelectedText = "";
-            fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            fieldNombreUsuario.Size = new Size(392, 31);
-            fieldNombreUsuario.TabIndex = 2;
-            fieldNombreUsuario.TextOffset = new Point(5, 0);
+            fieldNombreUsuario.Rounding = new Padding(8);
+            fieldNombreUsuario.Size = new Size(390, 37);
+            fieldNombreUsuario.TabIndex = 15;
+            fieldNombreUsuario.TextOffset = new Size(30, 0);
+            fieldNombreUsuario.UnderlinedStyle = true;
             // 
-            // fieldServidor
+            // fieldPassword
             // 
-            fieldServidor.Animated = true;
-            fieldServidor.BackColor = Color.FromArgb(  254,   254,   253);
-            fieldServidor.BorderColor = Color.Gainsboro;
-            fieldServidor.BorderRadius = 14;
-            fieldServidor.Cursor = Cursors.IBeam;
-            fieldServidor.CustomizableEdges = customizableEdges7;
-            fieldServidor.DefaultText = "";
-            fieldServidor.DisabledState.BorderColor = Color.Gainsboro;
-            fieldServidor.DisabledState.BorderColor = Color.White;
-            fieldServidor.DisabledState.ForeColor = Color.DimGray;
-            fieldServidor.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldServidor.Dock = DockStyle.Fill;
-            fieldServidor.FillColor = Color.White;
-            fieldServidor.FocusedState.BorderColor = Color.SandyBrown;
-            fieldServidor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldServidor.ForeColor = Color.Black;
-            fieldServidor.HoverState.BorderColor = Color.SandyBrown;
-            fieldServidor.IconLeft = (Image) resources.GetObject("fieldServidor.IconLeft");
-            fieldServidor.IconLeftOffset = new Point(10, 0);
-            fieldServidor.Location = new Point(23, 247);
-            fieldServidor.Margin = new Padding(3, 7, 3, 7);
-            fieldServidor.Name = "fieldServidor";
-            fieldServidor.PasswordChar = '\0';
-            fieldServidor.PlaceholderForeColor = Color.DimGray;
-            fieldServidor.PlaceholderText = "Servidor";
-            fieldServidor.SelectedText = "";
-            fieldServidor.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldServidor.Size = new Size(392, 31);
-            fieldServidor.TabIndex = 9;
-            fieldServidor.TextOffset = new Point(5, 0);
+            fieldPassword.BackgroundColor = Color.White;
+            fieldPassword.BorderColor = Color.Gainsboro;
+            fieldPassword.Content = "";
+            fieldPassword.Dock = DockStyle.Fill;
+            fieldPassword.FocusBackgroundColor = Color.White;
+            fieldPassword.FocusBorderColor = Color.PeachPuff;
+            fieldPassword.FocusImageTint = Color.White;
+            fieldPassword.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point,  0);
+            fieldPassword.ForeColor = Color.Gray;
+            fieldPassword.Image = (Image) resources.GetObject("fieldPassword.Image");
+            fieldPassword.ImageExpand = new Point(0, 0);
+            fieldPassword.ImageOffset = new Point(0, 0);
+            fieldPassword.Location = new Point(24, 354);
+            fieldPassword.Margin = new Padding(4);
+            fieldPassword.Multiline = false;
+            fieldPassword.Name = "fieldPassword";
+            fieldPassword.NormalImageTint = Color.White;
+            fieldPassword.Padding = new Padding(50, 8, 50, 0);
+            fieldPassword.PasswordChar = false;
+            fieldPassword.PlaceholderColor = Color.DarkGray;
+            fieldPassword.PlaceholderText = "Contraseña";
+            fieldPassword.Rounding = new Padding(8);
+            fieldPassword.Size = new Size(390, 37);
+            fieldPassword.TabIndex = 16;
+            fieldPassword.TextOffset = new Size(30, 0);
+            fieldPassword.UnderlinedStyle = true;
             // 
-            // fieldMensaje
+            // btnAlmacenarConfiguracion
             // 
-            fieldMensaje.AutoSize = false;
-            fieldMensaje.BackColor = Color.White;
-            fieldMensaje.Dock = DockStyle.Fill;
-            fieldMensaje.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldMensaje.ForeColor = Color.Black;
-            fieldMensaje.Location = new Point(23, 103);
-            fieldMensaje.Name = "fieldMensaje";
-            fieldMensaje.Size = new Size(392, 114);
-            fieldMensaje.TabIndex = 12;
-            fieldMensaje.Text = "Al cambiar la configuración de la aplicación y presionar el botón de almacenar debe tener en cuenta que la aplicación se reiniciará para aplicar los cambios.";
+            btnAlmacenarConfiguracion.CheckButton = false;
+            btnAlmacenarConfiguracion.Checked = false;
+            btnAlmacenarConfiguracion.CheckedBackground = Color.FromArgb(  255,   106,   0);
+            btnAlmacenarConfiguracion.CheckedForeColor = Color.White;
+            btnAlmacenarConfiguracion.CheckedImageTint = Color.White;
+            btnAlmacenarConfiguracion.CheckedOutline = Color.FromArgb(  255,   106,   0);
+            btnAlmacenarConfiguracion.Content = "Almacenar configuración";
+            btnAlmacenarConfiguracion.DialogResult = DialogResult.None;
+            btnAlmacenarConfiguracion.Dock = DockStyle.Fill;
+            btnAlmacenarConfiguracion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point,  0);
+            btnAlmacenarConfiguracion.ForeColor = Color.Black;
+            btnAlmacenarConfiguracion.HoverBackground = Color.White;
+            btnAlmacenarConfiguracion.HoveredImageTint = Color.White;
+            btnAlmacenarConfiguracion.HoverForeColor = Color.Black;
+            btnAlmacenarConfiguracion.HoverOutline = Color.FromArgb(  32,   128,   128,   128);
+            btnAlmacenarConfiguracion.Image = null;
+            btnAlmacenarConfiguracion.ImageAutoCenter = true;
+            btnAlmacenarConfiguracion.ImageExpand = new Point(0, 0);
+            btnAlmacenarConfiguracion.ImageOffset = new Point(0, 0);
+            btnAlmacenarConfiguracion.Location = new Point(23, 431);
+            btnAlmacenarConfiguracion.Name = "btnAlmacenarConfiguracion";
+            btnAlmacenarConfiguracion.NormalBackground = Color.PeachPuff;
+            btnAlmacenarConfiguracion.NormalForeColor = Color.Black;
+            btnAlmacenarConfiguracion.NormalImageTint = Color.White;
+            btnAlmacenarConfiguracion.NormalOutline = Color.PeachPuff;
+            btnAlmacenarConfiguracion.OutlineThickness = 1F;
+            btnAlmacenarConfiguracion.PressedBackground = Color.WhiteSmoke;
+            btnAlmacenarConfiguracion.PressedForeColor = Color.FromArgb(  32,   32,   32);
+            btnAlmacenarConfiguracion.PressedImageTint = Color.White;
+            btnAlmacenarConfiguracion.PressedOutline = Color.FromArgb(  64,   128,   128,   128);
+            btnAlmacenarConfiguracion.Rounding = new Padding(16);
+            btnAlmacenarConfiguracion.Size = new Size(392, 39);
+            btnAlmacenarConfiguracion.TabIndex = 17;
+            btnAlmacenarConfiguracion.TextAlignment = StringAlignment.Center;
+            btnAlmacenarConfiguracion.TextOffset = new Point(0, 0);
             // 
             // btnSalir
             // 
-            btnSalir.Animated = true;
-            btnSalir.BorderColor = Color.Gainsboro;
-            btnSalir.BorderRadius = 18;
-            btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges9;
+            btnSalir.CheckButton = false;
+            btnSalir.Checked = false;
+            btnSalir.CheckedBackground = Color.FromArgb(  255,   106,   0);
+            btnSalir.CheckedForeColor = Color.White;
+            btnSalir.CheckedImageTint = Color.White;
+            btnSalir.CheckedOutline = Color.FromArgb(  255,   106,   0);
+            btnSalir.Content = "Salir";
+            btnSalir.DialogResult = DialogResult.None;
             btnSalir.Dock = DockStyle.Fill;
-            btnSalir.FillColor = Color.White;
-            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point,  0);
             btnSalir.ForeColor = Color.Gainsboro;
-            btnSalir.HoverState.BorderColor = Color.PeachPuff;
-            btnSalir.HoverState.FillColor = Color.PeachPuff;
-            btnSalir.HoverState.ForeColor = Color.Black;
-            btnSalir.Location = new Point(23, 490);
+            btnSalir.HoverBackground = Color.PeachPuff;
+            btnSalir.HoveredImageTint = Color.White;
+            btnSalir.HoverForeColor = Color.Black;
+            btnSalir.HoverOutline = Color.PeachPuff;
+            btnSalir.Image = null;
+            btnSalir.ImageAutoCenter = true;
+            btnSalir.ImageExpand = new Point(0, 0);
+            btnSalir.ImageOffset = new Point(0, 0);
+            btnSalir.Location = new Point(23, 486);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnSalir.NormalBackground = Color.White;
+            btnSalir.NormalForeColor = Color.Gainsboro;
+            btnSalir.NormalImageTint = Color.White;
+            btnSalir.NormalOutline = Color.Gainsboro;
+            btnSalir.OutlineThickness = 1F;
+            btnSalir.PressedBackground = Color.WhiteSmoke;
+            btnSalir.PressedForeColor = Color.FromArgb(  32,   32,   32);
+            btnSalir.PressedImageTint = Color.White;
+            btnSalir.PressedOutline = Color.FromArgb(  64,   128,   128,   128);
+            btnSalir.Rounding = new Padding(16);
             btnSalir.Size = new Size(392, 39);
-            btnSalir.TabIndex = 13;
-            btnSalir.Text = "Salir";
+            btnSalir.TabIndex = 18;
+            btnSalir.TextAlignment = StringAlignment.Center;
+            btnSalir.TextOffset = new Point(0, 0);
+            // 
+            // fieldInformacion
+            // 
+            fieldInformacion.Content = "Al\\ cambiar\\ la\\ configuración\\ de\\ la\\ aplicación\\ y\\ presionar\\ el\\ botón\\ de\\ almacenar\\ debe\\ tener\\ en\\ cuenta\\ que\\ la\\ aplicación\\ se\\ reiniciará\\ para\\ aplicar\\ los\\ cambios\\.";
+            fieldInformacion.Dock = DockStyle.Fill;
+            fieldInformacion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point,  0);
+            fieldInformacion.HorizontalAlignment = StringAlignment.Near;
+            fieldInformacion.Location = new Point(24, 103);
+            fieldInformacion.Margin = new Padding(4, 3, 4, 3);
+            fieldInformacion.Name = "fieldInformacion";
+            fieldInformacion.Size = new Size(390, 114);
+            fieldInformacion.TabIndex = 19;
+            fieldInformacion.VerticalAlignment = StringAlignment.Near;
             // 
             // VistaConfServidorFTP
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(440, 768);
+            ClientSize = new Size(440, 749);
             Controls.Add(layoutContenedor);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaConfServidorFTP";
@@ -342,20 +348,17 @@ namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas {
         }
 
         #endregion
-
-        private Guna2BorderlessForm formatoBase;
         private TableLayoutPanel layoutBase;
         private TableLayoutPanel layoutDistribucion;
         private TableLayoutPanel layoutContenedor;
         private TableLayoutPanel layoutVista;
-        private Guna2TextBox fieldNombreUsuario;
-        private Guna2TextBox fieldPassword;
         private Label fieldTitulo;
         private Label fieldCopyright;
-        private Guna2Button btnAlmacenarConfiguracion;
-        private Guna2TextBox fieldServidor;
-        private Guna2TextBox fieldBaseDatos;
-        private Guna2HtmlLabel fieldMensaje;
-        private Guna2Button btnSalir;
+        private CuoreUI.Controls.cuiTextBox fieldServidor;
+        private CuoreUI.Controls.cuiTextBox fieldNombreUsuario;
+        private CuoreUI.Controls.cuiTextBox fieldPassword;
+        private CuoreUI.Controls.cuiButton btnAlmacenarConfiguracion;
+        private CuoreUI.Controls.cuiButton btnSalir;
+        private CuoreUI.Controls.cuiLabel fieldInformacion;
     }
 }
