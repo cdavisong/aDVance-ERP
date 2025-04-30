@@ -20,13 +20,19 @@ public sealed class ServidorTCP : IDisposable {
         if (ServicioActivo || _disposed)
             return;
 
+        var nombreHost = Dns.GetHostName();
+
+        // Obtener todas las direcciones IP del Host
+        var direccionesIp = Dns.GetHostAddresses(nombreHost);
+        var direcciones = string.Join(", ", direccionesIp.Where(ip => ip.AddressFamily == AddressFamily.InterNetwork).Select(ip => ip.ToString()));
+
         _cts = new CancellationTokenSource();
         _listener = new TcpListener(IPAddress.Any, puerto);
 
         try {
             _listener.Start();
             ServicioActivo = true;
-            OnStatusChanged($"Servidor iniciado en puerto {puerto}");
+            OnStatusChanged($"Servidor de scanner iniciado en {(direcciones.Split(',').Length > 1 ? "las direcciones" : "la dirección")} : {direcciones} | Puerto : {puerto}");
 
             while (!_cts.Token.IsCancellationRequested) {
                 try {

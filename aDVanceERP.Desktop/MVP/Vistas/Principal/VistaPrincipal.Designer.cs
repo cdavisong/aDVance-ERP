@@ -24,18 +24,18 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaPrincipal));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             notificacionMensajes = new Guna.UI2.WinForms.Guna2NotificationPaint(components);
             btnMensajes = new Guna.UI2.WinForms.Guna2Button();
@@ -52,6 +52,7 @@
             btnSubMenuUsuario = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             btnMaximizarRestaurar = new Guna.UI2.WinForms.Guna2ControlBox();
             layoutBarraEstado = new TableLayoutPanel();
+            fieldServidorScanner = new Label();
             contenedorVistas = new Panel();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
@@ -59,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize) fieldIcono).BeginInit();
             contenedorMenus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) btnSubMenuUsuario).BeginInit();
+            layoutBarraEstado.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -83,9 +85,9 @@
             btnMensajes.Animated = true;
             btnMensajes.BackgroundImageLayout = ImageLayout.Center;
             btnMensajes.Cursor = Cursors.Hand;
-            btnMensajes.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnMensajes.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnMensajes.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnMensajes.CustomizableEdges = customizableEdges3;
+            btnMensajes.CustomizableEdges = customizableEdges12;
             btnMensajes.Dock = DockStyle.Fill;
             btnMensajes.FillColor = Color.WhiteSmoke;
             btnMensajes.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -93,7 +95,7 @@
             btnMensajes.Location = new Point(1107, 1);
             btnMensajes.Margin = new Padding(1);
             btnMensajes.Name = "btnMensajes";
-            btnMensajes.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnMensajes.ShadowDecoration.CustomizableEdges = customizableEdges13;
             btnMensajes.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnMensajes.Size = new Size(48, 51);
             btnMensajes.TabIndex = 1;
@@ -115,9 +117,9 @@
             btnNotificaciones.Animated = true;
             btnNotificaciones.BackgroundImageLayout = ImageLayout.Center;
             btnNotificaciones.Cursor = Cursors.Hand;
-            btnNotificaciones.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnNotificaciones.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnNotificaciones.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnNotificaciones.CustomizableEdges = customizableEdges1;
+            btnNotificaciones.CustomizableEdges = customizableEdges14;
             btnNotificaciones.Dock = DockStyle.Fill;
             btnNotificaciones.FillColor = Color.WhiteSmoke;
             btnNotificaciones.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
@@ -125,7 +127,7 @@
             btnNotificaciones.Location = new Point(1057, 1);
             btnNotificaciones.Margin = new Padding(1);
             btnNotificaciones.Name = "btnNotificaciones";
-            btnNotificaciones.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnNotificaciones.ShadowDecoration.CustomizableEdges = customizableEdges15;
             btnNotificaciones.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnNotificaciones.Size = new Size(48, 51);
             btnNotificaciones.TabIndex = 1;
@@ -198,14 +200,14 @@
             // 
             btnMinimizar.BorderRadius = 5;
             btnMinimizar.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MinimizeBox;
-            btnMinimizar.CustomizableEdges = customizableEdges5;
+            btnMinimizar.CustomizableEdges = customizableEdges16;
             btnMinimizar.Dock = DockStyle.Fill;
             btnMinimizar.FillColor = Color.WhiteSmoke;
             btnMinimizar.IconColor = Color.Black;
             btnMinimizar.Location = new Point(1207, 1);
             btnMinimizar.Margin = new Padding(1);
             btnMinimizar.Name = "btnMinimizar";
-            btnMinimizar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnMinimizar.ShadowDecoration.CustomizableEdges = customizableEdges17;
             btnMinimizar.Size = new Size(48, 51);
             btnMinimizar.TabIndex = 3;
             // 
@@ -246,7 +248,7 @@
             // btnCerrar
             // 
             btnCerrar.BorderRadius = 5;
-            btnCerrar.CustomizableEdges = customizableEdges7;
+            btnCerrar.CustomizableEdges = customizableEdges18;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.WhiteSmoke;
             btnCerrar.HoverState.FillColor = Color.FromArgb(  192,   0,   0);
@@ -255,7 +257,7 @@
             btnCerrar.Location = new Point(1307, 1);
             btnCerrar.Margin = new Padding(1);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges19;
             btnCerrar.Size = new Size(48, 51);
             btnCerrar.TabIndex = 2;
             // 
@@ -269,7 +271,7 @@
             btnSubMenuUsuario.Location = new Point(1157, 1);
             btnSubMenuUsuario.Margin = new Padding(1);
             btnSubMenuUsuario.Name = "btnSubMenuUsuario";
-            btnSubMenuUsuario.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            btnSubMenuUsuario.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnSubMenuUsuario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnSubMenuUsuario.Size = new Size(48, 51);
             btnSubMenuUsuario.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -281,14 +283,14 @@
             // 
             btnMaximizarRestaurar.BorderRadius = 5;
             btnMaximizarRestaurar.ControlBoxType = Guna.UI2.WinForms.Enums.ControlBoxType.MaximizeBox;
-            btnMaximizarRestaurar.CustomizableEdges = customizableEdges10;
+            btnMaximizarRestaurar.CustomizableEdges = customizableEdges21;
             btnMaximizarRestaurar.Dock = DockStyle.Fill;
             btnMaximizarRestaurar.FillColor = Color.WhiteSmoke;
             btnMaximizarRestaurar.IconColor = Color.Black;
             btnMaximizarRestaurar.Location = new Point(1257, 1);
             btnMaximizarRestaurar.Margin = new Padding(1);
             btnMaximizarRestaurar.Name = "btnMaximizarRestaurar";
-            btnMaximizarRestaurar.ShadowDecoration.CustomizableEdges = customizableEdges11;
+            btnMaximizarRestaurar.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnMaximizarRestaurar.Size = new Size(48, 51);
             btnMaximizarRestaurar.TabIndex = 4;
             // 
@@ -297,6 +299,7 @@
             layoutBarraEstado.BackColor = Color.White;
             layoutBarraEstado.ColumnCount = 1;
             layoutBarraEstado.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            layoutBarraEstado.Controls.Add(fieldServidorScanner, 0, 0);
             layoutBarraEstado.Dock = DockStyle.Fill;
             layoutBarraEstado.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             layoutBarraEstado.ForeColor = Color.White;
@@ -307,6 +310,21 @@
             layoutBarraEstado.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             layoutBarraEstado.Size = new Size(1356, 24);
             layoutBarraEstado.TabIndex = 1;
+            // 
+            // fieldServidorScanner
+            // 
+            fieldServidorScanner.AutoSize = true;
+            fieldServidorScanner.Dock = DockStyle.Left;
+            fieldServidorScanner.ForeColor = Color.DimGray;
+            fieldServidorScanner.Image = (Image) resources.GetObject("fieldServidorScanner.Image");
+            fieldServidorScanner.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldServidorScanner.Location = new Point(10, 0);
+            fieldServidorScanner.Margin = new Padding(10, 0, 3, 0);
+            fieldServidorScanner.Name = "fieldServidorScanner";
+            fieldServidorScanner.Size = new Size(451, 24);
+            fieldServidorScanner.TabIndex = 0;
+            fieldServidorScanner.Text = "      Servidor de scanner iniciado en la dirección : 192.168.0.1 | Puerto : 9002";
+            fieldServidorScanner.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // contenedorVistas
             // 
@@ -340,6 +358,8 @@
             contenedorMenus.ResumeLayout(false);
             contenedorMenus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) btnSubMenuUsuario).EndInit();
+            layoutBarraEstado.ResumeLayout(false);
+            layoutBarraEstado.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -362,5 +382,6 @@
         private Guna.UI2.WinForms.Guna2Button btnMensajes;
         private Guna.UI2.WinForms.Guna2CirclePictureBox btnSubMenuUsuario;
         private Guna.UI2.WinForms.Guna2HtmlLabel fieldTitulo;
+        private Label fieldServidorScanner;
     }
 }

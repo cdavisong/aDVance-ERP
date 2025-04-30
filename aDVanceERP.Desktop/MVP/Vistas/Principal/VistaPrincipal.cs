@@ -68,7 +68,7 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         Vistas = new RepositorioVistaBase(contenedorVistas);
         Menus = new RepositorioVistaBase(contenedorMenus);
 
-        // Eventos
+        // Eventos        
         btnNotificaciones.Click += delegate(object? sender, EventArgs args) {
             VerNotificaciones?.Invoke(sender, args);
         };
@@ -78,8 +78,15 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
             SubMenuUsuario?.Invoke(sender, args); 
         };
         Resize += delegate { };
-        FormClosing += delegate(object? sender, FormClosingEventArgs args) { 
+        FormClosing += delegate(object? sender, FormClosingEventArgs args) {
+            UtilesServidorScanner.Servidor.Detener();
+
             Salir?.Invoke(sender, args); 
+        };
+
+        // Eventos del Servidor SCANNER
+        UtilesServidorScanner.Servidor.CambioEstado += delegate (string mensaje) {
+            fieldServidorScanner.Text = $"      {mensaje}";
         };
     }
 

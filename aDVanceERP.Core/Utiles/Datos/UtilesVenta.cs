@@ -258,6 +258,26 @@ public static class UtilesVenta {
         return EjecutarConsultaDecimal(query);
     }
 
+    public static decimal ObtenerValorGananciaDia(DateTime fecha) {
+        const string query = """
+                             SELECT SUM((dva.precio_venta_final - dva.precio_compra_vigente) * dva.cantidad) AS ganancia_dia
+                             FROM adv__detalle_venta_articulo dva
+                             JOIN adv__venta v ON dva.id_venta = v.id_venta
+                             WHERE DATE(v.fecha) = @Fecha 
+                             AND (
+                                 SELECT COALESCE(SUM(p.monto), 0)
+                                 FROM adv__pago p
+                                 WHERE p.id_venta = v.id_venta
+                                 AND p.estado = 'Confirmado'
+                             ) >= v.total;
+                             """;
+        var parametros = new[] {
+            new MySqlParameter("@Fecha", fecha.ToString("yyyy-MM-dd"))
+        };
+
+        return EjecutarConsultaDecimal(query, parametros);
+    }
+
     public static DatosEstadisticosVentas ObtenerDatosEstadisticosVentas(DateTime fecha) {
         _datos = new DatosEstadisticosVentas();
 

@@ -18,5 +18,6 @@ public class PresentadorContenedorEstadisticas : PresentadorBase<IVistaContenedo
         Vista.CantidadArticulosVendidos = UtilesVenta.ObtenerTotalArticulosVendidosHoy();
         Vista.MontoVentaArticulosVendidos = UtilesVenta.ObtenerValorBrutoVentaDia(DateTime.Now);
         Vista.MontoGananciaTotalNegocio = UtilesVenta.ObtenerValorGananciaTotalNegocio();
+        Vista.MontoGananciaAcumuladaDia = UtilesVenta.ObtenerValorGananciaDia(DateTime.Now);
     }
 }

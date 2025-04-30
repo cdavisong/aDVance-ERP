@@ -2,6 +2,7 @@
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.Principal;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 using aDVanceERP.Modulos.CompraVenta;
@@ -40,6 +41,9 @@ public partial class PresentadorPrincipal {
 
         // Otros
         MostrarVistaContenedorSeguridad(this, EventArgs.Empty);
+
+        // Iniciar el servidor TCP
+        UtilesServidorScanner.Servidor.IniciarAsync(9002);
     }
 
     public IVistaPrincipal Vista { get; }

@@ -9,6 +9,7 @@ public interface IVistaContenedorEstadisticas : IVista {
     int CantidadArticulosVendidos { get; set; }
     decimal MontoVentaArticulosVendidos { get; set; }
     decimal MontoGananciaTotalNegocio { get; set; }
+    decimal MontoGananciaAcumuladaDia { get; set; }
     DatosEstadisticosVentas DatosEstadisticosVentas { get; set; }
     DateTime FechaEstadisticasVentas { get; }
 

@@ -17,9 +17,6 @@ internal static class Program {
     private static void Main() {
         // Verificar y ejecutar el patch si es necesario
         if (VerificarEjecutarParcheBD()) {
-            // Iniciar el servidor TCP
-            UtilesServidorScanner.Servidor.IniciarAsync(9002);
-
             // Configuración de la aplicación
             ApplicationConfiguration.Initialize();
             Application.Run((Form) new PresentadorPrincipal().Vista);

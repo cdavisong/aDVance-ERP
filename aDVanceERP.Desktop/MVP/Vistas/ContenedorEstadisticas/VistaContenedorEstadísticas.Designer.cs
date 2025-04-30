@@ -43,7 +43,7 @@
             fieldSubtitulo = new Label();
             layoutDistribucionEstadisticas = new TableLayoutPanel();
             layoutGraficoEstadisticas = new TableLayoutPanel();
-            btnImprimirAnalisisVentas = new Guna.UI2.WinForms.Guna2Button();
+            btnDescargarAnálisisVentas = new Guna.UI2.WinForms.Guna2Button();
             subLayoutGraficoEstadisticas1 = new TableLayoutPanel();
             subLayoutGraficoEstadisticas2 = new TableLayoutPanel();
             fieldTituloAnalisisVentas = new Label();
@@ -58,9 +58,14 @@
             subLayout2EstadisticasGanancia = new TableLayoutPanel();
             fieldGananciaTotalNegocio = new Label();
             fieldTituloGananciaTotalNegocio = new Label();
+            panelGananciaDia = new Panel();
+            fieldTituloGananciaAcumuladaDia = new Label();
+            fieldGananciaAcumuladaDia = new Label();
             layoutEstadisticasVenta = new TableLayoutPanel();
             btnGestionarVentas = new Guna.UI2.WinForms.Guna2Button();
             subLayout1EstadisticasVentaProducto = new TableLayoutPanel();
+            panelAcumuladoVentas = new Panel();
+            fieldTituloAcumuladoVentas = new Label();
             fieldMontoVentaArticulosVendidos = new Label();
             subLayout2EstadisticasVenta = new TableLayoutPanel();
             fieldCantArticulosVendidos = new Label();
@@ -84,8 +89,10 @@
             layoutEstadisticasGanancia.SuspendLayout();
             subLayout1EstadisticasGanancia.SuspendLayout();
             subLayout2EstadisticasGanancia.SuspendLayout();
+            panelGananciaDia.SuspendLayout();
             layoutEstadisticasVenta.SuspendLayout();
             subLayout1EstadisticasVentaProducto.SuspendLayout();
+            panelAcumuladoVentas.SuspendLayout();
             subLayout2EstadisticasVenta.SuspendLayout();
             layoutEstadisticasProducto.SuspendLayout();
             subLayout1EstadisticasProducto.SuspendLayout();
@@ -208,7 +215,7 @@
             layoutGraficoEstadisticas.BackColor = Color.Gainsboro;
             layoutGraficoEstadisticas.ColumnCount = 1;
             layoutGraficoEstadisticas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutGraficoEstadisticas.Controls.Add(btnImprimirAnalisisVentas, 0, 1);
+            layoutGraficoEstadisticas.Controls.Add(btnDescargarAnálisisVentas, 0, 1);
             layoutGraficoEstadisticas.Controls.Add(subLayoutGraficoEstadisticas1, 0, 0);
             layoutGraficoEstadisticas.Dock = DockStyle.Fill;
             layoutGraficoEstadisticas.Location = new Point(3, 203);
@@ -219,25 +226,25 @@
             layoutGraficoEstadisticas.Size = new Size(1310, 318);
             layoutGraficoEstadisticas.TabIndex = 17;
             // 
-            // btnImprimirAnalisisVentas
+            // btnDescargarAnálisisVentas
             // 
-            btnImprimirAnalisisVentas.Animated = true;
-            btnImprimirAnalisisVentas.CustomizableEdges = customizableEdges1;
-            btnImprimirAnalisisVentas.Dock = DockStyle.Fill;
-            btnImprimirAnalisisVentas.FillColor = Color.Gainsboro;
-            btnImprimirAnalisisVentas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnImprimirAnalisisVentas.ForeColor = Color.Black;
-            btnImprimirAnalisisVentas.Image = (Image) resources.GetObject("btnImprimirAnalisisVentas.Image");
-            btnImprimirAnalisisVentas.ImageAlign = HorizontalAlignment.Left;
-            btnImprimirAnalisisVentas.ImageOffset = new Point(-5, 0);
-            btnImprimirAnalisisVentas.Location = new Point(0, 283);
-            btnImprimirAnalisisVentas.Margin = new Padding(0);
-            btnImprimirAnalisisVentas.Name = "btnImprimirAnalisisVentas";
-            btnImprimirAnalisisVentas.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnImprimirAnalisisVentas.Size = new Size(1310, 35);
-            btnImprimirAnalisisVentas.TabIndex = 8;
-            btnImprimirAnalisisVentas.Text = "Imprimir análisis de ventas";
-            btnImprimirAnalisisVentas.TextAlign = HorizontalAlignment.Left;
+            btnDescargarAnálisisVentas.Animated = true;
+            btnDescargarAnálisisVentas.CustomizableEdges = customizableEdges1;
+            btnDescargarAnálisisVentas.Dock = DockStyle.Fill;
+            btnDescargarAnálisisVentas.FillColor = Color.Gainsboro;
+            btnDescargarAnálisisVentas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnDescargarAnálisisVentas.ForeColor = Color.Black;
+            btnDescargarAnálisisVentas.Image = (Image) resources.GetObject("btnDescargarAnálisisVentas.Image");
+            btnDescargarAnálisisVentas.ImageAlign = HorizontalAlignment.Left;
+            btnDescargarAnálisisVentas.ImageOffset = new Point(-5, 0);
+            btnDescargarAnálisisVentas.Location = new Point(0, 283);
+            btnDescargarAnálisisVentas.Margin = new Padding(0);
+            btnDescargarAnálisisVentas.Name = "btnDescargarAnálisisVentas";
+            btnDescargarAnálisisVentas.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnDescargarAnálisisVentas.Size = new Size(1310, 35);
+            btnDescargarAnálisisVentas.TabIndex = 8;
+            btnDescargarAnálisisVentas.Text = "Imprimir análisis de ventas";
+            btnDescargarAnálisisVentas.TextAlign = HorizontalAlignment.Left;
             // 
             // subLayoutGraficoEstadisticas1
             // 
@@ -424,6 +431,7 @@
             subLayout1EstadisticasGanancia.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             subLayout1EstadisticasGanancia.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             subLayout1EstadisticasGanancia.Controls.Add(subLayout2EstadisticasGanancia, 0, 0);
+            subLayout1EstadisticasGanancia.Controls.Add(panelGananciaDia, 0, 1);
             subLayout1EstadisticasGanancia.Dock = DockStyle.Fill;
             subLayout1EstadisticasGanancia.Location = new Point(3, 3);
             subLayout1EstadisticasGanancia.Margin = new Padding(3, 3, 3, 10);
@@ -475,6 +483,44 @@
             fieldTituloGananciaTotalNegocio.TabIndex = 1;
             fieldTituloGananciaTotalNegocio.Text = "En ganancia total del negocio";
             // 
+            // panelGananciaDia
+            // 
+            panelGananciaDia.BackColor = Color.Transparent;
+            panelGananciaDia.Controls.Add(fieldTituloGananciaAcumuladaDia);
+            panelGananciaDia.Controls.Add(fieldGananciaAcumuladaDia);
+            panelGananciaDia.Dock = DockStyle.Fill;
+            panelGananciaDia.Location = new Point(10, 116);
+            panelGananciaDia.Margin = new Padding(10, 0, 3, 0);
+            panelGananciaDia.Name = "panelGananciaDia";
+            panelGananciaDia.Size = new Size(503, 30);
+            panelGananciaDia.TabIndex = 2;
+            // 
+            // fieldTituloGananciaAcumuladaDia
+            // 
+            fieldTituloGananciaAcumuladaDia.BackColor = Color.Transparent;
+            fieldTituloGananciaAcumuladaDia.Dock = DockStyle.Left;
+            fieldTituloGananciaAcumuladaDia.ForeColor = Color.Teal;
+            fieldTituloGananciaAcumuladaDia.Location = new Point(28, 0);
+            fieldTituloGananciaAcumuladaDia.Margin = new Padding(0);
+            fieldTituloGananciaAcumuladaDia.Name = "fieldTituloGananciaAcumuladaDia";
+            fieldTituloGananciaAcumuladaDia.Padding = new Padding(0, 3, 0, 0);
+            fieldTituloGananciaAcumuladaDia.Size = new Size(228, 30);
+            fieldTituloGananciaAcumuladaDia.TabIndex = 4;
+            fieldTituloGananciaAcumuladaDia.Text = "de ganancia acumulada en el día";
+            fieldTituloGananciaAcumuladaDia.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // fieldGananciaAcumuladaDia
+            // 
+            fieldGananciaAcumuladaDia.AutoSize = true;
+            fieldGananciaAcumuladaDia.Dock = DockStyle.Left;
+            fieldGananciaAcumuladaDia.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldGananciaAcumuladaDia.Location = new Point(0, 0);
+            fieldGananciaAcumuladaDia.Margin = new Padding(10, 0, 3, 0);
+            fieldGananciaAcumuladaDia.Name = "fieldGananciaAcumuladaDia";
+            fieldGananciaAcumuladaDia.Size = new Size(28, 32);
+            fieldGananciaAcumuladaDia.TabIndex = 3;
+            fieldGananciaAcumuladaDia.Text = "0";
+            // 
             // layoutEstadisticasVenta
             // 
             layoutEstadisticasVenta.BackColor = Color.PaleGoldenrod;
@@ -517,7 +563,7 @@
             subLayout1EstadisticasVentaProducto.ColumnCount = 1;
             subLayout1EstadisticasVentaProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             subLayout1EstadisticasVentaProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            subLayout1EstadisticasVentaProducto.Controls.Add(fieldMontoVentaArticulosVendidos, 0, 1);
+            subLayout1EstadisticasVentaProducto.Controls.Add(panelAcumuladoVentas, 0, 1);
             subLayout1EstadisticasVentaProducto.Controls.Add(subLayout2EstadisticasVenta, 0, 0);
             subLayout1EstadisticasVentaProducto.Dock = DockStyle.Fill;
             subLayout1EstadisticasVentaProducto.Location = new Point(3, 3);
@@ -529,14 +575,41 @@
             subLayout1EstadisticasVentaProducto.Size = new Size(382, 146);
             subLayout1EstadisticasVentaProducto.TabIndex = 0;
             // 
+            // panelAcumuladoVentas
+            // 
+            panelAcumuladoVentas.BackColor = Color.Transparent;
+            panelAcumuladoVentas.Controls.Add(fieldTituloAcumuladoVentas);
+            panelAcumuladoVentas.Controls.Add(fieldMontoVentaArticulosVendidos);
+            panelAcumuladoVentas.Dock = DockStyle.Fill;
+            panelAcumuladoVentas.Location = new Point(10, 116);
+            panelAcumuladoVentas.Margin = new Padding(10, 0, 3, 0);
+            panelAcumuladoVentas.Name = "panelAcumuladoVentas";
+            panelAcumuladoVentas.Size = new Size(369, 30);
+            panelAcumuladoVentas.TabIndex = 3;
+            // 
+            // fieldTituloAcumuladoVentas
+            // 
+            fieldTituloAcumuladoVentas.BackColor = Color.Transparent;
+            fieldTituloAcumuladoVentas.Dock = DockStyle.Left;
+            fieldTituloAcumuladoVentas.ForeColor = Color.OliveDrab;
+            fieldTituloAcumuladoVentas.Location = new Point(28, 0);
+            fieldTituloAcumuladoVentas.Margin = new Padding(0);
+            fieldTituloAcumuladoVentas.Name = "fieldTituloAcumuladoVentas";
+            fieldTituloAcumuladoVentas.Padding = new Padding(0, 3, 0, 0);
+            fieldTituloAcumuladoVentas.Size = new Size(154, 30);
+            fieldTituloAcumuladoVentas.TabIndex = 3;
+            fieldTituloAcumuladoVentas.Text = "de las ventas";
+            fieldTituloAcumuladoVentas.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // fieldMontoVentaArticulosVendidos
             // 
             fieldMontoVentaArticulosVendidos.AutoSize = true;
+            fieldMontoVentaArticulosVendidos.Dock = DockStyle.Left;
             fieldMontoVentaArticulosVendidos.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldMontoVentaArticulosVendidos.Location = new Point(10, 116);
-            fieldMontoVentaArticulosVendidos.Margin = new Padding(10, 0, 3, 0);
+            fieldMontoVentaArticulosVendidos.Location = new Point(0, 0);
+            fieldMontoVentaArticulosVendidos.Margin = new Padding(0);
             fieldMontoVentaArticulosVendidos.Name = "fieldMontoVentaArticulosVendidos";
-            fieldMontoVentaArticulosVendidos.Size = new Size(28, 30);
+            fieldMontoVentaArticulosVendidos.Size = new Size(28, 32);
             fieldMontoVentaArticulosVendidos.TabIndex = 2;
             fieldMontoVentaArticulosVendidos.Text = "0";
             // 
@@ -717,9 +790,12 @@
             subLayout1EstadisticasGanancia.ResumeLayout(false);
             subLayout2EstadisticasGanancia.ResumeLayout(false);
             subLayout2EstadisticasGanancia.PerformLayout();
+            panelGananciaDia.ResumeLayout(false);
+            panelGananciaDia.PerformLayout();
             layoutEstadisticasVenta.ResumeLayout(false);
             subLayout1EstadisticasVentaProducto.ResumeLayout(false);
-            subLayout1EstadisticasVentaProducto.PerformLayout();
+            panelAcumuladoVentas.ResumeLayout(false);
+            panelAcumuladoVentas.PerformLayout();
             subLayout2EstadisticasVenta.ResumeLayout(false);
             subLayout2EstadisticasVenta.PerformLayout();
             layoutEstadisticasProducto.ResumeLayout(false);
@@ -760,7 +836,7 @@
         private Label fieldTituloGananciaTotalNegocio;
         private Label fieldMontoInversionArticuloss;
         private TableLayoutPanel layoutGraficoEstadisticas;
-        private Guna.UI2.WinForms.Guna2Button btnImprimirAnalisisVentas;
+        private Guna.UI2.WinForms.Guna2Button btnDescargarAnálisisVentas;
         private TableLayoutPanel subLayoutGraficoEstadisticas1;
         private TableLayoutPanel subLayoutGraficoEstadisticas2;
         private Label fieldTituloAnalisisVentas;
@@ -769,5 +845,10 @@
         private Guna.UI2.WinForms.Guna2ComboBox fieldCriterioEstadisticasVenta;
         private PictureBox fieldGraficoVentas;
         private Guna.UI2.WinForms.Guna2DateTimePicker fieldDatoFecha;
+        private Label fieldGananciaAcumuladaDia;
+        private Panel panelGananciaDia;
+        private Label fieldTituloGananciaAcumuladaDia;
+        private Panel panelAcumuladoVentas;
+        private Label fieldTituloAcumuladoVentas;
     }
 }

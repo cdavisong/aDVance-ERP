@@ -3,6 +3,8 @@ using System.Globalization;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas;
 using aDVanceERP.Desktop.Properties;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas; 
 
@@ -63,6 +65,14 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         set => fieldGananciaTotalNegocio.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
     }
 
+    public decimal MontoGananciaAcumuladaDia {
+        get => decimal.TryParse(fieldGananciaAcumuladaDia.Text.Remove(1, 2), NumberStyles.Any,
+            CultureInfo.InvariantCulture, out var monto)
+            ? monto
+            : 0;
+        set => fieldGananciaAcumuladaDia.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
+    }
+
     public DatosEstadisticosVentas DatosEstadisticosVentas {
         get => _datosEstadisticosVentas;
         set {
@@ -89,6 +99,34 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         });
 
         // Eventos
+        btnDescargarAnálisisVentas.Click += delegate {
+            /*var filas = new List<string[]>();
+
+            using (var datosVentas = new DatosVenta()) {
+                var ventasFecha = UtilesVenta.ObtenerVentas;
+
+                foreach (var venta in ventasFecha) {
+                    using (var datosVentaArticulo = new DatosDetalleVentaArticulo()) {
+                        var detalleVentaArticulo = datosVentaArticulo.Obtener(CriterioDetalleVentaArticulo.IdVenta, venta.Id.ToString());
+
+                        foreach (var ventaArticulo in detalleVentaArticulo) {
+                            var fila = new string[6];
+
+                            fila[0] = ventaArticulo.Id.ToString();
+                            fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? string.Empty;
+                            fila[2] = "U";
+                            fila[3] = ventaArticulo.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
+                            fila[4] = ventaArticulo.Cantidad.ToString();
+                            fila[5] = (ventaArticulo.PrecioVentaFinal * ventaArticulo.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+
+                            filas.Add(fila);
+                        }
+                    }
+                }
+            }
+
+            UtilesReportes.GenerarReporteVentas(fieldDatoBusquedaFecha.Value, filas);*/
+        };
         subLayout1EstadisticasProducto.Paint += (sender, e) => {
             e.Graphics.Clear(Color.PeachPuff);
             e.Graphics.DrawImageUnscaled(Resources.productE_96px,
