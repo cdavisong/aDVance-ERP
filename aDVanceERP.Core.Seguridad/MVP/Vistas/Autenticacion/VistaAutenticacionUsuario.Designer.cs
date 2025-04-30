@@ -28,19 +28,19 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaAutenticacionUsuario));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -174,7 +174,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldNombreUsuario.BorderColor = Color.Gainsboro;
             fieldNombreUsuario.BorderRadius = 16;
             fieldNombreUsuario.Cursor = Cursors.IBeam;
-            fieldNombreUsuario.CustomizableEdges = customizableEdges1;
+            fieldNombreUsuario.CustomizableEdges = customizableEdges13;
             fieldNombreUsuario.DefaultText = "";
             fieldNombreUsuario.DisabledState.BorderColor = Color.White;
             fieldNombreUsuario.DisabledState.ForeColor = Color.DimGray;
@@ -193,7 +193,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldNombreUsuario.PlaceholderForeColor = Color.DimGray;
             fieldNombreUsuario.PlaceholderText = "Nombre de usuario";
             fieldNombreUsuario.SelectedText = "";
-            fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldNombreUsuario.ShadowDecoration.CustomizableEdges = customizableEdges14;
             fieldNombreUsuario.Size = new Size(448, 35);
             fieldNombreUsuario.TabIndex = 3;
             fieldNombreUsuario.TextOffset = new Point(5, 0);
@@ -204,7 +204,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldPassword.BorderColor = Color.Gainsboro;
             fieldPassword.BorderRadius = 16;
             fieldPassword.Cursor = Cursors.IBeam;
-            fieldPassword.CustomizableEdges = customizableEdges3;
+            fieldPassword.CustomizableEdges = customizableEdges15;
             fieldPassword.DefaultText = "";
             fieldPassword.DisabledState.BorderColor = Color.White;
             fieldPassword.DisabledState.ForeColor = Color.DimGray;
@@ -225,7 +225,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldPassword.PlaceholderForeColor = Color.DimGray;
             fieldPassword.PlaceholderText = "Contraseña";
             fieldPassword.SelectedText = "";
-            fieldPassword.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            fieldPassword.ShadowDecoration.CustomizableEdges = customizableEdges16;
             fieldPassword.Size = new Size(448, 35);
             fieldPassword.TabIndex = 4;
             fieldPassword.TextOffset = new Point(5, 0);
@@ -235,14 +235,14 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             // 
             btnAutenticarUsuario.Animated = true;
             btnAutenticarUsuario.BorderRadius = 18;
-            btnAutenticarUsuario.CustomizableEdges = customizableEdges5;
+            btnAutenticarUsuario.CustomizableEdges = customizableEdges17;
             btnAutenticarUsuario.Dock = DockStyle.Fill;
             btnAutenticarUsuario.FillColor = Color.PeachPuff;
             btnAutenticarUsuario.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnAutenticarUsuario.ForeColor = Color.Black;
             btnAutenticarUsuario.Location = new Point(23, 384);
             btnAutenticarUsuario.Name = "btnAutenticarUsuario";
-            btnAutenticarUsuario.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnAutenticarUsuario.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnAutenticarUsuario.Size = new Size(452, 39);
             btnAutenticarUsuario.TabIndex = 6;
             btnAutenticarUsuario.Text = "Autenticar";
@@ -253,7 +253,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnRegistrarCuenta.BorderColor = Color.Gainsboro;
             btnRegistrarCuenta.BorderRadius = 18;
             btnRegistrarCuenta.BorderThickness = 1;
-            btnRegistrarCuenta.CustomizableEdges = customizableEdges7;
+            btnRegistrarCuenta.CustomizableEdges = customizableEdges19;
             btnRegistrarCuenta.Dock = DockStyle.Fill;
             btnRegistrarCuenta.FillColor = Color.White;
             btnRegistrarCuenta.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -263,7 +263,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnRegistrarCuenta.HoverState.ForeColor = Color.Black;
             btnRegistrarCuenta.Location = new Point(23, 439);
             btnRegistrarCuenta.Name = "btnRegistrarCuenta";
-            btnRegistrarCuenta.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnRegistrarCuenta.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnRegistrarCuenta.Size = new Size(452, 39);
             btnRegistrarCuenta.TabIndex = 7;
             btnRegistrarCuenta.Text = "Eres nuevo? Crea una cuenta";
@@ -317,7 +317,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             btnAutenticarGoogle.ImageSize = new Size(24, 24);
             btnAutenticarGoogle.Location = new Point(178, 3);
             btnAutenticarGoogle.Name = "btnAutenticarGoogle";
-            btnAutenticarGoogle.ShadowDecoration.CustomizableEdges = customizableEdges9;
+            btnAutenticarGoogle.ShadowDecoration.CustomizableEdges = customizableEdges21;
             btnAutenticarGoogle.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnAutenticarGoogle.Size = new Size(38, 38);
             btnAutenticarGoogle.TabIndex = 0;
@@ -337,7 +337,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             brtnAutenticarFacebook.ImageSize = new Size(24, 24);
             brtnAutenticarFacebook.Location = new Point(242, 3);
             brtnAutenticarFacebook.Name = "brtnAutenticarFacebook";
-            brtnAutenticarFacebook.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            brtnAutenticarFacebook.ShadowDecoration.CustomizableEdges = customizableEdges22;
             brtnAutenticarFacebook.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             brtnAutenticarFacebook.Size = new Size(38, 38);
             brtnAutenticarFacebook.TabIndex = 1;
@@ -363,8 +363,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldInformacion.BorderColor = Color.LightBlue;
             fieldInformacion.BorderRadius = 16;
             fieldInformacion.BorderThickness = 1;
-            customizableEdges11.TopLeft = false;
-            fieldInformacion.CustomizableEdges = customizableEdges11;
+            customizableEdges23.TopLeft = false;
+            fieldInformacion.CustomizableEdges = customizableEdges23;
             fieldInformacion.Dock = DockStyle.Fill;
             fieldInformacion.FillColor = Color.LightBlue;
             fieldInformacion.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -376,7 +376,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion {
             fieldInformacion.Margin = new Padding(17, 13, 0, 5);
             fieldInformacion.Name = "fieldInformacion";
             fieldInformacion.PressedColor = Color.LightBlue;
-            fieldInformacion.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            fieldInformacion.ShadowDecoration.CustomizableEdges = customizableEdges24;
             fieldInformacion.Size = new Size(431, 82);
             fieldInformacion.TabIndex = 0;
             fieldInformacion.Text = "Bienvenido a nuestra plataforma, debe autenticarse antes de comenzar a utilizar nuestros servicios y funcionalidades.";

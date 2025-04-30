@@ -177,7 +177,7 @@ public static class UtilesReportes {
         var precioBase = decimal.TryParse(fila.Length > 3 ? fila[3] : "0", NumberStyles.Any, CultureInfo.InvariantCulture, out var valorBase)
             ? valorBase
             : 0.00m;
-        gfx.DrawString(precioBase.ToString("N2", culture), fontContenido, XBrushes.Black,
+        gfx.DrawString(precioBase.ToString("N2", CultureInfo.InvariantCulture), fontContenido, XBrushes.Black,
             new XRect(margenIzquierdo + anchoCodigo + anchoArticulo + anchoUM, yPoint, anchoPrecioVentaFinal, alturaFila), XStringFormats.TopRight);
 
         // Cantidad
@@ -188,7 +188,7 @@ public static class UtilesReportes {
         var total = decimal.TryParse(fila.Length > 5 ? fila[5] : "0", NumberStyles.Any, CultureInfo.InvariantCulture, out var valorTotal)
             ? valorTotal
             : precioBase * (fila.Length > 4 ? decimal.Parse(fila[4]) : 0);
-        gfx.DrawString(total.ToString("N2", culture), fontContenido, XBrushes.Black,
+        gfx.DrawString(total.ToString("N2", CultureInfo.InvariantCulture), fontContenido, XBrushes.Black,
             new XRect(margenIzquierdo + anchoCodigo + anchoArticulo + anchoUM + anchoPrecioVentaFinal + anchoCantidad, yPoint, anchoTotal, alturaFila), XStringFormats.TopRight);
 
         sumaTotal += total;
@@ -216,7 +216,7 @@ public static class UtilesReportes {
         gfx.DrawString("Total", fontEncabezado, XBrushes.Black,
             new XRect(margenIzquierdo + anchoCodigo + anchoArticulo + anchoUM + anchoPrecioVentaFinal, yPoint, anchoCantidad, 15), XStringFormats.TopRight);
 
-        gfx.DrawString(sumaTotal.ToString("N2", culture) + " $", fontEncabezado, XBrushes.Black,
+        gfx.DrawString(sumaTotal.ToString("N2", CultureInfo.InvariantCulture) + " $", fontEncabezado, XBrushes.Black,
             new XRect(margenIzquierdo + anchoCodigo + anchoArticulo + anchoUM + anchoPrecioVentaFinal + anchoCantidad, yPoint, anchoTotal, 15), XStringFormats.TopRight);
         yPoint += 15;
 
@@ -274,11 +274,11 @@ public static class UtilesReportes {
 
                 // Dibujar encabezado en cada página
                 DibujarEncabezadoEntradaMercancias(gfx, pagina, fontTitulo, fontContenido, fontNegrita,
-                    fecha, proveedor, documento, direccion, nif, 
+                    fecha, proveedor, documento, direccion, nif,
                     margenIzquierdo, margenDerecho, ref yPoint);
 
                 // Dibujar encabezados de tabla
-                DibujarEncabezadosTablaEntrada(gfx, pagina, fontEncabezado, 
+                DibujarEncabezadosTablaEntrada(gfx, pagina, fontEncabezado,
                     margenIzquierdo, margenDerecho, ref yPoint);
             }
 
@@ -463,14 +463,14 @@ public static class UtilesReportes {
         var precio = decimal.TryParse(fila.Length > 3 ? fila[3] : "0", NumberStyles.Any, CultureInfo.InvariantCulture, out var valorPrecio)
             ? valorPrecio
             : 0.00m;
-        gfx.DrawString(precio.ToString("N2", culture), fontContenido, XBrushes.Black,
+        gfx.DrawString(precio.ToString("N2", CultureInfo.InvariantCulture), fontContenido, XBrushes.Black,
             new XRect(margenIzquierdo + anchoNumero + anchoArticulo + anchoCantidad, yPoint, anchoPrecio, alturaFila), XStringFormats.TopRight);
 
         // Impuesto
         var impuesto = decimal.TryParse(fila.Length > 4 ? fila[4] : "0", NumberStyles.Any, CultureInfo.InvariantCulture, out var valorImpuesto)
             ? valorImpuesto
             : 0.00m;
-        gfx.DrawString(impuesto.ToString("N2", culture), fontContenido, XBrushes.Black,
+        gfx.DrawString(impuesto.ToString("N2", CultureInfo.InvariantCulture), fontContenido, XBrushes.Black,
             new XRect(margenIzquierdo + anchoNumero + anchoArticulo + anchoCantidad + anchoPrecio, yPoint, anchoImpuesto, alturaFila), XStringFormats.TopRight);
 
         // Descuento
@@ -482,7 +482,7 @@ public static class UtilesReportes {
         var total = decimal.TryParse(fila.Length > 6 ? fila[6] : "0", NumberStyles.Any, CultureInfo.InvariantCulture, out var valorTotal)
             ? valorTotal
             : precio * decimal.Parse(fila[2]);
-        gfx.DrawString(total.ToString("N2", culture), fontContenido, XBrushes.Black,
+        gfx.DrawString(total.ToString("N2", CultureInfo.InvariantCulture), fontContenido, XBrushes.Black,
             new XRect(margenIzquierdo + anchoNumero + anchoArticulo + anchoCantidad + anchoPrecio + anchoImpuesto + anchoDescuento, yPoint, anchoTotal, alturaFila), XStringFormats.TopRight);
 
         subtotal += total;
@@ -519,7 +519,7 @@ public static class UtilesReportes {
         gfx.DrawString("Subtotal:", fontNegrita, XBrushes.Black,
             new XRect(margenIzquierdo + anchoNumero + anchoArticulo + anchoCantidad + anchoPrecio + anchoImpuesto, yPoint, anchoDescuento, 15), XStringFormats.TopRight);
 
-        gfx.DrawString(subtotal.ToString("N2", culture) + " $", fontContenido, XBrushes.Black,
+        gfx.DrawString(subtotal.ToString("N2", CultureInfo.InvariantCulture) + " $", fontContenido, XBrushes.Black,
             new XRect(margenIzquierdo + anchoNumero + anchoArticulo + anchoCantidad + anchoPrecio + anchoImpuesto + anchoDescuento, yPoint, anchoTotal, 15), XStringFormats.TopRight);
         yPoint += 15;
 
@@ -527,7 +527,7 @@ public static class UtilesReportes {
         gfx.DrawString("Total:", fontNegrita, XBrushes.Black,
             new XRect(margenIzquierdo + anchoNumero + anchoArticulo + anchoCantidad + anchoPrecio + anchoImpuesto, yPoint, anchoDescuento, 15), XStringFormats.TopRight);
 
-        gfx.DrawString(subtotal.ToString("N2", culture) + " $", fontContenido, XBrushes.Black,
+        gfx.DrawString(subtotal.ToString("N2", CultureInfo.InvariantCulture) + " $", fontContenido, XBrushes.Black,
             new XRect(margenIzquierdo + anchoNumero + anchoArticulo + anchoCantidad + anchoPrecio + anchoImpuesto + anchoDescuento, yPoint, anchoTotal, 15), XStringFormats.TopRight);
         yPoint += 20;
 
@@ -538,5 +538,377 @@ public static class UtilesReportes {
         gfx.DrawString(textoPie, fontSubtitulo, XBrushes.Black,
             new XRect(margenIzquierdo, pagina.Height - margenInferior, pagina.Width - margenIzquierdo - margenDerecho, 20),
             XStringFormats.BottomRight);
+    }
+
+    public static void GenerarFacturaVenta(DateTime fecha, List<string[]> productos,
+                                     string[] datosCliente, string numeroFactura,
+                                     string estadoPago, string metodoPago,
+                                     decimal cantidadPagada) {
+        // Crear un nuevo documento PDF
+        var documento = new PdfDocument();
+        documento.Info.Title = $"Factura {numeroFactura}";
+        documento.Info.Author = "aDVanceERP";
+
+        // Configurar márgenes
+        const int margenIzquierdo = 40;
+        const int margenDerecho = 40;
+        const int margenSuperior = 40;
+        const int margenInferior = 40;
+        const int alturaEncabezado = 150;
+        const int alturaPie = 30;
+        const int alturaFila = 15;
+        const int maxFilasPorPagina = 20; // Máximo de productos por página
+
+        // Fuentes
+        var fontTitulo = new XFont("Arial", 16, XFontStyleEx.Bold);
+        var fontSubtitulo = new XFont("Arial", 10, XFontStyleEx.Regular);
+        var fontContenido = new XFont("Arial", 9, XFontStyleEx.Regular);
+        var fontEncabezado = new XFont("Arial", 9, XFontStyleEx.Bold);
+        var fontNegrita = new XFont("Arial", 9, XFontStyleEx.Bold);
+
+        var culture = new CultureInfo("es-ES");
+        decimal totalFactura = 0;
+        int paginaActual = 1;
+        int productosProcesados = 0;
+        PdfPage pagina = null;
+        XGraphics gfx = null;
+        double yPoint = 0;
+
+        while (productosProcesados < productos.Count) {
+            // Crear nueva página si es necesario
+            if (pagina == null || productosProcesados % maxFilasPorPagina == 0) {
+                pagina = documento.AddPage();
+                pagina.Size = PageSize.Letter;
+                gfx = XGraphics.FromPdfPage(pagina);
+                yPoint = margenSuperior;
+
+                // Dibujar encabezado en cada página
+                DibujarEncabezadoFactura(gfx, pagina, fontTitulo, fontContenido, fontNegrita, 
+                    fecha, datosCliente, numeroFactura, estadoPago,
+                    margenIzquierdo, margenDerecho, ref yPoint);
+
+                // Dibujar encabezados de tabla
+                DibujarEncabezadosTablaFactura(gfx, pagina, fontEncabezado,
+                    margenIzquierdo, margenDerecho, ref yPoint);
+            }
+
+            // Dibujar filas de productos
+            int productosEnPagina = Math.Min(maxFilasPorPagina, productos.Count - productosProcesados);
+            for (int i = 0; i < productosEnPagina; i++) {
+                var producto = productos[productosProcesados];
+                decimal totalLinea = DibujarFilaProducto(gfx, pagina, fontContenido, producto, productosProcesados + 1,
+                                                       margenIzquierdo, margenDerecho, ref yPoint, alturaFila, culture);
+                totalFactura += totalLinea;
+                productosProcesados++;
+            }
+
+            // Dibujar totales si es última página o hay muchos productos
+            if (productosProcesados == productos.Count || productosProcesados % maxFilasPorPagina == 0) {
+                DibujarPiePaginaFactura(gfx, pagina, fontNegrita, fontContenido, fontSubtitulo,
+                                      totalFactura, metodoPago, cantidadPagada,
+                                      margenIzquierdo, margenDerecho, margenInferior,
+                                      ref yPoint, paginaActual, documento.Pages.Count, culture);
+                paginaActual++;
+            }
+        }
+
+        // Guardar el documento
+        var nombreArchivo = $"factura-venta-{numeroFactura}.pdf";
+        documento.Save(nombreArchivo);
+
+        // Mostrar el documento PDF al usuario
+        Process.Start(new ProcessStartInfo {
+            FileName = nombreArchivo,
+            UseShellExecute = true
+        });
+    }
+
+    // Métodos auxiliares para GenerarFacturaVenta
+    private static void DibujarEncabezadoFactura(XGraphics gfx, PdfPage pagina, XFont fontTitulo,
+                                               XFont fontContenido, XFont fontNegrita,
+                                               DateTime fecha, string[] datosCliente,
+                                               string numeroFactura, string estadoPago,
+                                               int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        var anchoColumna1 = 90;
+        var anchoColumna2 = 90;
+        var anchoColumna3 = 60;
+        var anchoColumna4 = 200;
+
+        gfx.DrawString("Factura N°:", fontNegrita, XBrushes.Black,
+            new XRect(pagina.Width - margenDerecho - anchoColumna1 - anchoColumna2 + 30, yPoint, anchoColumna1, 15), XStringFormats.TopLeft);
+        gfx.DrawString(numeroFactura, fontContenido, XBrushes.Black,
+            new XRect(pagina.Width - margenDerecho - anchoColumna2 - 10, yPoint, anchoColumna2, 15), XStringFormats.TopLeft);
+        yPoint += 30;
+
+        // Agregar título
+        gfx.DrawString("FACTURA", fontTitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.TopCenter);
+        yPoint += 50;
+
+        // Fila 1 - Fecha, Vencimiento y estado del pago
+        gfx.DrawString("Fecha:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, anchoColumna1, 15), XStringFormats.TopLeft);
+
+        gfx.DrawString(fecha.ToShortDateString(), fontContenido, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1, yPoint, anchoColumna2, 15), XStringFormats.TopLeft);
+        yPoint += 15;
+
+        gfx.DrawString("Vencimiento:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, anchoColumna1, 15), XStringFormats.TopLeft);
+
+        gfx.DrawString(fecha.ToShortDateString(), fontContenido, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1, yPoint, anchoColumna2, 15), XStringFormats.TopLeft);
+        yPoint += 15;
+
+        gfx.DrawString("Estado del pago:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, anchoColumna1, 15), XStringFormats.TopLeft);
+
+        gfx.DrawString(estadoPago, fontContenido, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1, yPoint, anchoColumna2, 15), XStringFormats.TopLeft);
+        yPoint += 30;
+
+        // Fila 2 - Cliente, Dirección y CI o NIT
+        gfx.DrawString("Cliente:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2, yPoint - 60, anchoColumna3, 15), XStringFormats.TopLeft);
+
+        gfx.DrawString(datosCliente.Length > 0 ? datosCliente[0] : "Anónimo", fontContenido, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2 + anchoColumna3, yPoint - 60, anchoColumna4, 15), XStringFormats.TopLeft);
+                        
+        if (datosCliente.Length > 1) {
+            gfx.DrawString("Dirección:", fontNegrita, XBrushes.Black,
+                new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2, yPoint - 45, anchoColumna3, 15), XStringFormats.TopLeft);
+
+            gfx.DrawString(datosCliente[1], fontContenido, XBrushes.Black,
+                new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2 + anchoColumna3, yPoint - 45, anchoColumna2, 15), XStringFormats.TopLeft);
+        }
+
+        if (datosCliente.Length > 2) {
+            gfx.DrawString("CI o NIT:", fontNegrita, XBrushes.Black,
+                new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2, yPoint - 30, anchoColumna3, 15), XStringFormats.TopLeft);
+
+            gfx.DrawString(datosCliente[2], fontContenido, XBrushes.Black,
+                new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2 + anchoColumna3, yPoint - 30, anchoColumna2, 15), XStringFormats.TopLeft);
+        }
+    }
+
+    private static void DibujarEncabezadosTablaFactura(XGraphics gfx, PdfPage pagina, XFont fontEncabezado,
+    int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        // Definir anchos de columnas para la tabla de productos
+        var anchos = CalcularAnchosColumnas(pagina.Width - margenIzquierdo - margenDerecho);
+
+        // Encabezados de la tabla de productos
+        double xPos = margenIzquierdo - 11;
+
+        // Columna #
+        gfx.DrawString("#", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoNumero, 15), XStringFormats.TopCenter);
+        xPos += anchos.AnchoNumero;
+
+        // Columna Descripción
+        gfx.DrawString("Descripción de artículo", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoDescripcion, 15), XStringFormats.TopLeft);
+        xPos += anchos.AnchoDescripcion;
+
+        // Columna Cantidad
+        gfx.DrawString("Cantidad", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoCantidad, 15), XStringFormats.TopRight);
+        xPos += anchos.AnchoCantidad;
+
+        // Columna Precio
+        gfx.DrawString("Precio", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoPrecio, 15), XStringFormats.TopRight);
+        xPos += anchos.AnchoPrecio;
+
+        // Columna Impuesto
+        gfx.DrawString("Impuesto", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoImpuesto, 15), XStringFormats.TopRight);
+        xPos += anchos.AnchoImpuesto;
+
+        // Columna Descuento
+        gfx.DrawString("Descuento", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoDescuento, 15), XStringFormats.TopRight);
+        xPos += anchos.AnchoDescuento;
+
+        // Columna Total
+        gfx.DrawString("Total", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoTotal, 15), XStringFormats.TopRight);
+
+        yPoint += 15;
+        gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint, pagina.Width - margenDerecho, yPoint);
+        yPoint += 5;
+    }
+
+    private static decimal DibujarFilaProducto(XGraphics gfx, PdfPage pagina, XFont fontContenido, string[] producto,
+                                             int numeroFila, int margenIzquierdo, int margenDerecho, ref double yPoint,
+                                             int alturaFila, CultureInfo culture) {
+        var anchos = CalcularAnchosColumnas(pagina.Width - margenIzquierdo - margenDerecho);
+        double xPos = margenIzquierdo - 11;
+
+        // Número
+        gfx.DrawString(numeroFila.ToString(), fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoNumero, alturaFila), XStringFormats.TopCenter);
+        xPos += anchos.AnchoNumero;
+
+        // Descripción
+        gfx.DrawString(producto[1], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoDescripcion, alturaFila), XStringFormats.TopLeft);
+        xPos += anchos.AnchoDescripcion;
+
+        // Cantidad
+        gfx.DrawString(producto[2], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoCantidad, alturaFila), XStringFormats.TopRight);
+        xPos += anchos.AnchoCantidad;
+
+        // Precio
+        var precio = decimal.TryParse(producto.Length > 3 ? producto[3] : "0", NumberStyles.Any, CultureInfo.InvariantCulture, out var valorPrecio)
+            ? valorPrecio
+            : 0.00m;
+        gfx.DrawString(precio.ToString("N2", CultureInfo.InvariantCulture), fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoPrecio, alturaFila), XStringFormats.TopRight);
+        xPos += anchos.AnchoPrecio;
+
+        // Impuesto
+        gfx.DrawString(producto.Length > 4 ? producto[4] : "—", fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoImpuesto, alturaFila), XStringFormats.TopCenter);
+        xPos += anchos.AnchoImpuesto;
+
+        // Descuento
+        var descuento = producto.Length > 5 ? producto[5] : "0.00%";
+        gfx.DrawString(descuento, fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoDescuento, alturaFila), XStringFormats.TopRight);
+        xPos += anchos.AnchoDescuento;
+
+        // Total
+        var total = decimal.TryParse(producto.Length > 6 ? producto[6] : "0", NumberStyles.Any, CultureInfo.InvariantCulture, out var valorTotal)
+            ? valorTotal
+            : precio * decimal.Parse(producto[2]);
+        gfx.DrawString(total.ToString("N2", CultureInfo.InvariantCulture), fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoTotal, alturaFila), XStringFormats.TopRight);
+
+        yPoint += alturaFila;
+        return total;
+    }
+
+    // Estructura para mantener consistentes los anchos de columna
+    private static (int AnchoNumero, int AnchoDescripcion, int AnchoCantidad,
+                   int AnchoPrecio, int AnchoImpuesto, int AnchoDescuento,
+                   int AnchoTotal) CalcularAnchosColumnas(double anchoDisponible) {
+        // Valores base para los anchos
+        int anchoNumero = 30;
+        int anchoDescripcion = 250;
+        int anchoCantidad = 60;
+        int anchoPrecio = 70;
+        int anchoImpuesto = 60;
+        int anchoDescuento = 70;
+        int anchoTotal = 80;
+
+        // Calcular suma total de anchos
+        int sumaAnchos = anchoNumero + anchoDescripcion + anchoCantidad +
+                        anchoPrecio + anchoImpuesto + anchoDescuento + anchoTotal;
+
+        // Ajustar si excede el ancho disponible
+        if (sumaAnchos > anchoDisponible) {
+            // Calcular factor de reducción
+            double factor = anchoDisponible / sumaAnchos;
+
+            // Aplicar factor a cada columna (excepto número y cantidades)
+            anchoDescripcion = (int) (anchoDescripcion * factor);
+            anchoPrecio = (int) (anchoPrecio * factor);
+            anchoImpuesto = (int) (anchoImpuesto * factor);
+            anchoDescuento = (int) (anchoDescuento * factor);
+            anchoTotal = (int) (anchoTotal * factor);
+
+            // Asegurar mínimos
+            anchoDescripcion = Math.Max(anchoDescripcion, 150);
+            anchoPrecio = Math.Max(anchoPrecio, 50);
+            anchoImpuesto = Math.Max(anchoImpuesto, 50);
+            anchoDescuento = Math.Max(anchoDescuento, 50);
+            anchoTotal = Math.Max(anchoTotal, 60);
+        }
+
+        return (anchoNumero, anchoDescripcion, anchoCantidad,
+                anchoPrecio, anchoImpuesto, anchoDescuento,
+                anchoTotal);
+    }
+
+    private static void DibujarPiePaginaFactura(XGraphics gfx, PdfPage pagina, XFont fontNegrita,
+                                          XFont fontContenido, XFont fontSubtitulo,
+                                          decimal totalFactura, string metodoPago,
+                                          decimal cantidadPagada, int margenIzquierdo,
+                                          int margenDerecho, int margenInferior,
+                                          ref double yPoint, int paginaActual,
+                                          int totalPaginas, CultureInfo culture) {
+        var anchos = CalcularAnchosColumnas(pagina.Width - margenIzquierdo - margenDerecho);
+        double xPos = margenIzquierdo + anchos.AnchoNumero + anchos.AnchoDescripcion;
+
+        // Línea separadora antes de los totales
+        yPoint += 5;
+        gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint, pagina.Width - margenDerecho, yPoint);
+        yPoint += 10;
+
+        // Total factura - Alineado con la columna "Total" de los productos
+        double xPosTotales = margenIzquierdo + anchos.AnchoNumero + anchos.AnchoDescripcion +
+                            anchos.AnchoCantidad + anchos.AnchoPrecio + anchos.AnchoImpuesto - 11;
+
+        // Etiqueta "Total"
+        gfx.DrawString("Total", fontNegrita, XBrushes.Black,
+            new XRect(xPosTotales, yPoint, anchos.AnchoDescuento, 15), XStringFormats.TopRight);
+
+        // Valor total - Alineado con la columna "Total" de los productos
+        double xPosValorTotal = xPosTotales + anchos.AnchoDescuento;
+        gfx.DrawString(totalFactura.ToString("N2", CultureInfo.InvariantCulture) + " $", fontNegrita, XBrushes.Black,
+            new XRect(xPosValorTotal, yPoint, anchos.AnchoTotal, 15), XStringFormats.TopRight);
+
+        yPoint += 20;
+
+        // Información de pago (solo en la última página)
+        if (paginaActual == totalPaginas) {
+            // Restablecer posición X para la información de pago
+            xPos = margenIzquierdo;
+
+            // Método de pago
+            gfx.DrawString("Método de pago:", fontNegrita, XBrushes.Black,
+                new XRect(xPos, yPoint, 120, 15), XStringFormats.TopLeft);
+
+            gfx.DrawString(metodoPago, fontContenido, XBrushes.Black,
+                new XRect(xPos + 120, yPoint, 150, 15), XStringFormats.TopLeft);
+            yPoint += 15;
+
+            // Efectivo si aplica
+            if (metodoPago.Equals("Efectivo", StringComparison.OrdinalIgnoreCase)) {
+                gfx.DrawString("Efectivo:", fontNegrita, XBrushes.Black,
+                    new XRect(xPos, yPoint, 120, 15), XStringFormats.TopLeft);
+
+                gfx.DrawString(cantidadPagada.ToString("N2", CultureInfo.InvariantCulture) + " $", fontContenido, XBrushes.Black,
+                    new XRect(xPos + 120, yPoint, 150, 15), XStringFormats.TopLeft);
+                yPoint += 15;
+            }
+
+            // Cantidad pagada
+            gfx.DrawString("Cantidad pagada:", fontNegrita, XBrushes.Black,
+                new XRect(xPos, yPoint, 120, 15), XStringFormats.TopLeft);
+
+            gfx.DrawString(cantidadPagada.ToString("N2", CultureInfo.InvariantCulture) + " $", fontContenido, XBrushes.Black,
+                new XRect(xPos + 120, yPoint, 150, 15), XStringFormats.TopLeft);
+            yPoint += 15;
+
+            // Cantidad adeudada
+            decimal cantidadAdeudada = totalFactura - cantidadPagada;
+            gfx.DrawString("Cantidad adeudada:", fontNegrita, XBrushes.Black,
+                new XRect(xPos, yPoint, 120, 15), XStringFormats.TopLeft);
+
+            gfx.DrawString(cantidadAdeudada.ToString("N2", CultureInfo.InvariantCulture) + " $", fontContenido, XBrushes.Black,
+                new XRect(xPos + 120, yPoint, 150, 15), XStringFormats.TopLeft);
+            yPoint += 20;
+        }
+
+        // Pie de página
+        var fechaGeneracion = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+        var textoPie = $"Generado con aDVanceERP - {fechaGeneracion} - Página {paginaActual} de {totalPaginas}";
+
+        gfx.DrawString(textoPie, fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, pagina.Height - margenInferior, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.BottomLeft);
     }
 }

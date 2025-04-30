@@ -1,5 +1,10 @@
-﻿using aDVanceERP.Core.Seguridad.Utiles;
+﻿using System.Globalization;
+
+using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
@@ -82,6 +87,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
     }
 
     public event EventHandler? TuplaSeleccionada;
+    public event EventHandler? DescargarFactura;
     public event EventHandler? EditarDatosTupla;
     public event EventHandler? EliminarDatosTupla;
     public event EventHandler? Salir;
@@ -100,6 +106,64 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
         fieldEstadoEntrega.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldEstadoPago.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
+        btnDescargarFactura.Click += delegate (object? sender, EventArgs e) {
+            var datosCliente = new string[3];
+            var datosVentaArticulos = new List<string[]>();
+            var fechaFactura = DateTime.ParseExact(Fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            var numeroFactura = $"{fechaFactura.ToString("yyyyMMdd")}-{int.Parse(CantidadProductos):000}-{long.Parse(Id):000000}";
+            var pagos = UtilesVenta.ObtenerPagosPorVenta(long.Parse(Id));
+            var metodoPago = string.Empty;
+            var cantidadPagada = 0m;
+
+            using (var datosVentas = new DatosVenta()) {
+                var venta = datosVentas.Obtener(CriterioBusquedaVenta.Id, Id).FirstOrDefault();
+
+                if (venta == null)
+                    return;
+
+                datosCliente[0] = UtilesCliente.ObtenerRazonSocialCliente(venta.IdCliente) ?? "Anónimo";
+                datosCliente[1] = UtilesCliente.ObtenerDireccionCliente(venta.IdCliente) ?? string.Empty;
+                datosCliente[2] = UtilesCliente.ObtenerNumeroCliente(venta.IdCliente) ?? string.Empty;
+
+                using (var datosVentaArticulo = new DatosDetalleVentaArticulo()) {
+                    var detalleVentaArticulo = datosVentaArticulo.Obtener(CriterioDetalleVentaArticulo.IdVenta, venta.Id.ToString());
+
+                    foreach (var ventaArticulo in detalleVentaArticulo) {
+                        var fila = new string[7];
+
+                        fila[0] = ventaArticulo.Id.ToString();
+                        fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? string.Empty;
+                        fila[2] = ventaArticulo.Cantidad.ToString();
+                        fila[3] = ventaArticulo.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
+                        fila[4] = "-";
+                        fila[5] = "0.00%";
+                        fila[6] = (ventaArticulo.PrecioVentaFinal * ventaArticulo.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+
+                        datosVentaArticulos.Add(fila);
+                    }
+                }
+
+            }
+
+            if (pagos.Count > 0) {
+                foreach (var pago in pagos) {
+                    var pagoSplit = pago.Split("|");
+
+                    metodoPago = pagoSplit[2];
+                    cantidadPagada += decimal.Parse(pagoSplit[3], CultureInfo.InvariantCulture);
+                }
+            }
+
+            UtilesReportes.GenerarFacturaVenta(
+                fechaFactura, 
+                datosVentaArticulos, 
+                datosCliente,
+                numeroFactura,
+                EstadoPago,
+                metodoPago,
+                cantidadPagada);
+            DescargarFactura?.Invoke(this, e);
+        };
         btnEditar.Click += delegate (object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
         btnEliminar.Click += delegate (object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
     }

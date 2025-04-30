@@ -11,4 +11,6 @@ public interface IVistaTuplaVenta : IVistaTupla {
     string MontoTotal { get; set; }
     string? EstadoEntrega { get; set; }
     string EstadoPago { get; set; }
+
+    event EventHandler? DescargarFactura;
 }

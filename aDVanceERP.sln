@@ -41,7 +41,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVancePOS.Desktop", "aDVan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVancePOS.Modulos.TerminalVenta", "aDVancePOS.Modulos.TerminalVenta\aDVancePOS.Modulos.TerminalVenta.csproj", "{AC9AAA73-0AF7-4E18-BF0D-3DFD965FBEBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aDVanceINSTALL.Desktop", "aDVanceINSTALL.Desktop\aDVanceINSTALL.Desktop.csproj", "{2FA99181-698D-4188-8BBA-6B31BAADC7CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aDVanceINSTALL.Desktop", "aDVanceINSTALL.Desktop\aDVanceINSTALL.Desktop.csproj", "{2FA99181-698D-4188-8BBA-6B31BAADC7CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

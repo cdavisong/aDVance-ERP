@@ -32,6 +32,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
             fieldId = new Label();
@@ -45,6 +47,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             symbolPeso = new Label();
             fieldEstadoEntrega = new Label();
             fieldEstadoPago = new Label();
+            btnDescargarFactura = new Guna2Button();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             SuspendLayout();
@@ -91,6 +94,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutVista.Controls.Add(symbolPeso, 6, 0);
             layoutVista.Controls.Add(fieldEstadoEntrega, 7, 0);
             layoutVista.Controls.Add(fieldEstadoPago, 8, 0);
+            layoutVista.Controls.Add(btnDescargarFactura, 10, 0);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(0, 0, 0, 1);
@@ -276,6 +280,28 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldEstadoPago.Text = "estadoPago";
             fieldEstadoPago.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // btnDescargarFactura
+            // 
+            btnDescargarFactura.Animated = true;
+            btnDescargarFactura.BorderColor = Color.Gainsboro;
+            btnDescargarFactura.BorderRadius = 16;
+            btnDescargarFactura.BorderThickness = 1;
+            btnDescargarFactura.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage2");
+            btnDescargarFactura.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
+            btnDescargarFactura.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnDescargarFactura.CustomizableEdges = customizableEdges5;
+            btnDescargarFactura.Dock = DockStyle.Fill;
+            btnDescargarFactura.FillColor = Color.White;
+            btnDescargarFactura.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDescargarFactura.ForeColor = Color.White;
+            btnDescargarFactura.HoverState.BorderColor = Color.PeachPuff;
+            btnDescargarFactura.HoverState.FillColor = Color.PeachPuff;
+            btnDescargarFactura.Location = new Point(1124, 3);
+            btnDescargarFactura.Name = "btnDescargarFactura";
+            btnDescargarFactura.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnDescargarFactura.Size = new Size(34, 35);
+            btnDescargarFactura.TabIndex = 33;
+            // 
             // VistaTuplaVenta
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -311,5 +337,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         private Label symbolPeso;
         private Label fieldEstadoEntrega;
         private Label fieldEstadoPago;
+        private Guna2Button btnDescargarFactura;
     }
 }

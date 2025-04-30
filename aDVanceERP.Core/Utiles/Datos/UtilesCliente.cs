@@ -65,4 +65,11 @@ public static class UtilesCliente {
 
         return EjecutarConsulta(query, lector => lector.GetString(lector.GetOrdinal("direccion")));
     }
+
+    public static string? ObtenerNumeroCliente(long idCliente) {
+        string query = $@"SELECT numero FROM adv__cliente
+                         WHERE id_cliente = '{idCliente}';";
+
+        return EjecutarConsulta(query, lector => lector.GetString(lector.GetOrdinal("numero")));
+    }
 }
