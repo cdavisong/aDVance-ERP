@@ -34,7 +34,7 @@ internal class Program {
 
         try {
             //ExecuteStep(CrearTablasNuevas, "Creación de estructura modular");
-            ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+            //ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
 
             RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
         } catch (Exception ex) {
@@ -78,14 +78,14 @@ internal class Program {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
-            const string query1 = @"
-                UPDATE adv__movimiento
-                SET id_almacen_origen = 8
-                WHERE id_tipo_movimiento = 2;";
+            //const string query1 = @"
+            //    UPDATE adv__movimiento
+            //    SET id_almacen_origen = 8
+            //    WHERE id_tipo_movimiento = 2;";
 
-            using (var cmd = new MySqlCommand(query1, conexion)) {
-                cmd.ExecuteNonQuery();
-            }
+            //using (var cmd = new MySqlCommand(query1, conexion)) {
+            //    cmd.ExecuteNonQuery();
+            //}
         }
     }
 
