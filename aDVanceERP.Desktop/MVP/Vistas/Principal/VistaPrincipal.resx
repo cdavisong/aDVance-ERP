@@ -124,14 +124,6 @@
     <value>70</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="fieldServidorScanner.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAACJSURBVDhP1ZK9DsIwDIS/jSfhbVgRHXi5rmzwPJ070Y6sRSfF6FJS9WehnHRykrPPkWzYGxrg
-        lFgDA/AyzWMRKjgn3tJdDM1jEZsNKqC1gjkq9+IGvTmrs6hfBMbdFZ+mf5yFpQZx/nr4c4MjcAcewDVp
-        B9M8ZgYxhTXMpqA96ApJU1Rxtge/wxuz02dY6BOKwgAAAABJRU5ErkJggg==
-</value>
-  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAIAEBAAAAEAIABoBAAAJgAAACAgAAABACAAqBAAAI4EAAAoAAAAEAAAACAAAAABACAAAAAAADAE
@@ -316,6 +308,14 @@
         id53q8jUrtalzNzciENj/KqpyFwoMJ3nucOlbKpgI+udqM0bY90Yu1nvRGySM9ayfocC7+LQuuBD9jLG
         ZT6yRvQ2ew9wxmrcEiVsxT9V1cFbL3rnMhsHPjIm+PxwdAfi7XPC9/agWIXgpF3RMy6VsffYtawlHtQY
         6FKmoqL/70f2qfwDRi1zTs1XFnEAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="fieldServidorScanner.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAIlJREFUOE/V
+        kr0OwjAMhL+NJ+FtWBEdeLmubPA8nTvRjqxFJ8XoUlL1Z6GcdHKSs8+RbNgbGuCUWAMD8DLNYxEqOCfe
+        0l0MzWMRmw0qoLWCOSr34ga9OauzqF8Ext0Vn6Z/nIWlBnH+evhzgyNwBx7ANWkH0zxmBjGFNcymoD3o
+        CklTVHG2B7/DG7PTZ1joE4rCAAAAAElFTkSuQmCC
 </value>
   </data>
 </root>

@@ -90,7 +90,7 @@
             btnMensajes.CustomizableEdges = customizableEdges12;
             btnMensajes.Dock = DockStyle.Fill;
             btnMensajes.FillColor = Color.WhiteSmoke;
-            btnMensajes.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMensajes.Font = new Font("Segoe UI", 9F);
             btnMensajes.ForeColor = Color.White;
             btnMensajes.Location = new Point(1107, 1);
             btnMensajes.Margin = new Padding(1);
@@ -122,7 +122,7 @@
             btnNotificaciones.CustomizableEdges = customizableEdges14;
             btnNotificaciones.Dock = DockStyle.Fill;
             btnNotificaciones.FillColor = Color.WhiteSmoke;
-            btnNotificaciones.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnNotificaciones.Font = new Font("Segoe UI", 9F);
             btnNotificaciones.ForeColor = Color.White;
             btnNotificaciones.Location = new Point(1057, 1);
             btnNotificaciones.Margin = new Padding(1);
@@ -301,7 +301,7 @@
             layoutBarraEstado.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             layoutBarraEstado.Controls.Add(fieldServidorScanner, 0, 0);
             layoutBarraEstado.Dock = DockStyle.Fill;
-            layoutBarraEstado.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            layoutBarraEstado.Font = new Font("Segoe UI", 9.75F);
             layoutBarraEstado.ForeColor = Color.White;
             layoutBarraEstado.Location = new Point(0, 659);
             layoutBarraEstado.Margin = new Padding(0, 1, 0, 0);
@@ -343,7 +343,7 @@
             ClientSize = new Size(1358, 685);
             Controls.Add(layoutBase);
             DoubleBuffered = true;
-            Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 11.25F);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon) resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
