@@ -26,9 +26,9 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuUsuario));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -119,7 +119,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 11;
-            btnCerrar.CustomizableEdges = customizableEdges3;
+            btnCerrar.CustomizableEdges = customizableEdges1;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.FromArgb(  250,   250,   250);
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -128,7 +128,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(308, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnCerrar.Size = new Size(24, 24);
             btnCerrar.TabIndex = 9;
             // 
@@ -235,11 +235,12 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             btnConfiguracionCuenta.TabIndex = 6;
             btnConfiguracionCuenta.Text = "Configuración de la cuenta";
             btnConfiguracionCuenta.TextAlign = ContentAlignment.MiddleLeft;
+            btnConfiguracionCuenta.Visible = false;
             // 
             // btnCerrarSesion
             // 
             btnCerrarSesion.Cursor = Cursors.Hand;
-            btnCerrarSesion.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCerrarSesion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnCerrarSesion.ForeColor = Color.Firebrick;
             btnCerrarSesion.ImeMode = ImeMode.NoControl;
             btnCerrarSesion.Location = new Point(1, 33);
