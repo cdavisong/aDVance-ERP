@@ -3,6 +3,8 @@ using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
+using Guna.UI2.WinForms;
+
 namespace aDVanceERP.Desktop.MVP.Vistas.Principal; 
 
 public partial class VistaPrincipal : Form, IVistaPrincipal {
@@ -38,14 +40,18 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
+    public Guna2CirclePictureBox BtnSubmenuUsuario {
+        get => btnSubMenuUsuario;
+    }
+
     public bool BtnSubmenuUsuarioDisponible {
         get => btnSubMenuUsuario.Visible;
         set {
             btnSubMenuUsuario.Visible = value;
-            btnMensajes.Visible = value;
-            btnNotificaciones.Visible = value;
+            //TODO: btnMensajes.Visible = value; 
+            //TODO: btnNotificaciones.Visible = value;
         }
-    }
+    }    
 
     public event EventHandler? VerNotificaciones;
     public event EventHandler? VerMensajes;
@@ -66,10 +72,15 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         btnNotificaciones.Click += delegate(object? sender, EventArgs args) {
             VerNotificaciones?.Invoke(sender, args);
         };
-        btnMensajes.Click += delegate(object? sender, EventArgs args) { VerMensajes?.Invoke(sender, args); };
-        btnSubMenuUsuario.Click += delegate(object? sender, EventArgs args) { SubMenuUsuario?.Invoke(sender, args); };
+        btnMensajes.Click += delegate(object? sender, EventArgs args) { 
+            VerMensajes?.Invoke(sender, args); };
+        btnSubMenuUsuario.Click += delegate(object? sender, EventArgs args) { 
+            SubMenuUsuario?.Invoke(sender, args); 
+        };
         Resize += delegate { };
-        FormClosing += delegate(object? sender, FormClosingEventArgs args) { Salir?.Invoke(sender, args); };
+        FormClosing += delegate(object? sender, FormClosingEventArgs args) { 
+            Salir?.Invoke(sender, args); 
+        };
     }
 
     public void Mostrar() {

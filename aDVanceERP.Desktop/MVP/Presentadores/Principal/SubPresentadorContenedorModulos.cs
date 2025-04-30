@@ -17,7 +17,7 @@ public partial class PresentadorPrincipal {
         _contenedorModulos?.Vista.Restaurar();
         _contenedorModulos?.Vista.Mostrar();
 
-        // TODO: Mostrar el botón de sub-menu para usuarios
-        //Vista.BtnSubmenuUsuarioDisponible = true;
+        // Mostrar el botón de sub-menu para usuarios
+        Vista.BtnSubmenuUsuarioDisponible = true;
     }
 }

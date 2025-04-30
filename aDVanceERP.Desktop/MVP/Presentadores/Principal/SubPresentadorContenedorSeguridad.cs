@@ -13,8 +13,11 @@ public partial class PresentadorPrincipal {
         Vista.Vistas?.Registrar("vistaContenedorSeguridad", _contenedorSeguridad.Vista);
     }
 
-    private void MostrarVistaContenedorSeguridad(object sender, EventArgs e) {
+    private void MostrarVistaContenedorSeguridad(object? sender, EventArgs e) {
         _contenedorSeguridad?.Vista.Restaurar();
         _contenedorSeguridad?.Vista.Mostrar();
+
+        // Mostrar el botón de sub-menu para usuarios
+        Vista.BtnSubmenuUsuarioDisponible = false;
     }
 }

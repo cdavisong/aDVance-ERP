@@ -16,8 +16,14 @@ public partial class PresentadorPrincipal {
         Vista = new VistaPrincipal();
 
         // Eventos
-        //Vista.SubMenuUsuario += MostrarSubMenuUsuario;
+        Vista.SubMenuUsuario += MostrarVistaMenuUsuario;
         Vista.Salir += DisponerModulos;
+
+        #region Menu de usuario
+
+        InicializarVistaMenuUsuario();
+
+        #endregion
 
         #region Contenedores
 
