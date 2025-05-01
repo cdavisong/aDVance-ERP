@@ -1,5 +1,4 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
-using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor;
@@ -19,7 +18,7 @@ public class PresentadorGestionProveedores : PresentadorGestionBase<PresentadorT
         presentadorTupla.Vista.RazonSocial = objeto.RazonSocial ?? string.Empty;
         
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Nombre, objeto.RazonSocial).FirstOrDefault();
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
 
             if (contacto != null) {
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
@@ -40,8 +39,6 @@ public class PresentadorGestionProveedores : PresentadorGestionBase<PresentadorT
                 presentadorTupla.Vista.Direccion = string.Empty;
             }
         }
-
-        presentadorTupla.Vista.NombreRepresentante = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
 
         return presentadorTupla;
     }

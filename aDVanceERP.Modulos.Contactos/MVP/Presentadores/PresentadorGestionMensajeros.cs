@@ -22,7 +22,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         presentadorTupla.Vista.Nombre = objeto.Nombre;
 
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Nombre, objeto.Nombre).FirstOrDefault();
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
 
             if (contacto != null) {
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {

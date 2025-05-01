@@ -11,7 +11,7 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaRegistroCliente() {
         _registroCliente = new PresentadorRegistroCliente(new VistaRegistroCliente());
-        _registroCliente.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroCliente.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCliente.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroCliente.DatosRegistradosActualizados += async delegate {
             if (_gestionClientes != null)

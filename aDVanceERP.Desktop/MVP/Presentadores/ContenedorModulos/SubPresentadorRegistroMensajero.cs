@@ -11,7 +11,7 @@ public partial class PresentadorContenedorModulos {
 
     private Task InicializarVistaRegistroMensajero() {
         _registroMensajero = new PresentadorRegistroMensajero(new VistaRegistroMensajero());
-        _registroMensajero.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroMensajero.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMensajero.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajero.DatosRegistradosActualizados += async delegate {
             if (_gestionMensajeros != null)

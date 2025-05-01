@@ -11,7 +11,7 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaRegistroPago() {
         _registroPago = new PresentadorRegistroPago(new VistaRegistroPago());
-        _registroPago.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroPago.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroPago.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroPago.Vista.PagoEliminado += delegate (object? sender, EventArgs e) {
             if (sender is not string[] metodoPago || !metodoPago[0].Contains("Transferencia"))

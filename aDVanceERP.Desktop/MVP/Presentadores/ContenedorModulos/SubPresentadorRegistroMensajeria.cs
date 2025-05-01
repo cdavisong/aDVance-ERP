@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaRegistroMensajeria() {
         _registroMensajeria = new PresentadorRegistroMensajeria(new VistaRegistroMensajeria());
-        _registroMensajeria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroMensajeria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMensajeria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajeria.Vista.CargarNombresMensajeros(await UtilesMensajero.ObtenerNombresMensajeros());
         _registroMensajeria.Vista.CargarTiposEntrega();

@@ -12,8 +12,7 @@ public partial class PresentadorContenedorModulos {
     private async Task InicializarVistaRegistroCuentaUsuario() {
         _registroCuentaUsuario = new PresentadorRegistroCuentaUsuario(new VistaRegistroCuentaUsuario());
         _registroCuentaUsuario.Vista.CargarRolesUsuarios(UtilesRolUsuario.ObtenerNombresRolesUsuarios());
-        _registroCuentaUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
-        ;
+        _registroCuentaUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCuentaUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroCuentaUsuario.Salir += async (sender, e) => {
             _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;

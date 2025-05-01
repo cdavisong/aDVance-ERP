@@ -32,7 +32,7 @@ namespace aDVanceERP.PatchDB {
             Console.WriteLine($"               versión {version}\n");
 
             try {
-                //ExecuteStep(CrearTablasNuevas, "Creación de estructura modular");
+                ExecuteStep(CrearTablasNuevas, "Creación de estructura modular");
                 //ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
 
                 RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
@@ -55,17 +55,18 @@ namespace aDVanceERP.PatchDB {
                     throw new ExcepcionConexionServidorMySQL();
                 }
 
-                // Crear tabla adv__tipo_movimiento
-                //const string crearTablaTipoMovimiento = @"
-                //        CREATE TABLE IF NOT EXISTS adv__tipo_movimiento (
-                //            id_tipo_movimiento INT PRIMARY KEY AUTO_INCREMENT,
-                //            nombre VARCHAR(50) NOT NULL,
-                //            efecto ENUM('Carga', 'Descarga', 'Transferencia') NOT NULL
-                //        );";
+                // Crear tabla adv__empresa
+                const string crearTablaTipoMovimiento = @"
+                        CREATE TABLE IF NOT EXISTS adv__empresa (
+                            id_empresa INT(11) PRIMARY KEY AUTO_INCREMENT,
+                            nombre VARCHAR(50) NOT NULL,
+                            logotipo LONGBLOB,
+                            id_contacto INT(11) DEFAULT 0
+                        );";
 
-                //using (var cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion)) {
-                //    cmd.ExecuteNonQuery();
-                //}
+                using (var cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion)) {
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 

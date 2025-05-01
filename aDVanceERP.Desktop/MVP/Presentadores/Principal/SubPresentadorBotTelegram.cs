@@ -1,5 +1,4 @@
-﻿
-using aDVanceERP.Core.Mensajes.MVP.Modelos;
+﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.Utiles;
@@ -13,38 +12,100 @@ using Telegram.Bot.Types;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
     public partial class PresentadorPrincipal {
+        #region Campos y Propiedades
         private Dictionary<string, List<int>> _mensajesChat = new Dictionary<string, List<int>>();
         private Dictionary<string, (string? Username, string? Password)> _registrosPendientes = new Dictionary<string, (string, string)>();
+        private Dictionary<string, DateTime?> _reportesPendientes = new Dictionary<string, DateTime?>();
+        private Dictionary<string, string> _usuariosAutenticados = new Dictionary<string, string>();
+        private Dictionary<string, int> _comandosActivos = new Dictionary<string, int>();
 
+        public static string? IdEmpresa { get; set; }
+        #endregion
+
+        #region Constantes y Enumeraciones
+        private const int COMANDO_NINGUNO = 0;
+        private const int COMANDO_LOGIN = 1;
+        private const int COMANDO_REGISTRO = 2;
+        private const int COMANDO_REPORTE_VENTAS = 3;
+
+        private enum EstadoChat {
+            NoIdentificado,
+            Identificado,
+            Autenticado
+        }
+        #endregion
+
+        #region Métodos Principales
         private async void ProcesarMensajeBotTelegram(object? sender, MensajeTelegram mensaje) {
             if (string.IsNullOrWhiteSpace(mensaje.Texto))
                 return;
 
-            // Procesar comandos básicos
-            var comando = mensaje.Texto.Trim().ToLower();
+            // Validar identificación de empresa
+            var estado = await ValidarEstadoChat(mensaje);
+            if (estado == EstadoChat.NoIdentificado) {
+                await ProcesarIdentificacionEmpresa(mensaje);
+                return;
+            }
 
-            // Determinar si es un comando (empieza con '/')
+            // Validar autenticación para comandos protegidos
+            if (RequiereAutenticacion(mensaje.Texto)) {
+                if (estado != EstadoChat.Autenticado) {
+                    await ResponderMensaje(mensaje.IdChat,
+                        "🔒 Acceso restringido\n\n" +
+                        "Debe autenticarse primero con /login");
+                    return;
+                }
+            }
+
+            // Procesar comandos activos
+            if (_comandosActivos.TryGetValue(mensaje.IdChat, out int comandoActivo) && !mensaje.Texto.StartsWith("/")) {
+                await ProcesarComandoActivo(mensaje, comandoActivo);
+                return;
+            }
+
+            // Procesar comando principal
+            await ProcesarComandoSeguro(mensaje);
+        }
+
+        private async Task<EstadoChat> ValidarEstadoChat(MensajeTelegram mensaje) {
+            // Comando de identificación siempre permitido
+            if (mensaje.Texto.StartsWith("/identificar_"))
+                return EstadoChat.NoIdentificado;
+
+            // Si el chat ya tiene un usuario autenticado
+            if (_usuariosAutenticados.ContainsKey(mensaje.IdChat))
+                return EstadoChat.Autenticado;
+
+            // Verificar si el chat incluye el ID de empresa válido
+            if (!string.IsNullOrEmpty(IdEmpresa) && mensaje.Texto.Contains(IdEmpresa))
+                return EstadoChat.Identificado;
+
+            return EstadoChat.NoIdentificado;
+        }
+
+        private bool RequiereAutenticacion(string comando) {
+            var comandosProtegidos = new[] { "/ventas", "/ganancias", "/reporteventas", "/resumen", "/nuevaventa", "/ventasdia", "/stock", "/articulos" };
+            return comandosProtegidos.Contains(comando.Trim().ToLower());
+        }
+        #endregion
+
+        #region Gestión de Comandos
+        private async Task ProcesarComandoSeguro(MensajeTelegram mensaje) {
+            var comando = mensaje.Texto.Trim().ToLower();
             bool esComando = comando.StartsWith("/");
 
             if (esComando) {
                 await LimpiarChat(mensaje.IdChat);
+                _comandosActivos.Remove(mensaje.IdChat);
             }
 
-            // Registrar el mensaje del usuario
             if (mensaje.IdMensaje != 0) {
                 await RegistrarMensaje(mensaje.IdChat, mensaje.IdMensaje);
             }
 
             switch (comando) {
                 case "/start":
-                    await ResponderMensaje(mensaje.IdChat,
-                        "Bienvenido al bot de aDVanceERP\n\n" +
-                        "Comandos disponibles:\n" +
-                        "/login - Autenticarse\n" +
-                        "/register - Registrar nuevo usuario\n" +
-                        "/ventas - Ver ventas del día\n" +
-                        "/ganancias - Ver ganancias del día\n" +
-                        "/help - Mostrar ayuda");
+                    await MostrarMensajeBienvenida(mensaje.IdChat);
                     break;
 
                 case "/login":
@@ -65,7 +126,6 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     break;
 
                 case "/reporteventas":
-                case "/reporte":
                     await ProcesarComandoReporteVentas(mensaje);
                     break;
 
@@ -74,47 +134,99 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     await MostrarAyuda(mensaje.IdChat);
                     break;
 
+                case "/comandos":
+                    await MostrarTodosComandos(mensaje.IdChat);
+                    break;
+
                 default:
                     await ProcesarMensajeDefault(mensaje);
                     break;
             }
         }
 
-        private async Task RegistrarMensaje(string chatId, int mensajeId) {
-            if (!_mensajesChat.ContainsKey(chatId)) {
-                _mensajesChat[chatId] = new List<int>();
-            }
+        private async Task ProcesarComandoActivo(MensajeTelegram mensaje, int comandoActivo) {
+            switch (comandoActivo) {
+                case COMANDO_LOGIN:
+                    if (mensaje.Texto.Contains(":")) {
+                        await ProcesarYLimpiarCredenciales(mensaje);
+                        _comandosActivos.Remove(mensaje.IdChat);
+                    } else {
+                        await ResponderMensaje(mensaje.IdChat,
+                            "⚠️ Formato incorrecto\n\nUse: usuario:contraseña");
+                    }
+                    break;
 
-            _mensajesChat[chatId].Add(mensajeId);
+                case COMANDO_REGISTRO:
+                    if (_registrosPendientes.ContainsKey(mensaje.IdChat)) {
+                        await ProcesarRegistroUsuario(mensaje);
+                        _comandosActivos.Remove(mensaje.IdChat);
+                    }
+                    break;
+
+                case COMANDO_REPORTE_VENTAS:
+                    await ProcesarFechaReporte(mensaje);
+                    if (!_reportesPendientes.ContainsKey(mensaje.IdChat)) {
+                        _comandosActivos.Remove(mensaje.IdChat);
+                    }
+                    break;
+
+                default:
+                    await ResponderMensaje(mensaje.IdChat,
+                        "❌ Comando no reconocido");
+                    _comandosActivos.Remove(mensaje.IdChat);
+                    break;
+            }
+        }
+        #endregion
+
+        #region Identificación y Autenticación
+        private async Task ProcesarIdentificacionEmpresa(MensajeTelegram mensaje) {
+            if (mensaje.Texto.Trim().Equals($"/identificar_{IdEmpresa}")) {
+                await ResponderMensaje(mensaje.IdChat,
+                    $"✅ Identificada empresa {IdEmpresa}\n\n" +
+                    "Ahora puede usar los comandos básicos.\n" +
+                    "Para acceder a todas las funciones, use /login");
+            } else {
+                await ResponderMensaje(mensaje.IdChat,
+                    "🔒 Identificación requerida\n\n" +
+                    "Para interactuar con este bot, primero debe identificar su empresa.\n\n" +
+                    $"Envía exactamente: /identificar_{IdEmpresa}");
+            }
         }
 
         private async Task ProcesarComandoLogin(MensajeTelegram mensaje) {
+            _comandosActivos[mensaje.IdChat] = COMANDO_LOGIN;
+
             await ResponderMensaje(mensaje.IdChat,
-                "Por favor ingrese su nombre de usuario y contraseña en el formato:\n\n" +
-                "usuario:contraseña\n\n");
+                "🔐 Inicio de Sesión\n\n" +
+                "Ingrese sus credenciales en el formato:\n\n" +
+                "usuario:contraseña\n\n" +
+                "⚠️ Este mensaje se autodestruirá por seguridad");
         }
 
         private async Task ProcesarComandoRegistro(MensajeTelegram mensaje) {
-            // Verificar si ya hay un registro en progreso
             if (_registrosPendientes.ContainsKey(mensaje.IdChat)) {
                 await ResponderMensaje(mensaje.IdChat,
-                    "Ya tienes un registro en progreso. Por favor completa el proceso o envía /cancelar para empezar de nuevo.");
+                    "⚠️ Ya tienes un registro en progreso.\n\n" +
+                    "Completa el proceso o envía /cancelar");
                 return;
             }
 
-            // Marcar este chat como en proceso de registro
             _registrosPendientes[mensaje.IdChat] = (null, null);
+            _comandosActivos[mensaje.IdChat] = COMANDO_REGISTRO;
 
             await ResponderMensaje(mensaje.IdChat,
-                "Registro de nuevo usuario:\n\n" +
-                "Por favor ingresa el nombre de usuario y contraseña en el formato:\n\n" +
+                "📝 Registro de nuevo usuario\n\n" +
+                "Ingresa tus datos en el formato:\n\n" +
                 "nuevousuario:contraseña\n\n" +
-                "Requisitos:\n" +
+                "📌 Requisitos:\n" +
                 "- Usuario: mínimo 4 caracteres\n" +
                 "- Contraseña: mínimo 8 caracteres\n\n" +
-                "Envía /cancelar en cualquier momento para cancelar el registro.");
+                "⚠️ Este mensaje se autodestruirá");
         }
+        #endregion
 
+        #region Comandos Protegidos
         private async Task MostrarVentasDelDia(string chatId) {
             try {
                 var fechaHoy = DateTime.Today;
@@ -122,16 +234,18 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 var ventasBrutas = UtilesVenta.ObtenerValorBrutoVentaDia(fechaHoy);
 
                 await ResponderMensaje(chatId,
-                    $"📊 Ventas brutas del día ({fechaHoy:dd/MM/yyyy})\n\n" +
-                    $"Artículos: {cantArticulos} unidades\n\n" +
-                    $"Total: $ {ventasBrutas:N}\n\n" +
-                    "(Solo incluye ventas con pagos completos confirmados)");
+                    $"📊 Ventas del día ({fechaHoy:dd/MM/yyyy})\n" +
+                    $"🏢 Empresa: {IdEmpresa}\n\n" +
+                    $"🛒 Artículos vendidos: {cantArticulos} unidades\n" +
+                    $"💰 Total bruto: $ {ventasBrutas:N}\n\n" +
+                    "(Solo ventas con pagos completos)");
             } catch (ExcepcionConexionServidorMySQL) {
                 await ResponderMensaje(chatId,
-                    "⚠️ No se pudo conectar con la base de datos. Intente nuevamente más tarde.");
+                    "⚠️ Error de conexión\n\n" +
+                    "No se pudo conectar con la base de datos.");
             } catch (Exception ex) {
                 await ResponderMensaje(chatId,
-                    $"❌ Error al obtener las ventas: {ex.Message}");
+                    $"❌ Error al obtener ventas: {ex.Message}");
             }
         }
 
@@ -141,38 +255,106 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 var ganancias = UtilesVenta.ObtenerValorGananciaDia(fechaHoy);
 
                 await ResponderMensaje(chatId,
-                    $"💰 Ganancias del día ({fechaHoy:dd/MM/yyyy})\n\n" +
-                    $"Total: $ {ganancias:N}\n\n" +
-                    "(Calculado como: (precio venta - precio compra) * cantidad)");
+                    $"💰 Ganancias del día ({fechaHoy:dd/MM/yyyy})\n" +
+                    $"🏢 Empresa: {IdEmpresa}\n\n" +
+                    $"📈 Total: $ {ganancias:N}\n\n" +
+                    "(Calculado como: (precio venta - precio compra) × cantidad)");
             } catch (ExcepcionConexionServidorMySQL) {
                 await ResponderMensaje(chatId,
-                    "⚠️ No se pudo conectar con la base de datos. Intente nuevamente más tarde.");
+                    "⚠️ Error de conexión\n\n" +
+                    "No se pudo conectar con la base de datos.");
             } catch (Exception ex) {
                 await ResponderMensaje(chatId,
-                    $"❌ Error al obtener las ganancias: {ex.Message}");
+                    $"❌ Error al obtener ganancias: {ex.Message}");
             }
         }
 
         private async Task ProcesarComandoReporteVentas(MensajeTelegram mensaje) {
+            if (!_usuariosAutenticados.ContainsKey(mensaje.IdChat)) {
+                await ResponderMensaje(mensaje.IdChat,
+                    "🔒 Acceso restringido\n\n" +
+                    "Debe autenticarse primero con /login");
+                return;
+            }
+
+            _comandosActivos[mensaje.IdChat] = COMANDO_REPORTE_VENTAS;
+
+            await ResponderMensaje(mensaje.IdChat,
+                "📅 Generar Reporte de Ventas\n\n" +
+                "Ingrese la fecha en formato DD/MM/AAAA\n\n" +
+                "Ejemplos:\n" +
+                "15/08/2023 - Para un día específico\n" +
+                "hoy - Para el día actual\n" +
+                "ayer - Para el día anterior\n\n" +
+                "Envía /cancelar para cancelar");
+        }
+        #endregion
+
+        #region Generación de reporte de ventas
+        private async Task ProcesarFechaReporte(MensajeTelegram mensaje) {
             try {
-                // Obtener la fecha (podría ser parámetro o usar hoy por defecto)
                 DateTime fechaReporte;
-                if (mensaje.Texto.Contains(" ")) {
-                    var partes = mensaje.Texto.Split(' ');
-                    if (!DateTime.TryParse(partes[1], out fechaReporte)) {
-                        fechaReporte = DateTime.Today;
-                    }
-                } else {
-                    fechaReporte = DateTime.Today;
+                string texto = mensaje.Texto.Trim().ToLower();
+
+                // Manejar comandos especiales primero
+                if (texto == "/cancelar") {
+                    await ResponderMensaje(mensaje.IdChat, "❌ Operación de reporte cancelada");
+                    _reportesPendientes.Remove(mensaje.IdChat);
+                    return;
                 }
 
-                // Mostrar mensaje de "Generando reporte..."
-                await ResponderMensaje(mensaje.IdChat, "🔄 Generando reporte de ventas...");
+                // Procesar palabras clave
+                if (texto == "hoy") {
+                    fechaReporte = DateTime.Today;
+                } else if (texto == "ayer") {
+                    fechaReporte = DateTime.Today.AddDays(-1);
+                } else {
+                    // Intentar parsear la fecha en formato DD/MM/AAAA
+                    if (!DateTime.TryParseExact(texto, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaReporte)) {
+                        await ResponderMensaje(mensaje.IdChat,
+                            "⚠️ Formato de fecha incorrecto\n\n" +
+                            "Por favor ingrese la fecha en formato DD/MM/AAAA\n\n" +
+                            "Ejemplos válidos:\n" +
+                            "• 15/08/2023\n" +
+                            "• hoy - Para la fecha actual\n" +
+                            "• ayer - Para el día anterior\n\n" +
+                            "O envíe /cancelar para salir");
+                        return;
+                    }
+                }
 
-                // Obtener los datos
+                // Validar que la fecha no sea futura
+                if (fechaReporte > DateTime.Today) {
+                    await ResponderMensaje(mensaje.IdChat,
+                        "❌ Fecha inválida\n\n" +
+                        "No se pueden generar reportes para fechas futuras.\n" +
+                        "Por favor ingrese una fecha válida.");
+                    return;
+                }
+
+                // Proceder con la generación del reporte
+                await GenerarReporteVentas(mensaje.IdChat, fechaReporte);
+                _reportesPendientes.Remove(mensaje.IdChat);
+            } catch (Exception ex) {
+                await ResponderMensaje(mensaje.IdChat,
+                    $"❌ Error al procesar fecha\n\n" +
+                    $"Detalles: {ex.Message}");
+                _reportesPendientes.Remove(mensaje.IdChat);
+            }
+        }
+
+        private async Task GenerarReporteVentas(string chatId, DateTime fechaReporte) {
+            try {
+                await ResponderMensaje(chatId, $"🔄 Generando reporte para el {fechaReporte:dd/MM/yyyy}...");
+
                 var filas = new List<string[]>();
                 using (var datosVentas = new DatosVenta()) {
                     var ventasFecha = datosVentas.Obtener(CriterioBusquedaVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd"));
+
+                    if (ventasFecha == null || !ventasFecha.Any()) {
+                        await ResponderMensaje(chatId, $"ℹ️ No hay ventas registradas para el {fechaReporte:dd/MM/yyyy}");
+                        return;
+                    }
 
                     foreach (var venta in ventasFecha) {
                         using (var datosVentaArticulo = new DatosDetalleVentaArticulo()) {
@@ -181,78 +363,120 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                             foreach (var ventaArticulo in detalleVentaArticulo) {
                                 var fila = new string[6];
                                 fila[0] = ventaArticulo.Id.ToString();
-                                fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? string.Empty;
-                                fila[2] = "U";
-                                fila[3] = ventaArticulo.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
+                                fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? "Artículo desconocido";
+                                fila[2] = "U"; // Unidad
+                                fila[3] = ventaArticulo.PrecioVentaFinal.ToString("N2", CultureInfo.InvariantCulture);
                                 fila[4] = ventaArticulo.Cantidad.ToString();
-                                fila[5] = (ventaArticulo.PrecioVentaFinal * ventaArticulo.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+                                fila[5] = (ventaArticulo.PrecioVentaFinal * ventaArticulo.Cantidad).ToString("N2", CultureInfo.InvariantCulture);
                                 filas.Add(fila);
                             }
                         }
                     }
                 }
 
-                UtilesReportes.GenerarReporteVentas(fechaReporte, filas, mostrar: false);
-                
-                var nombreArchivo = $"ventas-articulos-{fechaReporte:yyyy-MM-dd}.pdf";
-
-                // Generar el PDF en memoria
-                using (var pdfStream = File.OpenRead(nombreArchivo)) {
-                    // Enviar el documento PDF
-                    await EnviarDocumento(mensaje.IdChat, pdfStream, $"ReporteVentas_{fechaReporte:yyyyMMdd}.pdf");
-                }
-
-                await ResponderMensaje(mensaje.IdChat, "✅ Reporte generado y enviado correctamente");
-            } catch (Exception ex) {
-                await ResponderMensaje(mensaje.IdChat, $"❌ Error al generar el reporte: {ex.Message}");
-            }
-        }
-
-        // Método para enviar documentos a través del bot
-        private async Task EnviarDocumento(string chatId, Stream documentoStream, string nombreArchivo) {
-            if (!BotTelegramConectado) return;
-
-            try {
-                // Rebobinar el stream por si acaso
-                documentoStream.Position = 0;
-
-                // Convertir a InputFileStream
-                var inputFile = new InputFileStream(
-                    content: documentoStream,
-                    fileName: nombreArchivo
-                );
+                // Generar el reporte PDF
+                var nombreArchivo = $"ventas-{IdEmpresa}-{fechaReporte:yyyyMMdd}.pdf";
+                UtilesReportes.GenerarReporteVentas(fechaReporte, filas, IdEmpresa, mostrar: false);
 
                 // Enviar el documento
-                await ServicioBotTelegram.EnviarDocumentoAsync(
-                    chatId: chatId,
-                    documento: inputFile,
-                    caption: $"Reporte: {nombreArchivo}"
-                );
+                using (var pdfStream = File.OpenRead(nombreArchivo)) {
+                    await EnviarDocumento(chatId, pdfStream, nombreArchivo);
+                }
+
+                await ResponderMensaje(chatId,
+                    $"✅ Reporte generado con éxito\n\n" +
+                    $"📅 Fecha: {fechaReporte:dd/MM/yyyy}\n" +
+                    $"🏢 Empresa: {IdEmpresa}\n" +
+                    $"📊 Total de ventas: {filas.Count}\n\n" +
+                    "El documento PDF ha sido enviado.");
+            } catch (ExcepcionConexionServidorMySQL) {
+                await ResponderMensaje(chatId,
+                    "⚠️ Error de conexión\n\n" +
+                    "No se pudo conectar con la base de datos.\n" +
+                    "Por favor intente nuevamente más tarde.");
             } catch (Exception ex) {
-                Console.WriteLine($"Error al enviar documento: {ex.Message}");
-                throw;
+                await ResponderMensaje(chatId,
+                    $"❌ Error al generar reporte\n\n" +
+                    $"Detalles: {ex.Message}");
+            } finally {
+                // Limpiar el archivo temporal si existe
+                try {
+                    var nombreArchivo = $"ventas-{IdEmpresa}-{DateTime.Today:yyyyMMdd}.pdf";
+                    if (File.Exists(nombreArchivo)) {
+                        File.Delete(nombreArchivo);
+                    }
+                } catch { /* Ignorar errores de limpieza */ }
             }
+        }
+        #endregion
+
+        #region Mensajes y Ayuda
+        private async Task MostrarMensajeBienvenida(string chatId) {
+            await ResponderMensaje(chatId,
+                "🤖 Bienvenido al Bot de aDVanceERP 🏢\n\n" +
+                "📋 Comandos disponibles:\n\n" +
+
+                "🔐 Autenticación:\n" +
+                "/login - Iniciar sesión\n" +
+                "/register - Registrarse\n\n" +
+
+                "📊 Reportes financieros:\n" +
+                "/ventas - Ventas del día\n" +
+                "/ganancias - Ganancias del día\n" +
+                "/reporteventas - Generar PDF de ventas\n\n" +
+
+                "🆘 Ayuda:\n" +
+                "/help - Mostrar ayuda básica\n" +
+                "/comandos - Listar todos los comandos\n\n" +
+
+                "📌 Ejemplo: Escribe /ventas para ver las ventas");
+        }
+
+        private async Task MostrarAyuda(string chatId) {
+            await ResponderMensaje(chatId,
+                "🆘 Ayuda - Comandos disponibles:\n\n" +
+                "🔐 Autenticación:\n" +
+                "/login - Iniciar sesión\n" +
+                "/register - Registrarse\n\n" +
+                "📌 Formato para credenciales:\n" +
+                "usuario:contraseña\n\n" +
+                "Escribe /comandos para ver la lista completa");
+        }
+
+        private async Task MostrarTodosComandos(string chatId) {
+            await ResponderMensaje(chatId,
+                "📋 Todos los comandos disponibles:\n\n" +
+                "🔐 Autenticación:\n" +
+                "/login - Iniciar sesión\n" +
+                "/register - Registrarse\n\n" +
+
+                "📊 Reportes:\n" +
+                "/ventas - Ventas del día\n" +
+                "/ganancias - Ganancias del día\n" +
+                "/reporteventas - Generar PDF de ventas\n\n" +
+
+                "🛒 Operaciones:\n" +
+                "/nuevaventa - Crear nueva venta\n" +
+                "/ventasdia - Listar ventas de hoy\n\n" +
+
+                "📦 Inventario:\n" +
+                "/stock - Consultar inventario\n" +
+                "/articulos - Listar artículos\n\n" +
+
+                "🆘 Ayuda:\n" +
+                "/help - Mostrar ayuda\n" +
+                "/comandos - Mostrar esta lista");
         }
 
         private async Task ProcesarMensajeDefault(MensajeTelegram mensaje) {
-            // Verificar si es parte de un registro en progreso
-            if (_registrosPendientes.ContainsKey(mensaje.IdChat)) {
-                await ProcesarRegistroUsuario(mensaje);
-                return;
-            }
-
-            // Verificar si es credenciales para login
-            if (mensaje.Texto.Contains(":")) {
-                await ProcesarYLimpiarCredenciales(mensaje);
-                return;
-            }
-
             await ResponderMensaje(mensaje.IdChat,
-                "No reconozco ese comando. Envía /help para ver los comandos disponibles.");
+                "❓ Comando no reconocido\n\n" +
+                "Escribe /help para ver los comandos disponibles");
         }
+        #endregion
 
+        #region Gestión de Usuarios
         private async Task ProcesarYLimpiarCredenciales(MensajeTelegram mensaje) {
-            // Verificar si el mensaje podría contener credenciales
             bool esPosibleCredencial = mensaje.Texto.Contains(":") && mensaje.Texto.Trim().Split(':').Length == 2;
 
             try {
@@ -268,39 +492,42 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                             out _)).FirstOrDefault();
 
                         if (usuarioEncontrado == null) {
-                            await ResponderMensaje(mensaje.IdChat, "Usuario no encontrado");
+                            await ResponderMensaje(mensaje.IdChat, "🔍 Usuario no encontrado");
                             return;
                         } else if (!usuarioEncontrado.Aprobado) {
-                            await ResponderMensaje(mensaje.IdChat, 
-                                "Tu cuenta ha sido registrada exitosamente. Sin embargo, para poder acceder y utilizar todas las funcionalidades, necesitarás esperar hasta que un administrador apruebe tu cuenta. Esto puede tomar un tiempo, así que te pedimos que tengas paciencia.\n\n" +
-                                "Una vez que tu cuenta sea aprobada, recibirás una notificación y podrás comenzar a usar el sistema de inmediato.\n\n" +
-                                "¡Gracias por tu comprensión y paciencia!");
+                            await ResponderMensaje(mensaje.IdChat,
+                                "🕒 Cuenta pendiente de aprobación\n\n" +
+                                "Tu cuenta está siendo revisada por un administrador.\n" +
+                                "Recibirás una notificación cuando sea aprobada.");
                             return;
                         }
 
                         if (UtilesPassword.VerificarPassword(password,
                             usuarioEncontrado.PasswordHash,
                             usuarioEncontrado.PasswordSalt)) {
-
-                            await ResponderMensaje(mensaje.IdChat, $"Autenticación exitosa. Bienvenido {usuarioEncontrado.Nombre}");
+                            _usuariosAutenticados[mensaje.IdChat] = usuarioEncontrado.Nombre;
+                            await ResponderMensaje(mensaje.IdChat,
+                                $"✅ Autenticación exitosa\n\n" +
+                                $"Bienvenido, {usuarioEncontrado.Nombre}");
                         } else {
-                            await ResponderMensaje(mensaje.IdChat, "Contraseña incorrecta");
+                            await ResponderMensaje(mensaje.IdChat, "❌ Contraseña incorrecta");
                         }
                     }
                 } else {
-                    await ResponderMensaje(mensaje.IdChat, "Formato incorrecto. Use: usuario:contraseña");
+                    await ResponderMensaje(mensaje.IdChat, "⚠️ Formato incorrecto\nUse: usuario:contraseña");
                 }
             } catch (Exception ex) {
-                await ResponderMensaje(mensaje.IdChat, "Error al procesar la autenticación");
-                // Loggear el error
+                await ResponderMensaje(mensaje.IdChat,
+                    "❌ Error en autenticación\n\n" +
+                    $"Detalles: {ex.Message}");
             } finally {
-                // Borrar el mensaje con credenciales después de procesarlo
                 if (esPosibleCredencial && mensaje.IdMensaje != 0) {
                     try {
                         await ServicioBotTelegram.EliminarMensajeAsync(mensaje.IdChat, mensaje.IdMensaje);
                     } catch {
-                        // Si falla el borrado, al menos informar al usuario
-                        await ResponderMensaje(mensaje.IdChat, "No pude borrar tu mensaje con credenciales. Por favor, bórralo manualmente por seguridad.");
+                        await ResponderMensaje(mensaje.IdChat,
+                            "⚠️ Advertencia de seguridad\n\n" +
+                            "No pude borrar tu mensaje con credenciales. Por favor, bórralo manualmente.");
                     }
                 }
             }
@@ -311,28 +538,28 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 var partes = mensaje.Texto.Split(':');
                 if (partes.Length != 2) {
                     await ResponderMensaje(mensaje.IdChat,
-                        "Formato incorrecto. Usa: nombreusuario:contraseña");
+                        "⚠️ Formato incorrecto\nUse: nombreusuario:contraseña");
                     return;
                 }
 
                 var usuario = partes[0].Trim();
                 var password = partes[1].Trim();
 
-                // Validaciones básicas
                 if (usuario.Length < 4) {
                     await ResponderMensaje(mensaje.IdChat,
-                        "El nombre de usuario debe tener al menos 4 caracteres.");
+                        "❌ Nombre de usuario inválido\n" +
+                        "Debe tener al menos 4 caracteres.");
                     return;
                 }
 
                 if (password.Length < 8) {
                     await ResponderMensaje(mensaje.IdChat,
-                        "La contraseña debe tener al menos 8 caracteres.");
+                        "❌ Contraseña inválida\n" +
+                        "Debe tener al menos 8 caracteres.");
                     return;
                 }
 
                 using (var datosUsuario = new DatosCuentaUsuario()) {
-                    // Verificar si el usuario ya existe
                     var usuarioExistente = (await datosUsuario.ObtenerAsync(
                         CriterioBusquedaCuentaUsuario.Nombre,
                         usuario,
@@ -340,52 +567,51 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                     if (usuarioExistente != null) {
                         await ResponderMensaje(mensaje.IdChat,
-                            "El nombre de usuario ya está en uso. Por favor elige otro.");
+                            "❌ Usuario ya existe\n" +
+                            "El nombre de usuario ya está en uso.");
                         return;
                     }
 
-                    // Crear el nuevo usuario
                     var passwordUsuario = UtilesPassword.HashPassword(password);
                     var nuevoUsuario = new CuentaUsuario(0, usuario, passwordUsuario.hash, passwordUsuario.salt, 0) {
-                        Aprobado = false // Por defecto no aprobado hasta revisión
+                        Aprobado = false
                     };
 
                     datosUsuario.Adicionar(nuevoUsuario);
 
                     await ResponderMensaje(mensaje.IdChat,
-                        $"¡Registro exitoso! Usuario {usuario} creado correctamente.\n\n" +
-                        "Tu cuenta está pendiente de aprobación por un administrador.\n" +
-                        "Recibirás una notificación cuando sea aprobada.\n\n" +
-                        "Gracias por registrarte.");
+                        $"✅ Registro exitoso\n\n" +
+                        $"Usuario {usuario} creado correctamente.\n\n" +
+                        "🕒 Tu cuenta está pendiente de aprobación.\n" +
+                        "Recibirás una notificación cuando sea aprobada.");
                 }
             } catch (Exception ex) {
                 await ResponderMensaje(mensaje.IdChat,
-                    "Error durante el registro: " + ex.Message);
+                    "❌ Error en registro\n\n" +
+                    $"Detalles: {ex.Message}");
             } finally {
-                // Limpiar el registro pendiente independientemente del resultado
                 _registrosPendientes.Remove(mensaje.IdChat);
 
-                // Borrar mensaje con credenciales
                 if (mensaje.IdMensaje != 0) {
                     try {
                         await ServicioBotTelegram.EliminarMensajeAsync(mensaje.IdChat, mensaje.IdMensaje);
                     } catch {
                         await ResponderMensaje(mensaje.IdChat,
+                            "⚠️ Advertencia de seguridad\n\n" +
                             "No pude borrar tu mensaje con credenciales. Por favor, bórralo manualmente.");
                     }
                 }
             }
         }
+        #endregion
 
-        private async Task MostrarAyuda(string chatId) {
-            await ResponderMensaje(chatId,
-                "Ayuda - Comandos disponibles:\n\n" +
-                "/start - Mostrar bienvenida\n" +
-                "/login - Iniciar sesión\n" +
-                "/register - Registrar nuevo usuario\n" +
-                "/help - Mostrar esta ayuda\n\n" +
-                "Para autenticarte o registrarte, usa el formato:\n" +
-                "usuario:contraseña");
+        #region Utilidades del Chat
+        private async Task RegistrarMensaje(string chatId, int mensajeId) {
+            if (!_mensajesChat.ContainsKey(chatId)) {
+                _mensajesChat[chatId] = new List<int>();
+            }
+
+            _mensajesChat[chatId].Add(mensajeId);
         }
 
         private async Task ResponderMensaje(string chatId, string mensaje) {
@@ -393,22 +619,17 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 return;
 
             try {
-                // Mostrar mensaje "Procesando..." temporal
                 var mensajeTemporal = await ServicioBotTelegram.EnviarMensajeAsync(new MensajeTelegram {
                     IdChat = chatId,
                     Texto = "🔄 Procesando..."
                 });
 
-                // Enviar mensaje real
                 var mensajeReal = await ServicioBotTelegram.EnviarMensajeAsync(new MensajeTelegram {
                     IdChat = chatId,
                     Texto = mensaje
                 });
 
-                // Borrar mensaje temporal
                 await ServicioBotTelegram.EliminarMensajeAsync(chatId, mensajeTemporal.IdMensaje);
-
-                // Registrar mensaje real
                 await RegistrarMensaje(chatId, mensajeReal.IdMensaje);
             } catch (Exception ex) {
                 Console.WriteLine($"Error al responder mensaje: {ex.Message}");
@@ -420,7 +641,6 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 return;
 
             try {
-                // Borrar todos los mensajes registrados en este chat
                 foreach (var mensajeId in _mensajesChat[chatId]) {
                     await ServicioBotTelegram.EliminarMensajeAsync(chatId, mensajeId);
                 }
@@ -431,11 +651,36 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
             }
         }
 
+        private async Task EnviarDocumento(string chatId, Stream documentoStream, string nombreArchivo) {
+            if (!BotTelegramConectado) return;
+
+            try {
+                documentoStream.Position = 0;
+
+                var inputFile = new InputFileStream(
+                    content: documentoStream,
+                    fileName: nombreArchivo
+                );
+
+                await ServicioBotTelegram.EnviarDocumentoAsync(
+                    chatId: chatId,
+                    documento: inputFile,
+                    caption: $"📄 Reporte: {nombreArchivo}"
+                );
+            } catch (Exception ex) {
+                Console.WriteLine($"Error al enviar documento: {ex.Message}");
+                throw;
+            }
+        }
+        #endregion
+
+        #region Métodos de Limpieza
         public void DesconectarBotTelegram() {
             if (ServicioBotTelegram != null) {
                 ServicioBotTelegram.Desconectar();
                 ServicioBotTelegram.Dispose();
             }
         }
+        #endregion
     }
 }

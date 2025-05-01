@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Desktop.Utiles;
+﻿using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor;
@@ -11,7 +10,7 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaRegistroProveedor() {
         _registroProveedor = new PresentadorRegistroProveedor(new VistaRegistroProveedor());
-        _registroProveedor.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroProveedor.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroProveedor.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroProveedor.Salir += async delegate {
             if (_gestionProveedores != null)

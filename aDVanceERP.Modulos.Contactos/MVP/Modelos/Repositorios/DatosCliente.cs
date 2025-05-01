@@ -10,13 +10,11 @@ public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaClient
     }
 
     public override string ComandoAdicionar(Cliente objeto) {
-        return
-            $"INSERT INTO adv__cliente (numero, razon_social, id_contacto) VALUES ('{objeto.Numero}', '{objeto.RazonSocial}', '{objeto.IdContacto}');";
+        return $"INSERT INTO adv__cliente (numero, razon_social, id_contacto) VALUES ('{objeto.Numero}', '{objeto.RazonSocial}', '{objeto.IdContacto}');";
     }
 
     public override string ComandoEditar(Cliente objeto) {
-        return
-            $"UPDATE adv__cliente SET numero='{objeto.Numero}', razon_social='{objeto.RazonSocial}', id_contacto='{objeto.IdContacto}' WHERE id_cliente='{objeto.Id}';";
+        return $"UPDATE adv__cliente SET numero='{objeto.Numero}', razon_social='{objeto.RazonSocial}', id_contacto='{objeto.IdContacto}' WHERE id_cliente='{objeto.Id}';";
     }
 
     public override string ComandoEliminar(long id) {

@@ -26,9 +26,9 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuUsuario));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -41,7 +41,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             fieldNombreApellidos = new Label();
             fieldCorreoElectronico = new Label();
             layoutBotones = new FlowLayoutPanel();
-            btnConfiguracionCuenta = new Label();
+            btnConfigurarEmpresa = new Label();
             btnCerrarSesion = new Label();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
@@ -119,24 +119,25 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 11;
-            btnCerrar.CustomizableEdges = customizableEdges1;
+            btnCerrar.CustomizableEdges = customizableEdges3;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.FromArgb(  250,   250,   250);
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.FromArgb(  250,   250,   250);
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(308, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnCerrar.Size = new Size(24, 24);
             btnCerrar.TabIndex = 9;
             // 
             // fieldTextoCuentaCaribe
             // 
             fieldTextoCuentaCaribe.Dock = DockStyle.Fill;
-            fieldTextoCuentaCaribe.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTextoCuentaCaribe.Font = new Font("Segoe UI", 9.75F);
             fieldTextoCuentaCaribe.ForeColor = Color.Black;
+            fieldTextoCuentaCaribe.Image = (Image) resources.GetObject("fieldTextoCuentaCaribe.Image");
             fieldTextoCuentaCaribe.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTextoCuentaCaribe.ImeMode = ImeMode.NoControl;
             fieldTextoCuentaCaribe.Location = new Point(1, 1);
@@ -144,7 +145,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             fieldTextoCuentaCaribe.Name = "fieldTextoCuentaCaribe";
             fieldTextoCuentaCaribe.Size = new Size(303, 28);
             fieldTextoCuentaCaribe.TabIndex = 6;
-            fieldTextoCuentaCaribe.Text = "aDVance ERP";
+            fieldTextoCuentaCaribe.Text = "     aDVance ERP";
             fieldTextoCuentaCaribe.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // layoutDistribucionDatos
@@ -189,7 +190,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // 
             // fieldNombreApellidos
             // 
-            fieldNombreApellidos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldNombreApellidos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldNombreApellidos.ForeColor = Color.Black;
             fieldNombreApellidos.ImeMode = ImeMode.NoControl;
             fieldNombreApellidos.Location = new Point(1, 1);
@@ -202,7 +203,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // 
             // fieldCorreoElectronico
             // 
-            fieldCorreoElectronico.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCorreoElectronico.Font = new Font("Segoe UI", 9.75F);
             fieldCorreoElectronico.ForeColor = Color.Black;
             fieldCorreoElectronico.ImeMode = ImeMode.NoControl;
             fieldCorreoElectronico.Location = new Point(1, 31);
@@ -214,7 +215,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // 
             // layoutBotones
             // 
-            layoutBotones.Controls.Add(btnConfiguracionCuenta);
+            layoutBotones.Controls.Add(btnConfigurarEmpresa);
             layoutBotones.Controls.Add(btnCerrarSesion);
             layoutBotones.Dock = DockStyle.Fill;
             layoutBotones.Location = new Point(13, 153);
@@ -224,23 +225,22 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // 
             // btnConfiguracionCuenta
             // 
-            btnConfiguracionCuenta.Cursor = Cursors.Hand;
-            btnConfiguracionCuenta.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            btnConfiguracionCuenta.ForeColor = Color.Firebrick;
-            btnConfiguracionCuenta.ImeMode = ImeMode.NoControl;
-            btnConfiguracionCuenta.Location = new Point(1, 1);
-            btnConfiguracionCuenta.Margin = new Padding(1);
-            btnConfiguracionCuenta.Name = "btnConfiguracionCuenta";
-            btnConfiguracionCuenta.Size = new Size(328, 28);
-            btnConfiguracionCuenta.TabIndex = 6;
-            btnConfiguracionCuenta.Text = "Configuración de la cuenta";
-            btnConfiguracionCuenta.TextAlign = ContentAlignment.MiddleLeft;
-            btnConfiguracionCuenta.Visible = false;
+            btnConfigurarEmpresa.Cursor = Cursors.Hand;
+            btnConfigurarEmpresa.Font = new Font("Segoe UI", 9.75F);
+            btnConfigurarEmpresa.ForeColor = Color.Firebrick;
+            btnConfigurarEmpresa.ImeMode = ImeMode.NoControl;
+            btnConfigurarEmpresa.Location = new Point(1, 1);
+            btnConfigurarEmpresa.Margin = new Padding(1);
+            btnConfigurarEmpresa.Name = "btnConfiguracionCuenta";
+            btnConfigurarEmpresa.Size = new Size(328, 28);
+            btnConfigurarEmpresa.TabIndex = 6;
+            btnConfigurarEmpresa.Text = "Configuración de la empresa";
+            btnConfigurarEmpresa.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnCerrarSesion
             // 
             btnCerrarSesion.Cursor = Cursors.Hand;
-            btnCerrarSesion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrarSesion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnCerrarSesion.ForeColor = Color.Firebrick;
             btnCerrarSesion.ImeMode = ImeMode.NoControl;
             btnCerrarSesion.Location = new Point(1, 33);
@@ -257,7 +257,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             BackColor = Color.FromArgb(  245,   245,   245);
             ClientSize = new Size(357, 232);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 11.25F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaMenuUsuario";
@@ -289,7 +289,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         private Label fieldNombreApellidos;
         private Label fieldCorreoElectronico;
         private FlowLayoutPanel layoutBotones;
-        private Label btnConfiguracionCuenta;
+        private Label btnConfigurarEmpresa;
         private Label btnCerrarSesion;
     }
 }

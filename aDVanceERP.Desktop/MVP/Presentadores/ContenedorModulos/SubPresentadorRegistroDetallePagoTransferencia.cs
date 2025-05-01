@@ -16,7 +16,7 @@ public partial class PresentadorContenedorModulos {
         _registroDetallePagoTransferencia =
             new PresentadorRegistroDetallePagoTransferencia(new VistaRegistroDetallePagoTransferencia());
         _registroDetallePagoTransferencia.Vista.CargarAliasTarjetas(UtilesCuentaBancaria.ObtenerAliasesCuentas());
-        _registroDetallePagoTransferencia.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroDetallePagoTransferencia.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroDetallePagoTransferencia.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroDetallePagoTransferencia.Salir += delegate {
             Transferencia = new[] {

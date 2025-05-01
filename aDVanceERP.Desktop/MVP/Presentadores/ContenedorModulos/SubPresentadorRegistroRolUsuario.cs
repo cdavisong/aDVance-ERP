@@ -17,7 +17,7 @@ public partial class PresentadorContenedorModulos {
         _registroRolUsuario = new PresentadorRegistroRolUsuario(new VistaRegistroRolUsuario());
 
         // Configurar coordenadas y dimensiones de la vista
-        _registroRolUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroRolUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroRolUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
         _registroRolUsuario.DatosRegistradosActualizados += async delegate {

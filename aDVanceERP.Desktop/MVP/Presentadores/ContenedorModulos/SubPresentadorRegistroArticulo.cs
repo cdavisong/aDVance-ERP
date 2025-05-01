@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
     private void InicializarVistaRegistroArticulo() {
         _registroArticulo = new PresentadorRegistroArticulo(new VistaRegistroArticulo());
         _registroArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
-        _registroArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroArticulo.Salir += async delegate {
             await _gestionArticulos?.RefrescarListaObjetos()!;

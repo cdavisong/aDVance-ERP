@@ -11,7 +11,7 @@ public partial class PresentadorContenedorModulos {
 
     private Task InicializarVistaRegistroTipoMovimiento() {
         _registroTipoMovimiento = new PresentadorRegistroTipoMovimiento(new VistaRegistroTipoMovimiento());
-        _registroTipoMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroTipoMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroTipoMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroTipoMovimiento.Salir += delegate {
             _registroMovimiento?.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos());

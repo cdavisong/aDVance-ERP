@@ -8,5 +8,4 @@ public interface IVistaTuplaProveedor : IVistaTupla {
     string NumeroIdentificacionTributaria { get; set; }
     string Telefonos { get; set; }
     string Direccion { get; set; }
-    string NombreRepresentante { get; set; }
 }

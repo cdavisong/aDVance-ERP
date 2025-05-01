@@ -15,7 +15,7 @@ public partial class PresentadorContenedorModulos {
         _registroMovimiento = new PresentadorRegistroMovimiento(new VistaRegistroMovimiento());
         _registroMovimiento.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
         _registroMovimiento.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
-        _registroMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMovimiento.Vista.RegistrarTipoMovimiento += MostrarVistaRegistroTipoMovimiento;
         _registroMovimiento.Vista.EliminarTipoMovimiento += EliminarTipoMovimiento;

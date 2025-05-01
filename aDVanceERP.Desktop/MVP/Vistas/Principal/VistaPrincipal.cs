@@ -97,7 +97,10 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         };
     }
 
-    public void Mostrar() {
+    public void Mostrar() {        
+        BringToFront();
+        Show();
+
         WindowState = FormWindowState.Maximized;
     }
 

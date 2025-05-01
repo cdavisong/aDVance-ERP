@@ -52,6 +52,29 @@ public static class UtilesContacto {
         return nombreContacto;
     }
 
+    public static string? ObtenerCorreoElectronicoContacto(long idContacto) {
+        var correoElectronicoContacto = string.Empty;
+
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+            } catch (Exception) {
+                throw new ExcepcionConexionServidorMySQL();
+            }
+
+            using (var comando = conexion.CreateCommand()) {
+                comando.CommandText = $"SELECT direccion_correo_electronico FROM adv__contacto WHERE id_contacto = {idContacto};";
+
+                using (var lectorDatos = comando.ExecuteReader()) {
+                    if (lectorDatos != null && lectorDatos.Read())
+                        correoElectronicoContacto = lectorDatos.GetString(lectorDatos.GetOrdinal("direccion_correo_electronico"));
+                }
+            }
+        }
+
+        return correoElectronicoContacto;
+    }
+
     public static object[] ObtenerNombresContactos() {
         var nombresContactos = new List<string>();
 

@@ -12,11 +12,10 @@ public class Mensajero : IObjetoUnico {
         IdContacto = idContacto;
     }
 
+    public long Id { get; set; }
     public string Nombre { get; set; }
     public bool Activo { get; set; }
-    public long IdContacto { get; set; }
-
-    public long Id { get; set; }
+    public long IdContacto { get; set; }    
 }
 
 public enum CriterioBusquedaMensajero {

@@ -22,7 +22,7 @@ public partial class PresentadorContenedorModulos {
     private async Task InicializarVistaRegistroVentaArticulo() {
         try {
             _registroVentaArticulo = new PresentadorRegistroVenta(new VistaRegistroVenta());
-            _registroVentaArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+            _registroVentaArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
             _registroVentaArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroVentaArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
             _registroVentaArticulo.Vista.IdTipoEntrega = await UtilesEntrega.ObtenerIdTipoEntrega("Presencial");

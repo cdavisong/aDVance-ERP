@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
     private void InicializarVistaRegistroCuentaBancaria() {
         _registroCuentaBancaria = new PresentadorRegistroCuentaBancaria(new VistaRegistroCuentaBancaria());
         _registroCuentaBancaria.Vista.CargarNombresContactos(UtilesContacto.ObtenerNombresContactos());
-        _registroCuentaBancaria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroCuentaBancaria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCuentaBancaria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroCuentaBancaria.Salir += async (sender, e) => {
             await _gestionCuentasBancarias.RefrescarListaObjetos();

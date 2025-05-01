@@ -64,6 +64,11 @@ public class DatosContacto : RepositorioDatosBase<Contacto, CriterioBusquedaCont
                 SET
                     id_contacto=0
                 WHERE id_contacto='{id}';
+
+                UPDATE adv__empresa
+                SET
+                    id_contacto=0
+                WHERE id_contacto='{id}';
                 """;
     }
 

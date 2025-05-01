@@ -21,12 +21,12 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             get => Size;
             set => Size = value;
         }
-        public Image? ImagenPerfil {
+        public Image? LogotipoEmpresa {
             get => fieldFotoPerfil.BackgroundImage;
             set => fieldFotoPerfil.BackgroundImage = value;
         }
 
-        public string? NombreApellidos {
+        public string? NombreEmpresa {
             get => fieldNombreApellidos.Text;
             set => fieldNombreApellidos.Text = value;
         }
@@ -42,7 +42,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         public event EventHandler? CambioMenu;
         public event EventHandler? Salir;
         public event EventHandler? CerrarSesion;
-        public event EventHandler? ConfigurarCuenta;
+        public event EventHandler? ConfigurarEmpresa;
 
         public void Inicializar() {
             // Eventos
@@ -54,8 +54,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
                 CerrarSesion?.Invoke(sender, args);
                 Ocultar();
             };
-            btnConfiguracionCuenta.Click += delegate (object? sender, EventArgs args) {
-                ConfigurarCuenta?.Invoke(sender, args);
+            btnConfigurarEmpresa.Click += delegate (object? sender, EventArgs args) {
+                ConfigurarEmpresa?.Invoke(sender, args);
                 Ocultar();
             };
         }

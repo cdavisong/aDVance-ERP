@@ -16,7 +16,7 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
         Vista.Nombre = objeto.Nombre;
 
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Nombre, objeto.Nombre).FirstOrDefault();
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
 
             if (contacto != null) {
                 Vista.TelefonoMovil = UtilesTelefonoContacto.ObtenerTelefonoContacto(contacto.Id, true) ?? string.Empty;

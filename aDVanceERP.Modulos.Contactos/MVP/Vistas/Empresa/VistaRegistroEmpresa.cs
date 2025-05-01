@@ -1,0 +1,127 @@
+﻿using aDVanceERP.Core.Utiles;
+using aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa.Plantillas;
+using aDVanceERP.Modulos.Contactos.Properties;
+
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
+    public partial class VistaRegistroEmpresa : Form, IVistaRegistroEmpresa {
+        private bool _modoEdicion;
+
+        public VistaRegistroEmpresa() {
+            InitializeComponent();
+            Inicializar();
+        }
+
+        public bool Habilitada {
+            get => Enabled;
+            set => Enabled = value;
+        }
+
+        public Point Coordenadas {
+            get => Location;
+            set => Location = value;
+        }
+
+        public Size Dimensiones {
+            get => Size;
+            set => Size = value;
+        }
+
+        public Image? Logotipo {
+            get => fieldLogotipo.BackgroundImage;
+            set {
+                var imagen = value.ObtenerRecorteImagen100x100();
+
+                using (var g = Graphics.FromImage(imagen))
+                    g.DrawImage(Resources.mascara, 0, 0, 100, 100);
+                
+                fieldLogotipo.BackgroundImage = imagen; 
+            }
+        }
+
+        public string Nombre {
+            get => fieldNombre.Text;
+            set => fieldNombre.Text = value;
+        }
+
+        public string TelefonoMovil {
+            get => fieldTelefonoMovil.Text;
+            set => fieldTelefonoMovil.Text = value;
+        }
+
+        public string TelefonoFijo {
+            get => fieldTelefonoFijo.Text;
+            set => fieldTelefonoFijo.Text = value;
+        }
+
+        public string CorreoElectronico {
+            get => fieldCorreoElectronico.Text;
+            set => fieldCorreoElectronico.Text = value;
+        }
+
+        public string Direccion {
+            get => fieldDireccion.Text;
+            set {
+                fieldDireccion.Text = value;
+                fieldDireccion.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
+            }
+        }
+
+        public bool ModoEdicionDatos {
+            get => _modoEdicion;
+            set {
+                fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
+                btnRegistrar.Text = value ? "Actualizar empresa" : "Registrar empresa";
+                _modoEdicion = value;
+            }
+        }
+
+        public event EventHandler? RegistrarDatos;
+        public event EventHandler? EditarDatos;
+        public event EventHandler? EliminarDatos;
+        public event EventHandler? Salir;
+
+        public void Inicializar() {
+            // Eventos
+            btnCerrar.Click += delegate (object? sender, EventArgs args) {
+                Salir?.Invoke(sender, args);
+            };
+            fieldLogotipo.Click += delegate {
+                buscadorImagen.ShowDialog();
+
+                if (!string.IsNullOrEmpty(buscadorImagen.FileName))
+                    Logotipo = Image.FromFile(buscadorImagen.FileName);
+            };
+            btnRegistrar.Click += delegate (object? sender, EventArgs args) {
+                if (ModoEdicionDatos)
+                    EditarDatos?.Invoke(sender, args);
+                else
+                    RegistrarDatos?.Invoke(sender, args);
+            };
+            btnSalir.Click += delegate (object? sender, EventArgs args) {
+                Salir?.Invoke(sender, args);
+            };
+        }
+
+        public void Mostrar() {
+            BringToFront();
+            ShowDialog();
+        }
+
+        public void Restaurar() {
+            Nombre = string.Empty;
+            TelefonoMovil = string.Empty;
+            TelefonoFijo = string.Empty;
+            CorreoElectronico = string.Empty;
+            Direccion = string.Empty;
+            ModoEdicionDatos = false;
+        }
+
+        public void Ocultar() {
+            Hide();
+        }
+
+        public void Cerrar() {
+            Dispose();
+        }
+    }
+}

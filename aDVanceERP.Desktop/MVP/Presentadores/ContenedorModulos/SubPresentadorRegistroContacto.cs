@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
 
     private async Task InicializarVistaRegistroContacto() {
         _registroContacto = new PresentadorRegistroContacto(new VistaRegistroContacto());
-        _registroContacto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroContacto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroContacto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroContacto.Salir += async (sender, e) => {
             await _gestionContactos.RefrescarListaObjetos();

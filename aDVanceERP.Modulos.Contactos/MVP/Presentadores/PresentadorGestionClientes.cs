@@ -18,7 +18,7 @@ public class PresentadorGestionClientes : PresentadorGestionBase<PresentadorTupl
         presentadorTupla.Vista.RazonSocial = objeto.RazonSocial ?? string.Empty;
 
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Nombre, objeto.RazonSocial).FirstOrDefault();
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
 
             if (contacto != null) {
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {

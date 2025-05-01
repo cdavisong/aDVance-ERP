@@ -13,12 +13,11 @@ public class Contacto : IObjetoUnico {
         Notas = notas;
     }
 
+    public long Id { get; set; }
     public string? Nombre { get; }
     public string? DireccionCorreoElectronico { get; }
     public string? Direccion { get; }
-    public string? Notas { get; set; }
-
-    public long Id { get; set; }
+    public string? Notas { get; set; }    
 }
 
 public enum CriterioBusquedaContacto {

@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaQR() {
         _qr = new PresentadorQR(new VistaQR());
-        _qr.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _qr.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _qr.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _qr.Salir += delegate { _qr.Vista.Cerrar(); };
     }

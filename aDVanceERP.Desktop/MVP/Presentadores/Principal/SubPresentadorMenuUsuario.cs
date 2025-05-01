@@ -7,6 +7,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
         private void InicializarVistaMenuUsuario() {
             _menuUsuario = new PresentadorMenuUsuario(new VistaMenuUsuario());
+
+            _menuUsuario.Vista.ConfigurarEmpresa += delegate (object? sender, EventArgs e) {
+                MostrarVistaEdicionEmpresa(sender, e);
+                ActualizarDatosEmpresa();
+            };
             _menuUsuario.Vista.CerrarSesion += MostrarVistaContenedorSeguridad;
             _menuUsuario.Vista.CerrarSesion += delegate {
                 Vista.Menus.Ocultar(true);

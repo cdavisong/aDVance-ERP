@@ -52,11 +52,6 @@ public partial class VistaTuplaProveedor : Form, IVistaTuplaProveedor {
         }
     }
 
-    public string NombreRepresentante {
-        get => fieldNombreRepresentante.Text;
-        set => fieldNombreRepresentante.Text = value;
-    }
-
     public Color ColorFondoTupla {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;
@@ -73,7 +68,6 @@ public partial class VistaTuplaProveedor : Form, IVistaTuplaProveedor {
         fieldId.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldNumeroIdentificacionTributaria.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldRazonSocial.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldNombreRepresentante.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldTelefonos.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldDireccion.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
