@@ -20,7 +20,7 @@ public static class UtilesPassword {
         }
     }
 
-    private static (string hash, string salt) HashPassword(string? password) {
+    public static (string hash, string salt) HashPassword(string? password) {
         var saltBytes = new byte[16];
 
         using (var rng = new RNGCryptoServiceProvider()) {
@@ -54,7 +54,7 @@ public static class UtilesPassword {
         }
     }
 
-    private static bool VerificarPassword(string? password, string hashAlmacenado, string saltAlmacenado) {
+    public static bool VerificarPassword(string? password, string hashAlmacenado, string saltAlmacenado) {
         var saltBytes = Convert.FromBase64String(saltAlmacenado);
         var hash = string.Empty;
 

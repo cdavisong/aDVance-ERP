@@ -11,7 +11,8 @@ public static class UtilesReportes {
     public static void GenerarReporteVentas(DateTime fecha, List<string[]> filas,
                                       string cliente = "Todos los clientes",
                                       string usuario = "Todos los usuarios",
-                                      string producto = "Todos los artículos") {
+                                      string producto = "Todos los artículos",
+                                      bool mostrar = true) {
         // Crear un nuevo documento PDF
         var documento = new PdfDocument();
         documento.Info.Title = "Reporte de Ventas";
@@ -83,10 +84,11 @@ public static class UtilesReportes {
         documento.Save(nombreArchivo);
 
         // Mostrar el documento PDF al usuario
-        Process.Start(new ProcessStartInfo {
-            FileName = nombreArchivo,
-            UseShellExecute = true
-        });
+        if (mostrar)
+            Process.Start(new ProcessStartInfo {
+                FileName = nombreArchivo,
+                UseShellExecute = true
+            });
     }
 
     // Métodos auxiliares para GenerarReporteVentas

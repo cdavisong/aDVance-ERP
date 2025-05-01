@@ -8,7 +8,9 @@ namespace aDVanceERP.Core.Seguridad.Utiles;
 
 public static class UtilesCuentaUsuario {
     public static CuentaUsuario? UsuarioAutenticado { get; set; } = new();
+    public static CuentaUsuario? UsuarioAutenticadoTelegram { get; set; } = new();
     public static string[]? PermisosUsuario { get; set; }
+    public static string[]? PermisosUsuarioTelegram { get; set; }
 
     public static async Task<bool> EsTablaCuentasUsuarioVacia() {
         var tablaVacia = false;
