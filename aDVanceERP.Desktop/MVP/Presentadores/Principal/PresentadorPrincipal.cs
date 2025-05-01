@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
+using aDVanceERP.Core.Mensajes.Servicios.Telegram;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
@@ -39,6 +40,15 @@ public partial class PresentadorPrincipal {
 
         #endregion
 
+        #region Característica : Servicio de Bot para administración de la aplicación en Telegram
+
+        ServicioBotTelegram = new ServicioBotAdvanceErpTelegram();
+        ServicioBotTelegram.MensajeRecibido += ProcesarMensajeBotTelegram;
+        BotTelegramConectado = ServicioBotTelegram.ConectarAsync().Result;
+        Vista.ServicioTelegramActivo = BotTelegramConectado;        
+
+        #endregion
+
         // Otros
         MostrarVistaContenedorSeguridad(this, EventArgs.Empty);
 
@@ -47,6 +57,10 @@ public partial class PresentadorPrincipal {
     }
 
     public IVistaPrincipal Vista { get; }
+
+    public ServicioBotAdvanceErpTelegram ServicioBotTelegram { get; }
+
+    public bool BotTelegramConectado { get; }
 
     private void InicializarPermisosModulos() {
         try {

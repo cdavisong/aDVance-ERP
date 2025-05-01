@@ -11,8 +11,8 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using System.Globalization;
 using Telegram.Bot.Types;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos {
+namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
+    public partial class PresentadorPrincipal {
         private Dictionary<string, List<int>> _mensajesChat = new Dictionary<string, List<int>>();
         private Dictionary<string, (string? Username, string? Password)> _registrosPendientes = new Dictionary<string, (string, string)>();
 

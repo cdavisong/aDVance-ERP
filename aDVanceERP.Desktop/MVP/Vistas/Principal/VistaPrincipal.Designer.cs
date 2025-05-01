@@ -24,10 +24,11 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaPrincipal));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -35,7 +36,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaPrincipal));
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             notificacionMensajes = new Guna.UI2.WinForms.Guna2NotificationPaint(components);
             btnMensajes = new Guna.UI2.WinForms.Guna2Button();
@@ -52,7 +52,9 @@
             btnSubMenuUsuario = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             btnMaximizarRestaurar = new Guna.UI2.WinForms.Guna2ControlBox();
             layoutBarraEstado = new TableLayoutPanel();
+            panelPiePagina = new Panel();
             fieldServidorScanner = new Label();
+            fieldServicioTelegram = new Label();
             contenedorVistas = new Panel();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
@@ -61,6 +63,7 @@
             contenedorMenus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) btnSubMenuUsuario).BeginInit();
             layoutBarraEstado.SuspendLayout();
+            panelPiePagina.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -85,9 +88,9 @@
             btnMensajes.Animated = true;
             btnMensajes.BackgroundImageLayout = ImageLayout.Center;
             btnMensajes.Cursor = Cursors.Hand;
-            btnMensajes.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnMensajes.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnMensajes.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnMensajes.CustomizableEdges = customizableEdges12;
+            btnMensajes.CustomizableEdges = customizableEdges14;
             btnMensajes.Dock = DockStyle.Fill;
             btnMensajes.FillColor = Color.WhiteSmoke;
             btnMensajes.Font = new Font("Segoe UI", 9F);
@@ -95,7 +98,7 @@
             btnMensajes.Location = new Point(1107, 1);
             btnMensajes.Margin = new Padding(1);
             btnMensajes.Name = "btnMensajes";
-            btnMensajes.ShadowDecoration.CustomizableEdges = customizableEdges13;
+            btnMensajes.ShadowDecoration.CustomizableEdges = customizableEdges15;
             btnMensajes.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnMensajes.Size = new Size(48, 51);
             btnMensajes.TabIndex = 1;
@@ -117,9 +120,9 @@
             btnNotificaciones.Animated = true;
             btnNotificaciones.BackgroundImageLayout = ImageLayout.Center;
             btnNotificaciones.Cursor = Cursors.Hand;
-            btnNotificaciones.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnNotificaciones.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnNotificaciones.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnNotificaciones.CustomizableEdges = customizableEdges14;
+            btnNotificaciones.CustomizableEdges = customizableEdges12;
             btnNotificaciones.Dock = DockStyle.Fill;
             btnNotificaciones.FillColor = Color.WhiteSmoke;
             btnNotificaciones.Font = new Font("Segoe UI", 9F);
@@ -127,7 +130,7 @@
             btnNotificaciones.Location = new Point(1057, 1);
             btnNotificaciones.Margin = new Padding(1);
             btnNotificaciones.Name = "btnNotificaciones";
-            btnNotificaciones.ShadowDecoration.CustomizableEdges = customizableEdges15;
+            btnNotificaciones.ShadowDecoration.CustomizableEdges = customizableEdges13;
             btnNotificaciones.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnNotificaciones.Size = new Size(48, 51);
             btnNotificaciones.TabIndex = 1;
@@ -299,7 +302,7 @@
             layoutBarraEstado.BackColor = Color.White;
             layoutBarraEstado.ColumnCount = 1;
             layoutBarraEstado.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            layoutBarraEstado.Controls.Add(fieldServidorScanner, 0, 0);
+            layoutBarraEstado.Controls.Add(panelPiePagina, 0, 0);
             layoutBarraEstado.Dock = DockStyle.Fill;
             layoutBarraEstado.Font = new Font("Segoe UI", 9.75F);
             layoutBarraEstado.ForeColor = Color.White;
@@ -308,23 +311,48 @@
             layoutBarraEstado.Name = "layoutBarraEstado";
             layoutBarraEstado.RowCount = 1;
             layoutBarraEstado.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            layoutBarraEstado.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutBarraEstado.Size = new Size(1356, 24);
             layoutBarraEstado.TabIndex = 1;
             // 
+            // panelPiePagina
+            // 
+            panelPiePagina.Controls.Add(fieldServidorScanner);
+            panelPiePagina.Controls.Add(fieldServicioTelegram);
+            panelPiePagina.Dock = DockStyle.Fill;
+            panelPiePagina.Location = new Point(10, 0);
+            panelPiePagina.Margin = new Padding(10, 0, 0, 0);
+            panelPiePagina.Name = "panelPiePagina";
+            panelPiePagina.Size = new Size(1346, 24);
+            panelPiePagina.TabIndex = 0;
+            // 
             // fieldServidorScanner
             // 
-            fieldServidorScanner.AutoSize = true;
             fieldServidorScanner.Dock = DockStyle.Left;
             fieldServidorScanner.ForeColor = Color.DimGray;
             fieldServidorScanner.Image = (Image) resources.GetObject("fieldServidorScanner.Image");
             fieldServidorScanner.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldServidorScanner.Location = new Point(10, 0);
-            fieldServidorScanner.Margin = new Padding(10, 0, 3, 0);
+            fieldServidorScanner.Location = new Point(211, 0);
+            fieldServidorScanner.Margin = new Padding(0);
             fieldServidorScanner.Name = "fieldServidorScanner";
-            fieldServidorScanner.Size = new Size(451, 24);
-            fieldServidorScanner.TabIndex = 0;
-            fieldServidorScanner.Text = "      Servidor de scanner iniciado en la dirección : 192.168.0.1 | Puerto : 9002";
+            fieldServidorScanner.Size = new Size(642, 24);
+            fieldServidorScanner.TabIndex = 3;
+            fieldServidorScanner.Text = "     Servidor de scanner iniciado en la dirección : 192.168.0.1 | Puerto : 9002";
             fieldServidorScanner.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // fieldServicioTelegram
+            // 
+            fieldServicioTelegram.Dock = DockStyle.Left;
+            fieldServicioTelegram.ForeColor = Color.DimGray;
+            fieldServicioTelegram.Image = (Image) resources.GetObject("fieldServicioTelegram.Image");
+            fieldServicioTelegram.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldServicioTelegram.Location = new Point(0, 0);
+            fieldServicioTelegram.Margin = new Padding(10, 0, 3, 0);
+            fieldServicioTelegram.Name = "fieldServicioTelegram";
+            fieldServicioTelegram.Size = new Size(211, 24);
+            fieldServicioTelegram.TabIndex = 2;
+            fieldServicioTelegram.Text = "     Servicio de Telegram inactivo";
+            fieldServicioTelegram.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // contenedorVistas
             // 
@@ -359,7 +387,7 @@
             contenedorMenus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) btnSubMenuUsuario).EndInit();
             layoutBarraEstado.ResumeLayout(false);
-            layoutBarraEstado.PerformLayout();
+            panelPiePagina.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -382,6 +410,8 @@
         private Guna.UI2.WinForms.Guna2Button btnMensajes;
         private Guna.UI2.WinForms.Guna2CirclePictureBox btnSubMenuUsuario;
         private Guna.UI2.WinForms.Guna2HtmlLabel fieldTitulo;
+        private Panel panelPiePagina;
         private Label fieldServidorScanner;
+        private Label fieldServicioTelegram;
     }
 }

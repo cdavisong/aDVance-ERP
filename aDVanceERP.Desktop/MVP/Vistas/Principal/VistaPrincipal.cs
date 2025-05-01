@@ -51,7 +51,14 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
             //TODO: btnMensajes.Visible = value; 
             //TODO: btnNotificaciones.Visible = value;
         }
-    }    
+    }
+
+    public bool ServicioTelegramActivo {
+        get => fieldServicioTelegram.Visible;
+        set {
+            fieldServicioTelegram.Text = $"     Servicio de Telegram {(value ? "activo" : "inactivo")}";
+        }
+    }
 
     public event EventHandler? VerNotificaciones;
     public event EventHandler? VerMensajes;
@@ -86,7 +93,7 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
 
         // Eventos del Servidor SCANNER
         UtilesServidorScanner.Servidor.CambioEstado += delegate (string mensaje) {
-            fieldServidorScanner.Text = $"      {mensaje}";
+            fieldServidorScanner.Text = $"     {mensaje}";
         };
     }
 

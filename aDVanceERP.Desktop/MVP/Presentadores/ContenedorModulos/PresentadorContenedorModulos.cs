@@ -1,6 +1,4 @@
-﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
-using aDVanceERP.Core.Mensajes.Servicios.Telegram;
-using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
@@ -65,19 +63,7 @@ public partial class PresentadorContenedorModulos : PresentadorBase<IVistaConten
         InicializarVistaGestionRolesUsuarios();
 
         #endregion
-
-        #region Característica : Servicio de Bot para administración de la aplicación en Telegram
-
-        ServicioBotTelegram = new ServicioBotAdvanceErpTelegram();
-        ServicioBotTelegram.MensajeRecibido += ProcesarMensajeBotTelegram;
-        BotTelegramConectado = ServicioBotTelegram.ConectarAsync().Result;
-
-        #endregion
     }
 
     private IVistaPrincipal VistaPrincipal { get; }
-
-    public ServicioBotAdvanceErpTelegram ServicioBotTelegram { get; }
-
-    public bool BotTelegramConectado { get; }
 }
