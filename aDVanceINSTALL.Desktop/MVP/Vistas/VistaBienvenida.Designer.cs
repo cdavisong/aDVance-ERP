@@ -78,7 +78,7 @@
             fieldTitulo.AutoSize = false;
             fieldTitulo.BackColor = Color.White;
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 11.25F);
             fieldTitulo.Location = new Point(260, 10);
             fieldTitulo.Margin = new Padding(10, 10, 30, 10);
             fieldTitulo.Name = "fieldTitulo";
@@ -103,7 +103,7 @@
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(796, 387);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaBienvenida";
