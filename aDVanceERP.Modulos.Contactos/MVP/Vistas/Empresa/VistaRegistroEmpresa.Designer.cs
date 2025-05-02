@@ -458,7 +458,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
             // 
             // buscadorImagen
             // 
-            buscadorImagen.Filter = "Archivos PNG|*.png|Archivos JPG|*.jpg";
+            buscadorImagen.Filter = "Archivos PNG|*.png|Archivos JPG|*.jpg|Archivos JPEG|*.jpeg";
             buscadorImagen.Title = "Escoger imagen para el logotipo de la empresa";
             // 
             // VistaRegistroEmpresa

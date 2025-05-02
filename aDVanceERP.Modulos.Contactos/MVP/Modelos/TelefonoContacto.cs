@@ -21,7 +21,7 @@ public class TelefonoContacto : IObjetoUnico {
     }
 
     public string? Prefijo { get; }
-    public string? Numero { get; }
+    public string? Numero { get; set; }
     public CategoriaTelefonoContacto Categoria { get; set; }
     public long IdContacto { get; }
 

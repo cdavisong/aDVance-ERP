@@ -29,10 +29,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
         public Image? Logotipo {
             get => fieldLogotipo.BackgroundImage;
             set {
-                var imagen = value.ObtenerRecorteImagen100x100();
+                var imagen = new Bitmap(100, 100);
+                var logotipo = value.ObtenerRecorteImagen100x100();
 
-                using (var g = Graphics.FromImage(imagen))
+                using (var g = Graphics.FromImage(imagen)) {
+                    g.Clear(Color.White);
+                    g.DrawImage(logotipo, 0, 0, 100, 100);
                     g.DrawImage(Resources.mascara, 0, 0, 100, 100);
+                }
                 
                 fieldLogotipo.BackgroundImage = imagen; 
             }

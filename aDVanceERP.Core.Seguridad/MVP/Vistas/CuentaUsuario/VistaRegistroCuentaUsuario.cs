@@ -1,8 +1,10 @@
 ﻿using System.Security;
+
+using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 using aDVanceERP.Core.Seguridad.Properties;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
 
 public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsuario {
     private bool _modoEdicion;
@@ -34,8 +36,10 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
 
     public SecureString? Password {
         get {
-            if (!fieldPassword.Text.Equals(fieldConfirmarPassword.Text))
+            if (!fieldPassword.Text.Equals(fieldConfirmarPassword.Text)) {
+                CentroNotificaciones.Mostrar($"Las contraseñas no coinciden, rectifique los datos y presiones al botón \"{btnRegistrar.Text}\"", Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
                 return null;
+            }
 
             var password = new SecureString();
 
@@ -60,8 +64,7 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
                 fieldConfirmarPassword.Text = "test-password1";
             }
 
-            fieldPassword.Enabled = !value;
-            fieldConfirmarPassword.Enabled = !value;
+            fieldPassword.IconRight = null;
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
             btnRegistrar.Text = value ? "Actualizar usuario" : "Registrar usuario";
             _modoEdicion = value;
@@ -75,24 +78,29 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
 
     public void Inicializar() {
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate (object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
         fieldPassword.IconRightClick += delegate {
+            if (ModoEdicionDatos)
+                return;
+
             // fieldPassword
             fieldPassword.UseSystemPasswordChar = !fieldPassword.UseSystemPasswordChar;
             fieldPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
-            fieldPassword.IconRight =
-                fieldPassword.UseSystemPasswordChar ? Resources.closed_eye_20px : Resources.eye_20px;
+            fieldPassword.IconRight = fieldPassword.UseSystemPasswordChar ? Resources.closed_eye_20px : Resources.eye_20px;
+            
             // fieldConfirmarPassword
             fieldConfirmarPassword.UseSystemPasswordChar = fieldPassword.UseSystemPasswordChar;
             fieldConfirmarPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+        btnRegistrar.Click += delegate (object? sender, EventArgs args) {
+            if (ModoEdicionDatos && fieldPassword.Text.Equals("test-password1"))
+                Salir?.Invoke(sender, args);
+            else if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnSalir.Click += delegate (object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
     }
 
     public void CargarRolesUsuarios(string[] rolesUsuarios) {

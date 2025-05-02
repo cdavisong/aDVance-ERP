@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.Menu.Plantillas;
+using aDVanceERP.Core.Seguridad.Utiles;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
     public partial class VistaMenuUsuario : Form, IVistaMenuUsuario {
@@ -21,19 +22,32 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             get => Size;
             set => Size = value;
         }
+
+        public string? NombreUsuario {
+            get => fieldNomreUsuario.Text;
+            set => fieldNomreUsuario.Text = string.IsNullOrEmpty(value) ? "     Bienvenido!" : $"     Bienvenido(a) de vuelta {value}";
+        }
+
         public Image? LogotipoEmpresa {
             get => fieldFotoPerfil.BackgroundImage;
             set => fieldFotoPerfil.BackgroundImage = value;
         }
 
         public string? NombreEmpresa {
-            get => fieldNombreApellidos.Text;
-            set => fieldNombreApellidos.Text = value;
+            get => fieldNombreEmpresa.Text;
+            set { 
+                fieldNombreEmpresa.Text = value; 
+                fieldIdEmpresa.Text = Math.Abs(value?.GetHashCode() ?? 0).ToString("0000000000").ToUpper();
+            }
         }
 
         public string? CorreoElectronico {
             get => fieldCorreoElectronico.Text;
             set => fieldCorreoElectronico.Text = value;
+        }
+
+        public string? IdEmpresa {
+            get => fieldIdEmpresa.Text;
         }
 
         public event EventHandler? VerProveedores;
@@ -61,6 +75,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         }
 
         public void Mostrar() {
+            VerificarPermisos();
             BringToFront();
             Show();
         }
@@ -75,6 +90,10 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
 
         public void Cerrar() {
             Dispose();
+        }
+
+        private void VerificarPermisos() {
+            btnConfigurarEmpresa.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false);
         }
     }
 }

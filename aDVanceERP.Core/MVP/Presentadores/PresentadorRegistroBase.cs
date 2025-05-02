@@ -42,7 +42,7 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
         return true;
     }
 
-    protected virtual void RegistroAuxiliar() { }
+    protected virtual void RegistroAuxiliar(long id) { }
 
     protected virtual void RegistrarDatosObjeto(object? sender, EventArgs e) {
         _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
@@ -68,7 +68,7 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
         else
             Objeto.Id = await DatosObjeto.AdicionarAsync(Objeto);
 
-        RegistroAuxiliar();
+        RegistroAuxiliar(Objeto.Id);
 
         DatosRegistradosActualizados?.Invoke(sender, e);
         Salir?.Invoke(sender, e);

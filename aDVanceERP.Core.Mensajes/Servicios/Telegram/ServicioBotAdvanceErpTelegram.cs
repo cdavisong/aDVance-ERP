@@ -13,7 +13,7 @@ namespace aDVanceERP.Core.Mensajes.Servicios.Telegram {
         private CancellationTokenSource? _cts;
         private int _ultimoIdActualizacion = 0;
 
-        public ServicioBotAdvanceErpTelegram(string token = "8100761883:AAFDu86VnKAPhjhH6yep7ogLuKnEwoQBLII") {
+        public ServicioBotAdvanceErpTelegram(string token) {
             _token = token;
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;

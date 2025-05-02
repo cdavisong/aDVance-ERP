@@ -34,12 +34,13 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             layoutDistribucion = new TableLayoutPanel();
             layoutBarraTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
-            fieldTextoCuentaCaribe = new Label();
+            fieldNomreUsuario = new Label();
             layoutDistribucionDatos = new TableLayoutPanel();
             fieldFotoPerfil = new PictureBox();
             layoutDatosCuenta = new FlowLayoutPanel();
-            fieldNombreApellidos = new Label();
+            fieldNombreEmpresa = new Label();
             fieldCorreoElectronico = new Label();
+            fieldIdEmpresa = new Label();
             layoutBotones = new FlowLayoutPanel();
             btnConfigurarEmpresa = new Label();
             btnCerrarSesion = new Label();
@@ -76,7 +77,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // 
             // layoutDistribucion
             // 
-            layoutDistribucion.BackColor = Color.FromArgb(  250,   250,   250);
+            layoutDistribucion.BackColor = Color.White;
             layoutDistribucion.ColumnCount = 3;
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -103,7 +104,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             layoutBarraTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutBarraTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
             layoutBarraTitulo.Controls.Add(btnCerrar, 0, 0);
-            layoutBarraTitulo.Controls.Add(fieldTextoCuentaCaribe, 0, 0);
+            layoutBarraTitulo.Controls.Add(fieldNomreUsuario, 0, 0);
             layoutBarraTitulo.Dock = DockStyle.Fill;
             layoutBarraTitulo.Location = new Point(10, 10);
             layoutBarraTitulo.Margin = new Padding(0);
@@ -132,21 +133,22 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             btnCerrar.Size = new Size(24, 24);
             btnCerrar.TabIndex = 9;
             // 
-            // fieldTextoCuentaCaribe
+            // fieldNomreUsuario
             // 
-            fieldTextoCuentaCaribe.Dock = DockStyle.Fill;
-            fieldTextoCuentaCaribe.Font = new Font("Segoe UI", 9.75F);
-            fieldTextoCuentaCaribe.ForeColor = Color.Black;
-            fieldTextoCuentaCaribe.Image = (Image) resources.GetObject("fieldTextoCuentaCaribe.Image");
-            fieldTextoCuentaCaribe.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTextoCuentaCaribe.ImeMode = ImeMode.NoControl;
-            fieldTextoCuentaCaribe.Location = new Point(1, 1);
-            fieldTextoCuentaCaribe.Margin = new Padding(1);
-            fieldTextoCuentaCaribe.Name = "fieldTextoCuentaCaribe";
-            fieldTextoCuentaCaribe.Size = new Size(303, 28);
-            fieldTextoCuentaCaribe.TabIndex = 6;
-            fieldTextoCuentaCaribe.Text = "     aDVance ERP";
-            fieldTextoCuentaCaribe.TextAlign = ContentAlignment.MiddleLeft;
+            fieldNomreUsuario.BackColor = Color.White;
+            fieldNomreUsuario.Dock = DockStyle.Fill;
+            fieldNomreUsuario.Font = new Font("Segoe UI", 9.75F);
+            fieldNomreUsuario.ForeColor = Color.Black;
+            fieldNomreUsuario.Image = (Image) resources.GetObject("fieldNomreUsuario.Image");
+            fieldNomreUsuario.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldNomreUsuario.ImeMode = ImeMode.NoControl;
+            fieldNomreUsuario.Location = new Point(1, 1);
+            fieldNomreUsuario.Margin = new Padding(1);
+            fieldNomreUsuario.Name = "fieldNomreUsuario";
+            fieldNomreUsuario.Size = new Size(303, 28);
+            fieldNomreUsuario.TabIndex = 6;
+            fieldNomreUsuario.Text = "     Bienvenido!";
+            fieldNomreUsuario.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // layoutDistribucionDatos
             // 
@@ -167,7 +169,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // fieldFotoPerfil
             // 
             fieldFotoPerfil.BackgroundImage = (Image) resources.GetObject("fieldFotoPerfil.BackgroundImage");
-            fieldFotoPerfil.BackgroundImageLayout = ImageLayout.Zoom;
+            fieldFotoPerfil.BackgroundImageLayout = ImageLayout.Center;
             fieldFotoPerfil.Dock = DockStyle.Fill;
             fieldFotoPerfil.Image = (Image) resources.GetObject("fieldFotoPerfil.Image");
             fieldFotoPerfil.Location = new Point(0, 0);
@@ -179,27 +181,28 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             // 
             // layoutDatosCuenta
             // 
-            layoutDatosCuenta.Controls.Add(fieldNombreApellidos);
+            layoutDatosCuenta.Controls.Add(fieldNombreEmpresa);
             layoutDatosCuenta.Controls.Add(fieldCorreoElectronico);
+            layoutDatosCuenta.Controls.Add(fieldIdEmpresa);
             layoutDatosCuenta.Dock = DockStyle.Fill;
-            layoutDatosCuenta.Location = new Point(105, 20);
-            layoutDatosCuenta.Margin = new Padding(5, 20, 0, 20);
+            layoutDatosCuenta.Location = new Point(105, 6);
+            layoutDatosCuenta.Margin = new Padding(5, 6, 0, 6);
             layoutDatosCuenta.Name = "layoutDatosCuenta";
-            layoutDatosCuenta.Size = new Size(230, 60);
+            layoutDatosCuenta.Size = new Size(230, 88);
             layoutDatosCuenta.TabIndex = 1;
             // 
-            // fieldNombreApellidos
+            // fieldNombreEmpresa
             // 
-            fieldNombreApellidos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldNombreApellidos.ForeColor = Color.Black;
-            fieldNombreApellidos.ImeMode = ImeMode.NoControl;
-            fieldNombreApellidos.Location = new Point(1, 1);
-            fieldNombreApellidos.Margin = new Padding(1);
-            fieldNombreApellidos.Name = "fieldNombreApellidos";
-            fieldNombreApellidos.Size = new Size(233, 28);
-            fieldNombreApellidos.TabIndex = 7;
-            fieldNombreApellidos.Text = "...";
-            fieldNombreApellidos.TextAlign = ContentAlignment.MiddleLeft;
+            fieldNombreEmpresa.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldNombreEmpresa.ForeColor = Color.Black;
+            fieldNombreEmpresa.ImeMode = ImeMode.NoControl;
+            fieldNombreEmpresa.Location = new Point(1, 1);
+            fieldNombreEmpresa.Margin = new Padding(1);
+            fieldNombreEmpresa.Name = "fieldNombreEmpresa";
+            fieldNombreEmpresa.Size = new Size(233, 28);
+            fieldNombreEmpresa.TabIndex = 7;
+            fieldNombreEmpresa.Text = "...";
+            fieldNombreEmpresa.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldCorreoElectronico
             // 
@@ -213,6 +216,18 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             fieldCorreoElectronico.TabIndex = 8;
             fieldCorreoElectronico.Text = "...";
             // 
+            // fieldIdEmpresa
+            // 
+            fieldIdEmpresa.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point,  0);
+            fieldIdEmpresa.ForeColor = Color.Black;
+            fieldIdEmpresa.ImeMode = ImeMode.NoControl;
+            fieldIdEmpresa.Location = new Point(1, 61);
+            fieldIdEmpresa.Margin = new Padding(1);
+            fieldIdEmpresa.Name = "fieldIdEmpresa";
+            fieldIdEmpresa.Size = new Size(233, 28);
+            fieldIdEmpresa.TabIndex = 9;
+            fieldIdEmpresa.Text = "...";
+            // 
             // layoutBotones
             // 
             layoutBotones.Controls.Add(btnConfigurarEmpresa);
@@ -223,7 +238,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             layoutBotones.Size = new Size(329, 73);
             layoutBotones.TabIndex = 2;
             // 
-            // btnConfiguracionCuenta
+            // btnConfigurarEmpresa
             // 
             btnConfigurarEmpresa.Cursor = Cursors.Hand;
             btnConfigurarEmpresa.Font = new Font("Segoe UI", 9.75F);
@@ -231,7 +246,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             btnConfigurarEmpresa.ImeMode = ImeMode.NoControl;
             btnConfigurarEmpresa.Location = new Point(1, 1);
             btnConfigurarEmpresa.Margin = new Padding(1);
-            btnConfigurarEmpresa.Name = "btnConfiguracionCuenta";
+            btnConfigurarEmpresa.Name = "btnConfigurarEmpresa";
             btnConfigurarEmpresa.Size = new Size(328, 28);
             btnConfigurarEmpresa.TabIndex = 6;
             btnConfigurarEmpresa.Text = "Configuración de la empresa";
@@ -282,14 +297,15 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         private TableLayoutPanel layoutDistribucion;
         private TableLayoutPanel layoutBarraTitulo;
         private Guna2Button btnCerrar;
-        private Label fieldTextoCuentaCaribe;
+        private Label fieldNomreUsuario;
         private TableLayoutPanel layoutDistribucionDatos;
         private PictureBox fieldFotoPerfil;
         private FlowLayoutPanel layoutDatosCuenta;
-        private Label fieldNombreApellidos;
+        private Label fieldNombreEmpresa;
         private Label fieldCorreoElectronico;
         private FlowLayoutPanel layoutBotones;
         private Label btnConfigurarEmpresa;
         private Label btnCerrarSesion;
+        private Label fieldIdEmpresa;
     }
 }

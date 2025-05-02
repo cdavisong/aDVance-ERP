@@ -14,8 +14,9 @@ public partial class PresentadorContenedorModulos {
         _registroCuentaUsuario.Vista.CargarRolesUsuarios(UtilesRolUsuario.ObtenerNombresRolesUsuarios());
         _registroCuentaUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCuentaUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCuentaUsuario.Salir += async (sender, e) => {
+        _registroCuentaUsuario.DatosRegistradosActualizados += async (sender, e) => {
             _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
+            
             await _gestionCuentasUsuarios.RefrescarListaObjetos();
         };
     }

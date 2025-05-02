@@ -5,13 +5,10 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
 public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistroContacto, Contacto, DatosContacto,
     CriterioBusquedaContacto> {
-    private TelefonoContacto _fijo;
-    private TelefonoContacto _movil;
-
     public PresentadorRegistroContacto(IVistaRegistroContacto vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Contacto objeto) {
@@ -21,15 +18,15 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
         Vista.TelefonoFijo = UtilesTelefonoContacto.ObtenerTelefonoContacto(objeto.Id, false) ?? string.Empty;
         Vista.CorreoElectronico = objeto.DireccionCorreoElectronico ?? string.Empty;
         Vista.Direccion = objeto.Direccion ?? string.Empty;
-        Vista.Notas = objeto.Notas ?? string.Empty;        
+        Vista.Notas = objeto.Notas ?? string.Empty;
 
         Objeto = objeto;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
-        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0;
+        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicionDatos;
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
-        
+
         if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
             var noLetrasTelefonosOk = !Vista.TelefonoMovil.Replace(" ", "").Any(char.IsLetter);
             var numeroDijitos = Vista.TelefonoMovil.Select(char.IsDigit).Count(result => result == true);
@@ -37,7 +34,7 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
 
             if (!noLetrasTelefonosOk || !numeroDijitosOk)
                 CentroNotificaciones.Mostrar("El campo del teléfono móvil tiene caracteres no permitidos o no tiene la cantidad de dígitos correcta, corrija los datos por favor", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
-            
+
             return false;
         }
 
@@ -54,7 +51,7 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
 
         if (!nombreOk)
             CentroNotificaciones.Mostrar("Existe un contacto con el mismo nombre registrado o el campo de nombre se encuentra vacío, corrija los datos por favor", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
-        
+
 
         return nombreOk;
     }
@@ -71,40 +68,62 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
     /// <summary>
     ///     Registro o actualización de teléfonos para el contacto.
     /// </summary>
-    protected override void RegistroAuxiliar() {
-        var datosTelefonoContacto = new DatosTelefonoContacto();
-        var telefonos = new List<TelefonoContacto>();
+    protected override void RegistroAuxiliar(long id) {
+        using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+            var telefonos = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, (Objeto?.Id ?? 0).ToString()).ToList() ??
+                new List<TelefonoContacto>();
+            var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);
+            var indiceTelefonoFijo = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Fijo);
 
-        // Teléfono móvil
-        if (!string.IsNullOrEmpty(Vista.TelefonoMovil))
-            telefonos.Add(new TelefonoContacto(
-                _movil?.Id ?? 0,
-                "+53",
-                Vista.TelefonoMovil,
-                CategoriaTelefonoContacto.Movil,
-                Objeto?.Id ?? 0
-            ));
-        else if (Vista.ModoEdicionDatos && _movil.Id != 0)
-            datosTelefonoContacto.Eliminar(_movil.Id);
+            // Teléfono móvil
+            if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
+                if (indiceTelefonoMovil != -1) {
+                    telefonos[indiceTelefonoMovil].Numero = Vista.TelefonoMovil;
+                } else {
+                    var telefonoMovil = new TelefonoContacto(
+                        0,
+                        "+53",
+                        Vista.TelefonoMovil,
+                        CategoriaTelefonoContacto.Movil,
+                        Objeto?.Id ?? 0);
 
-        // Teléfono fijo
-        if (!string.IsNullOrEmpty(Vista.TelefonoFijo))
-            telefonos.Add(new TelefonoContacto(
-                _fijo?.Id ?? 0,
-                "+53",
-                Vista.TelefonoFijo,
-                CategoriaTelefonoContacto.Fijo,
-                Objeto.Id
-            ));
-        else if (Vista.ModoEdicionDatos && _fijo.Id != 0)
-            datosTelefonoContacto.Eliminar(_fijo.Id);
+                    telefonos.Add(telefonoMovil);
+                }
+            } else {
+                if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                    datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
+                    telefonos.RemoveAt(indiceTelefonoMovil);
+                }
+            }
 
-        foreach (var telefono in telefonos)
-            if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                datosTelefonoContacto.Editar(telefono);
-            else if (telefono.Id != 0)
-                datosTelefonoContacto.Editar(telefono);
-            else
-                datosTelefonoContacto.Adicionar(telefono);
+            // Teléfono fijo
+            if (!string.IsNullOrEmpty(Vista.TelefonoFijo)) {
+                if (indiceTelefonoFijo != -1) {
+                    telefonos[indiceTelefonoFijo].Numero = Vista.TelefonoFijo;
+                } else {
+                    var telefonoFijo = new TelefonoContacto(
+                        0,
+                        "+53",
+                        Vista.TelefonoFijo,
+                        CategoriaTelefonoContacto.Fijo,
+                        Objeto?.Id ?? 0);
+
+                    telefonos.Add(telefonoFijo);
+                }
+            } else {
+                if (Vista.ModoEdicionDatos && indiceTelefonoFijo != -1) {
+                    datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoFijo].Id);
+                    telefonos.RemoveAt(indiceTelefonoFijo);
+                }
+            }
+
+            foreach (var telefono in telefonos)
+                if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                    datosTelefonoContacto.Editar(telefono);
+                else if (telefono.Id != 0)
+                    datosTelefonoContacto.Editar(telefono);
+                else
+                    datosTelefonoContacto.Adicionar(telefono);
+        }
     }
 }

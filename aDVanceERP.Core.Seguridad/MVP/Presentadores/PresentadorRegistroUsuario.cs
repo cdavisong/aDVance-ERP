@@ -25,7 +25,7 @@ public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistro
         throw new NotImplementedException();
     }
 
-    protected override void RegistroAuxiliar() {
+    protected override void RegistroAuxiliar(long id) {
         UsuarioRegistrado?.Invoke("register-user", EventArgs.Empty);
     }
 

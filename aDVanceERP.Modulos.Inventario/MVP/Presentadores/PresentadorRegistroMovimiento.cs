@@ -102,7 +102,7 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
         return _movimiento;
     }
 
-    protected override void RegistroAuxiliar() {
+    protected override void RegistroAuxiliar(long id) {
         if (_movimiento != null)
             UtilesMovimiento.ModificarStockArticuloAlmacen(_movimiento.IdArticulo, _movimiento.IdAlmacenOrigen,
                 _movimiento.IdAlmacenDestino, _movimiento.CantidadMovida);

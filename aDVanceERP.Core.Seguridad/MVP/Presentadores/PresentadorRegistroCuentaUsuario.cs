@@ -26,6 +26,8 @@ public class PresentadorRegistroCuentaUsuario : PresentadorRegistroBase<IVistaRe
             passwordSeguro.hash,
             passwordSeguro.salt,
             await UtilesRolUsuario.ObtenerIdRolUsuario(Vista.NombreRolUsuario)
-        );
+        ) {
+            Aprobado = Objeto?.Aprobado ?? false
+        };
     }
 }

@@ -18,6 +18,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         private Dictionary<string, DateTime?> _reportesPendientes = new Dictionary<string, DateTime?>();
         private Dictionary<string, string> _usuariosAutenticados = new Dictionary<string, string>();
         private Dictionary<string, int> _comandosActivos = new Dictionary<string, int>();
+        private Dictionary<string, string> _identificacionPendiente = new Dictionary<string, string>();
 
         public static string? IdEmpresa { get; set; }
         #endregion
@@ -27,6 +28,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         private const int COMANDO_LOGIN = 1;
         private const int COMANDO_REGISTRO = 2;
         private const int COMANDO_REPORTE_VENTAS = 3;
+        private const int COMANDO_IDENTIFICACION_EMPRESA = 4;
 
         private enum EstadoChat {
             NoIdentificado,
@@ -40,8 +42,14 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
             if (string.IsNullOrWhiteSpace(mensaje.Texto))
                 return;
 
+            // Verificar si hay un comando activo pendiente
+            if (_comandosActivos.TryGetValue(mensaje.IdChat, out int comandoActivo) && !mensaje.Texto.StartsWith("/")) {
+                await ProcesarComandoActivo(mensaje, comandoActivo);
+                return;
+            }
+
             // Validar identificación de empresa
-            var estado = await ValidarEstadoChat(mensaje);
+            var estado = ValidarEstadoChat(mensaje);
             if (estado == EstadoChat.NoIdentificado) {
                 await ProcesarIdentificacionEmpresa(mensaje);
                 return;
@@ -57,27 +65,17 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 }
             }
 
-            // Procesar comandos activos
-            if (_comandosActivos.TryGetValue(mensaje.IdChat, out int comandoActivo) && !mensaje.Texto.StartsWith("/")) {
-                await ProcesarComandoActivo(mensaje, comandoActivo);
-                return;
-            }
-
             // Procesar comando principal
             await ProcesarComandoSeguro(mensaje);
         }
 
-        private async Task<EstadoChat> ValidarEstadoChat(MensajeTelegram mensaje) {
-            // Comando de identificación siempre permitido
-            if (mensaje.Texto.StartsWith("/identificar_"))
-                return EstadoChat.NoIdentificado;
-
+        private EstadoChat ValidarEstadoChat(MensajeTelegram mensaje) {
             // Si el chat ya tiene un usuario autenticado
             if (_usuariosAutenticados.ContainsKey(mensaje.IdChat))
                 return EstadoChat.Autenticado;
 
-            // Verificar si el chat incluye el ID de empresa válido
-            if (!string.IsNullOrEmpty(IdEmpresa) && mensaje.Texto.Contains(IdEmpresa))
+            // Verificar si el chat ya se identificó correctamente
+            if (_identificacionPendiente.ContainsKey(mensaje.IdChat) && _identificacionPendiente[mensaje.IdChat] == IdEmpresa)
                 return EstadoChat.Identificado;
 
             return EstadoChat.NoIdentificado;
@@ -106,6 +104,10 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
             switch (comando) {
                 case "/start":
                     await MostrarMensajeBienvenida(mensaje.IdChat);
+                    break;
+
+                case "/identificar":
+                    await ProcesarComandoIdentificar(mensaje);
                     break;
 
                 case "/login":
@@ -146,6 +148,10 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
         private async Task ProcesarComandoActivo(MensajeTelegram mensaje, int comandoActivo) {
             switch (comandoActivo) {
+                case COMANDO_IDENTIFICACION_EMPRESA:
+                    await ProcesarIdentificacionEmpresa(mensaje);
+                    break;
+
                 case COMANDO_LOGIN:
                     if (mensaje.Texto.Contains(":")) {
                         await ProcesarYLimpiarCredenciales(mensaje);
@@ -180,17 +186,45 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         #endregion
 
         #region Identificación y Autenticación
+        
+        private async Task ProcesarComandoIdentificar(MensajeTelegram mensaje) {
+            _comandosActivos[mensaje.IdChat] = COMANDO_IDENTIFICACION_EMPRESA;
+
+            await ResponderMensaje(mensaje.IdChat,
+                "🏢 Identificación de Empresa\n\n" +
+                "Por favor ingrese el ID de su empresa:");
+        }
+
         private async Task ProcesarIdentificacionEmpresa(MensajeTelegram mensaje) {
-            if (mensaje.Texto.Trim().Equals($"/identificar_{IdEmpresa}")) {
+            // Si no hay un comando activo, iniciar el proceso
+            if (!_comandosActivos.ContainsKey(mensaje.IdChat)) {
+                _comandosActivos[mensaje.IdChat] = COMANDO_IDENTIFICACION_EMPRESA;
                 await ResponderMensaje(mensaje.IdChat,
-                    $"✅ Identificada empresa {IdEmpresa}\n\n" +
-                    "Ahora puede usar los comandos básicos.\n" +
-                    "Para acceder a todas las funciones, use /login");
-            } else {
-                await ResponderMensaje(mensaje.IdChat,
-                    "🔒 Identificación requerida\n\n" +
-                    "Para interactuar con este bot, primero debe identificar su empresa.\n\n" +
-                    $"Envía exactamente: /identificar_{IdEmpresa}");
+                    "🏢 Identificación de Empresa\n\n" +
+                    "Por favor ingrese el ID de su empresa:");
+                return;
+            }
+
+            // Procesar el ID de empresa ingresado
+            if (_comandosActivos[mensaje.IdChat] == COMANDO_IDENTIFICACION_EMPRESA) {
+                var idEmpresaIngresado = mensaje.Texto.Trim();
+
+                if (idEmpresaIngresado == IdEmpresa) {
+                    _identificacionPendiente[mensaje.IdChat] = idEmpresaIngresado;
+                    _comandosActivos.Remove(mensaje.IdChat);
+
+                    await ResponderMensaje(mensaje.IdChat,
+                        $"✅ Empresa identificada correctamente\n\n" +
+                        $"Bienvenido a {_empresa?.Nombre ?? IdEmpresa}\n\n" +
+                        "Ahora puede usar los comandos básicos.\n" +
+                        "Para acceder a todas las funciones, use /login");
+                } else {
+                    await ResponderMensaje(mensaje.IdChat,
+                        "❌ ID de empresa incorrecto\n\n" +
+                        "El ID proporcionado no coincide con esta instancia.\n" +
+                        "Por favor intente nuevamente o póngase en contacto con soporte.");
+                    _comandosActivos.Remove(mensaje.IdChat);
+                }
             }
         }
 
@@ -228,6 +262,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
         #region Comandos Protegidos
         private async Task MostrarVentasDelDia(string chatId) {
+            if (!_identificacionPendiente.ContainsKey(chatId)) {
+                await ResponderMensaje(chatId, "🔒 Primero debe identificar su empresa");
+                return;
+            }
+
             try {
                 var fechaHoy = DateTime.Today;
                 var cantArticulos = UtilesVenta.ObtenerTotalArticulosVendidosHoy();
@@ -235,7 +274,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                 await ResponderMensaje(chatId,
                     $"📊 Ventas del día ({fechaHoy:dd/MM/yyyy})\n" +
-                    $"🏢 Empresa: {IdEmpresa}\n\n" +
+                    $"🏢 Empresa: {_empresa?.Nombre ?? IdEmpresa}\n\n" +
                     $"🛒 Artículos vendidos: {cantArticulos} unidades\n" +
                     $"💰 Total bruto: $ {ventasBrutas:N}\n\n" +
                     "(Solo ventas con pagos completos)");
@@ -250,13 +289,18 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         }
 
         private async Task MostrarGananciasDelDia(string chatId) {
+            if (!_identificacionPendiente.ContainsKey(chatId)) {
+                await ResponderMensaje(chatId, "🔒 Primero debe identificar su empresa");
+                return;
+            }
+
             try {
                 var fechaHoy = DateTime.Today;
                 var ganancias = UtilesVenta.ObtenerValorGananciaDia(fechaHoy);
 
                 await ResponderMensaje(chatId,
                     $"💰 Ganancias del día ({fechaHoy:dd/MM/yyyy})\n" +
-                    $"🏢 Empresa: {IdEmpresa}\n\n" +
+                    $"🏢 Empresa: {_empresa?.Nombre ?? IdEmpresa}\n\n" +
                     $"📈 Total: $ {ganancias:N}\n\n" +
                     "(Calculado como: (precio venta - precio compra) × cantidad)");
             } catch (ExcepcionConexionServidorMySQL) {
@@ -270,6 +314,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         }
 
         private async Task ProcesarComandoReporteVentas(MensajeTelegram mensaje) {
+            if (!_identificacionPendiente.ContainsKey(mensaje.IdChat)) {
+                await ResponderMensaje(mensaje.IdChat, "🔒 Primero debe identificar su empresa");
+                return;
+            }
+
             if (!_usuariosAutenticados.ContainsKey(mensaje.IdChat)) {
                 await ResponderMensaje(mensaje.IdChat,
                     "🔒 Acceso restringido\n\n" +
@@ -375,7 +424,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 }
 
                 // Generar el reporte PDF
-                var nombreArchivo = $"ventas-{IdEmpresa}-{fechaReporte:yyyyMMdd}.pdf";
+                var nombreArchivo = $"ventas-articulos-{fechaReporte:yyyy-MM-dd}.pdf";
+
                 UtilesReportes.GenerarReporteVentas(fechaReporte, filas, IdEmpresa, mostrar: false);
 
                 // Enviar el documento
@@ -386,7 +436,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 await ResponderMensaje(chatId,
                     $"✅ Reporte generado con éxito\n\n" +
                     $"📅 Fecha: {fechaReporte:dd/MM/yyyy}\n" +
-                    $"🏢 Empresa: {IdEmpresa}\n" +
+                    $"🏢 Empresa: {_empresa?.Nombre ?? IdEmpresa}\n" +
                     $"📊 Total de ventas: {filas.Count}\n\n" +
                     "El documento PDF ha sido enviado.");
             } catch (ExcepcionConexionServidorMySQL) {
@@ -417,6 +467,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 "📋 Comandos disponibles:\n\n" +
 
                 "🔐 Autenticación:\n" +
+                "/identificar - Identifica la empresa\n" +
                 "/login - Iniciar sesión\n" +
                 "/register - Registrarse\n\n" +
 
@@ -447,6 +498,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
             await ResponderMensaje(chatId,
                 "📋 Todos los comandos disponibles:\n\n" +
                 "🔐 Autenticación:\n" +
+                "/identificar - Identifica la empresa con su código de seguridad\n" +
                 "/login - Iniciar sesión\n" +
                 "/register - Registrarse\n\n" +
 

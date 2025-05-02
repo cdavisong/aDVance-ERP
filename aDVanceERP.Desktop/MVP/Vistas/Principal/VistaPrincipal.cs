@@ -56,6 +56,7 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
     public bool ServicioTelegramActivo {
         get => fieldServicioTelegram.Visible;
         set {
+            fieldServicioTelegram.Visible = value;
             fieldServicioTelegram.Text = $"     Servicio de Telegram {(value ? "activo" : "inactivo")}";
         }
     }

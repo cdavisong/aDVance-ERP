@@ -59,8 +59,8 @@ public partial class PresentadorPrincipal {
         } else return;
 
         #region Característica : Servicio de Bot para administración de la aplicación en Telegram
-
-        ServicioBotTelegram = new ServicioBotAdvanceErpTelegram();
+        //TODO: Implementar configuración del servicio Telegram
+        ServicioBotTelegram = new ServicioBotAdvanceErpTelegram("7527001809:AAEs_sjefuSInx_dqFX9C8jr-9ckiRJQlkw");
         ServicioBotTelegram.MensajeRecibido += ProcesarMensajeBotTelegram;
         BotTelegramConectado = ServicioBotTelegram.ConectarAsync().Result;
         Vista.ServicioTelegramActivo = BotTelegramConectado;
@@ -82,6 +82,9 @@ public partial class PresentadorPrincipal {
                 _menuUsuario.Vista.LogotipoEmpresa = _empresa.Logotipo;
                 _menuUsuario.Vista.NombreEmpresa = _empresa.Nombre;
                 _menuUsuario.Vista.CorreoElectronico = UtilesContacto.ObtenerCorreoElectronicoContacto(_empresa.IdContacto);
+
+                // Actualizar el id de la empresa
+                IdEmpresa = _menuUsuario.Vista.IdEmpresa;
             }
         }
     }
