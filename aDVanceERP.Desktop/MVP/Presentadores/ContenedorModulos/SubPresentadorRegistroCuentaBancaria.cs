@@ -14,7 +14,10 @@ public partial class PresentadorContenedorModulos {
         _registroCuentaBancaria.Vista.CargarNombresContactos(UtilesContacto.ObtenerNombresContactos());
         _registroCuentaBancaria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCuentaBancaria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCuentaBancaria.Salir += async (sender, e) => {
+        _registroCuentaBancaria.DatosRegistradosActualizados += async delegate {
+            if (_gestionCuentasBancarias == null)
+                return;
+
             await _gestionCuentasBancarias.RefrescarListaObjetos();
         };
     }
@@ -31,7 +34,7 @@ public partial class PresentadorContenedorModulos {
         _registroCuentaBancaria.Dispose();
     }
 
-    private async void MostrarVistaEdicionCuentaBancaria(object? sender, EventArgs e) {
+    private void MostrarVistaEdicionCuentaBancaria(object? sender, EventArgs e) {
         InicializarVistaRegistroCuentaBancaria();
 
         if (sender is CuentaBancaria cuentaBancaria) {

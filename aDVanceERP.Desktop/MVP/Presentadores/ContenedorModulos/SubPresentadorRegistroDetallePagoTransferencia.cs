@@ -18,12 +18,12 @@ public partial class PresentadorContenedorModulos {
         _registroDetallePagoTransferencia.Vista.CargarAliasTarjetas(UtilesCuentaBancaria.ObtenerAliasesCuentas());
         _registroDetallePagoTransferencia.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroDetallePagoTransferencia.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroDetallePagoTransferencia.Salir += delegate {
-            Transferencia = new[] {
+        _registroDetallePagoTransferencia.DatosRegistradosActualizados += delegate {
+            Transferencia = [
                 _registroDetallePagoTransferencia.Vista.Alias,
                 _registroDetallePagoTransferencia.Vista.NumeroConfirmacion,
                 _registroDetallePagoTransferencia.Vista.NumeroTransaccion
-            };
+            ];
         };
     }
 

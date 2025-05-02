@@ -12,9 +12,11 @@ public partial class PresentadorContenedorModulos {
         _registroProveedor = new PresentadorRegistroProveedor(new VistaRegistroProveedor());
         _registroProveedor.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroProveedor.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroProveedor.Salir += async delegate {
-            if (_gestionProveedores != null)
-                await _gestionProveedores.RefrescarListaObjetos();
+        _registroProveedor.DatosRegistradosActualizados += async delegate {
+            if (_gestionProveedores == null)
+                return;
+
+            await _gestionProveedores.RefrescarListaObjetos();
         };
     }
 
@@ -26,8 +28,8 @@ public partial class PresentadorContenedorModulos {
 
         MostrarVistaPanelTransparente(_registroProveedor.Vista);
 
-        _registroProveedor?.Vista.Mostrar();
-        _registroProveedor?.Dispose();
+        _registroProveedor.Vista.Mostrar();
+        _registroProveedor.Dispose();
     }
 
     private void MostrarVistaEdicionProveedor(object? sender, EventArgs e) {

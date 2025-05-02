@@ -1,4 +1,7 @@
-﻿using aDVanceERP.Core.Seguridad.MVP.Modelos;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
@@ -6,7 +9,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroRolUsuario? _registroRolUsuario;
@@ -14,20 +17,26 @@ public partial class PresentadorContenedorModulos {
     private List<string[]>? Permisos { get; set; } = new();
 
     private void InicializarVistaRegistroRolUsuario() {
-        _registroRolUsuario = new PresentadorRegistroRolUsuario(new VistaRegistroRolUsuario());
+        try {
+            _registroRolUsuario = new PresentadorRegistroRolUsuario(new VistaRegistroRolUsuario());
+            _registroRolUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
+            _registroRolUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
+            _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
+            _registroRolUsuario.DatosRegistradosActualizados += async delegate {
+                Permisos = _registroRolUsuario.Vista.Permisos;
 
-        // Configurar coordenadas y dimensiones de la vista
-        _registroRolUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
-        _registroRolUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
-        _registroRolUsuario.DatosRegistradosActualizados += async delegate {
-            Permisos = _registroRolUsuario.Vista.Permisos;
+                RegistrarEditarPermisosRol(await UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario!));
 
-            RegistrarEditarPermisosRol(await UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario!));
-        };
-        _registroRolUsuario.Salir += async (sender, e) => {
-            if (_gestionRolesUsuarios != null) await _gestionRolesUsuarios.RefrescarListaObjetos();
-        };
+                if (_gestionRolesUsuarios == null)
+                    return;
+
+                await _gestionRolesUsuarios.RefrescarListaObjetos();
+            };
+
+            Permisos?.Clear();
+        } catch (ExcepcionConexionServidorMySQL e) {
+            CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
+        }
     }
 
     private void MostrarVistaRegistroRolUsuario(object? sender, EventArgs e) {
@@ -38,8 +47,8 @@ public partial class PresentadorContenedorModulos {
 
         MostrarVistaPanelTransparente(_registroRolUsuario.Vista);
 
-        _registroRolUsuario?.Vista.Mostrar();
-        _registroRolUsuario?.Dispose();
+        _registroRolUsuario.Vista.Mostrar();
+        _registroRolUsuario.Dispose();
     }
 
     private void MostrarVistaEdicionRolUsuario(object? sender, EventArgs e) {
@@ -61,28 +70,24 @@ public partial class PresentadorContenedorModulos {
         if (Permisos == null || Permisos.Count == 0)
             return;
 
-        // Si idRolUsuario es 0, se asume que es un rol nuevo
-        var esRolNuevo = idRolUsuario == 0;
-
-        if (esRolNuevo)
+        if (idRolUsuario == 0)
             idRolUsuario = UtilesBD.ObtenerUltimoIdTabla("rol_usuario");
-        else
-            using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario()) {
+        else {
+            using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario())
                 datosPermisoRolUsuario.EliminarPorRol(idRolUsuario);
-            }
+
+            UtilesRolUsuario.LimpiarCacheRol(idRolUsuario);
+        }
 
         foreach (var permiso in Permisos) {
             var permisoRolUsuario = new PermisoRolUsuario(
-                0, // ID se generará automáticamente en la base de datos
+                0,
                 idRolUsuario,
                 long.Parse(permiso[0])
             );
 
-            using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario()) {
+            using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario())
                 datosPermisoRolUsuario.Adicionar(permisoRolUsuario);
-            }
         }
-
-        Permisos.Clear();
     }
 }

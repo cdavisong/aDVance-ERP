@@ -2,15 +2,15 @@
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
 public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, CriterioBusquedaPermisoRolUsuario>,
     IRepositorioPermisoRolUsuario {
     public override string ComandoAdicionar(PermisoRolUsuario objeto) {
-        return
-            $"INSERT INTO adv__rol_permiso (id_rol_usuario, id_permiso) VALUES ('{objeto.IdRolUsuario}', '{objeto.IdPermiso}');";
+        return $"INSERT INTO adv__rol_permiso (id_rol_usuario, id_permiso) VALUES ('{objeto.IdRolUsuario}', '{objeto.IdPermiso}');";
     }
 
     public override string ComandoCantidad() {
@@ -18,8 +18,7 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
     }
 
     public override string ComandoEditar(PermisoRolUsuario objeto) {
-        return
-            $"UPDATE adv__rol_permiso SET id_rol_usuario = '{objeto.IdRolUsuario}', id_permiso = '{objeto.IdPermiso}' WHERE id_rol_permiso = {objeto.Id};";
+        return $"UPDATE adv__rol_permiso SET id_rol_usuario = '{objeto.IdRolUsuario}', id_permiso = '{objeto.IdPermiso}' WHERE id_rol_permiso = {objeto.Id};";
     }
 
     public override string ComandoEliminar(long id) {
@@ -56,8 +55,7 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 

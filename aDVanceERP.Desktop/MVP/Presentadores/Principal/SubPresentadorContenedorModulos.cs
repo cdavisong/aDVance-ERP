@@ -14,8 +14,11 @@ public partial class PresentadorPrincipal {
     }
 
     private void MostrarVistaContenedorModulos(object? sender, EventArgs e) {
-        _contenedorModulos?.Vista.Restaurar();
-        _contenedorModulos?.Vista.Mostrar();
+        if (_contenedorModulos == null)
+            return;
+
+        _contenedorModulos.Vista.Restaurar();
+        _contenedorModulos.Vista.Mostrar();
 
         // Mostrar el botón de sub-menu para usuarios
         Vista.BtnSubmenuUsuarioDisponible = true;

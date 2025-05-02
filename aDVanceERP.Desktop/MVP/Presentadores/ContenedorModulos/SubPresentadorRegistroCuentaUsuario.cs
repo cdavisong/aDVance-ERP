@@ -9,16 +9,21 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroCuentaUsuario? _registroCuentaUsuario;
 
-    private async Task InicializarVistaRegistroCuentaUsuario() {
+    private Task InicializarVistaRegistroCuentaUsuario() {
         _registroCuentaUsuario = new PresentadorRegistroCuentaUsuario(new VistaRegistroCuentaUsuario());
         _registroCuentaUsuario.Vista.CargarRolesUsuarios(UtilesRolUsuario.ObtenerNombresRolesUsuarios());
         _registroCuentaUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCuentaUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCuentaUsuario.DatosRegistradosActualizados += async (sender, e) => {
+        _registroCuentaUsuario.DatosRegistradosActualizados += async delegate {
+            if (_gestionCuentasUsuarios == null)
+                return;
+
             _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
             
             await _gestionCuentasUsuarios.RefrescarListaObjetos();
         };
+
+        return Task.CompletedTask;
     }
 
     private async void MostrarVistaRegistroCuentaUsuario(object? sender, EventArgs e) {

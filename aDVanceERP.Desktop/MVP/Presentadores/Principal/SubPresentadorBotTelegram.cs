@@ -14,7 +14,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
     public partial class PresentadorPrincipal {
         #region Campos y Propiedades
         private Dictionary<string, List<int>> _mensajesChat = new Dictionary<string, List<int>>();
-        private Dictionary<string, (string? Username, string? Password)> _registrosPendientes = new Dictionary<string, (string, string)>();
+        private Dictionary<string, (string? Username, string? Password)> _registrosPendientes = new Dictionary<string, (string?, string?)>();
         private Dictionary<string, DateTime?> _reportesPendientes = new Dictionary<string, DateTime?>();
         private Dictionary<string, string> _usuariosAutenticados = new Dictionary<string, string>();
         private Dictionary<string, int> _comandosActivos = new Dictionary<string, int>();

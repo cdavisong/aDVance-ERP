@@ -20,7 +20,10 @@ public partial class PresentadorContenedorSeguridad {
         if (string.IsNullOrEmpty(message) || message.Equals("register-user"))
             return;
 
-        _autenticacionUsuario?.Vista.Restaurar();
-        _autenticacionUsuario?.Vista.Mostrar();
+        if (_autenticacionUsuario == null)
+            return;
+
+        _autenticacionUsuario.Vista.Restaurar();
+        _autenticacionUsuario.Vista.Mostrar();
     }
 }

@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorMenuFinanzas _menuFinanzas;
+    private PresentadorMenuFinanzas? _menuFinanzas;
 
     private void InicializarVistaMenuFinanzas() {
         _menuFinanzas = new PresentadorMenuFinanzas(new VistaMenuFinanzas());
@@ -15,6 +15,9 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void MostrarVistaMenuFinanzas(object? sender, EventArgs e) {
+        if (_menuFinanzas == null)
+            return;
+
         _menuFinanzas.Vista.Restaurar();
         _menuFinanzas.Vista.Mostrar();
         _menuFinanzas.Vista.MostrarCaracteristicaInicial();

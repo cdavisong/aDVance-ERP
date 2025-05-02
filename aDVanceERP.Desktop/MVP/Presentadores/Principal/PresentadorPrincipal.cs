@@ -91,7 +91,7 @@ public partial class PresentadorPrincipal {
 
     public IVistaPrincipal Vista { get; }
 
-    public ServicioBotAdvanceErpTelegram ServicioBotTelegram { get; }
+    public ServicioBotAdvanceErpTelegram? ServicioBotTelegram { get; }
 
     public bool BotTelegramConectado { get; }
 
@@ -107,6 +107,9 @@ public partial class PresentadorPrincipal {
     }
 
     private void DisponerModulos(object? sender, EventArgs e) {
-        _contenedorModulos?.Vista.Vistas?.Cerrar(true);
+        if (_contenedorModulos == null)
+            return;
+
+        _contenedorModulos.Vista.Vistas?.Cerrar(true);
     }
 }

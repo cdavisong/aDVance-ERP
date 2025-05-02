@@ -16,7 +16,10 @@ public partial class PresentadorContenedorSeguridad {
     }
 
     private void MostrarVistaRegistroUsuario(object? sender, EventArgs e) {
-        _registroUsuario?.Vista.Restaurar();
-        _registroUsuario?.Vista.Mostrar();
+        if (_registroUsuario == null)
+            return;
+
+        _registroUsuario.Vista.Restaurar();
+        _registroUsuario.Vista.Mostrar();
     }
 }
