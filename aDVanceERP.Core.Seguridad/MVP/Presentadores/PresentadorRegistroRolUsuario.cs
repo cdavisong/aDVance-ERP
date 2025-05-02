@@ -12,12 +12,13 @@ public class PresentadorRegistroRolUsuario : PresentadorRegistroBase<IVistaRegis
     public PresentadorRegistroRolUsuario(IVistaRegistroRolUsuario vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(RolUsuario objeto) {
-        Vista.NombreRolUsuario = objeto.Nombre;
         Vista.ModoEdicionDatos = true;
+        Vista.NombreRolUsuario = objeto.Nombre;        
 
         var permisosRoles = UtilesRolUsuario.ObtenerPermisosDeRol(objeto.Id);
 
-        foreach (var permisoRol in permisosRoles) ((IVistaGestionPermisos)Vista).AdicionarPermisoRol(permisoRol);
+        foreach (var permisoRol in permisosRoles) 
+            ((IVistaGestionPermisos)Vista).AdicionarPermisoRol(permisoRol);
 
         Objeto = objeto;
     }
