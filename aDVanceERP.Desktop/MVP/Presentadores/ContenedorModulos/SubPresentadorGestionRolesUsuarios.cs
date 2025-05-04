@@ -2,10 +2,10 @@
 using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorGestionRolesUsuarios _gestionRolesUsuarios;
+    private PresentadorGestionRolesUsuarios? _gestionRolesUsuarios;
 
     private async void InicializarVistaGestionRolesUsuarios() {
         _gestionRolesUsuarios = new PresentadorGestionRolesUsuarios(new VistaGestionRolesUsuarios());
@@ -20,8 +20,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionRolesUsuarios?.Vista == null)
             return;
 
-        _gestionRolesUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaRolUsuario
-            .CriterioBusquedaBusquedaRolUsuario);
+        _gestionRolesUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaRolUsuario.CriterioBusquedaBusquedaRolUsuario);
         _gestionRolesUsuarios.Vista.Restaurar();
         _gestionRolesUsuarios.Vista.Mostrar();
 

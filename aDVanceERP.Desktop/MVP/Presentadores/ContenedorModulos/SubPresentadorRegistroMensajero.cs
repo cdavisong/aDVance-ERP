@@ -14,8 +14,10 @@ public partial class PresentadorContenedorModulos {
         _registroMensajero.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMensajero.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajero.DatosRegistradosActualizados += async delegate {
-            if (_gestionMensajeros != null)
-                await _gestionMensajeros.RefrescarListaObjetos();
+            if (_gestionMensajeros == null)
+                return;
+
+            await _gestionMensajeros.RefrescarListaObjetos();
         };
 
         return Task.CompletedTask;

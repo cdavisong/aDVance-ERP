@@ -10,12 +10,13 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaRegistroAlmacen() {
         _registroAlmacen = new PresentadorRegistroAlmacen(new VistaRegistroAlmacen());
-
-        // Configurar coordenadas y dimensiones de la vista
         _registroAlmacen.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroAlmacen.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroAlmacen.Salir += async (sender, e) => {
-            if (_gestionAlmacenes != null) await _gestionAlmacenes.RefrescarListaObjetos();
+        _registroAlmacen.DatosRegistradosActualizados += async delegate {
+            if (_gestionAlmacenes == null)
+                return;
+
+            await _gestionAlmacenes.RefrescarListaObjetos();
         };
     }
 

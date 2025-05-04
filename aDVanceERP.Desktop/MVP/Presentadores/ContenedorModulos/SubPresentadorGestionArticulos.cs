@@ -20,11 +20,14 @@ public partial class PresentadorContenedorModulos {
     }
 
     private async void MostrarVistaGestionArticulos(object? sender, EventArgs e) {
-        _gestionArticulos?.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
-        _gestionArticulos?.Vista.CargarCriteriosBusqueda(UtilesBusquedaArticulo.CriterioBusquedaArticulo);
-        _gestionArticulos?.Vista.Restaurar();
-        _gestionArticulos?.Vista.Mostrar();
+        if (_gestionArticulos?.Vista == null)
+            return;
 
-        await _gestionArticulos?.RefrescarListaObjetos()!;
+        _gestionArticulos.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
+        _gestionArticulos.Vista.CargarCriteriosBusqueda(UtilesBusquedaArticulo.CriterioBusquedaArticulo);
+        _gestionArticulos.Vista.Restaurar();
+        _gestionArticulos.Vista.Mostrar();
+
+        await _gestionArticulos.RefrescarListaObjetos()!;
     }
 }

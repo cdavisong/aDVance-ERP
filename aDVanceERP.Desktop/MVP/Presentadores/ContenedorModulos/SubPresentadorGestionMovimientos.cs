@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorGestionMovimientos _gestionMovimientos;
+    private PresentadorGestionMovimientos? _gestionMovimientos;
 
     private async void InicializarVistaGestionMovimientos() {
         _gestionMovimientos = new PresentadorGestionMovimientos(new VistaGestionMovimientos());

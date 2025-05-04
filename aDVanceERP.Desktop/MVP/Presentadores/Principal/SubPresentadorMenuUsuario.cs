@@ -26,8 +26,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         }
 
         private void MostrarVistaMenuUsuario(object? sender, EventArgs e) {
-            _menuUsuario?.Vista.Restaurar();
-            _menuUsuario?.Vista.Mostrar();
+            if (_menuUsuario == null)
+                return;
+
+            _menuUsuario.Vista.Restaurar();
+            _menuUsuario.Vista.Mostrar();
         }
     }
 }

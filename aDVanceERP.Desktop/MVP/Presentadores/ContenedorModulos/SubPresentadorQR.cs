@@ -11,7 +11,9 @@ public partial class PresentadorContenedorModulos {
         _qr = new PresentadorQR(new VistaQR());
         _qr.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _qr.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _qr.Salir += delegate { _qr.Vista.Cerrar(); };
+        _qr.Salir += delegate { 
+            _qr.Vista.Cerrar(); 
+        };
     }
 
     private void MostrarVistaQR(object? sender, EventArgs e) {

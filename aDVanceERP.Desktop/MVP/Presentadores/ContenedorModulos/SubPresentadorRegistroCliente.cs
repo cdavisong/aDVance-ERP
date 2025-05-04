@@ -14,8 +14,10 @@ public partial class PresentadorContenedorModulos {
         _registroCliente.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCliente.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroCliente.DatosRegistradosActualizados += async delegate {
-            if (_gestionClientes != null)
-                await _gestionClientes.RefrescarListaObjetos();
+            if (_gestionClientes == null)
+                return;
+
+            await _gestionClientes.RefrescarListaObjetos();
         };
     }
 

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
@@ -11,7 +12,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroCompra? _registroCompraArticulo;
@@ -27,7 +28,7 @@ public partial class PresentadorContenedorModulos {
             _registroCompraArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
             _registroCompraArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
             _registroCompraArticulo.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
-            _registroCompraArticulo.DatosRegistradosActualizados += delegate {
+            _registroCompraArticulo.DatosRegistradosActualizados += async delegate {
                 ArticulosCompra = _registroCompraArticulo.Vista.Articulos;
 
                 RegistrarDetallesCompraArticulo();
@@ -35,15 +36,11 @@ public partial class PresentadorContenedorModulos {
                 if (_gestionCompras == null)
                     return;
 
-                _gestionCompras.RefrescarListaObjetos();
-            };
-            _registroCompraArticulo.Vista.Salir += delegate {
-                // Verificar cancelación de la compra
+                await _gestionCompras.RefrescarListaObjetos();
             };
 
             ArticulosCompra?.Clear();
-        }
-        catch (ExcepcionConexionServidorMySQL e) {
+        } catch (ExcepcionConexionServidorMySQL e) {
             CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
         }
     }
@@ -51,7 +48,7 @@ public partial class PresentadorContenedorModulos {
     private async void MostrarVistaRegistroCompraArticulo(object? sender, EventArgs e) {
         await InicializarVistaRegistroCompraArticulo();
 
-        if (_registroCompraArticulo == null) 
+        if (_registroCompraArticulo == null)
             return;
 
         _proximoIdCompra = UtilesBD.ObtenerUltimoIdTabla("compra") + 1;
@@ -93,9 +90,8 @@ public partial class PresentadorContenedorModulos {
                     : 0.00m
             );
 
-            using (var datosArticulo = new DatosDetalleCompraArticulo()) {
+            using (var datosArticulo = new DatosDetalleCompraArticulo())
                 datosArticulo.Adicionar(detalleCompraArticulo);
-            }
 
             RegistrarMovimientoCompraArticulo(detalleCompraArticulo, articulo);
             ModificarStockCompraArticulo(detalleCompraArticulo, articulo);

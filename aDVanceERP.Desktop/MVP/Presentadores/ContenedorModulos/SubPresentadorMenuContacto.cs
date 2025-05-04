@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorMenuContacto _menuContacto;
+    private PresentadorMenuContacto? _menuContacto;
 
     private void InicializarVistaMenuContacto() {
         _menuContacto = new PresentadorMenuContacto(new VistaMenuContacto());
@@ -18,6 +18,9 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void MostrarVistaMenuContacto(object? sender, EventArgs e) {
+        if (_menuContacto == null)
+            return;
+
         _menuContacto.Vista.Restaurar();
         _menuContacto.Vista.Mostrar();
         _menuContacto.Vista.MostrarCaracteristicaInicial();

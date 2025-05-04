@@ -1,8 +1,9 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Utiles;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.Seguridad.Utiles; 
+namespace aDVanceERP.Core.Seguridad.Utiles;
 
 public static class UtilesRolUsuario {
     private static readonly Dictionary<long, string[]> _cachePermisosRol = new();
@@ -13,8 +14,7 @@ public static class UtilesRolUsuario {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -37,8 +37,7 @@ public static class UtilesRolUsuario {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -61,8 +60,7 @@ public static class UtilesRolUsuario {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -86,8 +84,7 @@ public static class UtilesRolUsuario {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -114,8 +111,7 @@ public static class UtilesRolUsuario {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -143,8 +139,7 @@ public static class UtilesRolUsuario {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -169,7 +164,9 @@ public static class UtilesRolUsuario {
     }
 
     public static string[] ObtenerPermisosDeRol(long idRolUsuario) {
-        if (_cachePermisosRol.TryGetValue(idRolUsuario, out var permisosCache)) return permisosCache;
+        if (_cachePermisosRol.TryGetValue(idRolUsuario, out var permisosCache))
+            return permisosCache;
+        else _cachePermisosRol.Add(idRolUsuario, []);
 
         var permisos = ObtenerPermisosDesdeBD(idRolUsuario);
 
@@ -184,8 +181,7 @@ public static class UtilesRolUsuario {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -207,7 +203,9 @@ public static class UtilesRolUsuario {
         return permisos.ToArray();
     }
 
-    public static void LimpiarCacheRol() {
-        _cachePermisosRol.Clear();
+    public static void LimpiarCacheRol(long idRolUsuario = 0) {
+        if (idRolUsuario != 0)
+            _cachePermisosRol.Clear();
+        else _cachePermisosRol.Remove(idRolUsuario);
     }
 }

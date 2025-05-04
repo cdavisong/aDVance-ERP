@@ -4,9 +4,9 @@ using aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorContenedorEstadisticas _contenedorEstadisticas;
+    private PresentadorContenedorEstadisticas? _contenedorEstadisticas;
 
-    private void InicializarVistaContenedorEstadisticas() {
+    private async void InicializarVistaContenedorEstadisticas() {
         _contenedorEstadisticas = new PresentadorContenedorEstadisticas(new VistaContenedorEstadísticas());
         _contenedorEstadisticas.Vista.MostrarVistaGestionArticulos += delegate {
             Vista.PresionarBotonModulo(5, EventArgs.Empty);
@@ -15,7 +15,8 @@ public partial class PresentadorContenedorModulos {
             Vista.PresionarBotonModulo(6, EventArgs.Empty);
         };
 
-        Vista.Vistas?.Registrar("vistaContenedorEstadisticas", _contenedorEstadisticas.Vista);
+        if (Vista.Vistas != null)
+            await Task.Run(() => Vista.Vistas?.Registrar("vistaContenedorEstadisticas", _contenedorEstadisticas.Vista));
     }
 
     private void MostrarVistaContenedorEstadisticas(object? sender, EventArgs e) {

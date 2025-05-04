@@ -14,7 +14,10 @@ public partial class PresentadorContenedorModulos {
         _registroArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
         _registroArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroArticulo.Salir += async delegate {
+        _registroArticulo.DatosRegistradosActualizados += async delegate {
+            if (_gestionArticulos == null)
+                return;
+
             await _gestionArticulos?.RefrescarListaObjetos()!;
         };
     }

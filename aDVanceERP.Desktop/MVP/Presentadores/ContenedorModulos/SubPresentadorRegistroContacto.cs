@@ -8,13 +8,18 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroContacto? _registroContacto;
 
-    private async Task InicializarVistaRegistroContacto() {
+    private Task InicializarVistaRegistroContacto() {
         _registroContacto = new PresentadorRegistroContacto(new VistaRegistroContacto());
         _registroContacto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroContacto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroContacto.Salir += async (sender, e) => {
+        _registroContacto.DatosRegistradosActualizados += async delegate {
+            if (_gestionContactos == null)
+                return;
+
             await _gestionContactos.RefrescarListaObjetos();
         };
+
+        return Task.CompletedTask;
     }
 
     private async void MostrarVistaRegistroContacto(object? sender, EventArgs e) {

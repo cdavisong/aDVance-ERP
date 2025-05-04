@@ -19,7 +19,12 @@ public partial class PresentadorContenedorModulos {
         _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMovimiento.Vista.RegistrarTipoMovimiento += MostrarVistaRegistroTipoMovimiento;
         _registroMovimiento.Vista.EliminarTipoMovimiento += EliminarTipoMovimiento;
-        _registroMovimiento.Salir += async delegate { await _gestionMovimientos.RefrescarListaObjetos(); };
+        _registroMovimiento.DatosRegistradosActualizados += async delegate {
+            if (_gestionMovimientos == null)
+                return;
+
+            await _gestionMovimientos.RefrescarListaObjetos(); 
+        };
     }
 
     private async Task InicializarVistaRegistroMovimiento(string? signo, string? nombreAlmacen) {
