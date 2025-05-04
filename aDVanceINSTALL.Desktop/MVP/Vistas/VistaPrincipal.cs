@@ -1,4 +1,6 @@
 ﻿
+using System.Diagnostics;
+
 namespace aDVanceINSTALL.Desktop.MVP.Vistas {
     public partial class VistaPrincipal : Form {
         private List<Form> _paginas = new List<Form>();
@@ -57,7 +59,10 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
                     _progresoInstalacion.InstalarAplicacion();
                 }
             };
-            btnSalir.Click += delegate { 
+            btnSalir.Click += delegate {
+                if (_instalacionCompletada.EjecutarAplicacionAlSalir)
+                    EjecutarAplicacion();
+
                 Dispose(); 
             };
         }
@@ -69,6 +74,23 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
             contenedorVistas.Controls.Add(vista);
 
             vista.SendToBack();
+        }
+
+        private void EjecutarAplicacion() {
+            try {
+                var appProcess = new Process {
+                    StartInfo = new ProcessStartInfo {
+                        FileName = $"{_directorioInstalacion.DirectorioInstalacion}aDVanceERP.Desktop.exe",
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        WorkingDirectory = _directorioInstalacion.DirectorioInstalacion
+                    }
+                };
+                                
+                appProcess.Start();
+            } catch (Exception ex) {
+                MessageBox.Show("Se produjo un error al intentar ejecutar la aplicación : " + ex.Message, "Error al ejecutar la aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

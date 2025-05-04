@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.IO.Compression;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 using IWshRuntimeLibrary;
 
@@ -55,13 +57,17 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
             Thread.Sleep(500);
             ExtraerArchivoZip("aplicacion.zip", DirectorioInstalacion, worker);
 
-            worker.ReportProgress(90, "Configurando aplicación...");
+            worker.ReportProgress(90, "Estableciendo regla de firewall...");
+            Thread.Sleep(350);
+            EstablecerReglaFirewall(DirectorioInstalacion);
+
+            worker.ReportProgress(93, "Configurando aplicación...");
             Thread.Sleep(350);
             CrearArchivoConfiguracion(DirectorioInstalacion);
 
             worker.ReportProgress(92, "Creando acceso directo...");
             Thread.Sleep(500);
-            var rutaEjecutable = $"{DirectorioInstalacion}\\aDVanceERP.Desktop.exe";
+            var rutaEjecutable = $"{DirectorioInstalacion}aDVanceERP.Desktop.exe";
             CrearAccesoDirecto(nombreAcceso: "aDVance ERP",
                 rutaEjecutable: rutaEjecutable,
                 argumentos: "--modo-empresa",
@@ -134,6 +140,80 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
             } catch (Exception ex) {
                 worker.ReportProgress(0, $"ERROR CRÍTICO: {ex.Message}");
                 throw; // Relanzar para manejo superior
+            }
+        }
+
+        private void EstablecerReglaFirewall(string directorioInstalacion) {
+            var rutaEjecutable = Path.Combine(directorioInstalacion, "aDVanceERP.Desktop.exe");
+            var nombreReglaFirewall = "ADVANCE_ERP_FIREWALL_RULE";
+
+            // Verificar si el archivo ejecutable existe
+            if (!System.IO.File.Exists(rutaEjecutable)) {
+                throw new FileNotFoundException($"No se encontró el ejecutable en: {rutaEjecutable}");
+            }
+
+            if (ReglaFirewallAplicada(nombreReglaFirewall, rutaEjecutable))
+                return;
+
+            try {
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = "netsh";
+                psi.Arguments = $"advfirewall firewall add rule " +
+                                $"name=\"{nombreReglaFirewall}\" " +
+                                $"dir=in " +
+                                $"action=allow " +
+                                $"program=\"{rutaEjecutable}\" " +
+                                $"description=\"Permite el acceso a ADVANCE ERP\" " +
+                                $"enable=yes " +
+                                $"profile=any";
+                psi.Verb = "runas";
+                psi.WindowStyle = ProcessWindowStyle.Normal;
+                psi.UseShellExecute = true; // Necesario para Verb="runas"
+
+                var process = Process.Start(psi);
+                process?.WaitForExit(5000); // Timeout de 5 segundos
+
+                // Verificar si realmente se aplicó después de intentar crearla
+                if (!ReglaFirewallAplicada(nombreReglaFirewall, rutaEjecutable)) {
+                    throw new Exception("No se pudo verificar la creación de la regla después de intentar crearla");
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error al agregar regla de firewall: {ex.Message}");
+            }
+        }
+
+        public static bool ReglaFirewallAplicada(string nombreRegla, string rutaEjecutable = null) {
+            try {
+                ProcessStartInfo psi = new ProcessStartInfo {
+                    FileName = "netsh",
+                    Arguments = "advfirewall firewall show rule name=\"" + nombreRegla + "\" verbose",
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true
+                };
+
+                using (Process process = new Process()) {
+                    process.StartInfo = psi;
+                    process.Start();
+
+                    string output = process.StandardOutput.ReadToEnd();
+                    process.WaitForExit();
+
+                    // Verificar existencia básica de la regla
+                    bool reglaExiste = output.Contains(nombreRegla);
+
+                    // Si se proporcionó rutaEjecutable, verificar que coincida
+                    if (reglaExiste && !string.IsNullOrEmpty(rutaEjecutable)) {
+                        // Buscar la línea que contiene la ruta del programa
+                        string pattern = $@"Programa:\s*{Regex.Escape(rutaEjecutable)}";
+                        reglaExiste = Regex.IsMatch(output, pattern, RegexOptions.IgnoreCase);
+                    }
+
+                    return reglaExiste;
+                }
+            } catch {
+                return false;
             }
         }
 
