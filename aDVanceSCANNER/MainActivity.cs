@@ -7,8 +7,6 @@ using Android.Content;
 using Android.Views;
 using Android.Views.InputMethods;
 
-using Environment = System.Environment;
-
 namespace aDVanceSCANNER
 {
     [Activity(Label = "@string/app_name", MainLauncher = true)]
