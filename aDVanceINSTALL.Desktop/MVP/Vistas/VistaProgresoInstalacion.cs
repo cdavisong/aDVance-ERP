@@ -57,7 +57,7 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
             Thread.Sleep(500);
             ExtraerArchivoZip("aplicacion.zip", DirectorioInstalacion, worker);
 
-            worker.ReportProgress(90, "Estableciendo regla de firewall...");
+            worker.ReportProgress(90, "Estableciendo reglas de firewall...");
             Thread.Sleep(350);
             EstablecerReglaFirewall(DirectorioInstalacion);
 
@@ -152,30 +152,56 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
                 throw new FileNotFoundException($"No se encontró el ejecutable en: {rutaEjecutable}");
             }
 
-            if (ReglaFirewallAplicada(nombreReglaFirewall, rutaEjecutable))
-                return;
-
             try {
-                ProcessStartInfo psi = new ProcessStartInfo();
-                psi.FileName = "netsh";
-                psi.Arguments = $"advfirewall firewall add rule " +
-                                $"name=\"{nombreReglaFirewall}\" " +
-                                $"dir=in " +
-                                $"action=allow " +
-                                $"program=\"{rutaEjecutable}\" " +
-                                $"description=\"Permite el acceso a ADVANCE ERP\" " +
-                                $"enable=yes " +
-                                $"profile=any";
-                psi.Verb = "runas";
-                psi.WindowStyle = ProcessWindowStyle.Normal;
-                psi.UseShellExecute = true; // Necesario para Verb="runas"
-
-                var process = Process.Start(psi);
-                process?.WaitForExit(5000); // Timeout de 5 segundos
-
-                // Verificar si realmente se aplicó después de intentar crearla
                 if (!ReglaFirewallAplicada(nombreReglaFirewall, rutaEjecutable)) {
-                    throw new Exception("No se pudo verificar la creación de la regla después de intentar crearla");
+                    ProcessStartInfo psi = new ProcessStartInfo();
+                    psi.FileName = "netsh";
+                    psi.Arguments = $"advfirewall firewall add rule " +
+                                    $"name=\"{nombreReglaFirewall}\" " +
+                                    $"dir=in " +
+                                    $"action=allow " +
+                                    $"program=\"{rutaEjecutable}\" " +
+                                    $"description=\"Permite el acceso a ADVANCE ERP\" " +
+                                    $"enable=yes " +
+                                    $"profile=any";
+                    psi.Verb = "runas";
+                    psi.WindowStyle = ProcessWindowStyle.Normal;
+                    psi.UseShellExecute = true; // Necesario para Verb="runas"
+                    psi.CreateNoWindow = true;
+
+                    var process = Process.Start(psi);
+                    process?.WaitForExit(5000); // Timeout de 5 segundos
+
+                    // Verificar si realmente se aplicó después de intentar crearla
+                    if (!ReglaFirewallAplicada(nombreReglaFirewall, rutaEjecutable)) {
+                        throw new Exception("No se pudo verificar la creación de la regla después de intentar crearla");
+                    }
+                }
+
+                nombreReglaFirewall = "ADVANCE_SCANNER_FIREWALL_RULE";
+
+                if (!ReglaFirewallAplicada(nombreReglaFirewall, "")) {
+                    ProcessStartInfo psi = new ProcessStartInfo();
+                    psi.FileName = "netsh";
+                    psi.Arguments = $"advfirewall firewall add rule " +
+                                    $"name=\"{nombreReglaFirewall}\" " +
+                                    $"dir=in " +
+                                    $"action=allow protocol=TCP localport=9002 " +
+                                    $"description=\"Permite el acceso del scanner virtual ADVANCE SCANNER a la aplicación ADVANCE ERP\" " +
+                                    $"enable=yes " +
+                                    $"profile=any";
+                    psi.Verb = "runas";
+                    psi.WindowStyle = ProcessWindowStyle.Normal;
+                    psi.UseShellExecute = true; // Necesario para Verb="runas"
+                    psi.CreateNoWindow= true;
+
+                    var process = Process.Start(psi);
+                    process?.WaitForExit(5000); // Timeout de 5 segundos
+
+                    // Verificar si realmente se aplicó después de intentar crearla
+                    if (!ReglaFirewallAplicada(nombreReglaFirewall, rutaEjecutable)) {
+                        throw new Exception("No se pudo verificar la creación de la regla después de intentar crearla");
+                    }
                 }
             } catch (Exception ex) {
                 throw new Exception($"Error al agregar regla de firewall: {ex.Message}");

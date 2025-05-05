@@ -24,8 +24,7 @@ namespace aDVanceSCANNER
 
             // Configuración inicial de la ventana
             RequestWindowFeature(WindowFeatures.NoTitle);
-            Window?.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
-            OcultarInterfazSistema();
+            Window?.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);            
 
             SetContentView(ResourceConstant.Layout.activity_main);
 
@@ -48,6 +47,7 @@ namespace aDVanceSCANNER
             if (_controladorUI.BtnConectar != null) _controladorUI.BtnConectar.Click += ConectarCliente;
             if (_btnEscanear != null) _btnEscanear.Click += EscanearCodigo;
 
+            OcultarInterfazSistema();
             CargarOpcionesConexion();
         }
 
@@ -75,9 +75,12 @@ namespace aDVanceSCANNER
                     return;
                 }
 
-                var estado = await _clienteTcp?.ConectarAsync()!;
-                
-                _controladorUI?.ActualizarEstadoConexion(estado);
+                await Task.Run(async () => {
+                    var estado = await _clienteTcp?.ConectarAsync()!;
+                    RunOnUiThread(() => Toast.MakeText(this, estado, ToastLength.Long)?.Show());
+
+                    _controladorUI?.ActualizarEstadoConexion(estado);
+                });                
                 
                 SalvarOpcionesConexion(_controladorUI?.DireccionIP ?? "192.168.1.", int.Parse(_controladorUI?.Puerto ?? "0"));
 
@@ -133,16 +136,9 @@ namespace aDVanceSCANNER
             await _clienteTcp?.EnviarAsync(resultado.Contenido)!;
         }
 
-        [Obsolete("Obsolete")]
         private void OcultarInterfazSistema() {
-            if (Window != null)
-                Window.DecorView.SystemUiVisibility = (StatusBarVisibility)
-                    (SystemUiFlags.LayoutStable |
-                     SystemUiFlags.LayoutHideNavigation |
-                     SystemUiFlags.LayoutFullscreen |
-                     SystemUiFlags.HideNavigation |
-                     SystemUiFlags.Fullscreen |
-                     SystemUiFlags.ImmersiveSticky);
+            Window.InsetsController?.Hide(WindowInsets.Type.SystemBars());
+            Window.SetDecorFitsSystemWindows(false);
         }
 
         private void OcultarTeclado() {

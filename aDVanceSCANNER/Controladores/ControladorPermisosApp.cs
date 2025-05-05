@@ -3,7 +3,7 @@ using Android.Content.PM;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
 
-namespace aDVanceSCANNER.Controladores; 
+namespace aDVanceSCANNER.Controladores;
 
 public class ControladorPermisosApp {
     private const int REQUEST_CAMERA = 1;
@@ -36,5 +36,9 @@ public class ControladorPermisosApp {
         } else {
             Toast.MakeText(_activity, "Se necesita permiso de cámara para escanear", ToastLength.Long)?.Show();
         }
+
+        Toast.MakeText(_activity, "Permiso INTERNET concedido: " +
+            (ContextCompat.CheckSelfPermission(_activity, Manifest.Permission.Internet) == Permission.Granted),
+            ToastLength.Long)?.Show();
     }
 }

@@ -94,7 +94,9 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
 
         // Eventos del Servidor SCANNER
         UtilesServidorScanner.Servidor.CambioEstado += delegate (string mensaje) {
-            fieldServidorScanner.Text = $"     {mensaje}";
+            if (InvokeRequired)
+                Invoke(new Action(() => { fieldServidorScanner.Text = $"     {mensaje}"; }));
+            else fieldServidorScanner.Text = $"     {mensaje}";
         };
     }
 

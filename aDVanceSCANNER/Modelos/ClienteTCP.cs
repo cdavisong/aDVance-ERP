@@ -24,17 +24,21 @@ namespace aDVanceSCANNER.Modelos {
                 return "La dirección IP no es válida";
 
             try {
-                await DesconectarAsync(); // Cerrar conexión existente si la hay
-
+                await DesconectarAsync();
                 _cliente = new TcpClient();
-                await _cliente.ConnectAsync(_configuracionRed.DireccionIP, _configuracionRed.Puerto);
-                _stream = _cliente.GetStream();
 
+                var connectTask = _cliente.ConnectAsync(_configuracionRed.DireccionIP, _configuracionRed.Puerto);
+                
+                if (await Task.WhenAny(connectTask, Task.Delay(5000)) != connectTask) {
+                    throw new TimeoutException("Tiempo de conexión agotado");
+                }
+
+                _stream = _cliente.GetStream();
                 return $"Conectado a {_configuracionRed.DireccionIP}";
             } catch (SocketException ex) {
-                return $"Error de conexión: {ex.SocketErrorCode}";
+                return $"Error de socket: {ex.SocketErrorCode}"; // Ej: ConnectionRefused, TimedOut
             } catch (Exception ex) {
-                return $"Error: {ex.Message}";
+                return $"Error: {ex.Message}"; // Ej: Permission denied
             }
         }
 
