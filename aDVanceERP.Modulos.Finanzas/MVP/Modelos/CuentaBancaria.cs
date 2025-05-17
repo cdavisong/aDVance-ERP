@@ -19,12 +19,11 @@ public class CuentaBancaria : IObjetoUnico {
         IdContacto = idContacto;
     }
 
+    public long Id { get; set; }
     public string? Alias { get; }
     public string? NumeroTarjeta { get; }
     public TipoMoneda Moneda { get; }
-    public long IdContacto { get; set; }
-
-    public long Id { get; set; }
+    public long IdContacto { get; set; }    
 }
 
 public enum CriterioBusquedaCuentaBancaria {

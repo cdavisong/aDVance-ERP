@@ -55,18 +55,39 @@ namespace aDVanceERP.PatchDB {
                     throw new ExcepcionConexionServidorMySQL();
                 }
 
-                // Crear tabla adv__empresa
-                const string crearTablaTipoMovimiento = @"
-                        CREATE TABLE IF NOT EXISTS adv__empresa (
-                            id_empresa INT(11) PRIMARY KEY AUTO_INCREMENT,
-                            nombre VARCHAR(50) NOT NULL,
-                            logotipo LONGBLOB,
-                            id_contacto INT(11) DEFAULT 0
-                        );";
+                // Crear tabla adv__caja
+                const string crearTablaCaja = @"
+                    CREATE TABLE IF NOT EXIST adv__caja (
+                      id_caja int(11) NOT NULL,
+                      estado enum('Inactiva','Abierta','Cerrada') NOT NULL DEFAULT 'Inactiva',
+                      fecha_apertura datetime DEFAULT NULL,
+                      saldo_inicial decimal(10,2) NOT NULL DEFAULT 0.00,
+                      saldo_actual decimal(10,2) NOT NULL DEFAULT 0.00,
+                      fecha_cierre datetime DEFAULT NULL,
+                      id_cuenta_usuario int(11) DEFAULT 0,
+                      PRIMARY KEY (id_caja)
+                    ) ENGINE=InnoDB;";
 
-                using (var cmd = new MySqlCommand(crearTablaTipoMovimiento, conexion)) {
+                using (var cmd = new MySqlCommand(crearTablaCaja, conexion))
                     cmd.ExecuteNonQuery();
-                }
+
+                // Crear tabla adv__movimiento_caja
+                const string crearTablaMovimientoCaja = @"
+                    CREATE TABLE IF NOT EXIST adv__movimiento_caja (
+                      id_movimiento_caja int(11) NOT NULL,
+                      id_caja int(11) NOT NULL,
+                      fecha datetime DEFAULT NULL,
+                      monto decimal(10,2) NOT NULL DEFAULT 0.00,
+                      tipo enum('Ingreso','Egreso') NOT NULL DEFAULT 'Ingreso',
+                      concepto varchar(255) NOT NULL,
+                      id_pago int(11) DEFAULT 0,
+                      id_usuario int(11) DEFAULT 0,
+                      observaciones text,
+                      PRIMARY KEY (id_movimiento_caja)
+                    ) ENGINE=InnoDB;";
+
+                using (var cmd = new MySqlCommand(crearTablaMovimientoCaja, conexion))
+                    cmd.ExecuteNonQuery();
             }
         }
 
