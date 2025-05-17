@@ -110,7 +110,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
             btnEliminar.CustomizableEdges = customizableEdges1;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.White;
-            btnEliminar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEliminar.Font = new Font("Segoe UI", 9.75F);
             btnEliminar.ForeColor = Color.White;
             btnEliminar.HoverState.BorderColor = Color.PeachPuff;
             btnEliminar.HoverState.FillColor = Color.PeachPuff;
@@ -124,7 +124,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
             // fieldId
             // 
             fieldId.Dock = DockStyle.Fill;
-            fieldId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldId.Font = new Font("Segoe UI", 11.25F);
             fieldId.ForeColor = Color.DimGray;
             fieldId.ImeMode = ImeMode.NoControl;
             fieldId.Location = new Point(1, 1);
@@ -147,7 +147,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
             btnEditar.CustomizableEdges = customizableEdges3;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
-            btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEditar.Font = new Font("Segoe UI", 9.75F);
             btnEditar.ForeColor = Color.White;
             btnEditar.HoverState.BorderColor = Color.PeachPuff;
             btnEditar.HoverState.FillColor = Color.PeachPuff;
@@ -160,7 +160,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
             // fieldDireccion
             // 
             fieldDireccion.Dock = DockStyle.Fill;
-            fieldDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDireccion.Font = new Font("Segoe UI", 11.25F);
             fieldDireccion.ForeColor = Color.DimGray;
             fieldDireccion.ImeMode = ImeMode.NoControl;
             fieldDireccion.Location = new Point(531, 1);
@@ -175,7 +175,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
             // 
             fieldTelefonos.AutoEllipsis = true;
             fieldTelefonos.Dock = DockStyle.Fill;
-            fieldTelefonos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTelefonos.Font = new Font("Segoe UI", 11.25F);
             fieldTelefonos.ForeColor = Color.DimGray;
             fieldTelefonos.ImeMode = ImeMode.NoControl;
             fieldTelefonos.Location = new Point(281, 1);
@@ -189,7 +189,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
             // fieldNombre
             // 
             fieldNombre.Dock = DockStyle.Fill;
-            fieldNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombre.Font = new Font("Segoe UI", 11.25F);
             fieldNombre.ForeColor = Color.DimGray;
             fieldNombre.ImeMode = ImeMode.NoControl;
             fieldNombre.Location = new Point(61, 1);
@@ -203,7 +203,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
             // fieldActivo
             // 
             fieldActivo.Dock = DockStyle.Fill;
-            fieldActivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldActivo.Font = new Font("Segoe UI", 11.25F);
             fieldActivo.ForeColor = Color.DimGray;
             fieldActivo.Image = Properties.Resources.active_state_20px;
             fieldActivo.ImeMode = ImeMode.NoControl;
@@ -220,7 +220,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero {
             BackColor = Color.White;
             ClientSize = new Size(1241, 42);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaTuplaMensajero";
