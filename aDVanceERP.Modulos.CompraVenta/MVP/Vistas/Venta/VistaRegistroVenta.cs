@@ -97,7 +97,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             var idTipoEntregaPresencial = UtilesEntrega.ObtenerIdTipoEntrega("Presencial").Result;
 
             if (ModoEdicionDatos && value.Equals(idTipoEntregaPresencial))
-                btnAsignarMensajería.Enabled = false;
+                btnAsignarMensajeria.Enabled = false;
         }
     }
 
@@ -113,7 +113,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                 fieldCantidad.ReadOnly = value;
                 btnEfectuarPago.Enabled = !value;
                 btnRegistrar.Enabled = value;
-                btnAsignarMensajería.Enabled = !value;
+                btnAsignarMensajeria.Enabled = !value;
             }
         }
     }
@@ -131,7 +131,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                     btnRegistrar.Enabled = true;
                 }
 
-                btnAsignarMensajería.Enabled = !value;
+                btnAsignarMensajeria.Enabled = !value;
             }
         }
     }
@@ -201,7 +201,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         btnEfectuarPago.Click += delegate(object? sender, EventArgs args) {
             EfectuarPago?.Invoke(sender, args);
         };
-        btnAsignarMensajería.Click += delegate(object? sender, EventArgs args) {
+        btnAsignarMensajeria.Click += delegate(object? sender, EventArgs args) {
             AsignarMensajeria?.Invoke(sender, args);
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
@@ -392,7 +392,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             }
 
         btnEfectuarPago.Enabled = Total > 0;
-        btnAsignarMensajería.Enabled = Total > 0;
+        btnAsignarMensajeria.Enabled = Total > 0;
     }
 
     public void Mostrar() {

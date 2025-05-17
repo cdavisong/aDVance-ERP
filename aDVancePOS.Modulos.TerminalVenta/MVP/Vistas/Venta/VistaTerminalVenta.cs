@@ -12,6 +12,10 @@ using aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas;
 
 namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
     public partial class VistaTerminalVenta : Form, IVistaTerminalVenta, IVistaGestionDetallesCompraventaArticulos {
+        private bool _pagoEfectuado;
+        private bool _mensajeriaConfigurada;
+        private string? _tipoEntrega;
+        private long _idTipoEntrega = 0;
         private int _cantidad = 0;
 
         public VistaTerminalVenta() {
@@ -38,6 +42,8 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             get => DateTime.Now;
             set { }
         }
+
+        public string? RazonSocialCliente { get; set; } = "Anónimo";
 
         public string? NombreAlmacen {
             get => fieldNombreAlmacen.Text;
@@ -81,19 +87,59 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             set => fieldTotal.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
-        public bool PagoConfirmado { get; set; }
+        public long IdTipoEntrega {
+            get => _idTipoEntrega;
+            set {
+                _idTipoEntrega = value;
 
-        #region Mensajería
+                var idTipoEntregaPresencial = UtilesEntrega.ObtenerIdTipoEntrega("Presencial").Result;
 
-        public long IdTipoEntrega { get; set; } = 0;
+                if (ModoEdicionDatos && value.Equals(idTipoEntregaPresencial))
+                    btnAsignarMensajeria.Enabled = false;
+            }
+        }
 
-        public string? RazonSocialCliente { get; set; }
+        public string? Direccion { get; set; } = string.Empty;
 
-        public string? Direccion { get; set; }
+        public bool PagoEfectuado {
+            get => _pagoEfectuado;
+            set {
+                _pagoEfectuado = value;
+
+                if (!ModoEdicionDatos) {
+                    fieldNombreArticulo.ReadOnly = value;
+                    btnGestionarPago.Enabled = !value;
+                    btnAsignarMensajeria.Enabled = !value;
+                }
+            }
+        }
+
+        public bool MensajeriaConfigurada {
+            get => _mensajeriaConfigurada;
+            set {
+                _mensajeriaConfigurada = value;
+
+                if (!ModoEdicionDatos) {
+                    if (TipoEntrega == "Mensajería (sin fondo)") {
+                        fieldNombreArticulo.ReadOnly = true;
+                        btnGestionarPago.Enabled = false;
+                    }
+
+                    btnAsignarMensajeria.Enabled = !value;
+                }
+            }
+        }
+
+        public string? TipoEntrega {
+            get => _tipoEntrega;
+            set {
+                _tipoEntrega = value;
+
+                IdTipoEntrega = UtilesEntrega.ObtenerIdTipoEntrega(value).Result;
+            }
+        }
 
         public string? EstadoEntrega { get; set; } = "Completada";
-
-        #endregion
 
         public int AlturaContenedorVistas {
             get => contenedorVistas.Height;
@@ -127,6 +173,8 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                 var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
 
                 CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
+
+                fieldNombreArticulo.Focus();
             };
             fieldNombreArticulo.KeyDown += delegate (object? sender, KeyEventArgs args) {
                 switch (args.KeyCode) {

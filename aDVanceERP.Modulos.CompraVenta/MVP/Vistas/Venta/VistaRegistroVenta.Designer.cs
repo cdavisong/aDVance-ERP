@@ -61,7 +61,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldNombreArticulo = new Guna2TextBox();
             layoutPago = new TableLayoutPanel();
             symbolPeso = new Label();
-            btnAsignarMensajería = new Guna2Button();
+            btnAsignarMensajeria = new Guna2Button();
             btnEfectuarPago = new Guna2Button();
             fieldTotalVenta = new Label();
             fieldTituloTotalVenta = new Label();
@@ -342,7 +342,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             layoutPago.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             layoutPago.Controls.Add(symbolPeso, 2, 0);
-            layoutPago.Controls.Add(btnAsignarMensajería, 4, 0);
+            layoutPago.Controls.Add(btnAsignarMensajeria, 4, 0);
             layoutPago.Controls.Add(btnEfectuarPago, 3, 0);
             layoutPago.Controls.Add(fieldTotalVenta, 1, 0);
             layoutPago.Controls.Add(fieldTituloTotalVenta, 0, 0);
@@ -372,22 +372,22 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // 
             // btnAsignarMensajería
             // 
-            btnAsignarMensajería.Animated = true;
-            btnAsignarMensajería.BorderRadius = 18;
-            btnAsignarMensajería.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
-            btnAsignarMensajería.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAsignarMensajería.CustomizableEdges = customizableEdges9;
-            btnAsignarMensajería.DialogResult = DialogResult.Cancel;
-            btnAsignarMensajería.Dock = DockStyle.Fill;
-            btnAsignarMensajería.Enabled = false;
-            btnAsignarMensajería.FillColor = Color.PeachPuff;
-            btnAsignarMensajería.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnAsignarMensajería.ForeColor = Color.White;
-            btnAsignarMensajería.Location = new Point(370, 3);
-            btnAsignarMensajería.Name = "btnAsignarMensajería";
-            btnAsignarMensajería.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnAsignarMensajería.Size = new Size(44, 39);
-            btnAsignarMensajería.TabIndex = 3;
+            btnAsignarMensajeria.Animated = true;
+            btnAsignarMensajeria.BorderRadius = 18;
+            btnAsignarMensajeria.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnAsignarMensajeria.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnAsignarMensajeria.CustomizableEdges = customizableEdges9;
+            btnAsignarMensajeria.DialogResult = DialogResult.Cancel;
+            btnAsignarMensajeria.Dock = DockStyle.Fill;
+            btnAsignarMensajeria.Enabled = false;
+            btnAsignarMensajeria.FillColor = Color.PeachPuff;
+            btnAsignarMensajeria.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAsignarMensajeria.ForeColor = Color.White;
+            btnAsignarMensajeria.Location = new Point(370, 3);
+            btnAsignarMensajeria.Name = "btnAsignarMensajería";
+            btnAsignarMensajeria.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnAsignarMensajeria.Size = new Size(44, 39);
+            btnAsignarMensajeria.TabIndex = 3;
             // 
             // btnEfectuarPago
             // 
@@ -682,6 +682,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         private Guna2Separator separador1;
         private Guna2TextBox fieldNombreArticulo;
         private Guna2Separator separador2;
-        private Guna2Button btnAsignarMensajería;
+        private Guna2Button btnAsignarMensajeria;
     }
 }

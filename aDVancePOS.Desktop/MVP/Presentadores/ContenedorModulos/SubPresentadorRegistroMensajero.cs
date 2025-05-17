@@ -11,8 +11,11 @@ public partial class PresentadorContenedorModulos {
 
     private Task InicializarVistaRegistroMensajero() {
         _registroMensajero = new PresentadorRegistroMensajero(new VistaRegistroMensajero());
-        _registroMensajero.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroMensajero.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMensajero.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
+        _registroMensajero.DatosRegistradosActualizados += async delegate {
+            //...
+        };
 
         return Task.CompletedTask;
     }
@@ -20,10 +23,19 @@ public partial class PresentadorContenedorModulos {
     private async void MostrarVistaRegistroMensajero(object? sender, EventArgs e) {
         await InicializarVistaRegistroMensajero();
 
-        if (_registroMensajero == null) 
+        if (_registroMensajero == null)
             return;
 
-        MostrarVistaPanelTransparente(_registroMensajero.Vista);
+        if (_registroMensajeria == null || ((Form)_registroMensajeria.Vista).IsDisposed)
+            MostrarVistaPanelTransparente(_registroMensajero.Vista);
+        else
+            _registroMensajero.DatosRegistradosActualizados += delegate {
+                if (_registroMensajeria == null)
+                    return;
+
+                _registroMensajeria.Vista.CargarNombresMensajeros(UtilesMensajero.ObtenerNombresMensajeros().Result);
+                _registroMensajeria.Vista.NombreMensajero = _registroMensajero.Vista.Nombre;
+            };
 
         _registroMensajero.Vista.Mostrar();
         _registroMensajero.Dispose();
