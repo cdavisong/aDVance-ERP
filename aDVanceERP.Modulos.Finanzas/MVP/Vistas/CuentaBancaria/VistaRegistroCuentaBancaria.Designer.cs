@@ -149,7 +149,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             fieldIcono.TabIndex = 0;
             fieldIcono.TabStop = false;
             // 
-            // fieldNombreContacto
+            // fieldNombrePropietario
             // 
             fieldNombrePropietario.Animated = true;
             fieldNombrePropietario.BackColor = Color.Transparent;
@@ -159,15 +159,14 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             fieldNombrePropietario.Dock = DockStyle.Fill;
             fieldNombrePropietario.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombrePropietario.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldNombrePropietario.FillColor = Color.White;
-            fieldNombrePropietario.FocusedColor = Color.White;
+            fieldNombrePropietario.FocusedColor = Color.SandyBrown;
             fieldNombrePropietario.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombrePropietario.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombrePropietario.Font = new Font("Segoe UI", 11.25F);
             fieldNombrePropietario.ForeColor = Color.Black;
             fieldNombrePropietario.ItemHeight = 29;
             fieldNombrePropietario.Location = new Point(55, 280);
             fieldNombrePropietario.Margin = new Padding(5);
-            fieldNombrePropietario.Name = "fieldNombreContacto";
+            fieldNombrePropietario.Name = "fieldNombrePropietario";
             fieldNombrePropietario.ShadowDecoration.CustomizableEdges = customizableEdges2;
             fieldNombrePropietario.Size = new Size(407, 35);
             fieldNombrePropietario.TabIndex = 32;
@@ -176,7 +175,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F);
             fieldSubtitulo.ForeColor = Color.DimGray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 70);
@@ -211,7 +210,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             btnCerrar.CustomizableEdges = customizableEdges3;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
@@ -224,20 +223,20 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
             fieldTitulo.Name = "fieldTitulo";
             fieldTitulo.Size = new Size(361, 45);
             fieldTitulo.TabIndex = 0;
-            fieldTitulo.Text = "Cuentas";
+            fieldTitulo.Text = "Cuenta bancaia";
             fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldTituloNombrePropietario
             // 
             fieldTituloNombrePropietario.Dock = DockStyle.Fill;
-            fieldTituloNombrePropietario.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloNombrePropietario.Font = new Font("Segoe UI", 11.25F);
             fieldTituloNombrePropietario.ForeColor = Color.DimGray;
             fieldTituloNombrePropietario.Image = (Image) resources.GetObject("fieldTituloNombrePropietario.Image");
             fieldTituloNombrePropietario.ImageAlign = ContentAlignment.MiddleLeft;
@@ -258,14 +257,12 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             fieldAlias.Cursor = Cursors.IBeam;
             fieldAlias.CustomizableEdges = customizableEdges5;
             fieldAlias.DefaultText = "";
-            fieldAlias.DisabledState.BorderColor = Color.Gainsboro;
             fieldAlias.DisabledState.BorderColor = Color.White;
             fieldAlias.DisabledState.ForeColor = Color.DimGray;
             fieldAlias.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldAlias.Dock = DockStyle.Fill;
-            fieldAlias.FillColor = Color.White;
             fieldAlias.FocusedState.BorderColor = Color.SandyBrown;
-            fieldAlias.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldAlias.Font = new Font("Segoe UI", 11.25F);
             fieldAlias.ForeColor = Color.Black;
             fieldAlias.HoverState.BorderColor = Color.SandyBrown;
             fieldAlias.IconLeft = (Image) resources.GetObject("fieldAlias.IconLeft");
@@ -308,10 +305,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             fieldTipoMoneda.Dock = DockStyle.Fill;
             fieldTipoMoneda.DrawMode = DrawMode.OwnerDrawFixed;
             fieldTipoMoneda.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldTipoMoneda.FillColor = Color.White;
-            fieldTipoMoneda.FocusedColor = Color.White;
+            fieldTipoMoneda.FocusedColor = Color.SandyBrown;
             fieldTipoMoneda.FocusedState.BorderColor = Color.SandyBrown;
-            fieldTipoMoneda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTipoMoneda.Font = new Font("Segoe UI", 11.25F);
             fieldTipoMoneda.ForeColor = Color.Black;
             fieldTipoMoneda.ItemHeight = 29;
             fieldTipoMoneda.Location = new Point(327, 5);
@@ -330,14 +326,12 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             fieldNumeroCuenta.Cursor = Cursors.IBeam;
             fieldNumeroCuenta.CustomizableEdges = customizableEdges9;
             fieldNumeroCuenta.DefaultText = "";
-            fieldNumeroCuenta.DisabledState.BorderColor = Color.Gainsboro;
             fieldNumeroCuenta.DisabledState.BorderColor = Color.White;
             fieldNumeroCuenta.DisabledState.ForeColor = Color.DimGray;
             fieldNumeroCuenta.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldNumeroCuenta.Dock = DockStyle.Fill;
-            fieldNumeroCuenta.FillColor = Color.White;
             fieldNumeroCuenta.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNumeroCuenta.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNumeroCuenta.Font = new Font("Segoe UI", 11.25F);
             fieldNumeroCuenta.ForeColor = Color.Black;
             fieldNumeroCuenta.HoverState.BorderColor = Color.SandyBrown;
             fieldNumeroCuenta.IconLeft = (Image) resources.GetObject("fieldNumeroCuenta.IconLeft");
@@ -383,7 +377,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             btnSalir.CustomizableEdges = customizableEdges11;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
-            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnSalir.ForeColor = Color.Gainsboro;
             btnSalir.HoverState.BorderColor = Color.PeachPuff;
             btnSalir.HoverState.FillColor = Color.PeachPuff;
@@ -402,7 +396,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             btnRegistrar.CustomizableEdges = customizableEdges13;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
@@ -411,15 +405,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Registrar cuenta";
             // 
-            // VistaRegistroCuenta
+            // VistaRegistroCuentaBancaria
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(500, 685);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
-            Name = "VistaRegistroCuenta";
+            Name = "VistaRegistroCuentaBancaria";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
