@@ -25,4 +25,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MVP\Vistas\Caja\Plantillas\" />
+  </ItemGroup>
 </Project>

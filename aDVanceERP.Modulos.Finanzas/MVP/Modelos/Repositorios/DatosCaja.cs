@@ -18,7 +18,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoEliminar(long id) {
-            return $"DELETE FROM adv__caja WHERE id_caja={id};";
+            return $@"
+                DELETE FROM adv__movimiento_caja WHERE id_caja={id};
+                DELETE FROM adv__caja WHERE id_caja={id};
+            ";
         }
 
         public override string ComandoObtener(CriterioBusquedaCaja criterio, string dato) {
