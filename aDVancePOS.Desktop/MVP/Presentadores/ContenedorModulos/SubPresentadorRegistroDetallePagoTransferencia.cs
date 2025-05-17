@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia;
 using aDVancePOS.Desktop.Utiles;
 
-namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos; 
+namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroDetallePagoTransferencia? _registroDetallePagoTransferencia;
@@ -16,14 +16,14 @@ public partial class PresentadorContenedorModulos {
         _registroDetallePagoTransferencia =
             new PresentadorRegistroDetallePagoTransferencia(new VistaRegistroDetallePagoTransferencia());
         _registroDetallePagoTransferencia.Vista.CargarAliasTarjetas(UtilesCuentaBancaria.ObtenerAliasesCuentas());
-        _registroDetallePagoTransferencia.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroDetallePagoTransferencia.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroDetallePagoTransferencia.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroDetallePagoTransferencia.Salir += delegate {
-            Transferencia = new[] {
+        _registroDetallePagoTransferencia.DatosRegistradosActualizados += delegate {
+            Transferencia = [
                 _registroDetallePagoTransferencia.Vista.Alias,
                 _registroDetallePagoTransferencia.Vista.NumeroConfirmacion,
                 _registroDetallePagoTransferencia.Vista.NumeroTransaccion
-            };
+            ];
         };
     }
 

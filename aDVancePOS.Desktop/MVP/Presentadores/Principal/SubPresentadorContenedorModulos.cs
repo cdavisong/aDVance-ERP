@@ -1,5 +1,4 @@
 ﻿using aDVancePOS.Desktop.MVP.Vistas.ContenedorModulos;
-
 using aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos;
 
 namespace aDVancePOS.Desktop.MVP.Presentadores.Principal;
@@ -15,8 +14,11 @@ public partial class PresentadorPrincipal {
     }
 
     private void MostrarVistaContenedorModulos(object? sender, EventArgs e) {
-        _contenedorModulos?.Vista.Restaurar();
-        _contenedorModulos?.Vista.Mostrar();
+        if (_contenedorModulos == null)
+            return;
+
+        _contenedorModulos.Vista.Restaurar();
+        _contenedorModulos.Vista.Mostrar();
 
         // TODO: Mostrar el botón de sub-menu para usuarios
         //Vista.BtnSubmenuUsuarioDisponible = true;

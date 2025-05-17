@@ -11,54 +11,57 @@ namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos;
 public partial class PresentadorContenedorModulos {
     private PresentadorRegistroMensajeria? _registroMensajeria;
 
-    private List<string?[]> DatosMensajeria { get; set; } = new();
-
     private async void InicializarVistaRegistroMensajeria() {
         _registroMensajeria = new PresentadorRegistroMensajeria(new VistaRegistroMensajeria());
-        _registroMensajeria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones.Width);
+        _registroMensajeria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMensajeria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMensajeria.Vista.CargarNombresMensajeros(await UtilesMensajero.ObtenerNombresMensajeros());
         _registroMensajeria.Vista.CargarTiposEntrega();
+        _registroMensajeria.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
+        _registroMensajeria.DatosRegistradosActualizados += delegate {
+            if (_terminalVenta == null)
+                return;
 
-        DatosMensajeria.Clear();
+            _terminalVenta.Vista.RazonSocialCliente = _registroMensajeria.Vista.RazonSocialCliente;
+            _terminalVenta.Vista.Direccion = _registroMensajeria.Vista.Direccion;
+            _terminalVenta.Vista.TipoEntrega = _registroMensajeria.Vista.TipoEntrega;
+            _terminalVenta.Vista.EstadoEntrega = "Pendiente";
+            _terminalVenta.Vista.MensajeriaConfigurada = true;
+        };
     }
 
     private void MostrarVistaRegistroMensajeria(object? sender, EventArgs e) {
         InicializarVistaRegistroMensajeria();
 
-        if (sender is not object[] datos) {
-            throw new ArgumentNullException(nameof(datos));
+        if (_registroMensajeria != null && _terminalVenta != null) {
+            _registroMensajeria.Vista.IdVenta = _proximoIdVenta;
+            _registroMensajeria.Vista.PopularArticulosVenta(_terminalVenta.Vista.Articulos);
+            _registroMensajeria.Vista.AsignarNuevoMensajero += MostrarVistaRegistroMensajero;
+            //TODO: _registroMensajeria.Vista.AsignarNuevoCliente += MostrarVistaRegistroCliente;
+            _registroMensajeria.Vista.Mostrar();
         }
 
-        if (_registroMensajeria == null)
-            return;
-
-        MostrarVistaPanelTransparente(_registroMensajeria.Vista);
-
-        //_registroMensajeria.Vista.PopularDatosCliente(datos[0] as string?[]);
-        _registroMensajeria.Vista.PopularArticulosVenta(datos[1] as List<string[]>);
-
-        _registroMensajeria.Vista.Mostrar();
-        _registroMensajeria.Dispose();
+        _registroMensajeria?.Dispose();
     }
 
-    private void RegistrarSeguimientoEntrega() {
-        if (DatosMensajeria.Count == 0)
-            return;
+    private void MostrarVistaEdicionMensajeria(object? sender, EventArgs e) {
+        InicializarVistaRegistroMensajeria();
 
-        using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega()) {
-            var ultimoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta");
-            var idMensajero = UtilesMensajero.ObtenerIdMensajero(DatosMensajeria.ElementAt(0)[0]).Result;
+        if (sender is Venta venta) {
+            if (_registroMensajeria != null && _terminalVenta != null) {
+                using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega()) {
+                    var seguimientoEntrega = datosSeguimientoEntrega.Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, venta.Id.ToString()).FirstOrDefault();
 
-            datosSeguimientoEntrega.Adicionar(new SeguimientoEntrega(
-                0,
-                ultimoIdVenta,
-                idMensajero,
-                DateTime.Now,
-                DateTime.MinValue,
-                DateTime.MinValue,
-                "No hay observaciones"
-            ));
+                    if (seguimientoEntrega != null) {
+                        _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
+                        _registroMensajeria.Vista.RazonSocialCliente = _terminalVenta.Vista.RazonSocialCliente;
+                        _registroMensajeria.Vista.PopularArticulosVenta(_terminalVenta.Vista.Articulos);
+                        _registroMensajeria.Vista.Mostrar();
+                    }
+                }
+            }
         }
+
+        _registroMensajeria?.Dispose();
     }
 }
