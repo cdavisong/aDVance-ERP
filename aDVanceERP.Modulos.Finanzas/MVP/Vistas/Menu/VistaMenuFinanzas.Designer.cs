@@ -27,14 +27,17 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuFinanzas));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
             fieldTitulo = new Label();
             panelRelleno = new Panel();
             btnCuentasBancarias = new Guna2Button();
+            btnCajas = new Guna2Button();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
             panelRelleno.SuspendLayout();
@@ -84,7 +87,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
             // 
             fieldTitulo.BackColor = Color.WhiteSmoke;
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(0, 0);
@@ -98,9 +101,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
             // panelRelleno
             // 
             panelRelleno.BackColor = Color.WhiteSmoke;
+            panelRelleno.Controls.Add(btnCajas);
             panelRelleno.Controls.Add(btnCuentasBancarias);
             panelRelleno.Dock = DockStyle.Fill;
-            panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            panelRelleno.Font = new Font("Segoe UI", 11.25F);
             panelRelleno.Location = new Point(160, 0);
             panelRelleno.Margin = new Padding(0);
             panelRelleno.Name = "panelRelleno";
@@ -113,23 +117,47 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
             btnCuentasBancarias.BackColor = Color.WhiteSmoke;
             btnCuentasBancarias.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
             btnCuentasBancarias.CheckedState.FillColor = Color.WhiteSmoke;
-            btnCuentasBancarias.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCuentasBancarias.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             btnCuentasBancarias.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
             btnCuentasBancarias.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnCuentasBancarias.CustomImages.ImageOffset = new Point(0, 32);
             btnCuentasBancarias.CustomImages.ImageSize = new Size(131, 8);
-            btnCuentasBancarias.CustomizableEdges = customizableEdges1;
+            btnCuentasBancarias.CustomizableEdges = customizableEdges5;
             btnCuentasBancarias.Dock = DockStyle.Left;
             btnCuentasBancarias.FillColor = Color.WhiteSmoke;
-            btnCuentasBancarias.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCuentasBancarias.Font = new Font("Segoe UI", 11.25F);
             btnCuentasBancarias.ForeColor = Color.Black;
             btnCuentasBancarias.Location = new Point(0, 0);
             btnCuentasBancarias.Margin = new Padding(0);
             btnCuentasBancarias.Name = "btnCuentasBancarias";
-            btnCuentasBancarias.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnCuentasBancarias.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnCuentasBancarias.Size = new Size(160, 50);
             btnCuentasBancarias.TabIndex = 10;
             btnCuentasBancarias.Text = "Cuentas bancarias";
+            // 
+            // btnCajas
+            // 
+            btnCajas.Animated = true;
+            btnCajas.BackColor = Color.WhiteSmoke;
+            btnCajas.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnCajas.CheckedState.FillColor = Color.WhiteSmoke;
+            btnCajas.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            btnCajas.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage1");
+            btnCajas.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnCajas.CustomImages.ImageOffset = new Point(0, 32);
+            btnCajas.CustomImages.ImageSize = new Size(131, 8);
+            btnCajas.CustomizableEdges = customizableEdges7;
+            btnCajas.Dock = DockStyle.Left;
+            btnCajas.FillColor = Color.WhiteSmoke;
+            btnCajas.Font = new Font("Segoe UI", 11.25F);
+            btnCajas.ForeColor = Color.Black;
+            btnCajas.Location = new Point(160, 0);
+            btnCajas.Margin = new Padding(0);
+            btnCajas.Name = "btnCajas";
+            btnCajas.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnCajas.Size = new Size(160, 50);
+            btnCajas.TabIndex = 11;
+            btnCajas.Text = "Cajas";
             // 
             // VistaMenuFinanzas
             // 
@@ -137,7 +165,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
             BackColor = Color.FromArgb(  245,   245,   245);
             ClientSize = new Size(994, 50);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 11.25F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaMenuFinanzas";
@@ -159,5 +187,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu {
         private Panel panelRelleno;
         private Label fieldTitulo;
         private Guna2Button btnCuentasBancarias;
+        private Guna2Button btnCajas;
     }
 }
