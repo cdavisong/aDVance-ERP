@@ -1,5 +1,7 @@
-﻿namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas {
-    public interface IVistaTuplaCaja {
+﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas {
+    public interface IVistaTuplaCaja : IVistaTupla {
         string Id { get; set; }        
         string FechaApertura { get; set; }
         string SaldoInicial { get; set; }
