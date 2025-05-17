@@ -105,12 +105,6 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             get => _pagoEfectuado;
             set {
                 _pagoEfectuado = value;
-
-                if (!ModoEdicionDatos) {
-                    fieldNombreArticulo.ReadOnly = value;
-                    btnGestionarPago.Enabled = !value;
-                    btnAsignarMensajeria.Enabled = !value;
-                }
             }
         }
 
@@ -118,15 +112,6 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             get => _mensajeriaConfigurada;
             set {
                 _mensajeriaConfigurada = value;
-
-                if (!ModoEdicionDatos) {
-                    if (TipoEntrega == "Mensajería (sin fondo)") {
-                        fieldNombreArticulo.ReadOnly = true;
-                        btnGestionarPago.Enabled = false;
-                    }
-
-                    btnAsignarMensajeria.Enabled = !value;
-                }
             }
         }
 
