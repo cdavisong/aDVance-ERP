@@ -8,8 +8,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private async void InicializarVistaGestionCajas() {
             _gestionCajas = new PresentadorGestionCajas(new VistaGestionCajas());
-            _gestionCajas.EditarObjeto += MostrarVistaEdicionCuentaBancaria;
-            _gestionCajas.Vista.RegistrarDatos += MostrarVistaRegistroCuentaBancaria;
+            _gestionCajas.EditarObjeto += MostrarVistaEdicionAperturaCaja;
+            _gestionCajas.Vista.RegistrarDatos += MostrarVistaRegistroAperturaCaja;
 
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCajas", _gestionCajas.Vista));

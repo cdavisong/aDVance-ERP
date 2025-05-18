@@ -46,7 +46,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
                 lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha_cierre")),
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cuenta_usuario"))
             ) {
-                Estado = (EstadoCaja) lectorDatos.GetInt32(lectorDatos.GetOrdinal("estado"))
+                Estado = (EstadoCaja)Enum.Parse(typeof(EstadoCaja),
+                lectorDatos.GetString(lectorDatos.GetOrdinal("estado"))),
             };
         }
 

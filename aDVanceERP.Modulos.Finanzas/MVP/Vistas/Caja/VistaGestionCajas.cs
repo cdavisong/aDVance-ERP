@@ -155,7 +155,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 HabilitarBotonesPaginacion();
             };
 
-            fieldCriterioBusqueda.SelectedIndex = 4;
+            fieldCriterioBusqueda.SelectedIndex = 0;
         }
 
         public void Mostrar() {
