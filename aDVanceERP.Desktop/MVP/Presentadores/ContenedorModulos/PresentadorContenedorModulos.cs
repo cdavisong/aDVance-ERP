@@ -36,6 +36,7 @@ public partial class PresentadorContenedorModulos : PresentadorBase<IVistaConten
 
         InicializarVistaMenuFinanzas();
         InicializarVistaGestionCuentasBancarias();
+        InicializarVistaGestionCajas();
 
         #endregion
 

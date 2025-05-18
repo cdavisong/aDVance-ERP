@@ -12,7 +12,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             : base(vista) { }
 
         protected override PresentadorTuplaCaja ObtenerValoresTupla(Caja objeto) {
-            var presentadorTupla = new PresentadorTuplaCaja(new VistaTuplaCaja, objeto);
+            var presentadorTupla = new PresentadorTuplaCaja(new VistaTuplaCaja(), objeto);
 
             presentadorTupla.Vista.Id = objeto.Id.ToString();
             presentadorTupla.Vista.FechaApertura = objeto.FechaApertura.ToString("yyyy-MM-dd");
