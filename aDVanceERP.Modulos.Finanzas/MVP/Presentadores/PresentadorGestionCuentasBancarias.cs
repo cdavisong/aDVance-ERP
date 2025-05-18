@@ -21,8 +21,7 @@ public class PresentadorGestionCuentasBancarias : PresentadorGestionBase<Present
         presentadorTupla.Vista.Alias = objeto.Alias ?? string.Empty;
         presentadorTupla.Vista.NumeroTarjeta = objeto.NumeroTarjeta ?? string.Empty;
         presentadorTupla.Vista.Moneda = objeto.Moneda.ToString();
-        presentadorTupla.Vista.NombrePropietario =
-            UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
+        presentadorTupla.Vista.NombrePropietario = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
         presentadorTupla.Vista.MostrarQR += delegate(object? sender, EventArgs args) {
             MostrarQrTupla?.Invoke(sender, args);
         };

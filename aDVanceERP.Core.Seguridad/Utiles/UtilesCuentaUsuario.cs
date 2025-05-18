@@ -12,6 +12,55 @@ public static class UtilesCuentaUsuario {
     public static string[]? PermisosUsuario { get; set; }
     public static string[]? PermisosUsuarioTelegram { get; set; }
 
+    private static async Task<T?> EjecutarConsultaAsync<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
+        using var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL());
+        try {
+            await conexion.OpenAsync().ConfigureAwait(false);
+        }
+        catch (MySqlException) {
+            throw new ExcepcionConexionServidorMySQL();
+        }
+
+        using var comando = new MySqlCommand(query, conexion);
+        comando.Parameters.AddRange(parametros);
+
+        using var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false);
+        return lectorDatos != null && await lectorDatos.ReadAsync().ConfigureAwait(false)
+            ? procesarResultado((MySqlDataReader)lectorDatos)
+            : default;
+    }
+
+    private static T? EjecutarConsulta<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
+        using var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL());
+        try {
+            conexion.Open();
+        }
+        catch (MySqlException) {
+            throw new ExcepcionConexionServidorMySQL();
+        }
+
+        using var comando = new MySqlCommand(query, conexion);
+        comando.Parameters.AddRange(parametros);
+
+        using var lectorDatos = comando.ExecuteReader();
+        return lectorDatos != null && lectorDatos.Read()
+            ? procesarResultado(lectorDatos)
+            : default;
+    }
+
+    public static async Task<long> ObtenerIdCuentaUsuario(string? nombreCuentaUsuario) {
+        const string query = "SELECT id_cuenta_usuario FROM adv__cuenta_usuario WHERE LOWER(nombre) LIKE LOWER(@NombreCuentaUsuario);";
+        var result = await EjecutarConsultaAsync(query, lector => lector.GetInt32("id_cuenta_usuario"),
+            new MySqlParameter("@NombreCuentaUsuario", $"%{nombreCuentaUsuario}%"));
+        return result != 0 ? result : 0;
+    }
+
+    public static string? ObtenerNombreCuentaUsuario(long idCuentaUsuario) {
+        const string query = "SELECT nombre FROM adv__cuenta_usuario WHERE id_cuenta_usuario = @IdCuentaUsuario;";
+        return EjecutarConsulta(query, lector => lector.GetString("nombre"),
+            new MySqlParameter("@IdCuentaUsuario", idCuentaUsuario));
+    }
+
     public static async Task<bool> EsTablaCuentasUsuarioVacia() {
         var tablaVacia = false;
 

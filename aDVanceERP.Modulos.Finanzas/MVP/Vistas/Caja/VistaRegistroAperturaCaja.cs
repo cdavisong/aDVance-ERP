@@ -26,7 +26,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => Size = value;
         }
 
-        public decimal MontoInicial {
+        public decimal SaldoInicial {
             get => decimal.TryParse(fieldMontoInicial.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total)
             ? total
             : 0;
