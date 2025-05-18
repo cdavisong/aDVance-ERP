@@ -29,12 +29,12 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaCaja));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -140,7 +140,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldFechaCierre.Size = new Size(118, 39);
             fieldFechaCierre.TabIndex = 35;
             fieldFechaCierre.Text = "fechaCierre";
-            fieldFechaCierre.TextAlign = ContentAlignment.MiddleLeft;
+            fieldFechaCierre.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // simboloPeso2
             // 
@@ -209,7 +209,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnEliminar.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage");
             btnEliminar.CustomImages.Image = (Image)resources.GetObject("resource.Image");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges13;
+            btnEliminar.CustomizableEdges = customizableEdges1;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.White;
             btnEliminar.Font = new Font("Segoe UI", 9.75F);
@@ -219,7 +219,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 11;
             // 
@@ -246,7 +246,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnEditar.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage1");
             btnEditar.CustomImages.Image = (Image)resources.GetObject("resource.Image1");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges15;
+            btnEditar.CustomizableEdges = customizableEdges3;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
             btnEditar.Font = new Font("Segoe UI", 9.75F);
@@ -255,7 +255,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnEditar.HoverState.FillColor = Color.PeachPuff;
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 9;
             // 
@@ -271,7 +271,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldFechaApertura.Size = new Size(118, 39);
             fieldFechaApertura.TabIndex = 4;
             fieldFechaApertura.Text = "fechaApertura";
-            fieldFechaApertura.TextAlign = ContentAlignment.MiddleLeft;
+            fieldFechaApertura.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldEstado
             // 
@@ -296,7 +296,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnDescargarInforme.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage2");
             btnDescargarInforme.CustomImages.Image = (Image)resources.GetObject("resource.Image2");
             btnDescargarInforme.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnDescargarInforme.CustomizableEdges = customizableEdges17;
+            btnDescargarInforme.CustomizableEdges = customizableEdges5;
             btnDescargarInforme.Dock = DockStyle.Fill;
             btnDescargarInforme.FillColor = Color.White;
             btnDescargarInforme.Font = new Font("Segoe UI", 9.75F);
@@ -305,7 +305,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnDescargarInforme.HoverState.FillColor = Color.PeachPuff;
             btnDescargarInforme.Location = new Point(1124, 3);
             btnDescargarInforme.Name = "btnDescargarInforme";
-            btnDescargarInforme.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnDescargarInforme.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnDescargarInforme.Size = new Size(34, 35);
             btnDescargarInforme.TabIndex = 36;
             // 
