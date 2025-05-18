@@ -57,7 +57,7 @@ namespace aDVanceERP.PatchDB {
 
                 // Crear tabla adv__caja
                 const string crearTablaCaja = @"
-                    CREATE TABLE IF NOT EXIST adv__caja (
+                    CREATE TABLE IF NOT EXISTS adv__caja (
                       id_caja int(11) NOT NULL,
                       estado enum('Inactiva','Abierta','Cerrada') NOT NULL DEFAULT 'Inactiva',
                       fecha_apertura datetime DEFAULT NULL,
@@ -73,7 +73,7 @@ namespace aDVanceERP.PatchDB {
 
                 // Crear tabla adv__movimiento_caja
                 const string crearTablaMovimientoCaja = @"
-                    CREATE TABLE IF NOT EXIST adv__movimiento_caja (
+                    CREATE TABLE IF NOT EXISTS adv__movimiento_caja (
                       id_movimiento_caja int(11) NOT NULL,
                       id_caja int(11) NOT NULL,
                       fecha datetime DEFAULT NULL,
