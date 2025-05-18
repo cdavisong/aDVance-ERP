@@ -20,7 +20,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         }
 
         public long Id { get; set; }
-        public EstadoCaja Estado { get; set; } = EstadoCaja.Inactiva;
+        public EstadoCaja Estado { get; set; } = EstadoCaja.Abierta;
         public DateTime FechaApertura { get; set; }
         public decimal SaldoInicial { get; set; }
         public decimal SaldoActual { get; set; }
