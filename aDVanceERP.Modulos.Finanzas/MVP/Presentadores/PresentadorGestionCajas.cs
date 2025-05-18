@@ -18,7 +18,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             presentadorTupla.Vista.FechaApertura = objeto.FechaApertura.ToString("yyyy-MM-dd");
             presentadorTupla.Vista.SaldoInicial = objeto.SaldoInicial.ToString("N", CultureInfo.InvariantCulture);
             presentadorTupla.Vista.SaldoActual = objeto.SaldoActual.ToString("N", CultureInfo.InvariantCulture);
-            presentadorTupla.Vista.FechaCierre = objeto.FechaCierre.ToString("yyyy-MM-dd");
+            presentadorTupla.Vista.FechaCierre = objeto.FechaCierre != DateTime.MinValue ? objeto.FechaCierre.ToString("yyyy-MM-dd") : "-";
             presentadorTupla.Vista.Estado = (int) objeto.Estado;
             presentadorTupla.Vista.NombreUsuario = UtilesCuentaUsuario.ObtenerNombreCuentaUsuario(objeto.IdCuentaUsuario) ?? string.Empty;
         

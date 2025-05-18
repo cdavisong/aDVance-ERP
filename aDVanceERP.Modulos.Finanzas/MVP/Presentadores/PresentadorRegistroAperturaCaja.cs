@@ -23,7 +23,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
                 Vista.SaldoInicial,
                 DateTime.MinValue,
                 UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0
-            );
+            ) {
+                Estado = EstadoCaja.Abierta
+            };
         }
     }
 }

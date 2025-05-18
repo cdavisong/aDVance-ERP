@@ -10,7 +10,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Caja objeto) {
-            return $"INSERT INTO adv__caja (fecha_apertura, saldo_inicial, saldo_actual, fecha_cierre, id_cuenta_usuario) VALUES ('{objeto.FechaApertura:yyyy-MM-dd HH:mm:ss}', {objeto.SaldoInicial}, {objeto.SaldoActual}, '{objeto.FechaCierre:yyyy-MM-dd HH:mm:ss}', {objeto.IdCuentaUsuario});";
+            return $"INSERT INTO adv__caja (fecha_apertura, saldo_inicial, saldo_actual, fecha_cierre, estado, id_cuenta_usuario) VALUES ('{objeto.FechaApertura:yyyy-MM-dd HH:mm:ss}', {objeto.SaldoInicial}, {objeto.SaldoActual}, '{objeto.FechaCierre:yyyy-MM-dd HH:mm:ss}', '{objeto.Estado}', {objeto.IdCuentaUsuario});";
         }
 
         public override string ComandoEditar(Caja objeto) {
