@@ -3,6 +3,8 @@ using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
+using System.Globalization;
+
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
     public class DatosCaja : RepositorioDatosBase<Caja, CriterioBusquedaCaja>, IRepositorioCaja {
         public override string ComandoCantidad() {
@@ -10,11 +12,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
         }
 
         public override string ComandoAdicionar(Caja objeto) {
-            return $"INSERT INTO adv__caja (fecha_apertura, saldo_inicial, saldo_actual, fecha_cierre, estado, id_cuenta_usuario) VALUES ('{objeto.FechaApertura:yyyy-MM-dd HH:mm:ss}', {objeto.SaldoInicial}, {objeto.SaldoActual}, '{objeto.FechaCierre:yyyy-MM-dd HH:mm:ss}', '{objeto.Estado}', {objeto.IdCuentaUsuario});";
+            return $"INSERT INTO adv__caja (fecha_apertura, saldo_inicial, saldo_actual, fecha_cierre, estado, id_cuenta_usuario) VALUES ('{objeto.FechaApertura:yyyy-MM-dd HH:mm:ss}', {objeto.SaldoInicial.ToString(CultureInfo.InvariantCulture)}, {objeto.SaldoActual.ToString(CultureInfo.InvariantCulture)}, '{objeto.FechaCierre:yyyy-MM-dd HH:mm:ss}', '{objeto.Estado}', {objeto.IdCuentaUsuario});";
         }
 
         public override string ComandoEditar(Caja objeto) {
-            return $"UPDATE adv__caja SET estado={(int) objeto.Estado}, saldo_actual={objeto.SaldoActual}, fecha_cierre='{objeto.FechaCierre:yyyy-MM-dd HH:mm:ss}' WHERE id_caja={objeto.Id};";
+            return $"UPDATE adv__caja SET estado='{objeto.Estado}', saldo_actual={objeto.SaldoActual.ToString(CultureInfo.InvariantCulture)}, fecha_cierre='{objeto.FechaCierre:yyyy-MM-dd HH:mm:ss}' WHERE id_caja={objeto.Id};";
         }
 
         public override string ComandoEliminar(long id) {
@@ -30,6 +32,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
                     return $"SELECT * FROM adv__caja WHERE id_caja={dato};";
                 case CriterioBusquedaCaja.FechaApertura:
                     return $"SELECT * FROM adv__caja WHERE DATE(fecha_apertura) = '{dato}';";
+                case CriterioBusquedaCaja.Estado:
+                    return $"SELECT * FROM adv__caja WHERE estado='{dato}';";
                 case CriterioBusquedaCaja.FechaCierre:
                     return $"SELECT * FROM adv__caja WHERE DATE(fecha_cierre) = '{dato}';";
                 default:

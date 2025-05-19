@@ -32,6 +32,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         Todos,
         Id,
         FechaApertura,
+        Estado,
         FechaCierre
     }
 
@@ -40,6 +41,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
             "Todas las cajas",
             "Identificador de BD",
             "Fecha de apertura",
+            "Estado de la caja",
             "Fecha de cierre"
         };
     }

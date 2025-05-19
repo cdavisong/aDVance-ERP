@@ -3,20 +3,21 @@ using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
+using System.Globalization;
+
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {    
     public class DatosMovimientoCaja : RepositorioDatosBase<MovimientoCaja, CriterioBusquedaMovimientoCaja>, IRepositorioMovimientoCaja {
-        // Implementar similar a la clase @DatosCaja
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_movimiento_caja) FROM adv__movimiento_caja;";
         }
 
         public override string ComandoAdicionar(MovimientoCaja objeto) {
             return $"""
-                    INSERT INTO adv__movimiento_caja (fecha, monto, tipo, concepto, id_pago, id_usuario, observaciones)
+                    INSERT INTO adv__movimiento_caja (id_caja, fecha, monto, tipo, concepto, id_pago, id_usuario, observaciones)
                     VALUES (
                         {objeto.IdCaja},
                         '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
-                        {objeto.Monto},
+                        {objeto.Monto.ToString(CultureInfo.InvariantCulture)},
                         '{objeto.Tipo}',
                         '{objeto.Concepto}',
                         {objeto.IdPago},
@@ -31,7 +32,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
                     UPDATE adv__movimiento_caja
                     SET
                         fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
-                        monto={objeto.Monto},
+                        monto={objeto.Monto.ToString(CultureInfo.InvariantCulture)},
                         tipo='{(int) objeto.Tipo}',
                         concepto='{objeto.Concepto}',
                         observaciones='{objeto.Observaciones}'
@@ -46,6 +47,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
         public override string ComandoObtener(CriterioBusquedaMovimientoCaja criterio, string dato) {
             return criterio switch {
                 CriterioBusquedaMovimientoCaja.Id => $"SELECT * FROM adv__movimiento_caja WHERE id_movimiento_caja={dato};",
+                CriterioBusquedaMovimientoCaja.IdPago => $"SELECT * FROM adv__movimiento_caja WHERE id_pago={dato};",
                 CriterioBusquedaMovimientoCaja.Fecha => $"SELECT * FROM adv__movimiento_caja WHERE DATE(fecha) = '{dato}';",
                 CriterioBusquedaMovimientoCaja.Tipo => $"SELECT * FROM adv__movimiento_caja WHERE tipo='{dato}';",
                 CriterioBusquedaMovimientoCaja.Concepto => $"SELECT * FROM adv__movimiento_caja WHERE concepto LIKE '%{dato}%';",
@@ -59,7 +61,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_caja")),
                 lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
                 lectorDatos.GetDecimal(lectorDatos.GetOrdinal("monto")),
-                (TipoMovimientoCaja) Enum.Parse(typeof(EstadoCaja), lectorDatos.GetString(lectorDatos.GetOrdinal("tipo"))),
+                (TipoMovimientoCaja) Enum.Parse(typeof(TipoMovimientoCaja), lectorDatos.GetString(lectorDatos.GetOrdinal("tipo"))),
                 lectorDatos.IsDBNull(lectorDatos.GetOrdinal("concepto")) ? null : lectorDatos.GetString(lectorDatos.GetOrdinal("concepto")),
                 lectorDatos.IsDBNull(lectorDatos.GetOrdinal("id_pago")) ? 0 : lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_pago")),
                 lectorDatos.IsDBNull(lectorDatos.GetOrdinal("id_usuario")) ? 0 : lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_usuario")),

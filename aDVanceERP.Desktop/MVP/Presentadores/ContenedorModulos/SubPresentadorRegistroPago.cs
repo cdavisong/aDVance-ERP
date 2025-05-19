@@ -1,8 +1,13 @@
-﻿using aDVanceERP.Desktop.Utiles;
+﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
+using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
+using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
+
+using System.Globalization;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
@@ -27,6 +32,7 @@ public partial class PresentadorContenedorModulos {
 
             _registroVentaArticulo.Vista.PagoEfectuado = true;
 
+            ActualizarMovimientoCaja(_registroPago.Vista.Pagos);
             ActualizarSeguimientoEntrega();
         };
     }
@@ -62,6 +68,56 @@ public partial class PresentadorContenedorModulos {
         }
 
         _registroPago?.Dispose();
+    }
+
+    private void ActualizarMovimientoCaja(List<string[]> pagos) {
+        using (var datosCaja = new DatosCaja()) {
+            var cajaActiva = datosCaja
+                .Obtener(CriterioBusquedaCaja.Estado, "Abierta")
+                .FirstOrDefault();
+
+            if (cajaActiva != null) {
+                using (var datosMovimientoCaja = new DatosMovimientoCaja()) {
+                    foreach (var pago in pagos) {
+                        var idPago = long.Parse(pago[1]);
+                        var tipoPago = pago[2];
+
+                        if (tipoPago != "Efectivo")
+                            continue;
+
+                        var montoPago = decimal.TryParse(pago[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0;
+                        var movimientoCaja = datosMovimientoCaja
+                            .Obtener(CriterioBusquedaMovimientoCaja.IdPago, idPago.ToString())
+                            .FirstOrDefault();
+
+                        if (movimientoCaja == null) {
+                            movimientoCaja = new MovimientoCaja(0,
+                                cajaActiva.Id,
+                                DateTime.Now,
+                                montoPago,
+                                TipoMovimientoCaja.Ingreso,
+                                "Venta",
+                                idPago,
+                                UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0,
+                                "Movimiento de caja por venta de artículo");
+
+                            datosMovimientoCaja.Adicionar(movimientoCaja);
+                        } else {
+                            movimientoCaja.Monto = montoPago;
+
+                            datosMovimientoCaja.Editar(movimientoCaja);
+                        }                            
+                    }
+
+                    // Actualizar el monto actual de la caja activa
+                    var movimientosCaja = datosMovimientoCaja.Obtener();
+                    var saldoActual = movimientosCaja.Sum(m => m.Monto);
+
+                    cajaActiva.SaldoActual = cajaActiva.SaldoInicial + saldoActual;
+                    datosCaja.Editar(cajaActiva);
+                }
+            }
+        }
     }
 
     private void ActualizarSeguimientoEntrega() {

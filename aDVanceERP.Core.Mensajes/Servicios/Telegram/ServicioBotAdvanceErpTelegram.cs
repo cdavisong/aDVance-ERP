@@ -22,6 +22,10 @@ namespace aDVanceERP.Core.Mensajes.Servicios.Telegram {
         public event EventHandler<MensajeTelegram>? MensajeRecibido;
 
         public async Task<bool> ConectarAsync() {
+            // Verificar conectividad antes de hacer la petición
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+                return false;            
+
             try {
                 _botCliente = new TelegramBotClient(_token);
                 _cts = new CancellationTokenSource();
