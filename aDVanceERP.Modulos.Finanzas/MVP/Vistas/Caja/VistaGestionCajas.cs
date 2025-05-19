@@ -94,6 +94,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                     BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
+            fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+                    e);
+            };
             btnCerrar.Click += delegate (object? sender, EventArgs e) {
                 Salir?.Invoke(sender, e);
                 Ocultar();
@@ -164,7 +168,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 HabilitarBotonesPaginacion();
             };
 
-            fieldCriterioBusqueda.SelectedIndex = 0;
+            fieldCriterioBusqueda.SelectedIndex = 2;
         }
 
         public void Mostrar() {
@@ -179,7 +183,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             PaginasTotales = 1;
             HabilitarBtnCierreCaja = false;
 
-            fieldCriterioBusqueda.SelectedIndex = 0;
+            fieldCriterioBusqueda.SelectedIndex = 2;
         }
 
         public void Ocultar() {
