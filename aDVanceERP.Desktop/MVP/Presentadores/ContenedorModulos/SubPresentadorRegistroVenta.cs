@@ -74,6 +74,12 @@ public partial class PresentadorContenedorModulos {
     }
 
     private async void MostrarVistaRegistroVentaArticulo(object? sender, EventArgs e) {
+        if (!UtilesCaja.ExisteCajaActiva()) {
+            CentroNotificaciones.Mostrar("No existen cajas activas en la sección de finanzas, debe registrar una apertura de caja antes de proceder con nuevas ventas", TipoNotificacion.Advertencia);
+
+            return;
+        }
+
         await InicializarVistaRegistroVentaArticulo();
 
         if (_registroVentaArticulo == null)
