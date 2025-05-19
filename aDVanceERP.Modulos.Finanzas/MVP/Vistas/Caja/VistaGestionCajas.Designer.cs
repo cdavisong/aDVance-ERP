@@ -47,10 +47,12 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
             layoutHerramientas = new TableLayoutPanel();
@@ -84,8 +86,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
             panelBotonesGestion = new Panel();
-            btnCierreCaja = new Guna2Button();
             btnRegistrar = new Guna2Button();
+            btnRegistrarMovimientoCaja = new Guna2Button();
+            btnCierreCaja = new Guna2Button();
             layoutVista.SuspendLayout();
             layoutHerramientas.SuspendLayout();
             panelDatosComplementariosBusqueda.SuspendLayout();
@@ -691,6 +694,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             // panelBotonesGestion
             // 
             panelBotonesGestion.Controls.Add(btnCierreCaja);
+            panelBotonesGestion.Controls.Add(btnRegistrarMovimientoCaja);
             panelBotonesGestion.Controls.Add(btnRegistrar);
             panelBotonesGestion.Dock = DockStyle.Fill;
             panelBotonesGestion.Location = new Point(50, 210);
@@ -699,6 +703,47 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             panelBotonesGestion.Padding = new Padding(3);
             panelBotonesGestion.Size = new Size(1286, 45);
             panelBotonesGestion.TabIndex = 36;
+            // 
+            // btnRegistrar
+            // 
+            btnRegistrar.Animated = true;
+            btnRegistrar.BackColor = Color.White;
+            btnRegistrar.BorderRadius = 18;
+            btnRegistrar.CustomizableEdges = customizableEdges23;
+            btnRegistrar.Dock = DockStyle.Left;
+            btnRegistrar.FillColor = Color.PeachPuff;
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnRegistrar.ForeColor = Color.Black;
+            btnRegistrar.Image = (Image)resources.GetObject("btnRegistrar.Image");
+            btnRegistrar.ImageOffset = new Point(-5, 0);
+            btnRegistrar.Location = new Point(3, 3);
+            btnRegistrar.Margin = new Padding(0);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            btnRegistrar.Size = new Size(320, 39);
+            btnRegistrar.TabIndex = 7;
+            btnRegistrar.Text = "Apertura de nueva caja";
+            // 
+            // btnRegistrarMovimientoCaja
+            // 
+            btnRegistrarMovimientoCaja.Animated = true;
+            btnRegistrarMovimientoCaja.BackColor = Color.White;
+            btnRegistrarMovimientoCaja.BorderRadius = 18;
+            btnRegistrarMovimientoCaja.CustomizableEdges = customizableEdges21;
+            btnRegistrarMovimientoCaja.Dock = DockStyle.Left;
+            btnRegistrarMovimientoCaja.FillColor = Color.PeachPuff;
+            btnRegistrarMovimientoCaja.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnRegistrarMovimientoCaja.ForeColor = Color.Black;
+            btnRegistrarMovimientoCaja.Image = (Image)resources.GetObject("btnRegistrarMovimientoCaja.Image");
+            btnRegistrarMovimientoCaja.ImageOffset = new Point(-5, 0);
+            btnRegistrarMovimientoCaja.Location = new Point(323, 3);
+            btnRegistrarMovimientoCaja.Margin = new Padding(0);
+            btnRegistrarMovimientoCaja.Name = "btnRegistrarMovimientoCaja";
+            btnRegistrarMovimientoCaja.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            btnRegistrarMovimientoCaja.Size = new Size(320, 39);
+            btnRegistrarMovimientoCaja.TabIndex = 9;
+            btnRegistrarMovimientoCaja.Text = "Registrar movimiento de caja";
+            btnRegistrarMovimientoCaja.Visible = false;
             // 
             // btnCierreCaja
             // 
@@ -712,34 +757,14 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnCierreCaja.ForeColor = Color.Black;
             btnCierreCaja.Image = (Image)resources.GetObject("btnCierreCaja.Image");
             btnCierreCaja.ImageOffset = new Point(-5, 0);
-            btnCierreCaja.Location = new Point(323, 3);
+            btnCierreCaja.Location = new Point(643, 3);
             btnCierreCaja.Margin = new Padding(0);
             btnCierreCaja.Name = "btnCierreCaja";
             btnCierreCaja.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnCierreCaja.Size = new Size(320, 39);
-            btnCierreCaja.TabIndex = 8;
+            btnCierreCaja.TabIndex = 10;
             btnCierreCaja.Text = "Cierre de la caja seleccionada";
             btnCierreCaja.Visible = false;
-            // 
-            // btnRegistrar
-            // 
-            btnRegistrar.Animated = true;
-            btnRegistrar.BackColor = Color.White;
-            btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges21;
-            btnRegistrar.Dock = DockStyle.Left;
-            btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnRegistrar.ForeColor = Color.Black;
-            btnRegistrar.Image = (Image)resources.GetObject("btnRegistrar.Image");
-            btnRegistrar.ImageOffset = new Point(-5, 0);
-            btnRegistrar.Location = new Point(3, 3);
-            btnRegistrar.Margin = new Padding(0);
-            btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            btnRegistrar.Size = new Size(320, 39);
-            btnRegistrar.TabIndex = 7;
-            btnRegistrar.Text = "Apertura de nueva caja";
             // 
             // VistaGestionCajas
             // 
@@ -803,5 +828,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         private Label fieldTituloEstado;
         private Label fieldNombreCuentaUsuario;
         private Guna2Button btnCierreCaja;
+        private Guna2Button btnRegistrarMovimientoCaja;
     }
 }

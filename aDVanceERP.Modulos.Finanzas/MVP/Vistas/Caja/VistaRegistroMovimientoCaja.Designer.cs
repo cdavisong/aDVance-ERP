@@ -1,13 +1,9 @@
-﻿using Guna.UI2.WinForms;
-
-using System.ComponentModel;
-
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
-    partial class VistaRegistroCuentaBancaria {
+﻿namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
+    partial class VistaRegistroMovimientoCaja {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -27,8 +23,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaRegistroCuentaBancaria));
+            components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaRegistroMovimientoCaja));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -43,35 +39,33 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            formatoBase = new Guna2BorderlessForm(components);
+            formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
             fieldIcono = new PictureBox();
-            fieldNombrePropietario = new Guna2ComboBox();
             fieldSubtitulo = new Label();
+            fieldMontoInicial = new Guna.UI2.WinForms.Guna2TextBox();
             layoutTitulo = new TableLayoutPanel();
-            btnCerrar = new Guna2Button();
+            btnCerrar = new Guna.UI2.WinForms.Guna2Button();
             fieldTitulo = new Label();
-            fieldTituloNombrePropietario = new Label();
-            fieldAlias = new Guna2TextBox();
-            layoutTarjetaMoneda = new TableLayoutPanel();
-            fieldTipoMoneda = new Guna2ComboBox();
-            fieldNumeroCuenta = new Guna2TextBox();
+            fieldTituloTipoMovimiento = new Label();
+            fieldTipoMovimiento = new Guna.UI2.WinForms.Guna2ComboBox();
+            fieldMotivo = new Guna.UI2.WinForms.Guna2TextBox();
+            fieldObservaciones = new Guna.UI2.WinForms.Guna2TextBox();
             layoutBotones = new TableLayoutPanel();
-            btnSalir = new Guna2Button();
-            btnRegistrar = new Guna2Button();
+            btnSalir = new Guna.UI2.WinForms.Guna2Button();
+            btnRegistrar = new Guna.UI2.WinForms.Guna2Button();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
-            ((ISupportInitialize)fieldIcono).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)fieldIcono).BeginInit();
             layoutTitulo.SuspendLayout();
-            layoutTarjetaMoneda.SuspendLayout();
             layoutBotones.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
             // 
             formatoBase.AnimateWindow = true;
-            formatoBase.AnimationType = Guna2BorderlessForm.AnimateWindowType.AW_HOR_NEGATIVE;
+            formatoBase.AnimationType = Guna.UI2.WinForms.Guna2BorderlessForm.AnimateWindowType.AW_HOR_NEGATIVE;
             formatoBase.ContainerControl = this;
             formatoBase.DockIndicatorTransparencyValue = 0.6D;
             formatoBase.DragForm = false;
@@ -94,7 +88,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 65F));
             layoutBase.Size = new Size(500, 685);
-            layoutBase.TabIndex = 2;
+            layoutBase.TabIndex = 3;
             // 
             // layoutVista
             // 
@@ -105,34 +99,31 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.Controls.Add(fieldIcono, 1, 1);
-            layoutVista.Controls.Add(fieldNombrePropietario, 2, 9);
             layoutVista.Controls.Add(fieldSubtitulo, 2, 2);
+            layoutVista.Controls.Add(fieldMontoInicial, 2, 4);
             layoutVista.Controls.Add(layoutTitulo, 2, 1);
-            layoutVista.Controls.Add(fieldTituloNombrePropietario, 2, 8);
-            layoutVista.Controls.Add(fieldAlias, 2, 4);
-            layoutVista.Controls.Add(layoutTarjetaMoneda, 2, 6);
+            layoutVista.Controls.Add(fieldTituloTipoMovimiento, 2, 6);
+            layoutVista.Controls.Add(fieldTipoMovimiento, 2, 7);
+            layoutVista.Controls.Add(fieldMotivo, 2, 9);
+            layoutVista.Controls.Add(fieldObservaciones, 2, 11);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(13, 0);
             layoutVista.Margin = new Padding(3, 0, 0, 0);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 12;
+            layoutVista.RowCount = 14;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.Size = new Size(487, 620);
             layoutVista.TabIndex = 0;
@@ -149,41 +140,52 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             fieldIcono.TabIndex = 0;
             fieldIcono.TabStop = false;
             // 
-            // fieldNombrePropietario
-            // 
-            fieldNombrePropietario.Animated = true;
-            fieldNombrePropietario.BackColor = Color.Transparent;
-            fieldNombrePropietario.BorderColor = Color.Gainsboro;
-            fieldNombrePropietario.BorderRadius = 16;
-            fieldNombrePropietario.CustomizableEdges = customizableEdges1;
-            fieldNombrePropietario.Dock = DockStyle.Fill;
-            fieldNombrePropietario.DrawMode = DrawMode.OwnerDrawFixed;
-            fieldNombrePropietario.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldNombrePropietario.FocusedColor = Color.SandyBrown;
-            fieldNombrePropietario.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombrePropietario.Font = new Font("Segoe UI", 11.25F);
-            fieldNombrePropietario.ForeColor = Color.Black;
-            fieldNombrePropietario.ItemHeight = 29;
-            fieldNombrePropietario.Location = new Point(55, 280);
-            fieldNombrePropietario.Margin = new Padding(5);
-            fieldNombrePropietario.Name = "fieldNombrePropietario";
-            fieldNombrePropietario.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            fieldNombrePropietario.Size = new Size(407, 35);
-            fieldNombrePropietario.TabIndex = 32;
-            fieldNombrePropietario.TextOffset = new Point(10, 0);
-            // 
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
             fieldSubtitulo.Font = new Font("Segoe UI", 11.25F);
-            fieldSubtitulo.ForeColor = Color.DimGray;
+            fieldSubtitulo.ForeColor = Color.Gray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 70);
             fieldSubtitulo.Margin = new Padding(5, 5, 1, 1);
             fieldSubtitulo.Name = "fieldSubtitulo";
             fieldSubtitulo.Size = new Size(411, 39);
             fieldSubtitulo.TabIndex = 0;
-            fieldSubtitulo.Text = "Registro";
+            fieldSubtitulo.Text = "Movimiento de efectivo en caja con fecha 00/00/0000";
+            // 
+            // fieldMontoInicial
+            // 
+            fieldMontoInicial.Animated = true;
+            fieldMontoInicial.AutoRoundedCorners = true;
+            fieldMontoInicial.BorderColor = Color.Gainsboro;
+            fieldMontoInicial.BorderRadius = 16;
+            fieldMontoInicial.Cursor = Cursors.IBeam;
+            fieldMontoInicial.CustomizableEdges = customizableEdges1;
+            fieldMontoInicial.DefaultText = "";
+            fieldMontoInicial.DisabledState.BorderColor = Color.White;
+            fieldMontoInicial.DisabledState.ForeColor = Color.DimGray;
+            fieldMontoInicial.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldMontoInicial.Dock = DockStyle.Fill;
+            fieldMontoInicial.FocusedState.BorderColor = Color.SandyBrown;
+            fieldMontoInicial.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldMontoInicial.ForeColor = Color.Black;
+            fieldMontoInicial.HoverState.BorderColor = Color.SandyBrown;
+            fieldMontoInicial.IconLeftOffset = new Point(10, 0);
+            fieldMontoInicial.IconRight = (Image)resources.GetObject("fieldMontoInicial.IconRight");
+            fieldMontoInicial.IconRightOffset = new Point(6, 0);
+            fieldMontoInicial.IconRightSize = new Size(12, 12);
+            fieldMontoInicial.Location = new Point(55, 135);
+            fieldMontoInicial.Margin = new Padding(5);
+            fieldMontoInicial.Name = "fieldMontoInicial";
+            fieldMontoInicial.PasswordChar = '\0';
+            fieldMontoInicial.PlaceholderForeColor = Color.DimGray;
+            fieldMontoInicial.PlaceholderText = "Monto de dinero";
+            fieldMontoInicial.SelectedText = "";
+            fieldMontoInicial.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldMontoInicial.Size = new Size(407, 35);
+            fieldMontoInicial.TabIndex = 1;
+            fieldMontoInicial.TextAlign = HorizontalAlignment.Right;
+            fieldMontoInicial.TextOffset = new Point(5, 0);
             // 
             // layoutTitulo
             // 
@@ -230,123 +232,110 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             fieldTitulo.Name = "fieldTitulo";
             fieldTitulo.Size = new Size(361, 45);
             fieldTitulo.TabIndex = 0;
-            fieldTitulo.Text = "Cuenta bancaia";
+            fieldTitulo.Text = "Movimiento de caja";
             fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // fieldTituloNombrePropietario
+            // fieldTituloTipoMovimiento
             // 
-            fieldTituloNombrePropietario.Dock = DockStyle.Fill;
-            fieldTituloNombrePropietario.Font = new Font("Segoe UI", 11.25F);
-            fieldTituloNombrePropietario.ForeColor = Color.DimGray;
-            fieldTituloNombrePropietario.Image = (Image)resources.GetObject("fieldTituloNombrePropietario.Image");
-            fieldTituloNombrePropietario.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloNombrePropietario.ImeMode = ImeMode.NoControl;
-            fieldTituloNombrePropietario.Location = new Point(65, 245);
-            fieldTituloNombrePropietario.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloNombrePropietario.Name = "fieldTituloNombrePropietario";
-            fieldTituloNombrePropietario.Size = new Size(399, 27);
-            fieldTituloNombrePropietario.TabIndex = 33;
-            fieldTituloNombrePropietario.Text = "      Propietario :";
-            fieldTituloNombrePropietario.TextAlign = ContentAlignment.MiddleLeft;
+            fieldTituloTipoMovimiento.Dock = DockStyle.Fill;
+            fieldTituloTipoMovimiento.Font = new Font("Segoe UI", 11.25F);
+            fieldTituloTipoMovimiento.ForeColor = Color.DimGray;
+            fieldTituloTipoMovimiento.Image = (Image)resources.GetObject("fieldTituloTipoMovimiento.Image");
+            fieldTituloTipoMovimiento.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloTipoMovimiento.ImeMode = ImeMode.NoControl;
+            fieldTituloTipoMovimiento.Location = new Point(65, 190);
+            fieldTituloTipoMovimiento.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloTipoMovimiento.Name = "fieldTituloTipoMovimiento";
+            fieldTituloTipoMovimiento.Size = new Size(399, 27);
+            fieldTituloTipoMovimiento.TabIndex = 34;
+            fieldTituloTipoMovimiento.Text = "      Tipo de movimiento :";
+            fieldTituloTipoMovimiento.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // fieldAlias
+            // fieldTipoMovimiento
             // 
-            fieldAlias.Animated = true;
-            fieldAlias.BorderColor = Color.Gainsboro;
-            fieldAlias.BorderRadius = 16;
-            fieldAlias.Cursor = Cursors.IBeam;
-            fieldAlias.CustomizableEdges = customizableEdges5;
-            fieldAlias.DefaultText = "";
-            fieldAlias.DisabledState.BorderColor = Color.White;
-            fieldAlias.DisabledState.ForeColor = Color.DimGray;
-            fieldAlias.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldAlias.Dock = DockStyle.Fill;
-            fieldAlias.FocusedState.BorderColor = Color.SandyBrown;
-            fieldAlias.Font = new Font("Segoe UI", 11.25F);
-            fieldAlias.ForeColor = Color.Black;
-            fieldAlias.HoverState.BorderColor = Color.SandyBrown;
-            fieldAlias.IconLeft = (Image)resources.GetObject("fieldAlias.IconLeft");
-            fieldAlias.IconLeftOffset = new Point(10, 0);
-            fieldAlias.Location = new Point(55, 135);
-            fieldAlias.Margin = new Padding(5);
-            fieldAlias.Name = "fieldAlias";
-            fieldAlias.PasswordChar = '\0';
-            fieldAlias.PlaceholderForeColor = Color.DimGray;
-            fieldAlias.PlaceholderText = "Alias o identificador";
-            fieldAlias.SelectedText = "";
-            fieldAlias.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            fieldAlias.Size = new Size(407, 35);
-            fieldAlias.TabIndex = 35;
-            fieldAlias.TextOffset = new Point(5, 0);
+            fieldTipoMovimiento.Animated = true;
+            fieldTipoMovimiento.BackColor = Color.Transparent;
+            fieldTipoMovimiento.BorderColor = Color.Gainsboro;
+            fieldTipoMovimiento.BorderRadius = 16;
+            fieldTipoMovimiento.CustomizableEdges = customizableEdges5;
+            fieldTipoMovimiento.Dock = DockStyle.Fill;
+            fieldTipoMovimiento.DrawMode = DrawMode.OwnerDrawFixed;
+            fieldTipoMovimiento.DropDownStyle = ComboBoxStyle.DropDownList;
+            fieldTipoMovimiento.FocusedColor = Color.SandyBrown;
+            fieldTipoMovimiento.FocusedState.BorderColor = Color.SandyBrown;
+            fieldTipoMovimiento.Font = new Font("Segoe UI", 11.25F);
+            fieldTipoMovimiento.ForeColor = Color.Black;
+            fieldTipoMovimiento.ItemHeight = 29;
+            fieldTipoMovimiento.Items.AddRange(new object[] { "Ingreso", "Egreso" });
+            fieldTipoMovimiento.Location = new Point(55, 225);
+            fieldTipoMovimiento.Margin = new Padding(5);
+            fieldTipoMovimiento.Name = "fieldTipoMovimiento";
+            fieldTipoMovimiento.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldTipoMovimiento.Size = new Size(407, 35);
+            fieldTipoMovimiento.StartIndex = 0;
+            fieldTipoMovimiento.TabIndex = 35;
+            fieldTipoMovimiento.TextOffset = new Point(10, 0);
             // 
-            // layoutTarjetaMoneda
+            // fieldMotivo
             // 
-            layoutTarjetaMoneda.ColumnCount = 2;
-            layoutTarjetaMoneda.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutTarjetaMoneda.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 95F));
-            layoutTarjetaMoneda.Controls.Add(fieldTipoMoneda, 1, 0);
-            layoutTarjetaMoneda.Controls.Add(fieldNumeroCuenta, 0, 0);
-            layoutTarjetaMoneda.Dock = DockStyle.Fill;
-            layoutTarjetaMoneda.Location = new Point(50, 185);
-            layoutTarjetaMoneda.Margin = new Padding(0);
-            layoutTarjetaMoneda.Name = "layoutTarjetaMoneda";
-            layoutTarjetaMoneda.RowCount = 1;
-            layoutTarjetaMoneda.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutTarjetaMoneda.Size = new Size(417, 45);
-            layoutTarjetaMoneda.TabIndex = 31;
+            fieldMotivo.Animated = true;
+            fieldMotivo.BorderColor = Color.Gainsboro;
+            fieldMotivo.BorderRadius = 16;
+            fieldMotivo.Cursor = Cursors.IBeam;
+            fieldMotivo.CustomizableEdges = customizableEdges7;
+            fieldMotivo.DefaultText = "";
+            fieldMotivo.DisabledState.BorderColor = Color.White;
+            fieldMotivo.DisabledState.ForeColor = Color.DimGray;
+            fieldMotivo.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldMotivo.Dock = DockStyle.Fill;
+            fieldMotivo.FocusedState.BorderColor = Color.SandyBrown;
+            fieldMotivo.Font = new Font("Segoe UI", 11.25F);
+            fieldMotivo.ForeColor = Color.Black;
+            fieldMotivo.HoverState.BorderColor = Color.SandyBrown;
+            fieldMotivo.IconLeft = (Image)resources.GetObject("fieldMotivo.IconLeft");
+            fieldMotivo.IconLeftOffset = new Point(10, 0);
+            fieldMotivo.Location = new Point(55, 280);
+            fieldMotivo.Margin = new Padding(5);
+            fieldMotivo.Name = "fieldMotivo";
+            fieldMotivo.PasswordChar = '\0';
+            fieldMotivo.PlaceholderForeColor = Color.DimGray;
+            fieldMotivo.PlaceholderText = "Concepto del movimiento";
+            fieldMotivo.SelectedText = "";
+            fieldMotivo.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            fieldMotivo.Size = new Size(407, 35);
+            fieldMotivo.TabIndex = 36;
+            fieldMotivo.TextOffset = new Point(5, 0);
             // 
-            // fieldTipoMoneda
+            // fieldObservaciones
             // 
-            fieldTipoMoneda.Animated = true;
-            fieldTipoMoneda.BackColor = Color.Transparent;
-            fieldTipoMoneda.BorderColor = Color.Gainsboro;
-            fieldTipoMoneda.BorderRadius = 16;
-            fieldTipoMoneda.CustomizableEdges = customizableEdges7;
-            fieldTipoMoneda.Dock = DockStyle.Fill;
-            fieldTipoMoneda.DrawMode = DrawMode.OwnerDrawFixed;
-            fieldTipoMoneda.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldTipoMoneda.FocusedColor = Color.SandyBrown;
-            fieldTipoMoneda.FocusedState.BorderColor = Color.SandyBrown;
-            fieldTipoMoneda.Font = new Font("Segoe UI", 11.25F);
-            fieldTipoMoneda.ForeColor = Color.Black;
-            fieldTipoMoneda.ItemHeight = 29;
-            fieldTipoMoneda.Location = new Point(327, 5);
-            fieldTipoMoneda.Margin = new Padding(5);
-            fieldTipoMoneda.Name = "fieldTipoMoneda";
-            fieldTipoMoneda.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldTipoMoneda.Size = new Size(85, 35);
-            fieldTipoMoneda.TabIndex = 34;
-            fieldTipoMoneda.TextOffset = new Point(10, 0);
-            // 
-            // fieldNumeroCuenta
-            // 
-            fieldNumeroCuenta.Animated = true;
-            fieldNumeroCuenta.BorderColor = Color.Gainsboro;
-            fieldNumeroCuenta.BorderRadius = 16;
-            fieldNumeroCuenta.Cursor = Cursors.IBeam;
-            fieldNumeroCuenta.CustomizableEdges = customizableEdges9;
-            fieldNumeroCuenta.DefaultText = "";
-            fieldNumeroCuenta.DisabledState.BorderColor = Color.White;
-            fieldNumeroCuenta.DisabledState.ForeColor = Color.DimGray;
-            fieldNumeroCuenta.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldNumeroCuenta.Dock = DockStyle.Fill;
-            fieldNumeroCuenta.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNumeroCuenta.Font = new Font("Segoe UI", 11.25F);
-            fieldNumeroCuenta.ForeColor = Color.Black;
-            fieldNumeroCuenta.HoverState.BorderColor = Color.SandyBrown;
-            fieldNumeroCuenta.IconLeft = (Image)resources.GetObject("fieldNumeroCuenta.IconLeft");
-            fieldNumeroCuenta.IconLeftOffset = new Point(10, 0);
-            fieldNumeroCuenta.Location = new Point(5, 5);
-            fieldNumeroCuenta.Margin = new Padding(5);
-            fieldNumeroCuenta.Name = "fieldNumeroCuenta";
-            fieldNumeroCuenta.PasswordChar = '\0';
-            fieldNumeroCuenta.PlaceholderForeColor = Color.DimGray;
-            fieldNumeroCuenta.PlaceholderText = "Tarjeta o cuenta del destinatario";
-            fieldNumeroCuenta.SelectedText = "";
-            fieldNumeroCuenta.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            fieldNumeroCuenta.Size = new Size(312, 35);
-            fieldNumeroCuenta.TabIndex = 36;
-            fieldNumeroCuenta.TextOffset = new Point(5, 0);
+            fieldObservaciones.Animated = true;
+            fieldObservaciones.BorderColor = Color.Gainsboro;
+            fieldObservaciones.BorderRadius = 16;
+            fieldObservaciones.Cursor = Cursors.IBeam;
+            fieldObservaciones.CustomizableEdges = customizableEdges9;
+            fieldObservaciones.DefaultText = "";
+            fieldObservaciones.DisabledState.BorderColor = Color.White;
+            fieldObservaciones.DisabledState.ForeColor = Color.DimGray;
+            fieldObservaciones.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldObservaciones.Dock = DockStyle.Fill;
+            fieldObservaciones.FocusedState.BorderColor = Color.SandyBrown;
+            fieldObservaciones.Font = new Font("Segoe UI", 11.25F);
+            fieldObservaciones.ForeColor = Color.Black;
+            fieldObservaciones.HoverState.BorderColor = Color.SandyBrown;
+            fieldObservaciones.IconLeft = (Image)resources.GetObject("fieldObservaciones.IconLeft");
+            fieldObservaciones.IconLeftOffset = new Point(10, -11);
+            fieldObservaciones.Location = new Point(55, 335);
+            fieldObservaciones.Margin = new Padding(5);
+            fieldObservaciones.Multiline = true;
+            fieldObservaciones.Name = "fieldObservaciones";
+            fieldObservaciones.PasswordChar = '\0';
+            fieldObservaciones.PlaceholderForeColor = Color.DimGray;
+            fieldObservaciones.PlaceholderText = "Observaciones";
+            fieldObservaciones.SelectedText = "";
+            fieldObservaciones.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            fieldObservaciones.Size = new Size(407, 62);
+            fieldObservaciones.TabIndex = 37;
+            fieldObservaciones.TextOffset = new Point(5, 0);
             // 
             // layoutBotones
             // 
@@ -366,7 +355,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             layoutBotones.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutBotones.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutBotones.Size = new Size(487, 65);
-            layoutBotones.TabIndex = 4;
+            layoutBotones.TabIndex = 2;
             // 
             // btnSalir
             // 
@@ -403,48 +392,46 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria {
             btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 15;
-            btnRegistrar.Text = "Registrar cuenta";
+            btnRegistrar.Text = "Registrar movimiento";
             // 
-            // VistaRegistroCuentaBancaria
+            // VistaRegistroMovimientoCaja
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(500, 685);
             Controls.Add(layoutBase);
             Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 5, 4, 5);
-            Name = "VistaRegistroCuentaBancaria";
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "VistaRegistroMovimientoCaja";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
-            Text = "VistaRegistroCuenta";
+            Text = "VistaRegistroMovimientoCaja";
             layoutBase.ResumeLayout(false);
             layoutVista.ResumeLayout(false);
-            ((ISupportInitialize)fieldIcono).EndInit();
+            ((System.ComponentModel.ISupportInitialize)fieldIcono).EndInit();
             layoutTitulo.ResumeLayout(false);
-            layoutTarjetaMoneda.ResumeLayout(false);
             layoutBotones.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Guna2BorderlessForm formatoBase;
+        private Guna.UI2.WinForms.Guna2BorderlessForm formatoBase;
         private TableLayoutPanel layoutBase;
         private TableLayoutPanel layoutVista;
         private PictureBox fieldIcono;
         private Label fieldSubtitulo;
         private TableLayoutPanel layoutTitulo;
-        private Guna2Button btnCerrar;
+        private Guna.UI2.WinForms.Guna2Button btnCerrar;
         private Label fieldTitulo;
         private TableLayoutPanel layoutBotones;
-        private Guna2Button btnSalir;
-        private Guna2Button btnRegistrar;
-        private Guna2ComboBox fieldNombrePropietario;
-        private TableLayoutPanel layoutTarjetaMoneda;
-        private Label fieldTituloNombrePropietario;
-        private Guna2ComboBox fieldTipoMoneda;
-        private Guna2TextBox fieldAlias;
-        private Guna2TextBox fieldNumeroCuenta;
+        private Guna.UI2.WinForms.Guna2Button btnSalir;
+        private Guna.UI2.WinForms.Guna2Button btnRegistrar;
+        private Guna.UI2.WinForms.Guna2TextBox fieldMontoInicial;
+        private Label fieldTituloTipoMovimiento;
+        private Guna.UI2.WinForms.Guna2ComboBox fieldTipoMovimiento;
+        private Guna.UI2.WinForms.Guna2TextBox fieldMotivo;
+        private Guna.UI2.WinForms.Guna2TextBox fieldObservaciones;
     }
 }

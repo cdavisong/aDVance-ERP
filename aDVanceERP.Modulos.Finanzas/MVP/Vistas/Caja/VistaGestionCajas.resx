@@ -230,6 +230,17 @@
         NWyM1LsZMAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="btnRegistrarMovimientoCaja.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAFLSURBVDhP1ZRLK0dRFMV/E4/MPIqZr8CUqSmRUsojZEIeM0zkCzAzpTBQRpKQgaHI0Acgz6IY
+        GSilVetfp3OPe+9/aNWudfdae3XrnH0gixqgKfhu+YPLI28hJoFvYB84A36AXZf4qTV5JuLhFGaBF+AQ
+        OAcGHXJirp40eeTNRZuHX2MhAXnkbY2FCpqBZ+ABeIrFBOR5dDXGojDtsAXgNhYTkGfRgVOxKKwBF8AM
+        8AXcFJQ88mpGsxlUAtuBpZIlb2FgBQPAnPk4MGY+D/QHvtKBGz5FYQ/YMdfdXA98pQO1BQ3m9UCduXrh
+        hpQO3AauzI+BI/NrYCvwlQ7sBHrMu4Euc/U6Al9uoO7UQZWlmWTgKnAHbFZZ957NYBh48wrG6AN646af
+        s3dgKBaEWh/CZ2IrPlxxX97LvHdRV2M0sRErwHKiP+If+Uf4BeoZct3j0p29AAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="btnRegistrar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAGVJREFUOE9j
