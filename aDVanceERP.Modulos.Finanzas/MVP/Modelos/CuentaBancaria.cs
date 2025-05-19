@@ -4,7 +4,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 
 public enum TipoMoneda {
     CUP,
-    CUC,
+    MLC,
     USD
 }
 

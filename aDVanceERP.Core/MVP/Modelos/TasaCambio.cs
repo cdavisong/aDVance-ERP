@@ -1,4 +1,4 @@
-﻿namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
+﻿namespace aDVanceERP.Core.MVP.Modelos {
     public class TasaCambio {
         public string? NombreDivisa { get; set; }
         public decimal Valor { get; set; }

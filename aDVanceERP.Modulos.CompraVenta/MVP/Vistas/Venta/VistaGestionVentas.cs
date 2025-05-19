@@ -212,6 +212,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                 fieldDatoBusqueda.Focus();
             }
 
+            btnDescargar.Enabled = CriterioBusqueda == CriterioBusquedaVenta.Fecha;
             fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaVenta.Fecha &&
                                         fieldCriterioBusqueda.SelectedIndex != 0;
             fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaVenta.Fecha &&

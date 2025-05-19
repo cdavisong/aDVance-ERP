@@ -76,6 +76,7 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
     }
 
     public void CargarTiposMoneda(string[] tiposMoneda) {
+        fieldTipoMoneda.Items.Clear();
         fieldTipoMoneda.Items.AddRange(tiposMoneda);
         fieldTipoMoneda.SelectedIndex = 0;
     }

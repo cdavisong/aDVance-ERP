@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-
+﻿using aDVanceERP.Core.MVP.Modelos;
 using HtmlAgilityPack;
+using System.Globalization;
 
-namespace aDVanceERP.Modulos.Finanzas.Utiles {
+namespace aDVanceERP.Core.Utiles {
     public static class UtilesCambioMoneda {
         private static readonly ScraperDivisas _scraper = new ScraperDivisas();
 
@@ -15,12 +15,8 @@ namespace aDVanceERP.Modulos.Finanzas.Utiles {
     }
 
     public class ScraperDivisas {
-        private readonly HttpClient _clienteHttp;
+        private HttpClient? _clienteHttp;
         private const string UrlBase = "https://eltoque.com/precio-del-mlc-en-cuba-hoy";
-
-        public ScraperDivisas() {
-            _clienteHttp = new HttpClient();
-        }
 
         public async Task<List<TasaCambio>> ObtenerTasasCambioAsync() {
             var tasas = new List<TasaCambio>();
@@ -29,8 +25,9 @@ namespace aDVanceERP.Modulos.Finanzas.Utiles {
                 // Verificar conectividad antes de hacer la petición
                 if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                     throw new InvalidOperationException("No hay conexión a internet disponible.");
-                
+
                 // Configurar timeout para evitar esperas prolongadas
+                _clienteHttp = new HttpClient();
                 _clienteHttp.Timeout = TimeSpan.FromSeconds(30);
 
                 var html = await _clienteHttp.GetStringAsync(UrlBase).ConfigureAwait(false);
@@ -65,7 +62,10 @@ namespace aDVanceERP.Modulos.Finanzas.Utiles {
                 if (!tasas.Any()) {
                     throw new Exception("No se pudieron parsear tasas válidas.");
                 }
-            } catch (HttpRequestException httpEx) {
+
+                _clienteHttp.Dispose();
+            }
+            catch (HttpRequestException httpEx) {
                 // Errores específicos de HTTP
                 string mensajeError = httpEx.StatusCode switch {
                     System.Net.HttpStatusCode.NotFound => "El recurso solicitado no fue encontrado (404).",
@@ -77,13 +77,16 @@ namespace aDVanceERP.Modulos.Finanzas.Utiles {
 
                 Console.WriteLine($"Error HTTP: {mensajeError}");
                 throw; // Relanzar para manejo superior si es necesario
-            } catch (TaskCanceledException) {
+            }
+            catch (TaskCanceledException) {
                 Console.WriteLine("La solicitud fue cancelada por timeout.");
                 throw;
-            } catch (InvalidOperationException invOpEx) {
+            }
+            catch (InvalidOperationException invOpEx) {
                 Console.WriteLine($"Error de operación: {invOpEx.Message}");
                 throw;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 Console.WriteLine($"Error inesperado: {ex.Message}");
                 throw;
             }
@@ -94,8 +97,8 @@ namespace aDVanceERP.Modulos.Finanzas.Utiles {
         private TasaCambio? ParsearFilaTasa(HtmlNode fila) {
             try {
                 var celdas = fila.SelectNodes(".//td");
-                
-                if (celdas == null || celdas.Count < 3) 
+
+                if (celdas == null || celdas.Count < 3)
                     return null;
 
                 var nombreDivisa = celdas[0].InnerText.Trim();
@@ -113,7 +116,8 @@ namespace aDVanceERP.Modulos.Finanzas.Utiles {
 
                     if (nodoCambio.Attributes["class"]?.Value.Contains("change-plus") == true) {
                         direccion = DireccionCambio.Aumento;
-                    } else if (nodoCambio.Attributes["class"]?.Value.Contains("change-minus") == true) {
+                    }
+                    else if (nodoCambio.Attributes["class"]?.Value.Contains("change-minus") == true) {
                         direccion = DireccionCambio.Disminucion;
                     }
                 }
@@ -125,15 +129,16 @@ namespace aDVanceERP.Modulos.Finanzas.Utiles {
                     MontoCambio = montoCambio,
                     UltimaActualizacion = DateTime.Now
                 };
-            } catch {
+            }
+            catch {
                 return null;
             }
         }
 
         private decimal ParsearDecimal(string valor) {
-            if (decimal.TryParse(valor, out decimal resultado))
+            if (decimal.TryParse(valor, NumberFormatInfo.InvariantInfo, out decimal resultado))
                 return resultado;
-            
+
             return 0;
         }
     }

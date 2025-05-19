@@ -1,6 +1,12 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+
+public enum TipoMoneda {
+    CUP,
+    MLC,
+    USD
+}
 
 public class Pago : IObjetoUnico {
     public Pago() { }

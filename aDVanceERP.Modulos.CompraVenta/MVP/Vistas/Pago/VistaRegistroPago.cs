@@ -1,7 +1,10 @@
 ﻿using System.Globalization;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago; 
@@ -9,6 +12,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
 public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestionPagos {
     private bool _modoEdicion;
     private decimal _total;
+    private TasaCambio? _tasaCambio;
 
     public VistaRegistroPago() {
         InitializeComponent();
@@ -110,6 +114,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         Pagos = new List<string[]>();
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
+        CargarTiposMoneda(Enum.GetNames(typeof(TipoMoneda)));
         CargarMetodosPago();
 
         // Eventos
@@ -128,6 +133,21 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
                 args.SuppressKeyPress = true;
             }
+        };
+        fieldTipoMoneda.SelectedIndexChanged += async delegate {
+            if (fieldTipoMoneda.SelectedIndex == 0)
+                return;
+
+            try {
+                _tasaCambio = await UtilesCambioMoneda.ObtenerTasaPorDivisa(fieldTipoMoneda.Text);
+            }
+            catch (Exception ex) {
+                CentroNotificaciones.Mostrar($"ERROR al consultar las tasas de cambio vigentes. {ex.Message}", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
+                fieldTipoMoneda.SelectedIndex = 0;
+                return;
+            }
+
+            CentroNotificaciones.Mostrar($"La tasa de cambio del mercado informal para la moneda {fieldTipoMoneda.Text} fue actualizada con éxito.");
         };
         btnAdicionarPago.Click += delegate { 
             AdicionarPago(0, IdVenta, MetodoPago, Monto); 
@@ -150,6 +170,11 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
     public void AdicionarPago(long id, long idVenta, string metodoPago, decimal monto) {
         var adMetodoPago = string.IsNullOrEmpty(metodoPago) ? MetodoPago : metodoPago;
         var adMonto = monto < 0 ? Monto : monto;
+
+        // Verificar cambio de moneda y multiplicar por el valor
+        if (fieldTipoMoneda.SelectedIndex != 0 && _tasaCambio != null)
+            adMonto *= _tasaCambio.Valor;
+
         var tuplaPago = new[] {
             id.ToString(),
             IdVenta.ToString(),
@@ -169,11 +194,17 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         fieldMonto.Text = string.Empty;
     }
 
+    public void CargarTiposMoneda(string[] tiposMoneda) {
+        fieldTipoMoneda.Items.Clear();
+        fieldTipoMoneda.Items.AddRange(tiposMoneda);
+        fieldTipoMoneda.SelectedIndex = 0;
+    }
+
     public void CargarMetodosPago() {
         fieldMetodoPago.Items.Clear();
         fieldMetodoPago.Items.AddRange(new[] {
             "Efectivo",
-            "Transferencia bancaria"
+            "Transferencia"
         });
         fieldMetodoPago.SelectedIndex = 0;
     }
