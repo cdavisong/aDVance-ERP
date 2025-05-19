@@ -56,13 +56,14 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set {
                 _estado = value;
 
-                fieldEstado.Image =
-                _estado switch {
+                btnDescargarInforme.Enabled = _estado == 2;
+                fieldEstado.Image = _estado switch {
                     0 => Resources.open_check_20px,
                     1 => Resources.open_sign_20px,
                     2 => Resources.closed_sign_20px,
                     _ => Resources.open_check_20px
                 };
+                
             }
         }
 

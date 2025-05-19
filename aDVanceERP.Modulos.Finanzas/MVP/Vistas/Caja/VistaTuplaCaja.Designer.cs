@@ -81,12 +81,12 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             layoutVista.BackColor = Color.White;
             layoutVista.ColumnCount = 13;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -120,7 +120,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldNombreUsuario.Font = new Font("Segoe UI", 11.25F);
             fieldNombreUsuario.ForeColor = Color.DimGray;
             fieldNombreUsuario.ImeMode = ImeMode.NoControl;
-            fieldNombreUsuario.Location = new Point(671, 1);
+            fieldNombreUsuario.Location = new Point(731, 1);
             fieldNombreUsuario.Margin = new Padding(1);
             fieldNombreUsuario.Name = "fieldNombreUsuario";
             fieldNombreUsuario.Size = new Size(148, 39);
@@ -134,10 +134,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldFechaCierre.Font = new Font("Segoe UI", 11.25F);
             fieldFechaCierre.ForeColor = Color.DimGray;
             fieldFechaCierre.ImeMode = ImeMode.NoControl;
-            fieldFechaCierre.Location = new Point(441, 1);
+            fieldFechaCierre.Location = new Point(471, 1);
             fieldFechaCierre.Margin = new Padding(1);
             fieldFechaCierre.Name = "fieldFechaCierre";
-            fieldFechaCierre.Size = new Size(118, 39);
+            fieldFechaCierre.Size = new Size(148, 39);
             fieldFechaCierre.TabIndex = 35;
             fieldFechaCierre.Text = "fechaCierre";
             fieldFechaCierre.TextAlign = ContentAlignment.MiddleCenter;
@@ -149,7 +149,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             simboloPeso2.ForeColor = Color.Black;
             simboloPeso2.ImageAlign = ContentAlignment.MiddleLeft;
             simboloPeso2.ImeMode = ImeMode.NoControl;
-            simboloPeso2.Location = new Point(423, 5);
+            simboloPeso2.Location = new Point(453, 5);
             simboloPeso2.Margin = new Padding(3, 5, 3, 3);
             simboloPeso2.Name = "simboloPeso2";
             simboloPeso2.Size = new Size(14, 33);
@@ -163,7 +163,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldSaldoActual.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldSaldoActual.ForeColor = Color.Black;
             fieldSaldoActual.ImeMode = ImeMode.NoControl;
-            fieldSaldoActual.Location = new Point(311, 1);
+            fieldSaldoActual.Location = new Point(341, 1);
             fieldSaldoActual.Margin = new Padding(1);
             fieldSaldoActual.Name = "fieldSaldoActual";
             fieldSaldoActual.Size = new Size(108, 39);
@@ -178,7 +178,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             simboloPeso1.ForeColor = Color.Black;
             simboloPeso1.ImageAlign = ContentAlignment.MiddleLeft;
             simboloPeso1.ImeMode = ImeMode.NoControl;
-            simboloPeso1.Location = new Point(293, 5);
+            simboloPeso1.Location = new Point(323, 5);
             simboloPeso1.Margin = new Padding(3, 5, 3, 3);
             simboloPeso1.Name = "simboloPeso1";
             simboloPeso1.Size = new Size(14, 33);
@@ -192,7 +192,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldSaldoInicial.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldSaldoInicial.ForeColor = Color.Black;
             fieldSaldoInicial.ImeMode = ImeMode.NoControl;
-            fieldSaldoInicial.Location = new Point(181, 1);
+            fieldSaldoInicial.Location = new Point(211, 1);
             fieldSaldoInicial.Margin = new Padding(1);
             fieldSaldoInicial.Name = "fieldSaldoInicial";
             fieldSaldoInicial.Size = new Size(108, 39);
@@ -268,7 +268,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldFechaApertura.Location = new Point(61, 1);
             fieldFechaApertura.Margin = new Padding(1);
             fieldFechaApertura.Name = "fieldFechaApertura";
-            fieldFechaApertura.Size = new Size(118, 39);
+            fieldFechaApertura.Size = new Size(148, 39);
             fieldFechaApertura.TabIndex = 4;
             fieldFechaApertura.Text = "fechaApertura";
             fieldFechaApertura.TextAlign = ContentAlignment.MiddleCenter;
@@ -280,7 +280,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldEstado.ForeColor = Color.DimGray;
             fieldEstado.Image = Properties.Resources.open_sign_20px;
             fieldEstado.ImeMode = ImeMode.NoControl;
-            fieldEstado.Location = new Point(561, 1);
+            fieldEstado.Location = new Point(621, 1);
             fieldEstado.Margin = new Padding(1);
             fieldEstado.Name = "fieldEstado";
             fieldEstado.Size = new Size(108, 39);

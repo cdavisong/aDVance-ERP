@@ -64,6 +64,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             }
         }
 
+        public bool HabilitarBtnCierreCaja {
+            get => btnCierreCaja.Visible;
+            set => btnCierreCaja.Visible = value;
+        }
+
         public IRepositorioVista Vistas { get; private set; }
 
         public event EventHandler? AlturaContenedorTuplasModificada;
@@ -77,6 +82,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
         public event EventHandler? BuscarDatos;
+        public event EventHandler? CerrarCajaSeleccionada;
 
         public void Inicializar() {
             // Variables locales
@@ -94,6 +100,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
+            };
+            btnCierreCaja.Click += delegate (object? sender, EventArgs e) {
+                CerrarCajaSeleccionada?.Invoke(sender, e);
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
                 PaginaActual = 1;
@@ -168,6 +177,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
+            HabilitarBtnCierreCaja = false;
 
             fieldCriterioBusqueda.SelectedIndex = 0;
         }
