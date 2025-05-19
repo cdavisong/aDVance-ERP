@@ -27,6 +27,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             MostrarVistaPanelTransparente(_registroAperturaCaja.Vista);
 
+            _registroAperturaCaja.Vista.Restaurar();
             _registroAperturaCaja.Vista.Mostrar();
             _registroAperturaCaja.Dispose();
         }

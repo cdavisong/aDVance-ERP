@@ -36,7 +36,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         public bool ModoEdicionDatos {
             get => _modoEdicion;
             set {
-                fieldSubtitulo.Text = value ? "Detalles de apertura en fecha " : "Apertura en fecha";
+                fieldSubtitulo.Text = value ? "Detalles de apertura" : $"Apertura en fecha {DateTime.Today.ToString("yyyy-MM-dd")}";
                 btnRegistrar.Text = value ? "Actualizar apertura" : "Abrir caja";
                 _modoEdicion = value;
             }
