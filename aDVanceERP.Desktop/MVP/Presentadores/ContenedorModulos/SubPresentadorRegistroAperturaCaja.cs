@@ -1,4 +1,7 @@
-﻿using aDVanceERP.Desktop.Utiles;
+﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja;
@@ -20,6 +23,12 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private void MostrarVistaRegistroAperturaCaja(object? sender, EventArgs e) {
+            if (UtilesCaja.ExisteCajaActiva()) {
+                CentroNotificaciones.Mostrar("Sólo puede existir una caja abierta por sesión. Para realizar nuevas aperturas de caja realice el cierre correspondiente a la caja activa actualmente", TipoNotificacion.Advertencia);
+
+                return;
+            }
+
             InicializarVistaRegistroAperturaCaja();
 
             if (_registroAperturaCaja == null)
