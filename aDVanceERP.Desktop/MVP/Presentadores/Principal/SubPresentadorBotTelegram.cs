@@ -82,7 +82,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         }
 
         private bool RequiereAutenticacion(string comando) {
-            var comandosProtegidos = new[] { "/ventas", "/ganancias", "/reporteventas", "/resumen", "/nuevaventa", "/ventasdia", "/stock", "/articulos" };
+            var comandosProtegidos = new[] { "/ventas", "/ganancias", "/reporteventas", "/resumen", "/nuevaventa", "/ventasdia", "/stock", "/productos" };
             return comandosProtegidos.Contains(comando.Trim().ToLower());
         }
         #endregion
@@ -269,13 +269,13 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
             try {
                 var fechaHoy = DateTime.Today;
-                var cantArticulos = UtilesVenta.ObtenerTotalArticulosVendidosHoy();
+                var cantProductos = UtilesVenta.ObtenerTotalProductosVendidosHoy();
                 var ventasBrutas = UtilesVenta.ObtenerValorBrutoVentaDia(fechaHoy);
 
                 await ResponderMensaje(chatId,
                     $"📊 Ventas del día ({fechaHoy:dd/MM/yyyy})\n" +
                     $"🏢 Empresa: {_empresa?.Nombre ?? IdEmpresa}\n\n" +
-                    $"🛒 Artículos vendidos: {cantArticulos} unidades\n" +
+                    $"🛒 Productos vendidos: {cantProductos} unidades\n" +
                     $"💰 Total bruto: $ {ventasBrutas:N}\n\n" +
                     "(Solo ventas con pagos completos)");
             } catch (ExcepcionConexionServidorMySQL) {
@@ -406,17 +406,17 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     }
 
                     foreach (var venta in ventasFecha) {
-                        using (var datosVentaArticulo = new DatosDetalleVentaArticulo()) {
-                            var detalleVentaArticulo = datosVentaArticulo.Obtener(CriterioDetalleVentaArticulo.IdVenta, venta.Id.ToString());
+                        using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
+                            var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
-                            foreach (var ventaArticulo in detalleVentaArticulo) {
+                            foreach (var ventaProducto in detalleVentaProducto) {
                                 var fila = new string[6];
-                                fila[0] = ventaArticulo.Id.ToString();
-                                fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? "Artículo desconocido";
+                                fila[0] = ventaProducto.Id.ToString();
+                                fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? "Producto desconocido";
                                 fila[2] = "U"; // Unidad
-                                fila[3] = ventaArticulo.PrecioVentaFinal.ToString("N2", CultureInfo.InvariantCulture);
-                                fila[4] = ventaArticulo.Cantidad.ToString();
-                                fila[5] = (ventaArticulo.PrecioVentaFinal * ventaArticulo.Cantidad).ToString("N2", CultureInfo.InvariantCulture);
+                                fila[3] = ventaProducto.PrecioVentaFinal.ToString("N2", CultureInfo.InvariantCulture);
+                                fila[4] = ventaProducto.Cantidad.ToString();
+                                fila[5] = (ventaProducto.PrecioVentaFinal * ventaProducto.Cantidad).ToString("N2", CultureInfo.InvariantCulture);
                                 filas.Add(fila);
                             }
                         }
@@ -424,7 +424,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 }
 
                 // Generar el reporte PDF
-                var nombreArchivo = $"ventas-articulos-{fechaReporte:yyyy-MM-dd}.pdf";
+                var nombreArchivo = $"ventas-productos-{fechaReporte:yyyy-MM-dd}.pdf";
 
                 UtilesReportes.GenerarReporteVentas(fechaReporte, filas, IdEmpresa, mostrar: false);
 
@@ -513,7 +513,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                 "📦 Inventario:\n" +
                 "/stock - Consultar inventario\n" +
-                "/articulos - Listar artículos\n\n" +
+                "/productos - Listar productos\n\n" +
 
                 "🆘 Ayuda:\n" +
                 "/help - Mostrar ayuda\n" +

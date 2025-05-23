@@ -27,10 +27,10 @@ public partial class PresentadorContenedorModulos {
             Transferencia = Array.Empty<string>();
         };
         _registroPago.DatosRegistradosActualizados += delegate {
-            if (_registroVentaArticulo == null) 
+            if (_registroVentaProducto == null) 
                 return;
 
-            _registroVentaArticulo.Vista.PagoEfectuado = true;
+            _registroVentaProducto.Vista.PagoEfectuado = true;
 
             ActualizarMovimientoCaja(_registroPago.Vista.Pagos);
             ActualizarSeguimientoEntrega();
@@ -40,9 +40,9 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaRegistroPago(object? sender, EventArgs e) {
         InicializarVistaRegistroPago();
 
-        if (_registroPago != null && _registroVentaArticulo != null) {
+        if (_registroPago != null && _registroVentaProducto != null) {
             _registroPago.Vista.IdVenta = _proximoIdVenta;
-            _registroPago.Vista.Total = _registroVentaArticulo.Vista.Total;
+            _registroPago.Vista.Total = _registroVentaProducto.Vista.Total;
             _registroPago.Vista.EfectuarTransferencia += delegate {
                 MostrarVistaRegistroDetallePagoTransferencia(sender, e);
             };
@@ -58,7 +58,7 @@ public partial class PresentadorContenedorModulos {
         InicializarVistaRegistroPago();
 
         if (sender is Venta venta) {
-            if (_registroPago != null && _registroVentaArticulo != null) {
+            if (_registroPago != null && _registroVentaProducto != null) {
                 _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta.Id, string.Empty, venta.Total));
                 _registroPago.Vista.EfectuarTransferencia += delegate {
                     MostrarVistaEdicionDetallePagoTransferencia(sender, e);
@@ -99,7 +99,7 @@ public partial class PresentadorContenedorModulos {
                                 "Venta",
                                 idPago,
                                 UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0,
-                                "Movimiento de caja por venta de artículo");
+                                "Movimiento de caja por venta de producto");
 
                             datosMovimientoCaja.Adicionar(movimientoCaja);
                         } else {

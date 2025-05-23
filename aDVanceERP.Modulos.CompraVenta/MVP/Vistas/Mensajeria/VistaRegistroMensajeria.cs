@@ -6,7 +6,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria;
 public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
     private bool _modoEdicion;
     private string[] _descripcionesTiposEntrega = Array.Empty<string>();
-    private List<string[]>? _articulosVenta = new();
+    private List<string[]>? _productosVenta = new();
 
     public VistaRegistroMensajeria() {
         InitializeComponent();
@@ -183,8 +183,8 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         }
     }
 
-    public void PopularArticulosVenta(List<string[]>? datosArticulos) {
-        _articulosVenta = datosArticulos;
+    public void PopularProductosVenta(List<string[]>? datosProductos) {
+        _productosVenta = datosProductos;
 
         ActualizarResumenEntrega();
     }
@@ -228,14 +228,14 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         <p style='margin: 2px 0;'><strong>Observaciones:</strong> {Observaciones}</p>
     </div>
     
-    <div class='seccion-articulos'>
-        <h4 style='margin-bottom: 5px;'>Artículos</h4>
+    <div class='seccion-productos'>
+        <h4 style='margin-bottom: 5px;'>Productos</h4>
         <hr style='margin: 5px 0;'>";
 
-        if (_articulosVenta != null)
-            resumenHtml = _articulosVenta.Aggregate(resumenHtml,
-                (current, articulo) => current + $@"
-        <p style='margin: 2px 0;'><strong>{articulo[4]}</strong> - {articulo[1]}</p>");
+        if (_productosVenta != null)
+            resumenHtml = _productosVenta.Aggregate(resumenHtml,
+                (current, producto) => current + $@"
+        <p style='margin: 2px 0;'><strong>{producto[4]}</strong> - {producto[1]}</p>");
 
         resumenHtml += @"
     </div>

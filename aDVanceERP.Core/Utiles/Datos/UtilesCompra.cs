@@ -103,7 +103,7 @@ public static class UtilesCompra {
         const string query = """
                              SELECT
                                 SUM(cantidad) AS total_productos
-                             FROM adv__detalle_compra_articulo
+                             FROM adv__detalle_compra_producto
                              WHERE id_compra = @IdCompra;
                              """;
         var parametros = new[] {
@@ -113,13 +113,13 @@ public static class UtilesCompra {
         return EjecutarConsultaEntero(query, parametros);
     }
 
-    public static IEnumerable<string> ObtenerArticulosPorCompra(long idCompra) {
+    public static IEnumerable<string> ObtenerProductosPorCompra(long idCompra) {
         const string query = """
                              SELECT
                                 a.nombre,
                                 d.cantidad
-                             FROM adv__detalle_compra_articulo d
-                             JOIN adv__articulo a ON d.id_articulo = a.id_articulo
+                             FROM adv__detalle_compra_producto d
+                             JOIN adv__producto a ON d.id_producto = a.id_producto
                              WHERE d.id_compra = @IdCompra;
                              """;
         var parametros = new[] {

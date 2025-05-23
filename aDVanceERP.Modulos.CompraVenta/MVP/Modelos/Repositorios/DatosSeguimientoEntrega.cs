@@ -51,7 +51,7 @@ public class DatosSeguimientoEntrega : RepositorioDatosBase<SeguimientoEntrega, 
                 comando = $"SELECT * FROM adv__seguimiento_entrega WHERE DATE(fecha_pago) = {dato}";
                 break;
             default:
-                comando = "SELECT * FROM adv__detalle_compra_articulo;";
+                comando = "SELECT * FROM adv__detalle_compra_producto;";
                 break;
         }
 

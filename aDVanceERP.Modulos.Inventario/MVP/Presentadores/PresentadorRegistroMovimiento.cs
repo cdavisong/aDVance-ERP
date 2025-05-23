@@ -15,7 +15,7 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
     public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Movimiento objeto) {
-        Vista.NombreArticulo = UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
+        Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
         Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
         Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
         Vista.Fecha = objeto.Fecha;
@@ -27,7 +27,7 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
-        var nombreArticuloOk = !string.IsNullOrEmpty(Vista.NombreArticulo);
+        var nombreProductoOk = !string.IsNullOrEmpty(Vista.NombreProducto);
         var tipoMovimientoOk = !string.IsNullOrEmpty(Vista.TipoMovimiento);
         var noCompraventaOk = !(Vista.TipoMovimiento.Equals("Compra") || Vista.TipoMovimiento.Equals("Venta"));
         
@@ -64,34 +64,34 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
 
         if (efectoMovimiento.Equals("Descarga") || efectoMovimiento.Equals("Transferencia")) {
             if (!string.IsNullOrEmpty(Vista.NombreAlmacenOrigen)) {
-                var cantidadInicialOrigen = UtilesArticulo.ObtenerStockArticulo(Vista.NombreArticulo, Vista.NombreAlmacenOrigen).Result;
+                var cantidadInicialOrigen = UtilesProducto.ObtenerStockProducto(Vista.NombreProducto, Vista.NombreAlmacenOrigen).Result;
 
                 if (cantidadInicialOrigen - Vista.CantidadMovida < 0) {
-                    CentroNotificaciones.Mostrar($"No se puede mover una cantidad de artículos hacia el destino menor que la cantidad orígen ({cantidadInicialOrigen} unidades) en el almacén {Vista.NombreAlmacenOrigen}", TipoNotificacion.Advertencia);
+                    CentroNotificaciones.Mostrar($"No se puede mover una cantidad de productos hacia el destino menor que la cantidad orígen ({cantidadInicialOrigen} unidades) en el almacén {Vista.NombreAlmacenOrigen}", TipoNotificacion.Advertencia);
                     return false;
                 }
             }
         }
 
-        if (!nombreArticuloOk)
-            CentroNotificaciones.Mostrar("El campo de nombre para el artículo es obligatorio para el artículo, por favor, corrija los datos entrados", TipoNotificacion.Advertencia);
+        if (!nombreProductoOk)
+            CentroNotificaciones.Mostrar("El campo de nombre para el producto es obligatorio para el producto, por favor, corrija los datos entrados", TipoNotificacion.Advertencia);
         if (!tipoMovimientoOk)
-            CentroNotificaciones.Mostrar("Debe especificar un tipo de movimiento válido para el movimiento de artículos, por favor, corrija los datos entrados", TipoNotificacion.Advertencia);
+            CentroNotificaciones.Mostrar("Debe especificar un tipo de movimiento válido para el movimiento de productos, por favor, corrija los datos entrados", TipoNotificacion.Advertencia);
         if (!noCompraventaOk)
             CentroNotificaciones.Mostrar("Las operaciones de compraventa no están permitidas directamente desde la sección de movimientos de inventario. Para registrar compras o ventas diríjase al módulo correspondiente", TipoNotificacion.Advertencia);
         if (!fechaOk)
             CentroNotificaciones.Mostrar("No se puede registrar un movimiento con una fecha inferior a la fecha del día de hoy", TipoNotificacion.Advertencia);
         if (!cantidadOk)
-            CentroNotificaciones.Mostrar("La cantidad de artículos a mover en una operación de carga, descarga o transferencia debe ser mayor que 0, corrija los datos entrados", TipoNotificacion.Advertencia);
+            CentroNotificaciones.Mostrar("La cantidad de productos a mover en una operación de carga, descarga o transferencia debe ser mayor que 0, corrija los datos entrados", TipoNotificacion.Advertencia);
 
 
-        return nombreArticuloOk && tipoMovimientoOk && noCompraventaOk && fechaOk && cantidadOk;
+        return nombreProductoOk && tipoMovimientoOk && noCompraventaOk && fechaOk && cantidadOk;
     }
 
     protected override async Task<Movimiento?> ObtenerObjetoDesdeVista() {
         _movimiento = new Movimiento(
             Objeto?.Id ?? 0,
-            await UtilesArticulo.ObtenerIdArticulo(Vista.NombreArticulo),
+            await UtilesProducto.ObtenerIdProducto(Vista.NombreProducto),
             await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen),
             await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino),
             Vista.Fecha,
@@ -104,7 +104,7 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
 
     protected override void RegistroAuxiliar(long id) {
         if (_movimiento != null)
-            UtilesMovimiento.ModificarStockArticuloAlmacen(_movimiento.IdArticulo, _movimiento.IdAlmacenOrigen,
+            UtilesMovimiento.ModificarStockProductoAlmacen(_movimiento.IdProducto, _movimiento.IdAlmacenOrigen,
                 _movimiento.IdAlmacenDestino, _movimiento.CantidadMovida);
     }
 }

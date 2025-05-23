@@ -33,7 +33,7 @@ namespace aDVanceERP.PatchDB {
 
             try {
                 ExecuteStep(CrearTablasNuevas, "Creación de estructura modular");
-                //ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+                ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
 
                 RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
             } catch (Exception ex) {
@@ -55,39 +55,39 @@ namespace aDVanceERP.PatchDB {
                     throw new ExcepcionConexionServidorMySQL();
                 }
 
-                // Crear tabla adv__caja
-                const string crearTablaCaja = @"
+                List<string> querys =
+                [
+                    """
                     CREATE TABLE IF NOT EXISTS adv__caja (
-                      id_caja int(11) NOT NULL AUTO_INCREMENT,
-                      estado enum('Inactiva','Abierta','Cerrada') NOT NULL DEFAULT 'Inactiva',
-                      fecha_apertura datetime DEFAULT NULL,
-                      saldo_inicial decimal(10,2) NOT NULL DEFAULT 0.00,
-                      saldo_actual decimal(10,2) NOT NULL DEFAULT 0.00,
-                      fecha_cierre datetime DEFAULT NULL,
-                      id_cuenta_usuario int(11) DEFAULT 0,
-                      PRIMARY KEY (id_caja)
-                    ) ENGINE=InnoDB;";
-
-                using (var cmd = new MySqlCommand(crearTablaCaja, conexion))
-                    cmd.ExecuteNonQuery();
-
-                // Crear tabla adv__movimiento_caja
-                const string crearTablaMovimientoCaja = @"
+                        id_caja int(11) NOT NULL AUTO_INCREMENT,
+                        estado enum('Inactiva','Abierta','Cerrada') NOT NULL DEFAULT 'Inactiva',
+                        fecha_apertura datetime DEFAULT NULL,
+                        saldo_inicial decimal(10,2) NOT NULL DEFAULT 0.00,
+                        saldo_actual decimal(10,2) NOT NULL DEFAULT 0.00,
+                        fecha_cierre datetime DEFAULT NULL,
+                        id_cuenta_usuario int(11) DEFAULT 0,
+                        PRIMARY KEY (id_caja)
+                    ) ENGINE=InnoDB;
+                    """,
+                    """
                     CREATE TABLE IF NOT EXISTS adv__movimiento_caja (
-                      id_movimiento_caja int(11) NOT NULL AUTO_INCREMENT,
-                      id_caja int(11) NOT NULL,
-                      fecha datetime DEFAULT NULL,
-                      monto decimal(10,2) NOT NULL DEFAULT 0.00,
-                      tipo enum('Ingreso','Egreso') NOT NULL DEFAULT 'Ingreso',
-                      concepto varchar(255) NOT NULL,
-                      id_pago int(11) DEFAULT 0,
-                      id_usuario int(11) DEFAULT 0,
-                      observaciones text,
-                      PRIMARY KEY (id_movimiento_caja)
-                    ) ENGINE=InnoDB;";
+                        id_movimiento_caja int(11) NOT NULL AUTO_INCREMENT,
+                        id_caja int(11) NOT NULL,
+                        fecha datetime DEFAULT NULL,
+                        monto decimal(10,2) NOT NULL DEFAULT 0.00,
+                        tipo enum('Ingreso','Egreso') NOT NULL DEFAULT 'Ingreso',
+                        concepto varchar(255) NOT NULL,
+                        id_pago int(11) DEFAULT 0,
+                        id_usuario int(11) DEFAULT 0,
+                        observaciones text,
+                        PRIMARY KEY (id_movimiento_caja)
+                    ) ENGINE=InnoDB;
+                    """
+                ];
 
-                using (var cmd = new MySqlCommand(crearTablaMovimientoCaja, conexion))
-                    cmd.ExecuteNonQuery();
+                foreach (var query in querys)
+                    using (var cmd = new MySqlCommand(query, conexion))
+                        cmd.ExecuteNonQuery();
             }
         }
 
@@ -99,14 +99,52 @@ namespace aDVanceERP.PatchDB {
                     throw new ExcepcionConexionServidorMySQL();
                 }
 
-                //const string query1 = @"
-                //    UPDATE adv__movimiento
-                //    SET id_almacen_origen = 8
-                //    WHERE id_tipo_movimiento = 2;";
+                List<string> querys =
+                [
+                    """
+                    RENAME TABLE advanceerp.adv__articulo 
+                    TO advanceerp.adv__producto;
+                    """,
+                    """
+                    ALTER TABLE adv__producto 
+                    CHANGE id_articulo id_producto INT(11) NOT NULL AUTO_INCREMENT;
+                    """,
+                    """
+                    RENAME TABLE advanceerp.adv__articulo_almacen 
+                    TO advanceerp.adv__producto_almacen;
+                    """,
+                    """
+                    ALTER TABLE adv__producto_almacen 
+                    CHANGE id_articulo_almacen id_producto_almacen INT(11) NOT NULL AUTO_INCREMENT, 
+                    CHANGE id_articulo id_producto INT(11) NOT NULL;
+                    """,
+                    """
+                    RENAME TABLE advanceerp.adv__detalle_compra_articulo 
+                    TO advanceerp.adv__detalle_compra_producto;
+                    """,
+                    """
+                    ALTER TABLE adv__detalle_compra_producto 
+                    CHANGE id_detalle_compra_articulo id_detalle_compra_producto INT(11) NOT NULL AUTO_INCREMENT, 
+                    CHANGE id_articulo id_producto INT(11) NOT NULL;
+                    """,
+                    """
+                    RENAME TABLE advanceerp.adv__detalle_venta_articulo 
+                    TO advanceerp.adv__detalle_venta_producto;
+                    """,
+                    """
+                    ALTER TABLE adv__detalle_venta_producto 
+                    CHANGE id_detalle_venta_articulo id_detalle_venta_producto BIGINT(20) NOT NULL AUTO_INCREMENT, 
+                    CHANGE id_articulo id_producto INT(11) NOT NULL;
+                    """,
+                    """
+                    ALTER TABLE adv__movimiento 
+                    CHANGE id_articulo id_producto INT(11) NOT NULL;
+                    """
+                ];
 
-                //using (var cmd = new MySqlCommand(query1, conexion)) {
-                //    cmd.ExecuteNonQuery();
-                //}
+                foreach (var query in querys)
+                    using (var cmd = new MySqlCommand(query, conexion))
+                        cmd.ExecuteNonQuery();
             }
         }
 

@@ -108,7 +108,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
 
         btnDescargarFactura.Click += delegate (object? sender, EventArgs e) {
             var datosCliente = new string[3];
-            var datosVentaArticulos = new List<string[]>();
+            var datosVentaProductos = new List<string[]>();
             var fechaFactura = DateTime.ParseExact(Fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             var numeroFactura = $"{fechaFactura.ToString("yyyyMMdd")}-{int.Parse(CantidadProductos):000}-{long.Parse(Id):000000}";
             var pagos = UtilesVenta.ObtenerPagosPorVenta(long.Parse(Id));
@@ -125,21 +125,21 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
                 datosCliente[1] = UtilesCliente.ObtenerDireccionCliente(venta.IdCliente) ?? string.Empty;
                 datosCliente[2] = UtilesCliente.ObtenerNumeroCliente(venta.IdCliente) ?? string.Empty;
 
-                using (var datosVentaArticulo = new DatosDetalleVentaArticulo()) {
-                    var detalleVentaArticulo = datosVentaArticulo.Obtener(CriterioDetalleVentaArticulo.IdVenta, venta.Id.ToString());
+                using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
+                    var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
-                    foreach (var ventaArticulo in detalleVentaArticulo) {
+                    foreach (var ventaProducto in detalleVentaProducto) {
                         var fila = new string[7];
 
-                        fila[0] = ventaArticulo.Id.ToString();
-                        fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? string.Empty;
-                        fila[2] = ventaArticulo.Cantidad.ToString();
-                        fila[3] = ventaArticulo.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
+                        fila[0] = ventaProducto.Id.ToString();
+                        fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? string.Empty;
+                        fila[2] = ventaProducto.Cantidad.ToString();
+                        fila[3] = ventaProducto.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
                         fila[4] = "-";
                         fila[5] = "0.00%";
-                        fila[6] = (ventaArticulo.PrecioVentaFinal * ventaArticulo.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+                        fila[6] = (ventaProducto.PrecioVentaFinal * ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
 
-                        datosVentaArticulos.Add(fila);
+                        datosVentaProductos.Add(fila);
                     }
                 }
 
@@ -156,7 +156,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
 
             UtilesReportes.GenerarFacturaVenta(
                 fechaFactura, 
-                datosVentaArticulos, 
+                datosVentaProductos, 
                 datosCliente,
                 numeroFactura,
                 EstadoPago,

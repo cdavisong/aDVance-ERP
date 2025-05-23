@@ -4,7 +4,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
 public interface IVistaTuplaMovimiento : IVistaTupla {
     string Id { get; set; }
-    string NombreArticulo { get; set; }
+    string NombreProducto { get; set; }
     string NombreAlmacenOrigen { get; set; }
     string NombreAlmacenDestino { get; set; }
     string CantidadMovida { get; set; }

@@ -38,14 +38,14 @@ public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>,
         return $"""
                 START TRANSACTION;
 
-                UPDATE adv__articulo_almacen aa
-                JOIN adv__detalle_venta_articulo dva ON aa.id_articulo = dva.id_articulo
+                UPDATE adv__producto_almacen aa
+                JOIN adv__detalle_venta_producto dva ON aa.id_producto = dva.id_producto
                 JOIN adv__venta v ON dva.id_venta = v.id_venta
                 SET aa.stock = aa.stock + dva.cantidad
                 WHERE dva.id_venta = {id} AND aa.id_almacen = v.id_almacen;
 
                 DELETE m FROM adv__movimiento m
-                JOIN adv__detalle_venta_articulo dva ON m.id_articulo = dva.id_articulo
+                JOIN adv__detalle_venta_producto dva ON m.id_producto = dva.id_producto
                 JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
                 WHERE tm.nombre = 'Venta' AND tm.efecto = 'Descarga' AND dva.id_venta = {id};
 
@@ -58,7 +58,7 @@ public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>,
                 DELETE FROM adv__pago 
                 WHERE id_venta = {id};
 
-                DELETE FROM adv__detalle_venta_articulo 
+                DELETE FROM adv__detalle_venta_producto 
                 WHERE id_venta = {id};
 
                 DELETE FROM adv__venta 

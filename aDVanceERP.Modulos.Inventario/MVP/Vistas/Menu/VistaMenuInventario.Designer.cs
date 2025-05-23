@@ -38,7 +38,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             layoutDistribucion = new TableLayoutPanel();
             fieldTitulo = new Label();
             panelRelleno = new Panel();
-            btnArticulos = new Guna2Button();
+            btnProductos = new Guna2Button();
             btnMovimientos = new Guna2Button();
             btnAlmacenes = new Guna2Button();
             layoutBase.SuspendLayout();
@@ -108,7 +108,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             panelRelleno.BackColor = Color.WhiteSmoke;
             panelRelleno.Controls.Add(btnAlmacenes);
             panelRelleno.Controls.Add(btnMovimientos);
-            panelRelleno.Controls.Add(btnArticulos);
+            panelRelleno.Controls.Add(btnProductos);
             panelRelleno.Dock = DockStyle.Fill;
             panelRelleno.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             panelRelleno.Location = new Point(160, 0);
@@ -117,29 +117,29 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
             panelRelleno.Size = new Size(834, 50);
             panelRelleno.TabIndex = 0;
             // 
-            // btnArticulos
+            // btnProductos
             // 
-            btnArticulos.Animated = true;
-            btnArticulos.BackColor = Color.WhiteSmoke;
-            btnArticulos.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            btnArticulos.CheckedState.FillColor = Color.WhiteSmoke;
-            btnArticulos.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            btnArticulos.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage2");
-            btnArticulos.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnArticulos.CustomImages.ImageOffset = new Point(0, 32);
-            btnArticulos.CustomImages.ImageSize = new Size(131, 8);
-            btnArticulos.CustomizableEdges = customizableEdges5;
-            btnArticulos.Dock = DockStyle.Left;
-            btnArticulos.FillColor = Color.WhiteSmoke;
-            btnArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnArticulos.ForeColor = Color.Black;
-            btnArticulos.Location = new Point(0, 0);
-            btnArticulos.Margin = new Padding(0);
-            btnArticulos.Name = "btnArticulos";
-            btnArticulos.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnArticulos.Size = new Size(160, 50);
-            btnArticulos.TabIndex = 10;
-            btnArticulos.Text = "Articulos";
+            btnProductos.Animated = true;
+            btnProductos.BackColor = Color.WhiteSmoke;
+            btnProductos.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnProductos.CheckedState.FillColor = Color.WhiteSmoke;
+            btnProductos.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            btnProductos.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage2");
+            btnProductos.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnProductos.CustomImages.ImageOffset = new Point(0, 32);
+            btnProductos.CustomImages.ImageSize = new Size(131, 8);
+            btnProductos.CustomizableEdges = customizableEdges5;
+            btnProductos.Dock = DockStyle.Left;
+            btnProductos.FillColor = Color.WhiteSmoke;
+            btnProductos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnProductos.ForeColor = Color.Black;
+            btnProductos.Location = new Point(0, 0);
+            btnProductos.Margin = new Padding(0);
+            btnProductos.Name = "btnProductos";
+            btnProductos.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnProductos.Size = new Size(160, 50);
+            btnProductos.TabIndex = 10;
+            btnProductos.Text = "Productos";
             // 
             // btnMovimientos
             // 
@@ -218,6 +218,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu {
         private Label fieldTitulo;
         private Guna2Button btnAlmacenes;
         private Guna2Button btnMovimientos;
-        private Guna2Button btnArticulos;
+        private Guna2Button btnProductos;
     }
 }

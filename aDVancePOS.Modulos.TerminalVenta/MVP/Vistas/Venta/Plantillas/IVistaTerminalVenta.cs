@@ -5,8 +5,8 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas;
 public interface IVistaTerminalVenta : IVistaRegistro {
     string? RazonSocialCliente { get; set; }
     string? NombreAlmacen { get; set; }
-    string? NombreArticulo { get; set; }
-    List<string[]>? Articulos { get; }
+    string? NombreProducto { get; set; }
+    List<string[]>? Productos { get; }
     int Cantidad { get; set; }
     decimal Subtotal { get; set; }
     decimal Descuento { get; set; }
@@ -19,12 +19,12 @@ public interface IVistaTerminalVenta : IVistaRegistro {
     string? EstadoEntrega { get; set; }
 
     event EventHandler? AlturaContenedorTuplasModificada;    
-    event EventHandler? ArticuloAgregado;
-    event EventHandler? ArticuloEliminado;
-    event EventHandler? ModificarCantidadArticulos;
+    event EventHandler? ProductoAgregado;
+    event EventHandler? ProductoEliminado;
+    event EventHandler? ModificarCantidadProductos;
     event EventHandler? EfectuarPago;
     event EventHandler? AsignarMensajeria;
 
     void CargarNombresAlmacenes(object[] nombresAlmacenes);
-    void CargarNombresArticulos(string[] nombresArticulos);
+    void CargarNombresProductos(string[] nombresProductos);
 }

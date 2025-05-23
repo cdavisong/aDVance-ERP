@@ -71,8 +71,8 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutVista = new TableLayoutPanel();
             layoutHerramientas = new TableLayoutPanel();
             fieldNombreAlmacen = new Guna2ComboBox();
-            btnAdicionarArticulo = new Guna2Button();
-            fieldNombreArticulo = new Guna2TextBox();
+            btnAdicionarProducto = new Guna2Button();
+            fieldNombreProducto = new Guna2TextBox();
             separador1 = new Guna2Separator();
             layoutDistribución1 = new TableLayoutPanel();
             layoutDistribucionControlesVenta = new TableLayoutPanel();
@@ -92,12 +92,12 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnBloquearVenta = new Guna2Button();
             btnTransferirProductos = new Guna2Button();
             layoutBotonesVenta1 = new TableLayoutPanel();
-            btnCantidadArticulo = new Guna2Button();
+            btnCantidadProducto = new Guna2Button();
             btnNuevaVenta = new Guna2Button();
-            btnEliminarArticulos = new Guna2Button();
-            btnBuscarArticulo = new Guna2Button();
+            btnEliminarProductos = new Guna2Button();
+            btnBuscarProducto = new Guna2Button();
             layoutMetodosPago = new FlowLayoutPanel();
-            layoutDistribucionVentaArticulo = new TableLayoutPanel();
+            layoutDistribucionVentaProducto = new TableLayoutPanel();
             separador3 = new Guna2Separator();
             layoutResumenVenta = new TableLayoutPanel();
             layoutTotal = new TableLayoutPanel();
@@ -114,11 +114,11 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloSubtotal = new Label();
             separador2 = new Guna2Separator();
             layoutEncabezadosTabla = new TableLayoutPanel();
-            fieldTituloNombreArticulo = new Label();
+            fieldTituloNombreProducto = new Label();
             fieldTituloId = new Label();
-            fieldTituloTotalArticulo = new Label();
-            fieldTituloCantidadArticulo = new Label();
-            fieldTituloPrecioArticulo = new Label();
+            fieldTituloTotalProducto = new Label();
+            fieldTituloCantidadProducto = new Label();
+            fieldTituloPrecioProducto = new Label();
             contenedorVistas = new Panel();
             KeyBuscar = new Guna2NotificationPaint(components);
             KeyCantidad = new Guna2NotificationPaint(components);
@@ -132,7 +132,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutBotonesVenta4.SuspendLayout();
             layoutBotonesVenta5.SuspendLayout();
             layoutBotonesVenta1.SuspendLayout();
-            layoutDistribucionVentaArticulo.SuspendLayout();
+            layoutDistribucionVentaProducto.SuspendLayout();
             layoutResumenVenta.SuspendLayout();
             layoutTotal.SuspendLayout();
             layoutDescuento.SuspendLayout();
@@ -179,8 +179,8 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutHerramientas.Controls.Add(fieldNombreAlmacen, 0, 0);
-            layoutHerramientas.Controls.Add(btnAdicionarArticulo, 2, 0);
-            layoutHerramientas.Controls.Add(fieldNombreArticulo, 1, 0);
+            layoutHerramientas.Controls.Add(btnAdicionarProducto, 2, 0);
+            layoutHerramientas.Controls.Add(fieldNombreProducto, 1, 0);
             layoutHerramientas.Dock = DockStyle.Fill;
             layoutHerramientas.Location = new Point(20, 20);
             layoutHerramientas.Margin = new Padding(0);
@@ -213,56 +213,56 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldNombreAlmacen.TabIndex = 0;
             fieldNombreAlmacen.TextOffset = new Point(10, 0);
             // 
-            // btnAdicionarArticulo
+            // btnAdicionarProducto
             // 
-            btnAdicionarArticulo.Animated = true;
-            btnAdicionarArticulo.BorderRadius = 18;
-            btnAdicionarArticulo.CustomImages.Image = (Image) resources.GetObject("resource.Image");
-            btnAdicionarArticulo.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAdicionarArticulo.CustomizableEdges = customizableEdges3;
-            btnAdicionarArticulo.DialogResult = DialogResult.Cancel;
-            btnAdicionarArticulo.Dock = DockStyle.Fill;
-            btnAdicionarArticulo.FillColor = Color.PeachPuff;
-            btnAdicionarArticulo.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnAdicionarArticulo.ForeColor = Color.White;
-            btnAdicionarArticulo.Location = new Point(1271, 5);
-            btnAdicionarArticulo.Margin = new Padding(5);
-            btnAdicionarArticulo.Name = "btnAdicionarArticulo";
-            btnAdicionarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnAdicionarArticulo.Size = new Size(40, 35);
-            btnAdicionarArticulo.TabIndex = 28;
+            btnAdicionarProducto.Animated = true;
+            btnAdicionarProducto.BorderRadius = 18;
+            btnAdicionarProducto.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnAdicionarProducto.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnAdicionarProducto.CustomizableEdges = customizableEdges3;
+            btnAdicionarProducto.DialogResult = DialogResult.Cancel;
+            btnAdicionarProducto.Dock = DockStyle.Fill;
+            btnAdicionarProducto.FillColor = Color.PeachPuff;
+            btnAdicionarProducto.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAdicionarProducto.ForeColor = Color.White;
+            btnAdicionarProducto.Location = new Point(1271, 5);
+            btnAdicionarProducto.Margin = new Padding(5);
+            btnAdicionarProducto.Name = "btnAdicionarProducto";
+            btnAdicionarProducto.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnAdicionarProducto.Size = new Size(40, 35);
+            btnAdicionarProducto.TabIndex = 28;
             // 
-            // fieldNombreArticulo
+            // fieldNombreProducto
             // 
-            fieldNombreArticulo.Animated = true;
-            fieldNombreArticulo.BackColor = Color.FromArgb(  254,   254,   253);
-            fieldNombreArticulo.BorderColor = Color.Gainsboro;
-            fieldNombreArticulo.BorderRadius = 18;
-            fieldNombreArticulo.Cursor = Cursors.IBeam;
-            fieldNombreArticulo.CustomizableEdges = customizableEdges5;
-            fieldNombreArticulo.DefaultText = "";
-            fieldNombreArticulo.DisabledState.BorderColor = Color.White;
-            fieldNombreArticulo.DisabledState.ForeColor = Color.DimGray;
-            fieldNombreArticulo.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldNombreArticulo.Dock = DockStyle.Fill;
-            fieldNombreArticulo.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreArticulo.ForeColor = Color.Black;
-            fieldNombreArticulo.HoverState.BorderColor = Color.SandyBrown;
-            fieldNombreArticulo.IconLeft = (Image) resources.GetObject("fieldNombreArticulo.IconLeft");
-            fieldNombreArticulo.IconLeftOffset = new Point(10, 1);
-            fieldNombreArticulo.IconRightOffset = new Point(10, 0);
-            fieldNombreArticulo.Location = new Point(239, 5);
-            fieldNombreArticulo.Margin = new Padding(5);
-            fieldNombreArticulo.Name = "fieldNombreArticulo";
-            fieldNombreArticulo.PasswordChar = '\0';
-            fieldNombreArticulo.PlaceholderForeColor = Color.DimGray;
-            fieldNombreArticulo.PlaceholderText = "Obtener artículos por nombre";
-            fieldNombreArticulo.SelectedText = "";
-            fieldNombreArticulo.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            fieldNombreArticulo.Size = new Size(1022, 35);
-            fieldNombreArticulo.TabIndex = 1;
-            fieldNombreArticulo.TextOffset = new Point(5, 0);
+            fieldNombreProducto.Animated = true;
+            fieldNombreProducto.BackColor = Color.FromArgb(  254,   254,   253);
+            fieldNombreProducto.BorderColor = Color.Gainsboro;
+            fieldNombreProducto.BorderRadius = 18;
+            fieldNombreProducto.Cursor = Cursors.IBeam;
+            fieldNombreProducto.CustomizableEdges = customizableEdges5;
+            fieldNombreProducto.DefaultText = "";
+            fieldNombreProducto.DisabledState.BorderColor = Color.White;
+            fieldNombreProducto.DisabledState.ForeColor = Color.DimGray;
+            fieldNombreProducto.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldNombreProducto.Dock = DockStyle.Fill;
+            fieldNombreProducto.FocusedState.BorderColor = Color.SandyBrown;
+            fieldNombreProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreProducto.ForeColor = Color.Black;
+            fieldNombreProducto.HoverState.BorderColor = Color.SandyBrown;
+            fieldNombreProducto.IconLeft = (Image) resources.GetObject("fieldNombreProducto.IconLeft");
+            fieldNombreProducto.IconLeftOffset = new Point(10, 1);
+            fieldNombreProducto.IconRightOffset = new Point(10, 0);
+            fieldNombreProducto.Location = new Point(239, 5);
+            fieldNombreProducto.Margin = new Padding(5);
+            fieldNombreProducto.Name = "fieldNombreProducto";
+            fieldNombreProducto.PasswordChar = '\0';
+            fieldNombreProducto.PlaceholderForeColor = Color.DimGray;
+            fieldNombreProducto.PlaceholderText = "Obtener productos por nombre";
+            fieldNombreProducto.SelectedText = "";
+            fieldNombreProducto.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldNombreProducto.Size = new Size(1022, 35);
+            fieldNombreProducto.TabIndex = 1;
+            fieldNombreProducto.TextOffset = new Point(5, 0);
             // 
             // separador1
             // 
@@ -279,7 +279,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutDistribución1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutDistribución1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 500F));
             layoutDistribución1.Controls.Add(layoutDistribucionControlesVenta, 1, 0);
-            layoutDistribución1.Controls.Add(layoutDistribucionVentaArticulo, 0, 0);
+            layoutDistribución1.Controls.Add(layoutDistribucionVentaProducto, 0, 0);
             layoutDistribución1.Dock = DockStyle.Fill;
             layoutDistribución1.Location = new Point(20, 85);
             layoutDistribución1.Margin = new Padding(0);
@@ -627,10 +627,10 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutBotonesVenta1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             layoutBotonesVenta1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             layoutBotonesVenta1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            layoutBotonesVenta1.Controls.Add(btnCantidadArticulo, 0, 0);
+            layoutBotonesVenta1.Controls.Add(btnCantidadProducto, 0, 0);
             layoutBotonesVenta1.Controls.Add(btnNuevaVenta, 0, 0);
-            layoutBotonesVenta1.Controls.Add(btnEliminarArticulos, 0, 0);
-            layoutBotonesVenta1.Controls.Add(btnBuscarArticulo, 0, 0);
+            layoutBotonesVenta1.Controls.Add(btnEliminarProductos, 0, 0);
+            layoutBotonesVenta1.Controls.Add(btnBuscarProducto, 0, 0);
             layoutBotonesVenta1.Dock = DockStyle.Fill;
             layoutBotonesVenta1.Location = new Point(0, 0);
             layoutBotonesVenta1.Margin = new Padding(0);
@@ -641,25 +641,25 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutBotonesVenta1.Size = new Size(494, 75);
             layoutBotonesVenta1.TabIndex = 0;
             // 
-            // btnCantidadArticulo
+            // btnCantidadProducto
             // 
-            btnCantidadArticulo.Animated = true;
-            btnCantidadArticulo.BackColor = Color.WhiteSmoke;
-            btnCantidadArticulo.BorderRadius = 10;
-            btnCantidadArticulo.CustomizableEdges = customizableEdges31;
-            btnCantidadArticulo.Dock = DockStyle.Fill;
-            btnCantidadArticulo.FillColor = Color.Gainsboro;
-            btnCantidadArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnCantidadArticulo.ForeColor = Color.Black;
-            btnCantidadArticulo.Image = (Image) resources.GetObject("btnCantidadArticulo.Image");
-            btnCantidadArticulo.Location = new Point(248, 2);
-            btnCantidadArticulo.Margin = new Padding(2);
-            btnCantidadArticulo.Name = "btnCantidadArticulo";
-            btnCantidadArticulo.ShadowDecoration.CustomizableEdges = customizableEdges32;
-            btnCantidadArticulo.Size = new Size(119, 71);
-            btnCantidadArticulo.TabIndex = 2;
-            btnCantidadArticulo.Text = "Cantidad";
-            btnCantidadArticulo.Tile = true;
+            btnCantidadProducto.Animated = true;
+            btnCantidadProducto.BackColor = Color.WhiteSmoke;
+            btnCantidadProducto.BorderRadius = 10;
+            btnCantidadProducto.CustomizableEdges = customizableEdges31;
+            btnCantidadProducto.Dock = DockStyle.Fill;
+            btnCantidadProducto.FillColor = Color.Gainsboro;
+            btnCantidadProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCantidadProducto.ForeColor = Color.Black;
+            btnCantidadProducto.Image = (Image) resources.GetObject("btnCantidadProducto.Image");
+            btnCantidadProducto.Location = new Point(248, 2);
+            btnCantidadProducto.Margin = new Padding(2);
+            btnCantidadProducto.Name = "btnCantidadProducto";
+            btnCantidadProducto.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            btnCantidadProducto.Size = new Size(119, 71);
+            btnCantidadProducto.TabIndex = 2;
+            btnCantidadProducto.Text = "Cantidad";
+            btnCantidadProducto.Tile = true;
             // 
             // btnNuevaVenta
             // 
@@ -681,45 +681,45 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             btnNuevaVenta.Text = "Nueva venta";
             btnNuevaVenta.Tile = true;
             // 
-            // btnEliminarArticulos
+            // btnEliminarProductos
             // 
-            btnEliminarArticulos.Animated = true;
-            btnEliminarArticulos.BackColor = Color.WhiteSmoke;
-            btnEliminarArticulos.BorderRadius = 10;
-            btnEliminarArticulos.CustomizableEdges = customizableEdges35;
-            btnEliminarArticulos.Dock = DockStyle.Fill;
-            btnEliminarArticulos.FillColor = Color.Gainsboro;
-            btnEliminarArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnEliminarArticulos.ForeColor = Color.Black;
-            btnEliminarArticulos.Image = (Image) resources.GetObject("btnEliminarArticulos.Image");
-            btnEliminarArticulos.Location = new Point(2, 2);
-            btnEliminarArticulos.Margin = new Padding(2);
-            btnEliminarArticulos.Name = "btnEliminarArticulos";
-            btnEliminarArticulos.ShadowDecoration.CustomizableEdges = customizableEdges36;
-            btnEliminarArticulos.Size = new Size(119, 71);
-            btnEliminarArticulos.TabIndex = 0;
-            btnEliminarArticulos.Text = "Eliminar art.";
-            btnEliminarArticulos.Tile = true;
+            btnEliminarProductos.Animated = true;
+            btnEliminarProductos.BackColor = Color.WhiteSmoke;
+            btnEliminarProductos.BorderRadius = 10;
+            btnEliminarProductos.CustomizableEdges = customizableEdges35;
+            btnEliminarProductos.Dock = DockStyle.Fill;
+            btnEliminarProductos.FillColor = Color.Gainsboro;
+            btnEliminarProductos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEliminarProductos.ForeColor = Color.Black;
+            btnEliminarProductos.Image = (Image) resources.GetObject("btnEliminarProductos.Image");
+            btnEliminarProductos.Location = new Point(2, 2);
+            btnEliminarProductos.Margin = new Padding(2);
+            btnEliminarProductos.Name = "btnEliminarProductos";
+            btnEliminarProductos.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            btnEliminarProductos.Size = new Size(119, 71);
+            btnEliminarProductos.TabIndex = 0;
+            btnEliminarProductos.Text = "Eliminar art.";
+            btnEliminarProductos.Tile = true;
             // 
-            // btnBuscarArticulo
+            // btnBuscarProducto
             // 
-            btnBuscarArticulo.Animated = true;
-            btnBuscarArticulo.BackColor = Color.WhiteSmoke;
-            btnBuscarArticulo.BorderRadius = 10;
-            btnBuscarArticulo.CustomizableEdges = customizableEdges37;
-            btnBuscarArticulo.Dock = DockStyle.Fill;
-            btnBuscarArticulo.FillColor = Color.Gainsboro;
-            btnBuscarArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnBuscarArticulo.ForeColor = Color.Black;
-            btnBuscarArticulo.Image = (Image) resources.GetObject("btnBuscarArticulo.Image");
-            btnBuscarArticulo.Location = new Point(125, 2);
-            btnBuscarArticulo.Margin = new Padding(2);
-            btnBuscarArticulo.Name = "btnBuscarArticulo";
-            btnBuscarArticulo.ShadowDecoration.CustomizableEdges = customizableEdges38;
-            btnBuscarArticulo.Size = new Size(119, 71);
-            btnBuscarArticulo.TabIndex = 1;
-            btnBuscarArticulo.Text = "Buscar";
-            btnBuscarArticulo.Tile = true;
+            btnBuscarProducto.Animated = true;
+            btnBuscarProducto.BackColor = Color.WhiteSmoke;
+            btnBuscarProducto.BorderRadius = 10;
+            btnBuscarProducto.CustomizableEdges = customizableEdges37;
+            btnBuscarProducto.Dock = DockStyle.Fill;
+            btnBuscarProducto.FillColor = Color.Gainsboro;
+            btnBuscarProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnBuscarProducto.ForeColor = Color.Black;
+            btnBuscarProducto.Image = (Image) resources.GetObject("btnBuscarProducto.Image");
+            btnBuscarProducto.Location = new Point(125, 2);
+            btnBuscarProducto.Margin = new Padding(2);
+            btnBuscarProducto.Name = "btnBuscarProducto";
+            btnBuscarProducto.ShadowDecoration.CustomizableEdges = customizableEdges38;
+            btnBuscarProducto.Size = new Size(119, 71);
+            btnBuscarProducto.TabIndex = 1;
+            btnBuscarProducto.Text = "Buscar";
+            btnBuscarProducto.Tile = true;
             // 
             // layoutMetodosPago
             // 
@@ -730,27 +730,27 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutMetodosPago.Size = new Size(494, 122);
             layoutMetodosPago.TabIndex = 1;
             // 
-            // layoutDistribucionVentaArticulo
+            // layoutDistribucionVentaProducto
             // 
-            layoutDistribucionVentaArticulo.ColumnCount = 1;
-            layoutDistribucionVentaArticulo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutDistribucionVentaArticulo.Controls.Add(separador3, 0, 3);
-            layoutDistribucionVentaArticulo.Controls.Add(layoutResumenVenta, 0, 4);
-            layoutDistribucionVentaArticulo.Controls.Add(layoutEncabezadosTabla, 0, 0);
-            layoutDistribucionVentaArticulo.Controls.Add(contenedorVistas, 0, 2);
-            layoutDistribucionVentaArticulo.Dock = DockStyle.Fill;
-            layoutDistribucionVentaArticulo.Location = new Point(3, 3);
-            layoutDistribucionVentaArticulo.Name = "layoutDistribucionVentaArticulo";
-            layoutDistribucionVentaArticulo.RowCount = 5;
-            layoutDistribucionVentaArticulo.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
-            layoutDistribucionVentaArticulo.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
-            layoutDistribucionVentaArticulo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutDistribucionVentaArticulo.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutDistribucionVentaArticulo.RowStyles.Add(new RowStyle(SizeType.Absolute, 128F));
-            layoutDistribucionVentaArticulo.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutDistribucionVentaArticulo.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutDistribucionVentaArticulo.Size = new Size(810, 497);
-            layoutDistribucionVentaArticulo.TabIndex = 1;
+            layoutDistribucionVentaProducto.ColumnCount = 1;
+            layoutDistribucionVentaProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutDistribucionVentaProducto.Controls.Add(separador3, 0, 3);
+            layoutDistribucionVentaProducto.Controls.Add(layoutResumenVenta, 0, 4);
+            layoutDistribucionVentaProducto.Controls.Add(layoutEncabezadosTabla, 0, 0);
+            layoutDistribucionVentaProducto.Controls.Add(contenedorVistas, 0, 2);
+            layoutDistribucionVentaProducto.Dock = DockStyle.Fill;
+            layoutDistribucionVentaProducto.Location = new Point(3, 3);
+            layoutDistribucionVentaProducto.Name = "layoutDistribucionVentaProducto";
+            layoutDistribucionVentaProducto.RowCount = 5;
+            layoutDistribucionVentaProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
+            layoutDistribucionVentaProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
+            layoutDistribucionVentaProducto.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutDistribucionVentaProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutDistribucionVentaProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 128F));
+            layoutDistribucionVentaProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutDistribucionVentaProducto.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutDistribucionVentaProducto.Size = new Size(810, 497);
+            layoutDistribucionVentaProducto.TabIndex = 1;
             // 
             // separador3
             // 
@@ -996,11 +996,11 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutEncabezadosTabla.Controls.Add(fieldTituloNombreArticulo, 0, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloNombreProducto, 0, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloTotalArticulo, 4, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloCantidadArticulo, 3, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloPrecioArticulo, 2, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloTotalProducto, 4, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloCantidadProducto, 3, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloPrecioProducto, 2, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
             layoutEncabezadosTabla.Location = new Point(0, 0);
             layoutEncabezadosTabla.Margin = new Padding(0, 0, 0, 2);
@@ -1010,19 +1010,19 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutEncabezadosTabla.Size = new Size(810, 62);
             layoutEncabezadosTabla.TabIndex = 0;
             // 
-            // fieldTituloNombreArticulo
+            // fieldTituloNombreProducto
             // 
-            fieldTituloNombreArticulo.Dock = DockStyle.Fill;
-            fieldTituloNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloNombreArticulo.ForeColor = Color.Black;
-            fieldTituloNombreArticulo.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreArticulo.Location = new Point(61, 1);
-            fieldTituloNombreArticulo.Margin = new Padding(1);
-            fieldTituloNombreArticulo.Name = "fieldTituloNombreArticulo";
-            fieldTituloNombreArticulo.Size = new Size(318, 60);
-            fieldTituloNombreArticulo.TabIndex = 1;
-            fieldTituloNombreArticulo.Text = "Nombre del artículo";
-            fieldTituloNombreArticulo.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloNombreProducto.Dock = DockStyle.Fill;
+            fieldTituloNombreProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloNombreProducto.ForeColor = Color.Black;
+            fieldTituloNombreProducto.ImeMode = ImeMode.NoControl;
+            fieldTituloNombreProducto.Location = new Point(61, 1);
+            fieldTituloNombreProducto.Margin = new Padding(1);
+            fieldTituloNombreProducto.Name = "fieldTituloNombreProducto";
+            fieldTituloNombreProducto.Size = new Size(318, 60);
+            fieldTituloNombreProducto.TabIndex = 1;
+            fieldTituloNombreProducto.Text = "Nombre del producto";
+            fieldTituloNombreProducto.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloId
             // 
@@ -1038,47 +1038,47 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             fieldTituloId.Text = "Id";
             fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloTotalArticulo
+            // fieldTituloTotalProducto
             // 
-            fieldTituloTotalArticulo.Dock = DockStyle.Fill;
-            fieldTituloTotalArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloTotalArticulo.ForeColor = Color.Black;
-            fieldTituloTotalArticulo.ImeMode = ImeMode.NoControl;
-            fieldTituloTotalArticulo.Location = new Point(641, 1);
-            fieldTituloTotalArticulo.Margin = new Padding(1);
-            fieldTituloTotalArticulo.Name = "fieldTituloTotalArticulo";
-            fieldTituloTotalArticulo.Size = new Size(128, 60);
-            fieldTituloTotalArticulo.TabIndex = 4;
-            fieldTituloTotalArticulo.Text = "Monto total";
-            fieldTituloTotalArticulo.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloTotalProducto.Dock = DockStyle.Fill;
+            fieldTituloTotalProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloTotalProducto.ForeColor = Color.Black;
+            fieldTituloTotalProducto.ImeMode = ImeMode.NoControl;
+            fieldTituloTotalProducto.Location = new Point(641, 1);
+            fieldTituloTotalProducto.Margin = new Padding(1);
+            fieldTituloTotalProducto.Name = "fieldTituloTotalProducto";
+            fieldTituloTotalProducto.Size = new Size(128, 60);
+            fieldTituloTotalProducto.TabIndex = 4;
+            fieldTituloTotalProducto.Text = "Monto total";
+            fieldTituloTotalProducto.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloCantidadArticulo
+            // fieldTituloCantidadProducto
             // 
-            fieldTituloCantidadArticulo.Dock = DockStyle.Fill;
-            fieldTituloCantidadArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloCantidadArticulo.ForeColor = Color.Black;
-            fieldTituloCantidadArticulo.ImeMode = ImeMode.NoControl;
-            fieldTituloCantidadArticulo.Location = new Point(511, 1);
-            fieldTituloCantidadArticulo.Margin = new Padding(1);
-            fieldTituloCantidadArticulo.Name = "fieldTituloCantidadArticulo";
-            fieldTituloCantidadArticulo.Size = new Size(128, 60);
-            fieldTituloCantidadArticulo.TabIndex = 3;
-            fieldTituloCantidadArticulo.Text = "Cantidad";
-            fieldTituloCantidadArticulo.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloCantidadProducto.Dock = DockStyle.Fill;
+            fieldTituloCantidadProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloCantidadProducto.ForeColor = Color.Black;
+            fieldTituloCantidadProducto.ImeMode = ImeMode.NoControl;
+            fieldTituloCantidadProducto.Location = new Point(511, 1);
+            fieldTituloCantidadProducto.Margin = new Padding(1);
+            fieldTituloCantidadProducto.Name = "fieldTituloCantidadProducto";
+            fieldTituloCantidadProducto.Size = new Size(128, 60);
+            fieldTituloCantidadProducto.TabIndex = 3;
+            fieldTituloCantidadProducto.Text = "Cantidad";
+            fieldTituloCantidadProducto.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloPrecioArticulo
+            // fieldTituloPrecioProducto
             // 
-            fieldTituloPrecioArticulo.Dock = DockStyle.Fill;
-            fieldTituloPrecioArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloPrecioArticulo.ForeColor = Color.Black;
-            fieldTituloPrecioArticulo.ImeMode = ImeMode.NoControl;
-            fieldTituloPrecioArticulo.Location = new Point(381, 1);
-            fieldTituloPrecioArticulo.Margin = new Padding(1);
-            fieldTituloPrecioArticulo.Name = "fieldTituloPrecioArticulo";
-            fieldTituloPrecioArticulo.Size = new Size(128, 60);
-            fieldTituloPrecioArticulo.TabIndex = 2;
-            fieldTituloPrecioArticulo.Text = "Precio";
-            fieldTituloPrecioArticulo.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloPrecioProducto.Dock = DockStyle.Fill;
+            fieldTituloPrecioProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloPrecioProducto.ForeColor = Color.Black;
+            fieldTituloPrecioProducto.ImeMode = ImeMode.NoControl;
+            fieldTituloPrecioProducto.Location = new Point(381, 1);
+            fieldTituloPrecioProducto.Margin = new Padding(1);
+            fieldTituloPrecioProducto.Name = "fieldTituloPrecioProducto";
+            fieldTituloPrecioProducto.Size = new Size(128, 60);
+            fieldTituloPrecioProducto.TabIndex = 2;
+            fieldTituloPrecioProducto.Text = "Precio";
+            fieldTituloPrecioProducto.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // contenedorVistas
             // 
@@ -1097,7 +1097,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             KeyBuscar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             KeyBuscar.ForeColor = Color.Black;
             KeyBuscar.Size = new Size(20, 20);
-            KeyBuscar.TargetControl = btnBuscarArticulo;
+            KeyBuscar.TargetControl = btnBuscarProducto;
             KeyBuscar.Text = "F2";
             // 
             // KeyCantidad
@@ -1108,7 +1108,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             KeyCantidad.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             KeyCantidad.ForeColor = Color.Black;
             KeyCantidad.Size = new Size(20, 20);
-            KeyCantidad.TargetControl = btnCantidadArticulo;
+            KeyCantidad.TargetControl = btnCantidadProducto;
             KeyCantidad.Text = "F3";
             // 
             // KeyGuardar
@@ -1154,7 +1154,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             layoutBotonesVenta4.ResumeLayout(false);
             layoutBotonesVenta5.ResumeLayout(false);
             layoutBotonesVenta1.ResumeLayout(false);
-            layoutDistribucionVentaArticulo.ResumeLayout(false);
+            layoutDistribucionVentaProducto.ResumeLayout(false);
             layoutResumenVenta.ResumeLayout(false);
             layoutTotal.ResumeLayout(false);
             layoutDescuento.ResumeLayout(false);
@@ -1169,28 +1169,28 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         private TableLayoutPanel layoutVista;
         private Guna2Separator separador1;
         private TableLayoutPanel layoutHerramientas;
-        private Guna2TextBox fieldNombreArticulo;
+        private Guna2TextBox fieldNombreProducto;
         private TableLayoutPanel layoutDistribución1;
         private TableLayoutPanel layoutDistribucionControlesVenta;
         private TableLayoutPanel layoutBotonesVenta1;
-        private Guna2Button btnCantidadArticulo;
+        private Guna2Button btnCantidadProducto;
         private Guna2Button btnNuevaVenta;
-        private Guna2Button btnEliminarArticulos;
-        private Guna2Button btnBuscarArticulo;
+        private Guna2Button btnEliminarProductos;
+        private Guna2Button btnBuscarProducto;
         private FlowLayoutPanel layoutMetodosPago;
-        private TableLayoutPanel layoutDistribucionVentaArticulo;
+        private TableLayoutPanel layoutDistribucionVentaProducto;
         private TableLayoutPanel layoutEncabezadosTabla;
         private Label fieldTituloMonto;
-        private Label fieldTituloCantidadArticulos;
+        private Label fieldTituloCantidadProductos;
         private Label fieldTituloId;
         private Label fieldTituloNombreCliente;
         private Label fieldTituloEstadoEntrega;
-        private Label fieldTituloTotalArticulo;
-        private Label fieldTituloNombreArticulo;
-        private Label fieldTituloCantidadArticulo;
-        private Label fieldTituloPrecioArticulo;
+        private Label fieldTituloTotalProducto;
+        private Label fieldTituloNombreProducto;
+        private Label fieldTituloCantidadProducto;
+        private Label fieldTituloPrecioProducto;
         private Panel contenedorVistas;
-        private Guna2Button btnAdicionarArticulo;
+        private Guna2Button btnAdicionarProducto;
         private TableLayoutPanel layoutResumenVenta;
         private TableLayoutPanel layoutBotonesVenta5;
         private Guna2Button btnAnularOrden;

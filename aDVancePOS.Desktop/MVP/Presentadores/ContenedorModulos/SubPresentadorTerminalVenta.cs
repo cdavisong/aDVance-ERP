@@ -15,17 +15,17 @@ public partial class PresentadorContenedorModulos {
     private PresentadorTerminalVenta? _terminalVenta;
     private long _proximoIdVenta = 0;
 
-    private List<string[]>? ArticulosVenta { get; set; } = new();
+    private List<string[]>? ProductosVenta { get; set; } = new();
 
     private async void InicializarVistaTerminalVenta() {
         _terminalVenta = new PresentadorTerminalVenta(new VistaTerminalVenta());
         _terminalVenta.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
         _terminalVenta.Vista.IdTipoEntrega = await UtilesEntrega.ObtenerIdTipoEntrega("Presencial");
-        _terminalVenta.Vista.ModificarCantidadArticulos += MostrarVistaModificadorCantidadArticulo;
+        _terminalVenta.Vista.ModificarCantidadProductos += MostrarVistaModificadorCantidadProducto;
         _terminalVenta.Vista.RegistrarDatos += delegate {
-            ArticulosVenta = _terminalVenta.Vista.Articulos;
+            ProductosVenta = _terminalVenta.Vista.Productos;
 
-            RegistrarDetallesVentaArticulo();
+            RegistrarDetallesVentaProducto();
             RegistrarTransferenciaVenta();
         };
         //_terminalVenta.Vista.CancelarVenta += delegate {
@@ -74,64 +74,64 @@ public partial class PresentadorContenedorModulos {
         _terminalVenta.Vista.Mostrar();
     }
 
-    private void RegistrarDetallesVentaArticulo() {
-        if (ArticulosVenta == null || ArticulosVenta.Count == 0)
+    private void RegistrarDetallesVentaProducto() {
+        if (ProductosVenta == null || ProductosVenta.Count == 0)
             return;
 
         var ultimoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta");
 
-        foreach (var articulo in ArticulosVenta) {
-            var detalleVentaArticulo = new DetalleVentaArticulo(
+        foreach (var producto in ProductosVenta) {
+            var detalleVentaProducto = new DetalleVentaProducto(
                 0,
                 ultimoIdVenta,
-                long.Parse(articulo[0]),
-                decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture,
+                long.Parse(producto[0]),
+                decimal.TryParse(producto[2], NumberStyles.Any, CultureInfo.InvariantCulture,
                     out var precioCompraVigente)
                     ? precioCompraVigente
                     : 0.00m,
-                decimal.TryParse(articulo[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioVentaFinal)
+                decimal.TryParse(producto[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioVentaFinal)
                     ? precioVentaFinal
                     : 0.00m,
-                int.Parse(articulo[4])
+                int.Parse(producto[4])
             );
 
-            using (var datosArticulo = new DatosDetalleVentaArticulo()) {
-                datosArticulo.Adicionar(detalleVentaArticulo);
+            using (var datosProducto = new DatosDetalleVentaProducto()) {
+                datosProducto.Adicionar(detalleVentaProducto);
             }
 
-            RegistrarMovimientoVentaArticulo(detalleVentaArticulo, articulo);
-            ModificarStockVentaArticulo(detalleVentaArticulo, articulo);
+            RegistrarMovimientoVentaProducto(detalleVentaProducto, producto);
+            ModificarStockVentaProducto(detalleVentaProducto, producto);
 
-            // Actualizar precio de venta en tabla articulo
-            UtilesArticulo.ActualizarPrecioVentaBase(
-                detalleVentaArticulo.IdArticulo,
-                detalleVentaArticulo.PrecioVentaFinal
+            // Actualizar precio de venta en tabla producto
+            UtilesProducto.ActualizarPrecioVentaBase(
+                detalleVentaProducto.IdProducto,
+                detalleVentaProducto.PrecioVentaFinal
             );
         }
     }
 
-    private static void RegistrarMovimientoVentaArticulo(DetalleVentaArticulo detalleVentaArticulo,
-        IReadOnlyList<string> articulo) {
+    private static void RegistrarMovimientoVentaProducto(DetalleVentaProducto detalleVentaProducto,
+        IReadOnlyList<string> producto) {
         using (var datosMovimiento = new DatosMovimiento()) {
             datosMovimiento.Adicionar(new Movimiento(
                 0,
-                detalleVentaArticulo.IdArticulo,
-                long.Parse(articulo[5]),
+                detalleVentaProducto.IdProducto,
+                long.Parse(producto[5]),
                 0,
                 DateTime.Now,
-                detalleVentaArticulo.Cantidad,
+                detalleVentaProducto.Cantidad,
                 UtilesMovimiento.ObtenerIdTipoMovimiento("Venta")
             ));
         }
     }
 
-    private static void ModificarStockVentaArticulo(DetalleVentaArticulo detalleVentaArticulo,
-        IReadOnlyList<string> articulo) {
-        UtilesMovimiento.ModificarStockArticuloAlmacen(
-            detalleVentaArticulo.IdArticulo,
-            long.Parse(articulo[5]),
+    private static void ModificarStockVentaProducto(DetalleVentaProducto detalleVentaProducto,
+        IReadOnlyList<string> producto) {
+        UtilesMovimiento.ModificarStockProductoAlmacen(
+            detalleVentaProducto.IdProducto,
+            long.Parse(producto[5]),
             0,
-            detalleVentaArticulo.Cantidad
+            detalleVentaProducto.Cantidad
         );
     }
 }

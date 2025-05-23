@@ -3,7 +3,7 @@
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas; 
 
 public interface IVistaRegistroMovimiento : IVistaRegistro {
-    string NombreArticulo { get; set; }
+    string NombreProducto { get; set; }
     string? NombreAlmacenOrigen { get; set; }
     string? NombreAlmacenDestino { get; set; }
     DateTime Fecha { get; set; }
@@ -14,7 +14,7 @@ public interface IVistaRegistroMovimiento : IVistaRegistro {
     event EventHandler? RegistrarTipoMovimiento;
     event EventHandler? EliminarTipoMovimiento;
 
-    void CargarNombresArticulos(string[] nombresArticulos);
+    void CargarNombresProductos(string[] nombresProductos);
     void CargarNombresAlmacenes(object[] nombresAlmacenes);
     void CargarTiposMovimientos(object[] tiposMovimientos);
     void ActualizarCamposAlmacenes();

@@ -61,7 +61,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             panelBotonesGestion = new Panel();
             btnRegistrar = new Guna2Button();
             layoutEncabezadosTabla = new TableLayoutPanel();
-            fieldTituloNombreArticulo = new Label();
+            fieldTituloNombreProducto = new Label();
             fieldTituloFecha = new Label();
             fieldTituloMotivo = new Label();
             fieldTitulaCantidadMovida = new Label();
@@ -331,7 +331,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutEncabezadosTabla.Controls.Add(fieldTituloNombreArticulo, 0, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloNombreProducto, 0, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloFecha, 7, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloMotivo, 6, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTitulaCantidadMovida, 5, 0);
@@ -347,19 +347,19 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutEncabezadosTabla.Size = new Size(1286, 58);
             layoutEncabezadosTabla.TabIndex = 19;
             // 
-            // fieldTituloNombreArticulo
+            // fieldTituloNombreProducto
             // 
-            fieldTituloNombreArticulo.Dock = DockStyle.Fill;
-            fieldTituloNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloNombreArticulo.ForeColor = Color.Black;
-            fieldTituloNombreArticulo.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreArticulo.Location = new Point(61, 1);
-            fieldTituloNombreArticulo.Margin = new Padding(1);
-            fieldTituloNombreArticulo.Name = "fieldTituloNombreArticulo";
-            fieldTituloNombreArticulo.Size = new Size(218, 56);
-            fieldTituloNombreArticulo.TabIndex = 16;
-            fieldTituloNombreArticulo.Text = "Artículo";
-            fieldTituloNombreArticulo.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloNombreProducto.Dock = DockStyle.Fill;
+            fieldTituloNombreProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloNombreProducto.ForeColor = Color.Black;
+            fieldTituloNombreProducto.ImeMode = ImeMode.NoControl;
+            fieldTituloNombreProducto.Location = new Point(61, 1);
+            fieldTituloNombreProducto.Margin = new Padding(1);
+            fieldTituloNombreProducto.Name = "fieldTituloNombreProducto";
+            fieldTituloNombreProducto.Size = new Size(218, 56);
+            fieldTituloNombreProducto.TabIndex = 16;
+            fieldTituloNombreProducto.Text = "Producto";
+            fieldTituloNombreProducto.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloFecha
             // 
@@ -767,7 +767,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         private Label fieldTituloMotivo;
         private Label fieldTitulaCantidadMovida;
         private Label fieldTituloAlmacenDestino;
-        private Label fieldTituloNombreArticulo;
+        private Label fieldTituloNombreProducto;
         private Guna2Separator separador1;
         private Panel panelBotonesGestion;
         private Guna2Button btnRegistrar;

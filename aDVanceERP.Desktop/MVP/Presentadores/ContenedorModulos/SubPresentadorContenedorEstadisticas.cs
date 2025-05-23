@@ -8,7 +8,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaContenedorEstadisticas() {
         _contenedorEstadisticas = new PresentadorContenedorEstadisticas(new VistaContenedorEstadísticas());
-        _contenedorEstadisticas.Vista.MostrarVistaGestionArticulos += delegate {
+        _contenedorEstadisticas.Vista.MostrarVistaGestionProductos += delegate {
             Vista.PresionarBotonModulo(5, EventArgs.Empty);
         };
         _contenedorEstadisticas.Vista.MostrarVistaGestionVentas += delegate {

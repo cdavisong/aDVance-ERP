@@ -36,7 +36,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
-            fieldNombreArticulo = new Label();
+            fieldNombreProducto = new Label();
             btnEliminar = new Guna2Button();
             fieldNombreAlmacenDestino = new Label();
             fieldId = new Label();
@@ -89,7 +89,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutVista.Controls.Add(fieldNombreArticulo, 0, 0);
+            layoutVista.Controls.Add(fieldNombreProducto, 0, 0);
             layoutVista.Controls.Add(btnEliminar, 11, 0);
             layoutVista.Controls.Add(fieldNombreAlmacenDestino, 4, 0);
             layoutVista.Controls.Add(fieldId, 0, 0);
@@ -108,19 +108,19 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutVista.Size = new Size(1241, 41);
             layoutVista.TabIndex = 18;
             // 
-            // fieldNombreArticulo
+            // fieldNombreProducto
             // 
-            fieldNombreArticulo.Dock = DockStyle.Fill;
-            fieldNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreArticulo.ForeColor = Color.DimGray;
-            fieldNombreArticulo.ImeMode = ImeMode.NoControl;
-            fieldNombreArticulo.Location = new Point(61, 1);
-            fieldNombreArticulo.Margin = new Padding(1);
-            fieldNombreArticulo.Name = "fieldNombreArticulo";
-            fieldNombreArticulo.Size = new Size(218, 39);
-            fieldNombreArticulo.TabIndex = 20;
-            fieldNombreArticulo.Text = "nombreArticulo";
-            fieldNombreArticulo.TextAlign = ContentAlignment.MiddleLeft;
+            fieldNombreProducto.Dock = DockStyle.Fill;
+            fieldNombreProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreProducto.ForeColor = Color.DimGray;
+            fieldNombreProducto.ImeMode = ImeMode.NoControl;
+            fieldNombreProducto.Location = new Point(61, 1);
+            fieldNombreProducto.Margin = new Padding(1);
+            fieldNombreProducto.Name = "fieldNombreProducto";
+            fieldNombreProducto.Size = new Size(218, 39);
+            fieldNombreProducto.TabIndex = 20;
+            fieldNombreProducto.Text = "nombreProducto";
+            fieldNombreProducto.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnEliminar
             // 
@@ -301,6 +301,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         private Label fieldFecha;
         private PictureBox fieldIcono;
         private Label fieldNombreAlmacenOrigen;
-        private Label fieldNombreArticulo;
+        private Label fieldNombreProducto;
     }
 }

@@ -4,12 +4,12 @@ using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra; 
 
-public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGestionDetallesCompraventaArticulos {
+public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGestionDetallesCompraventaProductos {
     private bool _modoEdicion;
 
     public VistaRegistroCompra() {
@@ -66,12 +66,12 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         set => fieldNombreAlmacen.Text = value;
     }
 
-    public string? NombreArticulo {
-        get => fieldNombreArticulo.Text;
-        set => fieldNombreArticulo.Text = value;
+    public string? NombreProducto {
+        get => fieldNombreProducto.Text;
+        set => fieldNombreProducto.Text = value;
     }
 
-    public List<string[]>? Articulos { get; private set; }
+    public List<string[]>? Productos { get; private set; }
 
     public int Cantidad {
         get => int.TryParse(fieldCantidad.Text, out var cantidad) ? cantidad : 0;
@@ -89,15 +89,15 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
-    public event EventHandler? ArticuloAgregado;
-    public event EventHandler? ArticuloEliminado;
+    public event EventHandler? ProductoAgregado;
+    public event EventHandler? ProductoEliminado;
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
-        Articulos = new List<string[]>();
+        Productos = new List<string[]>();
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
@@ -107,14 +107,14 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         fieldNombreAlmacen.SelectedIndexChanged += async delegate {
             var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
 
-            CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
+            CargarNombresProductos(await UtilesProducto.ObtenerNombresProductos(idAlmacen));
 
-            fieldNombreArticulo.Focus();
+            fieldNombreProducto.Focus();
         };
         fieldCantidad.TextChanged += delegate {
-            btnAdicionarArticulo.Enabled = Cantidad > 0;
+            btnAdicionarProducto.Enabled = Cantidad > 0;
         };
-        fieldNombreArticulo.KeyDown += delegate (object? sender, KeyEventArgs args) {
+        fieldNombreProducto.KeyDown += delegate (object? sender, KeyEventArgs args) {
             if (args.KeyCode != Keys.Enter)
                 return;
 
@@ -126,15 +126,15 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             if (args.KeyCode != Keys.Enter)
                 return;
 
-            AdicionarArticulo();
+            AdicionarProducto();
 
             args.SuppressKeyPress = true;
         };
-        btnAdicionarArticulo.Click += delegate {
-            AdicionarArticulo();
+        btnAdicionarProducto.Click += delegate {
+            AdicionarProducto();
         };
-        ArticuloEliminado += delegate {
-            ActualizarTuplasArticulos();
+        ProductoEliminado += delegate {
+            ActualizarTuplasProductos();
             ActualizarTotal();
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
@@ -167,124 +167,124 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         fieldNombreAlmacen.SelectedIndex = 0;
     }
 
-    public void CargarNombresArticulos(string[] nombresArticulos) {
-        fieldNombreArticulo.AutoCompleteCustomSource.Clear();
-        fieldNombreArticulo.AutoCompleteCustomSource.AddRange(nombresArticulos);
-        fieldNombreArticulo.AutoCompleteMode = AutoCompleteMode.Suggest;
-        fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+    public void CargarNombresProductos(string[] nombresProductos) {
+        fieldNombreProducto.AutoCompleteCustomSource.Clear();
+        fieldNombreProducto.AutoCompleteCustomSource.AddRange(nombresProductos);
+        fieldNombreProducto.AutoCompleteMode = AutoCompleteMode.Suggest;
+        fieldNombreProducto.AutoCompleteSource = AutoCompleteSource.CustomSource;
     }
 
     private void ProcesarDatosScanner(string codigo) {
-        var nombreArticulo = UtilesArticulo.ObtenerNombreArticulo(codigo.Replace("\0", "")).Result;
+        var nombreProducto = UtilesProducto.ObtenerNombreProducto(codigo.Replace("\0", "")).Result;
 
-        if (string.IsNullOrEmpty(nombreArticulo))
+        if (string.IsNullOrEmpty(nombreProducto))
             return;
 
         Invoke((MethodInvoker) delegate {
-            NombreArticulo = nombreArticulo;
+            NombreProducto = nombreProducto;
 
             fieldCantidad.Focus();
         });
     }
 
-    public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
+    public async void AdicionarProducto(string nombreAlmacen = "", string nombreProducto = "", string cantidad = "") {
         var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
         var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
-        var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
-        var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
+        var adNombreProducto = string.IsNullOrEmpty(nombreProducto) ? NombreProducto : nombreProducto;
+        var idProducto = await UtilesProducto.ObtenerIdProducto(adNombreProducto);
         var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
 
         if (!ModoEdicionDatos) {
-            // Verificar ID del artículo
-            if (idArticulo == 0) {
-                NombreArticulo = string.Empty;
+            // Verificar ID del producto
+            if (idProducto == 0) {
+                NombreProducto = string.Empty;
 
                 fieldCantidad.Text = string.Empty;
-                fieldNombreArticulo.Focus();
+                fieldNombreProducto.Focus();
 
                 return;
             }
         } else {
-            fieldNombreArticulo.ReadOnly = true;
+            fieldNombreProducto.ReadOnly = true;
             fieldCantidad.ReadOnly = true;
         }
 
-        var precioCompraBaseArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
-        var tuplaArticulo = new[] {
-            idArticulo.ToString(),
-            adNombreArticulo,
-            precioCompraBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
+        var precioCompraBaseProducto = await UtilesProducto.ObtenerPrecioCompraBase(idProducto);
+        var tuplaProducto = new[] {
+            idProducto.ToString(),
+            adNombreProducto,
+            precioCompraBaseProducto.ToString("N2", CultureInfo.InvariantCulture),
             adCantidad,
             idAlmacen.ToString()
         };
 
-        // Verificar que el articulo ya se encuentre registrado
-        if (Articulos != null) {
-            var indiceArticulo =
-                Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[4].Equals(idAlmacen.ToString()));
-            if (indiceArticulo != -1) {
-                Articulos[indiceArticulo][3] =
-                    (int.Parse(Articulos[indiceArticulo][3]) + int.Parse(adCantidad)).ToString();
+        // Verificar que el producto ya se encuentre registrado
+        if (Productos != null) {
+            var indiceProducto =
+                Productos.FindIndex(a => a[0].Equals(idProducto.ToString()) && a[4].Equals(idAlmacen.ToString()));
+            if (indiceProducto != -1) {
+                Productos[indiceProducto][3] =
+                    (int.Parse(Productos[indiceProducto][3]) + int.Parse(adCantidad)).ToString();
             } else {
-                Articulos.Add(tuplaArticulo);
-                ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+                Productos.Add(tuplaProducto);
+                ProductoAgregado?.Invoke(tuplaProducto, EventArgs.Empty);
             }
         }
 
-        NombreArticulo = string.Empty;
+        NombreProducto = string.Empty;
         Cantidad = 0;
 
-        ActualizarTuplasArticulos();
+        ActualizarTuplasProductos();
         ActualizarTotal();
 
-        fieldNombreArticulo.Focus();
+        fieldNombreProducto.Focus();
     }
 
-    private void ActualizarTuplasArticulos() {
+    private void ActualizarTuplasProductos() {
         foreach (var tupla in contenedorVistas.Controls)
-            if (tupla is IVistaTuplaDetalleCompraventaArticulo vistaTupla)
+            if (tupla is IVistaTuplaDetalleCompraventaProducto vistaTupla)
                 vistaTupla.Cerrar();
         contenedorVistas.Controls.Clear();
 
         // Restablecer útima coordenada Y de la tupla
         VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
-        for (var i = 0; i < Articulos?.Count; i++) {
-            var articulo = Articulos[i];
-            var tuplaDetallesVentaArticulo = new VistaTuplaDetalleCompraventaArticulo();
+        for (var i = 0; i < Productos?.Count; i++) {
+            var producto = Productos[i];
+            var tuplaDetallesVentaProducto = new VistaTuplaDetalleCompraventaProducto();
 
-            tuplaDetallesVentaArticulo.IdArticulo = articulo[0];
-            tuplaDetallesVentaArticulo.NombreArticulo = articulo[1];
-            tuplaDetallesVentaArticulo.PrecioCompraventaFinal = articulo[2];
-            tuplaDetallesVentaArticulo.Cantidad = articulo[3];
-            tuplaDetallesVentaArticulo.Habilitada = !ModoEdicionDatos;
-            tuplaDetallesVentaArticulo.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
-                if (sender is not IVistaTuplaDetalleCompraventaArticulo vista)
+            tuplaDetallesVentaProducto.IdProducto = producto[0];
+            tuplaDetallesVentaProducto.NombreProducto = producto[1];
+            tuplaDetallesVentaProducto.PrecioCompraventaFinal = producto[2];
+            tuplaDetallesVentaProducto.Cantidad = producto[3];
+            tuplaDetallesVentaProducto.Habilitada = !ModoEdicionDatos;
+            tuplaDetallesVentaProducto.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
+                if (sender is not IVistaTuplaDetalleCompraventaProducto vista)
                     return;
 
-                var indiceArticulo = Articulos.FindIndex(a => a[0].Equals(vista.IdArticulo));
+                var indiceProducto = Productos.FindIndex(a => a[0].Equals(vista.IdProducto));
 
-                if (indiceArticulo == -1)
+                if (indiceProducto == -1)
                     return;
 
-                Articulos[indiceArticulo][2] = vista.PrecioCompraventaFinal; // Actualizar precio de compra
+                Productos[indiceProducto][2] = vista.PrecioCompraventaFinal; // Actualizar precio de compra
 
                 ActualizarTotal();
             };
-            tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
-                articulo = sender as string[];
+            tuplaDetallesVentaProducto.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+                producto = sender as string[];
 
-                Articulos.RemoveAt(Articulos.FindIndex(p => p[0].Equals(articulo?[0])));
-                ArticuloEliminado?.Invoke(articulo, args);
+                Productos.RemoveAt(Productos.FindIndex(p => p[0].Equals(producto?[0])));
+                ProductoEliminado?.Invoke(producto, args);
             };
 
             // Registro y muestra
             Vistas?.Registrar(
-                $"vistaTupla{tuplaDetallesVentaArticulo.GetType().Name}{i}",
-                tuplaDetallesVentaArticulo,
+                $"vistaTupla{tuplaDetallesVentaProducto.GetType().Name}{i}",
+                tuplaDetallesVentaProducto,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                 new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
-            tuplaDetallesVentaArticulo.Mostrar();
+            tuplaDetallesVentaProducto.Mostrar();
 
             // Incremento de la útima coordenada Y de la tupla
             VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
@@ -294,13 +294,13 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     private void ActualizarTotal() {
         Total = 0;
 
-        if (Articulos == null)
+        if (Productos == null)
             return;
 
-        foreach (var articulo in Articulos) {
-            var cantidad = int.TryParse(articulo[3], out var cantArticulos) ? cantArticulos : 0;
+        foreach (var producto in Productos) {
+            var cantidad = int.TryParse(producto[3], out var cantProductos) ? cantProductos : 0;
 
-            Total += decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture,
+            Total += decimal.TryParse(producto[2], NumberStyles.Any, CultureInfo.InvariantCulture,
                 out var precioCompraTotal)
                 ? precioCompraTotal * cantidad
                 : 0;
@@ -318,7 +318,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         fieldNombreProveedor.SelectedIndex = 0;
         NombreAlmacen = string.Empty;
         fieldNombreAlmacen.SelectedIndex = 0;
-        fieldNombreArticulo.AutoCompleteCustomSource.Clear();
+        fieldNombreProducto.AutoCompleteCustomSource.Clear();
         Total = 0;
         ModoEdicionDatos = false;
     }

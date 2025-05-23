@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
 
     private async Task InicializarVistaRegistroMovimiento() {
         _registroMovimiento = new PresentadorRegistroMovimiento(new VistaRegistroMovimiento());
-        _registroMovimiento.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
+        _registroMovimiento.Vista.CargarNombresProductos(await UtilesProducto.ObtenerNombresProductos());
         _registroMovimiento.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
         _registroMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
@@ -48,18 +48,18 @@ public partial class PresentadorContenedorModulos {
         }
     }
 
-    private async Task InicializarVistaRegistroMovimiento(string? signo, string? nombreAlmacen, Articulo? objeto) {
+    private async Task InicializarVistaRegistroMovimiento(string? signo, string? nombreAlmacen, Producto? objeto) {
         await InicializarVistaRegistroMovimiento(signo, nombreAlmacen);
 
         Signo = signo ?? string.Empty;
 
-        if (_registroMovimiento != null) _registroMovimiento.Vista.NombreArticulo = objeto?.Nombre ?? string.Empty;
+        if (_registroMovimiento != null) _registroMovimiento.Vista.NombreProducto = objeto?.Nombre ?? string.Empty;
     }
 
     private async void MostrarVistaRegistroMovimiento(object? sender, EventArgs e) {
-        if (sender is object[] datosAlmacenArticulo)
-            await InicializarVistaRegistroMovimiento(datosAlmacenArticulo[0].ToString(),
-                datosAlmacenArticulo[1].ToString(), datosAlmacenArticulo[2] as Articulo);
+        if (sender is object[] datosAlmacenProducto)
+            await InicializarVistaRegistroMovimiento(datosAlmacenProducto[0].ToString(),
+                datosAlmacenProducto[1].ToString(), datosAlmacenProducto[2] as Producto);
         else
             await InicializarVistaRegistroMovimiento(string.Empty, string.Empty);
 

@@ -18,23 +18,23 @@ public partial class PresentadorContenedorModulos {
         _registroMensajeria.Vista.CargarTiposEntrega();
         _registroMensajeria.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
         _registroMensajeria.DatosRegistradosActualizados += delegate {
-            if (_registroVentaArticulo == null) 
+            if (_registroVentaProducto == null) 
                 return;
 
-            _registroVentaArticulo.Vista.RazonSocialCliente = _registroMensajeria.Vista.RazonSocialCliente;
-            _registroVentaArticulo.Vista.Direccion = _registroMensajeria.Vista.Direccion;
-            _registroVentaArticulo.Vista.TipoEntrega = _registroMensajeria.Vista.TipoEntrega;
-            _registroVentaArticulo.Vista.EstadoEntrega = "Pendiente";
-            _registroVentaArticulo.Vista.MensajeriaConfigurada = true;
+            _registroVentaProducto.Vista.RazonSocialCliente = _registroMensajeria.Vista.RazonSocialCliente;
+            _registroVentaProducto.Vista.Direccion = _registroMensajeria.Vista.Direccion;
+            _registroVentaProducto.Vista.TipoEntrega = _registroMensajeria.Vista.TipoEntrega;
+            _registroVentaProducto.Vista.EstadoEntrega = "Pendiente";
+            _registroVentaProducto.Vista.MensajeriaConfigurada = true;
         };
     }
 
     private void MostrarVistaRegistroMensajeria(object? sender, EventArgs e) {
         InicializarVistaRegistroMensajeria();
 
-        if (_registroMensajeria != null && _registroVentaArticulo != null) {
+        if (_registroMensajeria != null && _registroVentaProducto != null) {
             _registroMensajeria.Vista.IdVenta = _proximoIdVenta;
-            _registroMensajeria.Vista.PopularArticulosVenta(_registroVentaArticulo.Vista.Articulos);
+            _registroMensajeria.Vista.PopularProductosVenta(_registroVentaProducto.Vista.Productos);
             _registroMensajeria.Vista.AsignarNuevoMensajero += MostrarVistaRegistroMensajero;
             _registroMensajeria.Vista.AsignarNuevoCliente += MostrarVistaRegistroCliente;
             _registroMensajeria.Vista.Mostrar();
@@ -47,14 +47,14 @@ public partial class PresentadorContenedorModulos {
         InicializarVistaRegistroMensajeria();
 
         if (sender is Venta venta) {
-            if (_registroMensajeria != null && _registroVentaArticulo != null) {
+            if (_registroMensajeria != null && _registroVentaProducto != null) {
                 using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega()) {
                     var seguimientoEntrega = datosSeguimientoEntrega.Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, venta.Id.ToString()).FirstOrDefault();
 
                     if (seguimientoEntrega != null) {
                         _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
-                        _registroMensajeria.Vista.RazonSocialCliente = _registroVentaArticulo.Vista.RazonSocialCliente;
-                        _registroMensajeria.Vista.PopularArticulosVenta(_registroVentaArticulo.Vista.Articulos);
+                        _registroMensajeria.Vista.RazonSocialCliente = _registroVentaProducto.Vista.RazonSocialCliente;
+                        _registroMensajeria.Vista.PopularProductosVenta(_registroVentaProducto.Vista.Productos);
                         _registroMensajeria.Vista.Mostrar();
                     }
                 }

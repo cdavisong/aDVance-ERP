@@ -116,7 +116,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso {
             fieldNombrePermiso.Name = "fieldNombrePermiso";
             fieldNombrePermiso.Size = new Size(375, 39);
             fieldNombrePermiso.TabIndex = 1;
-            fieldNombrePermiso.Text = "nombreArticulo";
+            fieldNombrePermiso.Text = "nombreProducto";
             fieldNombrePermiso.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // VistaTuplaPermiso

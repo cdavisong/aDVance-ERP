@@ -14,22 +14,22 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorRegistroVenta? _registroVentaArticulo;
+    private PresentadorRegistroVenta? _registroVentaProducto;
     private long _proximoIdVenta = 0;
 
-    private List<string[]>? ArticulosVenta { get; set; } = new();
+    private List<string[]>? ProductosVenta { get; set; } = new();
 
-    private async Task InicializarVistaRegistroVentaArticulo() {
+    private async Task InicializarVistaRegistroVentaProducto() {
         try {
-            _registroVentaArticulo = new PresentadorRegistroVenta(new VistaRegistroVenta());
-            _registroVentaArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
-            _registroVentaArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroVentaArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
-            _registroVentaArticulo.Vista.IdTipoEntrega = await UtilesEntrega.ObtenerIdTipoEntrega("Presencial");
-            _registroVentaArticulo.DatosRegistradosActualizados += delegate {
-                ArticulosVenta = _registroVentaArticulo.Vista.Articulos;
+            _registroVentaProducto = new PresentadorRegistroVenta(new VistaRegistroVenta());
+            _registroVentaProducto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
+            _registroVentaProducto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
+            _registroVentaProducto.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
+            _registroVentaProducto.Vista.IdTipoEntrega = await UtilesEntrega.ObtenerIdTipoEntrega("Presencial");
+            _registroVentaProducto.DatosRegistradosActualizados += delegate {
+                ProductosVenta = _registroVentaProducto.Vista.Productos;
 
-                RegistrarDetallesVentaArticulo();
+                RegistrarDetallesVentaProducto();
                 RegistrarTransferenciaVenta();
 
                 if (_gestionVentas == null)
@@ -39,13 +39,13 @@ public partial class PresentadorContenedorModulos {
                 _gestionVentas.Vista.HabilitarBtnConfirmarPagos = false;
                 _gestionVentas.RefrescarListaObjetos();
             };
-            _registroVentaArticulo.Vista.Salir += delegate {
+            _registroVentaProducto.Vista.Salir += delegate {
                 // Verificar cancelación de la venta
-                if (!_registroVentaArticulo.Vista.ModoEdicionDatos && !UtilesVenta.ExisteVenta(_proximoIdVenta))
+                if (!_registroVentaProducto.Vista.ModoEdicionDatos && !UtilesVenta.ExisteVenta(_proximoIdVenta))
                     CancelarVenta();
             };
 
-            ArticulosVenta?.Clear();
+            ProductosVenta?.Clear();
         }
         catch (ExcepcionConexionServidorMySQL e) {
             CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
@@ -73,110 +73,110 @@ public partial class PresentadorContenedorModulos {
                 datosSeguimientoEntrega.Eliminar(idSeguimientoEntrega);
     }
 
-    private async void MostrarVistaRegistroVentaArticulo(object? sender, EventArgs e) {
+    private async void MostrarVistaRegistroVentaProducto(object? sender, EventArgs e) {
         if (!UtilesCaja.ExisteCajaActiva()) {
             CentroNotificaciones.Mostrar("No existen cajas activas en la sección de finanzas, debe registrar una apertura de caja antes de proceder con nuevas ventas", TipoNotificacion.Advertencia);
 
             return;
         }
 
-        await InicializarVistaRegistroVentaArticulo();
+        await InicializarVistaRegistroVentaProducto();
 
-        if (_registroVentaArticulo == null)
+        if (_registroVentaProducto == null)
             return;
 
         _proximoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta") + 1;
-        _registroVentaArticulo.Vista.EfectuarPago += delegate {
+        _registroVentaProducto.Vista.EfectuarPago += delegate {
             MostrarVistaRegistroPago(sender, e);
         };
-        _registroVentaArticulo.Vista.AsignarMensajeria += delegate {
+        _registroVentaProducto.Vista.AsignarMensajeria += delegate {
             MostrarVistaRegistroMensajeria(sender, e);
         };
 
-        MostrarVistaPanelTransparente(_registroVentaArticulo.Vista);
+        MostrarVistaPanelTransparente(_registroVentaProducto.Vista);
 
-        _registroVentaArticulo.Vista.Mostrar();
-        _registroVentaArticulo.Dispose();
+        _registroVentaProducto.Vista.Mostrar();
+        _registroVentaProducto.Dispose();
     }
 
-    private async void MostrarVistaEdicionVentaArticulo(object? sender, EventArgs e) {
-        await InicializarVistaRegistroVentaArticulo();
+    private async void MostrarVistaEdicionVentaProducto(object? sender, EventArgs e) {
+        await InicializarVistaRegistroVentaProducto();
 
-        if (_registroVentaArticulo != null && sender is Venta venta) {            
-            _registroVentaArticulo.Vista.EfectuarPago += delegate {
+        if (_registroVentaProducto != null && sender is Venta venta) {            
+            _registroVentaProducto.Vista.EfectuarPago += delegate {
                 MostrarVistaEdicionPago(sender, e);
             };
-            _registroVentaArticulo.Vista.AsignarMensajeria += delegate {
+            _registroVentaProducto.Vista.AsignarMensajeria += delegate {
                 MostrarVistaEdicionMensajeria(sender, e);
             };
 
-            MostrarVistaPanelTransparente(_registroVentaArticulo.Vista);
+            MostrarVistaPanelTransparente(_registroVentaProducto.Vista);
 
-            _registroVentaArticulo.PopularVistaDesdeObjeto(venta);
-            _registroVentaArticulo.Vista.Mostrar();
+            _registroVentaProducto.PopularVistaDesdeObjeto(venta);
+            _registroVentaProducto.Vista.Mostrar();
         }
 
-        _registroVentaArticulo?.Dispose();
+        _registroVentaProducto?.Dispose();
     }
 
-    private void RegistrarDetallesVentaArticulo() {
-        if (ArticulosVenta == null || ArticulosVenta.Count == 0)
+    private void RegistrarDetallesVentaProducto() {
+        if (ProductosVenta == null || ProductosVenta.Count == 0)
             return;
 
         var ultimoIdVenta = UtilesBD.ObtenerUltimoIdTabla("venta");
 
-        foreach (var articulo in ArticulosVenta) {
-            var detalleVentaArticulo = new DetalleVentaArticulo(
+        foreach (var producto in ProductosVenta) {
+            var detalleVentaProducto = new DetalleVentaProducto(
                 0,
                 ultimoIdVenta,
-                long.Parse(articulo[0]),
-                decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture,
+                long.Parse(producto[0]),
+                decimal.TryParse(producto[2], NumberStyles.Any, CultureInfo.InvariantCulture,
                     out var precioCompraVigente)
                     ? precioCompraVigente
                     : 0.00m,
-                decimal.TryParse(articulo[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioVentaFinal)
+                decimal.TryParse(producto[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioVentaFinal)
                     ? precioVentaFinal
                     : 0.00m,
-                int.Parse(articulo[4])
+                int.Parse(producto[4])
             );
 
-            using (var datosArticulo = new DatosDetalleVentaArticulo()) {
-                datosArticulo.Adicionar(detalleVentaArticulo);
+            using (var datosProducto = new DatosDetalleVentaProducto()) {
+                datosProducto.Adicionar(detalleVentaProducto);
             }
 
-            RegistrarMovimientoVentaArticulo(detalleVentaArticulo, articulo);
-            ModificarStockVentaArticulo(detalleVentaArticulo, articulo);
+            RegistrarMovimientoVentaProducto(detalleVentaProducto, producto);
+            ModificarStockVentaProducto(detalleVentaProducto, producto);
 
-            // Actualizar precio de venta en tabla articulo
-            UtilesArticulo.ActualizarPrecioVentaBase(
-                detalleVentaArticulo.IdArticulo,
-                detalleVentaArticulo.PrecioVentaFinal
+            // Actualizar precio de venta en tabla producto
+            UtilesProducto.ActualizarPrecioVentaBase(
+                detalleVentaProducto.IdProducto,
+                detalleVentaProducto.PrecioVentaFinal
             );
         }
     }
 
-    private static void RegistrarMovimientoVentaArticulo(DetalleVentaArticulo detalleVentaArticulo,
-        IReadOnlyList<string> articulo) {
+    private static void RegistrarMovimientoVentaProducto(DetalleVentaProducto detalleVentaProducto,
+        IReadOnlyList<string> producto) {
         using (var datosMovimiento = new DatosMovimiento()) {
             datosMovimiento.Adicionar(new Movimiento(
                 0,
-                detalleVentaArticulo.IdArticulo,
-                long.Parse(articulo[5]),
+                detalleVentaProducto.IdProducto,
+                long.Parse(producto[5]),
                 0,
                 DateTime.Now,
-                detalleVentaArticulo.Cantidad,
+                detalleVentaProducto.Cantidad,
                 UtilesMovimiento.ObtenerIdTipoMovimiento("Venta")
             ));
         }
     }
 
-    private static void ModificarStockVentaArticulo(DetalleVentaArticulo detalleVentaArticulo,
-        IReadOnlyList<string> articulo) {
-        UtilesMovimiento.ModificarStockArticuloAlmacen(
-            detalleVentaArticulo.IdArticulo,
-            long.Parse(articulo[5]),
+    private static void ModificarStockVentaProducto(DetalleVentaProducto detalleVentaProducto,
+        IReadOnlyList<string> producto) {
+        UtilesMovimiento.ModificarStockProductoAlmacen(
+            detalleVentaProducto.IdProducto,
+            long.Parse(producto[5]),
             0,
-            detalleVentaArticulo.Cantidad
+            detalleVentaProducto.Cantidad
         );
     }
 }

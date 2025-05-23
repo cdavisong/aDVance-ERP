@@ -19,5 +19,5 @@ public interface IVistaRegistroMensajeria : IVistaRegistro {
     void CargarNombresMensajeros(object[] nombresMensajeros);
     void CargarTiposEntrega();
     void CargarRazonesSocialesClientes(string[] razonesSocialesClientes);
-    void PopularArticulosVenta(List<string[]>? datosArticulos);
+    void PopularProductosVenta(List<string[]>? datosProductos);
 }

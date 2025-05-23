@@ -1,0 +1,43 @@
+﻿using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
+using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
+
+namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
+
+public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTuplaProducto, IVistaGestionProductos,
+    IVistaTuplaProducto, Producto, DatosProducto, CriterioBusquedaProducto> {
+    public PresentadorGestionProductos(IVistaGestionProductos vista) : base(vista) { }
+
+    public event EventHandler? MovimientoPositivoStock;
+    public event EventHandler? MovimientoNegativoStock;
+
+    protected override PresentadorTuplaProducto ObtenerValoresTupla(Producto objeto) {
+        var presentadorTupla = new PresentadorTuplaProducto(new VistaTuplaProducto(), objeto);
+
+        presentadorTupla.Vista.Id = objeto.Id.ToString();
+        presentadorTupla.Vista.NombreAlmacen = string.IsNullOrEmpty(objeto.NombreAlmacen) ? "-" : objeto.NombreAlmacen;
+        presentadorTupla.Vista.Codigo = objeto.Codigo ?? string.Empty;
+        presentadorTupla.Vista.Nombre = objeto.Nombre ?? string.Empty;
+        presentadorTupla.Vista.Descripcion = objeto.Descripcion ?? string.Empty;
+        presentadorTupla.Vista.PrecioCompraBase = objeto.PrecioCompraBase;
+        presentadorTupla.Vista.PrecioVentaBase = objeto.PrecioVentaBase;
+        presentadorTupla.Vista.Stock = string.IsNullOrEmpty(objeto.Stock)
+            ? UtilesProducto.ObtenerStockTotalProducto(objeto.Id).Result
+            : int.Parse(objeto.Stock);
+        presentadorTupla.Vista.MovimientoPositivoStock += delegate(object? sender, EventArgs args) {
+            var nombreAlmacen = sender as string;
+            var objetoPos = new object[] { "+", nombreAlmacen ?? string.Empty, objeto };
+            MovimientoPositivoStock?.Invoke(objetoPos, EventArgs.Empty);
+        };
+        presentadorTupla.Vista.MovimientoNegativoStock += delegate(object? sender, EventArgs args) {
+            var nombreAlmacen = sender as string;
+            var objetoNeg = new object[] { "-", nombreAlmacen ?? string.Empty, objeto };
+            MovimientoNegativoStock?.Invoke(objetoNeg, EventArgs.Empty);
+        };
+
+        return presentadorTupla;
+    }
+}

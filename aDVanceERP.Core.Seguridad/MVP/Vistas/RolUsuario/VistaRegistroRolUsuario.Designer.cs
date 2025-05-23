@@ -57,7 +57,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             fieldTituloGestionPermisos = new Label();
             separador1 = new Guna2Separator();
             layoutEncabezadosTabla = new TableLayoutPanel();
-            fieldTituloArticulo = new Label();
+            fieldTituloProducto = new Label();
             contenedorVistas = new Panel();
             layoutPermiso = new TableLayoutPanel();
             fieldNombrePermiso = new Guna2ComboBox();
@@ -324,7 +324,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutEncabezadosTabla.Controls.Add(fieldTituloArticulo, 0, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloProducto, 0, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
             layoutEncabezadosTabla.Location = new Point(51, 421);
             layoutEncabezadosTabla.Margin = new Padding(1);
@@ -334,19 +334,19 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
             layoutEncabezadosTabla.Size = new Size(415, 43);
             layoutEncabezadosTabla.TabIndex = 19;
             // 
-            // fieldTituloArticulo
+            // fieldTituloProducto
             // 
-            fieldTituloArticulo.Dock = DockStyle.Fill;
-            fieldTituloArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloArticulo.ForeColor = Color.Black;
-            fieldTituloArticulo.ImeMode = ImeMode.NoControl;
-            fieldTituloArticulo.Location = new Point(1, 1);
-            fieldTituloArticulo.Margin = new Padding(1);
-            fieldTituloArticulo.Name = "fieldTituloArticulo";
-            fieldTituloArticulo.Size = new Size(353, 41);
-            fieldTituloArticulo.TabIndex = 0;
-            fieldTituloArticulo.Text = "Nombre o denominación";
-            fieldTituloArticulo.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloProducto.Dock = DockStyle.Fill;
+            fieldTituloProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloProducto.ForeColor = Color.Black;
+            fieldTituloProducto.ImeMode = ImeMode.NoControl;
+            fieldTituloProducto.Location = new Point(1, 1);
+            fieldTituloProducto.Margin = new Padding(1);
+            fieldTituloProducto.Name = "fieldTituloProducto";
+            fieldTituloProducto.Size = new Size(353, 41);
+            fieldTituloProducto.TabIndex = 0;
+            fieldTituloProducto.Text = "Nombre o denominación";
+            fieldTituloProducto.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // contenedorVistas
             // 
@@ -537,7 +537,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario {
         private Guna2ComboBox fieldNombrePermiso;
         private Guna2Button btnAdicionarPermiso;
         private TableLayoutPanel layoutEncabezadosTabla;
-        private Label fieldTituloArticulo;
+        private Label fieldTituloProducto;
         private Panel contenedorVistas;
     }
 }

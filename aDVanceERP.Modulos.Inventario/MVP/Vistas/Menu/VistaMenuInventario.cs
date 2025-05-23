@@ -24,7 +24,7 @@ public partial class VistaMenuInventario : Form, IVistaMenuInventario {
         set => Size = value;
     }
 
-    public event EventHandler? VerArticulos;
+    public event EventHandler? VerProductos;
     public event EventHandler? VerMovimientos;
     public event EventHandler? VerAlmacenes;
     public event EventHandler? CambioMenu;
@@ -32,14 +32,14 @@ public partial class VistaMenuInventario : Form, IVistaMenuInventario {
 
     public void Inicializar() {
         // Eventos
-        btnArticulos.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
+        btnProductos.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
         btnMovimientos.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(2, e); };
         btnAlmacenes.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(3, e); };
     }
 
     public void MostrarCaracteristicaInicial() {
-        if (btnArticulos.Visible)
-            btnArticulos.PerformClick();
+        if (btnProductos.Visible)
+            btnProductos.PerformClick();
         else if (btnMovimientos.Visible)
             btnMovimientos.PerformClick();
         else if (btnAlmacenes.Visible)
@@ -56,9 +56,9 @@ public partial class VistaMenuInventario : Form, IVistaMenuInventario {
 
         switch (indice) {
             case 1:
-                VerArticulos?.Invoke(btnArticulos, e);
-                if (!btnArticulos.Checked)
-                    btnArticulos.Checked = true;
+                VerProductos?.Invoke(btnProductos, e);
+                if (!btnProductos.Checked)
+                    btnProductos.Checked = true;
                 break;
             case 2:
                 VerMovimientos?.Invoke(btnMovimientos, e);
@@ -80,7 +80,7 @@ public partial class VistaMenuInventario : Form, IVistaMenuInventario {
     }
 
     public void Restaurar() {
-        btnArticulos.Checked = false;
+        btnProductos.Checked = false;
         btnAlmacenes.Checked = false;
     }
 
@@ -93,8 +93,8 @@ public partial class VistaMenuInventario : Form, IVistaMenuInventario {
     }
 
     private void VerificarPermisos() {
-        btnArticulos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_INVENTARIO_ARTICULOS")
+        btnProductos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_INVENTARIO_PRODUCTOS")
                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_TODOS");
         btnMovimientos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                                  || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_INVENTARIO_MOVIMIENTOS")

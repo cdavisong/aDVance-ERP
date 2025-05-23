@@ -128,7 +128,7 @@
         B1Q3kOrF18ABABGWJVTyBsYfAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="fieldNombreArticulo.IconLeft" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="fieldNombreProducto.IconLeft" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAYZJREFUOE/V
         kz9rFUEUxVOJaQTttDAiiBhQBEEQP4L2WooIVgoRRLBIncbPYWOjhSAiQsRnzJzZR+7Z2TdnHkkQ/RT+
@@ -271,7 +271,7 @@
         dG1RB8InyHqN5DSTaWAAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="btnCantidadArticulo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnCantidadProducto.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAQtJREFUOE/V
         1M0qRlEUxvGfiDIgYSQTDJSbMXcJRspHPoqRDJSxMlMGbsDAwA2YkpjInDERWrVfbftV+xwjnnpqnXXO
@@ -288,7 +288,7 @@
         ilWUb4IxujgMq6lUopuHF5DlZXxg1EDKAfUNpHbxNaAAAJUdP7Ik26u6AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="btnEliminarArticulos.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnEliminarProductos.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAARFJREFUOE/V
         lMEqRGEYhp8aNUVcABsrSnaKNbkBU0rssRg79ljMTFm5ADZcxEzCRYwVuQApXIAyvfVNnd6+4xgbeeqr
@@ -298,7 +298,7 @@
         48IeF35bXtqZMgs+XMZOnOBzScnb8qH/wQC+00syY4URDAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="btnBuscarArticulo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="btnBuscarProducto.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAQZJREFUOE/V
         000rBWEUB/DfSmwUOxZISRQppeQjsGcpqbuiKCkLaxufw8aGhZJsyFtIyUpRyqfw3lPP4na6M27Nht9q

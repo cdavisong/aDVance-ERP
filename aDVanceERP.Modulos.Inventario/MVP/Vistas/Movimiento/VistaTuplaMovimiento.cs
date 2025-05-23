@@ -30,9 +30,9 @@ public partial class VistaTuplaMovimiento : Form, IVistaTuplaMovimiento {
         set => fieldId.Text = value;
     }
 
-    public string NombreArticulo {
-        get => fieldNombreArticulo.Text;
-        set => fieldNombreArticulo.Text = value;
+    public string NombreProducto {
+        get => fieldNombreProducto.Text;
+        set => fieldNombreProducto.Text = value;
     }
 
     public string NombreAlmacenOrigen {
@@ -82,7 +82,7 @@ public partial class VistaTuplaMovimiento : Form, IVistaTuplaMovimiento {
     public void Inicializar() {
         // Eventos
         fieldId.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldNombreArticulo.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNombreProducto.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldNombreAlmacenOrigen.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldNombreAlmacenDestino.Click += delegate(object? sender, EventArgs e) {
             TuplaSeleccionada?.Invoke(this, e);

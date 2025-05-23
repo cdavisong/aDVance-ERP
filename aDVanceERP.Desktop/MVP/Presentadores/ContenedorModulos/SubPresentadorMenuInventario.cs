@@ -8,7 +8,7 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaMenuInventario() {
         _menuInventario = new PresentadorMenuInventario(new VistaMenuInventario());
-        _menuInventario.Vista.VerArticulos += MostrarVistaGestionArticulos;
+        _menuInventario.Vista.VerProductos += MostrarVistaGestionProductos;
         _menuInventario.Vista.VerMovimientos += MostrarVistaGestionMovimientos;
         _menuInventario.Vista.VerAlmacenes += MostrarVistaGestionAlmacenes;
         _menuInventario.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };

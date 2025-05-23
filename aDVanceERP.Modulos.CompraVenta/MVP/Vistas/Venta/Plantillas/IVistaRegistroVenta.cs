@@ -5,8 +5,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 public interface IVistaRegistroVenta : IVistaRegistro {
     string? RazonSocialCliente { get; set; }
     string? NombreAlmacen { get; set; }
-    string? NombreArticulo { get; set; }
-    List<string[]>? Articulos { get; }
+    string? NombreProducto { get; set; }
+    List<string[]>? Productos { get; }
     int Cantidad { get; set; }
     decimal Total { get; set; }
     long IdTipoEntrega { get; set; }
@@ -17,11 +17,11 @@ public interface IVistaRegistroVenta : IVistaRegistro {
     string? EstadoEntrega { get; set; }
 
     event EventHandler? AlturaContenedorTuplasModificada;
-    event EventHandler? ArticuloAgregado;
-    event EventHandler? ArticuloEliminado;
+    event EventHandler? ProductoAgregado;
+    event EventHandler? ProductoEliminado;
     event EventHandler? EfectuarPago;
     event EventHandler? AsignarMensajeria;
 
     void CargarNombresAlmacenes(object[] nombresAlmacenes);
-    void CargarNombresArticulos(string[] nombresArticulos);
+    void CargarNombresProductos(string[] nombresProductos);
 }

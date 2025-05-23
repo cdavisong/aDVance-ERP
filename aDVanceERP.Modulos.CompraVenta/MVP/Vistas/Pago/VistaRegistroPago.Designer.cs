@@ -244,7 +244,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago {
             fieldTituloGestionPagos.Name = "fieldTituloGestionPagos";
             fieldTituloGestionPagos.Size = new Size(399, 27);
             fieldTituloGestionPagos.TabIndex = 15;
-            fieldTituloGestionPagos.Text = "      Gestión para los pagos de la venta de artículos :";
+            fieldTituloGestionPagos.Text = "      Gestión para los pagos de la venta de productos :";
             fieldTituloGestionPagos.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // layoutGestionPagos

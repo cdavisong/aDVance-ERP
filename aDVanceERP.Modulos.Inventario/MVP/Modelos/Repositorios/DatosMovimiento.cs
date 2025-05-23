@@ -12,7 +12,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
     public override string ComandoAdicionar(Movimiento objeto) {
         return $"""
                 INSERT INTO adv__movimiento (
-                    id_articulo,
+                    id_producto,
                     id_almacen_origen,
                     id_almacen_destino,
                     fecha,
@@ -20,7 +20,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
                     id_tipo_movimiento
                 )
                 VALUES (
-                    '{objeto.IdArticulo}',
+                    '{objeto.IdProducto}',
                     '{objeto.IdAlmacenOrigen}',
                     '{objeto.IdAlmacenDestino}',
                     '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
@@ -34,7 +34,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
         return $"""
                 UPDATE adv__movimiento
                 SET
-                    id_articulo='{objeto.IdArticulo}',
+                    id_producto='{objeto.IdProducto}',
                     id_almacen_origen='{objeto.IdAlmacenOrigen}',
                     id_almacen_destino='{objeto.IdAlmacenDestino}',
                     fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
@@ -55,9 +55,9 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
             case CriterioBusquedaMovimiento.Id:
                 comando = $"SELECT * FROM adv__movimiento WHERE id_movimiento = '{dato}';";
                 break;
-            case CriterioBusquedaMovimiento.Articulo:
+            case CriterioBusquedaMovimiento.Producto:
                 comando =
-                    $"SELECT m.* FROM adv__movimiento m JOIN adv__articulo a ON m.id_articulo = a.id_articulo WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
+                    $"SELECT m.* FROM adv__movimiento m JOIN adv__producto a ON m.id_producto = a.id_producto WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
                 break;
             case CriterioBusquedaMovimiento.AlmacenOrigen:
                 comando =
@@ -88,7 +88,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
     public override Movimiento ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
         return new Movimiento(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento")),
-            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_articulo")),
+            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_origen")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_destino")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

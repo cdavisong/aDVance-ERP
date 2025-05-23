@@ -112,19 +112,19 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
                 var comprasFecha = datosCompras.Obtener(CriterioBusquedaCompra.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
 
                 foreach (var venta in comprasFecha) {
-                    using (var datosCompraArticulo = new DatosDetalleCompraArticulo()) {
-                        var detalleCompraArticulo = datosCompraArticulo.Obtener(CriterioDetalleCompraArticulo.IdCompra, venta.Id.ToString());
+                    using (var datosCompraProducto = new DatosDetalleCompraProducto()) {
+                        var detalleCompraProducto = datosCompraProducto.Obtener(CriterioDetalleCompraProducto.IdCompra, venta.Id.ToString());
 
-                        foreach (var ventaArticulo in detalleCompraArticulo) {
+                        foreach (var ventaProducto in detalleCompraProducto) {
                             var fila = new string[7];
 
-                            fila[0] = ventaArticulo.Id.ToString();
-                            fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? string.Empty;
-                            fila[2] = ventaArticulo.Cantidad.ToString();
-                            fila[3] = ventaArticulo.PrecioCompra.ToString("N", CultureInfo.InvariantCulture);
+                            fila[0] = ventaProducto.Id.ToString();
+                            fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? string.Empty;
+                            fila[2] = ventaProducto.Cantidad.ToString();
+                            fila[3] = ventaProducto.PrecioCompra.ToString("N", CultureInfo.InvariantCulture);
                             fila[4] = "0";
                             fila[5] = "0.00%";
-                            fila[6] = (ventaArticulo.PrecioCompra * ventaArticulo.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+                            fila[6] = (ventaProducto.PrecioCompra * ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
 
                             filas.Add(fila);
                         }

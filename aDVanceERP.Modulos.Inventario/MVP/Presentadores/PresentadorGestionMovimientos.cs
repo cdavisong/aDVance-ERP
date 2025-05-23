@@ -15,8 +15,8 @@ public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorT
         var presentadorTupla = new PresentadorTuplaMovimiento(new VistaTuplaMovimiento(), objeto);
 
         presentadorTupla.Vista.Id = objeto.Id.ToString();
-        presentadorTupla.Vista.NombreArticulo =
-            UtilesArticulo.ObtenerNombreArticulo(objeto.IdArticulo).Result ?? string.Empty;
+        presentadorTupla.Vista.NombreProducto =
+            UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
         presentadorTupla.Vista.NombreAlmacenOrigen =
             UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
         presentadorTupla.Vista.ActualizarIconoStock(

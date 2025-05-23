@@ -118,10 +118,10 @@ public static class UtilesVenta {
         return EjecutarConsultaEntero(query) > 0;
     }
 
-    public static int ObtenerTotalArticulosVendidosHoy() {
+    public static int ObtenerTotalProductosVendidosHoy() {
         const string query = """
                              SELECT SUM(dva.cantidad) AS total_vendido_hoy
-                             FROM adv__detalle_venta_articulo dva
+                             FROM adv__detalle_venta_producto dva
                              INNER JOIN adv__venta v ON dva.id_venta = v.id_venta
                              WHERE DATE(v.fecha) = CURDATE();
                              """;
@@ -129,10 +129,10 @@ public static class UtilesVenta {
         return EjecutarConsultaEntero(query);
     }
 
-    public static int ObtenerCantidadArticulosVenta(long idVenta) {
+    public static int ObtenerCantidadProductosVenta(long idVenta) {
         const string query = """
                              SELECT SUM(cantidad) AS total_productos
-                             FROM adv__detalle_venta_articulo
+                             FROM adv__detalle_venta_producto
                              WHERE id_venta = @IdVenta;
                              """;
         var parametros = new[] {
@@ -142,14 +142,14 @@ public static class UtilesVenta {
         return EjecutarConsultaEntero(query, parametros);
     }
 
-    public static IEnumerable<string> ObtenerArticulosPorVenta(long idVenta) {
+    public static IEnumerable<string> ObtenerProductosPorVenta(long idVenta) {
         const string query = """
                              SELECT
                                  a.nombre,
                                  dva.cantidad,
                                  dva.precio_venta_final
-                             FROM adv__detalle_venta_articulo dva
-                             JOIN adv__articulo a ON dva.id_articulo = a.id_articulo
+                             FROM adv__detalle_venta_producto dva
+                             JOIN adv__producto a ON dva.id_producto = a.id_producto
                              WHERE dva.id_venta = @IdVenta;
                              """;
         var parametros = new[] {
@@ -245,7 +245,7 @@ public static class UtilesVenta {
     public static decimal ObtenerValorGananciaTotalNegocio() {
         const string query = """
                              SELECT SUM((dva.precio_venta_final - dva.precio_compra_vigente) * dva.cantidad) AS ganancia_total
-                             FROM adv__detalle_venta_articulo dva
+                             FROM adv__detalle_venta_producto dva
                              JOIN adv__venta v ON dva.id_venta = v.id_venta
                              WHERE (
                                  SELECT COALESCE(SUM(p.monto), 0)
@@ -261,7 +261,7 @@ public static class UtilesVenta {
     public static decimal ObtenerValorGananciaDia(DateTime fecha) {
         const string query = """
                              SELECT SUM((dva.precio_venta_final - dva.precio_compra_vigente) * dva.cantidad) AS ganancia_dia
-                             FROM adv__detalle_venta_articulo dva
+                             FROM adv__detalle_venta_producto dva
                              JOIN adv__venta v ON dva.id_venta = v.id_venta
                              WHERE DATE(v.fecha) = @Fecha 
                              AND (
@@ -300,7 +300,7 @@ public static class UtilesVenta {
                                  HOUR(v.fecha) AS Hora,
                                  SUM(dva.precio_venta_final * dva.cantidad) AS Total
                              FROM adv__venta v
-                             JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                             JOIN adv__detalle_venta_producto dva ON v.id_venta = dva.id_venta
                              WHERE DATE(v.fecha) = @fecha
                              AND (
                                  SELECT COALESCE(SUM(p.monto), 0)
@@ -323,7 +323,7 @@ public static class UtilesVenta {
                                  DAY(v.fecha) AS Dia,
                                  SUM(dva.precio_venta_final * dva.cantidad) AS Total
                              FROM adv__venta v
-                             JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                             JOIN adv__detalle_venta_producto dva ON v.id_venta = dva.id_venta
                              WHERE MONTH(v.fecha) = @mes 
                              AND YEAR(v.fecha) = @anio
                              AND (
@@ -348,7 +348,7 @@ public static class UtilesVenta {
                                  MONTH(v.fecha) AS Mes,
                                  SUM(dva.precio_venta_final * dva.cantidad) AS Total
                              FROM adv__venta v
-                             JOIN adv__detalle_venta_articulo dva ON v.id_venta = dva.id_venta
+                             JOIN adv__detalle_venta_producto dva ON v.id_venta = dva.id_venta
                              WHERE YEAR(v.fecha) = @anio
                              AND (
                                  SELECT COALESCE(SUM(p.monto), 0)

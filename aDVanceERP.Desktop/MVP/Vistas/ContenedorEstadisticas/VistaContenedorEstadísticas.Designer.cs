@@ -66,17 +66,17 @@
             subLayout1EstadisticasVentaProducto = new TableLayoutPanel();
             panelAcumuladoVentas = new Panel();
             fieldTituloAcumuladoVentas = new Label();
-            fieldMontoVentaArticulosVendidos = new Label();
+            fieldMontoVentaProductosVendidos = new Label();
             subLayout2EstadisticasVenta = new TableLayoutPanel();
-            fieldCantArticulosVendidos = new Label();
-            fieldTituloArticulosVendidos = new Label();
+            fieldCantProductosVendidos = new Label();
+            fieldTituloProductosVendidos = new Label();
             layoutEstadisticasProducto = new TableLayoutPanel();
-            btnGestionarArticulos = new Guna.UI2.WinForms.Guna2Button();
+            btnGestionarProductos = new Guna.UI2.WinForms.Guna2Button();
             subLayout1EstadisticasProducto = new TableLayoutPanel();
-            fieldMontoInversionArticuloss = new Label();
+            fieldMontoInversionProductoss = new Label();
             subLayout2EstadisticasProducto = new TableLayoutPanel();
-            fieldCantArticulosRegistrados = new Label();
-            fieldTituloArticulos = new Label();
+            fieldCantProductosRegistrados = new Label();
+            fieldTituloProductos = new Label();
             layoutVista.SuspendLayout();
             layoutTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) fieldIcono).BeginInit();
@@ -579,7 +579,7 @@
             // 
             panelAcumuladoVentas.BackColor = Color.Transparent;
             panelAcumuladoVentas.Controls.Add(fieldTituloAcumuladoVentas);
-            panelAcumuladoVentas.Controls.Add(fieldMontoVentaArticulosVendidos);
+            panelAcumuladoVentas.Controls.Add(fieldMontoVentaProductosVendidos);
             panelAcumuladoVentas.Dock = DockStyle.Fill;
             panelAcumuladoVentas.Location = new Point(10, 116);
             panelAcumuladoVentas.Margin = new Padding(10, 0, 3, 0);
@@ -601,25 +601,25 @@
             fieldTituloAcumuladoVentas.Text = "de las ventas";
             fieldTituloAcumuladoVentas.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // fieldMontoVentaArticulosVendidos
+            // fieldMontoVentaProductosVendidos
             // 
-            fieldMontoVentaArticulosVendidos.AutoSize = true;
-            fieldMontoVentaArticulosVendidos.Dock = DockStyle.Left;
-            fieldMontoVentaArticulosVendidos.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldMontoVentaArticulosVendidos.Location = new Point(0, 0);
-            fieldMontoVentaArticulosVendidos.Margin = new Padding(0);
-            fieldMontoVentaArticulosVendidos.Name = "fieldMontoVentaArticulosVendidos";
-            fieldMontoVentaArticulosVendidos.Size = new Size(28, 32);
-            fieldMontoVentaArticulosVendidos.TabIndex = 2;
-            fieldMontoVentaArticulosVendidos.Text = "0";
+            fieldMontoVentaProductosVendidos.AutoSize = true;
+            fieldMontoVentaProductosVendidos.Dock = DockStyle.Left;
+            fieldMontoVentaProductosVendidos.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldMontoVentaProductosVendidos.Location = new Point(0, 0);
+            fieldMontoVentaProductosVendidos.Margin = new Padding(0);
+            fieldMontoVentaProductosVendidos.Name = "fieldMontoVentaProductosVendidos";
+            fieldMontoVentaProductosVendidos.Size = new Size(28, 32);
+            fieldMontoVentaProductosVendidos.TabIndex = 2;
+            fieldMontoVentaProductosVendidos.Text = "0";
             // 
             // subLayout2EstadisticasVenta
             // 
             subLayout2EstadisticasVenta.BackColor = Color.Transparent;
             subLayout2EstadisticasVenta.ColumnCount = 1;
             subLayout2EstadisticasVenta.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            subLayout2EstadisticasVenta.Controls.Add(fieldCantArticulosVendidos, 0, 0);
-            subLayout2EstadisticasVenta.Controls.Add(fieldTituloArticulosVendidos, 0, 1);
+            subLayout2EstadisticasVenta.Controls.Add(fieldCantProductosVendidos, 0, 0);
+            subLayout2EstadisticasVenta.Controls.Add(fieldTituloProductosVendidos, 0, 1);
             subLayout2EstadisticasVenta.Dock = DockStyle.Fill;
             subLayout2EstadisticasVenta.Location = new Point(10, 10);
             subLayout2EstadisticasVenta.Margin = new Padding(10, 10, 0, 10);
@@ -631,35 +631,35 @@
             subLayout2EstadisticasVenta.Size = new Size(372, 96);
             subLayout2EstadisticasVenta.TabIndex = 1;
             // 
-            // fieldCantArticulosVendidos
+            // fieldCantProductosVendidos
             // 
-            fieldCantArticulosVendidos.AutoSize = true;
-            fieldCantArticulosVendidos.BackColor = Color.Transparent;
-            fieldCantArticulosVendidos.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldCantArticulosVendidos.Location = new Point(3, 0);
-            fieldCantArticulosVendidos.Name = "fieldCantArticulosVendidos";
-            fieldCantArticulosVendidos.Size = new Size(56, 61);
-            fieldCantArticulosVendidos.TabIndex = 0;
-            fieldCantArticulosVendidos.Text = "0";
+            fieldCantProductosVendidos.AutoSize = true;
+            fieldCantProductosVendidos.BackColor = Color.Transparent;
+            fieldCantProductosVendidos.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldCantProductosVendidos.Location = new Point(3, 0);
+            fieldCantProductosVendidos.Name = "fieldCantProductosVendidos";
+            fieldCantProductosVendidos.Size = new Size(56, 61);
+            fieldCantProductosVendidos.TabIndex = 0;
+            fieldCantProductosVendidos.Text = "0";
             // 
-            // fieldTituloArticulosVendidos
+            // fieldTituloProductosVendidos
             // 
-            fieldTituloArticulosVendidos.AutoSize = true;
-            fieldTituloArticulosVendidos.BackColor = Color.Transparent;
-            fieldTituloArticulosVendidos.ForeColor = Color.OliveDrab;
-            fieldTituloArticulosVendidos.Location = new Point(11, 61);
-            fieldTituloArticulosVendidos.Margin = new Padding(11, 0, 0, 0);
-            fieldTituloArticulosVendidos.Name = "fieldTituloArticulosVendidos";
-            fieldTituloArticulosVendidos.Size = new Size(159, 20);
-            fieldTituloArticulosVendidos.TabIndex = 1;
-            fieldTituloArticulosVendidos.Text = "Artículos vendidos hoy";
+            fieldTituloProductosVendidos.AutoSize = true;
+            fieldTituloProductosVendidos.BackColor = Color.Transparent;
+            fieldTituloProductosVendidos.ForeColor = Color.OliveDrab;
+            fieldTituloProductosVendidos.Location = new Point(11, 61);
+            fieldTituloProductosVendidos.Margin = new Padding(11, 0, 0, 0);
+            fieldTituloProductosVendidos.Name = "fieldTituloProductosVendidos";
+            fieldTituloProductosVendidos.Size = new Size(159, 20);
+            fieldTituloProductosVendidos.TabIndex = 1;
+            fieldTituloProductosVendidos.Text = "Productos vendidos hoy";
             // 
             // layoutEstadisticasProducto
             // 
             layoutEstadisticasProducto.BackColor = Color.PeachPuff;
             layoutEstadisticasProducto.ColumnCount = 1;
             layoutEstadisticasProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutEstadisticasProducto.Controls.Add(btnGestionarArticulos, 0, 1);
+            layoutEstadisticasProducto.Controls.Add(btnGestionarProductos, 0, 1);
             layoutEstadisticasProducto.Controls.Add(subLayout1EstadisticasProducto, 0, 0);
             layoutEstadisticasProducto.Dock = DockStyle.Fill;
             layoutEstadisticasProducto.Location = new Point(3, 3);
@@ -670,33 +670,33 @@
             layoutEstadisticasProducto.Size = new Size(388, 194);
             layoutEstadisticasProducto.TabIndex = 0;
             // 
-            // btnGestionarArticulos
+            // btnGestionarProductos
             // 
-            btnGestionarArticulos.Animated = true;
-            btnGestionarArticulos.BackColor = Color.PeachPuff;
-            btnGestionarArticulos.CustomizableEdges = customizableEdges9;
-            btnGestionarArticulos.Dock = DockStyle.Fill;
-            btnGestionarArticulos.FillColor = Color.PeachPuff;
-            btnGestionarArticulos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            btnGestionarArticulos.ForeColor = Color.Black;
-            btnGestionarArticulos.Image = (Image) resources.GetObject("btnGestionarArticulos.Image");
-            btnGestionarArticulos.ImageAlign = HorizontalAlignment.Left;
-            btnGestionarArticulos.ImageOffset = new Point(-5, 0);
-            btnGestionarArticulos.Location = new Point(0, 159);
-            btnGestionarArticulos.Margin = new Padding(0);
-            btnGestionarArticulos.Name = "btnGestionarArticulos";
-            btnGestionarArticulos.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnGestionarArticulos.Size = new Size(388, 35);
-            btnGestionarArticulos.TabIndex = 8;
-            btnGestionarArticulos.Text = "Gestionar artículos";
-            btnGestionarArticulos.TextAlign = HorizontalAlignment.Left;
+            btnGestionarProductos.Animated = true;
+            btnGestionarProductos.BackColor = Color.PeachPuff;
+            btnGestionarProductos.CustomizableEdges = customizableEdges9;
+            btnGestionarProductos.Dock = DockStyle.Fill;
+            btnGestionarProductos.FillColor = Color.PeachPuff;
+            btnGestionarProductos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnGestionarProductos.ForeColor = Color.Black;
+            btnGestionarProductos.Image = (Image) resources.GetObject("btnGestionarProductos.Image");
+            btnGestionarProductos.ImageAlign = HorizontalAlignment.Left;
+            btnGestionarProductos.ImageOffset = new Point(-5, 0);
+            btnGestionarProductos.Location = new Point(0, 159);
+            btnGestionarProductos.Margin = new Padding(0);
+            btnGestionarProductos.Name = "btnGestionarProductos";
+            btnGestionarProductos.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnGestionarProductos.Size = new Size(388, 35);
+            btnGestionarProductos.TabIndex = 8;
+            btnGestionarProductos.Text = "Gestionar productos";
+            btnGestionarProductos.TextAlign = HorizontalAlignment.Left;
             // 
             // subLayout1EstadisticasProducto
             // 
             subLayout1EstadisticasProducto.ColumnCount = 1;
             subLayout1EstadisticasProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             subLayout1EstadisticasProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            subLayout1EstadisticasProducto.Controls.Add(fieldMontoInversionArticuloss, 0, 1);
+            subLayout1EstadisticasProducto.Controls.Add(fieldMontoInversionProductoss, 0, 1);
             subLayout1EstadisticasProducto.Controls.Add(subLayout2EstadisticasProducto, 0, 0);
             subLayout1EstadisticasProducto.Dock = DockStyle.Fill;
             subLayout1EstadisticasProducto.Location = new Point(3, 3);
@@ -708,16 +708,16 @@
             subLayout1EstadisticasProducto.Size = new Size(382, 146);
             subLayout1EstadisticasProducto.TabIndex = 0;
             // 
-            // fieldMontoInversionArticuloss
+            // fieldMontoInversionProductoss
             // 
-            fieldMontoInversionArticuloss.AutoSize = true;
-            fieldMontoInversionArticuloss.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldMontoInversionArticuloss.Location = new Point(10, 116);
-            fieldMontoInversionArticuloss.Margin = new Padding(10, 0, 3, 0);
-            fieldMontoInversionArticuloss.Name = "fieldMontoInversionArticuloss";
-            fieldMontoInversionArticuloss.Size = new Size(28, 30);
-            fieldMontoInversionArticuloss.TabIndex = 3;
-            fieldMontoInversionArticuloss.Text = "0";
+            fieldMontoInversionProductoss.AutoSize = true;
+            fieldMontoInversionProductoss.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldMontoInversionProductoss.Location = new Point(10, 116);
+            fieldMontoInversionProductoss.Margin = new Padding(10, 0, 3, 0);
+            fieldMontoInversionProductoss.Name = "fieldMontoInversionProductoss";
+            fieldMontoInversionProductoss.Size = new Size(28, 30);
+            fieldMontoInversionProductoss.TabIndex = 3;
+            fieldMontoInversionProductoss.Text = "0";
             // 
             // subLayout2EstadisticasProducto
             // 
@@ -725,8 +725,8 @@
             subLayout2EstadisticasProducto.ColumnCount = 1;
             subLayout2EstadisticasProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             subLayout2EstadisticasProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            subLayout2EstadisticasProducto.Controls.Add(fieldCantArticulosRegistrados, 0, 0);
-            subLayout2EstadisticasProducto.Controls.Add(fieldTituloArticulos, 0, 1);
+            subLayout2EstadisticasProducto.Controls.Add(fieldCantProductosRegistrados, 0, 0);
+            subLayout2EstadisticasProducto.Controls.Add(fieldTituloProductos, 0, 1);
             subLayout2EstadisticasProducto.Dock = DockStyle.Fill;
             subLayout2EstadisticasProducto.Location = new Point(10, 10);
             subLayout2EstadisticasProducto.Margin = new Padding(10, 10, 0, 10);
@@ -737,28 +737,28 @@
             subLayout2EstadisticasProducto.Size = new Size(372, 96);
             subLayout2EstadisticasProducto.TabIndex = 1;
             // 
-            // fieldCantArticulosRegistrados
+            // fieldCantProductosRegistrados
             // 
-            fieldCantArticulosRegistrados.AutoSize = true;
-            fieldCantArticulosRegistrados.BackColor = Color.Transparent;
-            fieldCantArticulosRegistrados.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldCantArticulosRegistrados.Location = new Point(3, 0);
-            fieldCantArticulosRegistrados.Name = "fieldCantArticulosRegistrados";
-            fieldCantArticulosRegistrados.Size = new Size(56, 61);
-            fieldCantArticulosRegistrados.TabIndex = 0;
-            fieldCantArticulosRegistrados.Text = "0";
+            fieldCantProductosRegistrados.AutoSize = true;
+            fieldCantProductosRegistrados.BackColor = Color.Transparent;
+            fieldCantProductosRegistrados.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldCantProductosRegistrados.Location = new Point(3, 0);
+            fieldCantProductosRegistrados.Name = "fieldCantProductosRegistrados";
+            fieldCantProductosRegistrados.Size = new Size(56, 61);
+            fieldCantProductosRegistrados.TabIndex = 0;
+            fieldCantProductosRegistrados.Text = "0";
             // 
-            // fieldTituloArticulos
+            // fieldTituloProductos
             // 
-            fieldTituloArticulos.AutoSize = true;
-            fieldTituloArticulos.BackColor = Color.Transparent;
-            fieldTituloArticulos.ForeColor = Color.SaddleBrown;
-            fieldTituloArticulos.Location = new Point(11, 61);
-            fieldTituloArticulos.Margin = new Padding(11, 0, 0, 0);
-            fieldTituloArticulos.Name = "fieldTituloArticulos";
-            fieldTituloArticulos.Size = new Size(161, 20);
-            fieldTituloArticulos.TabIndex = 1;
-            fieldTituloArticulos.Text = "Artículos en almacenes";
+            fieldTituloProductos.AutoSize = true;
+            fieldTituloProductos.BackColor = Color.Transparent;
+            fieldTituloProductos.ForeColor = Color.SaddleBrown;
+            fieldTituloProductos.Location = new Point(11, 61);
+            fieldTituloProductos.Margin = new Padding(11, 0, 0, 0);
+            fieldTituloProductos.Name = "fieldTituloProductos";
+            fieldTituloProductos.Size = new Size(161, 20);
+            fieldTituloProductos.TabIndex = 1;
+            fieldTituloProductos.Text = "Productos en almacenes";
             // 
             // VistaContenedorEstadísticas
             // 
@@ -819,22 +819,22 @@
         private TableLayoutPanel layoutEstadisticasProducto;
         private TableLayoutPanel subLayout1EstadisticasProducto;
         private TableLayoutPanel subLayout2EstadisticasProducto;
-        private Label fieldCantArticulosRegistrados;
-        private Label fieldTituloArticulos;
-        private Guna.UI2.WinForms.Guna2Button btnGestionarArticulos;
+        private Label fieldCantProductosRegistrados;
+        private Label fieldTituloProductos;
+        private Guna.UI2.WinForms.Guna2Button btnGestionarProductos;
         private TableLayoutPanel layoutEstadisticasVenta;
         private Guna.UI2.WinForms.Guna2Button btnGestionarVentas;
         private TableLayoutPanel subLayout1EstadisticasVentaProducto;
         private TableLayoutPanel subLayout2EstadisticasVenta;
-        private Label fieldCantArticulosVendidos;
-        private Label fieldTituloArticulosVendidos;
-        private Label fieldMontoVentaArticulosVendidos;
+        private Label fieldCantProductosVendidos;
+        private Label fieldTituloProductosVendidos;
+        private Label fieldMontoVentaProductosVendidos;
         private TableLayoutPanel layoutEstadisticasGanancia;
         private TableLayoutPanel subLayout1EstadisticasGanancia;
         private TableLayoutPanel subLayout2EstadisticasGanancia;
         private Label fieldGananciaTotalNegocio;
         private Label fieldTituloGananciaTotalNegocio;
-        private Label fieldMontoInversionArticuloss;
+        private Label fieldMontoInversionProductoss;
         private TableLayoutPanel layoutGraficoEstadisticas;
         private Guna.UI2.WinForms.Guna2Button btnDescargarAnálisisVentas;
         private TableLayoutPanel subLayoutGraficoEstadisticas1;

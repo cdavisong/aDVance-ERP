@@ -79,7 +79,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnRegistrar = new Guna2Button();
             layoutEncabezadosTabla = new TableLayoutPanel();
             fieldTituloMonto = new Label();
-            fieldTituloCantidadArticulos = new Label();
+            fieldTituloCantidadProductos = new Label();
             fieldTituloId = new Label();
             fieldTituloNombreCliente = new Label();
             fieldTituloFecha = new Label();
@@ -483,7 +483,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             btnConfirmarEntrega.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnConfirmarEntrega.Size = new Size(320, 39);
             btnConfirmarEntrega.TabIndex = 8;
-            btnConfirmarEntrega.Text = "Confirmar la entrega de artículos";
+            btnConfirmarEntrega.Text = "Confirmar la entrega de productos";
             // 
             // btnRegistrar
             // 
@@ -522,7 +522,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.Controls.Add(fieldTituloMonto, 5, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloCantidadArticulos, 4, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloCantidadProductos, 4, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloNombreCliente, 3, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloFecha, 1, 0);
@@ -552,19 +552,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloMonto.Text = "Monto";
             fieldTituloMonto.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloCantidadArticulos
+            // fieldTituloCantidadProductos
             // 
-            fieldTituloCantidadArticulos.Dock = DockStyle.Fill;
-            fieldTituloCantidadArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloCantidadArticulos.ForeColor = Color.Black;
-            fieldTituloCantidadArticulos.ImeMode = ImeMode.NoControl;
-            fieldTituloCantidadArticulos.Location = new Point(521, 1);
-            fieldTituloCantidadArticulos.Margin = new Padding(1);
-            fieldTituloCantidadArticulos.Name = "fieldTituloCantidadArticulos";
-            fieldTituloCantidadArticulos.Size = new Size(108, 56);
-            fieldTituloCantidadArticulos.TabIndex = 15;
-            fieldTituloCantidadArticulos.Text = "Cantidad de artículos";
-            fieldTituloCantidadArticulos.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloCantidadProductos.Dock = DockStyle.Fill;
+            fieldTituloCantidadProductos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloCantidadProductos.ForeColor = Color.Black;
+            fieldTituloCantidadProductos.ImeMode = ImeMode.NoControl;
+            fieldTituloCantidadProductos.Location = new Point(521, 1);
+            fieldTituloCantidadProductos.Margin = new Padding(1);
+            fieldTituloCantidadProductos.Name = "fieldTituloCantidadProductos";
+            fieldTituloCantidadProductos.Size = new Size(108, 56);
+            fieldTituloCantidadProductos.TabIndex = 15;
+            fieldTituloCantidadProductos.Text = "Cantidad de productos";
+            fieldTituloCantidadProductos.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloId
             // 
@@ -1076,7 +1076,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         private Label fieldTituloAlmacen;
         private Label fieldTituloNombreCliente;
         private Label fieldTituloMonto;
-        private Label fieldTituloCantidadArticulos;
+        private Label fieldTituloCantidadProductos;
         private Label fieldTituloFecha;
         private Panel panelBotonesGestion;
         private Guna2Button btnRegistrar;

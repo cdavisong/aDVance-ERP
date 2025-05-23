@@ -6,13 +6,13 @@ using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta; 
 
-public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGestionDetallesCompraventaArticulos {
+public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGestionDetallesCompraventaProductos {
     private bool _modoEdicion;
     private bool _pagoEfectuado;
     private bool _mensajeriaConfigurada;
@@ -70,12 +70,12 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         set => fieldNombreAlmacen.Text = value;
     }
 
-    public string? NombreArticulo {
-        get => fieldNombreArticulo.Text;
-        set => fieldNombreArticulo.Text = value;
+    public string? NombreProducto {
+        get => fieldNombreProducto.Text;
+        set => fieldNombreProducto.Text = value;
     }
 
-    public List<string[]>? Articulos { get; private set; }
+    public List<string[]>? Productos { get; private set; }
 
     public int Cantidad {
         get => int.TryParse(fieldCantidad.Text, out var cantidad) ? cantidad : 0;
@@ -109,7 +109,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             _pagoEfectuado = value;
 
             if (!ModoEdicionDatos) {
-                fieldNombreArticulo.ReadOnly = value;
+                fieldNombreProducto.ReadOnly = value;
                 fieldCantidad.ReadOnly = value;
                 btnEfectuarPago.Enabled = !value;
                 btnRegistrar.Enabled = value;
@@ -125,7 +125,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
             if (!ModoEdicionDatos) {
                 if (TipoEntrega == "Mensajería (sin fondo)") {
-                    fieldNombreArticulo.ReadOnly = true;
+                    fieldNombreProducto.ReadOnly = true;
                     fieldCantidad.ReadOnly = true;
                     btnEfectuarPago.Enabled = false;
                     btnRegistrar.Enabled = true;
@@ -148,8 +148,8 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     public string? EstadoEntrega { get; set; } = "Completada";
 
     public event EventHandler? AlturaContenedorTuplasModificada;
-    public event EventHandler? ArticuloAgregado;
-    public event EventHandler? ArticuloEliminado;
+    public event EventHandler? ProductoAgregado;
+    public event EventHandler? ProductoEliminado;
     public event EventHandler? EfectuarPago;
     public event EventHandler? AsignarMensajeria;
     public event EventHandler? RegistrarDatos;
@@ -158,7 +158,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     public event EventHandler? Salir;
 
     public void Inicializar() {
-        Articulos = new List<string[]>();
+        Productos = new List<string[]>();
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos            
@@ -168,14 +168,14 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         fieldNombreAlmacen.SelectedIndexChanged += async delegate {
             var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
 
-            CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos(idAlmacen));
+            CargarNombresProductos(await UtilesProducto.ObtenerNombresProductos(idAlmacen));
 
-            fieldNombreArticulo.Focus();
+            fieldNombreProducto.Focus();
         };
         fieldCantidad.TextChanged += delegate {
-            btnAdicionarArticulo.Enabled = Cantidad > 0;
+            btnAdicionarProducto.Enabled = Cantidad > 0;
         };
-        fieldNombreArticulo.KeyDown += delegate (object? sender, KeyEventArgs args) {
+        fieldNombreProducto.KeyDown += delegate (object? sender, KeyEventArgs args) {
             if (args.KeyCode != Keys.Enter)
                 return;
 
@@ -187,15 +187,15 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             if (args.KeyCode != Keys.Enter)
                 return;
 
-            AdicionarArticulo();
+            AdicionarProducto();
 
             args.SuppressKeyPress = true;
         };
-        btnAdicionarArticulo.Click += delegate {
-            AdicionarArticulo();
+        btnAdicionarProducto.Click += delegate {
+            AdicionarProducto();
         };
-        ArticuloEliminado += delegate {
-            ActualizarTuplasArticulos();
+        ProductoEliminado += delegate {
+            ActualizarTuplasProductos();
             ActualizarTotal();
         };
         btnEfectuarPago.Click += delegate(object? sender, EventArgs args) {
@@ -227,60 +227,60 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         fieldNombreAlmacen.SelectedIndex = 0;
     }
 
-    public void CargarNombresArticulos(string[] nombresArticulos) {
-        fieldNombreArticulo.AutoCompleteCustomSource.Clear();
-        fieldNombreArticulo.AutoCompleteCustomSource.AddRange(nombresArticulos);
-        fieldNombreArticulo.AutoCompleteMode = AutoCompleteMode.Suggest;
-        fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+    public void CargarNombresProductos(string[] nombresProductos) {
+        fieldNombreProducto.AutoCompleteCustomSource.Clear();
+        fieldNombreProducto.AutoCompleteCustomSource.AddRange(nombresProductos);
+        fieldNombreProducto.AutoCompleteMode = AutoCompleteMode.Suggest;
+        fieldNombreProducto.AutoCompleteSource = AutoCompleteSource.CustomSource;
     }
 
     private void ProcesarDatosScanner(string codigo) {
-        var nombreArticulo = UtilesArticulo.ObtenerNombreArticulo(codigo.Replace("\0", "")).Result;
+        var nombreProducto = UtilesProducto.ObtenerNombreProducto(codigo.Replace("\0", "")).Result;
 
-        if (string.IsNullOrEmpty(nombreArticulo))
+        if (string.IsNullOrEmpty(nombreProducto))
             return;
 
         Invoke((MethodInvoker) delegate {
-            NombreArticulo = nombreArticulo;
+            NombreProducto = nombreProducto;
             
             fieldCantidad.Focus();
         });
     }
 
-    public async void AdicionarArticulo(string nombreAlmacen = "", string nombreArticulo = "", string cantidad = "") {
+    public async void AdicionarProducto(string nombreAlmacen = "", string nombreProducto = "", string cantidad = "") {
         var adNombreAlmacen = string.IsNullOrEmpty(nombreAlmacen) ? NombreAlmacen : nombreAlmacen;
         var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
-        var adNombreArticulo = string.IsNullOrEmpty(nombreArticulo) ? NombreArticulo : nombreArticulo;
+        var adNombreProducto = string.IsNullOrEmpty(nombreProducto) ? NombreProducto : nombreProducto;
         
-        if (adNombreArticulo != null) {
-            var idArticulo = await UtilesArticulo.ObtenerIdArticulo(adNombreArticulo);
+        if (adNombreProducto != null) {
+            var idProducto = await UtilesProducto.ObtenerIdProducto(adNombreProducto);
             var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
-            var stockArticulo = await UtilesArticulo.ObtenerStockArticulo(adNombreArticulo, adNombreAlmacen);
+            var stockProducto = await UtilesProducto.ObtenerStockProducto(adNombreProducto, adNombreAlmacen);
 
             if (!ModoEdicionDatos) {
-                // Verificar ID y stock del artículo
-                if (idArticulo == 0 || stockArticulo == 0) {
-                    CentroNotificaciones.Mostrar($"El artículo {adNombreArticulo} no existe o no tiene stock disponible en el almacén {adNombreAlmacen}. Rectifique los datos.", TipoNotificacion.Advertencia);
+                // Verificar ID y stock del producto
+                if (idProducto == 0 || stockProducto == 0) {
+                    CentroNotificaciones.Mostrar($"El producto {adNombreProducto} no existe o no tiene stock disponible en el almacén {adNombreAlmacen}. Rectifique los datos.", TipoNotificacion.Advertencia);
 
-                    NombreArticulo = string.Empty;
+                    NombreProducto = string.Empty;
 
                     fieldCantidad.Text = string.Empty;
-                    fieldNombreArticulo.Focus();
+                    fieldNombreProducto.Focus();
 
                     return;
                 }
 
-                // Verificar que la cantidad no exceda el stock del artículo
-                if (Articulos != null) {
-                    var stockComprometido = Articulos
-                        .Where(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()))
+                // Verificar que la cantidad no exceda el stock del producto
+                if (Productos != null) {
+                    var stockComprometido = Productos
+                        .Where(a => a[0].Equals(idProducto.ToString()) && a[5].Equals(idAlmacen.ToString()))
                         .Sum(a => int.Parse(a[4]));
-                    if (int.Parse(adCantidad) + stockComprometido > stockArticulo) {
+                    if (int.Parse(adCantidad) + stockComprometido > stockProducto) {
                         fieldCantidad.ForeColor = Color.Firebrick;
                         fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
                         fieldCantidad.Margin = new Padding(3);
 
-                        CentroNotificaciones.Mostrar($"La cantidad del artículo {adNombreArticulo} excede el stock disponible ({stockArticulo}). Rectifique los datos o aumente la cantidad disponible en almacén.", TipoNotificacion.Advertencia);
+                        CentroNotificaciones.Mostrar($"La cantidad del producto {adNombreProducto} excede el stock disponible ({stockProducto}). Rectifique los datos o aumente la cantidad disponible en almacén.", TipoNotificacion.Advertencia);
                         return;
                     }
 
@@ -289,89 +289,89 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                     fieldCantidad.Margin = new Padding(3);
                 }
             } else {
-                fieldNombreArticulo.ReadOnly = true;
+                fieldNombreProducto.ReadOnly = true;
                 fieldCantidad.ReadOnly = true;
             }
 
-            var precioCompraVigenteArticulo = await UtilesArticulo.ObtenerPrecioCompraBase(idArticulo);
-            var precioVentaBaseArticulo = await UtilesArticulo.ObtenerPrecioVentaBase(idArticulo);
-            var tuplaArticulo = new[] {
-                idArticulo.ToString(),
-                adNombreArticulo,
-                precioCompraVigenteArticulo.ToString("N2", CultureInfo.InvariantCulture),
-                precioVentaBaseArticulo.ToString("N2", CultureInfo.InvariantCulture),
+            var precioCompraVigenteProducto = await UtilesProducto.ObtenerPrecioCompraBase(idProducto);
+            var precioVentaBaseProducto = await UtilesProducto.ObtenerPrecioVentaBase(idProducto);
+            var tuplaProducto = new[] {
+                idProducto.ToString(),
+                adNombreProducto,
+                precioCompraVigenteProducto.ToString("N2", CultureInfo.InvariantCulture),
+                precioVentaBaseProducto.ToString("N2", CultureInfo.InvariantCulture),
                 adCantidad,
                 idAlmacen.ToString()
             };
 
-            // Verificar que el articulo ya se encuentre registrado
-            if (Articulos != null) {
-                var indiceArticulo =
-                    Articulos.FindIndex(a => a[0].Equals(idArticulo.ToString()) && a[5].Equals(idAlmacen.ToString()));
-                if (indiceArticulo != -1) {
-                    Articulos[indiceArticulo][4] =
-                        (int.Parse(Articulos[indiceArticulo][4]) + int.Parse(adCantidad)).ToString();
+            // Verificar que el producto ya se encuentre registrado
+            if (Productos != null) {
+                var indiceProducto =
+                    Productos.FindIndex(a => a[0].Equals(idProducto.ToString()) && a[5].Equals(idAlmacen.ToString()));
+                if (indiceProducto != -1) {
+                    Productos[indiceProducto][4] =
+                        (int.Parse(Productos[indiceProducto][4]) + int.Parse(adCantidad)).ToString();
                 } else {
-                    Articulos.Add(tuplaArticulo);
-                    ArticuloAgregado?.Invoke(tuplaArticulo, EventArgs.Empty);
+                    Productos.Add(tuplaProducto);
+                    ProductoAgregado?.Invoke(tuplaProducto, EventArgs.Empty);
                 }
             }
         }
 
-        NombreArticulo = string.Empty;
+        NombreProducto = string.Empty;
         Cantidad = 0;
 
-        ActualizarTuplasArticulos();
+        ActualizarTuplasProductos();
         ActualizarTotal();
 
-        fieldNombreArticulo.Focus();
+        fieldNombreProducto.Focus();
     }
 
-    private void ActualizarTuplasArticulos() {
+    private void ActualizarTuplasProductos() {
         foreach (var tupla in contenedorVistas.Controls)
-            if (tupla is IVistaTuplaDetalleCompraventaArticulo vistaTupla)
+            if (tupla is IVistaTuplaDetalleCompraventaProducto vistaTupla)
                 vistaTupla.Cerrar();
         contenedorVistas.Controls.Clear();
 
         // Restablecer útima coordenada Y de la tupla
         VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
-        for (var i = 0; i < Articulos?.Count; i++) {
-            var articulo = Articulos[i];
-            var tuplaDetallesVentaArticulo = new VistaTuplaDetalleCompraventaArticulo();
+        for (var i = 0; i < Productos?.Count; i++) {
+            var producto = Productos[i];
+            var tuplaDetallesVentaProducto = new VistaTuplaDetalleCompraventaProducto();
 
-            tuplaDetallesVentaArticulo.IdArticulo = articulo[0];
-            tuplaDetallesVentaArticulo.NombreArticulo = articulo[1];
-            tuplaDetallesVentaArticulo.PrecioCompraventaFinal = articulo[3];
-            tuplaDetallesVentaArticulo.Cantidad = articulo[4];
-            tuplaDetallesVentaArticulo.Habilitada = !ModoEdicionDatos;
-            tuplaDetallesVentaArticulo.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
-                if (sender is not IVistaTuplaDetalleCompraventaArticulo vista)
+            tuplaDetallesVentaProducto.IdProducto = producto[0];
+            tuplaDetallesVentaProducto.NombreProducto = producto[1];
+            tuplaDetallesVentaProducto.PrecioCompraventaFinal = producto[3];
+            tuplaDetallesVentaProducto.Cantidad = producto[4];
+            tuplaDetallesVentaProducto.Habilitada = !ModoEdicionDatos;
+            tuplaDetallesVentaProducto.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
+                if (sender is not IVistaTuplaDetalleCompraventaProducto vista)
                     return;
 
-                var indiceArticulo = Articulos.FindIndex(a => a[0].Equals(vista.IdArticulo));
+                var indiceProducto = Productos.FindIndex(a => a[0].Equals(vista.IdProducto));
 
-                if (indiceArticulo == -1)
+                if (indiceProducto == -1)
                     return;
 
-                Articulos[indiceArticulo][3] = vista.PrecioCompraventaFinal; // Actualizar precio de venta del artículo
+                Productos[indiceProducto][3] = vista.PrecioCompraventaFinal; // Actualizar precio de venta del producto
 
                 ActualizarTotal();
             };
-            tuplaDetallesVentaArticulo.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
-                articulo = sender as string[];
+            tuplaDetallesVentaProducto.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+                producto = sender as string[];
 
-                Articulos.RemoveAt(Articulos.FindIndex(p => p[0].Equals(articulo?[0])));
-                ArticuloEliminado?.Invoke(articulo, args);
+                Productos.RemoveAt(Productos.FindIndex(p => p[0].Equals(producto?[0])));
+                ProductoEliminado?.Invoke(producto, args);
             };
 
             // Registro y muestra
             Vistas?.Registrar(
-                $"vistaTupla{tuplaDetallesVentaArticulo.GetType().Name}{i}",
-                tuplaDetallesVentaArticulo,
+                $"vistaTupla{tuplaDetallesVentaProducto.GetType().Name}{i}",
+                tuplaDetallesVentaProducto,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                 new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
-            tuplaDetallesVentaArticulo.Mostrar();
+            tuplaDetallesVentaProducto.Mostrar();
 
             // Incremento de la útima coordenada Y de la tupla
             VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
@@ -381,11 +381,11 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     private void ActualizarTotal() {
         Total = 0;
 
-        if (Articulos != null)
-            foreach (var articulo in Articulos) {
-                var cantidad = int.TryParse(articulo[4], out var cantArticulos) ? cantArticulos : 0;
+        if (Productos != null)
+            foreach (var producto in Productos) {
+                var cantidad = int.TryParse(producto[4], out var cantProductos) ? cantProductos : 0;
 
-                Total += decimal.TryParse(articulo[3], NumberStyles.Any, CultureInfo.InvariantCulture,
+                Total += decimal.TryParse(producto[3], NumberStyles.Any, CultureInfo.InvariantCulture,
                     out var precioVentaTotal)
                     ? precioVentaTotal * cantidad
                     : 0;
@@ -405,12 +405,12 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         RazonSocialCliente = string.Empty;
         NombreAlmacen = string.Empty;
         fieldNombreAlmacen.SelectedIndex = 0;
-        NombreArticulo = string.Empty;
-        fieldNombreArticulo.AutoCompleteCustomSource.Clear();
+        NombreProducto = string.Empty;
+        fieldNombreProducto.AutoCompleteCustomSource.Clear();
         Total = 0;
         ModoEdicionDatos = false;
 
-        fieldNombreArticulo.Focus();
+        fieldNombreProducto.Focus();
     }
 
     public void Ocultar() {

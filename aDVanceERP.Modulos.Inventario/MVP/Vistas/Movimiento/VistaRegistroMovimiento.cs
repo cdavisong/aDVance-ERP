@@ -29,9 +29,9 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         set => Size = value;
     }
 
-    public string NombreArticulo {
-        get => fieldNombreArticulo.Text;
-        set => fieldNombreArticulo.Text = value;
+    public string NombreProducto {
+        get => fieldNombreProducto.Text;
+        set => fieldNombreProducto.Text = value;
     }
 
     public string? NombreAlmacenOrigen {
@@ -102,11 +102,11 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
 
-    public void CargarNombresArticulos(string[] nombresArticulos) {
-        fieldNombreArticulo.AutoCompleteCustomSource.Clear();
-        fieldNombreArticulo.AutoCompleteCustomSource.AddRange(nombresArticulos);
-        fieldNombreArticulo.AutoCompleteMode = AutoCompleteMode.Suggest;
-        fieldNombreArticulo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+    public void CargarNombresProductos(string[] nombresProductos) {
+        fieldNombreProducto.AutoCompleteCustomSource.Clear();
+        fieldNombreProducto.AutoCompleteCustomSource.AddRange(nombresProductos);
+        fieldNombreProducto.AutoCompleteMode = AutoCompleteMode.Suggest;
+        fieldNombreProducto.AutoCompleteSource = AutoCompleteSource.CustomSource;
     }
 
     public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
@@ -128,13 +128,13 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
     }
 
     private void ProcesarDatosScanner(string codigo) {
-        var nombreArticulo = UtilesArticulo.ObtenerNombreArticulo(codigo.Replace("\0", "")).Result;
+        var nombreProducto = UtilesProducto.ObtenerNombreProducto(codigo.Replace("\0", "")).Result;
 
-        if (string.IsNullOrEmpty(nombreArticulo))
+        if (string.IsNullOrEmpty(nombreProducto))
             return;
 
         Invoke((MethodInvoker) delegate {
-            NombreArticulo = nombreArticulo;
+            NombreProducto = nombreProducto;
         });
     }
 
@@ -163,7 +163,7 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
     }
 
     public void Restaurar() {
-        NombreArticulo = string.Empty;
+        NombreProducto = string.Empty;
         NombreAlmacenOrigen = string.Empty;
         fieldNombreAlmacenOrigen.SelectedIndex = 0;
         NombreAlmacenDestino = string.Empty;

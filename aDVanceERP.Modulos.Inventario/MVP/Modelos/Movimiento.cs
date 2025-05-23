@@ -5,10 +5,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos;
 public class Movimiento : IObjetoUnico {
     public Movimiento() { }
 
-    public Movimiento(long id, long idArticulo, long idAlmacenOrigen, long idAlmacenDestino, DateTime fecha,
+    public Movimiento(long id, long idProducto, long idAlmacenOrigen, long idAlmacenDestino, DateTime fecha,
         int cantidadMovida, long idTipoMovimiento) {
         Id = id;
-        IdArticulo = idArticulo;
+        IdProducto = idProducto;
         IdAlmacenOrigen = idAlmacenOrigen;
         IdAlmacenDestino = idAlmacenDestino;
         Fecha = fecha;
@@ -16,7 +16,7 @@ public class Movimiento : IObjetoUnico {
         IdTipoMovimiento = idTipoMovimiento;
     }
 
-    public long IdArticulo { get; set; }
+    public long IdProducto { get; set; }
     public long IdAlmacenOrigen { get; set; }
     public long IdAlmacenDestino { get; set; }
     public DateTime Fecha { get; set; }
@@ -29,7 +29,7 @@ public class Movimiento : IObjetoUnico {
 public enum CriterioBusquedaMovimiento {
     Todos,
     Id,
-    Articulo,
+    Producto,
     AlmacenOrigen,
     AlmacenDestino,
     Fecha,
@@ -40,7 +40,7 @@ public static class UtilesBusquedaMovimiento {
     public static object[] CriterioBusquedaMovimiento = {
         "Todos los movimientos",
         "Identificador de BD",
-        "Nombre del artículo",
+        "Nombre del producto",
         "Almacén de orígen",
         "Almacén de destino",
         "Fecha del movimiento",

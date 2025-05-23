@@ -2,7 +2,7 @@
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
@@ -18,11 +18,11 @@ public class
         Vista.Direccion = objeto.DireccionEntrega;
         Vista.EstadoEntrega = objeto.EstadoEntrega;
 
-        var articulosVenta = UtilesVenta.ObtenerArticulosPorVenta(objeto.Id);
+        var productosVenta = UtilesVenta.ObtenerProductosPorVenta(objeto.Id);
 
-        foreach (var articuloSplit in articulosVenta.Select(articulo => articulo.Split('|')))
-            ((IVistaGestionDetallesCompraventaArticulos)Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0],
-                articuloSplit[1]);
+        foreach (var productoSplit in productosVenta.Select(producto => producto.Split('|')))
+            ((IVistaGestionDetallesCompraventaProductos)Vista).AdicionarProducto(Vista.NombreAlmacen, productoSplit[0],
+                productoSplit[1]);
 
         Vista.IdTipoEntrega = objeto.IdTipoEntrega;
 

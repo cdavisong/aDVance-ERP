@@ -3,7 +3,7 @@ using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
-using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaArticulo.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
@@ -17,11 +17,11 @@ public class
         Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
         Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;        
 
-        var articulosCompra = UtilesCompra.ObtenerArticulosPorCompra(objeto.Id);
+        var productosCompra = UtilesCompra.ObtenerProductosPorCompra(objeto.Id);
 
-        foreach (var articuloSplit in articulosCompra.Select(articulo => articulo.Split('|')))
-            ((IVistaGestionDetallesCompraventaArticulos)Vista).AdicionarArticulo(Vista.NombreAlmacen, articuloSplit[0],
-                articuloSplit[1]);
+        foreach (var productoSplit in productosCompra.Select(producto => producto.Split('|')))
+            ((IVistaGestionDetallesCompraventaProductos)Vista).AdicionarProducto(Vista.NombreAlmacen, productoSplit[0],
+                productoSplit[1]);
 
         Objeto = objeto;
     }

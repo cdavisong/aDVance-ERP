@@ -31,30 +31,30 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         set => Size = value;
     }
 
-    public int CantidadArticulosRegistrados {
-        get => int.TryParse(fieldCantArticulosRegistrados.Text, out var cantidad) ? cantidad : 0;
-        set => fieldCantArticulosRegistrados.Text = value.ToString();
+    public int CantidadProductosRegistrados {
+        get => int.TryParse(fieldCantProductosRegistrados.Text, out var cantidad) ? cantidad : 0;
+        set => fieldCantProductosRegistrados.Text = value.ToString();
     }
 
-    public decimal MontoInversionArticulos {
-        get => decimal.TryParse(fieldMontoInversionArticuloss.Text.Remove(1, 2), NumberStyles.Any,
+    public decimal MontoInversionProductos {
+        get => decimal.TryParse(fieldMontoInversionProductoss.Text.Remove(1, 2), NumberStyles.Any,
             CultureInfo.InvariantCulture, out var monto)
             ? monto
             : 0;
-        set => fieldMontoInversionArticuloss.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
+        set => fieldMontoInversionProductoss.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
     }
 
-    public int CantidadArticulosVendidos {
-        get => int.TryParse(fieldCantArticulosVendidos.Text, out var cantidad) ? cantidad : 0;
-        set => fieldCantArticulosVendidos.Text = value.ToString();
+    public int CantidadProductosVendidos {
+        get => int.TryParse(fieldCantProductosVendidos.Text, out var cantidad) ? cantidad : 0;
+        set => fieldCantProductosVendidos.Text = value.ToString();
     }
 
-    public decimal MontoVentaArticulosVendidos {
-        get => decimal.TryParse(fieldMontoVentaArticulosVendidos.Text.Remove(1, 2), NumberStyles.Any,
+    public decimal MontoVentaProductosVendidos {
+        get => decimal.TryParse(fieldMontoVentaProductosVendidos.Text.Remove(1, 2), NumberStyles.Any,
             CultureInfo.InvariantCulture, out var monto)
             ? monto
             : 0;
-        set => fieldMontoVentaArticulosVendidos.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
+        set => fieldMontoVentaProductosVendidos.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
     }
 
     public decimal MontoGananciaTotalNegocio {
@@ -86,7 +86,7 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         get => fieldDatoFecha.Value;
     }
 
-    public event EventHandler? MostrarVistaGestionArticulos;
+    public event EventHandler? MostrarVistaGestionProductos;
     public event EventHandler? MostrarVistaGestionVentas;
     public event EventHandler? FechaEstadsticasModificada;
     public event EventHandler? Salir;
@@ -106,18 +106,18 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
                 var ventasFecha = UtilesVenta.ObtenerVentas;
 
                 foreach (var venta in ventasFecha) {
-                    using (var datosVentaArticulo = new DatosDetalleVentaArticulo()) {
-                        var detalleVentaArticulo = datosVentaArticulo.Obtener(CriterioDetalleVentaArticulo.IdVenta, venta.Id.ToString());
+                    using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
+                        var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
-                        foreach (var ventaArticulo in detalleVentaArticulo) {
+                        foreach (var ventaProducto in detalleVentaProducto) {
                             var fila = new string[6];
 
-                            fila[0] = ventaArticulo.Id.ToString();
-                            fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? string.Empty;
+                            fila[0] = ventaProducto.Id.ToString();
+                            fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? string.Empty;
                             fila[2] = "U";
-                            fila[3] = ventaArticulo.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
-                            fila[4] = ventaArticulo.Cantidad.ToString();
-                            fila[5] = (ventaArticulo.PrecioVentaFinal * ventaArticulo.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+                            fila[3] = ventaProducto.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
+                            fila[4] = ventaProducto.Cantidad.ToString();
+                            fila[5] = (ventaProducto.PrecioVentaFinal * ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
 
                             filas.Add(fila);
                         }
@@ -145,8 +145,8 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
                 subLayout1EstadisticasGanancia.Width - 96,
                 subLayout1EstadisticasGanancia.Height - 96);
         };
-        btnGestionarArticulos.Click += delegate(object? sender, EventArgs e) {
-            MostrarVistaGestionArticulos?.Invoke(sender, e);
+        btnGestionarProductos.Click += delegate(object? sender, EventArgs e) {
+            MostrarVistaGestionProductos?.Invoke(sender, e);
         };
         btnGestionarVentas.Click += delegate(object? sender, EventArgs e) {
             MostrarVistaGestionVentas?.Invoke(sender, e);
@@ -196,7 +196,7 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
     }
 
     public void Mostrar() {
-        fieldTituloArticulosVendidos.Text = $"Artículos vendidos hoy {DateTime.Now.ToString("dd/MM/yyyy")}";
+        fieldTituloProductosVendidos.Text = $"Productos vendidos hoy {DateTime.Now.ToString("dd/MM/yyyy")}";
         fieldCriterioEstadisticasVenta.StartIndex = 0;
 
         BringToFront();

@@ -125,18 +125,18 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                 var ventasFecha = datosVentas.Obtener(CriterioBusquedaVenta.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
 
                 foreach (var venta in ventasFecha) {
-                    using (var datosVentaArticulo = new DatosDetalleVentaArticulo()) {
-                        var detalleVentaArticulo = datosVentaArticulo.Obtener(CriterioDetalleVentaArticulo.IdVenta, venta.Id.ToString());
+                    using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
+                        var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
-                        foreach (var ventaArticulo in detalleVentaArticulo) {
+                        foreach (var ventaProducto in detalleVentaProducto) {
                             var fila = new string[6];
 
-                            fila[0] = ventaArticulo.Id.ToString();
-                            fila[1] = UtilesArticulo.ObtenerNombreArticulo(ventaArticulo.IdArticulo).Result ?? string.Empty;
+                            fila[0] = ventaProducto.Id.ToString();
+                            fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? string.Empty;
                             fila[2] = "U";
-                            fila[3] = ventaArticulo.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
-                            fila[4] = ventaArticulo.Cantidad.ToString();
-                            fila[5] = (ventaArticulo.PrecioVentaFinal * ventaArticulo.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+                            fila[3] = ventaProducto.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
+                            fila[4] = ventaProducto.Cantidad.ToString();
+                            fila[5] = (ventaProducto.PrecioVentaFinal * ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
 
                             filas.Add(fila);
                         }

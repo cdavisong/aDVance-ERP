@@ -15,23 +15,23 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
-    private PresentadorRegistroCompra? _registroCompraArticulo;
+    private PresentadorRegistroCompra? _registroCompraProducto;
     private long _proximoIdCompra = 0;
 
-    private List<string[]>? ArticulosCompra { get; set; } = new();
+    private List<string[]>? ProductosCompra { get; set; } = new();
 
-    private async Task InicializarVistaRegistroCompraArticulo() {
+    private async Task InicializarVistaRegistroCompraProducto() {
         try {
-            _registroCompraArticulo = new PresentadorRegistroCompra(new VistaRegistroCompra());
-            _registroCompraArticulo.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
-            _registroCompraArticulo.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroCompraArticulo.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
-            _registroCompraArticulo.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
-            _registroCompraArticulo.Vista.CargarNombresArticulos(await UtilesArticulo.ObtenerNombresArticulos());
-            _registroCompraArticulo.DatosRegistradosActualizados += async delegate {
-                ArticulosCompra = _registroCompraArticulo.Vista.Articulos;
+            _registroCompraProducto = new PresentadorRegistroCompra(new VistaRegistroCompra());
+            _registroCompraProducto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
+            _registroCompraProducto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
+            _registroCompraProducto.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
+            _registroCompraProducto.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
+            _registroCompraProducto.Vista.CargarNombresProductos(await UtilesProducto.ObtenerNombresProductos());
+            _registroCompraProducto.DatosRegistradosActualizados += async delegate {
+                ProductosCompra = _registroCompraProducto.Vista.Productos;
 
-                RegistrarDetallesCompraArticulo();
+                RegistrarDetallesCompraProducto();
 
                 if (_gestionCompras == null)
                     return;
@@ -39,93 +39,93 @@ public partial class PresentadorContenedorModulos {
                 await _gestionCompras.RefrescarListaObjetos();
             };
 
-            ArticulosCompra?.Clear();
+            ProductosCompra?.Clear();
         } catch (ExcepcionConexionServidorMySQL e) {
             CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
         }
     }
 
-    private async void MostrarVistaRegistroCompraArticulo(object? sender, EventArgs e) {
-        await InicializarVistaRegistroCompraArticulo();
+    private async void MostrarVistaRegistroCompraProducto(object? sender, EventArgs e) {
+        await InicializarVistaRegistroCompraProducto();
 
-        if (_registroCompraArticulo == null)
+        if (_registroCompraProducto == null)
             return;
 
         _proximoIdCompra = UtilesBD.ObtenerUltimoIdTabla("compra") + 1;
-        MostrarVistaPanelTransparente(_registroCompraArticulo.Vista);
+        MostrarVistaPanelTransparente(_registroCompraProducto.Vista);
 
-        _registroCompraArticulo.Vista.Mostrar();
-        _registroCompraArticulo.Dispose();
+        _registroCompraProducto.Vista.Mostrar();
+        _registroCompraProducto.Dispose();
     }
 
-    private async void MostrarVistaEdicionCompraArticulo(object? sender, EventArgs e) {
-        await InicializarVistaRegistroCompraArticulo();
+    private async void MostrarVistaEdicionCompraProducto(object? sender, EventArgs e) {
+        await InicializarVistaRegistroCompraProducto();
 
         if (sender is Compra compra) {
-            if (_registroCompraArticulo != null) {
-                MostrarVistaPanelTransparente(_registroCompraArticulo.Vista);
+            if (_registroCompraProducto != null) {
+                MostrarVistaPanelTransparente(_registroCompraProducto.Vista);
 
-                _registroCompraArticulo.PopularVistaDesdeObjeto(compra);
-                _registroCompraArticulo.Vista.Mostrar();
+                _registroCompraProducto.PopularVistaDesdeObjeto(compra);
+                _registroCompraProducto.Vista.Mostrar();
             }
         }
 
-        _registroCompraArticulo?.Dispose();
+        _registroCompraProducto?.Dispose();
     }
 
-    private void RegistrarDetallesCompraArticulo() {
-        if (ArticulosCompra == null || ArticulosCompra.Count == 0)
+    private void RegistrarDetallesCompraProducto() {
+        if (ProductosCompra == null || ProductosCompra.Count == 0)
             return;
 
         var ultimoIdCompra = UtilesBD.ObtenerUltimoIdTabla("compra");
 
-        foreach (var articulo in ArticulosCompra) {
-            var detalleCompraArticulo = new DetalleCompraArticulo(
+        foreach (var producto in ProductosCompra) {
+            var detalleCompraProducto = new DetalleCompraProducto(
                 0,
                 ultimoIdCompra,
-                long.Parse(articulo[0]),
-                int.Parse(articulo[3]),
-                decimal.TryParse(articulo[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioCompra)
+                long.Parse(producto[0]),
+                int.Parse(producto[3]),
+                decimal.TryParse(producto[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioCompra)
                     ? precioCompra
                     : 0.00m
             );
 
-            using (var datosArticulo = new DatosDetalleCompraArticulo())
-                datosArticulo.Adicionar(detalleCompraArticulo);
+            using (var datosProducto = new DatosDetalleCompraProducto())
+                datosProducto.Adicionar(detalleCompraProducto);
 
-            RegistrarMovimientoCompraArticulo(detalleCompraArticulo, articulo);
-            ModificarStockCompraArticulo(detalleCompraArticulo, articulo);
+            RegistrarMovimientoCompraProducto(detalleCompraProducto, producto);
+            ModificarStockCompraProducto(detalleCompraProducto, producto);
 
-            // Actualizar precio de compra en tabla articulo
-            UtilesArticulo.ActualizarPrecioCompraBase(
-                detalleCompraArticulo.IdArticulo,
-                detalleCompraArticulo.PrecioCompra
+            // Actualizar precio de compra en tabla producto
+            UtilesProducto.ActualizarPrecioCompraBase(
+                detalleCompraProducto.IdProducto,
+                detalleCompraProducto.PrecioCompra
             );
         }
     }
 
-    private static void RegistrarMovimientoCompraArticulo(DetalleCompraArticulo detalleCompraArticulo,
-        IReadOnlyList<string> articulo) {
+    private static void RegistrarMovimientoCompraProducto(DetalleCompraProducto detalleCompraProducto,
+        IReadOnlyList<string> producto) {
         using (var datosMovimiento = new DatosMovimiento()) {
             datosMovimiento.Adicionar(new Movimiento(
                 0,
-                detalleCompraArticulo.IdArticulo,
+                detalleCompraProducto.IdProducto,
                 0,
-                long.Parse(articulo[4]),
+                long.Parse(producto[4]),
                 DateTime.Now,
-                detalleCompraArticulo.Cantidad,
+                detalleCompraProducto.Cantidad,
                 UtilesMovimiento.ObtenerIdTipoMovimiento("Compra")
             ));
         }
     }
 
-    private static void ModificarStockCompraArticulo(DetalleCompraArticulo detalleCompraArticulo,
-        IReadOnlyList<string> articulo) {
-        UtilesMovimiento.ModificarStockArticuloAlmacen(
-            detalleCompraArticulo.IdArticulo,
+    private static void ModificarStockCompraProducto(DetalleCompraProducto detalleCompraProducto,
+        IReadOnlyList<string> producto) {
+        UtilesMovimiento.ModificarStockProductoAlmacen(
+            detalleCompraProducto.IdProducto,
             0,
-            long.Parse(articulo[4]),
-            detalleCompraArticulo.Cantidad
+            long.Parse(producto[4]),
+            detalleCompraProducto.Cantidad
         );
     }
 }

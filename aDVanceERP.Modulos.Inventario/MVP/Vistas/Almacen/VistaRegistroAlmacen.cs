@@ -36,8 +36,8 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
     }
 
     public bool AutorizoVenta {
-        get => fieldAutorizoVentaArticulos.Checked;
-        set => fieldAutorizoVentaArticulos.Checked = value;
+        get => fieldAutorizoVentaProductos.Checked;
+        set => fieldAutorizoVentaProductos.Checked = value;
     }
 
     public string Notas {

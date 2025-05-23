@@ -45,7 +45,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
                     tupla.Objeto.FechaCierre = DateTime.Now;
                     tupla.Objeto.Estado = EstadoCaja.Cerrada;
 
-                    // Editar la venta del artículo
+                    // Editar la venta del producto
                     DatosObjeto.Editar(tupla.Objeto);
 
                     break;

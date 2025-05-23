@@ -43,7 +43,7 @@ public partial class PresentadorContenedorModulos : PresentadorBase<IVistaConten
         #region Módulo : Inventario
 
         InicializarVistaMenuInventario();
-        InicializarVistaGestionArticulos();
+        InicializarVistaGestionProductos();
         InicializarVistaGestionMovimientos();
         InicializarVistaGestionAlmacenes();
 

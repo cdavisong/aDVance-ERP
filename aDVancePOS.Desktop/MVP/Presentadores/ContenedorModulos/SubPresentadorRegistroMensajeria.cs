@@ -35,7 +35,7 @@ public partial class PresentadorContenedorModulos {
 
         if (_registroMensajeria != null && _terminalVenta != null) {
             _registroMensajeria.Vista.IdVenta = _proximoIdVenta;
-            _registroMensajeria.Vista.PopularArticulosVenta(_terminalVenta.Vista.Articulos);
+            _registroMensajeria.Vista.PopularProductosVenta(_terminalVenta.Vista.Productos);
             _registroMensajeria.Vista.AsignarNuevoMensajero += MostrarVistaRegistroMensajero;
             //TODO: _registroMensajeria.Vista.AsignarNuevoCliente += MostrarVistaRegistroCliente;
             _registroMensajeria.Vista.Mostrar();
@@ -55,7 +55,7 @@ public partial class PresentadorContenedorModulos {
                     if (seguimientoEntrega != null) {
                         _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
                         _registroMensajeria.Vista.RazonSocialCliente = _terminalVenta.Vista.RazonSocialCliente;
-                        _registroMensajeria.Vista.PopularArticulosVenta(_terminalVenta.Vista.Articulos);
+                        _registroMensajeria.Vista.PopularProductosVenta(_terminalVenta.Vista.Productos);
                         _registroMensajeria.Vista.Mostrar();
                     }
                 }

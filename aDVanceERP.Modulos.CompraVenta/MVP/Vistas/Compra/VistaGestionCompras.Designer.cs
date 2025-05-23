@@ -77,7 +77,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldTituloNombreProveedor = new Label();
             fieldTituloFecha = new Label();
             fieldTituloAlmacen = new Label();
-            fieldTituloCantidadArticulos = new Label();
+            fieldTituloCantidadProductos = new Label();
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
@@ -470,7 +470,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             layoutEncabezadosTabla.Controls.Add(fieldTituloNombreProveedor, 3, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloFecha, 1, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloAlmacen, 2, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloCantidadArticulos, 4, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloCantidadProductos, 4, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
             layoutEncabezadosTabla.Location = new Point(50, 265);
             layoutEncabezadosTabla.Margin = new Padding(0, 0, 0, 2);
@@ -550,19 +550,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldTituloAlmacen.Text = "Almacén";
             fieldTituloAlmacen.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloCantidadArticulos
+            // fieldTituloCantidadProductos
             // 
-            fieldTituloCantidadArticulos.Dock = DockStyle.Fill;
-            fieldTituloCantidadArticulos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            fieldTituloCantidadArticulos.ForeColor = Color.Black;
-            fieldTituloCantidadArticulos.ImeMode = ImeMode.NoControl;
-            fieldTituloCantidadArticulos.Location = new Point(521, 1);
-            fieldTituloCantidadArticulos.Margin = new Padding(1);
-            fieldTituloCantidadArticulos.Name = "fieldTituloCantidadArticulos";
-            fieldTituloCantidadArticulos.Size = new Size(108, 56);
-            fieldTituloCantidadArticulos.TabIndex = 17;
-            fieldTituloCantidadArticulos.Text = "Cantidad de artículos";
-            fieldTituloCantidadArticulos.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloCantidadProductos.Dock = DockStyle.Fill;
+            fieldTituloCantidadProductos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloCantidadProductos.ForeColor = Color.Black;
+            fieldTituloCantidadProductos.ImeMode = ImeMode.NoControl;
+            fieldTituloCantidadProductos.Location = new Point(521, 1);
+            fieldTituloCantidadProductos.Margin = new Padding(1);
+            fieldTituloCantidadProductos.Name = "fieldTituloCantidadProductos";
+            fieldTituloCantidadProductos.Size = new Size(108, 56);
+            fieldTituloCantidadProductos.TabIndex = 17;
+            fieldTituloCantidadProductos.Text = "Cantidad de productos";
+            fieldTituloCantidadProductos.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // layoutTitulo
             // 
@@ -965,6 +965,6 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
         private Guna2Button btnSincronizarDatos;
         private Label fieldPaginaActual;
         private Label fieldPaginasTotales;
-        private Label fieldTituloCantidadArticulos;
+        private Label fieldTituloCantidadProductos;
     }
 }

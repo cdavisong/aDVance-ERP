@@ -69,7 +69,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTipoMovimiento = new Guna2ComboBox();
             btnAdicionarTipoMovimiento = new Guna2Button();
             btnEliminarTipoMovimiento = new Guna2Button();
-            fieldNombreArticulo = new Guna2TextBox();
+            fieldNombreProducto = new Guna2TextBox();
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
@@ -127,7 +127,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutVista.Controls.Add(layoutAlmacenes, 2, 10);
             layoutVista.Controls.Add(fieldTituloMotivo, 2, 6);
             layoutVista.Controls.Add(layoutTipoMovimiento, 2, 7);
-            layoutVista.Controls.Add(fieldNombreArticulo, 2, 4);
+            layoutVista.Controls.Add(fieldNombreProducto, 2, 4);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(13, 0);
             layoutVista.Margin = new Padding(3, 0, 0, 0);
@@ -179,7 +179,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldCantidadMovida.Name = "fieldCantidadMovida";
             fieldCantidadMovida.PasswordChar = '\0';
             fieldCantidadMovida.PlaceholderForeColor = Color.DimGray;
-            fieldCantidadMovida.PlaceholderText = "Cantidad de artículos a mover en unidades";
+            fieldCantidadMovida.PlaceholderText = "Cantidad de productos a mover en unidades";
             fieldCantidadMovida.SelectedText = "";
             fieldCantidadMovida.ShadowDecoration.CustomizableEdges = customizableEdges2;
             fieldCantidadMovida.Size = new Size(407, 35);
@@ -467,38 +467,38 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             btnEliminarTipoMovimiento.Size = new Size(44, 39);
             btnEliminarTipoMovimiento.TabIndex = 34;
             // 
-            // fieldNombreArticulo
+            // fieldNombreProducto
             // 
-            fieldNombreArticulo.Animated = true;
-            fieldNombreArticulo.BorderColor = Color.Gainsboro;
-            fieldNombreArticulo.BorderRadius = 16;
-            fieldNombreArticulo.Cursor = Cursors.IBeam;
-            fieldNombreArticulo.CustomizableEdges = customizableEdges15;
-            fieldNombreArticulo.DefaultText = "";
-            fieldNombreArticulo.DisabledState.BorderColor = Color.White;
-            fieldNombreArticulo.DisabledState.ForeColor = Color.DimGray;
-            fieldNombreArticulo.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldNombreArticulo.Dock = DockStyle.Fill;
-            fieldNombreArticulo.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreArticulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreArticulo.ForeColor = Color.Black;
-            fieldNombreArticulo.HoverState.BorderColor = Color.SandyBrown;
-            fieldNombreArticulo.IconLeft = (Image) resources.GetObject("fieldNombreArticulo.IconLeft");
-            fieldNombreArticulo.IconLeftOffset = new Point(10, 0);
-            fieldNombreArticulo.IconRightCursor = Cursors.Cross;
-            fieldNombreArticulo.IconRightOffset = new Point(6, 0);
-            fieldNombreArticulo.IconRightSize = new Size(12, 12);
-            fieldNombreArticulo.Location = new Point(55, 135);
-            fieldNombreArticulo.Margin = new Padding(5);
-            fieldNombreArticulo.Name = "fieldNombreArticulo";
-            fieldNombreArticulo.PasswordChar = '\0';
-            fieldNombreArticulo.PlaceholderForeColor = Color.DimGray;
-            fieldNombreArticulo.PlaceholderText = "Nombre del artículo";
-            fieldNombreArticulo.SelectedText = "";
-            fieldNombreArticulo.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            fieldNombreArticulo.Size = new Size(407, 35);
-            fieldNombreArticulo.TabIndex = 33;
-            fieldNombreArticulo.TextOffset = new Point(5, 0);
+            fieldNombreProducto.Animated = true;
+            fieldNombreProducto.BorderColor = Color.Gainsboro;
+            fieldNombreProducto.BorderRadius = 16;
+            fieldNombreProducto.Cursor = Cursors.IBeam;
+            fieldNombreProducto.CustomizableEdges = customizableEdges15;
+            fieldNombreProducto.DefaultText = "";
+            fieldNombreProducto.DisabledState.BorderColor = Color.White;
+            fieldNombreProducto.DisabledState.ForeColor = Color.DimGray;
+            fieldNombreProducto.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldNombreProducto.Dock = DockStyle.Fill;
+            fieldNombreProducto.FocusedState.BorderColor = Color.SandyBrown;
+            fieldNombreProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreProducto.ForeColor = Color.Black;
+            fieldNombreProducto.HoverState.BorderColor = Color.SandyBrown;
+            fieldNombreProducto.IconLeft = (Image) resources.GetObject("fieldNombreProducto.IconLeft");
+            fieldNombreProducto.IconLeftOffset = new Point(10, 0);
+            fieldNombreProducto.IconRightCursor = Cursors.Cross;
+            fieldNombreProducto.IconRightOffset = new Point(6, 0);
+            fieldNombreProducto.IconRightSize = new Size(12, 12);
+            fieldNombreProducto.Location = new Point(55, 135);
+            fieldNombreProducto.Margin = new Padding(5);
+            fieldNombreProducto.Name = "fieldNombreProducto";
+            fieldNombreProducto.PasswordChar = '\0';
+            fieldNombreProducto.PlaceholderForeColor = Color.DimGray;
+            fieldNombreProducto.PlaceholderText = "Nombre del producto";
+            fieldNombreProducto.SelectedText = "";
+            fieldNombreProducto.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            fieldNombreProducto.Size = new Size(407, 35);
+            fieldNombreProducto.TabIndex = 33;
+            fieldNombreProducto.TextOffset = new Point(5, 0);
             // 
             // layoutBotones
             // 
@@ -610,6 +610,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         private TableLayoutPanel layoutTipoMovimiento;
         private Guna2Button btnAdicionarTipoMovimiento;
         private Guna2Button btnEliminarTipoMovimiento;
-        private Guna2TextBox fieldNombreArticulo;
+        private Guna2TextBox fieldNombreProducto;
     }
 }
