@@ -139,6 +139,20 @@ namespace aDVanceERP.PatchDB {
                     """
                     ALTER TABLE adv__movimiento 
                     CHANGE id_articulo id_producto INT(11) NOT NULL;
+                    """,
+                    """
+                    ALTER TABLE adv__producto 
+                    ADD tipo ENUM(
+                        'Mercancia',
+                        'ProductoTerminado',
+                        'MateriaPrima'
+                    ) NOT NULL 
+                    DEFAULT 'Mercancia'
+                    AFTER id_producto
+                    ;
+                    """,
+                    """
+
                     """
                 ];
 

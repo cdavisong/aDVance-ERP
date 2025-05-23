@@ -2,30 +2,38 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
 
+public enum TipoProducto {
+    Mercancia,
+    ProductoTerminado,
+    MateriaPrima
+}
+
 public class Producto : IObjetoUnico {
     public Producto() { }
 
-    public Producto(long id, string codigo, string nombre, string descripcion, long idProveedor,
+    public Producto(long id, TipoProducto tipo, string nombre, string codigo, string descripcion, long idProveedor,
         decimal precioCompraBase, decimal precioVentaBase) {
         Id = id;
-        Codigo = codigo;
+        Tipo = tipo;
         Nombre = nombre;
+        Codigo = codigo;        
         Descripcion = descripcion;
         IdProveedor = idProveedor;
         PrecioCompraBase = precioCompraBase;
         PrecioVentaBase = precioVentaBase;
     }
 
+    public long Id { get; set; }
+    public required TipoProducto Tipo { get; set; }
+    public required string Nombre { get; set; }
     public string? Codigo { get; }
-    public string? Nombre { get; }
     public string? Descripcion { get; set; }
     public long IdProveedor { get; set; }
+    public Color? ColorPrincipal { get; set; }
+    public Color? ColorSecundario { get; set; }
+    public string? Diseño { get; set; }
     public decimal PrecioCompraBase { get; }
     public decimal PrecioVentaBase { get; }
-    public string? Stock { get; set; }
-    public string? NombreAlmacen { get; set; }
-
-    public long Id { get; set; }
 }
 
 public enum CriterioBusquedaProducto {
