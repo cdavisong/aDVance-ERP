@@ -12,11 +12,10 @@ public class ProductoAlmacen : IObjetoUnico {
         Stock = stock;
     }
 
+    public long Id { get; set; }
     public long IdProducto { get; set; }
     public long IdAlmacen { get; set; }
     public int Stock { get; set; }
-
-    public long Id { get; set; }
 }
 
 public enum CriterioBusquedaProductoAlmacen {

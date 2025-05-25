@@ -60,7 +60,7 @@ namespace aDVanceERP.PatchDB {
                     """
                     CREATE TABLE IF NOT EXISTS adv__caja (
                         id_caja int(11) NOT NULL AUTO_INCREMENT,
-                        estado enum('Inactiva','Abierta','Cerrada') NOT NULL DEFAULT 'Inactiva',
+                        estado enum('Inactiva','Abierta','Cerrada') NOT NULL DEFAULT 'Abierta',
                         fecha_apertura datetime DEFAULT NULL,
                         saldo_inicial decimal(10,2) NOT NULL DEFAULT 0.00,
                         saldo_actual decimal(10,2) NOT NULL DEFAULT 0.00,
@@ -81,6 +81,110 @@ namespace aDVanceERP.PatchDB {
                         id_usuario int(11) DEFAULT 0,
                         observaciones text,
                         PRIMARY KEY (id_movimiento_caja)
+                    ) ENGINE=InnoDB;
+                    """,
+                    """
+                    CREATE TABLE IF NOT EXISTS adv__detalle_producto (
+                        id_detalle_producto int(11) NOT NULL AUTO_INCREMENT,
+                        id_unidad_medida int(11) DEFAULT 0,
+                        id_color_producto_primario int(11) DEFAULT 0,
+                        id_color_producto_secundario int(11) DEFAULT 0,
+                        id_tipo_producto int(11) DEFAULT 0,
+                        id_diseno_producto int(11) DEFAULT 0,
+                        descripcion text,
+                        PRIMARY KEY (id_detalle_producto)
+                    ) ENGINE=InnoDB;
+                    """,
+                    """
+                    CREATE TABLE IF NOT EXISTS adv__unidad_medida (
+                        id_unidad_medida int(11) NOT NULL AUTO_INCREMENT,
+                        nombre varchar(50) NOT NULL,
+                        abreviatura varchar(10) NOT NULL,
+                        descripcion text,
+                        PRIMARY KEY (id_unidad_medida)
+                    ) ENGINE=InnoDB;
+                    """,
+                    """
+                    CREATE TABLE IF NOT EXISTS adv__color_producto (
+                        id_color_producto int(11) NOT NULL AUTO_INCREMENT,
+                        nombre varchar(50) NOT NULL,
+                        codigo_argb int(11) NOT NULL DEFAULT 0,
+                        PRIMARY KEY (id_color_producto)
+                    ) ENGINE=InnoDB;
+                    """,
+                    """
+                    CREATE TABLE IF NOT EXISTS adv__tipo_producto (
+                        id_tipo_producto int(11) NOT NULL AUTO_INCREMENT,
+                        nombre varchar(50) NOT NULL,
+                        descripcion text,
+                        PRIMARY KEY (id_tipo_producto)
+                    ) ENGINE=InnoDB;
+                    """,
+                    """
+                    CREATE TABLE IF NOT EXISTS adv__diseno_producto (
+                        id_diseno_producto int(11) NOT NULL AUTO_INCREMENT,
+                        nombre varchar(50) NOT NULL,
+                        descripcion text,
+                        PRIMARY KEY (id_diseno_producto)
+                    ) ENGINE=InnoDB;
+                    """,
+                    """                    
+                    ALTER TABLE adv__producto 
+                    ADD COLUMN id_detalle_producto INT(11) NULL AFTER nombre;
+
+                    -- Insertar detalles para todos los productos existentes
+                    INSERT INTO adv__detalle_producto (
+                            id_detalle_producto, 
+                            id_unidad_medida, 
+                            id_color_producto_primario,
+                            id_color_producto_secundario, 
+                            id_tipo_producto, 
+                            id_diseno_producto, 
+                            descripcion
+                        )
+                    SELECT 
+                        p.id_producto, 
+                        0,  -- id_unidad_medida por defecto
+                        0,  -- id_color_producto_primario por defecto
+                        0,  -- id_color_producto_secundario por defecto
+                        0,  -- id_tipo_producto por defecto
+                        0,  -- id_diseno_producto por defecto
+                        p.descripcion
+                    FROM adv__producto p
+                    WHERE p.descripcion IS NOT NULL;
+
+                    -- Actualizar las referencias en adv__producto
+                    UPDATE adv__producto p
+                    SET p.id_detalle_producto = p.id_producto
+                    WHERE p.descripcion IS NOT NULL;
+
+                    -- Eliminar el campo descripcion
+                    ALTER TABLE adv__producto DROP COLUMN descripcion;
+                    """,
+                    """
+                    CREATE TABLE IF NOT EXISTS adv__actividad_produccion (
+                        id_actividad_produccion INT(11) NOT NULL AUTO_INCREMENT,
+                        nombre VARCHAR(100) NOT NULL,
+                        descripcion TEXT,
+                        costo DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+                        PRIMARY KEY (id_actividad_produccion)
+                    ) ENGINE=InnoDB;
+                    """,
+                    """
+                    CREATE TABLE IF NOT EXISTS adv__producto_mano_obra (
+                        id_producto_mano_obra INT(11) NOT NULL AUTO_INCREMENT,
+                        id_producto INT(11) NOT NULL,
+                        id_actividad_produccion INT(11) NOT NULL,
+                        PRIMARY KEY (id_producto_mano_obra)
+                    ) ENGINE=InnoDB;
+                    """,
+                    """
+                    CREATE TABLE IF NOT EXISTS adv__producto_materia_prima (
+                        id_producto_materia_prima INT(11) NOT NULL AUTO_INCREMENT,
+                        id_producto INT(11) NOT NULL,
+                        id_materia_prima INT(11) NOT NULL,
+                        cantidad DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+                        PRIMARY KEY (id_producto_materia_prima)
                     ) ENGINE=InnoDB;
                     """
                 ];
@@ -142,7 +246,7 @@ namespace aDVanceERP.PatchDB {
                     """,
                     """
                     ALTER TABLE adv__producto 
-                    ADD tipo ENUM(
+                    ADD categoria ENUM(
                         'Mercancia',
                         'ProductoTerminado',
                         'MateriaPrima'
@@ -151,7 +255,10 @@ namespace aDVanceERP.PatchDB {
                     AFTER id_producto;
                     """,
                     """
-
+                    ALTER TABLE adv__producto
+                    ADD COLUMN es_vendible BOOLEAN NOT NULL 
+                    DEFAULT TRUE
+                    AFTER id_proveedor;
                     """
                 ];
 

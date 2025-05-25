@@ -13,17 +13,21 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
         return $"""
                 INSERT INTO adv__producto (
                     codigo,
+                    categoria,
                     nombre,
-                    descripcion,
+                    id_detalle_producto,
                     id_proveedor,
+                    es_vendible,
                     precio_compra_base,
                     precio_venta_base
                 )
                 VALUES (
                     '{objeto.Codigo}',
+                    {(int) objeto.Categoria},
                     '{objeto.Nombre}',
-                    '{objeto.Descripcion}',
+                    '{objeto.IdDetalleProducto}',
                     '{objeto.IdProveedor}',
+                    {(objeto.EsVendible ? 1 : 0)},
                     '{objeto.PrecioCompraBase}',
                     '{objeto.PrecioVentaBase}'
                 );
@@ -35,9 +39,11 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                 UPDATE adv__producto
                 SET
                     codigo='{objeto.Codigo}',
+                    categoria={(int) objeto.Categoria},
                     nombre='{objeto.Nombre}',
-                    descripcion='{objeto.Descripcion}',
+                    id_detalle_producto='{objeto.IdDetalleProducto}',
                     id_proveedor='{objeto.IdProveedor}',
+                    es_vendible={(objeto.EsVendible ? 1 : 0)},
                     precio_compra_base='{objeto.PrecioCompraBase}',
                     precio_venta_base='{objeto.PrecioVentaBase}'
                 WHERE id_producto={objeto.Id};
@@ -45,7 +51,17 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
     }
 
     public override string ComandoEliminar(long id) {
-        return $"DELETE FROM adv__producto WHERE id_producto={id};";
+        return $"""
+            DELETE FROM adv__detalle_producto
+            WHERE id_detalle_producto = (
+                SELECT id_detalle_producto 
+                FROM adv__producto 
+                WHERE id_producto={id}
+            );
+
+            DELETE FROM adv__producto 
+            WHERE id_producto={id};
+            """;
     }
 
     public override string ComandoObtener(CriterioBusquedaProducto criterio, string dato) {
@@ -86,25 +102,22 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
     public override Producto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
         return new Producto(
             id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
-            tipo: (TipoProducto)lectorDatos.GetInt32(lectorDatos.GetOrdinal("tipo")),
+            categoria: (CategoriaProducto)Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
             nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
             codigo: lectorDatos.GetString(lectorDatos.GetOrdinal("codigo")),            
-            descripcion: lectorDatos.GetString(lectorDatos.GetOrdinal("descripcion")),
+            idDetalleProducto: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_producto")),
             idProveedor: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
+            esVendible: lectorDatos.GetBoolean(lectorDatos.GetOrdinal("es_vendible")),
             precioCompraBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra_base")),
             precioVentaBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_base"))
         );
-        //{
-        //    Stock = lectorDatos.FieldCount > 7
-        //        ? lectorDatos.GetValue(lectorDatos.GetOrdinal("stock")).ToString() ?? string.Empty
-        //        : string.Empty,
-        //    NombreAlmacen = lectorDatos.FieldCount > 7
-        //        ? lectorDatos.GetValue(lectorDatos.GetOrdinal("nombre_almacen")).ToString() ?? string.Empty
-        //        : string.Empty
-        //};
     }
 
     public override string ComandoExiste(string dato) {
-        return $"SELECT * FROM adv__producto WHERE codigo='{dato}';";
+        return $"""
+            SELECT COUNT(1) 
+            FROM adv__producto 
+            WHERE codigo='{dato}';
+            """;
     }
 }

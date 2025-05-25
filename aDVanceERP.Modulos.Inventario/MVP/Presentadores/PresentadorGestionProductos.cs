@@ -18,21 +18,23 @@ public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTup
         var presentadorTupla = new PresentadorTuplaProducto(new VistaTuplaProducto(), objeto);
 
         presentadorTupla.Vista.Id = objeto.Id.ToString();
-        presentadorTupla.Vista.NombreAlmacen = string.IsNullOrEmpty(objeto.NombreAlmacen) ? "-" : objeto.NombreAlmacen;
+        presentadorTupla.Vista.NombreAlmacen = string.IsNullOrEmpty(Vista.NombreAlmacen) || Vista.NombreAlmacen.Contains("Todos")
+            ? "-"
+            : Vista.NombreAlmacen;
         presentadorTupla.Vista.Codigo = objeto.Codigo ?? string.Empty;
         presentadorTupla.Vista.Nombre = objeto.Nombre ?? string.Empty;
-        presentadorTupla.Vista.Descripcion = objeto.Descripcion ?? string.Empty;
+        presentadorTupla.Vista.Descripcion = string.Empty; //TODO: Obtener descripción del producto desde la tabla adv__detalle_producto
         presentadorTupla.Vista.PrecioCompraBase = objeto.PrecioCompraBase;
         presentadorTupla.Vista.PrecioVentaBase = objeto.PrecioVentaBase;
-        presentadorTupla.Vista.Stock = string.IsNullOrEmpty(objeto.Stock)
+        presentadorTupla.Vista.Stock = string.IsNullOrEmpty(Vista.NombreAlmacen) || Vista.NombreAlmacen.Contains("Todos")
             ? UtilesProducto.ObtenerStockTotalProducto(objeto.Id).Result
-            : int.Parse(objeto.Stock);
-        presentadorTupla.Vista.MovimientoPositivoStock += delegate(object? sender, EventArgs args) {
+            : UtilesProducto.ObtenerStockProducto(objeto.Nombre, Vista.NombreAlmacen).Result;
+        presentadorTupla.Vista.MovimientoPositivoStock += delegate (object? sender, EventArgs args) {
             var nombreAlmacen = sender as string;
             var objetoPos = new object[] { "+", nombreAlmacen ?? string.Empty, objeto };
             MovimientoPositivoStock?.Invoke(objetoPos, EventArgs.Empty);
         };
-        presentadorTupla.Vista.MovimientoNegativoStock += delegate(object? sender, EventArgs args) {
+        presentadorTupla.Vista.MovimientoNegativoStock += delegate (object? sender, EventArgs args) {
             var nombreAlmacen = sender as string;
             var objetoNeg = new object[] { "-", nombreAlmacen ?? string.Empty, objeto };
             MovimientoNegativoStock?.Invoke(objetoNeg, EventArgs.Empty);

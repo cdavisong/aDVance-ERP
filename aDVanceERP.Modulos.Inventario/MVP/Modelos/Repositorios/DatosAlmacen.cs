@@ -6,7 +6,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 
 public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen {
     public override string ComandoCantidad() {
-        return "SELECT COUNT(id_almacen) FROM adv__almacen;";
+        return """
+               SELECT 
+                   COUNT(id_almacen) 
+               FROM adv__almacen;
+               """;
     }
 
     public override string ComandoAdicionar(Almacen objeto) {

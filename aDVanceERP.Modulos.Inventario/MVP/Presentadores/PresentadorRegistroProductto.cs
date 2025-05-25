@@ -15,7 +15,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.ModoEdicionDatos = true;
         Vista.Codigo = objeto.Codigo ?? string.Empty;
         Vista.Nombre = objeto.Nombre ?? string.Empty;
-        Vista.Descripcion = objeto.Descripcion ?? string.Empty;
+        //Vista.Descripcion = objeto.Descripcion ?? string.Empty;
         Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
         Vista.PrecioCompraBase = objeto.PrecioCompraBase;
         Vista.PrecioVentaBase = objeto.PrecioVentaBase;
@@ -42,10 +42,12 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
     protected override async Task<Producto?> ObtenerObjetoDesdeVista() {
         return new Producto(
             Objeto?.Id ?? 0,
-            Vista.Codigo,
+            CategoriaProducto.Mercancia,            
             Vista.Nombre,
-            Vista.Descripcion,
+            Vista.Codigo,
+            0,
             await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
+            true,
             Vista.PrecioCompraBase,
             Vista.PrecioVentaBase
         );
