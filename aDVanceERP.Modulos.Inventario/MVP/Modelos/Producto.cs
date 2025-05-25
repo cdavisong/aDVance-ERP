@@ -9,7 +9,10 @@ public enum TipoProducto {
 }
 
 public class Producto : IObjetoUnico {
-    public Producto() { }
+    public Producto() {
+        Tipo = TipoProducto.Mercancia;
+        Nombre = "Producto genérico";
+    }
 
     public Producto(long id, TipoProducto tipo, string nombre, string codigo, string descripcion, long idProveedor,
         decimal precioCompraBase, decimal precioVentaBase) {
@@ -24,14 +27,11 @@ public class Producto : IObjetoUnico {
     }
 
     public long Id { get; set; }
-    public required TipoProducto Tipo { get; set; }
-    public required string Nombre { get; set; }
+    public TipoProducto Tipo { get; set; }
+    public string Nombre { get; set; }
     public string? Codigo { get; }
     public string? Descripcion { get; set; }
     public long IdProveedor { get; set; }
-    public Color? ColorPrincipal { get; set; }
-    public Color? ColorSecundario { get; set; }
-    public string? Diseño { get; set; }
     public decimal PrecioCompraBase { get; }
     public decimal PrecioVentaBase { get; }
 }

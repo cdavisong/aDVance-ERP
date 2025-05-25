@@ -85,21 +85,23 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
 
     public override Producto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
         return new Producto(
-            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
-            lectorDatos.GetString(lectorDatos.GetOrdinal("codigo")),
-            lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
-            lectorDatos.GetString(lectorDatos.GetOrdinal("descripcion")),
-            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
-            lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra_base")),
-            lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_base"))
-        ) {
-            Stock = lectorDatos.FieldCount > 7
-                ? lectorDatos.GetValue(lectorDatos.GetOrdinal("stock")).ToString() ?? string.Empty
-                : string.Empty,
-            NombreAlmacen = lectorDatos.FieldCount > 7
-                ? lectorDatos.GetValue(lectorDatos.GetOrdinal("nombre_almacen")).ToString() ?? string.Empty
-                : string.Empty
-        };
+            id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
+            tipo: (TipoProducto)lectorDatos.GetInt32(lectorDatos.GetOrdinal("tipo")),
+            nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
+            codigo: lectorDatos.GetString(lectorDatos.GetOrdinal("codigo")),            
+            descripcion: lectorDatos.GetString(lectorDatos.GetOrdinal("descripcion")),
+            idProveedor: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
+            precioCompraBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra_base")),
+            precioVentaBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_base"))
+        );
+        //{
+        //    Stock = lectorDatos.FieldCount > 7
+        //        ? lectorDatos.GetValue(lectorDatos.GetOrdinal("stock")).ToString() ?? string.Empty
+        //        : string.Empty,
+        //    NombreAlmacen = lectorDatos.FieldCount > 7
+        //        ? lectorDatos.GetValue(lectorDatos.GetOrdinal("nombre_almacen")).ToString() ?? string.Empty
+        //        : string.Empty
+        //};
     }
 
     public override string ComandoExiste(string dato) {

@@ -148,8 +148,7 @@ namespace aDVanceERP.PatchDB {
                         'MateriaPrima'
                     ) NOT NULL 
                     DEFAULT 'Mercancia'
-                    AFTER id_producto
-                    ;
+                    AFTER id_producto;
                     """,
                     """
 
