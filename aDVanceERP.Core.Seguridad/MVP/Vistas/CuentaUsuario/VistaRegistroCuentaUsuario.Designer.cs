@@ -147,7 +147,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F);
             fieldSubtitulo.ForeColor = Color.Gray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 70);
@@ -170,7 +170,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             fieldNombreUsuario.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldNombreUsuario.Dock = DockStyle.Fill;
             fieldNombreUsuario.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreUsuario.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreUsuario.Font = new Font("Segoe UI", 11.25F);
             fieldNombreUsuario.ForeColor = Color.Black;
             fieldNombreUsuario.HoverState.BorderColor = Color.SandyBrown;
             fieldNombreUsuario.IconLeft = (Image) resources.GetObject("fieldNombreUsuario.IconLeft");
@@ -212,7 +212,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             btnCerrar.CustomizableEdges = customizableEdges3;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
@@ -225,7 +225,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -248,7 +248,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             fieldPassword.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldPassword.Dock = DockStyle.Fill;
             fieldPassword.FocusedState.BorderColor = Color.SandyBrown;
-            fieldPassword.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPassword.Font = new Font("Segoe UI", 11.25F);
             fieldPassword.ForeColor = Color.Black;
             fieldPassword.HoverState.BorderColor = Color.SandyBrown;
             fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
@@ -281,7 +281,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             fieldConfirmarPassword.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldConfirmarPassword.Dock = DockStyle.Fill;
             fieldConfirmarPassword.FocusedState.BorderColor = Color.SandyBrown;
-            fieldConfirmarPassword.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldConfirmarPassword.Font = new Font("Segoe UI", 11.25F);
             fieldConfirmarPassword.ForeColor = Color.Black;
             fieldConfirmarPassword.HoverState.BorderColor = Color.SandyBrown;
             fieldConfirmarPassword.IconLeft = (Image) resources.GetObject("fieldConfirmarPassword.IconLeft");
@@ -303,7 +303,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             // fieldTituloNombreRolUsuario
             // 
             fieldTituloNombreRolUsuario.Dock = DockStyle.Fill;
-            fieldTituloNombreRolUsuario.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloNombreRolUsuario.Font = new Font("Segoe UI", 11.25F);
             fieldTituloNombreRolUsuario.ForeColor = Color.DimGray;
             fieldTituloNombreRolUsuario.Image = (Image) resources.GetObject("fieldTituloNombreRolUsuario.Image");
             fieldTituloNombreRolUsuario.ImageAlign = ContentAlignment.MiddleLeft;
@@ -328,7 +328,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             fieldNombreRolUsuario.DropDownStyle = ComboBoxStyle.DropDownList;
             fieldNombreRolUsuario.FocusedColor = Color.SandyBrown;
             fieldNombreRolUsuario.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreRolUsuario.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreRolUsuario.Font = new Font("Segoe UI", 11.25F);
             fieldNombreRolUsuario.ForeColor = Color.Black;
             fieldNombreRolUsuario.ItemHeight = 29;
             fieldNombreRolUsuario.Location = new Point(55, 335);
@@ -368,7 +368,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             btnSalir.CustomizableEdges = customizableEdges11;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
-            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnSalir.ForeColor = Color.Gainsboro;
             btnSalir.HoverState.BorderColor = Color.PeachPuff;
             btnSalir.HoverState.FillColor = Color.PeachPuff;
@@ -387,7 +387,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             btnRegistrar.CustomizableEdges = customizableEdges13;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
@@ -401,7 +401,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario {
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(500, 685);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaRegistroCuentaUsuario";

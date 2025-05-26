@@ -164,7 +164,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F);
             fieldSubtitulo.ForeColor = Color.DimGray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 70);
@@ -199,7 +199,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             btnCerrar.CustomizableEdges = customizableEdges1;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
@@ -212,7 +212,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -247,14 +247,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             fieldNumeroTransaccion.Cursor = Cursors.IBeam;
             fieldNumeroTransaccion.CustomizableEdges = customizableEdges3;
             fieldNumeroTransaccion.DefaultText = "";
-            fieldNumeroTransaccion.DisabledState.BorderColor = Color.Gainsboro;
             fieldNumeroTransaccion.DisabledState.BorderColor = Color.White;
             fieldNumeroTransaccion.DisabledState.ForeColor = Color.DimGray;
             fieldNumeroTransaccion.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldNumeroTransaccion.Dock = DockStyle.Fill;
-            fieldNumeroTransaccion.FillColor = Color.White;
             fieldNumeroTransaccion.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNumeroTransaccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNumeroTransaccion.Font = new Font("Segoe UI", 11.25F);
             fieldNumeroTransaccion.ForeColor = Color.Black;
             fieldNumeroTransaccion.HoverState.BorderColor = Color.SandyBrown;
             fieldNumeroTransaccion.IconLeft = (Image) resources.GetObject("fieldNumeroTransaccion.IconLeft");
@@ -281,14 +279,12 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             fieldNumeroMovilConfirmacion.Cursor = Cursors.IBeam;
             fieldNumeroMovilConfirmacion.CustomizableEdges = customizableEdges5;
             fieldNumeroMovilConfirmacion.DefaultText = "";
-            fieldNumeroMovilConfirmacion.DisabledState.BorderColor = Color.Gainsboro;
             fieldNumeroMovilConfirmacion.DisabledState.BorderColor = Color.White;
             fieldNumeroMovilConfirmacion.DisabledState.ForeColor = Color.DimGray;
             fieldNumeroMovilConfirmacion.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldNumeroMovilConfirmacion.Dock = DockStyle.Fill;
-            fieldNumeroMovilConfirmacion.FillColor = Color.White;
             fieldNumeroMovilConfirmacion.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNumeroMovilConfirmacion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNumeroMovilConfirmacion.Font = new Font("Segoe UI", 11.25F);
             fieldNumeroMovilConfirmacion.ForeColor = Color.Black;
             fieldNumeroMovilConfirmacion.HoverState.BorderColor = Color.SandyBrown;
             fieldNumeroMovilConfirmacion.IconLeft = (Image) resources.GetObject("fieldNumeroMovilConfirmacion.IconLeft");
@@ -310,7 +306,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldTituloAlias
             // 
             fieldTituloAlias.Dock = DockStyle.Fill;
-            fieldTituloAlias.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloAlias.Font = new Font("Segoe UI", 11.25F);
             fieldTituloAlias.ForeColor = Color.DimGray;
             fieldTituloAlias.Image = (Image) resources.GetObject("fieldTituloAlias.Image");
             fieldTituloAlias.ImageAlign = ContentAlignment.MiddleLeft;
@@ -333,10 +329,9 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             fieldAlias.Dock = DockStyle.Fill;
             fieldAlias.DrawMode = DrawMode.OwnerDrawFixed;
             fieldAlias.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldAlias.FillColor = Color.White;
-            fieldAlias.FocusedColor = Color.White;
+            fieldAlias.FocusedColor = Color.SandyBrown;
             fieldAlias.FocusedState.BorderColor = Color.SandyBrown;
-            fieldAlias.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldAlias.Font = new Font("Segoe UI", 11.25F);
             fieldAlias.ForeColor = Color.Black;
             fieldAlias.ItemHeight = 29;
             fieldAlias.Location = new Point(55, 170);
@@ -400,7 +395,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldTituloNumeroMovilConfirmacionQR
             // 
             fieldTituloNumeroMovilConfirmacionQR.Dock = DockStyle.Fill;
-            fieldTituloNumeroMovilConfirmacionQR.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloNumeroMovilConfirmacionQR.Font = new Font("Segoe UI", 11.25F);
             fieldTituloNumeroMovilConfirmacionQR.ForeColor = Color.DimGray;
             fieldTituloNumeroMovilConfirmacionQR.Image = (Image) resources.GetObject("fieldTituloNumeroMovilConfirmacionQR.Image");
             fieldTituloNumeroMovilConfirmacionQR.ImageAlign = ContentAlignment.MiddleLeft;
@@ -416,7 +411,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldTituloAliasQR
             // 
             fieldTituloAliasQR.Dock = DockStyle.Fill;
-            fieldTituloAliasQR.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloAliasQR.Font = new Font("Segoe UI", 11.25F);
             fieldTituloAliasQR.ForeColor = Color.DimGray;
             fieldTituloAliasQR.Image = (Image) resources.GetObject("fieldTituloAliasQR.Image");
             fieldTituloAliasQR.ImageAlign = ContentAlignment.MiddleLeft;
@@ -432,7 +427,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldTituloTarjetaQR
             // 
             fieldTituloTarjetaQR.Dock = DockStyle.Fill;
-            fieldTituloTarjetaQR.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloTarjetaQR.Font = new Font("Segoe UI", 11.25F);
             fieldTituloTarjetaQR.ForeColor = Color.DimGray;
             fieldTituloTarjetaQR.Image = (Image) resources.GetObject("fieldTituloTarjetaQR.Image");
             fieldTituloTarjetaQR.ImageAlign = ContentAlignment.MiddleLeft;
@@ -448,7 +443,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldAliasQR
             // 
             fieldAliasQR.Dock = DockStyle.Fill;
-            fieldAliasQR.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldAliasQR.Font = new Font("Segoe UI", 11.25F);
             fieldAliasQR.ForeColor = Color.Black;
             fieldAliasQR.ImeMode = ImeMode.NoControl;
             fieldAliasQR.Location = new Point(95, 30);
@@ -462,7 +457,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldTarjetaQR
             // 
             fieldTarjetaQR.Dock = DockStyle.Fill;
-            fieldTarjetaQR.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTarjetaQR.Font = new Font("Segoe UI", 11.25F);
             fieldTarjetaQR.ForeColor = Color.Black;
             fieldTarjetaQR.ImeMode = ImeMode.NoControl;
             fieldTarjetaQR.Location = new Point(95, 60);
@@ -476,7 +471,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldNumeroMovilConfirmacionQR
             // 
             fieldNumeroMovilConfirmacionQR.Dock = DockStyle.Fill;
-            fieldNumeroMovilConfirmacionQR.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNumeroMovilConfirmacionQR.Font = new Font("Segoe UI", 11.25F);
             fieldNumeroMovilConfirmacionQR.ForeColor = Color.Black;
             fieldNumeroMovilConfirmacionQR.ImeMode = ImeMode.NoControl;
             fieldNumeroMovilConfirmacionQR.Location = new Point(95, 90);
@@ -516,7 +511,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             // fieldTituloRecordarNumeroConfirmacion
             // 
             fieldTituloRecordarNumeroConfirmacion.Dock = DockStyle.Fill;
-            fieldTituloRecordarNumeroConfirmacion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloRecordarNumeroConfirmacion.Font = new Font("Segoe UI", 11.25F);
             fieldTituloRecordarNumeroConfirmacion.ForeColor = Color.Black;
             fieldTituloRecordarNumeroConfirmacion.ImeMode = ImeMode.NoControl;
             fieldTituloRecordarNumeroConfirmacion.Location = new Point(31, 5);
@@ -535,7 +530,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             fieldRecordarNumeroConfirmacion.CheckedState.FillColor = Color.WhiteSmoke;
             fieldRecordarNumeroConfirmacion.CheckMarkColor = Color.Black;
             fieldRecordarNumeroConfirmacion.Dock = DockStyle.Fill;
-            fieldRecordarNumeroConfirmacion.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldRecordarNumeroConfirmacion.Font = new Font("Segoe UI", 12F);
             fieldRecordarNumeroConfirmacion.Location = new Point(5, 5);
             fieldRecordarNumeroConfirmacion.Margin = new Padding(5, 5, 5, 20);
             fieldRecordarNumeroConfirmacion.Name = "fieldRecordarNumeroConfirmacion";
@@ -576,7 +571,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             btnSalir.CustomizableEdges = customizableEdges9;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
-            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnSalir.ForeColor = Color.Gainsboro;
             btnSalir.HoverState.BorderColor = Color.PeachPuff;
             btnSalir.HoverState.FillColor = Color.PeachPuff;
@@ -596,7 +591,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.Enabled = false;
             btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
@@ -610,7 +605,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia {
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(500, 685);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaRegistroDetallePagoTransferencia";

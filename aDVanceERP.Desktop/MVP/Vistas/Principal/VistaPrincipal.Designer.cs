@@ -378,6 +378,7 @@
             Name = "VistaPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "VistaPrincipal";
+            TopMost = true;
             WindowState = FormWindowState.Maximized;
             layoutBase.ResumeLayout(false);
             layoutVista.ResumeLayout(false);

@@ -14,6 +14,9 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
     private bool _disposed; // Para evitar llamadas redundantes a Dispose
 
     protected PresentadorRegistroBase(Vr vista) : base(vista) {
+        if (vista != null && vista is Form vistaForm)
+            vistaForm.TopMost = true; // Asegurar que la ventana esté siempre al frente
+
         Vista.RegistrarDatos += RegistrarDatosObjeto;
         Vista.EditarDatos += EditarDatosObjeto;
         Vista.Salir += OnSalir;
