@@ -29,14 +29,14 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaRegistroAperturaCaja));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -152,12 +152,12 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldMontoInicial.BorderColor = Color.Gainsboro;
             fieldMontoInicial.BorderRadius = 16;
             fieldMontoInicial.Cursor = Cursors.IBeam;
-            fieldMontoInicial.CustomizableEdges = customizableEdges9;
+            fieldMontoInicial.CustomizableEdges = customizableEdges1;
             fieldMontoInicial.DefaultText = "";
             fieldMontoInicial.DisabledState.BorderColor = Color.White;
             fieldMontoInicial.DisabledState.ForeColor = Color.DimGray;
             fieldMontoInicial.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldMontoInicial.Dock = DockStyle.Fill;
+            fieldMontoInicial.Dock = DockStyle.Right;
             fieldMontoInicial.FocusedState.BorderColor = Color.SandyBrown;
             fieldMontoInicial.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldMontoInicial.ForeColor = Color.Black;
@@ -166,15 +166,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldMontoInicial.IconRight = (Image) resources.GetObject("fieldMontoInicial.IconRight");
             fieldMontoInicial.IconRightOffset = new Point(6, 0);
             fieldMontoInicial.IconRightSize = new Size(12, 12);
-            fieldMontoInicial.Location = new Point(55, 135);
+            fieldMontoInicial.Location = new Point(232, 135);
             fieldMontoInicial.Margin = new Padding(5);
             fieldMontoInicial.Name = "fieldMontoInicial";
             fieldMontoInicial.PasswordChar = '\0';
             fieldMontoInicial.PlaceholderForeColor = Color.DimGray;
             fieldMontoInicial.PlaceholderText = "Monto de dinero inicial";
             fieldMontoInicial.SelectedText = "";
-            fieldMontoInicial.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            fieldMontoInicial.Size = new Size(407, 35);
+            fieldMontoInicial.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldMontoInicial.Size = new Size(230, 35);
             fieldMontoInicial.TabIndex = 1;
             fieldMontoInicial.TextAlign = HorizontalAlignment.Right;
             fieldMontoInicial.TextOffset = new Point(5, 0);
@@ -201,7 +201,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges11;
+            btnCerrar.CustomizableEdges = customizableEdges3;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
@@ -210,7 +210,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(370, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnCerrar.Size = new Size(44, 39);
             btnCerrar.TabIndex = 1;
             // 
@@ -253,7 +253,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges13;
+            btnSalir.CustomizableEdges = customizableEdges5;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
@@ -263,7 +263,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 14;
             btnSalir.Text = "Salir";
@@ -272,14 +272,14 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges15;
+            btnRegistrar.CustomizableEdges = customizableEdges7;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Abrir caja";

@@ -214,7 +214,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldNombreAlmacen.DropDownStyle = ComboBoxStyle.DropDownList;
             fieldNombreAlmacen.FocusedColor = Color.Gainsboro;
             fieldNombreAlmacen.FocusedState.BorderColor = Color.Gainsboro;
-            fieldNombreAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreAlmacen.Font = new Font("Segoe UI", 11.25F);
             fieldNombreAlmacen.ForeColor = Color.Black;
             fieldNombreAlmacen.ItemHeight = 29;
             fieldNombreAlmacen.Location = new Point(5, 5);
@@ -239,7 +239,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldDatoBusqueda.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldDatoBusqueda.Dock = DockStyle.Fill;
             fieldDatoBusqueda.FocusedState.BorderColor = Color.SandyBrown;
-            fieldDatoBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDatoBusqueda.Font = new Font("Segoe UI", 11.25F);
             fieldDatoBusqueda.ForeColor = Color.Black;
             fieldDatoBusqueda.HoverState.BorderColor = Color.SandyBrown;
             fieldDatoBusqueda.IconLeft = (Image) resources.GetObject("fieldDatoBusqueda.IconLeft");
@@ -270,7 +270,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldCriterioBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
             fieldCriterioBusqueda.FocusedColor = Color.Gainsboro;
             fieldCriterioBusqueda.FocusedState.BorderColor = Color.Gainsboro;
-            fieldCriterioBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCriterioBusqueda.Font = new Font("Segoe UI", 11.25F);
             fieldCriterioBusqueda.ForeColor = Color.Black;
             fieldCriterioBusqueda.ItemHeight = 29;
             fieldCriterioBusqueda.Location = new Point(225, 5);
@@ -302,7 +302,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloFiltroAlmacen
             // 
             fieldTituloFiltroAlmacen.Dock = DockStyle.Fill;
-            fieldTituloFiltroAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloFiltroAlmacen.Font = new Font("Segoe UI", 11.25F);
             fieldTituloFiltroAlmacen.ForeColor = Color.DimGray;
             fieldTituloFiltroAlmacen.Image = (Image) resources.GetObject("fieldTituloFiltroAlmacen.Image");
             fieldTituloFiltroAlmacen.ImageAlign = ContentAlignment.MiddleLeft;
@@ -318,7 +318,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloFiltrosBusqueda
             // 
             fieldTituloFiltrosBusqueda.Dock = DockStyle.Fill;
-            fieldTituloFiltrosBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloFiltrosBusqueda.Font = new Font("Segoe UI", 11.25F);
             fieldTituloFiltrosBusqueda.ForeColor = Color.DimGray;
             fieldTituloFiltrosBusqueda.Image = (Image) resources.GetObject("fieldTituloFiltrosBusqueda.Image");
             fieldTituloFiltrosBusqueda.ImageAlign = ContentAlignment.MiddleLeft;
@@ -350,7 +350,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnRegistrar.CustomizableEdges = customizableEdges7;
             btnRegistrar.Dock = DockStyle.Left;
             btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Image = (Image) resources.GetObject("btnRegistrar.Image");
             btnRegistrar.ImageOffset = new Point(-5, 0);
@@ -418,7 +418,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // label1
             // 
             label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             label1.ForeColor = Color.Black;
             label1.ImageAlign = ContentAlignment.MiddleLeft;
             label1.ImeMode = ImeMode.NoControl;
@@ -433,7 +433,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldValorBrutoInversion
             // 
             fieldValorBrutoInversion.Dock = DockStyle.Fill;
-            fieldValorBrutoInversion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldValorBrutoInversion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldValorBrutoInversion.ForeColor = Color.Black;
             fieldValorBrutoInversion.ImageAlign = ContentAlignment.MiddleLeft;
             fieldValorBrutoInversion.ImeMode = ImeMode.NoControl;
@@ -448,7 +448,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloValorBrutoInversion
             // 
             fieldTituloValorBrutoInversion.Dock = DockStyle.Fill;
-            fieldTituloValorBrutoInversion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloValorBrutoInversion.Font = new Font("Segoe UI", 11.25F);
             fieldTituloValorBrutoInversion.ForeColor = Color.DimGray;
             fieldTituloValorBrutoInversion.Image = (Image) resources.GetObject("fieldTituloValorBrutoInversion.Image");
             fieldTituloValorBrutoInversion.ImageAlign = ContentAlignment.MiddleLeft;
@@ -473,7 +473,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnPaginaAnterior.CustomizableEdges = customizableEdges9;
             btnPaginaAnterior.Dock = DockStyle.Fill;
             btnPaginaAnterior.FillColor = Color.WhiteSmoke;
-            btnPaginaAnterior.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPaginaAnterior.Font = new Font("Segoe UI", 9F);
             btnPaginaAnterior.ForeColor = Color.White;
             btnPaginaAnterior.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
             btnPaginaAnterior.HoverState.FillColor = Color.WhiteSmoke;
@@ -497,7 +497,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnPrimeraPagina.CustomizableEdges = customizableEdges11;
             btnPrimeraPagina.Dock = DockStyle.Fill;
             btnPrimeraPagina.FillColor = Color.WhiteSmoke;
-            btnPrimeraPagina.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPrimeraPagina.Font = new Font("Segoe UI", 9F);
             btnPrimeraPagina.ForeColor = Color.White;
             btnPrimeraPagina.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
             btnPrimeraPagina.HoverState.FillColor = Color.WhiteSmoke;
@@ -521,7 +521,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnPaginaSiguiente.CustomizableEdges = customizableEdges13;
             btnPaginaSiguiente.Dock = DockStyle.Fill;
             btnPaginaSiguiente.FillColor = Color.WhiteSmoke;
-            btnPaginaSiguiente.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnPaginaSiguiente.Font = new Font("Segoe UI", 9F);
             btnPaginaSiguiente.ForeColor = Color.White;
             btnPaginaSiguiente.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
             btnPaginaSiguiente.HoverState.FillColor = Color.WhiteSmoke;
@@ -545,7 +545,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnUltimaPagina.CustomizableEdges = customizableEdges15;
             btnUltimaPagina.Dock = DockStyle.Fill;
             btnUltimaPagina.FillColor = Color.WhiteSmoke;
-            btnUltimaPagina.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnUltimaPagina.Font = new Font("Segoe UI", 9F);
             btnUltimaPagina.ForeColor = Color.White;
             btnUltimaPagina.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
             btnUltimaPagina.HoverState.FillColor = Color.WhiteSmoke;
@@ -569,7 +569,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnSincronizarDatos.CustomizableEdges = customizableEdges17;
             btnSincronizarDatos.Dock = DockStyle.Fill;
             btnSincronizarDatos.FillColor = Color.WhiteSmoke;
-            btnSincronizarDatos.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSincronizarDatos.Font = new Font("Segoe UI", 9F);
             btnSincronizarDatos.ForeColor = Color.White;
             btnSincronizarDatos.HoverState.BorderColor = Color.FromArgb(  245,   245,   245);
             btnSincronizarDatos.HoverState.FillColor = Color.WhiteSmoke;
@@ -584,7 +584,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldPaginaActual
             // 
             fieldPaginaActual.Dock = DockStyle.Fill;
-            fieldPaginaActual.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldPaginaActual.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldPaginaActual.ForeColor = Color.Black;
             fieldPaginaActual.ImeMode = ImeMode.NoControl;
             fieldPaginaActual.Location = new Point(81, 1);
@@ -598,7 +598,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldPaginasTotales
             // 
             fieldPaginasTotales.Dock = DockStyle.Fill;
-            fieldPaginasTotales.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldPaginasTotales.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldPaginasTotales.ForeColor = Color.Black;
             fieldPaginasTotales.ImeMode = ImeMode.NoControl;
             fieldPaginasTotales.Location = new Point(200, 1);
@@ -634,7 +634,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnCerrar.CustomizableEdges = customizableEdges19;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
@@ -647,7 +647,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -672,7 +672,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F);
             fieldSubtitulo.ForeColor = Color.Gray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 50);
@@ -680,7 +680,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldSubtitulo.Name = "fieldSubtitulo";
             fieldSubtitulo.Size = new Size(1280, 39);
             fieldSubtitulo.TabIndex = 2;
-            fieldSubtitulo.Text = "Registro, edición, eliminación, búsqueda de productos.";
+            fieldSubtitulo.Text = "Registro, edición, eliminación, búsqueda de mercancías, productos terminados y materias primas.";
             // 
             // layoutEncabezadosTabla
             // 
@@ -719,7 +719,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloAlmacen
             // 
             fieldTituloAlmacen.Dock = DockStyle.Fill;
-            fieldTituloAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloAlmacen.ForeColor = Color.Black;
             fieldTituloAlmacen.ImeMode = ImeMode.NoControl;
             fieldTituloAlmacen.Location = new Point(61, 1);
@@ -733,7 +733,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloId
             // 
             fieldTituloId.Dock = DockStyle.Fill;
-            fieldTituloId.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloId.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloId.ForeColor = Color.Black;
             fieldTituloId.ImeMode = ImeMode.NoControl;
             fieldTituloId.Location = new Point(1, 1);
@@ -747,7 +747,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloDescripcion
             // 
             fieldTituloDescripcion.Dock = DockStyle.Fill;
-            fieldTituloDescripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloDescripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloDescripcion.ForeColor = Color.Black;
             fieldTituloDescripcion.ImeMode = ImeMode.NoControl;
             fieldTituloDescripcion.Location = new Point(521, 1);
@@ -761,7 +761,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloNombre
             // 
             fieldTituloNombre.Dock = DockStyle.Fill;
-            fieldTituloNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloNombre.ForeColor = Color.Black;
             fieldTituloNombre.ImeMode = ImeMode.NoControl;
             fieldTituloNombre.Location = new Point(301, 1);
@@ -775,7 +775,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloPrecioAdquisicion
             // 
             fieldTituloPrecioAdquisicion.Dock = DockStyle.Fill;
-            fieldTituloPrecioAdquisicion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloPrecioAdquisicion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloPrecioAdquisicion.ForeColor = Color.Black;
             fieldTituloPrecioAdquisicion.ImeMode = ImeMode.NoControl;
             fieldTituloPrecioAdquisicion.Location = new Point(751, 1);
@@ -789,7 +789,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloPrecioCesion
             // 
             fieldTituloPrecioCesion.Dock = DockStyle.Fill;
-            fieldTituloPrecioCesion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloPrecioCesion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloPrecioCesion.ForeColor = Color.Black;
             fieldTituloPrecioCesion.ImeMode = ImeMode.NoControl;
             fieldTituloPrecioCesion.Location = new Point(861, 1);
@@ -803,7 +803,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloStock
             // 
             fieldTituloStock.Dock = DockStyle.Fill;
-            fieldTituloStock.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloStock.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloStock.ForeColor = Color.Black;
             fieldTituloStock.ImeMode = ImeMode.NoControl;
             fieldTituloStock.Location = new Point(971, 1);
@@ -817,7 +817,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTituloCodigo
             // 
             fieldTituloCodigo.Dock = DockStyle.Fill;
-            fieldTituloCodigo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloCodigo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloCodigo.ForeColor = Color.Black;
             fieldTituloCodigo.ImeMode = ImeMode.NoControl;
             fieldTituloCodigo.Location = new Point(181, 1);
@@ -842,7 +842,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1356, 608);
             Controls.Add(layoutVista);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaGestionProductos";

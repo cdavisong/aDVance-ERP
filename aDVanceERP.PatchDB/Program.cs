@@ -34,6 +34,7 @@ namespace aDVanceERP.PatchDB {
             try {
                 ExecuteStep(CrearTablasNuevas, "Creación de estructura modular");
                 ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+                ExecuteStep(PopularDatosTablasNuevas, "Población de datos iniciales");
 
                 RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
             } catch (Exception ex) {
@@ -259,6 +260,54 @@ namespace aDVanceERP.PatchDB {
                     ADD COLUMN es_vendible BOOLEAN NOT NULL 
                     DEFAULT TRUE
                     AFTER id_proveedor;
+                    """
+                ];
+
+                foreach (var query in querys)
+                    using (var cmd = new MySqlCommand(query, conexion))
+                        cmd.ExecuteNonQuery();
+            }
+        }
+
+        private static void PopularDatosTablasNuevas() {
+            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                List<string> querys =
+                [
+                    """
+                    INSERT INTO `adv__unidad_medida` (`nombre`, `abreviatura`, `descripcion`) VALUES
+                    ('Unidad', 'u', 'Elemento individual o pieza completa'),
+                    ('Docena', 'dz', 'Conjunto de 12 unidades'),
+                    ('Centímetro', 'cm', 'Para medir telas, cintas o longitudes pequeñas'),
+                    ('Metro', 'm', 'Para medir telas, rollos o distancias mayores'),
+                    ('Gramo', 'g', 'Para pigmentos, polvos o ingredientes cosméticos'),
+                    ('Kilogramo', 'kg', 'Para materias primas a granel'),
+                    ('Mililitro', 'ml', 'Para líquidos como pinturas, disolventes o lociones'),
+                    ('Litro', 'L', 'Para mayores cantidades de líquidos'),
+                    ('Pulgada', 'in', 'Medida anglosajona para telas o herramientas'),
+                    ('Juego', 'jg', 'Conjunto de piezas que funcionan juntas'),
+                    ('Paquete', 'pq', 'Para agrupaciones de productos'),
+                    ('Caja', 'cj', 'Unidad de empaque estándar'),
+                    ('Rollo', 'rll', 'Para materiales enrollados como cintas o telas'),
+                    ('Tubo', 'tb', 'Para cremas, pinturas o productos en envase tubular'),
+                    ('Frasco', 'fsc', 'Para productos en envases de vidrio o plástico'),
+                    ('Bolsa', 'bls', 'Para productos a granel o empaques flexibles'),
+                    ('Kit', 'kt', 'Conjunto de productos complementarios'),
+                    ('Par', 'pr', 'Para artículos que van en pares'),
+                    ('Pulgada cúbica', 'in³', 'Para medir volúmenes pequeños'),
+                    ('Pie cúbico', 'ft³', 'Para medir volúmenes mayores'),
+                    ('Onza', 'oz', 'Medida para líquidos y sólidos (28.35 gramos)'),
+                    ('Onza líquida', 'fl oz', 'Específica para líquidos (29.57 ml)'),
+                    ('Yarda', 'yd', 'Para telas y materiales textiles (0.9144 metros)'),
+                    ('Galón', 'gal', 'Para líquidos a granel (3.785 litros)'),
+                    ('Pulgada cuadrada', 'in²', 'Para medir superficies pequeñas'),
+                    ('Pie cuadrado', 'ft²', 'Para medir superficies mayores'),
+                    ('Metro cuadrado', 'm²', 'Para medir superficies en sistema métrico');
                     """
                 ];
 

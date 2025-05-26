@@ -28,23 +28,23 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaRegistroCompra));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutBotones = new TableLayoutPanel();
@@ -144,17 +144,17 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges1;
+            btnSalir.CustomizableEdges = customizableEdges17;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
-            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnSalir.ForeColor = Color.Gainsboro;
             btnSalir.HoverState.BorderColor = Color.PeachPuff;
             btnSalir.HoverState.FillColor = Color.PeachPuff;
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 1;
             btnSalir.Text = "Salir";
@@ -163,14 +163,14 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges3;
+            btnRegistrar.CustomizableEdges = customizableEdges19;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 0;
             btnRegistrar.Text = "Registrar compra";
@@ -221,7 +221,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // fieldTituloGestionProductos
             // 
             fieldTituloGestionProductos.Dock = DockStyle.Fill;
-            fieldTituloGestionProductos.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloGestionProductos.Font = new Font("Segoe UI", 11.25F);
             fieldTituloGestionProductos.ForeColor = Color.DimGray;
             fieldTituloGestionProductos.Image = (Image) resources.GetObject("fieldTituloGestionProductos.Image");
             fieldTituloGestionProductos.ImageAlign = ContentAlignment.MiddleLeft;
@@ -249,7 +249,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F);
             fieldSubtitulo.ForeColor = Color.DimGray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 70);
@@ -281,23 +281,23 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges5;
+            btnCerrar.CustomizableEdges = customizableEdges21;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(370, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnCerrar.Size = new Size(44, 39);
             btnCerrar.TabIndex = 1;
             // 
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -329,7 +329,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // symbolPeso
             // 
             symbolPeso.Dock = DockStyle.Fill;
-            symbolPeso.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            symbolPeso.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             symbolPeso.ForeColor = Color.Black;
             symbolPeso.ImageAlign = ContentAlignment.MiddleLeft;
             symbolPeso.ImeMode = ImeMode.NoControl;
@@ -344,7 +344,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // fieldTotalCompra
             // 
             fieldTotalCompra.Dock = DockStyle.Fill;
-            fieldTotalCompra.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTotalCompra.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTotalCompra.ForeColor = Color.Black;
             fieldTotalCompra.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTotalCompra.ImeMode = ImeMode.NoControl;
@@ -359,7 +359,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // fieldTituloTotalCompra
             // 
             fieldTituloTotalCompra.Dock = DockStyle.Fill;
-            fieldTituloTotalCompra.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloTotalCompra.Font = new Font("Segoe UI", 11.25F);
             fieldTituloTotalCompra.ForeColor = Color.DimGray;
             fieldTituloTotalCompra.Image = (Image) resources.GetObject("fieldTituloTotalCompra.Image");
             fieldTituloTotalCompra.ImageAlign = ContentAlignment.MiddleLeft;
@@ -400,7 +400,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // fieldTituloNombreProveedor
             // 
             fieldTituloNombreProveedor.Dock = DockStyle.Fill;
-            fieldTituloNombreProveedor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloNombreProveedor.Font = new Font("Segoe UI", 11.25F);
             fieldTituloNombreProveedor.ForeColor = Color.DimGray;
             fieldTituloNombreProveedor.Image = (Image) resources.GetObject("fieldTituloNombreProveedor.Image");
             fieldTituloNombreProveedor.ImageAlign = ContentAlignment.MiddleLeft;
@@ -416,7 +416,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // fieldTituloNombreAlmacen
             // 
             fieldTituloNombreAlmacen.Dock = DockStyle.Fill;
-            fieldTituloNombreAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloNombreAlmacen.Font = new Font("Segoe UI", 11.25F);
             fieldTituloNombreAlmacen.ForeColor = Color.DimGray;
             fieldTituloNombreAlmacen.Image = (Image) resources.GetObject("fieldTituloNombreAlmacen.Image");
             fieldTituloNombreAlmacen.ImageAlign = ContentAlignment.MiddleLeft;
@@ -452,19 +452,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldNombreProveedor.BackColor = Color.Transparent;
             fieldNombreProveedor.BorderColor = Color.Gainsboro;
             fieldNombreProveedor.BorderRadius = 16;
-            fieldNombreProveedor.CustomizableEdges = customizableEdges7;
+            fieldNombreProveedor.CustomizableEdges = customizableEdges23;
             fieldNombreProveedor.Dock = DockStyle.Fill;
             fieldNombreProveedor.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
             fieldNombreProveedor.FocusedColor = Color.SandyBrown;
             fieldNombreProveedor.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreProveedor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreProveedor.Font = new Font("Segoe UI", 11.25F);
             fieldNombreProveedor.ForeColor = Color.Black;
             fieldNombreProveedor.ItemHeight = 29;
             fieldNombreProveedor.Location = new Point(5, 5);
             fieldNombreProveedor.Margin = new Padding(5);
             fieldNombreProveedor.Name = "fieldNombreProveedor";
-            fieldNombreProveedor.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            fieldNombreProveedor.ShadowDecoration.CustomizableEdges = customizableEdges24;
             fieldNombreProveedor.Size = new Size(198, 35);
             fieldNombreProveedor.TabIndex = 0;
             fieldNombreProveedor.TextOffset = new Point(10, 0);
@@ -475,19 +475,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldNombreAlmacen.BackColor = Color.Transparent;
             fieldNombreAlmacen.BorderColor = Color.Gainsboro;
             fieldNombreAlmacen.BorderRadius = 16;
-            fieldNombreAlmacen.CustomizableEdges = customizableEdges9;
+            fieldNombreAlmacen.CustomizableEdges = customizableEdges25;
             fieldNombreAlmacen.Dock = DockStyle.Fill;
             fieldNombreAlmacen.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreAlmacen.DropDownStyle = ComboBoxStyle.DropDownList;
             fieldNombreAlmacen.FocusedColor = Color.SandyBrown;
             fieldNombreAlmacen.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreAlmacen.Font = new Font("Segoe UI", 11.25F);
             fieldNombreAlmacen.ForeColor = Color.Black;
             fieldNombreAlmacen.ItemHeight = 29;
             fieldNombreAlmacen.Location = new Point(213, 5);
             fieldNombreAlmacen.Margin = new Padding(5);
             fieldNombreAlmacen.Name = "fieldNombreAlmacen";
-            fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges26;
             fieldNombreAlmacen.Size = new Size(199, 35);
             fieldNombreAlmacen.TabIndex = 1;
             fieldNombreAlmacen.TextOffset = new Point(10, 0);
@@ -525,7 +525,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // fieldTituloCantidad
             // 
             fieldTituloCantidad.Dock = DockStyle.Fill;
-            fieldTituloCantidad.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloCantidad.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloCantidad.ForeColor = Color.Black;
             fieldTituloCantidad.ImeMode = ImeMode.NoControl;
             fieldTituloCantidad.Location = new Point(306, 1);
@@ -539,7 +539,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // fieldTituloPrecio
             // 
             fieldTituloPrecio.Dock = DockStyle.Fill;
-            fieldTituloPrecio.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloPrecio.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloPrecio.ForeColor = Color.Black;
             fieldTituloPrecio.ImeMode = ImeMode.NoControl;
             fieldTituloPrecio.Location = new Point(176, 1);
@@ -553,7 +553,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             // fieldTituloProducto
             // 
             fieldTituloProducto.Dock = DockStyle.Fill;
-            fieldTituloProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldTituloProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloProducto.ForeColor = Color.Black;
             fieldTituloProducto.ImeMode = ImeMode.NoControl;
             fieldTituloProducto.Location = new Point(1, 1);
@@ -598,17 +598,17 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             btnAdicionarProducto.BorderRadius = 18;
             btnAdicionarProducto.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnAdicionarProducto.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAdicionarProducto.CustomizableEdges = customizableEdges11;
+            btnAdicionarProducto.CustomizableEdges = customizableEdges27;
             btnAdicionarProducto.DialogResult = DialogResult.Cancel;
             btnAdicionarProducto.Dock = DockStyle.Fill;
             btnAdicionarProducto.Enabled = false;
             btnAdicionarProducto.FillColor = Color.PeachPuff;
-            btnAdicionarProducto.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAdicionarProducto.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnAdicionarProducto.ForeColor = Color.White;
             btnAdicionarProducto.Location = new Point(372, 5);
             btnAdicionarProducto.Margin = new Padding(5);
             btnAdicionarProducto.Name = "btnAdicionarProducto";
-            btnAdicionarProducto.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnAdicionarProducto.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnAdicionarProducto.Size = new Size(40, 35);
             btnAdicionarProducto.TabIndex = 2;
             // 
@@ -618,7 +618,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldCantidad.BorderColor = Color.Gainsboro;
             fieldCantidad.BorderRadius = 16;
             fieldCantidad.Cursor = Cursors.IBeam;
-            fieldCantidad.CustomizableEdges = customizableEdges13;
+            fieldCantidad.CustomizableEdges = customizableEdges29;
             fieldCantidad.DefaultText = "";
             fieldCantidad.DisabledState.BorderColor = Color.Gainsboro;
             fieldCantidad.DisabledState.FillColor = Color.White;
@@ -626,7 +626,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldCantidad.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldCantidad.Dock = DockStyle.Fill;
             fieldCantidad.FocusedState.BorderColor = Color.SandyBrown;
-            fieldCantidad.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCantidad.Font = new Font("Segoe UI", 11.25F);
             fieldCantidad.ForeColor = Color.Black;
             fieldCantidad.HoverState.BorderColor = Color.SandyBrown;
             fieldCantidad.IconLeftOffset = new Point(10, 0);
@@ -640,7 +640,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldCantidad.PlaceholderForeColor = Color.DimGray;
             fieldCantidad.PlaceholderText = "Cant.";
             fieldCantidad.SelectedText = "";
-            fieldCantidad.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldCantidad.ShadowDecoration.CustomizableEdges = customizableEdges30;
             fieldCantidad.Size = new Size(85, 35);
             fieldCantidad.TabIndex = 1;
             fieldCantidad.TextAlign = HorizontalAlignment.Right;
@@ -652,7 +652,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldNombreProducto.BorderColor = Color.Gainsboro;
             fieldNombreProducto.BorderRadius = 16;
             fieldNombreProducto.Cursor = Cursors.IBeam;
-            fieldNombreProducto.CustomizableEdges = customizableEdges15;
+            fieldNombreProducto.CustomizableEdges = customizableEdges31;
             fieldNombreProducto.DefaultText = "";
             fieldNombreProducto.DisabledState.BorderColor = Color.Gainsboro;
             fieldNombreProducto.DisabledState.FillColor = Color.White;
@@ -660,7 +660,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldNombreProducto.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldNombreProducto.Dock = DockStyle.Fill;
             fieldNombreProducto.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreProducto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreProducto.Font = new Font("Segoe UI", 11.25F);
             fieldNombreProducto.ForeColor = Color.Black;
             fieldNombreProducto.HoverState.BorderColor = Color.SandyBrown;
             fieldNombreProducto.IconLeft = (Image) resources.GetObject("fieldNombreProducto.IconLeft");
@@ -672,7 +672,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             fieldNombreProducto.PlaceholderForeColor = Color.DimGray;
             fieldNombreProducto.PlaceholderText = "Nombre del producto";
             fieldNombreProducto.SelectedText = "";
-            fieldNombreProducto.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            fieldNombreProducto.ShadowDecoration.CustomizableEdges = customizableEdges32;
             fieldNombreProducto.Size = new Size(262, 35);
             fieldNombreProducto.TabIndex = 0;
             fieldNombreProducto.TextOffset = new Point(5, 0);
@@ -682,7 +682,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra {
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(500, 685);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaRegistroCompra";

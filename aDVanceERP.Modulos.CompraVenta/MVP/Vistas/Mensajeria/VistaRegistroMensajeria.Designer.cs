@@ -173,7 +173,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F);
             fieldSubtitulo.ForeColor = Color.Gray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 70);
@@ -208,7 +208,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             btnCerrar.CustomizableEdges = customizableEdges1;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
@@ -221,7 +221,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -244,7 +244,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldDireccion.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldDireccion.Dock = DockStyle.Fill;
             fieldDireccion.FocusedState.BorderColor = Color.SandyBrown;
-            fieldDireccion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDireccion.Font = new Font("Segoe UI", 11.25F);
             fieldDireccion.ForeColor = Color.Black;
             fieldDireccion.HoverState.BorderColor = Color.SandyBrown;
             fieldDireccion.IconLeft = (Image) resources.GetObject("fieldDireccion.IconLeft");
@@ -265,7 +265,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             // fieldTituloNombreMensajero
             // 
             fieldTituloNombreMensajero.Dock = DockStyle.Fill;
-            fieldTituloNombreMensajero.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloNombreMensajero.Font = new Font("Segoe UI", 11.25F);
             fieldTituloNombreMensajero.ForeColor = Color.DimGray;
             fieldTituloNombreMensajero.Image = (Image) resources.GetObject("fieldTituloNombreMensajero.Image");
             fieldTituloNombreMensajero.ImageAlign = ContentAlignment.MiddleLeft;
@@ -281,7 +281,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             // fieldTituloTipoEntrega
             // 
             fieldTituloTipoEntrega.Dock = DockStyle.Fill;
-            fieldTituloTipoEntrega.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloTipoEntrega.Font = new Font("Segoe UI", 11.25F);
             fieldTituloTipoEntrega.ForeColor = Color.DimGray;
             fieldTituloTipoEntrega.Image = (Image) resources.GetObject("fieldTituloTipoEntrega.Image");
             fieldTituloTipoEntrega.ImageAlign = ContentAlignment.MiddleLeft;
@@ -306,7 +306,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldTipoEntrega.DropDownStyle = ComboBoxStyle.DropDownList;
             fieldTipoEntrega.FocusedColor = Color.SandyBrown;
             fieldTipoEntrega.FocusedState.BorderColor = Color.SandyBrown;
-            fieldTipoEntrega.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTipoEntrega.Font = new Font("Segoe UI", 11.25F);
             fieldTipoEntrega.ForeColor = Color.Black;
             fieldTipoEntrega.ItemHeight = 29;
             fieldTipoEntrega.Location = new Point(55, 260);
@@ -320,7 +320,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             // fieldDescripcionTipoEntrega
             // 
             fieldDescripcionTipoEntrega.Dock = DockStyle.Fill;
-            fieldDescripcionTipoEntrega.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDescripcionTipoEntrega.Font = new Font("Segoe UI", 11.25F);
             fieldDescripcionTipoEntrega.ForeColor = Color.Black;
             fieldDescripcionTipoEntrega.ImeMode = ImeMode.NoControl;
             fieldDescripcionTipoEntrega.Location = new Point(60, 305);
@@ -343,7 +343,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldObservaciones.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldObservaciones.Dock = DockStyle.Fill;
             fieldObservaciones.FocusedState.BorderColor = Color.SandyBrown;
-            fieldObservaciones.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldObservaciones.Font = new Font("Segoe UI", 11.25F);
             fieldObservaciones.ForeColor = Color.Black;
             fieldObservaciones.HoverState.BorderColor = Color.SandyBrown;
             fieldObservaciones.IconLeft = (Image) resources.GetObject("fieldObservaciones.IconLeft");
@@ -388,7 +388,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             btnAdicionarCliente.DialogResult = DialogResult.Cancel;
             btnAdicionarCliente.Dock = DockStyle.Fill;
             btnAdicionarCliente.FillColor = Color.PeachPuff;
-            btnAdicionarCliente.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAdicionarCliente.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnAdicionarCliente.ForeColor = Color.White;
             btnAdicionarCliente.Location = new Point(372, 5);
             btnAdicionarCliente.Margin = new Padding(5);
@@ -411,7 +411,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldRazonSocialCliente.DisabledState.PlaceholderForeColor = Color.DimGray;
             fieldRazonSocialCliente.Dock = DockStyle.Fill;
             fieldRazonSocialCliente.FocusedState.BorderColor = Color.SandyBrown;
-            fieldRazonSocialCliente.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldRazonSocialCliente.Font = new Font("Segoe UI", 11.25F);
             fieldRazonSocialCliente.ForeColor = Color.Black;
             fieldRazonSocialCliente.HoverState.BorderColor = Color.SandyBrown;
             fieldRazonSocialCliente.IconLeft = (Image) resources.GetObject("fieldRazonSocialCliente.IconLeft");
@@ -455,7 +455,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             btnAdicionarMensajero.DialogResult = DialogResult.Cancel;
             btnAdicionarMensajero.Dock = DockStyle.Fill;
             btnAdicionarMensajero.FillColor = Color.PeachPuff;
-            btnAdicionarMensajero.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnAdicionarMensajero.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnAdicionarMensajero.ForeColor = Color.White;
             btnAdicionarMensajero.Location = new Point(372, 5);
             btnAdicionarMensajero.Margin = new Padding(5);
@@ -476,7 +476,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             fieldNombreMensajero.DropDownStyle = ComboBoxStyle.DropDownList;
             fieldNombreMensajero.FocusedColor = Color.SandyBrown;
             fieldNombreMensajero.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreMensajero.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombreMensajero.Font = new Font("Segoe UI", 11.25F);
             fieldNombreMensajero.ForeColor = Color.Black;
             fieldNombreMensajero.ItemHeight = 29;
             fieldNombreMensajero.Location = new Point(5, 5);
@@ -525,7 +525,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             btnSalir.CustomizableEdges = customizableEdges17;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
-            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnSalir.ForeColor = Color.Gainsboro;
             btnSalir.HoverState.BorderColor = Color.PeachPuff;
             btnSalir.HoverState.FillColor = Color.PeachPuff;
@@ -545,7 +545,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.Enabled = false;
             btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
@@ -583,7 +583,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria {
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(910, 685);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaRegistroMensajeria";

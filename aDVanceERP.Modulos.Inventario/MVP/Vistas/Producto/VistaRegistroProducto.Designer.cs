@@ -37,16 +37,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
@@ -55,22 +45,15 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
-            layoutPrecios = new TableLayoutPanel();
-            fieldPrecioCesion = new Guna2TextBox();
-            fieldPrecioAdquisicion = new Guna2TextBox();
-            fieldDescripcion = new Guna2TextBox();
-            fieldTituloNombreProveedor = new Label();
-            fieldNombreProveedor = new Guna2ComboBox();
-            fieldCodigo = new Guna2TextBox();
-            fieldNombre = new Guna2TextBox();
+            contenedorVistas = new Panel();
             layoutBotones = new TableLayoutPanel();
+            btnAtras = new Guna2Button();
             btnSalir = new Guna2Button();
             btnRegistrar = new Guna2Button();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutTitulo.SuspendLayout();
-            layoutPrecios.SuspendLayout();
             layoutBotones.SuspendLayout();
             SuspendLayout();
             // 
@@ -113,32 +96,25 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             layoutVista.Controls.Add(fieldIcono, 1, 1);
             layoutVista.Controls.Add(fieldSubtitulo, 2, 2);
             layoutVista.Controls.Add(layoutTitulo, 2, 1);
-            layoutVista.Controls.Add(layoutPrecios, 2, 13);
-            layoutVista.Controls.Add(fieldDescripcion, 2, 8);
-            layoutVista.Controls.Add(fieldTituloNombreProveedor, 2, 10);
-            layoutVista.Controls.Add(fieldNombreProveedor, 2, 11);
-            layoutVista.Controls.Add(fieldCodigo, 2, 6);
-            layoutVista.Controls.Add(fieldNombre, 2, 4);
+            layoutVista.Controls.Add(contenedorVistas, 2, 4);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(13, 0);
             layoutVista.Margin = new Padding(3, 0, 0, 0);
             layoutVista.Name = "layoutVista";
-            layoutVista.RowCount = 16;
+            layoutVista.RowCount = 6;
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
-            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutVista.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
@@ -160,7 +136,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F);
             fieldSubtitulo.ForeColor = Color.DimGray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 70);
@@ -195,7 +171,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnCerrar.CustomizableEdges = customizableEdges1;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
@@ -208,7 +184,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -218,220 +194,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldTitulo.Text = "Producto";
             fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // layoutPrecios
+            // contenedorVistas
             // 
-            layoutPrecios.ColumnCount = 2;
-            layoutPrecios.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            layoutPrecios.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            layoutPrecios.Controls.Add(fieldPrecioCesion, 0, 0);
-            layoutPrecios.Controls.Add(fieldPrecioAdquisicion, 0, 0);
-            layoutPrecios.Dock = DockStyle.Fill;
-            layoutPrecios.Location = new Point(50, 410);
-            layoutPrecios.Margin = new Padding(0);
-            layoutPrecios.Name = "layoutPrecios";
-            layoutPrecios.RowCount = 1;
-            layoutPrecios.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutPrecios.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutPrecios.Size = new Size(417, 45);
-            layoutPrecios.TabIndex = 6;
-            // 
-            // fieldPrecioCesion
-            // 
-            fieldPrecioCesion.Animated = true;
-            fieldPrecioCesion.BorderColor = Color.Gainsboro;
-            fieldPrecioCesion.BorderRadius = 16;
-            fieldPrecioCesion.Cursor = Cursors.IBeam;
-            fieldPrecioCesion.CustomizableEdges = customizableEdges3;
-            fieldPrecioCesion.DefaultText = "";
-            fieldPrecioCesion.DisabledState.BorderColor = Color.White;
-            fieldPrecioCesion.DisabledState.ForeColor = Color.DimGray;
-            fieldPrecioCesion.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioCesion.Dock = DockStyle.Fill;
-            fieldPrecioCesion.FocusedState.BorderColor = Color.SandyBrown;
-            fieldPrecioCesion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldPrecioCesion.ForeColor = Color.Black;
-            fieldPrecioCesion.HoverState.BorderColor = Color.SandyBrown;
-            fieldPrecioCesion.IconLeft = (Image) resources.GetObject("fieldPrecioCesion.IconLeft");
-            fieldPrecioCesion.IconLeftOffset = new Point(10, 0);
-            fieldPrecioCesion.IconRight = (Image) resources.GetObject("fieldPrecioCesion.IconRight");
-            fieldPrecioCesion.IconRightOffset = new Point(6, 0);
-            fieldPrecioCesion.IconRightSize = new Size(12, 12);
-            fieldPrecioCesion.Location = new Point(213, 5);
-            fieldPrecioCesion.Margin = new Padding(5);
-            fieldPrecioCesion.Name = "fieldPrecioCesion";
-            fieldPrecioCesion.PasswordChar = '\0';
-            fieldPrecioCesion.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioCesion.PlaceholderText = "P. Venta Base";
-            fieldPrecioCesion.SelectedText = "";
-            fieldPrecioCesion.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            fieldPrecioCesion.Size = new Size(199, 35);
-            fieldPrecioCesion.TabIndex = 1;
-            fieldPrecioCesion.TextAlign = HorizontalAlignment.Right;
-            fieldPrecioCesion.TextOffset = new Point(5, 0);
-            // 
-            // fieldPrecioAdquisicion
-            // 
-            fieldPrecioAdquisicion.Animated = true;
-            fieldPrecioAdquisicion.BorderColor = Color.Gainsboro;
-            fieldPrecioAdquisicion.BorderRadius = 16;
-            fieldPrecioAdquisicion.Cursor = Cursors.IBeam;
-            fieldPrecioAdquisicion.CustomizableEdges = customizableEdges5;
-            fieldPrecioAdquisicion.DefaultText = "";
-            fieldPrecioAdquisicion.DisabledState.BorderColor = Color.White;
-            fieldPrecioAdquisicion.DisabledState.ForeColor = Color.DimGray;
-            fieldPrecioAdquisicion.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioAdquisicion.Dock = DockStyle.Fill;
-            fieldPrecioAdquisicion.FocusedState.BorderColor = Color.SandyBrown;
-            fieldPrecioAdquisicion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldPrecioAdquisicion.ForeColor = Color.Black;
-            fieldPrecioAdquisicion.HoverState.BorderColor = Color.SandyBrown;
-            fieldPrecioAdquisicion.IconLeft = (Image) resources.GetObject("fieldPrecioAdquisicion.IconLeft");
-            fieldPrecioAdquisicion.IconLeftOffset = new Point(10, 0);
-            fieldPrecioAdquisicion.IconRight = (Image) resources.GetObject("fieldPrecioAdquisicion.IconRight");
-            fieldPrecioAdquisicion.IconRightOffset = new Point(6, 0);
-            fieldPrecioAdquisicion.IconRightSize = new Size(12, 12);
-            fieldPrecioAdquisicion.Location = new Point(5, 5);
-            fieldPrecioAdquisicion.Margin = new Padding(5);
-            fieldPrecioAdquisicion.Name = "fieldPrecioAdquisicion";
-            fieldPrecioAdquisicion.PasswordChar = '\0';
-            fieldPrecioAdquisicion.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioAdquisicion.PlaceholderText = "P. Compra Base";
-            fieldPrecioAdquisicion.SelectedText = "";
-            fieldPrecioAdquisicion.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            fieldPrecioAdquisicion.Size = new Size(198, 35);
-            fieldPrecioAdquisicion.TabIndex = 0;
-            fieldPrecioAdquisicion.TextAlign = HorizontalAlignment.Right;
-            fieldPrecioAdquisicion.TextOffset = new Point(5, 0);
-            // 
-            // fieldDescripcion
-            // 
-            fieldDescripcion.Animated = true;
-            fieldDescripcion.BorderColor = Color.Gainsboro;
-            fieldDescripcion.BorderRadius = 16;
-            fieldDescripcion.Cursor = Cursors.IBeam;
-            fieldDescripcion.CustomizableEdges = customizableEdges7;
-            fieldDescripcion.DefaultText = "";
-            fieldDescripcion.DisabledState.BorderColor = Color.White;
-            fieldDescripcion.DisabledState.ForeColor = Color.DimGray;
-            fieldDescripcion.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldDescripcion.Dock = DockStyle.Fill;
-            fieldDescripcion.FocusedState.BorderColor = Color.SandyBrown;
-            fieldDescripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldDescripcion.ForeColor = Color.Black;
-            fieldDescripcion.HoverState.BorderColor = Color.SandyBrown;
-            fieldDescripcion.IconLeft = (Image) resources.GetObject("fieldDescripcion.IconLeft");
-            fieldDescripcion.IconLeftOffset = new Point(10, -11);
-            fieldDescripcion.Location = new Point(55, 245);
-            fieldDescripcion.Margin = new Padding(5);
-            fieldDescripcion.Multiline = true;
-            fieldDescripcion.Name = "fieldDescripcion";
-            fieldDescripcion.PasswordChar = '\0';
-            fieldDescripcion.PlaceholderForeColor = Color.DimGray;
-            fieldDescripcion.PlaceholderText = "Descripción";
-            fieldDescripcion.SelectedText = "";
-            fieldDescripcion.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldDescripcion.Size = new Size(407, 60);
-            fieldDescripcion.TabIndex = 3;
-            fieldDescripcion.TextOffset = new Point(5, 0);
-            // 
-            // fieldTituloNombreProveedor
-            // 
-            fieldTituloNombreProveedor.Dock = DockStyle.Fill;
-            fieldTituloNombreProveedor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldTituloNombreProveedor.ForeColor = Color.DimGray;
-            fieldTituloNombreProveedor.Image = (Image) resources.GetObject("fieldTituloNombreProveedor.Image");
-            fieldTituloNombreProveedor.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloNombreProveedor.ImeMode = ImeMode.NoControl;
-            fieldTituloNombreProveedor.Location = new Point(65, 325);
-            fieldTituloNombreProveedor.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloNombreProveedor.Name = "fieldTituloNombreProveedor";
-            fieldTituloNombreProveedor.Size = new Size(399, 27);
-            fieldTituloNombreProveedor.TabIndex = 4;
-            fieldTituloNombreProveedor.Text = "      Proveedor :";
-            fieldTituloNombreProveedor.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fieldNombreProveedor
-            // 
-            fieldNombreProveedor.Animated = true;
-            fieldNombreProveedor.BackColor = Color.Transparent;
-            fieldNombreProveedor.BorderColor = Color.Gainsboro;
-            fieldNombreProveedor.BorderRadius = 16;
-            fieldNombreProveedor.CustomizableEdges = customizableEdges9;
-            fieldNombreProveedor.Dock = DockStyle.Fill;
-            fieldNombreProveedor.DrawMode = DrawMode.OwnerDrawFixed;
-            fieldNombreProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldNombreProveedor.FocusedColor = Color.SandyBrown;
-            fieldNombreProveedor.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreProveedor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreProveedor.ForeColor = Color.Black;
-            fieldNombreProveedor.ItemHeight = 29;
-            fieldNombreProveedor.Location = new Point(55, 360);
-            fieldNombreProveedor.Margin = new Padding(5);
-            fieldNombreProveedor.Name = "fieldNombreProveedor";
-            fieldNombreProveedor.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            fieldNombreProveedor.Size = new Size(407, 35);
-            fieldNombreProveedor.TabIndex = 5;
-            fieldNombreProveedor.TextOffset = new Point(10, 0);
-            // 
-            // fieldCodigo
-            // 
-            fieldCodigo.Animated = true;
-            fieldCodigo.BorderColor = Color.Gainsboro;
-            fieldCodigo.BorderRadius = 16;
-            fieldCodigo.Cursor = Cursors.IBeam;
-            fieldCodigo.CustomizableEdges = customizableEdges11;
-            fieldCodigo.DefaultText = "";
-            fieldCodigo.DisabledState.BorderColor = Color.White;
-            fieldCodigo.DisabledState.ForeColor = Color.DimGray;
-            fieldCodigo.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldCodigo.Dock = DockStyle.Fill;
-            fieldCodigo.FocusedState.BorderColor = Color.SandyBrown;
-            fieldCodigo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldCodigo.ForeColor = Color.Black;
-            fieldCodigo.HoverState.BorderColor = Color.SandyBrown;
-            fieldCodigo.IconLeft = (Image) resources.GetObject("fieldCodigo.IconLeft");
-            fieldCodigo.IconLeftOffset = new Point(10, 0);
-            fieldCodigo.Location = new Point(55, 190);
-            fieldCodigo.Margin = new Padding(5);
-            fieldCodigo.Name = "fieldCodigo";
-            fieldCodigo.PasswordChar = '\0';
-            fieldCodigo.PlaceholderForeColor = Color.DimGray;
-            fieldCodigo.PlaceholderText = "Código";
-            fieldCodigo.SelectedText = "";
-            fieldCodigo.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            fieldCodigo.Size = new Size(407, 35);
-            fieldCodigo.TabIndex = 2;
-            fieldCodigo.TextOffset = new Point(5, 0);
-            // 
-            // fieldNombre
-            // 
-            fieldNombre.Animated = true;
-            fieldNombre.BorderColor = Color.Gainsboro;
-            fieldNombre.BorderRadius = 16;
-            fieldNombre.Cursor = Cursors.IBeam;
-            fieldNombre.CustomizableEdges = customizableEdges13;
-            fieldNombre.DefaultText = "";
-            fieldNombre.DisabledState.BorderColor = Color.White;
-            fieldNombre.DisabledState.ForeColor = Color.DimGray;
-            fieldNombre.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldNombre.Dock = DockStyle.Fill;
-            fieldNombre.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombre.ForeColor = Color.Black;
-            fieldNombre.HoverState.BorderColor = Color.SandyBrown;
-            fieldNombre.IconLeft = (Image) resources.GetObject("fieldNombre.IconLeft");
-            fieldNombre.IconLeftOffset = new Point(10, 0);
-            fieldNombre.Location = new Point(55, 135);
-            fieldNombre.Margin = new Padding(5);
-            fieldNombre.Name = "fieldNombre";
-            fieldNombre.PasswordChar = '\0';
-            fieldNombre.PlaceholderForeColor = Color.DimGray;
-            fieldNombre.PlaceholderText = "Nombre o identificador";
-            fieldNombre.SelectedText = "";
-            fieldNombre.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            fieldNombre.Size = new Size(407, 35);
-            fieldNombre.TabIndex = 1;
-            fieldNombre.TextOffset = new Point(5, 0);
+            contenedorVistas.Dock = DockStyle.Fill;
+            contenedorVistas.Location = new Point(50, 130);
+            contenedorVistas.Margin = new Padding(0);
+            contenedorVistas.Name = "contenedorVistas";
+            contenedorVistas.Size = new Size(417, 470);
+            contenedorVistas.TabIndex = 9;
             // 
             // layoutBotones
             // 
@@ -441,6 +211,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
             layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
             layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 22F));
+            layoutBotones.Controls.Add(btnAtras, 0, 0);
             layoutBotones.Controls.Add(btnSalir, 2, 0);
             layoutBotones.Controls.Add(btnRegistrar, 1, 0);
             layoutBotones.Dock = DockStyle.Fill;
@@ -453,23 +224,41 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             layoutBotones.Size = new Size(487, 65);
             layoutBotones.TabIndex = 0;
             // 
+            // btnAtras
+            // 
+            btnAtras.Animated = true;
+            btnAtras.BorderRadius = 18;
+            btnAtras.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnAtras.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnAtras.CustomizableEdges = customizableEdges3;
+            btnAtras.Dock = DockStyle.Fill;
+            btnAtras.FillColor = Color.PeachPuff;
+            btnAtras.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnAtras.ForeColor = Color.Black;
+            btnAtras.Location = new Point(3, 3);
+            btnAtras.Name = "btnAtras";
+            btnAtras.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnAtras.Size = new Size(44, 39);
+            btnAtras.TabIndex = 2;
+            btnAtras.Visible = false;
+            // 
             // btnSalir
             // 
             btnSalir.Animated = true;
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges15;
+            btnSalir.CustomizableEdges = customizableEdges5;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
-            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnSalir.ForeColor = Color.Gainsboro;
             btnSalir.HoverState.BorderColor = Color.PeachPuff;
             btnSalir.HoverState.FillColor = Color.PeachPuff;
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 1;
             btnSalir.Text = "Salir";
@@ -478,24 +267,24 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges17;
+            btnRegistrar.CustomizableEdges = customizableEdges7;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 0;
-            btnRegistrar.Text = "Registrar producto";
+            btnRegistrar.Text = "Siguiente";
             // 
             // VistaRegistroProducto
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(500, 685);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaRegistroProducto";
@@ -507,7 +296,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             layoutVista.ResumeLayout(false);
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutTitulo.ResumeLayout(false);
-            layoutPrecios.ResumeLayout(false);
             layoutBotones.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -519,19 +307,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         private TableLayoutPanel layoutVista;
         private PictureBox fieldIcono;
         private Label fieldSubtitulo;
-        private Guna2TextBox fieldNombre;
         private TableLayoutPanel layoutTitulo;
         private Guna2Button btnCerrar;
         private Label fieldTitulo;
-        private Guna2TextBox fieldCodigo;
         private TableLayoutPanel layoutBotones;
         private Guna2Button btnSalir;
         private Guna2Button btnRegistrar;
-        private Label fieldTituloNombreProveedor;
-        private Guna2ComboBox fieldNombreProveedor;
-        private TableLayoutPanel layoutPrecios;
-        private Guna2TextBox fieldPrecioCesion;
-        private Guna2TextBox fieldPrecioAdquisicion;
-        private Guna2TextBox fieldDescripcion;
+        private Panel contenedorVistas;
+        private Guna2Button btnAtras;
     }
 }

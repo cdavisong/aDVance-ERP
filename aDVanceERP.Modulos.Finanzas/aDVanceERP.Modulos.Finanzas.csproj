@@ -6,6 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Utiles\**" />
+    <EmbeddedResource Remove="Utiles\**" />
+    <None Remove="Utiles\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="QRCoder" Version="1.6.0" />
   </ItemGroup>
   <ItemGroup>
@@ -24,8 +29,5 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utiles\" />
   </ItemGroup>
 </Project>

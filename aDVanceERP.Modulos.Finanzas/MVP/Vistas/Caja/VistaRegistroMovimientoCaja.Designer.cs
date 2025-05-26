@@ -57,7 +57,7 @@
             btnRegistrar = new Guna.UI2.WinForms.Guna2Button();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)fieldIcono).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) fieldIcono).BeginInit();
             layoutTitulo.SuspendLayout();
             layoutBotones.SuspendLayout();
             SuspendLayout();
@@ -130,7 +130,7 @@
             // 
             // fieldIcono
             // 
-            fieldIcono.BackgroundImage = (Image)resources.GetObject("fieldIcono.BackgroundImage");
+            fieldIcono.BackgroundImage = (Image) resources.GetObject("fieldIcono.BackgroundImage");
             fieldIcono.BackgroundImageLayout = ImageLayout.Center;
             fieldIcono.Dock = DockStyle.Fill;
             fieldIcono.Location = new Point(20, 26);
@@ -165,16 +165,16 @@
             fieldMontoInicial.DisabledState.BorderColor = Color.White;
             fieldMontoInicial.DisabledState.ForeColor = Color.DimGray;
             fieldMontoInicial.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldMontoInicial.Dock = DockStyle.Fill;
+            fieldMontoInicial.Dock = DockStyle.Right;
             fieldMontoInicial.FocusedState.BorderColor = Color.SandyBrown;
             fieldMontoInicial.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldMontoInicial.ForeColor = Color.Black;
             fieldMontoInicial.HoverState.BorderColor = Color.SandyBrown;
             fieldMontoInicial.IconLeftOffset = new Point(10, 0);
-            fieldMontoInicial.IconRight = (Image)resources.GetObject("fieldMontoInicial.IconRight");
+            fieldMontoInicial.IconRight = (Image) resources.GetObject("fieldMontoInicial.IconRight");
             fieldMontoInicial.IconRightOffset = new Point(6, 0);
             fieldMontoInicial.IconRightSize = new Size(12, 12);
-            fieldMontoInicial.Location = new Point(55, 135);
+            fieldMontoInicial.Location = new Point(232, 135);
             fieldMontoInicial.Margin = new Padding(5);
             fieldMontoInicial.Name = "fieldMontoInicial";
             fieldMontoInicial.PasswordChar = '\0';
@@ -182,7 +182,7 @@
             fieldMontoInicial.PlaceholderText = "Monto de dinero";
             fieldMontoInicial.SelectedText = "";
             fieldMontoInicial.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            fieldMontoInicial.Size = new Size(407, 35);
+            fieldMontoInicial.Size = new Size(230, 35);
             fieldMontoInicial.TabIndex = 1;
             fieldMontoInicial.TextAlign = HorizontalAlignment.Right;
             fieldMontoInicial.TextOffset = new Point(5, 0);
@@ -215,7 +215,7 @@
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
             btnCerrar.ForeColor = Color.Black;
             btnCerrar.HoverState.FillColor = Color.White;
-            btnCerrar.Image = (Image)resources.GetObject("btnCerrar.Image");
+            btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(370, 3);
             btnCerrar.Name = "btnCerrar";
             btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges4;
@@ -240,7 +240,7 @@
             fieldTituloTipoMovimiento.Dock = DockStyle.Fill;
             fieldTituloTipoMovimiento.Font = new Font("Segoe UI", 11.25F);
             fieldTituloTipoMovimiento.ForeColor = Color.DimGray;
-            fieldTituloTipoMovimiento.Image = (Image)resources.GetObject("fieldTituloTipoMovimiento.Image");
+            fieldTituloTipoMovimiento.Image = (Image) resources.GetObject("fieldTituloTipoMovimiento.Image");
             fieldTituloTipoMovimiento.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTituloTipoMovimiento.ImeMode = ImeMode.NoControl;
             fieldTituloTipoMovimiento.Location = new Point(65, 190);
@@ -292,7 +292,7 @@
             fieldMotivo.Font = new Font("Segoe UI", 11.25F);
             fieldMotivo.ForeColor = Color.Black;
             fieldMotivo.HoverState.BorderColor = Color.SandyBrown;
-            fieldMotivo.IconLeft = (Image)resources.GetObject("fieldMotivo.IconLeft");
+            fieldMotivo.IconLeft = (Image) resources.GetObject("fieldMotivo.IconLeft");
             fieldMotivo.IconLeftOffset = new Point(10, 0);
             fieldMotivo.Location = new Point(55, 280);
             fieldMotivo.Margin = new Padding(5);
@@ -322,7 +322,7 @@
             fieldObservaciones.Font = new Font("Segoe UI", 11.25F);
             fieldObservaciones.ForeColor = Color.Black;
             fieldObservaciones.HoverState.BorderColor = Color.SandyBrown;
-            fieldObservaciones.IconLeft = (Image)resources.GetObject("fieldObservaciones.IconLeft");
+            fieldObservaciones.IconLeft = (Image) resources.GetObject("fieldObservaciones.IconLeft");
             fieldObservaciones.IconLeftOffset = new Point(10, -11);
             fieldObservaciones.Location = new Point(55, 335);
             fieldObservaciones.Margin = new Padding(5);
@@ -409,7 +409,7 @@
             Text = "VistaRegistroMovimientoCaja";
             layoutBase.ResumeLayout(false);
             layoutVista.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)fieldIcono).EndInit();
+            ((System.ComponentModel.ISupportInitialize) fieldIcono).EndInit();
             layoutTitulo.ResumeLayout(false);
             layoutBotones.ResumeLayout(false);
             ResumeLayout(false);
