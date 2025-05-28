@@ -1,9 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
 
 public class DatosUnidadMedida : RepositorioDatosBase<UnidadMedida, CriterioBusquedaUnidadMedida>, IRepositorioUnidadMedida {
     public override string ComandoCantidad() {

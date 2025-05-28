@@ -10,18 +10,17 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegistroMovimiento, Movimiento,
     DatosMovimiento, CriterioBusquedaMovimiento> {
-    private Movimiento? _movimiento;
 
     public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Movimiento objeto) {
+        Vista.ModoEdicionDatos = true;
         Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
         Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
         Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
         Vista.Fecha = objeto.Fecha;
         Vista.CantidadMovida = objeto.CantidadMovida;
         Vista.TipoMovimiento = UtilesMovimiento.ObtenerNombreTipoMovimiento(objeto.IdTipoMovimiento) ?? string.Empty;
-        Vista.ModoEdicionDatos = true;
 
         Objeto = objeto;
     }
@@ -88,9 +87,17 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
         return nombreProductoOk && tipoMovimientoOk && noCompraventaOk && fechaOk && cantidadOk;
     }
 
+    protected override void RegistroAuxiliar(DatosMovimiento datosMovimiento, long id) {
+        if (Objeto != null)
+            UtilesMovimiento.ModificarStockProductoAlmacen(
+                UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result,
+                UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen).Result,
+                UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
+                Vista.CantidadMovida);
+    }
+
     protected override async Task<Movimiento?> ObtenerObjetoDesdeVista() {
-        _movimiento = new Movimiento(
-            Objeto?.Id ?? 0,
+        return new Movimiento(Objeto?.Id ?? 0,
             await UtilesProducto.ObtenerIdProducto(Vista.NombreProducto),
             await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen),
             await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino),
@@ -98,13 +105,5 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
             Vista.CantidadMovida,
             UtilesMovimiento.ObtenerIdTipoMovimiento(Vista.TipoMovimiento)
         );
-
-        return _movimiento;
-    }
-
-    protected override void RegistroAuxiliar(long id) {
-        if (_movimiento != null)
-            UtilesMovimiento.ModificarStockProductoAlmacen(_movimiento.IdProducto, _movimiento.IdAlmacenOrigen,
-                _movimiento.IdAlmacenDestino, _movimiento.CantidadMovida);
     }
 }

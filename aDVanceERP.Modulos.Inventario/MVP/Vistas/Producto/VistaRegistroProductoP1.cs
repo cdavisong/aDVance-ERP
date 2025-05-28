@@ -6,9 +6,14 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
 
         public VistaRegistroProductoP1() {
             InitializeComponent();
+            InicializarVistas();
             Inicializar();
+            
             CargarCategoriasProducto();
         }
+
+        public event EventHandler? CategoriaProductoCambiada;
+        public event EventHandler? EsVendibleActualizado;
 
         public CategoriaProducto CategoriaProducto {
             get => (CategoriaProducto) fieldCategoriaProducto.SelectedIndex;
@@ -43,15 +48,16 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             set => P1DatosProveedorVentaDirecta.EsVendible = value;
         }
 
-        private void Inicializar() {
-            // Inicializar vistas
+        private void InicializarVistas() {
             // 1. Datos del proveedor y venta directa de materia prima
             P1DatosProveedorVentaDirecta.Dock = DockStyle.Fill;
             P1DatosProveedorVentaDirecta.TopLevel = false;
 
             contenedorVistas.Controls.Clear();
             contenedorVistas.Controls.Add(P1DatosProveedorVentaDirecta);
+        }
 
+        private void Inicializar() {
             // Eventos
             fieldCategoriaProducto.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
                 fieldDescripcionCategoriaProducto.Text = UtilesCategoriaProducto.DescripcionesProducto[fieldCategoriaProducto.SelectedIndex];
@@ -61,6 +67,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
                     fieldCategoriaProducto.SelectedIndex == (int) CategoriaProducto.Mercancia ||
                     fieldCategoriaProducto.SelectedIndex == (int) CategoriaProducto.MateriaPrima;
                 P1DatosProveedorVentaDirecta.CategoriaProducto = CategoriaProducto;
+
+                CategoriaProductoCambiada?.Invoke(this, EventArgs.Empty);
+            };
+            P1DatosProveedorVentaDirecta.EsVendibleActualizado += delegate (object? sender, EventArgs args) {
+                EsVendibleActualizado?.Invoke(this, EventArgs.Empty);
             };
         }
 

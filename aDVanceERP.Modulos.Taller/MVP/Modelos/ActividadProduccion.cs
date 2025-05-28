@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos;
+namespace aDVanceERP.Modulos.Taller.MVP.Modelos;
 
 public class ActividadProduccion : IObjetoUnico {
     public ActividadProduccion() {

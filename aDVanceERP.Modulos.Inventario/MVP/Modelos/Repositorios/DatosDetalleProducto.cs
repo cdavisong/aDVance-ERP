@@ -98,7 +98,7 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
     public override DetalleProducto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
         return new DetalleProducto(
             id: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_detalle_producto")),
-            idUnidadMedida: lectorDatos.GetInt64(lectorDatos.GetOrdinal("unidad_medida")),
+            idUnidadMedida: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_unidad_medida")),
             idColorProductoPrimario: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_color_producto_primario")),
             idColorProductoSecundario: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_color_producto_secundario")),
             idTipoProducto: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_tipo_producto")),

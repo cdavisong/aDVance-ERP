@@ -68,7 +68,7 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
     /// <summary>
     ///     Registro o actualización de teléfonos para el contacto.
     /// </summary>
-    protected override void RegistroAuxiliar(long id) {
+    protected override void RegistroAuxiliar(DatosContacto datosContacto, long id) {
         using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
             var telefonos = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, (Objeto?.Id ?? 0).ToString()).ToList() ??
                 new List<TelefonoContacto>();

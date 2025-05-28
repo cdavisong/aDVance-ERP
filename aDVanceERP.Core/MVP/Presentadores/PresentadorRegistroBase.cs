@@ -14,8 +14,9 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
     private bool _disposed; // Para evitar llamadas redundantes a Dispose
 
     protected PresentadorRegistroBase(Vr vista) : base(vista) {
-        if (vista != null && vista is Form vistaForm)
-            vistaForm.TopMost = true; // Asegurar que la ventana esté siempre al frente
+        //TODO: Opcional, para mostrar las ventanas modales siempre antes que otras ventanas
+        //if (vista != null && vista is Form vistaForm)
+        //    vistaForm.TopMost = true; // Asegurar que la ventana esté siempre al frente
 
         Vista.RegistrarDatos += RegistrarDatosObjeto;
         Vista.EditarDatos += EditarDatosObjeto;
@@ -45,7 +46,7 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
         return true;
     }
 
-    protected virtual void RegistroAuxiliar(long id) { }
+    protected virtual void RegistroAuxiliar(Do datosObjeto, long id) { }
 
     protected virtual void RegistrarDatosObjeto(object? sender, EventArgs e) {
         _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
@@ -71,7 +72,7 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
         else
             Objeto.Id = await DatosObjeto.AdicionarAsync(Objeto);
 
-        RegistroAuxiliar(Objeto.Id);
+        RegistroAuxiliar(DatosObjeto, Objeto.Id);
 
         DatosRegistradosActualizados?.Invoke(sender, e);
         Salir?.Invoke(sender, e);

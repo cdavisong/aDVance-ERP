@@ -50,62 +50,60 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
         return nombreOk && telefonoOk;
     }
 
-    protected override void RegistroAuxiliar(long id) {
-        using (var datosMensajero = new DatosMensajero()) {
-            using (var datosContacto = new DatosContacto()) {
-                // Contacto
-                var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, (Objeto?.IdContacto ?? 0).ToString()).FirstOrDefault() ??
-                    new Contacto();
+    protected override void RegistroAuxiliar(DatosMensajero datosMensajero, long id) {
+        using (var datosContacto = new DatosContacto()) {
+            // Contacto
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, (Objeto?.IdContacto ?? 0).ToString()).FirstOrDefault() ??
+                new Contacto();
 
-                contacto.Nombre = Vista.Nombre;
-                contacto.Notas = "Mensajero";
+            contacto.Nombre = Vista.Nombre;
+            contacto.Notas = "Mensajero";
 
-                if (Vista.ModoEdicionDatos && contacto.Id != 0)
-                    datosContacto.Editar(contacto);
-                else if (contacto.Id != 0)
-                    datosContacto.Editar(contacto);
-                else if (Objeto != null) {
-                    Objeto.IdContacto = datosContacto.Adicionar(contacto);
+            if (Vista.ModoEdicionDatos && contacto.Id != 0)
+                datosContacto.Editar(contacto);
+            else if (contacto.Id != 0)
+                datosContacto.Editar(contacto);
+            else if (Objeto != null) {
+                Objeto.IdContacto = datosContacto.Adicionar(contacto);
 
-                    // Editar mensajero para modificar Id del contacto
-                    datosMensajero.Editar(Objeto);
-                }
+                // Editar mensajero para modificar Id del contacto
+                datosMensajero.Editar(Objeto);
+            }
 
-                using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
-                    var telefonos = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, (Objeto?.IdContacto ?? 0).ToString()).ToList() ??
-                        new List<TelefonoContacto>();
-                    var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);
-                    var indiceTelefonoFijo = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Fijo);
+            using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+                var telefonos = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, (Objeto?.IdContacto ?? 0).ToString()).ToList() ??
+                    new List<TelefonoContacto>();
+                var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);
+                var indiceTelefonoFijo = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Fijo);
 
-                    // Teléfono móvil
-                    if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
-                        if (indiceTelefonoMovil != -1) {
-                            telefonos[indiceTelefonoMovil].Numero = Vista.TelefonoMovil;
-                        } else {
-                            var telefonoMovil = new TelefonoContacto(
-                                0,
-                                "+53",
-                                Vista.TelefonoMovil,
-                                CategoriaTelefonoContacto.Movil,
-                                Objeto?.IdContacto ?? 0);
-
-                            telefonos.Add(telefonoMovil);
-                        }
+                // Teléfono móvil
+                if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
+                    if (indiceTelefonoMovil != -1) {
+                        telefonos[indiceTelefonoMovil].Numero = Vista.TelefonoMovil;
                     } else {
-                        if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
-                            datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
-                            telefonos.RemoveAt(indiceTelefonoMovil);
-                        }
-                    }
+                        var telefonoMovil = new TelefonoContacto(
+                            0,
+                            "+53",
+                            Vista.TelefonoMovil,
+                            CategoriaTelefonoContacto.Movil,
+                            Objeto?.IdContacto ?? 0);
 
-                    foreach (var telefono in telefonos)
-                        if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                            datosTelefonoContacto.Editar(telefono);
-                        else if (telefono.Id != 0)
-                            datosTelefonoContacto.Editar(telefono);
-                        else
-                            datosTelefonoContacto.Adicionar(telefono);
+                        telefonos.Add(telefonoMovil);
+                    }
+                } else {
+                    if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                        datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
+                        telefonos.RemoveAt(indiceTelefonoMovil);
+                    }
                 }
+
+                foreach (var telefono in telefonos)
+                    if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                        datosTelefonoContacto.Editar(telefono);
+                    else if (telefono.Id != 0)
+                        datosTelefonoContacto.Editar(telefono);
+                    else
+                        datosTelefonoContacto.Adicionar(telefono);
             }
         }
     }

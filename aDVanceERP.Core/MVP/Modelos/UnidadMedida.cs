@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos;
+namespace aDVanceERP.Core.MVP.Modelos;
 
 public class UnidadMedida : IObjetoUnico {
     public UnidadMedida() {

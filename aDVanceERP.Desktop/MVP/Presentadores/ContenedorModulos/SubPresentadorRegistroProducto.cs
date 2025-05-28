@@ -12,6 +12,10 @@ public partial class PresentadorContenedorModulos {
     private void InicializarVistaRegistroProducto() {
         _registroProducto = new PresentadorRegistroProducto(new VistaRegistroProducto());
         _registroProducto.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
+        _registroProducto.Vista.CargarDescripcionesUnidadesMedida(UtilesUnidadMedida.ObtenerDescripcionesUnidadesMedida());
+        _registroProducto.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerNombresUnidadesMedida());
+        _registroProducto.Vista.CargarTiposProducto(UtilesTipoProducto.ObtenerNombresTiposProductos());
+        _registroProducto.Vista.CargarDisenosProducto(UtilesDisenoProducto.ObtenerNombresDisenosProductos());
         _registroProducto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroProducto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroProducto.DatosRegistradosActualizados += async delegate {

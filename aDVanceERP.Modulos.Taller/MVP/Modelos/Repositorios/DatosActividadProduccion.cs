@@ -1,9 +1,10 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Modulos.Taller.MVP.Modelos;
+using aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
 
 public class DatosActividadProduccion : RepositorioDatosBase<ActividadProduccion, CriterioBusquedaActividadProduccion>, IRepositorioActividadProduccion {
     public override string ComandoCantidad() {

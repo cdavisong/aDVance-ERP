@@ -145,7 +145,7 @@ namespace aDVanceERP.PatchDB {
                         )
                     SELECT 
                         p.id_producto, 
-                        0,  -- id_unidad_medida por defecto
+                        1,  -- id_unidad_medida por defecto (U)
                         0,  -- id_color_producto_primario por defecto
                         0,  -- id_color_producto_secundario por defecto
                         0,  -- id_tipo_producto por defecto

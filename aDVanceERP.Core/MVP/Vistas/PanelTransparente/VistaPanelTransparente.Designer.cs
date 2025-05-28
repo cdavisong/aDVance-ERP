@@ -32,7 +32,6 @@
             ClientSize = new Size(800, 450);
             Name = "VistaPanelTransparente";
             Text = "VistaPanelTransparente";
-            TopMost = true;
             ResumeLayout(false);
         }
 

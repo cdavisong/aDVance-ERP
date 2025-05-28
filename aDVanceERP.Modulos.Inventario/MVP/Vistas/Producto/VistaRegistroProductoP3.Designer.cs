@@ -24,34 +24,30 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaRegistroProductoP3));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             separador1 = new Guna.UI2.WinForms.Guna2Separator();
-            fieldTituloCategoriaProducto = new Label();
-            layoutGestionProductos = new TableLayoutPanel();
-            btnAdicionarProducto = new Guna.UI2.WinForms.Guna2Button();
-            fieldCantidad = new Guna.UI2.WinForms.Guna2TextBox();
-            fieldNombreProducto = new Guna.UI2.WinForms.Guna2TextBox();
-            layoutEncabezadosTabla = new TableLayoutPanel();
-            fieldTituloCantidad = new Label();
-            fieldTituloPrecio = new Label();
-            fieldTituloMateriaPrima = new Label();
-            contenedorVistas = new Panel();
-            layoutMontoConsumo = new TableLayoutPanel();
-            symbolPeso = new Label();
-            fieldTotalMateriaPrima = new Label();
-            fieldTituloTotalCompra = new Label();
+            fieldTituloPrecios = new Label();
+            layoutPrecioCompraBase = new TableLayoutPanel();
+            fieldPrecioCompraBase = new Guna.UI2.WinForms.Guna2TextBox();
+            fieldTituloPrecioCompraBase = new Label();
+            layoutPrecioVentaBase = new TableLayoutPanel();
+            fieldPrecioVentaBase = new Guna.UI2.WinForms.Guna2TextBox();
+            fieldTituloPrecioVentaBase = new Label();
+            layoutStockInicial = new TableLayoutPanel();
+            fieldStockInicial = new Guna.UI2.WinForms.Guna2TextBox();
+            fieldTituloStockInicial = new Label();
             layoutBase.SuspendLayout();
-            layoutGestionProductos.SuspendLayout();
-            layoutEncabezadosTabla.SuspendLayout();
-            layoutMontoConsumo.SuspendLayout();
+            layoutPrecioCompraBase.SuspendLayout();
+            layoutPrecioVentaBase.SuspendLayout();
+            layoutStockInicial.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -67,23 +63,21 @@
             layoutBase.BackColor = Color.White;
             layoutBase.ColumnCount = 1;
             layoutBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutBase.Controls.Add(layoutGestionProductos, 0, 1);
-            layoutBase.Controls.Add(separador1, 0, 5);
-            layoutBase.Controls.Add(fieldTituloCategoriaProducto, 0, 0);
-            layoutBase.Controls.Add(layoutEncabezadosTabla, 0, 3);
-            layoutBase.Controls.Add(contenedorVistas, 0, 4);
-            layoutBase.Controls.Add(layoutMontoConsumo, 0, 6);
+            layoutBase.Controls.Add(layoutStockInicial, 0, 4);
+            layoutBase.Controls.Add(layoutPrecioVentaBase, 0, 2);
+            layoutBase.Controls.Add(layoutPrecioCompraBase, 0, 1);
+            layoutBase.Controls.Add(separador1, 0, 3);
+            layoutBase.Controls.Add(fieldTituloPrecios, 0, 0);
             layoutBase.Dock = DockStyle.Fill;
             layoutBase.Location = new Point(0, 0);
             layoutBase.Name = "layoutBase";
-            layoutBase.RowCount = 7;
+            layoutBase.RowCount = 6;
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
-            layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 10F));
-            layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutBase.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
+            layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 41F));
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
+            layoutBase.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutBase.Size = new Size(417, 470);
             layoutBase.TabIndex = 0;
             // 
@@ -91,283 +85,241 @@
             // 
             separador1.Dock = DockStyle.Fill;
             separador1.FillColor = Color.FromArgb(  208,   197,   188);
-            separador1.Location = new Point(3, 408);
+            separador1.Location = new Point(3, 120);
             separador1.Name = "separador1";
             separador1.Size = new Size(411, 14);
             separador1.TabIndex = 9;
             // 
-            // fieldTituloCategoriaProducto
+            // fieldTituloPrecios
             // 
-            fieldTituloCategoriaProducto.Dock = DockStyle.Fill;
-            fieldTituloCategoriaProducto.Font = new Font("Segoe UI", 11.25F);
-            fieldTituloCategoriaProducto.ForeColor = Color.DimGray;
-            fieldTituloCategoriaProducto.Image = (Image) resources.GetObject("fieldTituloCategoriaProducto.Image");
-            fieldTituloCategoriaProducto.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloCategoriaProducto.ImeMode = ImeMode.NoControl;
-            fieldTituloCategoriaProducto.Location = new Point(15, 5);
-            fieldTituloCategoriaProducto.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloCategoriaProducto.Name = "fieldTituloCategoriaProducto";
-            fieldTituloCategoriaProducto.Size = new Size(399, 27);
-            fieldTituloCategoriaProducto.TabIndex = 5;
-            fieldTituloCategoriaProducto.Text = "      Consumo de materia prima :";
-            fieldTituloCategoriaProducto.TextAlign = ContentAlignment.MiddleLeft;
+            fieldTituloPrecios.Dock = DockStyle.Fill;
+            fieldTituloPrecios.Font = new Font("Segoe UI", 11.25F);
+            fieldTituloPrecios.ForeColor = Color.DimGray;
+            fieldTituloPrecios.Image = (Image) resources.GetObject("fieldTituloPrecios.Image");
+            fieldTituloPrecios.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloPrecios.ImeMode = ImeMode.NoControl;
+            fieldTituloPrecios.Location = new Point(15, 5);
+            fieldTituloPrecios.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloPrecios.Name = "fieldTituloPrecios";
+            fieldTituloPrecios.Size = new Size(399, 27);
+            fieldTituloPrecios.TabIndex = 5;
+            fieldTituloPrecios.Text = "      Precios de compraventa :";
+            fieldTituloPrecios.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // layoutGestionProductos
+            // layoutPrecioCompraBase
             // 
-            layoutGestionProductos.ColumnCount = 3;
-            layoutGestionProductos.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutGestionProductos.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 95F));
-            layoutGestionProductos.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
-            layoutGestionProductos.Controls.Add(btnAdicionarProducto, 2, 0);
-            layoutGestionProductos.Controls.Add(fieldCantidad, 1, 0);
-            layoutGestionProductos.Controls.Add(fieldNombreProducto, 0, 0);
-            layoutGestionProductos.Dock = DockStyle.Fill;
-            layoutGestionProductos.Location = new Point(0, 35);
-            layoutGestionProductos.Margin = new Padding(0);
-            layoutGestionProductos.Name = "layoutGestionProductos";
-            layoutGestionProductos.RowCount = 1;
-            layoutGestionProductos.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutGestionProductos.Size = new Size(417, 45);
-            layoutGestionProductos.TabIndex = 19;
+            layoutPrecioCompraBase.ColumnCount = 2;
+            layoutPrecioCompraBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutPrecioCompraBase.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
+            layoutPrecioCompraBase.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutPrecioCompraBase.Controls.Add(fieldPrecioCompraBase, 1, 0);
+            layoutPrecioCompraBase.Controls.Add(fieldTituloPrecioCompraBase, 0, 0);
+            layoutPrecioCompraBase.Dock = DockStyle.Fill;
+            layoutPrecioCompraBase.Location = new Point(0, 35);
+            layoutPrecioCompraBase.Margin = new Padding(0);
+            layoutPrecioCompraBase.Name = "layoutPrecioCompraBase";
+            layoutPrecioCompraBase.RowCount = 1;
+            layoutPrecioCompraBase.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutPrecioCompraBase.Size = new Size(417, 41);
+            layoutPrecioCompraBase.TabIndex = 20;
             // 
-            // btnAdicionarProducto
+            // fieldPrecioCompraBase
             // 
-            btnAdicionarProducto.Animated = true;
-            btnAdicionarProducto.BorderRadius = 18;
-            btnAdicionarProducto.CustomImages.Image = (Image) resources.GetObject("resource.Image");
-            btnAdicionarProducto.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAdicionarProducto.CustomizableEdges = customizableEdges7;
-            btnAdicionarProducto.DialogResult = DialogResult.Cancel;
-            btnAdicionarProducto.Dock = DockStyle.Fill;
-            btnAdicionarProducto.Enabled = false;
-            btnAdicionarProducto.FillColor = Color.PeachPuff;
-            btnAdicionarProducto.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnAdicionarProducto.ForeColor = Color.White;
-            btnAdicionarProducto.Location = new Point(372, 5);
-            btnAdicionarProducto.Margin = new Padding(5);
-            btnAdicionarProducto.Name = "btnAdicionarProducto";
-            btnAdicionarProducto.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            btnAdicionarProducto.Size = new Size(40, 35);
-            btnAdicionarProducto.TabIndex = 2;
+            fieldPrecioCompraBase.Animated = true;
+            fieldPrecioCompraBase.AutoRoundedCorners = true;
+            fieldPrecioCompraBase.BorderColor = Color.Gainsboro;
+            fieldPrecioCompraBase.BorderRadius = 16;
+            fieldPrecioCompraBase.Cursor = Cursors.IBeam;
+            fieldPrecioCompraBase.CustomizableEdges = customizableEdges15;
+            fieldPrecioCompraBase.DefaultText = "";
+            fieldPrecioCompraBase.DisabledState.BorderColor = Color.White;
+            fieldPrecioCompraBase.DisabledState.ForeColor = Color.DimGray;
+            fieldPrecioCompraBase.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldPrecioCompraBase.Dock = DockStyle.Fill;
+            fieldPrecioCompraBase.FocusedState.BorderColor = Color.SandyBrown;
+            fieldPrecioCompraBase.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldPrecioCompraBase.ForeColor = Color.Black;
+            fieldPrecioCompraBase.HoverState.BorderColor = Color.SandyBrown;
+            fieldPrecioCompraBase.IconLeftOffset = new Point(10, 0);
+            fieldPrecioCompraBase.IconRight = (Image) resources.GetObject("fieldPrecioCompraBase.IconRight");
+            fieldPrecioCompraBase.IconRightOffset = new Point(6, 0);
+            fieldPrecioCompraBase.IconRightSize = new Size(12, 12);
+            fieldPrecioCompraBase.Location = new Point(290, 3);
+            fieldPrecioCompraBase.Name = "fieldPrecioCompraBase";
+            fieldPrecioCompraBase.PasswordChar = '\0';
+            fieldPrecioCompraBase.PlaceholderForeColor = Color.DimGray;
+            fieldPrecioCompraBase.PlaceholderText = "Precio";
+            fieldPrecioCompraBase.ReadOnly = true;
+            fieldPrecioCompraBase.SelectedText = "";
+            fieldPrecioCompraBase.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            fieldPrecioCompraBase.Size = new Size(124, 35);
+            fieldPrecioCompraBase.TabIndex = 6;
+            fieldPrecioCompraBase.TextAlign = HorizontalAlignment.Right;
+            fieldPrecioCompraBase.TextOffset = new Point(5, 0);
             // 
-            // fieldCantidad
+            // fieldTituloPrecioCompraBase
             // 
-            fieldCantidad.Animated = true;
-            fieldCantidad.BorderColor = Color.Gainsboro;
-            fieldCantidad.BorderRadius = 16;
-            fieldCantidad.Cursor = Cursors.IBeam;
-            fieldCantidad.CustomizableEdges = customizableEdges9;
-            fieldCantidad.DefaultText = "";
-            fieldCantidad.DisabledState.BorderColor = Color.Gainsboro;
-            fieldCantidad.DisabledState.FillColor = Color.White;
-            fieldCantidad.DisabledState.ForeColor = Color.DimGray;
-            fieldCantidad.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldCantidad.Dock = DockStyle.Fill;
-            fieldCantidad.FocusedState.BorderColor = Color.SandyBrown;
-            fieldCantidad.Font = new Font("Segoe UI", 11.25F);
-            fieldCantidad.ForeColor = Color.Black;
-            fieldCantidad.HoverState.BorderColor = Color.SandyBrown;
-            fieldCantidad.IconLeftOffset = new Point(10, 0);
-            fieldCantidad.IconRight = (Image) resources.GetObject("fieldCantidad.IconRight");
-            fieldCantidad.IconRightOffset = new Point(6, 0);
-            fieldCantidad.IconRightSize = new Size(12, 12);
-            fieldCantidad.Location = new Point(277, 5);
-            fieldCantidad.Margin = new Padding(5);
-            fieldCantidad.Name = "fieldCantidad";
-            fieldCantidad.PasswordChar = '\0';
-            fieldCantidad.PlaceholderForeColor = Color.DimGray;
-            fieldCantidad.PlaceholderText = "Cant.";
-            fieldCantidad.SelectedText = "";
-            fieldCantidad.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            fieldCantidad.Size = new Size(85, 35);
-            fieldCantidad.TabIndex = 1;
-            fieldCantidad.TextAlign = HorizontalAlignment.Right;
-            fieldCantidad.TextOffset = new Point(5, 0);
+            fieldTituloPrecioCompraBase.Dock = DockStyle.Fill;
+            fieldTituloPrecioCompraBase.Font = new Font("Segoe UI", 11.25F);
+            fieldTituloPrecioCompraBase.ForeColor = Color.DimGray;
+            fieldTituloPrecioCompraBase.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloPrecioCompraBase.ImeMode = ImeMode.NoControl;
+            fieldTituloPrecioCompraBase.Location = new Point(15, 5);
+            fieldTituloPrecioCompraBase.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloPrecioCompraBase.Name = "fieldTituloPrecioCompraBase";
+            fieldTituloPrecioCompraBase.Size = new Size(269, 33);
+            fieldTituloPrecioCompraBase.TabIndex = 0;
+            fieldTituloPrecioCompraBase.Text = "  ●   Precio de compra base";
+            fieldTituloPrecioCompraBase.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // fieldNombreProducto
+            // layoutPrecioVentaBase
             // 
-            fieldNombreProducto.Animated = true;
-            fieldNombreProducto.BorderColor = Color.Gainsboro;
-            fieldNombreProducto.BorderRadius = 16;
-            fieldNombreProducto.Cursor = Cursors.IBeam;
-            fieldNombreProducto.CustomizableEdges = customizableEdges11;
-            fieldNombreProducto.DefaultText = "";
-            fieldNombreProducto.DisabledState.BorderColor = Color.Gainsboro;
-            fieldNombreProducto.DisabledState.FillColor = Color.White;
-            fieldNombreProducto.DisabledState.ForeColor = Color.DimGray;
-            fieldNombreProducto.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldNombreProducto.Dock = DockStyle.Fill;
-            fieldNombreProducto.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreProducto.Font = new Font("Segoe UI", 11.25F);
-            fieldNombreProducto.ForeColor = Color.Black;
-            fieldNombreProducto.HoverState.BorderColor = Color.SandyBrown;
-            fieldNombreProducto.IconLeft = (Image) resources.GetObject("fieldNombreProducto.IconLeft");
-            fieldNombreProducto.IconLeftOffset = new Point(10, 0);
-            fieldNombreProducto.Location = new Point(5, 5);
-            fieldNombreProducto.Margin = new Padding(5);
-            fieldNombreProducto.Name = "fieldNombreProducto";
-            fieldNombreProducto.PasswordChar = '\0';
-            fieldNombreProducto.PlaceholderForeColor = Color.DimGray;
-            fieldNombreProducto.PlaceholderText = "Nombre del producto";
-            fieldNombreProducto.SelectedText = "";
-            fieldNombreProducto.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            fieldNombreProducto.Size = new Size(262, 35);
-            fieldNombreProducto.TabIndex = 0;
-            fieldNombreProducto.TextOffset = new Point(5, 0);
+            layoutPrecioVentaBase.ColumnCount = 2;
+            layoutPrecioVentaBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutPrecioVentaBase.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
+            layoutPrecioVentaBase.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutPrecioVentaBase.Controls.Add(fieldPrecioVentaBase, 1, 0);
+            layoutPrecioVentaBase.Controls.Add(fieldTituloPrecioVentaBase, 0, 0);
+            layoutPrecioVentaBase.Dock = DockStyle.Fill;
+            layoutPrecioVentaBase.Location = new Point(0, 76);
+            layoutPrecioVentaBase.Margin = new Padding(0);
+            layoutPrecioVentaBase.Name = "layoutPrecioVentaBase";
+            layoutPrecioVentaBase.RowCount = 1;
+            layoutPrecioVentaBase.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutPrecioVentaBase.Size = new Size(417, 41);
+            layoutPrecioVentaBase.TabIndex = 21;
             // 
-            // layoutEncabezadosTabla
+            // fieldPrecioVentaBase
             // 
-            layoutEncabezadosTabla.BackColor = Color.WhiteSmoke;
-            layoutEncabezadosTabla.ColumnCount = 5;
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutEncabezadosTabla.Controls.Add(fieldTituloCantidad, 2, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloPrecio, 1, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloMateriaPrima, 0, 0);
-            layoutEncabezadosTabla.Dock = DockStyle.Fill;
-            layoutEncabezadosTabla.Location = new Point(1, 91);
-            layoutEncabezadosTabla.Margin = new Padding(1);
-            layoutEncabezadosTabla.Name = "layoutEncabezadosTabla";
-            layoutEncabezadosTabla.RowCount = 1;
-            layoutEncabezadosTabla.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutEncabezadosTabla.Size = new Size(415, 43);
-            layoutEncabezadosTabla.TabIndex = 20;
+            fieldPrecioVentaBase.Animated = true;
+            fieldPrecioVentaBase.AutoRoundedCorners = true;
+            fieldPrecioVentaBase.BorderColor = Color.Gainsboro;
+            fieldPrecioVentaBase.BorderRadius = 16;
+            fieldPrecioVentaBase.Cursor = Cursors.IBeam;
+            fieldPrecioVentaBase.CustomizableEdges = customizableEdges13;
+            fieldPrecioVentaBase.DefaultText = "";
+            fieldPrecioVentaBase.DisabledState.BorderColor = Color.White;
+            fieldPrecioVentaBase.DisabledState.ForeColor = Color.DimGray;
+            fieldPrecioVentaBase.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldPrecioVentaBase.Dock = DockStyle.Fill;
+            fieldPrecioVentaBase.FocusedState.BorderColor = Color.SandyBrown;
+            fieldPrecioVentaBase.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldPrecioVentaBase.ForeColor = Color.Black;
+            fieldPrecioVentaBase.HoverState.BorderColor = Color.SandyBrown;
+            fieldPrecioVentaBase.IconLeftOffset = new Point(10, 0);
+            fieldPrecioVentaBase.IconRight = (Image) resources.GetObject("fieldPrecioVentaBase.IconRight");
+            fieldPrecioVentaBase.IconRightOffset = new Point(6, 0);
+            fieldPrecioVentaBase.IconRightSize = new Size(12, 12);
+            fieldPrecioVentaBase.Location = new Point(290, 3);
+            fieldPrecioVentaBase.Name = "fieldPrecioVentaBase";
+            fieldPrecioVentaBase.PasswordChar = '\0';
+            fieldPrecioVentaBase.PlaceholderForeColor = Color.DimGray;
+            fieldPrecioVentaBase.PlaceholderText = "Precio";
+            fieldPrecioVentaBase.ReadOnly = true;
+            fieldPrecioVentaBase.SelectedText = "";
+            fieldPrecioVentaBase.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldPrecioVentaBase.Size = new Size(124, 35);
+            fieldPrecioVentaBase.TabIndex = 6;
+            fieldPrecioVentaBase.TextAlign = HorizontalAlignment.Right;
+            fieldPrecioVentaBase.TextOffset = new Point(5, 0);
             // 
-            // fieldTituloCantidad
+            // fieldTituloPrecioVentaBase
             // 
-            fieldTituloCantidad.Dock = DockStyle.Fill;
-            fieldTituloCantidad.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldTituloCantidad.ForeColor = Color.Black;
-            fieldTituloCantidad.ImeMode = ImeMode.NoControl;
-            fieldTituloCantidad.Location = new Point(306, 1);
-            fieldTituloCantidad.Margin = new Padding(1);
-            fieldTituloCantidad.Name = "fieldTituloCantidad";
-            fieldTituloCantidad.Size = new Size(48, 41);
-            fieldTituloCantidad.TabIndex = 2;
-            fieldTituloCantidad.Text = "C";
-            fieldTituloCantidad.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloPrecioVentaBase.Dock = DockStyle.Fill;
+            fieldTituloPrecioVentaBase.Font = new Font("Segoe UI", 11.25F);
+            fieldTituloPrecioVentaBase.ForeColor = Color.DimGray;
+            fieldTituloPrecioVentaBase.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloPrecioVentaBase.ImeMode = ImeMode.NoControl;
+            fieldTituloPrecioVentaBase.Location = new Point(15, 5);
+            fieldTituloPrecioVentaBase.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloPrecioVentaBase.Name = "fieldTituloPrecioVentaBase";
+            fieldTituloPrecioVentaBase.Size = new Size(269, 33);
+            fieldTituloPrecioVentaBase.TabIndex = 0;
+            fieldTituloPrecioVentaBase.Text = "  ●   Precio de venta base";
+            fieldTituloPrecioVentaBase.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // fieldTituloPrecio
+            // layoutStockInicial
             // 
-            fieldTituloPrecio.Dock = DockStyle.Fill;
-            fieldTituloPrecio.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldTituloPrecio.ForeColor = Color.Black;
-            fieldTituloPrecio.ImeMode = ImeMode.NoControl;
-            fieldTituloPrecio.Location = new Point(176, 1);
-            fieldTituloPrecio.Margin = new Padding(1);
-            fieldTituloPrecio.Name = "fieldTituloPrecio";
-            fieldTituloPrecio.Size = new Size(128, 41);
-            fieldTituloPrecio.TabIndex = 1;
-            fieldTituloPrecio.Text = "Precio";
-            fieldTituloPrecio.TextAlign = ContentAlignment.MiddleCenter;
+            layoutStockInicial.ColumnCount = 2;
+            layoutStockInicial.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutStockInicial.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
+            layoutStockInicial.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutStockInicial.Controls.Add(fieldStockInicial, 1, 0);
+            layoutStockInicial.Controls.Add(fieldTituloStockInicial, 0, 0);
+            layoutStockInicial.Dock = DockStyle.Fill;
+            layoutStockInicial.Location = new Point(0, 137);
+            layoutStockInicial.Margin = new Padding(0);
+            layoutStockInicial.Name = "layoutStockInicial";
+            layoutStockInicial.RowCount = 1;
+            layoutStockInicial.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutStockInicial.Size = new Size(417, 45);
+            layoutStockInicial.TabIndex = 25;
             // 
-            // fieldTituloMateriaPrima
+            // fieldStockInicial
             // 
-            fieldTituloMateriaPrima.Dock = DockStyle.Fill;
-            fieldTituloMateriaPrima.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldTituloMateriaPrima.ForeColor = Color.Black;
-            fieldTituloMateriaPrima.ImeMode = ImeMode.NoControl;
-            fieldTituloMateriaPrima.Location = new Point(1, 1);
-            fieldTituloMateriaPrima.Margin = new Padding(1);
-            fieldTituloMateriaPrima.Name = "fieldTituloMateriaPrima";
-            fieldTituloMateriaPrima.Size = new Size(173, 41);
-            fieldTituloMateriaPrima.TabIndex = 0;
-            fieldTituloMateriaPrima.Text = "Materia prima";
-            fieldTituloMateriaPrima.TextAlign = ContentAlignment.MiddleCenter;
+            fieldStockInicial.Animated = true;
+            fieldStockInicial.BorderColor = Color.Gainsboro;
+            fieldStockInicial.BorderRadius = 16;
+            fieldStockInicial.Cursor = Cursors.IBeam;
+            fieldStockInicial.CustomizableEdges = customizableEdges17;
+            fieldStockInicial.DefaultText = "0";
+            fieldStockInicial.DisabledState.BorderColor = Color.Gainsboro;
+            fieldStockInicial.DisabledState.FillColor = Color.White;
+            fieldStockInicial.DisabledState.ForeColor = Color.DimGray;
+            fieldStockInicial.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldStockInicial.Dock = DockStyle.Fill;
+            fieldStockInicial.FocusedState.BorderColor = Color.SandyBrown;
+            fieldStockInicial.Font = new Font("Segoe UI", 11.25F);
+            fieldStockInicial.ForeColor = Color.Black;
+            fieldStockInicial.HoverState.BorderColor = Color.SandyBrown;
+            fieldStockInicial.IconLeftOffset = new Point(10, 0);
+            fieldStockInicial.IconRight = (Image) resources.GetObject("fieldStockInicial.IconRight");
+            fieldStockInicial.IconRightOffset = new Point(6, 0);
+            fieldStockInicial.IconRightSize = new Size(12, 12);
+            fieldStockInicial.Location = new Point(292, 5);
+            fieldStockInicial.Margin = new Padding(5);
+            fieldStockInicial.Name = "fieldStockInicial";
+            fieldStockInicial.PasswordChar = '\0';
+            fieldStockInicial.PlaceholderForeColor = Color.DimGray;
+            fieldStockInicial.PlaceholderText = "";
+            fieldStockInicial.SelectedText = "";
+            fieldStockInicial.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            fieldStockInicial.Size = new Size(120, 35);
+            fieldStockInicial.TabIndex = 2;
+            fieldStockInicial.TextAlign = HorizontalAlignment.Right;
+            fieldStockInicial.TextOffset = new Point(5, 0);
             // 
-            // contenedorVistas
+            // fieldTituloStockInicial
             // 
-            contenedorVistas.AutoScroll = true;
-            contenedorVistas.Dock = DockStyle.Fill;
-            contenedorVistas.Location = new Point(0, 135);
-            contenedorVistas.Margin = new Padding(0);
-            contenedorVistas.Name = "contenedorVistas";
-            contenedorVistas.Size = new Size(417, 270);
-            contenedorVistas.TabIndex = 21;
+            fieldTituloStockInicial.Dock = DockStyle.Fill;
+            fieldTituloStockInicial.Font = new Font("Segoe UI", 11.25F);
+            fieldTituloStockInicial.ForeColor = Color.DimGray;
+            fieldTituloStockInicial.Image = (Image) resources.GetObject("fieldTituloStockInicial.Image");
+            fieldTituloStockInicial.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloStockInicial.ImeMode = ImeMode.NoControl;
+            fieldTituloStockInicial.Location = new Point(15, 5);
+            fieldTituloStockInicial.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloStockInicial.Name = "fieldTituloStockInicial";
+            fieldTituloStockInicial.Size = new Size(269, 37);
+            fieldTituloStockInicial.TabIndex = 0;
+            fieldTituloStockInicial.Text = "      Stock inicial del producto";
+            fieldTituloStockInicial.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // layoutMontoConsumo
-            // 
-            layoutMontoConsumo.ColumnCount = 3;
-            layoutMontoConsumo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutMontoConsumo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutMontoConsumo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutMontoConsumo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutMontoConsumo.Controls.Add(symbolPeso, 0, 0);
-            layoutMontoConsumo.Controls.Add(fieldTotalMateriaPrima, 0, 0);
-            layoutMontoConsumo.Controls.Add(fieldTituloTotalCompra, 0, 0);
-            layoutMontoConsumo.Dock = DockStyle.Fill;
-            layoutMontoConsumo.Location = new Point(0, 425);
-            layoutMontoConsumo.Margin = new Padding(0);
-            layoutMontoConsumo.Name = "layoutMontoConsumo";
-            layoutMontoConsumo.RowCount = 1;
-            layoutMontoConsumo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutMontoConsumo.Size = new Size(417, 45);
-            layoutMontoConsumo.TabIndex = 22;
-            // 
-            // symbolPeso
-            // 
-            symbolPeso.Dock = DockStyle.Fill;
-            symbolPeso.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            symbolPeso.ForeColor = Color.Black;
-            symbolPeso.ImageAlign = ContentAlignment.MiddleLeft;
-            symbolPeso.ImeMode = ImeMode.NoControl;
-            symbolPeso.Location = new Point(400, 5);
-            symbolPeso.Margin = new Padding(3, 5, 3, 3);
-            symbolPeso.Name = "symbolPeso";
-            symbolPeso.Size = new Size(14, 37);
-            symbolPeso.TabIndex = 2;
-            symbolPeso.Text = "$";
-            symbolPeso.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldTotalMateriaPrima
-            // 
-            fieldTotalMateriaPrima.Dock = DockStyle.Fill;
-            fieldTotalMateriaPrima.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldTotalMateriaPrima.ForeColor = Color.Black;
-            fieldTotalMateriaPrima.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTotalMateriaPrima.ImeMode = ImeMode.NoControl;
-            fieldTotalMateriaPrima.Location = new Point(302, 5);
-            fieldTotalMateriaPrima.Margin = new Padding(15, 5, 3, 3);
-            fieldTotalMateriaPrima.Name = "fieldTotalMateriaPrima";
-            fieldTotalMateriaPrima.Size = new Size(92, 37);
-            fieldTotalMateriaPrima.TabIndex = 1;
-            fieldTotalMateriaPrima.Text = "0.00";
-            fieldTotalMateriaPrima.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // fieldTituloTotalCompra
-            // 
-            fieldTituloTotalCompra.Dock = DockStyle.Fill;
-            fieldTituloTotalCompra.Font = new Font("Segoe UI", 11.25F);
-            fieldTituloTotalCompra.ForeColor = Color.DimGray;
-            fieldTituloTotalCompra.Image = (Image) resources.GetObject("fieldTituloTotalCompra.Image");
-            fieldTituloTotalCompra.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloTotalCompra.ImeMode = ImeMode.NoControl;
-            fieldTituloTotalCompra.Location = new Point(15, 5);
-            fieldTituloTotalCompra.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloTotalCompra.Name = "fieldTituloTotalCompra";
-            fieldTituloTotalCompra.Size = new Size(269, 37);
-            fieldTituloTotalCompra.TabIndex = 0;
-            fieldTituloTotalCompra.Text = "      Monto total invertido en M.P.";
-            fieldTituloTotalCompra.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // VistaRegistroProductoP3
+            // VistaRegistroProductoP6
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(417, 470);
             Controls.Add(layoutBase);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "VistaRegistroProductoP3";
+            Name = "VistaRegistroProductoP6";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
-            Text = "VistaRegistroProductoP3";
+            Text = "VistaRegistroProductoP6";
             layoutBase.ResumeLayout(false);
-            layoutGestionProductos.ResumeLayout(false);
-            layoutEncabezadosTabla.ResumeLayout(false);
-            layoutMontoConsumo.ResumeLayout(false);
+            layoutPrecioCompraBase.ResumeLayout(false);
+            layoutPrecioVentaBase.ResumeLayout(false);
+            layoutStockInicial.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -375,20 +327,16 @@
 
         private Guna.UI2.WinForms.Guna2BorderlessForm formatoBase;
         private TableLayoutPanel layoutBase;
-        private Label fieldTituloCategoriaProducto;
+        private Label fieldTituloPrecios;
         private Guna.UI2.WinForms.Guna2Separator separador1;
-        private TableLayoutPanel layoutGestionProductos;
-        private Guna.UI2.WinForms.Guna2Button btnAdicionarProducto;
-        private Guna.UI2.WinForms.Guna2TextBox fieldCantidad;
-        private Guna.UI2.WinForms.Guna2TextBox fieldNombreProducto;
-        private TableLayoutPanel layoutEncabezadosTabla;
-        private Label fieldTituloCantidad;
-        private Label fieldTituloPrecio;
-        private Label fieldTituloMateriaPrima;
-        private Panel contenedorVistas;
-        private TableLayoutPanel layoutMontoConsumo;
-        private Label symbolPeso;
-        private Label fieldTotalMateriaPrima;
-        private Label fieldTituloTotalCompra;
+        private TableLayoutPanel layoutPrecioCompraBase;
+        private Guna.UI2.WinForms.Guna2TextBox fieldPrecioCompraBase;
+        private Label fieldTituloPrecioCompraBase;
+        private TableLayoutPanel layoutPrecioVentaBase;
+        private Guna.UI2.WinForms.Guna2TextBox fieldPrecioVentaBase;
+        private Label fieldTituloPrecioVentaBase;
+        private TableLayoutPanel layoutStockInicial;
+        private Guna.UI2.WinForms.Guna2TextBox fieldStockInicial;
+        private Label fieldTituloStockInicial;
     }
 }

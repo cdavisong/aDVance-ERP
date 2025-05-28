@@ -4,7 +4,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
     public partial class VistaRegistroProductoP1_1 : Form {
         public VistaRegistroProductoP1_1() {
             InitializeComponent();
+            Inicializar();
         }
+
+        public event EventHandler? EsVendibleActualizado;
 
         public CategoriaProducto CategoriaProducto {
             set {
@@ -21,6 +24,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         public bool EsVendible {
             get => fieldEsVendible.Checked;
             set => fieldEsVendible.Checked = value;
+        }
+
+        private void Inicializar() {
+            // Eventos
+            fieldEsVendible.CheckedChanged += delegate (object? sender, EventArgs args) {
+                EsVendibleActualizado?.Invoke(this, EventArgs.Empty);
+            };
         }
 
         public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {

@@ -1,6 +1,4 @@
-﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
-using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.Utiles;
+﻿using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
@@ -63,9 +61,16 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value
-                ? $"Detalles y actualización del registro con fecha {Fecha:yyyy-MM-dd}"
+                ? $"Visualización del registro con fecha {Fecha:yyyy-MM-dd}"
                 : $"Registro con fecha {Fecha:yyyy-MM-dd}";
-            btnRegistrar.Text = value ? "Actualizar movimiento" : "Registrar movimiento";
+            fieldNombreProducto.ReadOnly = value;
+            fieldTipoMovimiento.Enabled = !value;
+            btnAdicionarTipoMovimiento.Enabled = !value;
+            btnEliminarTipoMovimiento.Enabled = !value;
+            fieldNombreAlmacenOrigen.Enabled = !value;
+            fieldNombreAlmacenDestino.Enabled = !value;
+            fieldCantidadMovida.ReadOnly = value;
+            btnRegistrar.Visible = !value;
             _modoEdicion = value;
         }
     }
@@ -82,7 +87,9 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         ModoEdicionDatos = false;
 
         // Eventos
-        fieldTipoMovimiento.SelectedIndexChanged += delegate { ActualizarCamposAlmacenes(); };
+        fieldTipoMovimiento.SelectedIndexChanged += delegate { 
+            ActualizarCamposAlmacenes(); 
+        };
         btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
         btnAdicionarTipoMovimiento.Click += delegate(object? sender, EventArgs args) {
             RegistrarTipoMovimiento?.Invoke(sender, args);
@@ -140,20 +147,20 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
 
     public void ActualizarCamposAlmacenes() {
         var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(TipoMovimiento);
-
+                
         if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Carga")) {
             fieldNombreAlmacenOrigen.SelectedIndex = 0;
             fieldNombreAlmacenOrigen.Enabled = false;
-            fieldNombreAlmacenDestino.Enabled = true;
+            fieldNombreAlmacenDestino.Enabled = !ModoEdicionDatos;
         }
         else if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Descarga")) {
             fieldNombreAlmacenDestino.SelectedIndex = 0;
             fieldNombreAlmacenDestino.Enabled = false;
-            fieldNombreAlmacenOrigen.Enabled = true;
+            fieldNombreAlmacenOrigen.Enabled = !ModoEdicionDatos;
         }
         else {
-            fieldNombreAlmacenOrigen.Enabled = true;
-            fieldNombreAlmacenDestino.Enabled = true;
+            fieldNombreAlmacenOrigen.Enabled = !ModoEdicionDatos;
+            fieldNombreAlmacenDestino.Enabled = !ModoEdicionDatos;
         }
     }
 
