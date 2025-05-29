@@ -30,13 +30,13 @@ public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaR
         return nombreOk && efectoOk;
     }
 
-    protected override async Task<TipoMovimiento?> ObtenerObjetoDesdeVista() {
-        return new TipoMovimiento(
+    protected override Task<TipoMovimiento?> ObtenerObjetoDesdeVista() {
+        return Task.FromResult<TipoMovimiento?>(new TipoMovimiento(
             Objeto?.Id ?? 0,
             Vista.Nombre,
             (EfectoMovimiento)(Enum.TryParse(typeof(EfectoMovimiento), Vista.Efecto, out var efecto)
                 ? efecto
                 : default(EfectoMovimiento))
-        );
+        ));
     }
 }

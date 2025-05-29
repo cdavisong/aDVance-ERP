@@ -61,10 +61,21 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
     }
 
     protected override void RegistroAuxiliar(DatosProducto datosProducto, long id) {
+        var idColorPrimario = UtilesColorProducto.ObtenerIdColorProducto(Vista.ColorPrimario).Result;
+        var idColorSecundario = UtilesColorProducto.ObtenerIdColorProducto(Vista.ColorSecundario).Result;
+
+        // Registrar colores del producto si no existen
+        using (var datos = new DatosColorProducto()) {
+            if (!string.IsNullOrEmpty(Vista.ColorPrimario) && idColorPrimario == 0)
+                idColorPrimario = datos.Adicionar(new ColorProducto(0, Vista.ColorPrimario, 0));
+            if (!string.IsNullOrEmpty(Vista.ColorSecundario) && idColorSecundario == 0)
+                idColorSecundario = datos.Adicionar(new ColorProducto(0, Vista.ColorSecundario, 0));
+        }
+
         var detalleProducto = new DetalleProducto(Objeto?.IdDetalleProducto ?? 0,
             UtilesUnidadMedida.ObtenerIdUnidadMedida(Vista.UnidadMedida).Result,
-            UtilesColorProducto.ObtenerIdColorProducto(Vista.ColorPrimario).Result,
-            UtilesColorProducto.ObtenerIdColorProducto(Vista.ColorSecundario).Result,
+            idColorPrimario,
+            idColorSecundario,
             UtilesTipoProducto.ObtenerIdTipoProducto(Vista.Tipo).Result,
             UtilesDisenoProducto.ObtenerIdDisenoProducto(Vista.Diseno).Result,
             Vista.Descripcion ?? "No hay una descripción disponible para el producto actual"
@@ -87,10 +98,10 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
     protected override async Task<Producto?> ObtenerObjetoDesdeVista() {
         return new Producto(
             Objeto?.Id ?? 0,
-            Vista.CategoriaProducto,            
+            Vista.CategoriaProducto,
             Vista.Nombre,
             Vista.Codigo,
-            await UtilesDetalleProducto.ObtenerIdDetalleProducto(Objeto?.Id ?? 0),
+            Objeto?.IdDetalleProducto ?? 0,
             await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
             Vista.EsVendible,
             Vista.PrecioCompraBase,

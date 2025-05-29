@@ -110,8 +110,14 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         }
     }
 
+    public event EventHandler? RegistrarUnidadMedida;
+    public event EventHandler? RegistrarTipoProducto;
+    public event EventHandler? RegistrarDisenoProducto;
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
+    public event EventHandler? EliminarUnidadMedida;
+    public event EventHandler? EliminarTipoProducto;
+    public event EventHandler? EliminarDisenoProducto;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
@@ -146,7 +152,25 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         };
         P1DatosGenerales.EsVendibleActualizado += delegate (object? sender, EventArgs args) {
             ActualizarVisibilidadCamposPrecios();
-        };        
+        };
+        P2Detalles.RegistrarUnidadMedida += delegate (object? sender, EventArgs args) {
+            RegistrarUnidadMedida?.Invoke(sender, args);
+        };
+        P2Detalles.RegistrarTipoProducto += delegate (object? sender, EventArgs args) {
+            RegistrarTipoProducto?.Invoke(sender, args);
+        };
+        P2Detalles.RegistrarDisenoProducto += delegate (object? sender, EventArgs args) {
+            RegistrarDisenoProducto?.Invoke(sender, args);
+        };
+        P2Detalles.EliminarUnidadMedida += delegate (object? sender, EventArgs args) {
+            EliminarUnidadMedida?.Invoke(sender, args);
+        };
+        P2Detalles.EliminarTipoProducto += delegate (object? sender, EventArgs args) {
+            EliminarTipoProducto?.Invoke(sender, args);
+        };
+        P2Detalles.EliminarDisenoProducto += delegate (object? sender, EventArgs args) {
+            EliminarDisenoProducto?.Invoke(sender, args);
+        };
         btnAnterior.Click += delegate (object? sender, EventArgs args) {
             if (_paginaActual > 1)
                 RetrocederPagina();
@@ -190,11 +214,15 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         P2Detalles.CargarDescripcionesUnidadesMedida(descripcionesUnidadesMedida);
     }
 
+    public void CargarColores(string[] colores) {
+        P2Detalles.CargarColores(colores);
+    }
+
     public void CargarUnidadesMedida(object[] unidadesMedida) {
         P2Detalles.CargarUnidadesMedida(unidadesMedida);
     }   
 
-    public void CargarTiposProducto(object[] tiposProducto) {
+    public void CargarTiposProductos(object[] tiposProducto) {
         P2Detalles.CargarTiposProducto(tiposProducto);
     }
 

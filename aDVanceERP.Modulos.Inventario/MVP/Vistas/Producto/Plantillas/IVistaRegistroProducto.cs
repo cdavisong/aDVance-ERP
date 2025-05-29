@@ -25,9 +25,17 @@ public interface IVistaRegistroProducto : IVistaRegistro {
     decimal PrecioCompraBase { get; set; }
     decimal PrecioVentaBase { get; set; }
 
+    event EventHandler? RegistrarUnidadMedida;
+    event EventHandler? RegistrarTipoProducto;
+    event EventHandler? RegistrarDisenoProducto;
+    event EventHandler? EliminarUnidadMedida;
+    event EventHandler? EliminarTipoProducto;
+    event EventHandler? EliminarDisenoProducto;
+
     void CargarRazonesSocialesProveedores(object[] nombresProveedores);
     void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida);
     void CargarUnidadesMedida(object[] unidadesMedida);
-    void CargarTiposProducto(object[] tiposProducto);
+    void CargarColores(string[] colores);
+    void CargarTiposProductos(object[] tiposProducto);
     void CargarDisenosProducto(object[] disenosProducto);
 }

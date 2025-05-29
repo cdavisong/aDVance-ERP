@@ -23,7 +23,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                 )
                 VALUES (
                     '{objeto.Codigo}',
-                    {(int) objeto.Categoria},
+                    '{objeto.Categoria.ToString()}',
                     '{objeto.Nombre}',
                     '{objeto.IdDetalleProducto}',
                     '{objeto.IdProveedor}',
@@ -39,7 +39,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                 UPDATE adv__producto
                 SET
                     codigo='{objeto.Codigo}',
-                    categoria={(int) objeto.Categoria},
+                    categoria='{objeto.Categoria.ToString()}',
                     nombre='{objeto.Nombre}',
                     id_detalle_producto='{objeto.IdDetalleProducto}',
                     id_proveedor='{objeto.IdProveedor}',

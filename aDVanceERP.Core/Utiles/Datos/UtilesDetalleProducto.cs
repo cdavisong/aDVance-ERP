@@ -21,10 +21,10 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static async Task<long> ObtenerIdDetalleProducto(long idProducto) {
-            const string query = "SELECT dp.id_detalle_producto FROM adv__detalle_producto dp JOIN adv__producto p ON dp.id_detalle_producto=p.id_detalle_producto WHERE p.id_producto=@IdProducto;";
-            var result = await EjecutarConsultaAsync(query, lector => lector.GetInt32("id_detalle_producto"),
-                new MySqlParameter("@IdProducto", $"%{idProducto}%"));
-            return result != 0 ? result : 0;
+            const string query = "SELECT p.id_detalle_producto FROM adv__producto p JOIN adv__detalle_producto dp ON p.id_detalle_producto=dp.id_detalle_producto WHERE p.id_producto=@IdProducto;";
+            var result = await EjecutarConsultaAsync(query, lector => lector.GetInt64("id_detalle_producto"),
+                new MySqlParameter("@IdProducto", idProducto));
+            return result;
         }
     }
 

@@ -32,10 +32,35 @@
             set => fieldDisenoProducto.Text = value;
         }
 
+        public event EventHandler? RegistrarUnidadMedida;
+        public event EventHandler? RegistrarTipoProducto;
+        public event EventHandler? RegistrarDisenoProducto;
+        public event EventHandler? EliminarUnidadMedida;
+        public event EventHandler? EliminarTipoProducto;
+        public event EventHandler? EliminarDisenoProducto;
+
         private void Inicializar() {
             // Eventos
             fieldUnidadMedida.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
                 fieldDescripcionUnidadMedida.Text = DescripcionesUnidadMedida[fieldUnidadMedida.SelectedIndex];
+            };
+            btnAdicionarUnidadMedida.Click += delegate (object? sender, EventArgs args) {
+                RegistrarUnidadMedida?.Invoke(sender, args);
+            };
+            btnAdicionarTipoProducto.Click += delegate (object? sender, EventArgs args) {
+                RegistrarTipoProducto?.Invoke(sender, args);
+            };
+            btnAdicionarDisenoProducto.Click += delegate (object? sender, EventArgs args) {
+                RegistrarDisenoProducto?.Invoke(sender, args);
+            };
+            btnEliminarUnidadMedida.Click += delegate (object? sender, EventArgs args) {
+                EliminarUnidadMedida?.Invoke(sender, args);
+            };
+            btnEliminarTipoProducto.Click += delegate (object? sender, EventArgs args) {
+                EliminarTipoProducto?.Invoke(sender, args);
+            };
+            btnEliminarDisenoProducto.Click += delegate (object? sender, EventArgs args) {
+                EliminarDisenoProducto?.Invoke(sender, args);
             };
         }
 
@@ -48,6 +73,18 @@
             fieldUnidadMedida.Items.Clear();
             fieldUnidadMedida.Items.AddRange(unidadesMedida);
             fieldUnidadMedida.SelectedIndex = 0;
+        }
+
+        public void CargarColores(string[] colores) {
+            fieldColorPrimario.AutoCompleteCustomSource.Clear();
+            fieldColorPrimario.AutoCompleteCustomSource.AddRange(colores);
+            fieldColorPrimario.AutoCompleteMode = AutoCompleteMode.Suggest;
+            fieldColorPrimario.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            fieldColorSecundario.AutoCompleteCustomSource.Clear();
+            fieldColorSecundario.AutoCompleteCustomSource.AddRange(colores);
+            fieldColorSecundario.AutoCompleteMode = AutoCompleteMode.Suggest;
+            fieldColorSecundario.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         public void CargarTiposProducto(object[] tiposProducto) {

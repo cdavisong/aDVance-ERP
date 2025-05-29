@@ -27,18 +27,6 @@ public partial class PresentadorContenedorModulos {
         _registroTipoMovimiento?.Dispose();
     }
 
-    /*
-    private async void MostrarVistaEdicionTipoMovimiento(object? sender, EventArgs e) {
-        await InicializarVistaRegistroTipoMovimiento();
-
-        if (_registroTipoMovimiento != null && sender is TipoMovimiento tipoMovimiento) {
-            _registroTipoMovimiento.PopularVistaDesdeObjeto(tipoMovimiento);
-            _registroTipoMovimiento.Vista.Mostrar();
-        }
-
-        _registroTipoMovimiento?.Dispose();
-    }*/
-
     private async void EliminarTipoMovimiento(object? sender, EventArgs e) {
         using (var tipoMovimiento = new DatosTipoMovimiento()) {
             if (sender is string nombreTipoMovimiento) {
