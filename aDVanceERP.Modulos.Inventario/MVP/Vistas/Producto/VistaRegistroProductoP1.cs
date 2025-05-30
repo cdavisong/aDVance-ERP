@@ -1,4 +1,6 @@
-﻿using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+﻿using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
 using Google.Protobuf.WellKnownTypes;
 
@@ -76,6 +78,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
                 if (CategoriaProducto == CategoriaProducto.Mercancia || 
                     CategoriaProducto == CategoriaProducto.ProductoTerminado)
                     EsVendible = true;
+            };
+            btnGenerarCodigo.Click += delegate (object? sender, EventArgs args) {
+                if (string.IsNullOrEmpty(Nombre))
+                    CentroNotificaciones.Mostrar("Debe especificar un nombre único para el producto antes de generar un nuevo código de barras. Llene los campos correspondientes y presione nuevaente el botón.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+                else 
+                    Codigo = UtilesCodigoBarras.GenerarEan13(Nombre);
             };
             P1DatosProveedorVentaDirecta.EsVendibleActualizado += delegate (object? sender, EventArgs args) {
                 EsVendibleActualizado?.Invoke(this, EventArgs.Empty);
