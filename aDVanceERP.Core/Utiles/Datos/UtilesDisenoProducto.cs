@@ -38,9 +38,9 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static async Task<long> ObtenerIdDisenoProducto(string? nombreDisenoProducto) {
-            const string query = "SELECT id_diseno_producto FROM adv__diseno_producto WHERE LOWER(nombre) LIKE LOWER(@NombreDisenoProducto);";
+            const string query = "SELECT id_diseno_producto FROM adv__diseno_producto WHERE nombre = @NombreDisenoProducto;";
             var result = await EjecutarConsultaAsync(query, lector => lector.GetInt32("id_diseno_producto"),
-                new MySqlParameter("@NombreDisenoProducto", $"%{nombreDisenoProducto}%"));
+                new MySqlParameter("@NombreDisenoProducto", $"{nombreDisenoProducto}"));
             return result != 0 ? result : 0;
         }
 

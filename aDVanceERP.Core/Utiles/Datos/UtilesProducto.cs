@@ -116,19 +116,30 @@ public static class UtilesProducto {
         return nombres.ToArray();
     }
 
-    public static async Task<string[]> ObtenerNombresProductos(long idAlmacen) {
-        const string query = """
-                             SELECT
-                                a.nombre
-                             FROM adv__producto a
-                             JOIN adv__producto_almacen aa ON a.id_producto = aa.id_producto
-                             WHERE aa.id_almacen = @IdAlmacen;
-                             """;
+    public static async Task<string[]> ObtenerNombresProductos(long idAlmacen, bool soloProductosVenta = false) {
+        string query = """
+                        SELECT
+                        p.nombre
+                        FROM adv__producto p
+                        JOIN adv__producto_almacen pa ON p.id_producto = pa.id_producto
+                        WHERE pa.id_almacen = @IdAlmacen;
+                        """;
         var parametros = new[] {
             new MySqlParameter("@IdAlmacen", idAlmacen)
         };
-        var nombres =
-            await EjecutarConsultaLista(query, lector => lector.GetString(lector.GetOrdinal("nombre")), parametros);
+
+        if (soloProductosVenta) {
+            query = query.Replace(";", """
+                 AND p.es_vendible = @EsVendible;
+                """);
+
+            parametros = new[] {
+                parametros[0],
+                new MySqlParameter("@EsVendible", true)
+            };
+        }
+
+        var nombres = await EjecutarConsultaLista(query, lector => lector.GetString(lector.GetOrdinal("nombre")), parametros);
 
         return nombres.ToArray();
     }

@@ -2,6 +2,8 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
     public partial class VistaRegistroProductoP1_1 : Form {
+        private CategoriaProducto _categoriaProducto;
+
         public VistaRegistroProductoP1_1() {
             InitializeComponent();
             Inicializar();
@@ -10,7 +12,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         public event EventHandler? EsVendibleActualizado;
 
         public CategoriaProducto CategoriaProducto {
+            get => _categoriaProducto;
             set {
+                _categoriaProducto = value;
+
                 separador1.Visible = value == CategoriaProducto.MateriaPrima;
                 layoutEsVendible.Visible = value == CategoriaProducto.MateriaPrima;
             }
@@ -29,7 +34,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         private void Inicializar() {
             // Eventos
             fieldEsVendible.CheckedChanged += delegate (object? sender, EventArgs args) {
-                EsVendibleActualizado?.Invoke(this, EventArgs.Empty);
+                if (CategoriaProducto == CategoriaProducto.MateriaPrima)
+                    EsVendibleActualizado?.Invoke(this, EventArgs.Empty);
             };
         }
 

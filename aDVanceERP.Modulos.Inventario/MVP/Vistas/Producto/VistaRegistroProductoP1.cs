@@ -1,5 +1,7 @@
 ﻿using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
+using Google.Protobuf.WellKnownTypes;
+
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
     public partial class VistaRegistroProductoP1 : Form {
         private VistaRegistroProductoP1_1 P1DatosProveedorVentaDirecta = new VistaRegistroProductoP1_1();
@@ -63,12 +65,17 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
                 fieldDescripcionCategoriaProducto.Text = UtilesCategoriaProducto.DescripcionesProducto[fieldCategoriaProducto.SelectedIndex];
 
                 // Actualizar visibilidad de campos según la categoría seleccionada
-                P1DatosProveedorVentaDirecta.Visible = 
-                    fieldCategoriaProducto.SelectedIndex == (int) CategoriaProducto.Mercancia ||
-                    fieldCategoriaProducto.SelectedIndex == (int) CategoriaProducto.MateriaPrima;
+                P1DatosProveedorVentaDirecta.Visible =
+                    CategoriaProducto == CategoriaProducto.Mercancia ||
+                    CategoriaProducto == CategoriaProducto.MateriaPrima;
                 P1DatosProveedorVentaDirecta.CategoriaProducto = CategoriaProducto;
 
                 CategoriaProductoCambiada?.Invoke(this, EventArgs.Empty);
+
+                // Actualizar la propiedad vendible del producto
+                if (CategoriaProducto == CategoriaProducto.Mercancia || 
+                    CategoriaProducto == CategoriaProducto.ProductoTerminado)
+                    EsVendible = true;
             };
             P1DatosProveedorVentaDirecta.EsVendibleActualizado += delegate (object? sender, EventArgs args) {
                 EsVendibleActualizado?.Invoke(this, EventArgs.Empty);

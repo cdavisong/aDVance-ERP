@@ -101,7 +101,7 @@
 
         public void Restaurar() {
             UnidadMedida = string.Empty;
-            fieldUnidadMedida.SelectedIndex = -1;
+            fieldUnidadMedida.SelectedIndex = 0;
             fieldDescripcionUnidadMedida.Text = "Seleccione o registre una unidad de medida";
             ColorPrimario = string.Empty;
             ColorSecundario = string.Empty;
