@@ -50,7 +50,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 new MySqlParameter("@IdColorProducto", idColorProducto));
         }
 
-        public static object[] ObtenerNombresColoresProductos() {
+        public static string[] ObtenerNombresColoresProductos() {
             var query = "SELECT nombre FROM adv__color_producto;";
             return EjecutarConsulta(query, lector => {
                 var nombres = new List<string>();
@@ -58,7 +58,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                     nombres.Add(lector.GetString("nombre"));
                 } while (lector.Read());
                 return nombres.ToArray();
-            }) ?? Array.Empty<object>();
+            }) ?? Array.Empty<string>();
         }
     }
 }

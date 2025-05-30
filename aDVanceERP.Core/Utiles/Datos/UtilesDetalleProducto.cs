@@ -26,6 +26,13 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 new MySqlParameter("@IdProducto", idProducto));
             return result;
         }
+
+        public static async Task<string?> ObtenerDescripcionProducto(long idProducto) {
+            const string query = "SELECT dp.descripcion FROM adv__detalle_producto dp JOIN adv__producto p ON dp.id_detalle_producto=p.id_detalle_producto WHERE p.id_producto=@IdProducto;";
+            var result = await EjecutarConsultaAsync(query, lector => lector.GetValue(lector.GetOrdinal("descripcion")),
+                new MySqlParameter("@IdProducto", idProducto));            
+            return result?.ToString();
+        }
     }
 
 }

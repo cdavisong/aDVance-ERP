@@ -40,7 +40,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
-            fieldNombreAlmacen = new Label();
             fieldId = new Label();
             fieldStock = new Label();
             btnEditar = new Guna2Button();
@@ -81,32 +80,31 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // layoutVista
             // 
             layoutVista.BackColor = Color.White;
-            layoutVista.ColumnCount = 13;
+            layoutVista.ColumnCount = 11;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 230F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutVista.Controls.Add(fieldNombreAlmacen, 0, 0);
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.Controls.Add(fieldId, 0, 0);
-            layoutVista.Controls.Add(fieldStock, 7, 0);
-            layoutVista.Controls.Add(btnEditar, 11, 0);
-            layoutVista.Controls.Add(btnMovimientoNegativo, 10, 0);
-            layoutVista.Controls.Add(btnMovimientoPositivo, 9, 0);
-            layoutVista.Controls.Add(fieldDescripcion, 4, 0);
-            layoutVista.Controls.Add(fieldNombre, 3, 0);
-            layoutVista.Controls.Add(fieldPrecioVentaBase, 6, 0);
-            layoutVista.Controls.Add(fieldPrecioCompraBase, 5, 0);
-            layoutVista.Controls.Add(fieldCodigo, 2, 0);
-            layoutVista.Controls.Add(btnEliminar, 12, 0);
+            layoutVista.Controls.Add(fieldStock, 6, 0);
+            layoutVista.Controls.Add(btnEditar, 9, 0);
+            layoutVista.Controls.Add(btnMovimientoNegativo, 8, 0);
+            layoutVista.Controls.Add(btnMovimientoPositivo, 7, 0);
+            layoutVista.Controls.Add(fieldDescripcion, 3, 0);
+            layoutVista.Controls.Add(fieldNombre, 2, 0);
+            layoutVista.Controls.Add(fieldPrecioVentaBase, 5, 0);
+            layoutVista.Controls.Add(fieldPrecioCompraBase, 4, 0);
+            layoutVista.Controls.Add(fieldCodigo, 1, 0);
+            layoutVista.Controls.Add(btnEliminar, 10, 0);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
             layoutVista.Margin = new Padding(0, 0, 0, 1);
@@ -116,25 +114,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             layoutVista.Size = new Size(1241, 41);
             layoutVista.TabIndex = 18;
             // 
-            // fieldNombreAlmacen
-            // 
-            fieldNombreAlmacen.AutoEllipsis = true;
-            fieldNombreAlmacen.Dock = DockStyle.Fill;
-            fieldNombreAlmacen.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            fieldNombreAlmacen.ForeColor = Color.DimGray;
-            fieldNombreAlmacen.ImeMode = ImeMode.NoControl;
-            fieldNombreAlmacen.Location = new Point(61, 1);
-            fieldNombreAlmacen.Margin = new Padding(1);
-            fieldNombreAlmacen.Name = "fieldNombreAlmacen";
-            fieldNombreAlmacen.Size = new Size(118, 39);
-            fieldNombreAlmacen.TabIndex = 20;
-            fieldNombreAlmacen.Text = "nombreAlmacen";
-            fieldNombreAlmacen.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // fieldId
             // 
             fieldId.Dock = DockStyle.Fill;
-            fieldId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldId.Font = new Font("Segoe UI", 11.25F);
             fieldId.ForeColor = Color.DimGray;
             fieldId.ImeMode = ImeMode.NoControl;
             fieldId.Location = new Point(1, 1);
@@ -148,10 +131,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldStock
             // 
             fieldStock.Dock = DockStyle.Fill;
-            fieldStock.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldStock.Font = new Font("Segoe UI", 11.25F);
             fieldStock.ForeColor = Color.DimGray;
             fieldStock.ImeMode = ImeMode.NoControl;
-            fieldStock.Location = new Point(971, 1);
+            fieldStock.Location = new Point(972, 1);
             fieldStock.Margin = new Padding(1);
             fieldStock.Name = "fieldStock";
             fieldStock.Size = new Size(108, 39);
@@ -171,7 +154,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnEditar.CustomizableEdges = customizableEdges1;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
-            btnEditar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEditar.Font = new Font("Segoe UI", 9.75F);
             btnEditar.ForeColor = Color.White;
             btnEditar.HoverState.BorderColor = Color.PeachPuff;
             btnEditar.HoverState.FillColor = Color.PeachPuff;
@@ -193,7 +176,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnMovimientoNegativo.CustomizableEdges = customizableEdges3;
             btnMovimientoNegativo.Dock = DockStyle.Fill;
             btnMovimientoNegativo.FillColor = Color.White;
-            btnMovimientoNegativo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMovimientoNegativo.Font = new Font("Segoe UI", 9.75F);
             btnMovimientoNegativo.ForeColor = Color.White;
             btnMovimientoNegativo.HoverState.BorderColor = Color.PeachPuff;
             btnMovimientoNegativo.HoverState.FillColor = Color.PeachPuff;
@@ -215,7 +198,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnMovimientoPositivo.CustomizableEdges = customizableEdges5;
             btnMovimientoPositivo.Dock = DockStyle.Fill;
             btnMovimientoPositivo.FillColor = Color.White;
-            btnMovimientoPositivo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMovimientoPositivo.Font = new Font("Segoe UI", 9.75F);
             btnMovimientoPositivo.ForeColor = Color.White;
             btnMovimientoPositivo.HoverState.BorderColor = Color.PeachPuff;
             btnMovimientoPositivo.HoverState.FillColor = Color.PeachPuff;
@@ -229,24 +212,25 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // 
             fieldDescripcion.AutoEllipsis = true;
             fieldDescripcion.Dock = DockStyle.Fill;
-            fieldDescripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDescripcion.Font = new Font("Segoe UI", 11.25F);
             fieldDescripcion.ForeColor = Color.DimGray;
             fieldDescripcion.ImeMode = ImeMode.NoControl;
-            fieldDescripcion.Location = new Point(521, 1);
+            fieldDescripcion.Location = new Point(401, 1);
             fieldDescripcion.Margin = new Padding(1);
             fieldDescripcion.Name = "fieldDescripcion";
-            fieldDescripcion.Size = new Size(228, 39);
+            fieldDescripcion.Size = new Size(349, 39);
             fieldDescripcion.TabIndex = 6;
             fieldDescripcion.Text = "descripcion";
             fieldDescripcion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldNombre
             // 
+            fieldNombre.AutoEllipsis = true;
             fieldNombre.Dock = DockStyle.Fill;
-            fieldNombre.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldNombre.Font = new Font("Segoe UI", 11.25F);
             fieldNombre.ForeColor = Color.DimGray;
             fieldNombre.ImeMode = ImeMode.NoControl;
-            fieldNombre.Location = new Point(301, 1);
+            fieldNombre.Location = new Point(181, 1);
             fieldNombre.Margin = new Padding(1);
             fieldNombre.Name = "fieldNombre";
             fieldNombre.Size = new Size(218, 39);
@@ -257,10 +241,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldPrecioVentaBase
             // 
             fieldPrecioVentaBase.Dock = DockStyle.Fill;
-            fieldPrecioVentaBase.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPrecioVentaBase.Font = new Font("Segoe UI", 11.25F);
             fieldPrecioVentaBase.ForeColor = Color.DimGray;
             fieldPrecioVentaBase.ImeMode = ImeMode.NoControl;
-            fieldPrecioVentaBase.Location = new Point(861, 1);
+            fieldPrecioVentaBase.Location = new Point(862, 1);
             fieldPrecioVentaBase.Margin = new Padding(1);
             fieldPrecioVentaBase.Name = "fieldPrecioVentaBase";
             fieldPrecioVentaBase.Size = new Size(108, 39);
@@ -271,10 +255,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldPrecioCompraBase
             // 
             fieldPrecioCompraBase.Dock = DockStyle.Fill;
-            fieldPrecioCompraBase.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldPrecioCompraBase.Font = new Font("Segoe UI", 11.25F);
             fieldPrecioCompraBase.ForeColor = Color.DimGray;
             fieldPrecioCompraBase.ImeMode = ImeMode.NoControl;
-            fieldPrecioCompraBase.Location = new Point(751, 1);
+            fieldPrecioCompraBase.Location = new Point(752, 1);
             fieldPrecioCompraBase.Margin = new Padding(1);
             fieldPrecioCompraBase.Name = "fieldPrecioCompraBase";
             fieldPrecioCompraBase.Size = new Size(108, 39);
@@ -285,10 +269,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // fieldCodigo
             // 
             fieldCodigo.Dock = DockStyle.Fill;
-            fieldCodigo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCodigo.Font = new Font("Segoe UI", 11.25F);
             fieldCodigo.ForeColor = Color.DimGray;
             fieldCodigo.ImeMode = ImeMode.NoControl;
-            fieldCodigo.Location = new Point(181, 1);
+            fieldCodigo.Location = new Point(61, 1);
             fieldCodigo.Margin = new Padding(1);
             fieldCodigo.Name = "fieldCodigo";
             fieldCodigo.Size = new Size(118, 39);
@@ -308,7 +292,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             btnEliminar.CustomizableEdges = customizableEdges7;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.White;
-            btnEliminar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEliminar.Font = new Font("Segoe UI", 9.75F);
             btnEliminar.ForeColor = Color.White;
             btnEliminar.HoverState.BorderColor = Color.PeachPuff;
             btnEliminar.HoverState.FillColor = Color.PeachPuff;
@@ -325,7 +309,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             BackColor = Color.White;
             ClientSize = new Size(1241, 42);
             Controls.Add(layoutBase);
-            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
             Name = "VistaTuplaProducto";
@@ -353,7 +337,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         private Label fieldPrecioVentaBase;
         private Guna2Button btnMovimientoNegativo;
         private Guna2Button btnMovimientoPositivo;
-        private Label fieldNombreAlmacen;
         private Guna2Button btnEliminar;
     }
 }

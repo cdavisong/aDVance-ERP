@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
@@ -70,29 +71,55 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
 
         string? comando;
         var datoMultiple = dato.Split(';');
+
+        // Procesamiento de parámetros
         var todosLosAlmacenes = datoMultiple.Length > 1 && datoMultiple[0].Contains("Todos");
+        var todasLasCategorias = datoMultiple.Length > 2 && datoMultiple[1].Equals("-1");
         var aplicarFiltroAlmacen = datoMultiple.Length > 1 && !todosLosAlmacenes;
+        var aplicarFiltroCategoria = datoMultiple.Length > 2 && !todasLasCategorias;
+
+        // Partes adicionales de la consulta
         const string comandoAdicionalSelect = ", ta.stock, a.nombre AS nombre_almacen";
-        const string comandoAdicionalJoin =
-            "JOIN adv__producto_almacen ta ON t.id_producto = ta.id_producto JOIN adv__almacen a ON ta.id_almacen = a.id_almacen ";
-        var comandoAdicionalWhere = $"AND a.nombre = '{datoMultiple[0]}'";
+        const string comandoAdicionalJoin = "JOIN adv__producto_almacen ta ON t.id_producto = ta.id_producto JOIN adv__almacen a ON ta.id_almacen = a.id_almacen ";
+
+        // Construcción de condiciones WHERE
+        var condiciones = new List<string>();
+
+        if (aplicarFiltroAlmacen)
+            condiciones.Add($"a.nombre = '{datoMultiple[0]}'");
+
+        if (aplicarFiltroCategoria)
+            condiciones.Add($"t.categoria = '{(CategoriaProducto)int.Parse(datoMultiple[1])}'");
+
+        string whereClause = condiciones.Count > 0 ? $"WHERE {string.Join(" AND ", condiciones)}" : "";
 
         switch (criterio) {
             case CriterioBusquedaProducto.Id:
-                comando =
-                    $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} FROM adv__producto t {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}WHERE t.id_producto='{(datoMultiple.Length > 0 ? datoMultiple[1] : dato)}' {(aplicarFiltroAlmacen ? comandoAdicionalWhere : string.Empty)};";
+                comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
+                         $"FROM adv__producto t " +
+                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
+                         $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
+                         $"t.id_producto='{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}';";
                 break;
             case CriterioBusquedaProducto.Codigo:
-                comando =
-                    $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} FROM adv__producto t {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}WHERE LOWER(t.codigo) LIKE LOWER('%{(datoMultiple.Length > 0 ? datoMultiple[1] : dato)}%') {(aplicarFiltroAlmacen ? comandoAdicionalWhere : string.Empty)};";
+                comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
+                         $"FROM adv__producto t " +
+                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
+                         $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
+                         $"LOWER(t.codigo) LIKE LOWER('%{((datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1)) ? datoMultiple[2] : dato)}%');";
                 break;
             case CriterioBusquedaProducto.Nombre:
-                comando =
-                    $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} FROM adv__producto t {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}WHERE LOWER(t.nombre) LIKE LOWER('%{(datoMultiple.Length > 0 ? datoMultiple[1] : dato)}%') {(aplicarFiltroAlmacen ? comandoAdicionalWhere : string.Empty)};";
+                comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
+                         $"FROM adv__producto t " +
+                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
+                         $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
+                         $"LOWER(t.nombre) LIKE LOWER('%{((datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1)) ? datoMultiple[aplicarFiltroCategoria ? 2 : 1] : dato)}%');";
                 break;
             default:
-                comando =
-                    $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} FROM adv__producto t {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}{(aplicarFiltroAlmacen ? comandoAdicionalWhere : string.Empty).Replace("AND", "WHERE")};";
+                comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
+                         $"FROM adv__producto t " +
+                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
+                         $"{whereClause};";
                 break;
         }
 
@@ -102,9 +129,9 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
     public override Producto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
         return new Producto(
             id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
-            categoria: (CategoriaProducto)Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
+            categoria: (CategoriaProducto) Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
             nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
-            codigo: lectorDatos.GetString(lectorDatos.GetOrdinal("codigo")),            
+            codigo: lectorDatos.GetString(lectorDatos.GetOrdinal("codigo")),
             idDetalleProducto: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_producto")),
             idProveedor: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
             esVendible: lectorDatos.GetBoolean(lectorDatos.GetOrdinal("es_vendible")),

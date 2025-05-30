@@ -38,8 +38,13 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         set => fieldNombreAlmacen.Text = value;
     }
 
+    public int Categoria {
+        get => fieldCriterioCategoriaProducto.SelectedIndex - 1;
+        set => fieldCriterioCategoriaProducto.SelectedIndex = value + 1;
+    }
+
     public CriterioBusquedaProducto CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
+        get => fieldCriterioBusqueda.SelectedIndex > 0
             ? (CriterioBusquedaProducto)fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int)value;
@@ -104,14 +109,21 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         // Eventos
         fieldNombreAlmacen.SelectedIndexChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(NombreAlmacen))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, DatoBusqueda } }, e);
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
+            else SincronizarDatos?.Invoke(sender, e);
+
+            ActualizarMontoInversion();
+        };
+        fieldCriterioCategoriaProducto.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
+            if (Categoria > -1)
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
 
             ActualizarMontoInversion();
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, DatoBusqueda } }, e);
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -152,7 +164,12 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
 
             ActualizarMontoInversion();
         };
-        contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
+        contenedorVistas.Resize += delegate { 
+            AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); 
+        };
+
+        // Enlace de scanner
+        UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
 
     public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
@@ -170,7 +187,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, DatoBusqueda } },
+            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } },
                 EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
@@ -178,6 +195,16 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             HabilitarBotonesPaginacion();
         };
         fieldCriterioBusqueda.SelectedIndex = 0;
+    }
+
+    private void ProcesarDatosScanner(string codigo) {
+        if (string.IsNullOrEmpty(codigo))
+            return;
+
+        Invoke((MethodInvoker) delegate {
+            fieldCriterioBusqueda.SelectedIndex = 2;
+            fieldDatoBusqueda.Text = codigo.Replace("\0", "");
+        });        
     }
 
     public void Mostrar() {

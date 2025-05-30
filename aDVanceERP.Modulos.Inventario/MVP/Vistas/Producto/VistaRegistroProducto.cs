@@ -98,6 +98,16 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         set => P3PrecioCompraventa.PrecioVentaBase = value;
     }
 
+    public string? NombreAlmacen {
+        get => P3PrecioCompraventa.NombreAlmacen;
+        set => P3PrecioCompraventa.NombreAlmacen = value;
+    }
+
+    public int StockInicial {
+        get => P3PrecioCompraventa.StockInicial;
+        set => P3PrecioCompraventa.StockInicial = value;
+    }
+
     public bool ModoEdicionDatos {
         get => _modoEdicion;
         set {
@@ -230,6 +240,10 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         P2Detalles.CargarDisenosProducto(disenosProducto);
     }
 
+    public void CargarNombresAlmacenes(object[] almacenes) {
+        P3PrecioCompraventa.CargarNombresAlmacenes(almacenes);
+    }
+
     private void ProcesarDatosScanner(string codigo) {
         if (string.IsNullOrEmpty(codigo))
             return;
@@ -313,9 +327,8 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     public void Restaurar() {
         P1DatosGenerales.Restaurar();
         P2Detalles.Restaurar();
+        P3PrecioCompraventa.Restaurar();
 
-        PrecioCompraBase = 0;
-        PrecioVentaBase = 0;
         ModoEdicionDatos = false;
     }
 

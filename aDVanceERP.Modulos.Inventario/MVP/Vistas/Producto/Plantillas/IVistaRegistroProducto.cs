@@ -24,6 +24,8 @@ public interface IVistaRegistroProducto : IVistaRegistro {
     // P3 : Precios de compraventa
     decimal PrecioCompraBase { get; set; }
     decimal PrecioVentaBase { get; set; }
+    string? NombreAlmacen { get; set; }
+    int StockInicial { get; set; }
 
     event EventHandler? RegistrarUnidadMedida;
     event EventHandler? RegistrarTipoProducto;
@@ -38,4 +40,5 @@ public interface IVistaRegistroProducto : IVistaRegistro {
     void CargarColores(string[] colores);
     void CargarTiposProductos(object[] tiposProducto);
     void CargarDisenosProducto(object[] disenosProducto);
+    void CargarNombresAlmacenes(object[] nombresAlmacenes);
 }

@@ -1,14 +1,16 @@
-﻿using System.CodeDom;
-using System.Globalization;
+﻿using System.Globalization;
+
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
 
 public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
+    private string? _nombreAlmacen;
+
     public VistaTuplaProducto() {
         InitializeComponent();
         Inicializar();
@@ -35,11 +37,8 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
     }
 
     public string NombreAlmacen {
-        get => fieldNombreAlmacen.Text;
-        set {
-            fieldNombreAlmacen.Text = string.IsNullOrEmpty(value) ? "Ninguno" : value;
-            fieldNombreAlmacen.Margin = new Padding(1, value?.Length > 16 ? 10 : 1, 1, 1);
-        }
+        get => _nombreAlmacen ?? string.Empty;
+        set => _nombreAlmacen = string.IsNullOrEmpty(value) ? "Ninguno" : value;
     }
 
     public string Codigo {
@@ -49,14 +48,17 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
 
     public string Nombre {
         get => fieldNombre.Text;
-        set => fieldNombre.Text = value;
+        set {
+            fieldNombre.Text = value;
+            fieldNombre.Margin = new Padding(1, value?.Length > 27 ? 10 : 1, 1, 1);
+        }
     }
 
     public string Descripcion {
         get => fieldDescripcion.Text;
         set {
             fieldDescripcion.Text = value;
-            fieldDescripcion.Margin = new Padding(1, value?.Length > 30 ? 10 : 1, 1, 1);
+            fieldDescripcion.Margin = new Padding(1, value?.Length > 47 ? 10 : 1, 1, 1);
         }
     }
 
@@ -99,23 +101,21 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
 
     public void Inicializar() {
         // Eventos
-        fieldId.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldNombreAlmacen.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldCodigo.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldNombre.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldDescripcion.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldPrecioCompraBase.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldPrecioVentaBase.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldStock.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-
-        btnEditar.Click += delegate(object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
-        btnMovimientoPositivo.Click += delegate(object? sender, EventArgs e) {
+        fieldId.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldCodigo.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldNombre.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldDescripcion.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldPrecioCompraBase.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldPrecioVentaBase.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldStock.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        btnEditar.Click += delegate (object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
+        btnMovimientoPositivo.Click += delegate (object? sender, EventArgs e) {
             MovimientoPositivoStock?.Invoke(NombreAlmacen, e);
         };
-        btnMovimientoNegativo.Click += delegate(object? sender, EventArgs e) {
+        btnMovimientoNegativo.Click += delegate (object? sender, EventArgs e) {
             MovimientoNegativoStock?.Invoke(NombreAlmacen, e);
         };
-        btnEliminar.Click += async delegate(object? sender, EventArgs e) {
+        btnEliminar.Click += async delegate (object? sender, EventArgs e) {
             if (await UtilesProducto.PuedeEliminarProducto(long.Parse(Id)))
                 EliminarDatosTupla?.Invoke(this, e);
             else

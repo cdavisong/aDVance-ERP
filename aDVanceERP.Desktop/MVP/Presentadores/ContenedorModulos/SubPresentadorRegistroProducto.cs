@@ -14,8 +14,10 @@ public partial class PresentadorContenedorModulos {
         _registroProducto.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
         _registroProducto.Vista.CargarDescripcionesUnidadesMedida(UtilesUnidadMedida.ObtenerDescripcionesUnidadesMedida());
         _registroProducto.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerNombresUnidadesMedida());
+        _registroProducto.Vista.CargarColores(UtilesColorProducto.ObtenerNombresColoresProductos());
         _registroProducto.Vista.CargarTiposProductos(UtilesTipoProducto.ObtenerNombresTiposProductos());
         _registroProducto.Vista.CargarDisenosProducto(UtilesDisenoProducto.ObtenerNombresDisenosProductos());
+        _registroProducto.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
         _registroProducto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroProducto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroProducto.Vista.RegistrarUnidadMedida += MostrarVistaRegistroUnidadMedida;

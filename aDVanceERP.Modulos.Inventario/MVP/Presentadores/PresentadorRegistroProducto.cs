@@ -87,8 +87,17 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
                 datos.Editar(detalleProducto);
             else if (Objeto?.IdDetalleProducto != 0)
                 datos.Editar(detalleProducto);
-            else
+            else {
                 Objeto.IdDetalleProducto = datos.Adicionar(detalleProducto);
+
+                // Stock inicial del producto
+                UtilesMovimiento.ModificarStockProductoAlmacen(
+                    Objeto.Id,
+                    0,
+                    UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
+                    Vista.StockInicial
+                );
+            }
 
             // Editar producto para modificar Id de los detalles
             datosProducto.Editar(Objeto);
