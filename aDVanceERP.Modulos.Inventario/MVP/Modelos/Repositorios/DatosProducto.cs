@@ -113,7 +113,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                          $"FROM adv__producto t " +
                          $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
                          $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
-                         $"LOWER(t.nombre) LIKE LOWER('%{((datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1)) ? datoMultiple[aplicarFiltroCategoria ? 2 : 1] : dato)}%');";
+                         $"LOWER(t.nombre) LIKE LOWER('%{((datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1)) ? datoMultiple[2] : dato)}%');";
                 break;
             default:
                 comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
