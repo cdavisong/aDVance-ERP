@@ -113,7 +113,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
     private void CargarNombresPermisos(string[] nombresPermisos) {
         fieldNombrePermiso.Items.Clear();
         fieldNombrePermiso.Items.AddRange(nombresPermisos);
-        fieldNombrePermiso.SelectedIndex = 0;
+        fieldNombrePermiso.SelectedIndex = nombresPermisos.Length > 0 ? 0 : -1;
     }
 
     public void AdicionarPermisoRol(string nombrePermiso = "") {

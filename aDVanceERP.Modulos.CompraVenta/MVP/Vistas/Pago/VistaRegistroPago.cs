@@ -197,7 +197,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
     public void CargarTiposMoneda(string[] tiposMoneda) {
         fieldTipoMoneda.Items.Clear();
         fieldTipoMoneda.Items.AddRange(tiposMoneda);
-        fieldTipoMoneda.SelectedIndex = 0;
+        fieldTipoMoneda.SelectedIndex = tiposMoneda.Length > 0 ? 0 : -1;
     }
 
     public void CargarMetodosPago() {

@@ -1,6 +1,8 @@
-﻿using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
 
@@ -35,6 +37,17 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void MostrarVistaRegistroProducto(object? sender, EventArgs e) {
+        // Comprobar la existencia de al menos un almacén registrado.
+        var existenAlmacenes = false;
+
+        using (var datos = new DatosAlmacen())
+            existenAlmacenes = datos.Cantidad() > 0;
+        
+        if (!existenAlmacenes) {
+            CentroNotificaciones.Mostrar("No es posible registrar nuevos productos. Debe existir al menos un almacén registrado.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+            return;
+        }
+
         InicializarVistaRegistroProducto();
 
         if (_registroProducto == null) 

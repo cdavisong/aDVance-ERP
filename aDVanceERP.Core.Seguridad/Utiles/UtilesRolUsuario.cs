@@ -150,12 +150,18 @@ public static class UtilesRolUsuario {
             }
 
             if (rolId == 0)
-                using (var comando =
-                       new MySqlCommand(
-                           "INSERT INTO adv__rol_usuario (nombre, nivel_acceso) VALUES (@nombre, @nivelAcceso); SELECT LAST_INSERT_ID();",
-                           conexion)) {
+                using (var comando = new MySqlCommand(
+                    """
+                    INSERT INTO adv__rol_usuario (
+                        nombre
+                    ) 
+                    VALUES (
+                        @nombre
+                    ); 
+                    
+                    SELECT LAST_INSERT_ID();
+                    """, conexion)) {
                     comando.Parameters.AddWithValue("@nombre", "Administrador");
-                    comando.Parameters.AddWithValue("@nivelAcceso", 100);
                     rolId = Convert.ToInt32(await comando.ExecuteScalarAsync());
                 }
         }

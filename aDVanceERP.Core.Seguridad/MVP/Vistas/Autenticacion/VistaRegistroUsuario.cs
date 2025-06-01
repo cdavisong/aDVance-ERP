@@ -70,7 +70,9 @@ public partial class VistaRegistroUsuario : Form, IVistaRegistroUsuario {
             fieldConfirmarPassword.UseSystemPasswordChar = fieldPassword.UseSystemPasswordChar;
             fieldConfirmarPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
         };
-        btnRegistrarCuentaUsuario.Click += delegate(object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
+        btnRegistrarCuentaUsuario.Click += delegate(object? sender, EventArgs e) { 
+            RegistrarDatos?.Invoke(sender, e); 
+        };
         btnRegresarAutenticar.Click += delegate(object? sender, EventArgs e) {
             AutenticarUsuario?.Invoke(sender, e);
             Ocultar();

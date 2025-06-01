@@ -12,7 +12,9 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistroUsuario, CuentaUsuario,
     DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
     public PresentadorRegistroUsuario(IVistaRegistroUsuario vista) : base(vista) {
-        vista.RegistrarDatos += delegate(object? sender, EventArgs args) { UsuarioRegistrado?.Invoke(sender, args); };
+        vista.RegistrarDatos += delegate(object? sender, EventArgs args) {
+            UsuarioRegistrado?.Invoke(sender, args); 
+        };
         vista.AutenticarUsuario += delegate(object? sender, EventArgs args) {
             MostrarVistaAutenticacionUsuario?.Invoke("autenticate-user", args);
         };

@@ -72,7 +72,7 @@
         public void CargarUnidadesMedida(object[] unidadesMedida) {
             fieldUnidadMedida.Items.Clear();
             fieldUnidadMedida.Items.AddRange(unidadesMedida);
-            fieldUnidadMedida.SelectedIndex = 0;
+            fieldUnidadMedida.SelectedIndex = unidadesMedida.Length > 0 ? 0 : -1;
         }
 
         public void CargarColores(string[] colores) {

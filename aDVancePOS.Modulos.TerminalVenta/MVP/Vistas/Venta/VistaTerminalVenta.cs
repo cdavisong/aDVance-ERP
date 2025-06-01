@@ -228,7 +228,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
             fieldNombreAlmacen.Items.Clear();
             fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
-            fieldNombreAlmacen.SelectedIndex = 0;
+            fieldNombreAlmacen.SelectedIndex = nombresAlmacenes.Length > 0 ? 0 : -1;
         }
 
         public void CargarNombresProductos(string[] nombresProductos) {

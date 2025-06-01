@@ -43,7 +43,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldNombreProveedor.Items.Clear();
             fieldNombreProveedor.Items.Add("Ninguno");
             fieldNombreProveedor.Items.AddRange(nombresProveedores);
-            fieldNombreProveedor.SelectedIndex = 0;
+            fieldNombreProveedor.SelectedIndex = nombresProveedores.Length > 0 ? 0 : -1;
         }
 
         public void Restaurar() {

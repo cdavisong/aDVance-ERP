@@ -224,7 +224,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
         fieldNombreAlmacen.Items.Clear();
         fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
-        fieldNombreAlmacen.SelectedIndex = 0;
+        fieldNombreAlmacen.SelectedIndex = nombresAlmacenes.Length > 0 ? 0 : -1;
     }
 
     public void CargarNombresProductos(string[] nombresProductos) {

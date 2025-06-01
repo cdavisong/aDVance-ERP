@@ -158,13 +158,13 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         fieldNombreProveedor.Items.Clear();
         fieldNombreProveedor.Items.Add("Anónimo");
         fieldNombreProveedor.Items.AddRange(nombresProveedores);
-        fieldNombreProveedor.SelectedIndex = 0;
+        fieldNombreProveedor.SelectedIndex = nombresProveedores.Length > 0 ? 0 : -1;
     }
 
     public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
         fieldNombreAlmacen.Items.Clear();
         fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
-        fieldNombreAlmacen.SelectedIndex = 0;
+        fieldNombreAlmacen.SelectedIndex = nombresAlmacenes.Length > 0 ? 0 : -1;
     }
 
     public void CargarNombresProductos(string[] nombresProductos) {

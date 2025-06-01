@@ -120,18 +120,30 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         fieldNombreAlmacenOrigen.Items.Clear();
         fieldNombreAlmacenOrigen.Items.Add("Ninguno");
         fieldNombreAlmacenOrigen.Items.AddRange(nombresAlmacenes);
-        fieldNombreAlmacenOrigen.SelectedIndex = 0;
+        fieldNombreAlmacenOrigen.SelectedIndex = nombresAlmacenes.Length > 0 ? 0 : -1;
 
         fieldNombreAlmacenDestino.Items.Clear();
         fieldNombreAlmacenDestino.Items.Add("Ninguno");
         fieldNombreAlmacenDestino.Items.AddRange(nombresAlmacenes);
-        fieldNombreAlmacenDestino.SelectedIndex = 0;
+        fieldNombreAlmacenDestino.SelectedIndex = nombresAlmacenes.Length > 0 ? 0 : -1;
     }
 
     public void CargarTiposMovimientos(object[] tiposMovimientos) {
         fieldTipoMovimiento.Items.Clear();
-        fieldTipoMovimiento.Items.AddRange(tiposMovimientos);
-        fieldTipoMovimiento.SelectedIndex = 0;
+
+        foreach (var tipoMovimiento in tiposMovimientos) {
+            var tipoMovimientoString = tipoMovimiento.ToString();
+
+            if (string.IsNullOrEmpty(tipoMovimientoString) || 
+                tipoMovimientoString.Equals("Compra") || 
+                tipoMovimientoString.Equals("Venta"))
+                continue;
+
+            fieldTipoMovimiento.Items.Add(tipoMovimiento);
+        }
+
+        
+        fieldTipoMovimiento.SelectedIndex = tiposMovimientos.Length > 0 ? 0 : -1;
     }
 
     private void ProcesarDatosScanner(string codigo) {

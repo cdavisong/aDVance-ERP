@@ -108,7 +108,7 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
 
         fieldNombreRolUsuario.Items.Add("Ninguno");
         fieldNombreRolUsuario.Items.AddRange(rolesFiltrados);
-        fieldNombreRolUsuario.SelectedIndex = 0;
+        fieldNombreRolUsuario.SelectedIndex = rolesUsuarios.Length > 0 ? 0 : -1;
     }
 
     public void Mostrar() {
