@@ -46,6 +46,17 @@ public partial class PresentadorContenedorModulos {
     }
 
     private async void MostrarVistaRegistroCompraProducto(object? sender, EventArgs e) {
+        // Comprobar la existencia de al menos un almacén registrado.
+        var existenAlmacenes = false;
+
+        using (var datos = new DatosAlmacen())
+            existenAlmacenes = datos.Cantidad() > 0;
+
+        if (!existenAlmacenes) {
+            CentroNotificaciones.Mostrar("No es posible registrar nuevas compras. Debe existir al menos un almacén registrado.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+            return;
+        }
+
         await InicializarVistaRegistroCompraProducto();
 
         if (_registroCompraProducto == null)
