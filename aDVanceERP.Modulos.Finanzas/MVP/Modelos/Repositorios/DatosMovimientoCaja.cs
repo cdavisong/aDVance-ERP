@@ -48,6 +48,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
             return criterio switch {
                 CriterioBusquedaMovimientoCaja.Id => $"SELECT * FROM adv__movimiento_caja WHERE id_movimiento_caja={dato};",
                 CriterioBusquedaMovimientoCaja.IdPago => $"SELECT * FROM adv__movimiento_caja WHERE id_pago={dato};",
+                CriterioBusquedaMovimientoCaja.IdCaja => $"SELECT * FROM adv__movimiento_caja WHERE id_caja={dato};",
                 CriterioBusquedaMovimientoCaja.Fecha => $"SELECT * FROM adv__movimiento_caja WHERE DATE(fecha) = '{dato}';",
                 CriterioBusquedaMovimientoCaja.Tipo => $"SELECT * FROM adv__movimiento_caja WHERE tipo='{dato}';",
                 CriterioBusquedaMovimientoCaja.Concepto => $"SELECT * FROM adv__movimiento_caja WHERE concepto LIKE '%{dato}%';",

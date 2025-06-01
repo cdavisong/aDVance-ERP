@@ -105,7 +105,6 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
         fieldMontoTotal.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldEstadoEntrega.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldEstadoPago.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-
         btnDescargarFactura.Click += delegate (object? sender, EventArgs e) {
             var datosCliente = new string[3];
             var datosVentaProductos = new List<string[]>();

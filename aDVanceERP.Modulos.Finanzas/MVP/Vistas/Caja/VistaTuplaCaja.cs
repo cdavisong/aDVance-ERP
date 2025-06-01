@@ -1,6 +1,12 @@
-﻿using aDVanceERP.Core.Seguridad.Utiles;
+﻿using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Utiles;
+using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
+using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 using aDVanceERP.Modulos.Finanzas.Properties;
+
+using System.Globalization;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
     public partial class VistaTuplaCaja : Form, IVistaTuplaCaja {
@@ -41,6 +47,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => fieldSaldoInicial.Text = value;
         }
 
+        public string CantidadMovimientos {
+            get => fieldCantidadMovimientos.Text;
+            set => fieldCantidadMovimientos.Text = value;
+        }
+
         public string SaldoActual { 
             get => fieldSaldoActual.Text;
             set => fieldSaldoActual.Text = value;
@@ -75,7 +86,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         public Color ColorFondoTupla {
             get => layoutVista.BackColor;
             set => layoutVista.BackColor = value;
-        }        
+        }
 
         public event EventHandler? TuplaSeleccionada;
         public event EventHandler? EditarDatosTupla;
@@ -106,6 +117,40 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 TuplaSeleccionada?.Invoke(this, e);
             };
 
+            btnDescargarInforme.Click += delegate (object? sender, EventArgs e) {
+                var fechaApertura = DateTime.ParseExact(fieldFechaApertura.Text, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                var fechaCierre = DateTime.ParseExact(fieldFechaCierre.Text, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                var saldoInicial = decimal.Parse(fieldSaldoInicial.Text, CultureInfo.InvariantCulture);
+                var saldoFinal = decimal.Parse(fieldSaldoActual.Text, CultureInfo.InvariantCulture);
+                var datosMovimientosCaja = new List<string[]>();
+
+                using (var datos = new DatosMovimientoCaja()) {
+                    var movimientosCaja = datos.Obtener(CriterioBusquedaMovimientoCaja.IdCaja, Id);
+
+                    foreach (var movimiento in movimientosCaja) {
+                        datosMovimientosCaja.Add([
+                            movimiento.Fecha.ToString("yyyy-MM-dd HH:mm:ss"),
+                            movimiento.Concepto ?? string.Empty,
+                            movimiento.Tipo.ToString(),
+                            movimiento.Monto.ToString("N", CultureInfo.InvariantCulture),
+                            movimiento.Observaciones ?? string.Empty
+                        ]);
+                    }
+                }
+
+                if (datosMovimientosCaja.Count > 0)
+                    UtilesReportes.GenerarReporteCierreCaja(
+                        fechaApertura,
+                        fechaCierre,
+                        saldoInicial,
+                        saldoFinal,
+                        int.Parse(Id),
+                        datosMovimientosCaja,
+                        ((EstadoCaja) Estado).ToString()
+                    );
+                else
+                    CentroNotificaciones.Mostrar("No se puede generar un reporte de una caja cerrada con 0 movimientos.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+            };
             btnEditar.Click += delegate (object? sender, EventArgs e) {
                 EditarDatosTupla?.Invoke(this, e);
             };

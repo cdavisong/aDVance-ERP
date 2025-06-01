@@ -10,6 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionCajas = new PresentadorGestionCajas(new VistaGestionCajas());
             _gestionCajas.EditarObjeto += MostrarVistaEdicionAperturaCaja;
             _gestionCajas.Vista.RegistrarDatos += MostrarVistaRegistroAperturaCaja;
+            _gestionCajas.Vista.RegistrarMovimientoCajaSeleccionada += MostrarVistaRegistroMovimientoCaja;
 
             if (Vista.Vistas != null)
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCajas", _gestionCajas.Vista));

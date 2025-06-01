@@ -913,4 +913,369 @@ public static class UtilesReportes {
             new XRect(margenIzquierdo, pagina.Height - margenInferior, pagina.Width - margenIzquierdo - margenDerecho, 20),
             XStringFormats.BottomLeft);
     }
+
+    #region Reporte de cierre de caja
+
+    public static void GenerarReporteCierreCaja(DateTime fechaApertura, DateTime fechaCierre, decimal saldoInicial, decimal saldoFinal, int idCaja, List<string[]> movimientos, string estadoCaja = "Cerrada", bool mostrar = true) {
+        // Crear un nuevo documento PDF
+        var documento = new PdfDocument();
+        documento.Info.Title = "Reporte de Cierre de Caja";
+        documento.Info.Author = "aDVanceERP";
+
+        // Configurar márgenes (en puntos, 1 punto = 1/72 pulgadas)
+        const int margenIzquierdo = 40;
+        const int margenDerecho = 40;
+        const int margenSuperior = 40;
+        const int margenInferior = 40;
+        const int alturaEncabezado = 120;
+        const int alturaPie = 30;
+        const int alturaFila = 15;
+        const int maxFilasPorPagina = 30;
+
+        // Fuentes
+        var fontTitulo = new XFont("Arial", 14, XFontStyleEx.Bold);
+        var fontSubtitulo = new XFont("Arial", 10, XFontStyleEx.Regular);
+        var fontContenido = new XFont("Arial", 9, XFontStyleEx.Regular);
+        var fontEncabezado = new XFont("Arial", 9, XFontStyleEx.Bold);
+        var fontNegrita = new XFont("Arial", 9, XFontStyleEx.Bold);
+
+        var culture = new CultureInfo("es-ES");
+        decimal totalIngresos = 0;
+        decimal totalEgresos = 0;
+        int paginaActual = 1;
+        int filasProcesadas = 0;
+        PdfPage pagina = null;
+        XGraphics gfx = null;
+        double yPoint = 0;
+
+        while (filasProcesadas < movimientos.Count) {
+            // Crear nueva página si es necesario
+            if (pagina == null || filasProcesadas % maxFilasPorPagina == 0) {
+                pagina = documento.AddPage();
+                pagina.Size = PageSize.Letter;
+                gfx = XGraphics.FromPdfPage(pagina);
+                yPoint = margenSuperior;
+
+                // Dibujar encabezado en cada página
+                DibujarEncabezadoCierreCaja(gfx, pagina, fontTitulo, fontSubtitulo, fontNegrita,
+                    idCaja, estadoCaja, fechaApertura, fechaCierre, saldoInicial, saldoFinal,
+                    margenIzquierdo, margenDerecho, ref yPoint);
+
+                // Dibujar encabezados de tabla
+                DibujarEncabezadosTablaCierreCaja(gfx, pagina, fontEncabezado,
+                    margenIzquierdo, margenDerecho, ref yPoint);
+            }
+
+            // Dibujar filas de datos
+            int filasEnPagina = Math.Min(maxFilasPorPagina, movimientos.Count - filasProcesadas);
+            for (int i = 0; i < filasEnPagina; i++) {
+                var fila = movimientos[filasProcesadas];
+                DibujarFilaMovimiento(gfx, fontContenido, fila, filasProcesadas + 1,
+                                    margenIzquierdo, ref yPoint, alturaFila, culture,
+                                    ref totalIngresos, ref totalEgresos);
+                filasProcesadas++;
+            }
+
+            // Dibujar total parcial si es última página o hay muchas filas
+            if (filasProcesadas == movimientos.Count || filasProcesadas % maxFilasPorPagina == 0) {
+                DibujarPiePaginaCierreCaja(gfx, pagina, fontNegrita, fontContenido, fontSubtitulo,
+                                          totalIngresos, totalEgresos, saldoInicial, saldoFinal,
+                                          margenIzquierdo, margenDerecho, margenInferior,
+                                          ref yPoint, paginaActual, documento.Pages.Count, culture);
+                paginaActual++;
+            }
+        }
+
+        // Guardar el documento
+        var nombreArchivo = $"cierre-caja-{idCaja}-{fechaCierre:yyyyMMdd}.pdf";
+
+        if (documento.Pages.Count > 0)
+            documento.Save(nombreArchivo);
+
+        // Mostrar el documento PDF al usuario
+        if (mostrar)
+            Process.Start(new ProcessStartInfo {
+                FileName = nombreArchivo,
+                UseShellExecute = true
+            });
+    }
+
+    // Métodos auxiliares para GenerarReporteCierreCaja
+    private static void DibujarEncabezadoCierreCaja(XGraphics gfx, PdfPage pagina, XFont fontTitulo,
+        XFont fontSubtitulo, XFont fontNegrita, int idCaja, string estadoCaja,
+        DateTime fechaApertura, DateTime fechaCierre, decimal saldoInicial, decimal saldoFinal,
+        int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        // Agregar título
+        gfx.DrawString("REPORTE DE CIERRE DE CAJA", fontTitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.TopLeft);
+        yPoint += 25;
+
+        // Información de la caja
+        var anchoColumna1 = 100;
+        var anchoColumna2 = 150;
+        var anchoColumna3 = 100;
+        var anchoColumna4 = 150;
+
+        // Fila 1 - ID Caja y Estado
+        gfx.DrawString("Caja N°:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, anchoColumna1, 15), XStringFormats.TopLeft);
+        gfx.DrawString(idCaja.ToString(), fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1, yPoint, anchoColumna2, 15), XStringFormats.TopLeft);
+
+        gfx.DrawString("Estado:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2, yPoint, anchoColumna3, 15), XStringFormats.TopLeft);
+        gfx.DrawString(estadoCaja, fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2 + anchoColumna3, yPoint, anchoColumna4, 15), XStringFormats.TopLeft);
+        yPoint += 15;
+
+        // Fila 2 - Fecha Apertura y Fecha Cierre
+        gfx.DrawString("Fecha Apertura:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, anchoColumna1, 15), XStringFormats.TopLeft);
+        gfx.DrawString(fechaApertura.ToString("dd/MM/yyyy HH:mm:ss"), fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1, yPoint, anchoColumna2, 15), XStringFormats.TopLeft);
+
+        gfx.DrawString("Fecha Cierre:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2, yPoint, anchoColumna3, 15), XStringFormats.TopLeft);
+        gfx.DrawString(fechaCierre.ToString("dd/MM/yyyy HH:mm:ss"), fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2 + anchoColumna3, yPoint, anchoColumna4, 15), XStringFormats.TopLeft);
+        yPoint += 15;
+
+        // Fila 3 - Saldo Inicial y Saldo Final
+        gfx.DrawString("Saldo Inicial:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, anchoColumna1, 15), XStringFormats.TopLeft);
+        gfx.DrawString(saldoInicial.ToString("N2", CultureInfo.InvariantCulture) + " $", fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1, yPoint, anchoColumna2, 15), XStringFormats.TopLeft);
+
+        gfx.DrawString("Saldo Final:", fontNegrita, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2, yPoint, anchoColumna3, 15), XStringFormats.TopLeft);
+        gfx.DrawString(saldoFinal.ToString("N2", CultureInfo.InvariantCulture) + " $", fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2 + anchoColumna3, yPoint, anchoColumna4, 15), XStringFormats.TopLeft);
+        yPoint += 30;
+    }
+
+    private static void DibujarEncabezadosTablaCierreCaja(XGraphics gfx, PdfPage pagina, XFont fontEncabezado,
+    int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        // Calcular ancho disponible
+        double anchoDisponible = pagina.Width - margenIzquierdo - margenDerecho;
+
+        // Definir anchos base de columnas
+        var anchos = CalcularAnchosColumnasCierreCaja(anchoDisponible);
+
+        // Encabezados de la tabla
+        double xPos = margenIzquierdo;
+
+        // Columna #
+        gfx.DrawString("#", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoNumero, 15), XStringFormats.TopCenter);
+        xPos += anchos.AnchoNumero;
+
+        // Columna Fecha
+        gfx.DrawString("Fecha/Hora", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoFecha, 15), XStringFormats.TopLeft);
+        xPos += anchos.AnchoFecha;
+
+        // Columna Concepto
+        gfx.DrawString("Concepto", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoConcepto, 15), XStringFormats.TopLeft);
+        xPos += anchos.AnchoConcepto;
+
+        // Columna Tipo
+        gfx.DrawString("Tipo", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoTipo, 15), XStringFormats.TopCenter);
+        xPos += anchos.AnchoTipo;
+
+        // Columna Monto
+        gfx.DrawString("Monto", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoMonto, 15), XStringFormats.TopRight);
+        xPos += anchos.AnchoMonto;
+
+        // Columna Observaciones
+        gfx.DrawString("Observaciones", fontEncabezado, XBrushes.Black,
+            new XRect(xPos + 10, yPoint, anchos.AnchoObservaciones, 15), XStringFormats.TopLeft);
+
+        yPoint += 15;
+        gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint, pagina.Width - margenDerecho, yPoint);
+        yPoint += 5;
+    }
+
+    private static (int AnchoNumero, int AnchoFecha, int AnchoConcepto,
+                   int AnchoTipo, int AnchoMonto, int AnchoObservaciones)
+        CalcularAnchosColumnasCierreCaja(double anchoDisponible) {
+        // Valores base para los anchos (en puntos)
+        int anchoNumero = 30;      // Columna #
+        int anchoFecha = 100;      // Columna Fecha
+        int anchoConcepto = 100;   // Columna Concepto (ajustable)
+        int anchoTipo = 30;        // Columna Tipo
+        int anchoMonto = 90;       // Columna Monto
+        int anchoObservaciones = 150; // Columna Observaciones (ajustable)
+
+        // Calcular suma total de anchos
+        int sumaAnchos = anchoNumero + anchoFecha + anchoConcepto +
+                        anchoTipo + anchoMonto + anchoObservaciones;
+
+        // Si los anchos exceden el espacio disponible, ajustar las columnas de texto
+        if (sumaAnchos > anchoDisponible) {
+            // Calcular el exceso
+            int exceso = (int) (sumaAnchos - anchoDisponible);
+
+            // Reducir proporcionalmente las columnas de texto largo
+            int reduccionConcepto = (int) (exceso * 0.4); // 60% del ajuste a Concepto
+            int reduccionObservaciones = (int) (exceso * 0.6); // 40% del ajuste a Observaciones
+
+            // Aplicar reducción asegurando un mínimo
+            anchoConcepto = Math.Max(anchoConcepto - reduccionConcepto, 120);
+            anchoObservaciones = Math.Max(anchoObservaciones - reduccionObservaciones, 80);
+        }
+
+        return (anchoNumero, anchoFecha, anchoConcepto, anchoTipo, anchoMonto, anchoObservaciones);
+    }
+
+    private static void DibujarFilaMovimiento(XGraphics gfx, XFont fontContenido, string[] fila, int numeroFila,
+        int margenIzquierdo, ref double yPoint, int alturaFila, CultureInfo culture,
+        ref decimal totalIngresos, ref decimal totalEgresos) {
+        // Calcular anchos de columnas
+        var anchos = CalcularAnchosColumnasCierreCaja(gfx.PageSize.Width - margenIzquierdo * 2);
+
+        double xPos = margenIzquierdo;
+
+        // Número
+        gfx.DrawString(numeroFila.ToString(), fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoNumero, alturaFila), XStringFormats.TopCenter);
+        xPos += anchos.AnchoNumero;
+
+        // Fecha
+        gfx.DrawString(fila[0], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoFecha, alturaFila), XStringFormats.TopLeft);
+        xPos += anchos.AnchoFecha;
+
+        // Concepto
+        gfx.DrawString(fila[1], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoConcepto, alturaFila), XStringFormats.TopLeft);
+        xPos += anchos.AnchoConcepto;
+
+        // Tipo
+        gfx.DrawString(fila[2], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoTipo, alturaFila), XStringFormats.TopCenter);
+        xPos += anchos.AnchoTipo;
+
+        // Monto
+        var monto = decimal.TryParse(fila[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var valorMonto)
+            ? valorMonto : 0.00m;
+        gfx.DrawString(monto.ToString("N2", CultureInfo.InvariantCulture), fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchos.AnchoMonto, alturaFila), XStringFormats.TopRight);
+        xPos += anchos.AnchoMonto;
+
+        // Observaciones
+        string observaciones = fila.Length > 4 ? fila[4] : "";
+        // Truncar texto si es muy largo para la columna
+        if (observaciones.Length > 40)
+            observaciones = observaciones.Substring(0, 38) + "...";
+        
+        gfx.DrawString(observaciones, fontContenido, XBrushes.Black,
+            new XRect(xPos + 10, yPoint, anchos.AnchoObservaciones, alturaFila), XStringFormats.TopLeft);
+
+        // Actualizar totales
+        if (fila[2] == "Ingreso")
+            totalIngresos += monto;
+        else
+            totalEgresos += monto;
+
+        yPoint += alturaFila;
+    }
+
+    private static void DibujarPiePaginaCierreCaja(XGraphics gfx, PdfPage pagina, XFont fontNegrita,
+    XFont fontContenido, XFont fontSubtitulo, decimal totalIngresos, decimal totalEgresos,
+    decimal saldoInicial, decimal saldoFinal, int margenIzquierdo, int margenDerecho,
+    int margenInferior, ref double yPoint, int paginaActual, int totalPaginas, CultureInfo culture) {
+        // Calcular anchos de columnas (consistentes con el resto del reporte)
+        var anchos = CalcularAnchosColumnasCierreCaja(pagina.Width - margenIzquierdo - margenDerecho);
+
+        // Línea separadora
+        yPoint += 10;
+        gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint, pagina.Width - margenDerecho, yPoint);
+        yPoint += 10;
+
+        // Posición X para las etiquetas (alineado con la columna Concepto)
+        double xPosEtiquetas1 = margenIzquierdo + anchos.AnchoNumero + anchos.AnchoFecha;
+        double xPosEtiquetas2 = margenIzquierdo + anchos.AnchoNumero + anchos.AnchoFecha;
+        double anchoEtiquetas = anchos.AnchoConcepto + anchos.AnchoTipo;
+
+        // Posición X para los valores (alineado con la columna Monto)
+        double xPosValores1 = xPosEtiquetas1 + anchoEtiquetas;
+        double xPosValores2 = xPosEtiquetas2 + anchoEtiquetas;
+
+        // Total Ingresos
+        gfx.DrawString("Total Ingresos:", fontNegrita, XBrushes.Black,
+            new XRect(xPosEtiquetas1, yPoint, anchoEtiquetas, 15), XStringFormats.TopRight);
+        gfx.DrawString(totalIngresos.ToString("N2", culture) + " $", fontContenido, XBrushes.Black,
+            new XRect(xPosValores1, yPoint, anchos.AnchoMonto, 15), XStringFormats.TopRight);
+        yPoint += 15;
+
+        // Total Egresos
+        gfx.DrawString("Total Egresos:", fontNegrita, XBrushes.Black,
+            new XRect(xPosEtiquetas1, yPoint, anchoEtiquetas, 15), XStringFormats.TopRight);
+        gfx.DrawString(totalEgresos.ToString("N2", culture) + " $", fontContenido, XBrushes.Black,
+            new XRect(xPosValores1, yPoint, anchos.AnchoMonto, 15), XStringFormats.TopRight);
+        yPoint += 15;
+
+        // Saldo Esperado (solo en la última página)
+        if (paginaActual == totalPaginas) {
+            decimal saldoEsperado = saldoInicial + totalIngresos - totalEgresos;
+
+            gfx.DrawString("Saldo Esperado:", fontNegrita, XBrushes.Black,
+                new XRect(xPosEtiquetas1, yPoint, anchoEtiquetas, 15), XStringFormats.TopRight);
+            gfx.DrawString(saldoEsperado.ToString("N2", culture) + " $", fontContenido, XBrushes.Black,
+                new XRect(xPosValores1, yPoint, anchos.AnchoMonto, 15), XStringFormats.TopRight);
+            yPoint += 25;
+
+            // Saldo Final (campo abierto para completar manualmente)
+            gfx.DrawString("Saldo Final:", fontNegrita, XBrushes.Black,
+                new XRect(xPosEtiquetas2, yPoint, anchoEtiquetas, 15), XStringFormats.TopRight);
+
+            // Dibujar línea para completar manualmente
+            gfx.DrawLine(XPens.Black, xPosValores1, yPoint + 12, xPosValores1 + anchos.AnchoMonto, yPoint + 12);
+            yPoint += 15;
+
+            // Diferencia (campo abierto para completar manualmente)
+            gfx.DrawString("Diferencia:", fontNegrita, XBrushes.Black,
+                new XRect(xPosEtiquetas2, yPoint, anchoEtiquetas, 15), XStringFormats.TopRight);
+
+            // Dibujar línea para completar manualmente
+            gfx.DrawLine(XPens.Black, xPosValores1, yPoint + 12, xPosValores1 + anchos.AnchoMonto, yPoint + 12);
+            yPoint += 15;
+
+            // Espacio para firmas
+            double anchoFirma = (pagina.Width - margenIzquierdo - margenDerecho) / 2 - 20;
+            yPoint = pagina.Height - margenInferior - 80;
+
+            // Firma "Contabilizado por"
+            gfx.DrawString("Contabilizado por:", fontContenido, XBrushes.Black,
+                new XRect(margenIzquierdo, yPoint, anchoFirma, 15), XStringFormats.TopLeft);
+            gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint + 20, margenIzquierdo + anchoFirma, yPoint + 20);
+            gfx.DrawString("Firma", fontSubtitulo, XBrushes.Gray,
+                new XRect(margenIzquierdo, yPoint + 22, anchoFirma, 15), XStringFormats.TopCenter);
+
+            // Firma "Revisado por"
+            gfx.DrawString("Revisado por:", fontContenido, XBrushes.Black,
+                new XRect(pagina.Width - margenDerecho - anchoFirma, yPoint, anchoFirma, 15), XStringFormats.TopLeft);
+            gfx.DrawLine(XPens.Black, pagina.Width - margenDerecho - anchoFirma, yPoint + 20,
+                        pagina.Width - margenDerecho, yPoint + 20);
+            gfx.DrawString("Firma", fontSubtitulo, XBrushes.Gray,
+                new XRect(pagina.Width - margenDerecho - anchoFirma, yPoint + 22, anchoFirma, 15), XStringFormats.TopCenter);
+
+            yPoint += 40;
+        }
+
+        // Pie de página (alineado a la derecha)
+        var fechaGeneracion = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+        var textoPie = $"{fechaGeneracion} - Página {paginaActual} de {totalPaginas}";
+
+        gfx.DrawString(textoPie, fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, pagina.Height - margenInferior,
+                     pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.BottomRight);
+    }
+
+    #endregion
 }

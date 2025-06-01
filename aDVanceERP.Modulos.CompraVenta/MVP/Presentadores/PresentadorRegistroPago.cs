@@ -71,7 +71,7 @@ public class
                 objeto.Id = DatosObjeto.AdicionarAsync(objeto).Result;            
         };
 
-        InvokeDatosRegistradosActualizados(sender, e);
+        InvokeDatosRegistradosActualizados(objetosVista, e);
         Dispose();
         Vista.Cerrar();
     }

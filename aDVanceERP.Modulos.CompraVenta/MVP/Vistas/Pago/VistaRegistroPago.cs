@@ -126,7 +126,9 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
                 fieldMonto.Focus();
             }
         };
-        fieldMonto.TextChanged += delegate { btnAdicionarPago.Enabled = Monto > 0; };
+        fieldMonto.TextChanged += delegate { 
+            btnAdicionarPago.Enabled = Monto > 0; 
+        };
         fieldMonto.KeyDown += delegate(object? sender, KeyEventArgs args) {
             if (args.KeyCode == Keys.Enter) {
                 AdicionarPago(0, IdVenta, MetodoPago, Monto);

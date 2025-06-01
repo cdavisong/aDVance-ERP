@@ -26,7 +26,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         public DateTime Fecha { get; set; }
         public decimal Monto { get; set; }
         public TipoMovimientoCaja Tipo { get; set; }
-        public string? Concepto { get; set; }
+        public string Concepto { get; set; }
         public long IdPago { get; set; }
         public long IdUsuario { get; set; }
         public string? Observaciones { get; set; }
@@ -35,6 +35,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
     public enum CriterioBusquedaMovimientoCaja {
         Todos,
         Id,
+        IdCaja,
         IdPago,
         Fecha,
         Tipo,
@@ -45,6 +46,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         public static string[] CriterioBusquedaMovimientoCaja = {
             "Todos los movimientos de caja",
             "Identificador de BD",
+            "Identificador de BD de caja",
             "Identificador de BD del pago",
             "Fecha",
             "Tipo de movimiento",

@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja;
@@ -12,6 +13,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             : base(vista) {
             vista.CerrarCajaSeleccionada += CerrarCajaSeleccionada;
             vista.EditarDatos += delegate {
+                Vista.HabilitarBtnRegistroMovimientoCaja = false;
                 Vista.HabilitarBtnCierreCaja = false;
             };
         }        
@@ -22,19 +24,21 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             presentadorTupla.Vista.Id = objeto.Id.ToString();
             presentadorTupla.Vista.FechaApertura = objeto.FechaApertura.ToString("yyyy-MM-dd HH:mm");
             presentadorTupla.Vista.SaldoInicial = objeto.SaldoInicial.ToString("N", CultureInfo.InvariantCulture);
+            presentadorTupla.Vista.CantidadMovimientos = UtilesCaja.ObtenerCantidadMovimientos(objeto.Id).ToString();
             presentadorTupla.Vista.SaldoActual = objeto.SaldoActual.ToString("N", CultureInfo.InvariantCulture);
             presentadorTupla.Vista.FechaCierre = objeto.FechaCierre != DateTime.MinValue ? objeto.FechaCierre.ToString("yyyy-MM-dd HH:mm") : "-";
             presentadorTupla.Vista.Estado = (int) objeto.Estado;
             presentadorTupla.Vista.NombreUsuario = UtilesCuentaUsuario.ObtenerNombreCuentaUsuario(objeto.IdCuentaUsuario) ?? string.Empty;
-            presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnCierreCaja;
-            presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnCierreCaja;
+            presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBotones;
+            presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBotones;
             
             return presentadorTupla;
         }
 
         public override Task RefrescarListaObjetos() {
             // Cambiar la visibilidad de los botones 
-            Vista.HabilitarBtnCierreCaja = false;
+            Vista.HabilitarBtnRegistroMovimientoCaja = false;
+            Vista.HabilitarBtnCierreCaja = false;            
 
             return base.RefrescarListaObjetos();
         }
@@ -54,12 +58,13 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             _ = RefrescarListaObjetos();
         }
 
-        private void CambiarVisibilidadBtnCierreCaja(object? sender, EventArgs e) {
+        private void CambiarVisibilidadBotones(object? sender, EventArgs e) {
             // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
             var tuplaSeleccionada = _tuplasObjetos.Where(t => t.TuplaSeleccionada).FirstOrDefault();
 
-            // 2. Actualizar la visibilidad del botón de cierre para la tupla seleccionada
+            // 2. Actualizar la visibilidad de botones            
             Vista.HabilitarBtnCierreCaja = tuplaSeleccionada != null && tuplaSeleccionada.Objeto.Estado == EstadoCaja.Abierta;
+            Vista.HabilitarBtnRegistroMovimientoCaja = tuplaSeleccionada != null && tuplaSeleccionada.Objeto.Estado == EstadoCaja.Abierta;
         }
     }
 }

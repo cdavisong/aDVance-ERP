@@ -25,32 +25,32 @@
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaRegistroMovimientoCaja));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
             fieldIcono = new PictureBox();
             fieldSubtitulo = new Label();
-            fieldMontoInicial = new Guna.UI2.WinForms.Guna2TextBox();
+            fieldMonto = new Guna.UI2.WinForms.Guna2TextBox();
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna.UI2.WinForms.Guna2Button();
             fieldTitulo = new Label();
             fieldTituloTipoMovimiento = new Label();
             fieldTipoMovimiento = new Guna.UI2.WinForms.Guna2ComboBox();
-            fieldMotivo = new Guna.UI2.WinForms.Guna2TextBox();
+            fieldConcepto = new Guna.UI2.WinForms.Guna2TextBox();
             fieldObservaciones = new Guna.UI2.WinForms.Guna2TextBox();
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna.UI2.WinForms.Guna2Button();
@@ -100,11 +100,11 @@
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.Controls.Add(fieldIcono, 1, 1);
             layoutVista.Controls.Add(fieldSubtitulo, 2, 2);
-            layoutVista.Controls.Add(fieldMontoInicial, 2, 4);
+            layoutVista.Controls.Add(fieldMonto, 2, 4);
             layoutVista.Controls.Add(layoutTitulo, 2, 1);
             layoutVista.Controls.Add(fieldTituloTipoMovimiento, 2, 6);
             layoutVista.Controls.Add(fieldTipoMovimiento, 2, 7);
-            layoutVista.Controls.Add(fieldMotivo, 2, 9);
+            layoutVista.Controls.Add(fieldConcepto, 2, 9);
             layoutVista.Controls.Add(fieldObservaciones, 2, 11);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(13, 0);
@@ -153,39 +153,39 @@
             fieldSubtitulo.TabIndex = 0;
             fieldSubtitulo.Text = "Movimiento de efectivo en caja con fecha 00/00/0000";
             // 
-            // fieldMontoInicial
+            // fieldMonto
             // 
-            fieldMontoInicial.Animated = true;
-            fieldMontoInicial.AutoRoundedCorners = true;
-            fieldMontoInicial.BorderColor = Color.Gainsboro;
-            fieldMontoInicial.BorderRadius = 16;
-            fieldMontoInicial.Cursor = Cursors.IBeam;
-            fieldMontoInicial.CustomizableEdges = customizableEdges1;
-            fieldMontoInicial.DefaultText = "";
-            fieldMontoInicial.DisabledState.BorderColor = Color.White;
-            fieldMontoInicial.DisabledState.ForeColor = Color.DimGray;
-            fieldMontoInicial.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldMontoInicial.Dock = DockStyle.Right;
-            fieldMontoInicial.FocusedState.BorderColor = Color.SandyBrown;
-            fieldMontoInicial.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldMontoInicial.ForeColor = Color.Black;
-            fieldMontoInicial.HoverState.BorderColor = Color.SandyBrown;
-            fieldMontoInicial.IconLeftOffset = new Point(10, 0);
-            fieldMontoInicial.IconRight = (Image) resources.GetObject("fieldMontoInicial.IconRight");
-            fieldMontoInicial.IconRightOffset = new Point(6, 0);
-            fieldMontoInicial.IconRightSize = new Size(12, 12);
-            fieldMontoInicial.Location = new Point(232, 135);
-            fieldMontoInicial.Margin = new Padding(5);
-            fieldMontoInicial.Name = "fieldMontoInicial";
-            fieldMontoInicial.PasswordChar = '\0';
-            fieldMontoInicial.PlaceholderForeColor = Color.DimGray;
-            fieldMontoInicial.PlaceholderText = "Monto de dinero";
-            fieldMontoInicial.SelectedText = "";
-            fieldMontoInicial.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            fieldMontoInicial.Size = new Size(230, 35);
-            fieldMontoInicial.TabIndex = 1;
-            fieldMontoInicial.TextAlign = HorizontalAlignment.Right;
-            fieldMontoInicial.TextOffset = new Point(5, 0);
+            fieldMonto.Animated = true;
+            fieldMonto.AutoRoundedCorners = true;
+            fieldMonto.BorderColor = Color.Gainsboro;
+            fieldMonto.BorderRadius = 16;
+            fieldMonto.Cursor = Cursors.IBeam;
+            fieldMonto.CustomizableEdges = customizableEdges15;
+            fieldMonto.DefaultText = "";
+            fieldMonto.DisabledState.BorderColor = Color.White;
+            fieldMonto.DisabledState.ForeColor = Color.DimGray;
+            fieldMonto.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldMonto.Dock = DockStyle.Right;
+            fieldMonto.FocusedState.BorderColor = Color.SandyBrown;
+            fieldMonto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldMonto.ForeColor = Color.Black;
+            fieldMonto.HoverState.BorderColor = Color.SandyBrown;
+            fieldMonto.IconLeftOffset = new Point(10, 0);
+            fieldMonto.IconRight = (Image) resources.GetObject("fieldMonto.IconRight");
+            fieldMonto.IconRightOffset = new Point(6, 0);
+            fieldMonto.IconRightSize = new Size(12, 12);
+            fieldMonto.Location = new Point(232, 135);
+            fieldMonto.Margin = new Padding(5);
+            fieldMonto.Name = "fieldMonto";
+            fieldMonto.PasswordChar = '\0';
+            fieldMonto.PlaceholderForeColor = Color.DimGray;
+            fieldMonto.PlaceholderText = "Monto de dinero";
+            fieldMonto.SelectedText = "";
+            fieldMonto.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            fieldMonto.Size = new Size(230, 35);
+            fieldMonto.TabIndex = 1;
+            fieldMonto.TextAlign = HorizontalAlignment.Right;
+            fieldMonto.TextOffset = new Point(5, 0);
             // 
             // layoutTitulo
             // 
@@ -209,7 +209,7 @@
             btnCerrar.AutoRoundedCorners = true;
             btnCerrar.BorderColor = Color.Gray;
             btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges3;
+            btnCerrar.CustomizableEdges = customizableEdges17;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.White;
             btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
@@ -218,7 +218,7 @@
             btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
             btnCerrar.Location = new Point(370, 3);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnCerrar.Size = new Size(44, 39);
             btnCerrar.TabIndex = 1;
             // 
@@ -257,7 +257,7 @@
             fieldTipoMovimiento.BackColor = Color.Transparent;
             fieldTipoMovimiento.BorderColor = Color.Gainsboro;
             fieldTipoMovimiento.BorderRadius = 16;
-            fieldTipoMovimiento.CustomizableEdges = customizableEdges5;
+            fieldTipoMovimiento.CustomizableEdges = customizableEdges19;
             fieldTipoMovimiento.Dock = DockStyle.Fill;
             fieldTipoMovimiento.DrawMode = DrawMode.OwnerDrawFixed;
             fieldTipoMovimiento.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -270,41 +270,41 @@
             fieldTipoMovimiento.Location = new Point(55, 225);
             fieldTipoMovimiento.Margin = new Padding(5);
             fieldTipoMovimiento.Name = "fieldTipoMovimiento";
-            fieldTipoMovimiento.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldTipoMovimiento.ShadowDecoration.CustomizableEdges = customizableEdges20;
             fieldTipoMovimiento.Size = new Size(407, 35);
             fieldTipoMovimiento.StartIndex = 0;
             fieldTipoMovimiento.TabIndex = 35;
             fieldTipoMovimiento.TextOffset = new Point(10, 0);
             // 
-            // fieldMotivo
+            // fieldConcepto
             // 
-            fieldMotivo.Animated = true;
-            fieldMotivo.BorderColor = Color.Gainsboro;
-            fieldMotivo.BorderRadius = 16;
-            fieldMotivo.Cursor = Cursors.IBeam;
-            fieldMotivo.CustomizableEdges = customizableEdges7;
-            fieldMotivo.DefaultText = "";
-            fieldMotivo.DisabledState.BorderColor = Color.White;
-            fieldMotivo.DisabledState.ForeColor = Color.DimGray;
-            fieldMotivo.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldMotivo.Dock = DockStyle.Fill;
-            fieldMotivo.FocusedState.BorderColor = Color.SandyBrown;
-            fieldMotivo.Font = new Font("Segoe UI", 11.25F);
-            fieldMotivo.ForeColor = Color.Black;
-            fieldMotivo.HoverState.BorderColor = Color.SandyBrown;
-            fieldMotivo.IconLeft = (Image) resources.GetObject("fieldMotivo.IconLeft");
-            fieldMotivo.IconLeftOffset = new Point(10, 0);
-            fieldMotivo.Location = new Point(55, 280);
-            fieldMotivo.Margin = new Padding(5);
-            fieldMotivo.Name = "fieldMotivo";
-            fieldMotivo.PasswordChar = '\0';
-            fieldMotivo.PlaceholderForeColor = Color.DimGray;
-            fieldMotivo.PlaceholderText = "Concepto del movimiento";
-            fieldMotivo.SelectedText = "";
-            fieldMotivo.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldMotivo.Size = new Size(407, 35);
-            fieldMotivo.TabIndex = 36;
-            fieldMotivo.TextOffset = new Point(5, 0);
+            fieldConcepto.Animated = true;
+            fieldConcepto.BorderColor = Color.Gainsboro;
+            fieldConcepto.BorderRadius = 16;
+            fieldConcepto.Cursor = Cursors.IBeam;
+            fieldConcepto.CustomizableEdges = customizableEdges21;
+            fieldConcepto.DefaultText = "";
+            fieldConcepto.DisabledState.BorderColor = Color.White;
+            fieldConcepto.DisabledState.ForeColor = Color.DimGray;
+            fieldConcepto.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldConcepto.Dock = DockStyle.Fill;
+            fieldConcepto.FocusedState.BorderColor = Color.SandyBrown;
+            fieldConcepto.Font = new Font("Segoe UI", 11.25F);
+            fieldConcepto.ForeColor = Color.Black;
+            fieldConcepto.HoverState.BorderColor = Color.SandyBrown;
+            fieldConcepto.IconLeft = (Image) resources.GetObject("fieldConcepto.IconLeft");
+            fieldConcepto.IconLeftOffset = new Point(10, 0);
+            fieldConcepto.Location = new Point(55, 280);
+            fieldConcepto.Margin = new Padding(5);
+            fieldConcepto.Name = "fieldConcepto";
+            fieldConcepto.PasswordChar = '\0';
+            fieldConcepto.PlaceholderForeColor = Color.DimGray;
+            fieldConcepto.PlaceholderText = "Concepto del movimiento";
+            fieldConcepto.SelectedText = "";
+            fieldConcepto.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            fieldConcepto.Size = new Size(407, 35);
+            fieldConcepto.TabIndex = 36;
+            fieldConcepto.TextOffset = new Point(5, 0);
             // 
             // fieldObservaciones
             // 
@@ -312,7 +312,7 @@
             fieldObservaciones.BorderColor = Color.Gainsboro;
             fieldObservaciones.BorderRadius = 16;
             fieldObservaciones.Cursor = Cursors.IBeam;
-            fieldObservaciones.CustomizableEdges = customizableEdges9;
+            fieldObservaciones.CustomizableEdges = customizableEdges23;
             fieldObservaciones.DefaultText = "";
             fieldObservaciones.DisabledState.BorderColor = Color.White;
             fieldObservaciones.DisabledState.ForeColor = Color.DimGray;
@@ -332,7 +332,7 @@
             fieldObservaciones.PlaceholderForeColor = Color.DimGray;
             fieldObservaciones.PlaceholderText = "Observaciones";
             fieldObservaciones.SelectedText = "";
-            fieldObservaciones.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            fieldObservaciones.ShadowDecoration.CustomizableEdges = customizableEdges24;
             fieldObservaciones.Size = new Size(407, 62);
             fieldObservaciones.TabIndex = 37;
             fieldObservaciones.TextOffset = new Point(5, 0);
@@ -363,7 +363,7 @@
             btnSalir.BorderColor = Color.Gainsboro;
             btnSalir.BorderRadius = 18;
             btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges11;
+            btnSalir.CustomizableEdges = customizableEdges25;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
             btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
@@ -373,7 +373,7 @@
             btnSalir.HoverState.ForeColor = Color.Black;
             btnSalir.Location = new Point(302, 3);
             btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnSalir.Size = new Size(160, 39);
             btnSalir.TabIndex = 14;
             btnSalir.Text = "Salir";
@@ -382,14 +382,14 @@
             // 
             btnRegistrar.Animated = true;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges13;
+            btnRegistrar.CustomizableEdges = customizableEdges27;
             btnRegistrar.Dock = DockStyle.Fill;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnRegistrar.ForeColor = Color.Black;
             btnRegistrar.Location = new Point(53, 3);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnRegistrar.Size = new Size(243, 39);
             btnRegistrar.TabIndex = 15;
             btnRegistrar.Text = "Registrar movimiento";
@@ -428,10 +428,10 @@
         private TableLayoutPanel layoutBotones;
         private Guna.UI2.WinForms.Guna2Button btnSalir;
         private Guna.UI2.WinForms.Guna2Button btnRegistrar;
-        private Guna.UI2.WinForms.Guna2TextBox fieldMontoInicial;
+        private Guna.UI2.WinForms.Guna2TextBox fieldMonto;
         private Label fieldTituloTipoMovimiento;
         private Guna.UI2.WinForms.Guna2ComboBox fieldTipoMovimiento;
-        private Guna.UI2.WinForms.Guna2TextBox fieldMotivo;
+        private Guna.UI2.WinForms.Guna2TextBox fieldConcepto;
         private Guna.UI2.WinForms.Guna2TextBox fieldObservaciones;
     }
 }

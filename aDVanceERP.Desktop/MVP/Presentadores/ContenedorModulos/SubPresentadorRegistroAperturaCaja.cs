@@ -3,6 +3,7 @@ using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
+using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja;
 
@@ -54,6 +55,27 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             }
 
             _registroAperturaCaja?.Dispose();
+        }
+
+        private void ActualizarMontoCaja(long idCaja, DatosMovimientoCaja? datosMovimientoCaja = null) {
+            if (datosMovimientoCaja == null) {
+                using (var datos = new DatosMovimientoCaja())
+                    ActualizarMontoCaja(idCaja, datos);
+
+                return;
+            }
+
+            var movimientosCaja = datosMovimientoCaja.Obtener(CriterioBusquedaMovimientoCaja.IdCaja, idCaja.ToString());
+            decimal saldoActual = 0;
+
+            foreach (var movimiento in movimientosCaja) {
+                if (movimiento.Tipo == TipoMovimientoCaja.Ingreso)
+                    saldoActual += movimiento.Monto;
+                else if (movimiento.Tipo == TipoMovimientoCaja.Egreso)
+                    saldoActual -= movimiento.Monto;                
+            }
+
+            UtilesCaja.ActualizarMontoCaja(idCaja, saldoActual);
         }
     }
 }

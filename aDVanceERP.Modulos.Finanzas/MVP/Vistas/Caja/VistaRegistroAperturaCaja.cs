@@ -5,6 +5,7 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
     public partial class VistaRegistroAperturaCaja : Form, IVistaRegistroAperturaCaja {
         private bool _modoEdicion;
+        private DateTime _fechaApertura;
 
         public VistaRegistroAperturaCaja() {
             InitializeComponent();
@@ -26,6 +27,17 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => Size = value;
         }
 
+        public DateTime Fecha {
+            get => _fechaApertura;
+            set {
+                _fechaApertura = value;
+                
+                fieldSubtitulo.Text = ModoEdicionDatos ?
+                    $"Detalles de apertura en fecha {value:yyyy-MM-dd}" : 
+                    $"Apertura en fecha {value:yyyy-MM-dd}";
+            }
+        }
+
         public decimal SaldoInicial {
             get => decimal.TryParse(fieldMontoInicial.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var total)
             ? total
@@ -36,7 +48,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         public bool ModoEdicionDatos {
             get => _modoEdicion;
             set {
-                fieldSubtitulo.Text = value ? "Detalles de apertura" : $"Apertura en fecha {DateTime.Today.ToString("yyyy-MM-dd")}";
                 btnRegistrar.Text = value ? "Actualizar apertura" : "Abrir caja";
                 _modoEdicion = value;
             }
@@ -48,6 +59,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         public event EventHandler? Salir;
 
         public void Inicializar() {
+            // Configuración de la ventana
+            if (!ModoEdicionDatos)
+                Fecha = DateTime.Now;
+
             // Eventos
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);

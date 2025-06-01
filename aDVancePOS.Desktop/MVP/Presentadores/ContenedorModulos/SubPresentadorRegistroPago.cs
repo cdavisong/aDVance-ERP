@@ -1,7 +1,11 @@
-﻿using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
+using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
+using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 
 using aDVancePOS.Desktop.Utiles;
 
@@ -22,13 +26,14 @@ public partial class PresentadorContenedorModulos {
 
             Transferencia = Array.Empty<string>();
         };
-        _registroPago.DatosRegistradosActualizados += delegate {
+        _registroPago.DatosRegistradosActualizados += delegate (object? sender, EventArgs args) {
             if (_terminalVenta == null)
                 return;
 
             _terminalVenta.Vista.PagoEfectuado = true;
 
             ActualizarSeguimientoEntrega();
+            RegistrarMovimientoCaja(sender as List<Pago?>);
         };
     }
 
@@ -77,5 +82,26 @@ public partial class PresentadorContenedorModulos {
             objetoSeguimiento.FechaPago = DateTime.Now;
             datosSeguimiento.Editar(objetoSeguimiento);
         }
+    }
+
+    private void RegistrarMovimientoCaja(List<Pago?> pagos) {
+        using (var datos = new DatosMovimientoCaja())
+            foreach (var pago in pagos) {
+                if (pago?.MetodoPago != "Efectivo")
+                    continue;
+
+                var movimientoCaja = new MovimientoCaja(0,
+                    UtilesCaja.ObtenerIdCajaActiva(),
+                    DateTime.Now,
+                    pago.Monto,
+                    TipoMovimientoCaja.Ingreso,
+                    $"Venta",
+                    pago.Id,
+                    UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0,
+                    $"Pago de venta #{_registroPago?.Vista.IdVenta} realizado por {UtilesCuentaUsuario.UsuarioAutenticado?.Nombre}"
+                );
+
+                datos.Adicionar(movimientoCaja);
+            }
     }
 }
