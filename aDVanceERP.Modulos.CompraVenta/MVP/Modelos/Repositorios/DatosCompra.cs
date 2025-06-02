@@ -38,31 +38,24 @@ public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>,
         return $"""
                 START TRANSACTION;
 
-                UPDATE adv__producto_almacen aa
-                JOIN adv__detalle_venta_producto dva ON aa.id_producto = dva.id_producto
-                JOIN adv__venta v ON dva.id_venta = v.id_venta
-                SET aa.stock = aa.stock + dva.cantidad
-                WHERE dva.id_venta = {id} AND aa.id_almacen = v.id_almacen;
+                -- 1. Restaurar el stock restando las cantidades compradas
+                UPDATE adv__producto_almacen pa
+                JOIN adv__detalle_compra_producto dcp ON pa.id_producto = dcp.id_producto
+                JOIN adv__compra c ON dcp.id_compra = c.id_compra
+                SET pa.stock = pa.stock - dcp.cantidad
+                WHERE dcp.id_compra = {id} AND pa.id_almacen = c.id_almacen;
 
+                -- 2. Eliminar los movimientos de inventario asociados a la compra
                 DELETE m FROM adv__movimiento m
-                JOIN adv__detalle_venta_producto dva ON m.id_producto = dva.id_producto
+                JOIN adv__detalle_compra_producto dcp ON m.id_producto = dcp.id_producto
                 JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
-                WHERE tm.nombre = 'Venta' AND tm.efecto = 'Descarga' AND dva.id_venta = {id};
+                WHERE tm.nombre = 'Compra' AND tm.efecto = 'Carga' AND dcp.id_compra = {id};
 
-                DELETE FROM adv__seguimiento_entrega 
-                WHERE id_venta = {id};
+                -- 3. Eliminar los detalles de productos comprados
+                DELETE FROM adv__detalle_compra_producto WHERE id_compra = {id};
 
-                DELETE FROM adv__detalle_pago_transferencia 
-                WHERE id_venta = {id};
-
-                DELETE FROM adv__pago 
-                WHERE id_venta = {id};
-
-                DELETE FROM adv__detalle_venta_producto 
-                WHERE id_venta = {id};
-
-                DELETE FROM adv__venta 
-                WHERE id_venta = {id};
+                -- 4. Finalmente eliminar el registro principal de la compra
+                DELETE FROM adv__compra WHERE id_compra = {id};
 
                 COMMIT;
 

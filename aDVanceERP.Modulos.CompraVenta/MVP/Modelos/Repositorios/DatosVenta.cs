@@ -50,32 +50,30 @@ public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IR
     public override string ComandoEliminar(long id) {
         return $"""
                 START TRANSACTION;
-                    
-                UPDATE adv__producto_almacen aa
-                JOIN adv__detalle_venta_producto dva ON aa.id_producto = dva.id_producto
-                JOIN adv__venta v ON dva.id_venta = v.id_venta
-                SET aa.stock = aa.stock + dva.cantidad
-                WHERE dva.id_venta = {id} AND aa.id_almacen = v.id_almacen;
 
+                -- 1. Restaurar el stock sumando las cantidades vendidas
+                UPDATE adv__producto_almacen pa
+                JOIN adv__detalle_venta_producto dvp ON pa.id_producto = dvp.id_producto
+                JOIN adv__venta v ON dvp.id_venta = v.id_venta
+                SET pa.stock = pa.stock + dvp.cantidad
+                WHERE dvp.id_venta = {id} AND pa.id_almacen = v.id_almacen;
+
+                -- 2. Eliminar los movimientos de inventario asociados a la venta
                 DELETE m FROM adv__movimiento m
-                JOIN adv__detalle_venta_producto dva ON m.id_producto = dva.id_producto
+                JOIN adv__detalle_venta_producto dvp ON m.id_producto = dvp.id_producto
                 JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
-                WHERE tm.nombre = 'Venta' AND tm.efecto = 'Descarga' AND dva.id_venta = {id};
+                WHERE tm.nombre = 'Venta' AND tm.efecto = 'Descarga' AND dvp.id_venta = {id};
 
-                DELETE FROM adv__seguimiento_entrega 
-                WHERE id_venta = {id};
+                -- 3. Eliminar registros relacionados en tablas dependientes
+                DELETE FROM adv__seguimiento_entrega WHERE id_venta = {id};
+                DELETE FROM adv__detalle_pago_transferencia WHERE id_venta = {id};
+                DELETE FROM adv__pago WHERE id_venta = {id};
 
-                DELETE FROM adv__detalle_pago_transferencia 
-                WHERE id_venta = {id};
+                -- 4. Eliminar los detalles de productos vendidos
+                DELETE FROM adv__detalle_venta_producto WHERE id_venta = {id};
 
-                DELETE FROM adv__pago 
-                WHERE id_venta = {id};
-
-                DELETE FROM adv__detalle_venta_producto 
-                WHERE id_venta = {id};
-
-                DELETE FROM adv__venta 
-                WHERE id_venta = {id};
+                -- 5. Finalmente eliminar el registro principal de la venta
+                DELETE FROM adv__venta WHERE id_venta = {id};
 
                 COMMIT;
 
