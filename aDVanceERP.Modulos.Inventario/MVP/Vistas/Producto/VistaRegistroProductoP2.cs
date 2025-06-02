@@ -54,13 +54,13 @@
                 RegistrarDisenoProducto?.Invoke(sender, args);
             };
             btnEliminarUnidadMedida.Click += delegate (object? sender, EventArgs args) {
-                EliminarUnidadMedida?.Invoke(sender, args);
+                EliminarUnidadMedida?.Invoke(UnidadMedida, args);
             };
             btnEliminarTipoProducto.Click += delegate (object? sender, EventArgs args) {
-                EliminarTipoProducto?.Invoke(sender, args);
+                EliminarTipoProducto?.Invoke(Tipo, args);
             };
             btnEliminarDisenoProducto.Click += delegate (object? sender, EventArgs args) {
-                EliminarDisenoProducto?.Invoke(sender, args);
+                EliminarDisenoProducto?.Invoke(Diseno, args);
             };
         }
 
