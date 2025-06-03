@@ -3,14 +3,13 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
-//TODO: Seguir implementando el registro de productos con las diferentes vistas y funcionalidades
+
 public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     private bool _modoEdicion;
     private int _paginaActual = 1;
 
     private VistaRegistroProductoP1 P1DatosGenerales = new VistaRegistroProductoP1();
-    private VistaRegistroProductoP2 P2Detalles = new VistaRegistroProductoP2();
-    private VistaRegistroProductoP3 P3PrecioCompraventa = new VistaRegistroProductoP3();
+    private VistaRegistroProductoP2 P2UmPreciosStock = new VistaRegistroProductoP2();
 
     public VistaRegistroProducto() {
         InitializeComponent();
@@ -64,48 +63,28 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     }
 
     public string UnidadMedida {
-        get => P2Detalles.UnidadMedida;
-        set => P2Detalles.UnidadMedida = value;
-    }
-
-    public string? ColorPrimario {
-        get => P2Detalles.ColorPrimario;
-        set => P2Detalles.ColorPrimario = value;
-    }
-
-    public string? ColorSecundario {
-        get => P2Detalles.ColorSecundario;
-        set => P2Detalles.ColorSecundario = value;
-    }
-
-    public string? Tipo {
-        get => P2Detalles.Tipo;
-        set => P2Detalles.Tipo = value;
-    }
-
-    public string? Diseno {
-        get => P2Detalles.Diseno;
-        set => P2Detalles.Diseno = value;
+        get => P2UmPreciosStock.UnidadMedida;
+        set => P2UmPreciosStock.UnidadMedida = value;
     }
 
     public decimal PrecioCompraBase {
-        get => P3PrecioCompraventa.PrecioCompraBase;
-        set => P3PrecioCompraventa.PrecioCompraBase = value;
+        get => P2UmPreciosStock.PrecioCompraBase;
+        set => P2UmPreciosStock.PrecioCompraBase = value;
     }
 
     public decimal PrecioVentaBase {
-        get => P3PrecioCompraventa.PrecioVentaBase;
-        set => P3PrecioCompraventa.PrecioVentaBase = value;
+        get => P2UmPreciosStock.PrecioVentaBase;
+        set => P2UmPreciosStock.PrecioVentaBase = value;
     }
 
     public string? NombreAlmacen {
-        get => P3PrecioCompraventa.NombreAlmacen;
-        set => P3PrecioCompraventa.NombreAlmacen = value;
+        get => P2UmPreciosStock.NombreAlmacen;
+        set => P2UmPreciosStock.NombreAlmacen = value;
     }
 
     public int StockInicial {
-        get => P3PrecioCompraventa.StockInicial;
-        set => P3PrecioCompraventa.StockInicial = value;
+        get => P2UmPreciosStock.StockInicial;
+        set => P2UmPreciosStock.StockInicial = value;
     }
 
     public bool ModoEdicionDatos {
@@ -116,7 +95,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
             _modoEdicion = value;
 
             // Actualizar modo en páginas
-            P3PrecioCompraventa.ModoEdicionDatos = value;
+            P2UmPreciosStock.ModoEdicionDatos = value;
         }
     }
 
@@ -135,17 +114,13 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         // 1. Datos generales del producto
         P1DatosGenerales.Dock = DockStyle.Fill;
         P1DatosGenerales.TopLevel = false;
-        // 2. Detalles del producto
-        P2Detalles.Dock = DockStyle.Fill;
-        P2Detalles.TopLevel = false;
-        // 3. Precio de compra y venta
-        P3PrecioCompraventa.Dock = DockStyle.Fill;
-        P3PrecioCompraventa.TopLevel = false;
+        // 3. Unidad de medida, precios de compra y venta, stock inicial
+        P2UmPreciosStock.Dock = DockStyle.Fill;
+        P2UmPreciosStock.TopLevel = false;
 
         contenedorVistas.Controls.Clear();
         contenedorVistas.Controls.Add(P1DatosGenerales);
-        contenedorVistas.Controls.Add(P2Detalles);
-        contenedorVistas.Controls.Add(P3PrecioCompraventa);
+        contenedorVistas.Controls.Add(P2UmPreciosStock);
 
         // Mostrar vista de datos generales
         P1DatosGenerales.Show();
@@ -163,23 +138,11 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         P1DatosGenerales.EsVendibleActualizado += delegate (object? sender, EventArgs args) {
             ActualizarVisibilidadCamposPrecios();
         };
-        P2Detalles.RegistrarUnidadMedida += delegate (object? sender, EventArgs args) {
+        P2UmPreciosStock.RegistrarUnidadMedida += delegate (object? sender, EventArgs args) {
             RegistrarUnidadMedida?.Invoke(sender, args);
         };
-        P2Detalles.RegistrarTipoProducto += delegate (object? sender, EventArgs args) {
-            RegistrarTipoProducto?.Invoke(sender, args);
-        };
-        P2Detalles.RegistrarDisenoProducto += delegate (object? sender, EventArgs args) {
-            RegistrarDisenoProducto?.Invoke(sender, args);
-        };
-        P2Detalles.EliminarUnidadMedida += delegate (object? sender, EventArgs args) {
+        P2UmPreciosStock.EliminarUnidadMedida += delegate (object? sender, EventArgs args) {
             EliminarUnidadMedida?.Invoke(sender, args);
-        };
-        P2Detalles.EliminarTipoProducto += delegate (object? sender, EventArgs args) {
-            EliminarTipoProducto?.Invoke(sender, args);
-        };
-        P2Detalles.EliminarDisenoProducto += delegate (object? sender, EventArgs args) {
-            EliminarDisenoProducto?.Invoke(sender, args);
         };
         btnAnterior.Click += delegate (object? sender, EventArgs args) {
             if (_paginaActual > 1)
@@ -192,7 +155,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSiguiente.Click += delegate (object? sender, EventArgs args) {
-            if (_paginaActual < 3)
+            if (_paginaActual < 2)
                 AvanzarPagina();
         };
         btnSalir.Click += delegate (object? sender, EventArgs args) {
@@ -213,35 +176,23 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.ProductoTerminado ||
                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.MateriaPrima && P1DatosGenerales.EsVendible;
 
-        P3PrecioCompraventa.ConfigurarVisibilidadCamposPrecios(mostrarCompra, mostrarVenta);
+        P2UmPreciosStock.ConfigurarVisibilidadCamposPrecios(mostrarCompra, mostrarVenta);
     }
 
     public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
         P1DatosGenerales.CargarRazonesSocialesProveedores(nombresProveedores);
     }
 
-    public void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida) {
-        P2Detalles.CargarDescripcionesUnidadesMedida(descripcionesUnidadesMedida);
-    }
-
-    public void CargarColores(string[] colores) {
-        P2Detalles.CargarColores(colores);
-    }
-
     public void CargarUnidadesMedida(object[] unidadesMedida) {
-        P2Detalles.CargarUnidadesMedida(unidadesMedida);
-    }   
-
-    public void CargarTiposProductos(object[] tiposProducto) {
-        P2Detalles.CargarTiposProducto(tiposProducto);
+        P2UmPreciosStock.CargarUnidadesMedida(unidadesMedida);
     }
 
-    public void CargarDisenosProducto(object[] disenosProducto) {
-        P2Detalles.CargarDisenosProducto(disenosProducto);
+    public void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida) {
+        P2UmPreciosStock.CargarDescripcionesUnidadesMedida(descripcionesUnidadesMedida);
     }
 
     public void CargarNombresAlmacenes(object[] almacenes) {
-        P3PrecioCompraventa.CargarNombresAlmacenes(almacenes);
+        P2UmPreciosStock.CargarNombresAlmacenes(almacenes);
     }
 
     private void ProcesarDatosScanner(string codigo) {
@@ -256,8 +207,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     private void AvanzarPagina() {
         // Mapeo de navegación: página actual -> siguiente página
         var navegacion = new Dictionary<int, Action> {
-            [1] = () => MostrarOcultarFormularios(P2Detalles, [P1DatosGenerales]),
-            [2] = () => MostrarOcultarFormularios(P3PrecioCompraventa, [P2Detalles])
+            [1] = () => MostrarOcultarFormularios(P2UmPreciosStock, [P1DatosGenerales])
         };
 
         if (navegacion.TryGetValue(_paginaActual, out var action)) {
@@ -271,8 +221,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     private void RetrocederPagina() {
         // Mapeo de navegación: página actual -> página anterior
         var navegacion = new Dictionary<int, Action> {
-            [3] = () => MostrarOcultarFormularios(P2Detalles, [P3PrecioCompraventa]),
-            [2] = () => MostrarOcultarFormularios(P1DatosGenerales, [P2Detalles])
+            [2] = () => MostrarOcultarFormularios(P1DatosGenerales, [P2UmPreciosStock])
         };
 
         if (navegacion.TryGetValue(_paginaActual, out var action)) {
@@ -285,7 +234,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
 
     private void ActualizarBotones() {
         var mostrarBotonAnterior = _paginaActual > 1;
-        var mostrarBotonSiguiente = _paginaActual < 3;
+        var mostrarBotonSiguiente = _paginaActual < 2;
 
         ConfigurarParametrosBotonesNavegacion(mostrarBotonAnterior, mostrarBotonSiguiente);
     }
@@ -326,8 +275,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
 
     public void Restaurar() {
         P1DatosGenerales.Restaurar();
-        P2Detalles.Restaurar();
-        P3PrecioCompraventa.Restaurar();
+        P2UmPreciosStock.Restaurar();
 
         ModoEdicionDatos = false;
     }

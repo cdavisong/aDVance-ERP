@@ -42,7 +42,8 @@ public enum CriterioBusquedaProducto {
     Todos,
     Id,
     Codigo,
-    Nombre
+    Nombre,
+    Descripcion
 }
 
 public static class UtilesBusquedaProducto {

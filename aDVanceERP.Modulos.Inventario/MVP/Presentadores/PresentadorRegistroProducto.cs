@@ -23,12 +23,8 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             var detalleProducto = datos.Obtener(CriterioBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).FirstOrDefault();
 
             if (detalleProducto != null) {
-                Vista.Descripcion = detalleProducto.Descripcion ?? "No hay una descripción disponible para el producto actual";
                 Vista.UnidadMedida = UtilesUnidadMedida.ObtenerNombreUnidadMedida(detalleProducto.IdUnidadMedida) ?? string.Empty;
-                Vista.ColorPrimario = UtilesColorProducto.ObtenerNombreColorProducto(detalleProducto.IdColorProductoPrimario) ?? string.Empty;
-                Vista.ColorSecundario = UtilesColorProducto.ObtenerNombreColorProducto(detalleProducto.IdColorProductoSecundario) ?? string.Empty;
-                Vista.Tipo = UtilesTipoProducto.ObtenerNombreTipoProducto(detalleProducto.IdTipoProducto) ?? string.Empty;
-                Vista.Diseno = UtilesDisenoProducto.ObtenerNombreDisenoProducto(detalleProducto.IdDisenoProducto) ?? string.Empty;
+                Vista.Descripcion = detalleProducto.Descripcion ?? "No hay una descripción disponible para el producto actual";
             }
         }
         
@@ -63,23 +59,8 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
     }
 
     protected override void RegistroAuxiliar(DatosProducto datosProducto, long id) {
-        var idColorPrimario = UtilesColorProducto.ObtenerIdColorProducto(Vista.ColorPrimario).Result;
-        var idColorSecundario = UtilesColorProducto.ObtenerIdColorProducto(Vista.ColorSecundario).Result;
-
-        // Registrar colores del producto si no existen
-        using (var datos = new DatosColorProducto()) {
-            if (!string.IsNullOrEmpty(Vista.ColorPrimario) && idColorPrimario == 0)
-                idColorPrimario = datos.Adicionar(new ColorProducto(0, Vista.ColorPrimario, 0));
-            if (!string.IsNullOrEmpty(Vista.ColorSecundario) && idColorSecundario == 0)
-                idColorSecundario = datos.Adicionar(new ColorProducto(0, Vista.ColorSecundario, 0));
-        }
-
         var detalleProducto = new DetalleProducto(Objeto?.IdDetalleProducto ?? 0,
             UtilesUnidadMedida.ObtenerIdUnidadMedida(Vista.UnidadMedida).Result,
-            idColorPrimario,
-            idColorSecundario,
-            UtilesTipoProducto.ObtenerIdTipoProducto(Vista.Tipo).Result,
-            UtilesDisenoProducto.ObtenerIdDisenoProducto(Vista.Diseno).Result,
             Vista.Descripcion ?? "No hay una descripción disponible para el producto actual"
         );
 

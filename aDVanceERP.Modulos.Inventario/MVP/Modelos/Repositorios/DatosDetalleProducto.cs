@@ -17,18 +17,10 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
         return $"""
                     INSERT INTO adv__detalle_producto (
                         id_unidad_medida,
-                        id_color_producto_primario,
-                        id_color_producto_secundario,
-                        id_tipo_producto,
-                        id_diseno_producto,
                         descripcion
                     )
                     VALUES (
                         '{objeto.IdUnidadMedida}',
-                        '{objeto.IdColorProductoPrimario}',
-                        '{objeto.IdColorProductoSecundario}',
-                        {objeto.IdTipoProducto},
-                        {objeto.IdDisenoProducto},
                         '{objeto.Descripcion}'
                     );
                     """;
@@ -39,10 +31,6 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
                     UPDATE adv__detalle_producto
                     SET
                         id_unidad_medida='{objeto.IdUnidadMedida}',
-                        id_color_producto_primario='{objeto.IdColorProductoPrimario}',
-                        id_color_producto_secundario='{objeto.IdColorProductoSecundario}',
-                        id_tipo_producto={objeto.IdTipoProducto},
-                        id_diseno_producto={objeto.IdDisenoProducto},
                         descripcion='{objeto.Descripcion}'
                     WHERE id_detalle_producto={objeto.Id};
                     """;
@@ -65,29 +53,10 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
                             JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
                             WHERE um.nombre = '{dato}';
                         ",
-            CriterioBusquedaDetalleProducto.ColorPrimario => $@"
-                            SELECT dp.*
-                            FROM adv__detalle_producto dp
-                            JOIN adv__color_producto cp ON dp.id_color_producto_primario = cp.id_color_producto
-                            WHERE cp.nombre = '{dato}';
-                        ",
-            CriterioBusquedaDetalleProducto.ColorSecundario => $@"
-                            SELECT dp.*
-                            FROM adv__detalle_producto dp
-                            JOIN adv__color_producto cs ON dp.id_color_producto_secundario = cs.id_color_producto
-                            WHERE cs.nombre = '{dato}';
-                        ",
-            CriterioBusquedaDetalleProducto.TipoProducto => $@"
+            CriterioBusquedaDetalleProducto.Descripcion => $@"
                             SELECT dp.* 
                             FROM adv__detalle_producto dp
-                            JOIN adv__tipo_producto tp ON dp.id_tipo_producto = tp.id_tipo_producto
-                            WHERE tp.nombre = '{dato}';
-                        ",
-            CriterioBusquedaDetalleProducto.DisenoProducto => $@"
-                            SELECT dp.* 
-                            FROM adv__detalle_producto dp
-                            JOIN adv__diseno_producto d ON dp.id_diseno_producto = d.id_diseno_producto
-                            WHERE d.nombre = '{dato}';
+                            WHERE LOWER(dp.descripcion) LIKE LOWER('%{dato}%');
                         ",
             _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
         };
@@ -99,10 +68,6 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
         return new DetalleProducto(
             id: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_detalle_producto")),
             idUnidadMedida: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_unidad_medida")),
-            idColorProductoPrimario: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_color_producto_primario")),
-            idColorProductoSecundario: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_color_producto_secundario")),
-            idTipoProducto: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_tipo_producto")),
-            idDiseñoProducto: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_diseno_producto")),
             descripcion: lectorDatos.GetString(lectorDatos.GetOrdinal("descripcion")) ?? "No hay descripción disponible"
         );
     }

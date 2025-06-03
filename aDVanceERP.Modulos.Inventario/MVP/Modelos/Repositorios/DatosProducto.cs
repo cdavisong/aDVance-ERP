@@ -24,7 +24,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                 )
                 VALUES (
                     '{objeto.Codigo}',
-                    '{objeto.Categoria.ToString()}',
+                    '{objeto.Categoria}',
                     '{objeto.Nombre}',
                     '{objeto.IdDetalleProducto}',
                     '{objeto.IdProveedor}',
@@ -40,7 +40,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                 UPDATE adv__producto
                 SET
                     codigo='{objeto.Codigo}',
-                    categoria='{objeto.Categoria.ToString()}',
+                    categoria='{objeto.Categoria}',
                     nombre='{objeto.Nombre}',
                     id_detalle_producto='{objeto.IdDetalleProducto}',
                     id_proveedor='{objeto.IdProveedor}',
@@ -114,6 +114,14 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                          $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
                          $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
                          $"LOWER(t.nombre) LIKE LOWER('%{((datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1)) ? datoMultiple[2] : dato)}%');";
+                break;
+            case CriterioBusquedaProducto.Descripcion:
+                comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
+                         $"FROM adv__producto t " +
+                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
+                         $"JOIN adv__detalle_producto dp ON t.id_detalle_producto = dp.id_detalle_producto " +
+                         $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
+                         $"LOWER(dp.descripcion) LIKE LOWER('%{((datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1)) ? datoMultiple[2] : dato)}%');";
                 break;
             default:
                 comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +

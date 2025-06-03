@@ -1,114 +1,140 @@
-﻿namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
-    public partial class VistaRegistroProductoP2 : Form {
-        public VistaRegistroProductoP2() {
-            InitializeComponent();
-            Inicializar();
+﻿using System.Globalization;
+
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
+
+public partial class VistaRegistroProductoP2 : Form {
+    private bool _modoEdicion;
+
+    public VistaRegistroProductoP2() {
+        InitializeComponent();
+        Inicializar();
+    }
+
+    public string UnidadMedida {
+        get => fieldUnidadMedida.Text;
+        set => fieldUnidadMedida.Text = value;
+    }
+
+    public string[] DescripcionesUnidadMedida { get; private set; } = Array.Empty<string>();
+
+    public decimal PrecioCompraBase {
+        get => decimal.TryParse(fieldPrecioCompraBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
+                 out var value)
+                 ? value
+                 : 0;
+        set => fieldPrecioCompraBase.Text = value.ToString("N2", CultureInfo.InvariantCulture);
+    }
+
+    public decimal PrecioVentaBase {
+        get => decimal.TryParse(fieldPrecioVentaBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
+                 out var value)
+                 ? value
+                 : 0;
+        set => fieldPrecioVentaBase.Text = value.ToString("N2", CultureInfo.InvariantCulture);
+    }
+
+    public string? NombreAlmacen {
+        get => fieldNombreAlmacen.Text;
+        set => fieldNombreAlmacen.Text = value;
+    }
+
+    public int StockInicial {
+        get => int.TryParse(fieldStockInicial.Text, out var value)
+                 ? value
+                 : 0;
+        set => fieldStockInicial.Text = value.ToString();
+    }
+
+    public bool ModoEdicionDatos {
+        get => _modoEdicion;
+        set {
+            ConfigurarVisibilidadCamposAlmacenStock(!value);
+
+            _modoEdicion = value;
         }
+    }
 
-        public string UnidadMedida {
-            get => fieldUnidadMedida.Text;
-            set => fieldUnidadMedida.Text = value;
-        }
+    public event EventHandler? RegistrarUnidadMedida;
+    public event EventHandler? EliminarUnidadMedida;
 
-        public string[] DescripcionesUnidadMedida { get; private set; } = Array.Empty<string>();
+    private void Inicializar() {
+        fieldUnidadMedida.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
+            fieldDescripcionUnidadMedida.Text = DescripcionesUnidadMedida[fieldUnidadMedida.SelectedIndex];
+        };
+        btnAdicionarUnidadMedida.Click += delegate (object? sender, EventArgs args) {
+            RegistrarUnidadMedida?.Invoke(sender, args);
+        };
+        btnEliminarUnidadMedida.Click += delegate (object? sender, EventArgs args) {
+            EliminarUnidadMedida?.Invoke(UnidadMedida, args);
+        };
+        fieldNombreAlmacen.SelectedIndexChanged += delegate {
+            StockInicial = 0;
 
-        public string? ColorPrimario {
-            get => fieldColorPrimario.Text;
-            set => fieldColorPrimario.Text = value;
-        }
+            fieldStockInicial.Focus();
+        };
+    }
 
-        public string? ColorSecundario {
-            get => fieldColorSecundario.Text;
-            set => fieldColorSecundario.Text = value;
-        }
+    public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
+        fieldNombreAlmacen.Items.Clear();
+        fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
+        fieldNombreAlmacen.SelectedIndex = nombresAlmacenes.Length > 0 ? 0 : -1;
+    }
 
-        public string? Tipo {
-            get => fieldTipoProducto.Text;
-            set => fieldTipoProducto.Text = value;
-        }
+    public void CargarUnidadesMedida(object[] unidadesMedida) {
+        fieldUnidadMedida.Items.Clear();
+        fieldUnidadMedida.Items.AddRange(unidadesMedida);
+        fieldUnidadMedida.SelectedIndex = unidadesMedida.Length > 0 ? 0 : -1;
+    }
 
-        public string? Diseno {
-            get => fieldDisenoProducto.Text;
-            set => fieldDisenoProducto.Text = value;
-        }
+    public void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida) {
+        Array.Clear(DescripcionesUnidadMedida);
+        DescripcionesUnidadMedida = descripcionesUnidadesMedida;
+    }
 
-        public event EventHandler? RegistrarUnidadMedida;
-        public event EventHandler? RegistrarTipoProducto;
-        public event EventHandler? RegistrarDisenoProducto;
-        public event EventHandler? EliminarUnidadMedida;
-        public event EventHandler? EliminarTipoProducto;
-        public event EventHandler? EliminarDisenoProducto;
+    public void ConfigurarVisibilidadCamposPrecios(bool mostrarCompra, bool mostrarVenta) {
+        // Ajustar visibilidad y altura de fila para precio de compra
+        layoutPrecioCompraBase.Visible = mostrarCompra;
+        layoutBase.RowStyles[5].Height = mostrarCompra ? 45F : 0F;
 
-        private void Inicializar() {
-            // Eventos
-            fieldUnidadMedida.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
-                fieldDescripcionUnidadMedida.Text = DescripcionesUnidadMedida[fieldUnidadMedida.SelectedIndex];
-            };
-            btnAdicionarUnidadMedida.Click += delegate (object? sender, EventArgs args) {
-                RegistrarUnidadMedida?.Invoke(sender, args);
-            };
-            btnAdicionarTipoProducto.Click += delegate (object? sender, EventArgs args) {
-                RegistrarTipoProducto?.Invoke(sender, args);
-            };
-            btnAdicionarDisenoProducto.Click += delegate (object? sender, EventArgs args) {
-                RegistrarDisenoProducto?.Invoke(sender, args);
-            };
-            btnEliminarUnidadMedida.Click += delegate (object? sender, EventArgs args) {
-                EliminarUnidadMedida?.Invoke(UnidadMedida, args);
-            };
-            btnEliminarTipoProducto.Click += delegate (object? sender, EventArgs args) {
-                EliminarTipoProducto?.Invoke(Tipo, args);
-            };
-            btnEliminarDisenoProducto.Click += delegate (object? sender, EventArgs args) {
-                EliminarDisenoProducto?.Invoke(Diseno, args);
-            };
-        }
+        // Ajustar visibilidad y altura de fila para precio de venta
+        layoutPrecioVentaBase.Visible = mostrarVenta;
+        layoutBase.RowStyles[6].Height = mostrarVenta ? 45F : 0F;
 
-        public void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida) {
-            Array.Clear(DescripcionesUnidadMedida);
-            DescripcionesUnidadMedida = descripcionesUnidadesMedida;
-        }
+        // Ajustar el separador según si hay algún campo visible
+        bool algunCampoVisible = mostrarCompra || mostrarVenta;
 
-        public void CargarUnidadesMedida(object[] unidadesMedida) {
-            fieldUnidadMedida.Items.Clear();
-            fieldUnidadMedida.Items.AddRange(unidadesMedida);
-            fieldUnidadMedida.SelectedIndex = unidadesMedida.Length > 0 ? 0 : -1;
-        }
+        separador1.Visible = algunCampoVisible;
+        layoutBase.RowStyles[7].Height = algunCampoVisible ? 20F : 0F;
 
-        public void CargarColores(string[] colores) {
-            fieldColorPrimario.AutoCompleteCustomSource.Clear();
-            fieldColorPrimario.AutoCompleteCustomSource.AddRange(colores);
-            fieldColorPrimario.AutoCompleteMode = AutoCompleteMode.Suggest;
-            fieldColorPrimario.AutoCompleteSource = AutoCompleteSource.CustomSource;
+        // Forzar el redibujado del layout
+        layoutBase.PerformLayout();
+    }
 
-            fieldColorSecundario.AutoCompleteCustomSource.Clear();
-            fieldColorSecundario.AutoCompleteCustomSource.AddRange(colores);
-            fieldColorSecundario.AutoCompleteMode = AutoCompleteMode.Suggest;
-            fieldColorSecundario.AutoCompleteSource = AutoCompleteSource.CustomSource;
-        }
+    public void ConfigurarVisibilidadCamposAlmacenStock(bool mostrarAlmacenStock) {
+        // Ajustar visibilidad y altura de filas para almacén y stock inicial
+        layoutTituloAlmacenStock.Visible = mostrarAlmacenStock;
+        layoutBase.RowStyles[8].Height = mostrarAlmacenStock ? 35F : 0F;
 
-        public void CargarTiposProducto(object[] tiposProducto) {
-            fieldTipoProducto.Items.Clear();
-            fieldTipoProducto.Items.AddRange(tiposProducto);
-            fieldTipoProducto.SelectedIndex = -1;
-        }
+        layoutAlmacenStock.Visible = mostrarAlmacenStock;
+        layoutBase.RowStyles[9].Height = mostrarAlmacenStock ? 45F : 0F;
 
-        public void CargarDisenosProducto(object[] disenosProducto) {
-            fieldDisenoProducto.Items.Clear();
-            fieldDisenoProducto.Items.AddRange(disenosProducto);
-            fieldDisenoProducto.SelectedIndex = -1;
-        }
+        // Ajustar el separador según si el campo de almacén y stock está visible
+        separador1.Visible = mostrarAlmacenStock;
+        layoutBase.RowStyles[7].Height = mostrarAlmacenStock ? 20F : 0F;
 
-        public void Restaurar() {
-            UnidadMedida = string.Empty;
-            fieldUnidadMedida.SelectedIndex = 0;
-            fieldDescripcionUnidadMedida.Text = "Seleccione o registre una unidad de medida";
-            ColorPrimario = string.Empty;
-            ColorSecundario = string.Empty;
-            Tipo = string.Empty;
-            fieldTipoProducto.SelectedIndex = -1;
-            Diseno = string.Empty;
-            fieldDisenoProducto.SelectedIndex = -1;
-        }
+        // Forzar el redibujado del layout
+        layoutBase.PerformLayout();
+    }
+
+    public void Restaurar() {
+        UnidadMedida = string.Empty;
+        fieldUnidadMedida.SelectedIndex = 0;
+        fieldDescripcionUnidadMedida.Text = "Seleccione o registre una unidad de medida";
+        PrecioCompraBase = 0;
+        PrecioVentaBase = 0;
+        NombreAlmacen = string.Empty;
+        fieldNombreAlmacen.SelectedIndex = 0;
+        StockInicial = 0;
+        ModoEdicionDatos = false;
     }
 }
