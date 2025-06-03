@@ -88,10 +88,6 @@ namespace aDVanceERP.PatchDB {
                     CREATE TABLE IF NOT EXISTS adv__detalle_producto (
                         id_detalle_producto int(11) NOT NULL AUTO_INCREMENT,
                         id_unidad_medida int(11) DEFAULT 0,
-                        id_color_producto_primario int(11) DEFAULT 0,
-                        id_color_producto_secundario int(11) DEFAULT 0,
-                        id_tipo_producto int(11) DEFAULT 0,
-                        id_diseno_producto int(11) DEFAULT 0,
                         descripcion text,
                         PRIMARY KEY (id_detalle_producto)
                     ) ENGINE=InnoDB;
@@ -105,30 +101,6 @@ namespace aDVanceERP.PatchDB {
                         PRIMARY KEY (id_unidad_medida)
                     ) ENGINE=InnoDB;
                     """,
-                    """
-                    CREATE TABLE IF NOT EXISTS adv__color_producto (
-                        id_color_producto int(11) NOT NULL AUTO_INCREMENT,
-                        nombre varchar(50) NOT NULL,
-                        codigo_argb int(11) NOT NULL DEFAULT 0,
-                        PRIMARY KEY (id_color_producto)
-                    ) ENGINE=InnoDB;
-                    """,
-                    """
-                    CREATE TABLE IF NOT EXISTS adv__tipo_producto (
-                        id_tipo_producto int(11) NOT NULL AUTO_INCREMENT,
-                        nombre varchar(50) NOT NULL,
-                        descripcion text,
-                        PRIMARY KEY (id_tipo_producto)
-                    ) ENGINE=InnoDB;
-                    """,
-                    """
-                    CREATE TABLE IF NOT EXISTS adv__diseno_producto (
-                        id_diseno_producto int(11) NOT NULL AUTO_INCREMENT,
-                        nombre varchar(50) NOT NULL,
-                        descripcion text,
-                        PRIMARY KEY (id_diseno_producto)
-                    ) ENGINE=InnoDB;
-                    """,
                     """                    
                     ALTER TABLE adv__producto 
                     ADD COLUMN id_detalle_producto INT(11) NULL AFTER nombre;
@@ -136,20 +108,12 @@ namespace aDVanceERP.PatchDB {
                     -- Insertar detalles para todos los productos existentes
                     INSERT INTO adv__detalle_producto (
                             id_detalle_producto, 
-                            id_unidad_medida, 
-                            id_color_producto_primario,
-                            id_color_producto_secundario, 
-                            id_tipo_producto, 
-                            id_diseno_producto, 
+                            id_unidad_medida,
                             descripcion
                         )
                     SELECT 
                         p.id_producto, 
                         1,  -- id_unidad_medida por defecto (U)
-                        0,  -- id_color_producto_primario por defecto
-                        0,  -- id_color_producto_secundario por defecto
-                        0,  -- id_tipo_producto por defecto
-                        0,  -- id_diseno_producto por defecto
                         p.descripcion
                     FROM adv__producto p
                     WHERE p.descripcion IS NOT NULL;
