@@ -24,6 +24,11 @@ public partial class PresentadorContenedorModulos {
                 return;
 
             await _gestionMovimientos.RefrescarListaObjetos(); 
+
+            if (_gestionProductos == null) 
+                return;
+
+            await _gestionProductos.RefrescarListaObjetos();
         };
     }
 
