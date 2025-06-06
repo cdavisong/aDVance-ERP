@@ -224,6 +224,27 @@ namespace aDVanceERP.PatchDB {
                     ADD COLUMN es_vendible BOOLEAN NOT NULL 
                     DEFAULT TRUE
                     AFTER id_proveedor;
+                    """,
+                    """
+                    ALTER TABLE adv__detalle_compra_producto 
+                    CHANGE cantidad cantidad FLOAT(10,2) NOT NULL;
+                    """,
+                    """
+                    ALTER TABLE adv__detalle_venta_producto 
+                    CHANGE cantidad cantidad FLOAT(10,2) NOT NULL;
+                    """,
+                    """
+                    ALTER TABLE adv__movimiento 
+                    CHANGE cantidad_movida cantidad_movida FLOAT(10,2) NOT NULL;
+                    """,
+                    """
+                    ALTER TABLE adv__producto_almacen 
+                    CHANGE stock stock FLOAT(10,2) NOT NULL;
+                    """,
+                    """
+                    ALTER TABLE adv__producto_materia_prima
+                    CHANGE cantidad cantidad FLOAT(10,2) NOT NULL 
+                    DEFAULT '0.00';
                     """
                 ];
 

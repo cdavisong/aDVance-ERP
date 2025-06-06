@@ -7,7 +7,7 @@ public interface IVistaRegistroCompra : IVistaRegistro {
     string? NombreAlmacen { get; set; }
     string? NombreProducto { get; set; }
     List<string[]>? Productos { get; }
-    int Cantidad { get; set; }
+    float Cantidad { get; set; }
     decimal Total { get; set; }
 
     event EventHandler? AlturaContenedorTuplasModificada;

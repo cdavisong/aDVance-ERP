@@ -45,8 +45,6 @@ public partial class PresentadorContenedorModulos {
         if (_registroRolUsuario == null)
             return;
 
-        MostrarVistaPanelTransparente(_registroRolUsuario.Vista);
-
         _registroRolUsuario.Vista.Mostrar();
         _registroRolUsuario.Dispose();
     }
@@ -56,8 +54,6 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is RolUsuario rolUsuario) {
             if (_registroRolUsuario != null) {
-                MostrarVistaPanelTransparente(_registroRolUsuario.Vista);
-
                 _registroRolUsuario.PopularVistaDesdeObjeto(rolUsuario);
                 _registroRolUsuario.Vista.Mostrar();
             }

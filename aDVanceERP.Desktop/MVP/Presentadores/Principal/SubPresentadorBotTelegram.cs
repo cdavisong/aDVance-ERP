@@ -413,10 +413,10 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                                 var fila = new string[6];
                                 fila[0] = ventaProducto.Id.ToString();
                                 fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? "Producto desconocido";
-                                fila[2] = "U"; // Unidad
+                                fila[2] = UtilesDetalleProducto.ObtenerUnidadMedidaProducto(ventaProducto.IdProducto).Result ?? "u";
                                 fila[3] = ventaProducto.PrecioVentaFinal.ToString("N2", CultureInfo.InvariantCulture);
-                                fila[4] = ventaProducto.Cantidad.ToString();
-                                fila[5] = (ventaProducto.PrecioVentaFinal * ventaProducto.Cantidad).ToString("N2", CultureInfo.InvariantCulture);
+                                fila[4] = ventaProducto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture);
+                                fila[5] = (ventaProducto.PrecioVentaFinal * (decimal)ventaProducto.Cantidad).ToString("N2", CultureInfo.InvariantCulture);
                                 filas.Add(fila);
                             }
                         }

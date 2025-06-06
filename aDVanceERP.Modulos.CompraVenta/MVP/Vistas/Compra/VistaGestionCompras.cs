@@ -120,11 +120,11 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
 
                             fila[0] = ventaProducto.Id.ToString();
                             fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? string.Empty;
-                            fila[2] = ventaProducto.Cantidad.ToString();
+                            fila[2] = ventaProducto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture);
                             fila[3] = ventaProducto.PrecioCompra.ToString("N", CultureInfo.InvariantCulture);
                             fila[4] = "0";
                             fila[5] = "0.00%";
-                            fila[6] = (ventaProducto.PrecioCompra * ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+                            fila[6] = (ventaProducto.PrecioCompra * (decimal)ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
 
                             filas.Add(fila);
                         }

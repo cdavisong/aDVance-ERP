@@ -26,8 +26,6 @@ public partial class PresentadorContenedorModulos {
         if (_registroProveedor == null)
             return;
 
-        MostrarVistaPanelTransparente(_registroProveedor.Vista);
-
         _registroProveedor.Vista.Mostrar();
         _registroProveedor.Dispose();
     }
@@ -37,8 +35,6 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Proveedor proveedor) {
             if (_registroProveedor != null) {
-                MostrarVistaPanelTransparente(_registroProveedor.Vista);
-
                 _registroProveedor.PopularVistaDesdeObjeto(proveedor);
                 _registroProveedor.Vista.Mostrar();
             }

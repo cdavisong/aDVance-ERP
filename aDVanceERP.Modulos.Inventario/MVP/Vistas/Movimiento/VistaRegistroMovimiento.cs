@@ -1,6 +1,7 @@
 ﻿using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
+using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento; 
 
@@ -47,9 +48,9 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         set { }
     }
 
-    public int CantidadMovida {
-        get => int.TryParse(fieldCantidadMovida.Text, out var value) ? value : 0;
-        set => fieldCantidadMovida.Text = value.ToString();
+    public float CantidadMovida {
+        get => float.TryParse(fieldCantidadMovida.Text, CultureInfo.InvariantCulture, out var value) ? value : 0;
+        set => fieldCantidadMovida.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
     }
 
     public string TipoMovimiento {
@@ -90,7 +91,9 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         fieldTipoMovimiento.SelectedIndexChanged += delegate { 
             ActualizarCamposAlmacenes(); 
         };
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate(object? sender, EventArgs args) { 
+            Salir?.Invoke(sender, args); 
+        };
         btnAdicionarTipoMovimiento.Click += delegate(object? sender, EventArgs args) {
             RegistrarTipoMovimiento?.Invoke(sender, args);
         };

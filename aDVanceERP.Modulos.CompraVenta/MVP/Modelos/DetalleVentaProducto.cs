@@ -6,7 +6,7 @@ public class DetalleVentaProducto : IObjetoUnico {
     public DetalleVentaProducto() { }
 
     public DetalleVentaProducto(long id, long idVenta, long idProducto, decimal precioCompraVigente,
-        decimal precioVentaFinal, int cantidad) {
+        decimal precioVentaFinal, float cantidad) {
         Id = id;
         IdVenta = idVenta;
         IdProducto = idProducto;
@@ -19,7 +19,7 @@ public class DetalleVentaProducto : IObjetoUnico {
     public long IdProducto { get; set; }
     public decimal PrecioCompraVigente { get; set; }
     public decimal PrecioVentaFinal { get; set; }
-    public int Cantidad { get; set; }
+    public float Cantidad { get; set; }
 
     public long Id { get; set; }
 }

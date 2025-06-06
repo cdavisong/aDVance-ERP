@@ -112,7 +112,7 @@ public static class UtilesMovimiento {
     }
 
     public static void ModificarStockProductoAlmacen(long idProducto, long idAlmacenOrigen, long idAlmacenDestino,
-        int cantidad) {
+        float cantidad) {
         using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
             try {
                 conexion.Open();

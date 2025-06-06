@@ -1,6 +1,7 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios; 
 
@@ -12,12 +13,11 @@ public class DatosProductoAlmacen : RepositorioDatosBase<ProductoAlmacen, Criter
 
     public override string ComandoAdicionar(ProductoAlmacen objeto) {
         return
-            $"INSERT INTO adv__producto_almacen (id_producto, id_almacen, stock) VALUES ('{objeto.IdProducto}', '{objeto.IdAlmacen}', '{objeto.Stock}');";
+            $"INSERT INTO adv__producto_almacen (id_producto, id_almacen, stock) VALUES ('{objeto.IdProducto}', '{objeto.IdAlmacen}', '{objeto.Stock.ToString("0.00", CultureInfo.InvariantCulture)}');";
     }
 
     public override string ComandoEditar(ProductoAlmacen objeto) {
-        return
-            $"UPDATE adv__producto_almacen SET id_producto='{objeto.IdProducto}', id_almacen='{objeto.IdAlmacen}', stock='{objeto.Stock}' WHERE id_producto_almacen={objeto.Id};";
+        return $"UPDATE adv__producto_almacen SET id_producto='{objeto.IdProducto}', id_almacen='{objeto.IdAlmacen}', stock='{objeto.Stock.ToString("0.00", CultureInfo.InvariantCulture)}' WHERE id_producto_almacen={objeto.Id};";
     }
 
     public override string ComandoEliminar(long id) {
@@ -54,7 +54,7 @@ public class DatosProductoAlmacen : RepositorioDatosBase<ProductoAlmacen, Criter
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto_almacen")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
-            lectorDatos.GetInt32(lectorDatos.GetOrdinal("stock"))
+            lectorDatos.GetFloat(lectorDatos.GetOrdinal("stock"))
         );
     }
 }

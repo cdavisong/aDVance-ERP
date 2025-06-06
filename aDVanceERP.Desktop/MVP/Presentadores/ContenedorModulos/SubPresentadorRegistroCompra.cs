@@ -63,7 +63,6 @@ public partial class PresentadorContenedorModulos {
             return;
 
         _proximoIdCompra = UtilesBD.ObtenerUltimoIdTabla("compra") + 1;
-        MostrarVistaPanelTransparente(_registroCompraProducto.Vista);
 
         _registroCompraProducto.Vista.Mostrar();
         _registroCompraProducto.Dispose();
@@ -74,8 +73,6 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Compra compra) {
             if (_registroCompraProducto != null) {
-                MostrarVistaPanelTransparente(_registroCompraProducto.Vista);
-
                 _registroCompraProducto.PopularVistaDesdeObjeto(compra);
                 _registroCompraProducto.Vista.Mostrar();
             }
@@ -95,7 +92,7 @@ public partial class PresentadorContenedorModulos {
                 0,
                 ultimoIdCompra,
                 long.Parse(producto[0]),
-                int.Parse(producto[3]),
+                float.Parse(producto[3]),
                 decimal.TryParse(producto[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioCompra)
                     ? precioCompra
                     : 0.00m

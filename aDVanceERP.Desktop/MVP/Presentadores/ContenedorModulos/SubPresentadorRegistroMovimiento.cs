@@ -71,8 +71,6 @@ public partial class PresentadorContenedorModulos {
         if (_registroMovimiento == null) 
             return;
 
-        MostrarVistaPanelTransparente(_registroMovimiento.Vista);
-
         _registroMovimiento.Vista.Mostrar();
         _registroMovimiento.Dispose();
     }
@@ -82,8 +80,6 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Movimiento movimiento) {
             if (_registroMovimiento != null) {
-                MostrarVistaPanelTransparente(_registroMovimiento.Vista);
-
                 _registroMovimiento.PopularVistaDesdeObjeto(movimiento);
                 _registroMovimiento.Vista.Mostrar();
             }

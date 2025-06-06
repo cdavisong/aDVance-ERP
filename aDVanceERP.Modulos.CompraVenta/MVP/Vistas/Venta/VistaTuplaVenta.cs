@@ -109,7 +109,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
             var datosCliente = new string[3];
             var datosVentaProductos = new List<string[]>();
             var fechaFactura = DateTime.ParseExact(Fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            var numeroFactura = $"{fechaFactura.ToString("yyyyMMdd")}-{int.Parse(CantidadProductos):000}-{long.Parse(Id):000000}";
+            var numeroFactura = $"{fechaFactura.ToString("yyyyMMdd")}-{float.Parse(CantidadProductos):000.00}-{long.Parse(Id):000000}";
             var pagos = UtilesVenta.ObtenerPagosPorVenta(long.Parse(Id));
             var metodoPago = string.Empty;
             var cantidadPagada = 0m;
@@ -132,11 +132,11 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
 
                         fila[0] = ventaProducto.Id.ToString();
                         fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? string.Empty;
-                        fila[2] = ventaProducto.Cantidad.ToString();
+                        fila[2] = ventaProducto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture);
                         fila[3] = ventaProducto.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
                         fila[4] = "-";
                         fila[5] = "0.00%";
-                        fila[6] = (ventaProducto.PrecioVentaFinal * ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+                        fila[6] = (ventaProducto.PrecioVentaFinal * (decimal)ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
 
                         datosVentaProductos.Add(fila);
                     }

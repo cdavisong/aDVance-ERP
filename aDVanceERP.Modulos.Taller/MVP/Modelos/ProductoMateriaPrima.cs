@@ -5,7 +5,7 @@ namespace aDVanceERP.Modulos.Taller.MVP.Modelos;
 public class ProductoMateriaPrima : IObjetoUnico {
     public ProductoMateriaPrima() { }
 
-    public ProductoMateriaPrima(long id, long idProducto, long idMateriaPrima, decimal cantidad) {
+    public ProductoMateriaPrima(long id, long idProducto, long idMateriaPrima, float cantidad) {
         Id = id;
         IdProducto = idProducto;
         IdMateriaPrima = idMateriaPrima;
@@ -15,7 +15,7 @@ public class ProductoMateriaPrima : IObjetoUnico {
     public long Id { get; set; }
     public long IdProducto { get; set; }
     public long IdMateriaPrima { get; set; }
-    public decimal Cantidad { get; set; }
+    public float Cantidad { get; set; }
 }
 
 public enum CriterioBusquedaProductoMateriaPrima {

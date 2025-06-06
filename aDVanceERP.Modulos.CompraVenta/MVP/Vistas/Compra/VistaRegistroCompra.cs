@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
 
 public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGestionDetallesCompraventaProductos {
     private bool _modoEdicion;
@@ -31,7 +31,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     }
 
     public IRepositorioVista? Vistas { get; private set; }
-    
+
     public bool Habilitada {
         get => Enabled;
         set => Enabled = value;
@@ -73,11 +73,11 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
     public List<string[]>? Productos { get; private set; }
 
-    public int Cantidad {
-        get => int.TryParse(fieldCantidad.Text, out var cantidad) ? cantidad : 0;
+    public float Cantidad {
+        get => float.TryParse(fieldCantidad.Text, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0;
         set {
-            fieldCantidad.Text = value > 0 ? value.ToString() : string.Empty;
-            fieldCantidad.Text = value > 0 ? value.ToString() : "0";
+            fieldCantidad.Text = value > 0 ? value.ToString("0.00", CultureInfo.InvariantCulture) : string.Empty;
+            fieldCantidad.Text = value > 0 ? value.ToString("0.00", CultureInfo.InvariantCulture) : "0.00";
         }
     }
 
@@ -101,7 +101,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) {
+        btnCerrar.Click += delegate (object? sender, EventArgs args) {
             Salir?.Invoke("exit", args);
         };
         fieldNombreAlmacen.SelectedIndexChanged += async delegate {
@@ -122,7 +122,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
             args.SuppressKeyPress = true;
         };
-        fieldCantidad.KeyDown += delegate(object? sender, KeyEventArgs args) {
+        fieldCantidad.KeyDown += delegate (object? sender, KeyEventArgs args) {
             if (args.KeyCode != Keys.Enter)
                 return;
 
@@ -137,13 +137,13 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             ActualizarTuplasProductos();
             ActualizarTotal();
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs args) {
+        btnRegistrar.Click += delegate (object? sender, EventArgs args) {
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) {
+        btnSalir.Click += delegate (object? sender, EventArgs args) {
             Salir?.Invoke("exit", args);
         };
         contenedorVistas.Resize += delegate {
@@ -180,7 +180,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         if (string.IsNullOrEmpty(nombreProducto))
             return;
 
-        Invoke((MethodInvoker) delegate {
+        Invoke((MethodInvoker)delegate {
             NombreProducto = nombreProducto;
 
             fieldCantidad.Focus();
@@ -192,7 +192,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
         var adNombreProducto = string.IsNullOrEmpty(nombreProducto) ? NombreProducto : nombreProducto;
         var idProducto = await UtilesProducto.ObtenerIdProducto(adNombreProducto);
-        var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
+        var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString("0.00", CultureInfo.InvariantCulture) : cantidad;
 
         if (!ModoEdicionDatos) {
             // Verificar ID del producto
@@ -204,7 +204,8 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
                 return;
             }
-        } else {
+        }
+        else {
             fieldNombreProducto.ReadOnly = true;
             fieldCantidad.ReadOnly = true;
         }
@@ -224,8 +225,9 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
                 Productos.FindIndex(a => a[0].Equals(idProducto.ToString()) && a[4].Equals(idAlmacen.ToString()));
             if (indiceProducto != -1) {
                 Productos[indiceProducto][3] =
-                    (int.Parse(Productos[indiceProducto][3]) + int.Parse(adCantidad)).ToString();
-            } else {
+                    (float.Parse(Productos[indiceProducto][3]) + float.Parse(adCantidad)).ToString("0.00", CultureInfo.InvariantCulture);
+            }
+            else {
                 Productos.Add(tuplaProducto);
                 ProductoAgregado?.Invoke(tuplaProducto, EventArgs.Empty);
             }
@@ -298,11 +300,14 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             return;
 
         foreach (var producto in Productos) {
-            var cantidad = int.TryParse(producto[3], out var cantProductos) ? cantProductos : 0;
+            var cantidad = float.TryParse(producto[3], NumberStyles.Float, CultureInfo.InvariantCulture,
+                out var cantProductos)
+                ? cantProductos
+                : 0;
 
             Total += decimal.TryParse(producto[2], NumberStyles.Any, CultureInfo.InvariantCulture,
                 out var precioCompraTotal)
-                ? precioCompraTotal * cantidad
+                ? precioCompraTotal * (decimal)cantidad
                 : 0;
         }
     }

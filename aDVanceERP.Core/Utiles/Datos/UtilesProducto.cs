@@ -155,7 +155,7 @@ public static class UtilesProducto {
         return await EjecutarConsultaEscalar(query, lector => lector.GetInt32(lector.GetOrdinal("total_productos")));
     }
 
-    public static async Task<int> ObtenerStockTotalProducto(long idProducto) {
+    public static async Task<float> ObtenerStockTotalProducto(long idProducto) {
         // Usamos COALESCE para devolver 0 si SUM(stock) es NULL
         const string query = """
                              SELECT
@@ -167,11 +167,11 @@ public static class UtilesProducto {
             new MySqlParameter("@IdProducto", idProducto)
         };
 
-        return await EjecutarConsultaEscalar(query, lector => lector.GetInt32(lector.GetOrdinal("stock_total")),
+        return await EjecutarConsultaEscalar(query, lector => lector.GetFloat(lector.GetOrdinal("stock_total")),
             parametros);
     }
 
-    public static async Task<int> ObtenerStockProducto(string nombreProducto, string? nombreAlmacen) {
+    public static async Task<float> ObtenerStockProducto(string nombreProducto, string? nombreAlmacen) {
         const string query = """
                              SELECT
                                  aa.stock
@@ -185,7 +185,7 @@ public static class UtilesProducto {
             new MySqlParameter("@NombreAlmacen", nombreAlmacen)
         };
 
-        return await EjecutarConsultaEscalar(query, lector => lector.GetInt32(lector.GetOrdinal("stock")), parametros);
+        return await EjecutarConsultaEscalar(query, lector => lector.GetFloat(lector.GetOrdinal("stock")), parametros);
     }
 
     public static async Task<decimal> ObtenerPrecioVentaBase(long idProducto) {

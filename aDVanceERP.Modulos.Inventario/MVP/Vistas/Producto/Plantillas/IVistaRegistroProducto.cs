@@ -19,7 +19,7 @@ public interface IVistaRegistroProducto : IVistaRegistro {
     decimal PrecioCompraBase { get; set; }
     decimal PrecioVentaBase { get; set; }
     string? NombreAlmacen { get; set; }
-    int StockInicial { get; set; }
+    float StockInicial { get; set; }
 
     event EventHandler? RegistrarUnidadMedida;
     event EventHandler? EliminarUnidadMedida;

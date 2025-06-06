@@ -26,16 +26,13 @@ public partial class PresentadorContenedorModulos {
         if (_registroMensajero == null)
             return;
 
-        if (_registroMensajeria == null || ((Form)_registroMensajeria.Vista).IsDisposed)
-            MostrarVistaPanelTransparente(_registroMensajero.Vista);
-        else
-            _registroMensajero.DatosRegistradosActualizados += delegate {
-                if (_registroMensajeria == null)
-                    return;
+        _registroMensajero.DatosRegistradosActualizados += delegate {
+            if (_registroMensajeria == null)
+                return;
 
-                _registroMensajeria.Vista.CargarNombresMensajeros(UtilesMensajero.ObtenerNombresMensajeros().Result);
-                _registroMensajeria.Vista.NombreMensajero = _registroMensajero.Vista.Nombre;
-            };
+            _registroMensajeria.Vista.CargarNombresMensajeros(UtilesMensajero.ObtenerNombresMensajeros().Result);
+            _registroMensajeria.Vista.NombreMensajero = _registroMensajero.Vista.Nombre;
+        };
 
         _registroMensajero.Vista.Mostrar();
         _registroMensajero.Dispose();
@@ -46,8 +43,6 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Mensajero mensajero) {
             if (_registroMensajero != null) {
-                MostrarVistaPanelTransparente(_registroMensajero.Vista);
-
                 _registroMensajero.PopularVistaDesdeObjeto(mensajero);
                 _registroMensajero.Vista.Mostrar();
             }

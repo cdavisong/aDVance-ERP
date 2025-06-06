@@ -46,6 +46,7 @@ public partial class PresentadorContenedorModulos : PresentadorBase<IVistaConten
         InicializarVistaGestionProductos();
         InicializarVistaGestionMovimientos();
         InicializarVistaGestionAlmacenes();
+        InicializarVistaRegistroAlmacen();
 
         #endregion
 

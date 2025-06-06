@@ -2,7 +2,7 @@
 using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.Utiles.Datos; 
+namespace aDVanceERP.Core.Utiles.Datos;
 
 public static class UtilesCompra {
     // Método auxiliar para ejecutar consultas y devolver un valor decimal
@@ -59,6 +59,33 @@ public static class UtilesCompra {
         return resultado;
     }
 
+    // Método auxiliar para ejecutar consultas y devolver un valor flotante
+    private static float EjecutarConsultaFlotante(string query, params MySqlParameter[] parameters) {
+        var resultado = 0F;
+
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+
+                using (var comando = new MySqlCommand(query, conexion)) {
+                    if (parameters != null) comando.Parameters.AddRange(parameters);
+
+                    var result = comando.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value) resultado = Convert.ToSingle(result);
+                }
+            }
+            catch (MySqlException) {
+                throw new ExcepcionConexionServidorMySQL();
+            }
+            catch (Exception ex) {
+                throw new Exception("Error inesperado al ejecutar la consulta.", ex);
+            }
+        }
+
+        return resultado;
+    }
+
     // Método auxiliar para ejecutar consultas y devolver una lista de strings
     private static List<string> EjecutarConsultaLista(string query, params MySqlParameter[] parameters) {
         var resultado = new List<string>();
@@ -78,6 +105,10 @@ public static class UtilesCompra {
                                 if (reader.GetFieldType(i) == typeof(decimal)) {
                                     var valorDecimal = reader.GetDecimal(i);
                                     fila += valorDecimal.ToString("N2", CultureInfo.InvariantCulture) + "|";
+                                }
+                                else if (reader.GetFieldType(i) == typeof(float)) {
+                                    var valorDecimal = reader.GetFloat(i);
+                                    fila += valorDecimal.ToString("0.00", CultureInfo.InvariantCulture) + "|";
                                 }
                                 else {
                                     fila += reader[i] + "|";
@@ -99,7 +130,7 @@ public static class UtilesCompra {
         return resultado;
     }
 
-    public static int ObtenerCantidadProductosCompra(long idCompra) {
+    public static float ObtenerCantidadProductosCompra(long idCompra) {
         const string query = """
                              SELECT
                                 SUM(cantidad) AS total_productos
@@ -110,7 +141,7 @@ public static class UtilesCompra {
             new MySqlParameter("@IdCompra", idCompra)
         };
 
-        return EjecutarConsultaEntero(query, parametros);
+        return EjecutarConsultaFlotante(query, parametros);
     }
 
     public static IEnumerable<string> ObtenerProductosPorCompra(long idCompra) {

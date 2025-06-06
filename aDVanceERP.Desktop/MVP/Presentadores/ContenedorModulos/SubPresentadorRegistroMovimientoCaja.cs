@@ -29,8 +29,6 @@ public partial class PresentadorContenedorModulos {
         if (_registroMovimientoCaja == null)
             return;
 
-        MostrarVistaPanelTransparente(_registroMovimientoCaja.Vista);
-
         _registroMovimientoCaja.Vista.Restaurar();
         _registroMovimientoCaja.Vista.Mostrar();
         _registroMovimientoCaja.Dispose();
@@ -41,8 +39,6 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is MovimientoCaja movimientoCaja) {
             if (_registroMovimientoCaja != null) {
-                MostrarVistaPanelTransparente(_registroMovimientoCaja.Vista);
-
                 _registroMovimientoCaja.PopularVistaDesdeObjeto(movimientoCaja);
                 _registroMovimientoCaja.Vista.Mostrar();
             }

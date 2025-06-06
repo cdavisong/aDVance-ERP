@@ -22,8 +22,6 @@ public partial class PresentadorContenedorModulos {
         if (_qr == null) 
             return;
 
-        MostrarVistaPanelTransparente(_qr.Vista);
-
         _qr.Vista.CargarCodigoQR(sender as string);
         _qr.Vista.Restaurar();
         _qr.Vista.Mostrar();

@@ -1,6 +1,7 @@
 ﻿using aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas;
 
 using Guna.UI2.WinForms;
+using System.Globalization;
 
 namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
     public partial class VistaModificadorCantidadProducto : Form, IVistaModificadorCantidadProducto {
@@ -24,9 +25,9 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             set => Size = value;
         }
 
-        public int CantidadProducto {
-            get => int.TryParse(fieldCantidad.Text, out var cantidad) ? cantidad : 1;
-            set => fieldCantidad.Text = value.ToString();
+        public float CantidadProducto {
+            get => float.TryParse(fieldCantidad.Text, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 1;
+            set => fieldCantidad.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         public event EventHandler? Salir;

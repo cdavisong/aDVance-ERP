@@ -28,8 +28,6 @@ public partial class PresentadorContenedorModulos {
         if (_registroContacto == null) 
             return;
 
-        MostrarVistaPanelTransparente(_registroContacto.Vista);
-
         _registroContacto.Vista.Mostrar();
         _registroContacto.Dispose();
     }
@@ -39,8 +37,6 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Contacto contacto) {
             if (_registroContacto != null) {
-                MostrarVistaPanelTransparente(_registroContacto.Vista);
-
                 _registroContacto.PopularVistaDesdeObjeto(contacto);
                 _registroContacto.Vista.Mostrar();
             }

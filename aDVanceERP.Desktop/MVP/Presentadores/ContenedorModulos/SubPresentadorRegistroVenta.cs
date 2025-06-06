@@ -104,9 +104,6 @@ public partial class PresentadorContenedorModulos {
         _registroVentaProducto.Vista.AsignarMensajeria += delegate {
             MostrarVistaRegistroMensajeria(sender, e);
         };
-
-        MostrarVistaPanelTransparente(_registroVentaProducto.Vista);
-
         _registroVentaProducto.Vista.Mostrar();
         _registroVentaProducto.Dispose();
     }
@@ -121,8 +118,6 @@ public partial class PresentadorContenedorModulos {
             _registroVentaProducto.Vista.AsignarMensajeria += delegate {
                 MostrarVistaEdicionMensajeria(sender, e);
             };
-
-            MostrarVistaPanelTransparente(_registroVentaProducto.Vista);
 
             _registroVentaProducto.PopularVistaDesdeObjeto(venta);
             _registroVentaProducto.Vista.Mostrar();
@@ -149,7 +144,9 @@ public partial class PresentadorContenedorModulos {
                 decimal.TryParse(producto[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioVentaFinal)
                     ? precioVentaFinal
                     : 0.00m,
-                int.Parse(producto[4])
+                float.TryParse(producto[4], NumberStyles.Float, CultureInfo.InvariantCulture, out var cantidad)
+                    ? cantidad
+                    : 0.00f
             );
 
             using (var datosProducto = new DatosDetalleVentaProducto()) {

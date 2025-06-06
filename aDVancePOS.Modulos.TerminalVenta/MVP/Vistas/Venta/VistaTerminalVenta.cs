@@ -16,7 +16,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
         private bool _mensajeriaConfigurada;
         private string? _tipoEntrega;
         private long _idTipoEntrega = 0;
-        private int _cantidad = 0;
+        private float _cantidad = 0;
 
         public VistaTerminalVenta() {
             InitializeComponent();
@@ -57,12 +57,12 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
 
         public List<string[]>? Productos { get; private set; }
 
-        public int Cantidad {
+        public float Cantidad {
             get => _cantidad;
             set {
                 _cantidad = value;
 
-                btnCantidadProducto.Text = $@"Cantidad ({_cantidad})";
+                btnCantidadProducto.Text = $@"Cantidad ({_cantidad.ToString("0.00", CultureInfo.InvariantCulture)})";
             }
         }
 
@@ -258,7 +258,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
 
             if (adNombreProducto != null) {
                 var idProducto = await UtilesProducto.ObtenerIdProducto(adNombreProducto);
-                var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString() : cantidad;
+                var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString("0.00", CultureInfo.InvariantCulture) : cantidad;
                 var stockProducto = await UtilesProducto.ObtenerStockProducto(adNombreProducto, adNombreAlmacen);
 
                 // Verificar ID y stock del producto
@@ -276,8 +276,8 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                 if (Productos != null) {
                     var stockComprometido = Productos
                         .Where(a => a[0].Equals(idProducto.ToString()) && a[5].Equals(idAlmacen.ToString()))
-                        .Sum(a => int.Parse(a[4]));
-                    if (int.Parse(adCantidad) + stockComprometido > stockProducto) {
+                        .Sum(a => float.Parse(a[4]));
+                    if (float.Parse(adCantidad) + stockComprometido > stockProducto) {
                         btnCantidadProducto.ForeColor = Color.Firebrick;
                         btnCantidadProducto.Font = new Font(btnCantidadProducto.Font, FontStyle.Bold);
                         btnCantidadProducto.Margin = new Padding(3);
@@ -308,7 +308,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                         Productos.FindIndex(a => a[0].Equals(idProducto.ToString()) && a[5].Equals(idAlmacen.ToString()));
                     if (indiceProducto != -1) {
                         Productos[indiceProducto][4] =
-                            (int.Parse(Productos[indiceProducto][4]) + int.Parse(adCantidad)).ToString();
+                            (float.Parse(Productos[indiceProducto][4]) + float.Parse(adCantidad)).ToString("0.00", CultureInfo.InvariantCulture);
                     } else {
                         Productos.Add(tuplaProducto);
                         ProductoAgregado?.Invoke(tuplaProducto, EventArgs.Empty);
@@ -388,12 +388,15 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
 
             if (Productos != null)
                 foreach (var producto in Productos) {
-                    var cantidad = int.TryParse(producto[4], out var cantProductos) ? cantProductos : 0;
+                    var cantidad = float.TryParse(producto[4], NumberStyles.Float, CultureInfo.InvariantCulture, 
+                        out var cantProductos) 
+                        ? cantProductos : 
+                        0f;
 
                     Subtotal += decimal.TryParse(producto[3], NumberStyles.Any, CultureInfo.InvariantCulture,
                         out var precioVentaTotal)
-                        ? precioVentaTotal * cantidad
-                        : 0;
+                        ? precioVentaTotal * (decimal)cantidad
+                        : 0m;
                 }
 
             btnGestionarPago.Enabled = Subtotal > 0;

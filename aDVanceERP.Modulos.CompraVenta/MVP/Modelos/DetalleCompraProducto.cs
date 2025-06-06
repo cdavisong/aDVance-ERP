@@ -5,7 +5,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 public class DetalleCompraProducto : IObjetoUnico {
     public DetalleCompraProducto() { }
 
-    public DetalleCompraProducto(long id, long idCompra, long idProducto, int cantidad, decimal precioCompra) {
+    public DetalleCompraProducto(long id, long idCompra, long idProducto, float cantidad, decimal precioCompra) {
         Id = id;
         IdCompra = idCompra;
         IdProducto = idProducto;
@@ -15,7 +15,7 @@ public class DetalleCompraProducto : IObjetoUnico {
 
     public long IdCompra { get; set; }
     public long IdProducto { get; set; }
-    public int Cantidad { get; set; }
+    public float Cantidad { get; set; }
     public decimal PrecioCompra { get; set; }
 
     public long Id { get; set; }

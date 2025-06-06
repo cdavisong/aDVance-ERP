@@ -6,7 +6,7 @@ public class Movimiento : IObjetoUnico {
     public Movimiento() { }
 
     public Movimiento(long id, long idProducto, long idAlmacenOrigen, long idAlmacenDestino, DateTime fecha,
-        int cantidadMovida, long idTipoMovimiento) {
+        float cantidadMovida, long idTipoMovimiento) {
         Id = id;
         IdProducto = idProducto;
         IdAlmacenOrigen = idAlmacenOrigen;
@@ -20,7 +20,7 @@ public class Movimiento : IObjetoUnico {
     public long IdAlmacenOrigen { get; set; }
     public long IdAlmacenDestino { get; set; }
     public DateTime Fecha { get; set; }
-    public int CantidadMovida { get; set; }
+    public float CantidadMovida { get; set; }
     public long IdTipoMovimiento { get; set; }
 
     public long Id { get; set; }

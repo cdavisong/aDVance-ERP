@@ -6,7 +6,7 @@ namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorModificadorCantidadProducto? _modificadorCantidadProductos;
 
-        private int Cantidad { get; set; } = 1;
+        private float Cantidad { get; set; } = 1;
 
         private void InicializarVistaModificadorCantidadProducto() {
             _modificadorCantidadProductos = new PresentadorModificadorCantidadProducto(new VistaModificadorCantidadProducto());
@@ -22,8 +22,6 @@ namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos {
 
             if (_modificadorCantidadProductos?.Vista == null)
                 return;
-
-            MostrarVistaPanelTransparente(_modificadorCantidadProductos.Vista);
 
             _modificadorCantidadProductos.Vista.Restaurar();
             _modificadorCantidadProductos.Vista.Mostrar();

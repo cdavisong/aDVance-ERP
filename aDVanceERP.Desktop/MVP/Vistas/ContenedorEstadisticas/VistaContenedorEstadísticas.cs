@@ -3,8 +3,6 @@ using System.Globalization;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas;
 using aDVanceERP.Desktop.Properties;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas; 
 
@@ -31,9 +29,9 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         set => Size = value;
     }
 
-    public int CantidadProductosRegistrados {
-        get => int.TryParse(fieldCantProductosRegistrados.Text, out var cantidad) ? cantidad : 0;
-        set => fieldCantProductosRegistrados.Text = value.ToString();
+    public float CantidadProductosRegistrados {
+        get => float.TryParse(fieldCantProductosRegistrados.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0;
+        set => fieldCantProductosRegistrados.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
     }
 
     public decimal MontoInversionProductos {
@@ -44,9 +42,9 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         set => fieldMontoInversionProductoss.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
     }
 
-    public int CantidadProductosVendidos {
-        get => int.TryParse(fieldCantProductosVendidos.Text, out var cantidad) ? cantidad : 0;
-        set => fieldCantProductosVendidos.Text = value.ToString();
+    public float CantidadProductosVendidos {
+        get => float.TryParse(fieldCantProductosVendidos.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0;
+        set => fieldCantProductosVendidos.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
     }
 
     public decimal MontoVentaProductosVendidos {

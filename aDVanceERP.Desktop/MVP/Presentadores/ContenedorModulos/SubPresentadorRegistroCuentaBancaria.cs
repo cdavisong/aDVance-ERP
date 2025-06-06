@@ -28,8 +28,6 @@ public partial class PresentadorContenedorModulos {
         if (_registroCuentaBancaria == null) 
             return;
 
-        MostrarVistaPanelTransparente(_registroCuentaBancaria.Vista);
-
         _registroCuentaBancaria.Vista.Mostrar();
         _registroCuentaBancaria.Dispose();
     }
@@ -39,8 +37,6 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is CuentaBancaria cuentaBancaria) {
             if (_registroCuentaBancaria != null) {
-                MostrarVistaPanelTransparente(_registroCuentaBancaria.Vista);
-
                 _registroCuentaBancaria.PopularVistaDesdeObjeto(cuentaBancaria);
                 _registroCuentaBancaria.Vista.Mostrar();
             }

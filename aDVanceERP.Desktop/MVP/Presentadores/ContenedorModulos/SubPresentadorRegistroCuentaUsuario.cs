@@ -32,8 +32,6 @@ public partial class PresentadorContenedorModulos {
         if (_registroCuentaUsuario == null)
             return;
 
-        MostrarVistaPanelTransparente(_registroCuentaUsuario.Vista);
-
         _registroCuentaUsuario.Vista.Mostrar();
         _registroCuentaUsuario.Dispose();
     }
@@ -43,8 +41,6 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is CuentaUsuario cuentaUsuario) {
             if (_registroCuentaUsuario != null) {
-                MostrarVistaPanelTransparente(_registroCuentaUsuario.Vista);
-
                 _registroCuentaUsuario.PopularVistaDesdeObjeto(cuentaUsuario);
                 _registroCuentaUsuario.Vista.Mostrar();
             }

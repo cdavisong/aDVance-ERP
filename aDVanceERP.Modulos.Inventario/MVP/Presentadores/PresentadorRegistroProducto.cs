@@ -37,6 +37,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
 
     protected override bool RegistroEdicionDatosAutorizado() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
+        var codigoOk = !string.IsNullOrEmpty(Vista.Codigo);
         var unidadMedidaOk = !string.IsNullOrEmpty(Vista.UnidadMedida);
         var precioCompraOk =
             (Vista.CategoriaProducto == CategoriaProducto.ProductoTerminado && Vista.PrecioCompraBase == 0) ||
@@ -48,6 +49,8 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         
         if (!nombreOk)
             CentroNotificaciones.Mostrar("El campo de nombre es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+        if (!codigoOk)
+            CentroNotificaciones.Mostrar("El campo de código es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!unidadMedidaOk)
             CentroNotificaciones.Mostrar("El campo de unidad de medida es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!precioCompraOk)
@@ -55,7 +58,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         if (!precioVentaOk)
             CentroNotificaciones.Mostrar("Debe especificar un monto válido para el precio de venta, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
 
-        return nombreOk && unidadMedidaOk && precioCompraOk && precioVentaOk;
+        return nombreOk && codigoOk && unidadMedidaOk && precioCompraOk && precioVentaOk;
     }
 
     protected override void RegistroAuxiliar(DatosProducto datosProducto, long id) {

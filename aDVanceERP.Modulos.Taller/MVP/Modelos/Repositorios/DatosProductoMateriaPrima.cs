@@ -3,6 +3,7 @@ using aDVanceERP.Modulos.Taller.MVP.Modelos;
 using aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
 
@@ -24,7 +25,7 @@ public class DatosProductoMateriaPrima : RepositorioDatosBase<ProductoMateriaPri
             VALUES (
                 {objeto.IdProducto},
                 {objeto.IdMateriaPrima},
-                {objeto.Cantidad}
+                {objeto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture)}
             );
             """;
     }
@@ -35,7 +36,7 @@ public class DatosProductoMateriaPrima : RepositorioDatosBase<ProductoMateriaPri
             SET
                 id_producto = {objeto.IdProducto},
                 id_materia_prima = {objeto.IdMateriaPrima},
-                cantidad = {objeto.Cantidad}
+                cantidad = {objeto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture)}
             WHERE id_producto_materia_prima = {objeto.Id};
             """;
     }
@@ -64,7 +65,7 @@ public class DatosProductoMateriaPrima : RepositorioDatosBase<ProductoMateriaPri
             id: lectorDatos.GetInt64("id_producto_materia_prima"),
             idProducto: lectorDatos.GetInt64("id_producto"),
             idMateriaPrima: lectorDatos.GetInt64("id_materia_prima"),
-            cantidad: lectorDatos.GetDecimal("cantidad")
+            cantidad: lectorDatos.GetFloat("cantidad")
         );
     }
 

@@ -82,7 +82,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         set => P2UmPreciosStock.NombreAlmacen = value;
     }
 
-    public int StockInicial {
+    public float StockInicial {
         get => P2UmPreciosStock.StockInicial;
         set => P2UmPreciosStock.StockInicial = value;
     }
@@ -175,6 +175,12 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         bool mostrarVenta = P1DatosGenerales.CategoriaProducto == CategoriaProducto.Mercancia ||
                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.ProductoTerminado ||
                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.MateriaPrima && P1DatosGenerales.EsVendible;
+
+        // Limpiar los precios de compraventa segun visibilidad
+        if (!mostrarCompra)
+            P2UmPreciosStock.PrecioCompraBase = 0;
+        if (!mostrarVenta)
+            P2UmPreciosStock.PrecioVentaBase = 0;
 
         P2UmPreciosStock.ConfigurarVisibilidadCamposPrecios(mostrarCompra, mostrarVenta);
     }

@@ -2,6 +2,7 @@
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 
@@ -28,7 +29,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                     '{objeto.Nombre}',
                     '{objeto.IdDetalleProducto}',
                     '{objeto.IdProveedor}',
-                    {(objeto.EsVendible ? 1 : 0)},
+                    '{(objeto.EsVendible ? 1 : 0)}',
                     '{objeto.PrecioCompraBase}',
                     '{objeto.PrecioVentaBase}'
                 );
@@ -45,8 +46,8 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                     id_detalle_producto='{objeto.IdDetalleProducto}',
                     id_proveedor='{objeto.IdProveedor}',
                     es_vendible={(objeto.EsVendible ? 1 : 0)},
-                    precio_compra_base='{objeto.PrecioCompraBase}',
-                    precio_venta_base='{objeto.PrecioVentaBase}'
+                    precio_compra_base='{objeto.PrecioCompraBase.ToString(CultureInfo.InvariantCulture)}',
+                    precio_venta_base='{objeto.PrecioVentaBase.ToString(CultureInfo.InvariantCulture)}'
                 WHERE id_producto={objeto.Id};
                 """;
     }

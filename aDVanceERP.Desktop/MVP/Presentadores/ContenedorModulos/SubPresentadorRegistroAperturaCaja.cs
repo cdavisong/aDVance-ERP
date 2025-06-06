@@ -35,8 +35,6 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if (_registroAperturaCaja == null)
                 return;
 
-            MostrarVistaPanelTransparente(_registroAperturaCaja.Vista);
-
             _registroAperturaCaja.Vista.Restaurar();
             _registroAperturaCaja.Vista.Mostrar();
             _registroAperturaCaja.Dispose();
@@ -47,8 +45,6 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             if (sender is Caja caja) {
                 if (_registroAperturaCaja != null) {
-                    MostrarVistaPanelTransparente(_registroAperturaCaja.Vista);
-
                     _registroAperturaCaja.PopularVistaDesdeObjeto(caja);
                     _registroAperturaCaja.Vista.Mostrar();
                 }

@@ -18,32 +18,36 @@ public partial class PresentadorContenedorModulos {
 
             await _gestionAlmacenes.RefrescarListaObjetos();
         };
+
+        Vista.Vistas?.Registrar("vistaRegistroAlmacen", 
+            _registroAlmacen.Vista, 
+            new Point(Vista.Dimensiones.Width - _registroAlmacen.Vista.Dimensiones.Width - 40, -10),
+            _registroAlmacen.Vista.Dimensiones,
+            "V");
+
+        // Estado de habilitacion de la vista gestionable.
+        var formRegistro = _registroAlmacen?.Vista as Form;
+
+        if (formRegistro != null && _gestionAlmacenes != null)
+            formRegistro.VisibleChanged += delegate {
+                _gestionAlmacenes.Vista.Habilitada = !formRegistro.Visible;
+            };
     }
 
     private void MostrarVistaRegistroAlmacen(object? sender, EventArgs e) {
-        InicializarVistaRegistroAlmacen();
-
-        if (_registroAlmacen == null) 
+        if (_registroAlmacen == null)
             return;
 
-        MostrarVistaPanelTransparente(_registroAlmacen.Vista);
-
+        _registroAlmacen.Vista.Restaurar();
         _registroAlmacen.Vista.Mostrar();
-        _registroAlmacen.Dispose();
     }
 
     private void MostrarVistaEdicionAlmacen(object? sender, EventArgs e) {
-        InicializarVistaRegistroAlmacen();
-
         if (sender is Almacen almacen) {
             if (_registroAlmacen != null) {
-                MostrarVistaPanelTransparente(_registroAlmacen.Vista);
-
                 _registroAlmacen.PopularVistaDesdeObjeto(almacen);
                 _registroAlmacen.Vista.Mostrar();
             }
         }
-
-        _registroAlmacen?.Dispose();
     }
 }

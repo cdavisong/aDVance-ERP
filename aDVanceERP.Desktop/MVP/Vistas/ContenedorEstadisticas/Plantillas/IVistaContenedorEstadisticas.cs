@@ -4,9 +4,9 @@ using aDVanceERP.Core.Utiles.Datos;
 namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas; 
 
 public interface IVistaContenedorEstadisticas : IVista {
-    int CantidadProductosRegistrados { get; set; }
+    float CantidadProductosRegistrados { get; set; }
     decimal MontoInversionProductos { get; set; }
-    int CantidadProductosVendidos { get; set; }
+    float CantidadProductosVendidos { get; set; }
     decimal MontoVentaProductosVendidos { get; set; }
     decimal MontoGananciaTotalNegocio { get; set; }
     decimal MontoGananciaAcumuladaDia { get; set; }

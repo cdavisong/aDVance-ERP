@@ -1,6 +1,7 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios; 
 
@@ -24,7 +25,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
                     '{objeto.IdAlmacenOrigen}',
                     '{objeto.IdAlmacenDestino}',
                     '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
-                    '{objeto.CantidadMovida}',
+                    '{objeto.CantidadMovida.ToString("0.00", CultureInfo.InvariantCulture)}',
                     '{objeto.IdTipoMovimiento}'
                 );
                 """;
@@ -38,7 +39,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
                     id_almacen_origen='{objeto.IdAlmacenOrigen}',
                     id_almacen_destino='{objeto.IdAlmacenDestino}',
                     fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
-                    cantidad_movida='{objeto.CantidadMovida}',
+                    cantidad_movida='{objeto.CantidadMovida.ToString("0.00", CultureInfo.InvariantCulture)}',
                     id_tipo_movimiento='{objeto.IdTipoMovimiento}'
                 WHERE id_movimiento='{objeto.Id}';
                 """;
@@ -92,7 +93,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_origen")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_destino")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
-            lectorDatos.GetInt32(lectorDatos.GetOrdinal("cantidad_movida")),
+            lectorDatos.GetFloat(lectorDatos.GetOrdinal("cantidad_movida")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_movimiento"))
         );
     }

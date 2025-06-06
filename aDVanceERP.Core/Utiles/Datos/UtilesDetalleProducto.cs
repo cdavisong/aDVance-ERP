@@ -33,6 +33,19 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 new MySqlParameter("@IdProducto", idProducto));            
             return result?.ToString();
         }
+
+        public static async Task<string?> ObtenerUnidadMedidaProducto(long idProducto) {
+            const string query =
+                    """
+                    SELECT um.abreviatura 
+                    FROM adv__detalle_producto dp
+                    JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
+                    WHERE dp.id_unidad_medida=@IdUnidadMedida;
+                    """;
+            var result = await EjecutarConsultaAsync(query, lector => lector.GetValue(lector.GetOrdinal("abreviatura")),
+                new MySqlParameter("@IdUnidadMedida", idProducto));
+            return result?.ToString();
+        }
     }
 
 }

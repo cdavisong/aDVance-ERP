@@ -28,7 +28,7 @@ public class DatosDetalleVentaProducto : RepositorioDatosBase<DetalleVentaProduc
                     {objeto.IdProducto},
                     {objeto.PrecioCompraVigente.ToString(CultureInfo.InvariantCulture)},
                     {objeto.PrecioVentaFinal.ToString(CultureInfo.InvariantCulture)},
-                    {objeto.Cantidad}
+                    {objeto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture)}
                 );
                 """;
     }
@@ -41,7 +41,7 @@ public class DatosDetalleVentaProducto : RepositorioDatosBase<DetalleVentaProduc
                     id_producto={objeto.IdProducto},
                     precio_compra_vigente={objeto.PrecioCompraVigente.ToString(CultureInfo.InvariantCulture)},
                     precio_venta_final={objeto.PrecioVentaFinal.ToString(CultureInfo.InvariantCulture)},
-                    cantidad={objeto.Cantidad}
+                    cantidad={objeto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture)}
                 WHERE id_detalle_venta_producto={objeto.Id};
                 """;
     }

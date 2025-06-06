@@ -5,7 +5,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Modelos;
 public class ProductoAlmacen : IObjetoUnico {
     public ProductoAlmacen() { }
 
-    public ProductoAlmacen(long idProductoAlmacen, long idProducto, long idAlmacen, int stock) {
+    public ProductoAlmacen(long idProductoAlmacen, long idProducto, long idAlmacen, float stock) {
         Id = idProductoAlmacen;
         IdProducto = idProducto;
         IdAlmacen = idAlmacen;
@@ -15,7 +15,7 @@ public class ProductoAlmacen : IObjetoUnico {
     public long Id { get; set; }
     public long IdProducto { get; set; }
     public long IdAlmacen { get; set; }
-    public int Stock { get; set; }
+    public float Stock { get; set; }
 }
 
 public enum CriterioBusquedaProductoAlmacen {
