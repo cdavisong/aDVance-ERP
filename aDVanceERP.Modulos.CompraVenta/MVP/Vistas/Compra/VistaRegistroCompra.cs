@@ -74,11 +74,11 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     public List<string[]>? Productos { get; private set; }
 
     public float Cantidad {
-        get => float.TryParse(fieldCantidad.Text, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0;
-        set {
-            fieldCantidad.Text = value > 0 ? value.ToString("0.00", CultureInfo.InvariantCulture) : string.Empty;
-            fieldCantidad.Text = value > 0 ? value.ToString("0.00", CultureInfo.InvariantCulture) : "0.00";
-        }
+        get => float.TryParse(fieldCantidad.Text, CultureInfo.InvariantCulture, out var cantidad) 
+            ? cantidad 
+            : 0;
+        set => fieldCantidad.Text = value > 0 ? value.ToString("0.00", CultureInfo.InvariantCulture) : "0.00";
+        
     }
 
     public decimal Total {
