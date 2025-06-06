@@ -188,6 +188,36 @@ public static class UtilesProducto {
         return await EjecutarConsultaEscalar(query, lector => lector.GetFloat(lector.GetOrdinal("stock")), parametros);
     }
 
+    public static async Task<Dictionary<long, float>> ObtenerStockProducto(long idProducto) {
+        const string query = """
+        SELECT 
+            pa.id_almacen,
+            pa.stock,
+            um.abreviatura
+        FROM adv__producto_almacen pa
+        JOIN adv__producto p ON pa.id_producto = p.id_producto
+        JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
+        JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
+        WHERE pa.id_producto = @IdProducto;
+        """;
+
+        var parametros = new[] {
+        new MySqlParameter("@IdProducto", idProducto)
+    };
+
+        var resultados = await EjecutarConsultaLista(query,
+            lector => new {
+                IdAlmacen = lector.GetInt64("id_almacen"),
+                Stock = lector.GetFloat("stock"),
+                Unidad = lector.GetString("abreviatura")
+            }, parametros);
+
+        return resultados.ToDictionary(
+            x => x.IdAlmacen,
+            x => x.Stock // Aquí podrías aplicar conversiones si es necesario
+        );
+    }
+
     public static async Task<decimal> ObtenerPrecioVentaBase(long idProducto) {
         const string query = """
                              SELECT precio_venta_base

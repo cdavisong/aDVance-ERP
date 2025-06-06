@@ -2,7 +2,7 @@
 using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.Utiles.Datos; 
+namespace aDVanceERP.Core.Utiles.Datos;
 
 public class DatosEstadisticosVentas {
     public Dictionary<DateTime, decimal> VentasPorHora { get; set; } = new();
@@ -26,7 +26,7 @@ public static class UtilesVenta {
 
                     var result = comando.ExecuteScalar();
 
-                    if (result != null && result != DBNull.Value) 
+                    if (result != null && result != DBNull.Value)
                         resultado = Convert.ToDecimal(result);
                 }
             }
@@ -175,14 +175,23 @@ public static class UtilesVenta {
 
     public static IEnumerable<string> ObtenerProductosPorVenta(long idVenta) {
         const string query = """
-                             SELECT
-                                 a.nombre,
-                                 dva.cantidad,
-                                 dva.precio_venta_final
-                             FROM adv__detalle_venta_producto dva
-                             JOIN adv__producto a ON dva.id_producto = a.id_producto
-                             WHERE dva.id_venta = @IdVenta;
-                             """;
+            SELECT
+                p.nombre,
+                dva.cantidad,
+                um.abreviatura AS unidad,
+                dva.precio_venta_final,
+                CASE 
+                    WHEN p.categoria = 'ProductoTerminado' THEN 'Producto Terminado'
+                    WHEN p.categoria = 'MateriaPrima' THEN 'Materia Prima'
+                    ELSE 'Mercancía'
+                END AS tipo_producto
+            FROM adv__detalle_venta_producto dva
+            JOIN adv__producto p ON dva.id_producto = p.id_producto
+            LEFT JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
+            LEFT JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
+            WHERE dva.id_venta = @IdVenta;
+            """;
+
         var parametros = new[] {
             new MySqlParameter("@IdVenta", idVenta)
         };
@@ -347,7 +356,7 @@ public static class UtilesVenta {
 
         EjecutarConsultaEstadistica(query, parametros, _datos.VentasPorHora, fechaHora);
     }
-    
+
     private static void ObtenerVentasPorDia(DateTime fechaHora) {
         const string query = """
                              SELECT

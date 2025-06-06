@@ -7,7 +7,8 @@ namespace aDVanceERP.Core.Utiles.Datos {
             using var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL());
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
-            } catch (MySqlException) {
+            }
+            catch (MySqlException) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
@@ -16,7 +17,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
             using var lectorDatos = await comando.ExecuteReaderAsync().ConfigureAwait(false);
             return lectorDatos != null && await lectorDatos.ReadAsync().ConfigureAwait(false)
-                ? procesarResultado((MySqlDataReader) lectorDatos)
+                ? procesarResultado((MySqlDataReader)lectorDatos)
                 : default;
         }
 
@@ -30,22 +31,27 @@ namespace aDVanceERP.Core.Utiles.Datos {
         public static async Task<string?> ObtenerDescripcionProducto(long idProducto) {
             const string query = "SELECT dp.descripcion FROM adv__detalle_producto dp JOIN adv__producto p ON dp.id_detalle_producto=p.id_detalle_producto WHERE p.id_producto=@IdProducto;";
             var result = await EjecutarConsultaAsync(query, lector => lector.GetValue(lector.GetOrdinal("descripcion")),
-                new MySqlParameter("@IdProducto", idProducto));            
+                new MySqlParameter("@IdProducto", idProducto));
             return result?.ToString();
         }
 
-        public static async Task<string?> ObtenerUnidadMedidaProducto(long idProducto) {
-            const string query =
-                    """
-                    SELECT um.abreviatura 
-                    FROM adv__detalle_producto dp
-                    JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
-                    WHERE dp.id_unidad_medida=@IdUnidadMedida;
-                    """;
-            var result = await EjecutarConsultaAsync(query, lector => lector.GetValue(lector.GetOrdinal("abreviatura")),
-                new MySqlParameter("@IdUnidadMedida", idProducto));
-            return result?.ToString();
+        public static async Task<string?> ObtenerUnidadMedidaProducto(long idProducto, bool abreviatura) {
+            string query = $"""
+                SELECT 
+                    {(abreviatura ? "um.abreviatura" : "um.nombre")} AS unidad
+                FROM adv__producto p
+                JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
+                JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
+                WHERE p.id_producto = @IdProducto;
+                """;
+
+            var parametros = new[] {
+                new MySqlParameter("@IdProducto", idProducto)
+            };
+
+            return await EjecutarConsultaAsync<string>(query,
+                lector => lector.GetString(lector.GetOrdinal("unidad")),
+                parametros);
         }
     }
-
 }

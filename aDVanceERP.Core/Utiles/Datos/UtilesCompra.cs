@@ -146,13 +146,23 @@ public static class UtilesCompra {
 
     public static IEnumerable<string> ObtenerProductosPorCompra(long idCompra) {
         const string query = """
-                             SELECT
-                                a.nombre,
-                                d.cantidad
-                             FROM adv__detalle_compra_producto d
-                             JOIN adv__producto a ON d.id_producto = a.id_producto
-                             WHERE d.id_compra = @IdCompra;
-                             """;
+            SELECT
+                p.nombre,
+                dc.cantidad,
+                um.abreviatura AS unidad,
+                dc.precio_compra,
+                CASE 
+                    WHEN p.categoria = 'ProductoTerminado' THEN 'Producto Terminado'
+                    WHEN p.categoria = 'MateriaPrima' THEN 'Materia Prima'
+                    ELSE 'Mercancía'
+                END AS tipo_producto
+            FROM adv__detalle_compra_producto dc
+            JOIN adv__producto p ON dc.id_producto = p.id_producto
+            LEFT JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
+            LEFT JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
+            WHERE dc.id_compra = @IdCompra;
+            """;
+
         var parametros = new[] {
             new MySqlParameter("@IdCompra", idCompra)
         };

@@ -199,7 +199,7 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
                     process?.WaitForExit(5000); // Timeout de 5 segundos
 
                     // Verificar si realmente se aplicó después de intentar crearla
-                    if (!ReglaFirewallAplicada(nombreReglaFirewall, rutaEjecutable)) {
+                    if (!ReglaFirewallAplicada(nombreReglaFirewall, "")) {
                         throw new Exception("No se pudo verificar la creación de la regla después de intentar crearla");
                     }
                 }
@@ -232,8 +232,9 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
                     // Si se proporcionó rutaEjecutable, verificar que coincida
                     if (reglaExiste && !string.IsNullOrEmpty(rutaEjecutable)) {
                         // Buscar la línea que contiene la ruta del programa
-                        string pattern = $@"Programa:\s*{Regex.Escape(rutaEjecutable)}";
-                        reglaExiste = Regex.IsMatch(output, pattern, RegexOptions.IgnoreCase);
+                        string patternES = $@"Programa:\s*{Regex.Escape(rutaEjecutable)}";
+                        string patternEN = $@"Program:\s*{Regex.Escape(rutaEjecutable)}";
+                        reglaExiste = Regex.IsMatch(output, patternES, RegexOptions.IgnoreCase) || Regex.IsMatch(output, patternEN, RegexOptions.IgnoreCase);
                     }
 
                     return reglaExiste;

@@ -28,7 +28,7 @@ public class DatosDetalleVentaProducto : RepositorioDatosBase<DetalleVentaProduc
                     {objeto.IdProducto},
                     {objeto.PrecioCompraVigente.ToString(CultureInfo.InvariantCulture)},
                     {objeto.PrecioVentaFinal.ToString(CultureInfo.InvariantCulture)},
-                    '{objeto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture)}',
+                    '{objeto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture)}'
                 );
                 """;
     }

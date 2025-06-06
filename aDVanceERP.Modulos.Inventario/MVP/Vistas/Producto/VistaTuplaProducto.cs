@@ -82,6 +82,11 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
                 : "-";
     }
 
+    public string UnidadMedida {
+        get => fieldUnidadMedida.Text;
+        set => fieldUnidadMedida.Text = value;
+    }
+
     public float Stock {
         get => float.TryParse(fieldStock.Text, NumberStyles.Float, CultureInfo.InvariantCulture, 
             out var value) 
