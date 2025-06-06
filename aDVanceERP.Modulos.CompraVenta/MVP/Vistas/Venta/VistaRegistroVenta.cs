@@ -78,7 +78,9 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     public List<string[]>? Productos { get; private set; }
 
     public float Cantidad {
-        get => float.TryParse(fieldCantidad.Text, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0;
+        get => float.TryParse(fieldCantidad.Text, CultureInfo.InvariantCulture, out var cantidad) 
+            ? cantidad 
+            : 0;
         set => fieldCantidad.Text = value > 0 ? value.ToString("0.00", CultureInfo.InvariantCulture) : "0.00";
     }
 
@@ -274,8 +276,8 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                 if (Productos != null) {
                     var stockComprometido = Productos
                         .Where(a => a[0].Equals(idProducto.ToString()) && a[5].Equals(idAlmacen.ToString()))
-                        .Sum(a => float.Parse(a[4]));
-                    if (float.Parse(adCantidad) + stockComprometido > stockProducto) {
+                        .Sum(a => float.Parse(a[4], NumberStyles.Float, CultureInfo.InvariantCulture));
+                    if (float.Parse(adCantidad, NumberStyles.Float, CultureInfo.InvariantCulture) + stockComprometido > stockProducto) {
                         fieldCantidad.ForeColor = Color.Firebrick;
                         fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
                         fieldCantidad.Margin = new Padding(3);
@@ -310,7 +312,9 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                     Productos.FindIndex(a => a[0].Equals(idProducto.ToString()) && a[5].Equals(idAlmacen.ToString()));
                 if (indiceProducto != -1) {
                     Productos[indiceProducto][4] =
-                        (float.Parse(Productos[indiceProducto][4]) + float.Parse(adCantidad)).ToString("0.00", CultureInfo.InvariantCulture);
+                        (float.Parse(Productos[indiceProducto][4], NumberStyles.Float, CultureInfo.InvariantCulture) + 
+                         float.Parse(adCantidad, NumberStyles.Float, CultureInfo.InvariantCulture))
+                         .ToString("0.00", CultureInfo.InvariantCulture);
                 } else {
                     Productos.Add(tuplaProducto);
                     ProductoAgregado?.Invoke(tuplaProducto, EventArgs.Empty);

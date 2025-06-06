@@ -225,7 +225,9 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
                 Productos.FindIndex(a => a[0].Equals(idProducto.ToString()) && a[4].Equals(idAlmacen.ToString()));
             if (indiceProducto != -1) {
                 Productos[indiceProducto][3] =
-                    (float.Parse(Productos[indiceProducto][3]) + float.Parse(adCantidad)).ToString("0.00", CultureInfo.InvariantCulture);
+                    (float.Parse(Productos[indiceProducto][3], NumberStyles.Float, CultureInfo.InvariantCulture) + 
+                     float.Parse(adCantidad, NumberStyles.Float, CultureInfo.InvariantCulture))
+                     .ToString("0.00", CultureInfo.InvariantCulture);
             }
             else {
                 Productos.Add(tuplaProducto);

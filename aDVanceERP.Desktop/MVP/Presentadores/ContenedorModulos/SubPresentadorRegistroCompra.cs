@@ -92,7 +92,7 @@ public partial class PresentadorContenedorModulos {
                 0,
                 ultimoIdCompra,
                 long.Parse(producto[0]),
-                float.Parse(producto[3]),
+                float.Parse(producto[3], NumberStyles.Float, CultureInfo.InvariantCulture),
                 decimal.TryParse(producto[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioCompra)
                     ? precioCompra
                     : 0.00m

@@ -144,7 +144,7 @@ public static class UtilesProducto {
         return nombres.ToArray();
     }
 
-    public static async Task<int> ObtenerStockTotalProductos() {
+    public static async Task<float> ObtenerStockTotalProductos() {
         const string query = """
                              SELECT
                                 SUM(aa.stock) AS total_productos
@@ -152,7 +152,7 @@ public static class UtilesProducto {
                              JOIN adv__producto a ON aa.id_producto = a.id_producto;
                              """;
 
-        return await EjecutarConsultaEscalar(query, lector => lector.GetInt32(lector.GetOrdinal("total_productos")));
+        return await EjecutarConsultaEscalar(query, lector => lector.GetFloat(lector.GetOrdinal("total_productos")));
     }
 
     public static async Task<float> ObtenerStockTotalProducto(long idProducto) {
@@ -306,13 +306,15 @@ public static class UtilesProducto {
 
     public static async Task<decimal> ObtenerMontoInvertidoEnProductos(long idAlmacen = 0) {
         var query = $"""
-                     SELECT
-                        SUM(dca.precio_compra * dca.cantidad) AS monto_invertido
-                     FROM adv__detalle_compra_producto dca
-                     JOIN adv__compra c ON dca.id_compra = c.id_compra
-                     {(idAlmacen != 0 ? "WHERE c.id_almacen = @IdAlmacen" : "")};
-                     """;
-        var parametros = idAlmacen != 0 ? new[] { new MySqlParameter("@IdAlmacen", idAlmacen) } : null;
+                 SELECT
+                    SUM(CAST(dcp.precio_compra AS DECIMAL(10,2)) * CAST(dcp.cantidad AS DECIMAL(10,2))) AS monto_invertido
+                 FROM adv__detalle_compra_producto dcp
+                 JOIN adv__compra p ON dcp.id_compra = p.id_compra
+                 {(idAlmacen != 0 ? "WHERE p.id_almacen = @IdAlmacen" : "")};
+                 """;
+        var parametros = idAlmacen != 0 ? new[] {
+        new MySqlParameter("@IdAlmacen", idAlmacen)
+    } : null;
 
         return await EjecutarConsultaEscalar(query,
             lector => lector.IsDBNull(lector.GetOrdinal("monto_invertido"))

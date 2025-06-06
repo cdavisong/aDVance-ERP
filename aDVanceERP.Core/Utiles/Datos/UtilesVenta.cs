@@ -68,6 +68,33 @@ public static class UtilesVenta {
         return resultado;
     }
 
+    // Método auxiliar para ejecutar consultas y devolver un valor flotante
+    private static float EjecutarConsultaFlotante(string query, params MySqlParameter[] parameters) {
+        var resultado = 0F;
+
+        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            try {
+                conexion.Open();
+
+                using (var comando = new MySqlCommand(query, conexion)) {
+                    if (parameters != null) comando.Parameters.AddRange(parameters);
+
+                    var result = comando.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value) resultado = Convert.ToSingle(result);
+                }
+            }
+            catch (MySqlException) {
+                throw new ExcepcionConexionServidorMySQL();
+            }
+            catch (Exception ex) {
+                throw new Exception("Error inesperado al ejecutar la consulta.", ex);
+            }
+        }
+
+        return resultado;
+    }
+
     // Método auxiliar para ejecutar consultas y devolver una lista de strings
     private static List<string> EjecutarConsultaLista(string query, params MySqlParameter[] parameters) {
         var resultado = new List<string>();
@@ -87,6 +114,10 @@ public static class UtilesVenta {
                                 if (reader.GetFieldType(i) == typeof(decimal)) {
                                     var valorDecimal = reader.GetDecimal(i);
                                     fila += valorDecimal.ToString("N2", CultureInfo.InvariantCulture) + "|";
+                                }
+                                else if (reader.GetFieldType(i) == typeof(float)) {
+                                    var valorDecimal = reader.GetFloat(i);
+                                    fila += valorDecimal.ToString("0.00", CultureInfo.InvariantCulture) + "|";
                                 }
                                 else {
                                     fila += reader[i] + "|";
@@ -118,7 +149,7 @@ public static class UtilesVenta {
         return EjecutarConsultaEntero(query) > 0;
     }
 
-    public static int ObtenerTotalProductosVendidosHoy() {
+    public static float ObtenerTotalProductosVendidosHoy() {
         const string query = """
                              SELECT SUM(dva.cantidad) AS total_vendido_hoy
                              FROM adv__detalle_venta_producto dva
@@ -126,10 +157,10 @@ public static class UtilesVenta {
                              WHERE DATE(v.fecha) = CURDATE();
                              """;
 
-        return EjecutarConsultaEntero(query);
+        return EjecutarConsultaFlotante(query);
     }
 
-    public static int ObtenerCantidadProductosVenta(long idVenta) {
+    public static float ObtenerCantidadProductosVenta(long idVenta) {
         const string query = """
                              SELECT SUM(cantidad) AS total_productos
                              FROM adv__detalle_venta_producto
@@ -139,7 +170,7 @@ public static class UtilesVenta {
             new MySqlParameter("@IdVenta", idVenta)
         };
 
-        return EjecutarConsultaEntero(query, parametros);
+        return EjecutarConsultaFlotante(query, parametros);
     }
 
     public static IEnumerable<string> ObtenerProductosPorVenta(long idVenta) {
