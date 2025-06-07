@@ -19,6 +19,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                     nombre,
                     id_detalle_producto,
                     id_proveedor,
+                    id_tipo_materia_prima,
                     es_vendible,
                     precio_compra_base,
                     precio_venta_base
@@ -29,6 +30,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                     '{objeto.Nombre}',
                     '{objeto.IdDetalleProducto}',
                     '{objeto.IdProveedor}',
+                    '{objeto.IdTipoMateriaPrima}',
                     '{(objeto.EsVendible ? 1 : 0)}',
                     '{objeto.PrecioCompraBase}',
                     '{objeto.PrecioVentaBase}'
@@ -45,6 +47,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                     nombre='{objeto.Nombre}',
                     id_detalle_producto='{objeto.IdDetalleProducto}',
                     id_proveedor='{objeto.IdProveedor}',
+                    id_tipo_materia_prima='{objeto.IdTipoMateriaPrima}',
                     es_vendible={(objeto.EsVendible ? 1 : 0)},
                     precio_compra_base='{objeto.PrecioCompraBase.ToString(CultureInfo.InvariantCulture)}',
                     precio_venta_base='{objeto.PrecioVentaBase.ToString(CultureInfo.InvariantCulture)}'
@@ -142,6 +145,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
             nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
             codigo: lectorDatos.GetString(lectorDatos.GetOrdinal("codigo")),
             idDetalleProducto: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_producto")),
+            idTipoMateriaPrima: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_materia_prima")),
             idProveedor: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
             esVendible: lectorDatos.GetBoolean(lectorDatos.GetOrdinal("es_vendible")),
             precioCompraBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra_base")),

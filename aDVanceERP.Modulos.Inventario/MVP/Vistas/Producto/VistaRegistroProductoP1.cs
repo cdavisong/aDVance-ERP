@@ -101,6 +101,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         }
 
         public void Restaurar() {
+            CategoriaProducto = CategoriaProducto.Mercancia;
             Nombre = string.Empty;
             Codigo = string.Empty;
             Descripcion = string.Empty;

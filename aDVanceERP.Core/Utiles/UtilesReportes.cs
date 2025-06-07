@@ -81,6 +81,10 @@ public static class UtilesReportes {
 
         // Guardar el documento
         var nombreArchivo = $"ventas-productos-{fecha:yyyy-MM-dd}.pdf";
+
+        if (documento.Pages.Count <= 0)
+            return;
+
         documento.Save(nombreArchivo);
 
         // Mostrar el documento PDF al usuario
@@ -233,13 +237,13 @@ public static class UtilesReportes {
 
     public static void GenerarEntradaMercancias(DateTime fecha, List<string[]> filas,
                                           string proveedor = "",
-                                          string documento = "",
+                                          string documentoExterno = "",
                                           string direccion = "",
                                           string nif = "") {
         // Crear un nuevo documento PDF
-        var documentoPdf = new PdfDocument();
-        documentoPdf.Info.Title = "Entrada de Mercancías";
-        documentoPdf.Info.Author = "aDVanceERP";
+        var documento = new PdfDocument();
+        documento.Info.Title = "Entrada de Mercancías";
+        documento.Info.Author = "aDVanceERP";
 
         // Configurar márgenes
         const int margenIzquierdo = 40;
@@ -269,14 +273,14 @@ public static class UtilesReportes {
         while (filasProcesadas < filas.Count) {
             // Crear nueva página si es necesario
             if (pagina == null || filasProcesadas % maxFilasPorPagina == 0) {
-                pagina = documentoPdf.AddPage();
+                pagina = documento.AddPage();
                 pagina.Size = PageSize.Letter;
                 gfx = XGraphics.FromPdfPage(pagina);
                 yPoint = margenSuperior;
 
                 // Dibujar encabezado en cada página
                 DibujarEncabezadoEntradaMercancias(gfx, pagina, fontTitulo, fontContenido, fontNegrita,
-                    fecha, proveedor, documento, direccion, nif,
+                    fecha, proveedor, documentoExterno, direccion, nif,
                     margenIzquierdo, margenDerecho, ref yPoint);
 
                 // Dibujar encabezados de tabla
@@ -298,14 +302,18 @@ public static class UtilesReportes {
                 DibujarPiePaginaEntrada(gfx, pagina, fontNegrita, fontContenido, fontSubtitulo,
                                        subtotal, margenIzquierdo, margenDerecho,
                                        margenInferior, ref yPoint, paginaActual,
-                                       documentoPdf.Pages.Count, culture);
+                                       documento.Pages.Count, culture);
                 paginaActual++;
             }
         }
 
         // Guardar el documento
         var nombreArchivo = $"entrada-mercancias-{fecha:yyyyMMdd}-{documento}.pdf";
-        documentoPdf.Save(nombreArchivo);
+
+        if (documento.Pages.Count <= 0)
+            return;
+
+        documento.Save(nombreArchivo);
 
         // Mostrar el documento PDF al usuario
         Process.Start(new ProcessStartInfo {
@@ -585,7 +593,7 @@ public static class UtilesReportes {
                 yPoint = margenSuperior;
 
                 // Dibujar encabezado en cada página
-                DibujarEncabezadoFactura(gfx, pagina, fontTitulo, fontContenido, fontNegrita, 
+                DibujarEncabezadoFactura(gfx, pagina, fontTitulo, fontContenido, fontNegrita,
                     fecha, datosCliente, numeroFactura, estadoPago,
                     margenIzquierdo, margenDerecho, ref yPoint);
 
@@ -616,6 +624,10 @@ public static class UtilesReportes {
 
         // Guardar el documento
         var nombreArchivo = $"factura-venta-{numeroFactura}.pdf";
+
+        if (documento.Pages.Count <= 0)
+            return;
+
         documento.Save(nombreArchivo);
 
         // Mostrar el documento PDF al usuario
@@ -676,7 +688,7 @@ public static class UtilesReportes {
 
         gfx.DrawString(datosCliente.Length > 0 ? datosCliente[0] : "Anónimo", fontContenido, XBrushes.Black,
             new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2 + anchoColumna3, yPoint - 60, anchoColumna4, 15), XStringFormats.TopLeft);
-                        
+
         if (datosCliente.Length > 1) {
             gfx.DrawString("Dirección:", fontNegrita, XBrushes.Black,
                 new XRect(margenIzquierdo + anchoColumna1 + anchoColumna2, yPoint - 45, anchoColumna3, 15), XStringFormats.TopLeft);
@@ -1171,7 +1183,7 @@ public static class UtilesReportes {
         // Truncar texto si es muy largo para la columna
         if (observaciones.Length > 40)
             observaciones = observaciones.Substring(0, 38) + "...";
-        
+
         gfx.DrawString(observaciones, fontContenido, XBrushes.Black,
             new XRect(xPos + 10, yPoint, anchos.AnchoObservaciones, alturaFila), XStringFormats.TopLeft);
 
