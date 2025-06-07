@@ -101,31 +101,6 @@ namespace aDVanceERP.PatchDB {
                         PRIMARY KEY (id_unidad_medida)
                     ) ENGINE=InnoDB;
                     """,
-                    """                    
-                    ALTER TABLE adv__producto 
-                    ADD COLUMN id_detalle_producto INT(11) NULL AFTER nombre;
-
-                    -- Insertar detalles para todos los productos existentes
-                    INSERT INTO adv__detalle_producto (
-                            id_detalle_producto, 
-                            id_unidad_medida,
-                            descripcion
-                        )
-                    SELECT 
-                        p.id_producto, 
-                        1,  -- id_unidad_medida por defecto (U)
-                        p.descripcion
-                    FROM adv__producto p
-                    WHERE p.descripcion IS NOT NULL;
-
-                    -- Actualizar las referencias en adv__producto
-                    UPDATE adv__producto p
-                    SET p.id_detalle_producto = p.id_producto
-                    WHERE p.descripcion IS NOT NULL;
-
-                    -- Eliminar el campo descripcion
-                    ALTER TABLE adv__producto DROP COLUMN descripcion;
-                    """,
                     """
                     CREATE TABLE IF NOT EXISTS adv__actividad_produccion (
                         id_actividad_produccion INT(11) NOT NULL AUTO_INCREMENT,
@@ -218,6 +193,31 @@ namespace aDVanceERP.PatchDB {
                     ) NOT NULL 
                     DEFAULT 'Mercancia'
                     AFTER id_producto;
+                    """,
+                    """                    
+                    ALTER TABLE adv__producto 
+                    ADD COLUMN id_detalle_producto INT(11) NULL AFTER nombre;
+
+                    -- Insertar detalles para todos los productos existentes
+                    INSERT INTO adv__detalle_producto (
+                            id_detalle_producto, 
+                            id_unidad_medida,
+                            descripcion
+                        )
+                    SELECT 
+                        p.id_producto, 
+                        1,  -- id_unidad_medida por defecto (U)
+                        p.descripcion
+                    FROM adv__producto p
+                    WHERE p.descripcion IS NOT NULL;
+
+                    -- Actualizar las referencias en adv__producto
+                    UPDATE adv__producto p
+                    SET p.id_detalle_producto = p.id_producto
+                    WHERE p.descripcion IS NOT NULL;
+
+                    -- Eliminar el campo descripcion
+                    ALTER TABLE adv__producto DROP COLUMN descripcion;
                     """,
                     """
                     ALTER TABLE adv__producto
