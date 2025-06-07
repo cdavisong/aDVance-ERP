@@ -8,7 +8,7 @@ namespace aDVanceERP.PatchDB {
         private static void Main(string[] args) {
             Console.CursorVisible = false;
             Console.Title = "aDVance ERP º Sistema de Parches";
-            var version = "desconocida";
+            var version = "desconocida ";
 
             if (File.Exists(@".\app.ver"))
                 using (var fs = new FileStream(@".\app.ver", FileMode.Open)) {
