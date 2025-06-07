@@ -16,11 +16,15 @@ public partial class PresentadorContenedorModulos {
         _registroProducto.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
         _registroProducto.Vista.CargarDescripcionesUnidadesMedida(UtilesUnidadMedida.ObtenerDescripcionesUnidadesMedida());
         _registroProducto.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerNombresUnidadesMedida());
+        _registroProducto.Vista.CargarDescripcionesTiposMateriaPrima(UtilesTipoMateriaPrima.ObtenerDescripcionesTiposMateriaPrima());
+        _registroProducto.Vista.CargarTiposMateriaPrima(UtilesTipoMateriaPrima.ObtenerNombresTiposMateriasPrimas());
         _registroProducto.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
         _registroProducto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroProducto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroProducto.Vista.RegistrarUnidadMedida += MostrarVistaRegistroUnidadMedida;
+        _registroProducto.Vista.RegistrarTipoMateriaPrima += MostrarVistaRegistroTipoMateriaPrima;
         _registroProducto.Vista.EliminarUnidadMedida += EliminarUnidadMedida;
+        _registroProducto.Vista.EliminarTipoMateriaPrima += EliminarTipoMateriaPrima;
         _registroProducto.DatosRegistradosActualizados += async delegate {
             if (_gestionProductos == null)
                 return;

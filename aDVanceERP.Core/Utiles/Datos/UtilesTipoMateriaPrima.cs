@@ -3,7 +3,7 @@
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
-    public static class UtilesTipoProducto {
+    public static class UtilesTipoMateriaPrima {
         private static async Task<T?> EjecutarConsultaAsync<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
             using var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL());
             try {
@@ -38,21 +38,21 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 : default;
         }
 
-        public static async Task<long> ObtenerIdTipoProducto(string? nombreTipoProducto) {
-            const string query = "SELECT id_tipo_producto FROM adv__tipo_producto WHERE nombre = @NombreTipoProducto;";
-            var result = await EjecutarConsultaAsync(query, lector => lector.GetInt32("id_tipo_producto"),
-                new MySqlParameter("@NombreTipoProducto", $"{nombreTipoProducto}"));
-            return result != 0 ? result : 0;
+        public static async Task<long> ObtenerIdTipoMateriaPrima(string? nombreTipoMateriaPrima) {
+            const string query = "SELECT id_tipo_materia_prima FROM adv__tipo_materia_prima WHERE nombre = @NombreTipoMateriaPrima;";
+            var result = await EjecutarConsultaAsync(query, lector => lector.GetInt32("id_tipo_materia_prima"),
+                new MySqlParameter("@NombreTipoMateriaPrima", nombreTipoMateriaPrima)); // Sin comillas adicionales
+            return result > 0 ? result : 0; // Manejo de null
         }
 
-        public static string? ObtenerNombreTipoProducto(long idTipoProducto) {
-            const string query = "SELECT nombre FROM adv__tipo_producto WHERE id_tipo_producto = @IdTipoProducto;";
+        public static string? ObtenerNombreTipoMateriaPrima(long idTipoMateriaPrima) {
+            const string query = "SELECT nombre FROM adv__tipo_materia_prima WHERE id_tipo_materia_prima = @IdTipoMateriaPrima;";
             return EjecutarConsulta(query, lector => lector.GetString("nombre"),
-                new MySqlParameter("@IdTipoProducto", idTipoProducto));
+                new MySqlParameter("@IdTipoMateriaPrima", idTipoMateriaPrima));
         }
 
-        public static object[] ObtenerNombresTiposProductos() {
-            var query = "SELECT nombre FROM adv__tipo_producto;";
+        public static object[] ObtenerNombresTiposMateriasPrimas() {
+            var query = "SELECT nombre FROM adv__tipo_materia_prima;";
             return EjecutarConsulta(query, lector => {
                 var nombres = new List<string>();
                 do {
@@ -60,6 +60,17 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 } while (lector.Read());
                 return nombres.ToArray();
             }) ?? Array.Empty<object>();
+        }
+
+        public static string[] ObtenerDescripcionesTiposMateriaPrima() {
+            var query = "SELECT descripcion FROM adv__tipo_materia_prima;";
+            return EjecutarConsulta(query, lector => {
+                var descripciones = new List<string>();
+                do {
+                    descripciones.Add(lector.GetString("descripcion"));
+                } while (lector.Read());
+                return descripciones.ToArray();
+            }) ?? Array.Empty<string>();
         }
     }
 }

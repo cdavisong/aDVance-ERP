@@ -8,7 +8,7 @@ namespace aDVanceERP.PatchDB {
         private static void Main(string[] args) {
             Console.CursorVisible = false;
             Console.Title = "aDVance ERP º Sistema de Parches";
-            var version = "desconocida ";
+            var version = "desconocida";
 
             if (File.Exists(@".\app.ver"))
                 using (var fs = new FileStream(@".\app.ver", FileMode.Open)) {
@@ -59,73 +59,12 @@ namespace aDVanceERP.PatchDB {
                 List<string> querys =
                 [
                     """
-                    CREATE TABLE IF NOT EXISTS adv__caja (
-                        id_caja int(11) NOT NULL AUTO_INCREMENT,
-                        estado enum('Inactiva','Abierta','Cerrada') NOT NULL DEFAULT 'Abierta',
-                        fecha_apertura datetime DEFAULT NULL,
-                        saldo_inicial decimal(10,2) NOT NULL DEFAULT 0.00,
-                        saldo_actual decimal(10,2) NOT NULL DEFAULT 0.00,
-                        fecha_cierre datetime DEFAULT NULL,
-                        id_cuenta_usuario int(11) DEFAULT 0,
-                        PRIMARY KEY (id_caja)
-                    ) ENGINE=InnoDB;
-                    """,
-                    """
-                    CREATE TABLE IF NOT EXISTS adv__movimiento_caja (
-                        id_movimiento_caja int(11) NOT NULL AUTO_INCREMENT,
-                        id_caja int(11) NOT NULL,
-                        fecha datetime DEFAULT NULL,
-                        monto decimal(10,2) NOT NULL DEFAULT 0.00,
-                        tipo enum('Ingreso','Egreso') NOT NULL DEFAULT 'Ingreso',
-                        concepto varchar(255) NOT NULL,
-                        id_pago int(11) DEFAULT 0,
-                        id_usuario int(11) DEFAULT 0,
-                        observaciones text,
-                        PRIMARY KEY (id_movimiento_caja)
-                    ) ENGINE=InnoDB;
-                    """,
-                    """
-                    CREATE TABLE IF NOT EXISTS adv__detalle_producto (
-                        id_detalle_producto int(11) NOT NULL AUTO_INCREMENT,
-                        id_unidad_medida int(11) DEFAULT 0,
-                        descripcion text,
-                        PRIMARY KEY (id_detalle_producto)
-                    ) ENGINE=InnoDB;
-                    """,
-                    """
-                    CREATE TABLE IF NOT EXISTS adv__unidad_medida (
-                        id_unidad_medida int(11) NOT NULL AUTO_INCREMENT,
-                        nombre varchar(50) NOT NULL,
-                        abreviatura varchar(10) NOT NULL,
-                        descripcion text,
-                        PRIMARY KEY (id_unidad_medida)
-                    ) ENGINE=InnoDB;
-                    """,
-                    """
-                    CREATE TABLE IF NOT EXISTS adv__actividad_produccion (
-                        id_actividad_produccion INT(11) NOT NULL AUTO_INCREMENT,
+                    CREATE TABLE IF NOT EXISTS adv__tipo_materia_prima (
+                        id_tipo_materia_prima INT(11) NOT NULL AUTO_INCREMENT,
                         nombre VARCHAR(100) NOT NULL,
                         descripcion TEXT,
-                        costo DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-                        PRIMARY KEY (id_actividad_produccion)
-                    ) ENGINE=InnoDB;
-                    """,
-                    """
-                    CREATE TABLE IF NOT EXISTS adv__producto_mano_obra (
-                        id_producto_mano_obra INT(11) NOT NULL AUTO_INCREMENT,
-                        id_producto INT(11) NOT NULL,
-                        id_actividad_produccion INT(11) NOT NULL,
-                        PRIMARY KEY (id_producto_mano_obra)
-                    ) ENGINE=InnoDB;
-                    """,
-                    """
-                    CREATE TABLE IF NOT EXISTS adv__producto_materia_prima (
-                        id_producto_materia_prima INT(11) NOT NULL AUTO_INCREMENT,
-                        id_producto INT(11) NOT NULL,
-                        id_materia_prima INT(11) NOT NULL,
-                        cantidad DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-                        PRIMARY KEY (id_producto_materia_prima)
-                    ) ENGINE=InnoDB;
+                        PRIMARY KEY (id_tipo_materia_prima)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
                     """
                 ];
 
@@ -146,105 +85,10 @@ namespace aDVanceERP.PatchDB {
                 List<string> querys =
                 [
                     """
-                    RENAME TABLE advanceerp.adv__articulo 
-                    TO advanceerp.adv__producto;
-                    """,
-                    """
                     ALTER TABLE adv__producto 
-                    CHANGE id_articulo id_producto INT(11) NOT NULL AUTO_INCREMENT;
-                    """,
-                    """
-                    RENAME TABLE advanceerp.adv__articulo_almacen 
-                    TO advanceerp.adv__producto_almacen;
-                    """,
-                    """
-                    ALTER TABLE adv__producto_almacen 
-                    CHANGE id_articulo_almacen id_producto_almacen INT(11) NOT NULL AUTO_INCREMENT, 
-                    CHANGE id_articulo id_producto INT(11) NOT NULL;
-                    """,
-                    """
-                    RENAME TABLE advanceerp.adv__detalle_compra_articulo 
-                    TO advanceerp.adv__detalle_compra_producto;
-                    """,
-                    """
-                    ALTER TABLE adv__detalle_compra_producto 
-                    CHANGE id_detalle_compra_articulo id_detalle_compra_producto INT(11) NOT NULL AUTO_INCREMENT, 
-                    CHANGE id_articulo id_producto INT(11) NOT NULL;
-                    """,
-                    """
-                    RENAME TABLE advanceerp.adv__detalle_venta_articulo 
-                    TO advanceerp.adv__detalle_venta_producto;
-                    """,
-                    """
-                    ALTER TABLE adv__detalle_venta_producto 
-                    CHANGE id_detalle_venta_articulo id_detalle_venta_producto BIGINT(20) NOT NULL AUTO_INCREMENT, 
-                    CHANGE id_articulo id_producto INT(11) NOT NULL;
-                    """,
-                    """
-                    ALTER TABLE adv__movimiento 
-                    CHANGE id_articulo id_producto INT(11) NOT NULL;
-                    """,
-                    """
-                    ALTER TABLE adv__producto 
-                    ADD categoria ENUM(
-                        'Mercancia',
-                        'ProductoTerminado',
-                        'MateriaPrima'
-                    ) NOT NULL 
-                    DEFAULT 'Mercancia'
-                    AFTER id_producto;
-                    """,
-                    """                    
-                    ALTER TABLE adv__producto 
-                    ADD COLUMN id_detalle_producto INT(11) NULL AFTER nombre;
-
-                    -- Insertar detalles para todos los productos existentes
-                    INSERT INTO adv__detalle_producto (
-                            id_detalle_producto, 
-                            id_unidad_medida,
-                            descripcion
-                        )
-                    SELECT 
-                        p.id_producto, 
-                        1,  -- id_unidad_medida por defecto (U)
-                        p.descripcion
-                    FROM adv__producto p
-                    WHERE p.descripcion IS NOT NULL;
-
-                    -- Actualizar las referencias en adv__producto
-                    UPDATE adv__producto p
-                    SET p.id_detalle_producto = p.id_producto
-                    WHERE p.descripcion IS NOT NULL;
-
-                    -- Eliminar el campo descripcion
-                    ALTER TABLE adv__producto DROP COLUMN descripcion;
-                    """,
-                    """
-                    ALTER TABLE adv__producto
-                    ADD COLUMN es_vendible BOOLEAN NOT NULL 
-                    DEFAULT TRUE
+                    ADD id_tipo_materia_prima INT(11) NOT NULL 
+                    DEFAULT '1' 
                     AFTER id_proveedor;
-                    """,
-                    """
-                    ALTER TABLE adv__detalle_compra_producto 
-                    CHANGE cantidad cantidad FLOAT(10,2) NOT NULL;
-                    """,
-                    """
-                    ALTER TABLE adv__detalle_venta_producto 
-                    CHANGE cantidad cantidad FLOAT(10,2) NOT NULL;
-                    """,
-                    """
-                    ALTER TABLE adv__movimiento 
-                    CHANGE cantidad_movida cantidad_movida FLOAT(10,2) NOT NULL;
-                    """,
-                    """
-                    ALTER TABLE adv__producto_almacen 
-                    CHANGE stock stock FLOAT(10,2) NOT NULL;
-                    """,
-                    """
-                    ALTER TABLE adv__producto_materia_prima
-                    CHANGE cantidad cantidad FLOAT(10,2) NOT NULL 
-                    DEFAULT '0.00';
                     """
                 ];
 
@@ -265,34 +109,19 @@ namespace aDVanceERP.PatchDB {
                 List<string> querys =
                 [
                     """
-                    INSERT INTO `adv__unidad_medida` (`nombre`, `abreviatura`, `descripcion`) VALUES
-                    ('Unidad', 'u', 'Elemento individual o pieza completa'),
-                    ('Docena', 'dz', 'Conjunto de 12 unidades'),
-                    ('Centímetro', 'cm', 'Para medir telas, cintas o longitudes pequeñas'),
-                    ('Metro', 'm', 'Para medir telas, rollos o distancias mayores'),
-                    ('Gramo', 'g', 'Para pigmentos, polvos o ingredientes cosméticos'),
-                    ('Kilogramo', 'kg', 'Para materias primas a granel'),
-                    ('Mililitro', 'ml', 'Para líquidos como pinturas, disolventes o lociones'),
-                    ('Litro', 'L', 'Para mayores cantidades de líquidos'),
-                    ('Pulgada', 'in', 'Medida anglosajona para telas o herramientas'),
-                    ('Juego', 'jg', 'Conjunto de piezas que funcionan juntas'),
-                    ('Paquete', 'pq', 'Para agrupaciones de productos'),
-                    ('Caja', 'cj', 'Unidad de empaque estándar'),
-                    ('Rollo', 'rll', 'Para materiales enrollados como cintas o telas'),
-                    ('Tubo', 'tb', 'Para cremas, pinturas o productos en envase tubular'),
-                    ('Frasco', 'fsc', 'Para productos en envases de vidrio o plástico'),
-                    ('Bolsa', 'bls', 'Para productos a granel o empaques flexibles'),
-                    ('Kit', 'kt', 'Conjunto de productos complementarios'),
-                    ('Par', 'pr', 'Para artículos que van en pares'),
-                    ('Pulgada cúbica', 'in³', 'Para medir volúmenes pequeños'),
-                    ('Pie cúbico', 'ft³', 'Para medir volúmenes mayores'),
-                    ('Onza', 'oz', 'Medida para líquidos y sólidos (28.35 gramos)'),
-                    ('Onza líquida', 'fl oz', 'Específica para líquidos (29.57 ml)'),
-                    ('Yarda', 'yd', 'Para telas y materiales textiles (0.9144 metros)'),
-                    ('Galón', 'gal', 'Para líquidos a granel (3.785 litros)'),
-                    ('Pulgada cuadrada', 'in²', 'Para medir superficies pequeñas'),
-                    ('Pie cuadrado', 'ft²', 'Para medir superficies mayores'),
-                    ('Metro cuadrado', 'm²', 'Para medir superficies en sistema métrico');
+                    INSERT INTO adv__tipo_materia_prima (nombre, descripcion)
+                    VALUES 
+                        ('Genérico', 'Tipo de material genérico para materias primas no clasificadas'),
+                        ('Tela', 'Material principal para la confección de prendas'),
+                        ('Hilo', 'Utilizado para costuras y acabados'),
+                        ('Botón', 'Accesorio para cierre y decoración'),
+                        ('Cremallera', 'Cierre deslizante para prendas'),
+                        ('Elástico', 'Banda flexible para ajuste'),
+                        ('Entretela', 'Refuerzo interno para cuellos y puños'),
+                        ('Cinta', 'Usada para acabados y detalles'),
+                        ('Velcro', 'Cierre de contacto para prendas y accesorios'),
+                        ('Broche', 'Cierre metálico o plástico'),
+                        ('Aguja', 'Herramienta para coser a mano o máquina');
                     """
                 ];
 

@@ -15,13 +15,14 @@ public class Producto : IObjetoUnico {
     }
 
     public Producto(long id, CategoriaProducto categoria, string nombre, string codigo, long idDetalleProducto, long idProveedor,
-        bool esVendible, decimal precioCompraBase, decimal precioVentaBase) {
+        long idTipoMateriaPrima, bool esVendible, decimal precioCompraBase, decimal precioVentaBase) {
         Id = id;
         Categoria = categoria;
         Nombre = nombre;
-        Codigo = codigo;        
+        Codigo = codigo;
         IdDetalleProducto = idDetalleProducto;
         IdProveedor = idProveedor;
+        IdTipoMateriaPrima = idTipoMateriaPrima;
         EsVendible = esVendible;
         PrecioCompraBase = precioCompraBase;
         PrecioVentaBase = precioVentaBase;
@@ -33,6 +34,7 @@ public class Producto : IObjetoUnico {
     public string? Codigo { get; }
     public long IdDetalleProducto { get; set; }
     public long IdProveedor { get; set; }
+    public long IdTipoMateriaPrima { get; set; } = 0; // Solo para materias primas
     public bool EsVendible { get; set; } = true;
     public decimal PrecioCompraBase { get; }
     public decimal PrecioVentaBase { get; }
@@ -51,7 +53,8 @@ public static class UtilesBusquedaProducto {
         "Todos los productos",
         "Identificador de BD",
         "Código del producto",
-        "Nombre del producto"
+        "Nombre del producto",
+        "Descripción del producto"
     };
 }
 

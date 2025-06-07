@@ -16,16 +16,21 @@ public interface IVistaRegistroProducto : IVistaRegistro {
 
     // P2 : Unidad de medida, precios de compraventa y stock inicial
     string UnidadMedida { get; set; }
+    string TipoMateriaPrima { get; set; }
     decimal PrecioCompraBase { get; set; }
     decimal PrecioVentaBase { get; set; }
     string? NombreAlmacen { get; set; }
     float StockInicial { get; set; }
 
     event EventHandler? RegistrarUnidadMedida;
+    event EventHandler? RegistrarTipoMateriaPrima;
     event EventHandler? EliminarUnidadMedida;
+    event EventHandler? EliminarTipoMateriaPrima;
 
     void CargarRazonesSocialesProveedores(object[] nombresProveedores);
     void CargarUnidadesMedida(object[] unidadesMedida);
     void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida);
+    void CargarTiposMateriaPrima(object[] nombresTiposMateriaPrima);
+    void CargarDescripcionesTiposMateriaPrima(string[] descripcionesTiposMateriaPrima);
     void CargarNombresAlmacenes(object[] nombresAlmacenes);
 }

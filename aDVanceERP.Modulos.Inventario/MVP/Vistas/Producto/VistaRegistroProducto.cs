@@ -67,6 +67,11 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         set => P2UmPreciosStock.UnidadMedida = value;
     }
 
+    public string TipoMateriaPrima {
+        get => P2UmPreciosStock.TipoMateriaPrima;
+        set => P2UmPreciosStock.TipoMateriaPrima = value;
+    }
+
     public decimal PrecioCompraBase {
         get => P2UmPreciosStock.PrecioCompraBase;
         set => P2UmPreciosStock.PrecioCompraBase = value;
@@ -100,13 +105,11 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     }
 
     public event EventHandler? RegistrarUnidadMedida;
-    public event EventHandler? RegistrarTipoProducto;
-    public event EventHandler? RegistrarDisenoProducto;
+    public event EventHandler? RegistrarTipoMateriaPrima;
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarUnidadMedida;
-    public event EventHandler? EliminarTipoProducto;
-    public event EventHandler? EliminarDisenoProducto;
+    public event EventHandler? EliminarTipoMateriaPrima;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
@@ -134,6 +137,8 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         };
         P1DatosGenerales.CategoriaProductoCambiada += delegate (object? sender, EventArgs args) {
             ActualizarVisibilidadCamposPrecios();
+
+            P2UmPreciosStock.ConfigurarVisibilidadCamposTipoMateriaPrima(CategoriaProducto == CategoriaProducto.MateriaPrima);
         };
         P1DatosGenerales.EsVendibleActualizado += delegate (object? sender, EventArgs args) {
             ActualizarVisibilidadCamposPrecios();
@@ -141,8 +146,14 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         P2UmPreciosStock.RegistrarUnidadMedida += delegate (object? sender, EventArgs args) {
             RegistrarUnidadMedida?.Invoke(sender, args);
         };
+        P2UmPreciosStock.RegistrarTipoMateriaPrima += delegate (object? sender, EventArgs args) {
+            RegistrarTipoMateriaPrima?.Invoke(sender, args);
+        };
         P2UmPreciosStock.EliminarUnidadMedida += delegate (object? sender, EventArgs args) {
             EliminarUnidadMedida?.Invoke(sender, args);
+        };
+        P2UmPreciosStock.EliminarTipoMateriaPrima += delegate (object? sender, EventArgs args) {
+            EliminarTipoMateriaPrima?.Invoke(sender, args);
         };
         btnAnterior.Click += delegate (object? sender, EventArgs args) {
             if (_paginaActual > 1)
@@ -195,6 +206,14 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
 
     public void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida) {
         P2UmPreciosStock.CargarDescripcionesUnidadesMedida(descripcionesUnidadesMedida);
+    }
+
+    public void CargarTiposMateriaPrima(object[] nombresTiposMateriaPrima) {
+        P2UmPreciosStock.CargarTiposMateriaPrima(nombresTiposMateriaPrima);
+    }
+
+    public void CargarDescripcionesTiposMateriaPrima(string[] descripcionesTiposMateriaPrima) {
+        P2UmPreciosStock.CargarDescripcionesTiposMateriaPrima(descripcionesTiposMateriaPrima);
     }
 
     public void CargarNombresAlmacenes(object[] almacenes) {

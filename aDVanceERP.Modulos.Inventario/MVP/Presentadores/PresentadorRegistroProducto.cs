@@ -18,6 +18,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.Codigo = objeto.Codigo ?? string.Empty;
         Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
         Vista.EsVendible = objeto.EsVendible;
+        Vista.TipoMateriaPrima = UtilesTipoMateriaPrima.ObtenerNombreTipoMateriaPrima(objeto.IdTipoMateriaPrima) ?? string.Empty;
 
         using (var datos = new DatosDetalleProducto()) {
             var detalleProducto = datos.Obtener(CriterioBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).FirstOrDefault();
@@ -96,8 +97,9 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             Vista.CategoriaProducto,
             Vista.Nombre,
             Vista.Codigo,
-            Objeto?.IdDetalleProducto ?? 0,
+            Objeto?.IdDetalleProducto ?? 0,            
             await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
+            await UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(Vista.TipoMateriaPrima),
             Vista.EsVendible,
             Vista.PrecioCompraBase,
             Vista.PrecioVentaBase

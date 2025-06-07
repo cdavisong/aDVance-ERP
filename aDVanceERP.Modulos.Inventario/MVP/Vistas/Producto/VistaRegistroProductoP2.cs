@@ -17,6 +17,13 @@ public partial class VistaRegistroProductoP2 : Form {
 
     public string[] DescripcionesUnidadMedida { get; private set; } = Array.Empty<string>();
 
+    public string TipoMateriaPrima {
+        get => fieldTipoMateriaPrima.Text;
+        set => fieldTipoMateriaPrima.Text = value;
+    }
+
+    public string[] DescripcionesTiposMateriaPrima { get; private set; } = Array.Empty<string>();
+
     public decimal PrecioCompraBase {
         get => decimal.TryParse(fieldPrecioCompraBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
                  out var value)
@@ -55,29 +62,38 @@ public partial class VistaRegistroProductoP2 : Form {
     }
 
     public event EventHandler? RegistrarUnidadMedida;
+    public event EventHandler? RegistrarTipoMateriaPrima;
     public event EventHandler? EliminarUnidadMedida;
+    public event EventHandler? EliminarTipoMateriaPrima;
 
     private void Inicializar() {
+        // Configuracion de los campos de tipo de materia prima
+        ConfigurarVisibilidadCamposTipoMateriaPrima(false);
+
+        // Eventos
         fieldUnidadMedida.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
             fieldDescripcionUnidadMedida.Text = DescripcionesUnidadMedida[fieldUnidadMedida.SelectedIndex];
+        };
+        fieldTipoMateriaPrima.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
+            fieldDescripcionTipoMateriaPrima.Text = DescripcionesTiposMateriaPrima[fieldTipoMateriaPrima.SelectedIndex];
         };
         btnAdicionarUnidadMedida.Click += delegate (object? sender, EventArgs args) {
             RegistrarUnidadMedida?.Invoke(sender, args);
         };
+        btnAdicionarTipoMateriaPrima.Click += delegate (object? sender, EventArgs args) {
+            RegistrarTipoMateriaPrima?.Invoke(sender, args);
+        };
         btnEliminarUnidadMedida.Click += delegate (object? sender, EventArgs args) {
             EliminarUnidadMedida?.Invoke(UnidadMedida, args);
+        };
+        btnEliminarTipoMateriaPrima.Click += delegate (object? sender, EventArgs args) {
+            EliminarTipoMateriaPrima?.Invoke(TipoMateriaPrima, args);
         };
         fieldNombreAlmacen.SelectedIndexChanged += delegate {
             StockInicial = 0;
 
             fieldStockInicial.Focus();
         };
-    }
-
-    public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
-        fieldNombreAlmacen.Items.Clear();
-        fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
-        fieldNombreAlmacen.SelectedIndex = nombresAlmacenes.Length > 0 ? 0 : -1;
     }
 
     public void CargarUnidadesMedida(object[] unidadesMedida) {
@@ -91,19 +107,63 @@ public partial class VistaRegistroProductoP2 : Form {
         DescripcionesUnidadMedida = descripcionesUnidadesMedida;
     }
 
+    public void CargarTiposMateriaPrima(object[] nombresTiposMateriaPrima) {
+        fieldTipoMateriaPrima.Items.Clear();
+        fieldTipoMateriaPrima.Items.AddRange(nombresTiposMateriaPrima);
+        fieldTipoMateriaPrima.SelectedIndex = nombresTiposMateriaPrima.Length > 0 ? 0 : -1;
+    }
+
+    public void CargarDescripcionesTiposMateriaPrima(string[] descripcionesTiposMateriaPrima) {
+        Array.Clear(DescripcionesTiposMateriaPrima);
+        DescripcionesTiposMateriaPrima = descripcionesTiposMateriaPrima;
+    }
+
+    public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
+        fieldNombreAlmacen.Items.Clear();
+        fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
+        fieldNombreAlmacen.SelectedIndex = nombresAlmacenes.Length > 0 ? 0 : -1;
+    }
+
+    public void ConfigurarVisibilidadCamposTipoMateriaPrima(bool mostrarTipoMateriaPrima) {
+        // Ajustar visibilidad y altura de filas para tipo de materia prima
+        fieldTituloTipoMateriaPrima.Visible = mostrarTipoMateriaPrima;
+        layoutBase.RowStyles[4].Height = mostrarTipoMateriaPrima ? 35F : 0F;
+
+        layoutTipoMateriaPrima.Visible = mostrarTipoMateriaPrima;
+        layoutBase.RowStyles[5].Height = mostrarTipoMateriaPrima ? 45F : 0F;
+
+        fieldDescripcionTipoMateriaPrima.Visible = mostrarTipoMateriaPrima;
+        layoutBase.RowStyles[6].Height = mostrarTipoMateriaPrima ? 25F : 0F;
+
+        // Ajustar el separador según si el producto es materia prima
+        separador1.Visible = mostrarTipoMateriaPrima;
+        layoutBase.RowStyles[3].Height = mostrarTipoMateriaPrima ? 20F : 0F;
+
+        // Forzar el redibujado del layout
+        layoutBase.PerformLayout();
+
+        // Limpiar datos:
+        if (fieldTipoMateriaPrima.Items.Count > 0 && !mostrarTipoMateriaPrima)
+            fieldTipoMateriaPrima.SelectedIndex = 0;
+    }
+
     public void ConfigurarVisibilidadCamposPrecios(bool mostrarCompra, bool mostrarVenta) {
         // Ajustar visibilidad y altura de fila para precio de compra
         layoutPrecioCompraBase.Visible = mostrarCompra;
-        layoutBase.RowStyles[5].Height = mostrarCompra ? 45F : 0F;
+        layoutBase.RowStyles[9].Height = mostrarCompra ? 45F : 0F;
 
         // Ajustar visibilidad y altura de fila para precio de venta
         layoutPrecioVentaBase.Visible = mostrarVenta;
-        layoutBase.RowStyles[6].Height = mostrarVenta ? 45F : 0F;
+        layoutBase.RowStyles[10].Height = mostrarVenta ? 45F : 0F;
 
-        // Ajustar el separador según si hay algún campo visible
         bool algunCampoVisible = mostrarCompra || mostrarVenta;
 
-        separador1.Visible = algunCampoVisible;
+        // Ajustar visibilidad y altura de fila para el titulo de compraventa
+        fieldTituloPrecios.Visible = algunCampoVisible;
+        layoutBase.RowStyles[8].Height = algunCampoVisible ? 35F : 0F;
+
+        // Ajustar el separador según si hay algún campo visible
+        separador2.Visible = algunCampoVisible;
         layoutBase.RowStyles[7].Height = algunCampoVisible ? 20F : 0F;
 
         // Forzar el redibujado del layout
@@ -113,14 +173,14 @@ public partial class VistaRegistroProductoP2 : Form {
     public void ConfigurarVisibilidadCamposAlmacenStock(bool mostrarAlmacenStock) {
         // Ajustar visibilidad y altura de filas para almacén y stock inicial
         layoutTituloAlmacenStock.Visible = mostrarAlmacenStock;
-        layoutBase.RowStyles[8].Height = mostrarAlmacenStock ? 35F : 0F;
+        layoutBase.RowStyles[12].Height = mostrarAlmacenStock ? 35F : 0F;
 
         layoutAlmacenStock.Visible = mostrarAlmacenStock;
-        layoutBase.RowStyles[9].Height = mostrarAlmacenStock ? 45F : 0F;
+        layoutBase.RowStyles[13].Height = mostrarAlmacenStock ? 45F : 0F;
 
         // Ajustar el separador según si el campo de almacén y stock está visible
         separador1.Visible = mostrarAlmacenStock;
-        layoutBase.RowStyles[7].Height = mostrarAlmacenStock ? 20F : 0F;
+        layoutBase.RowStyles[11].Height = mostrarAlmacenStock ? 20F : 0F;
 
         // Forzar el redibujado del layout
         layoutBase.PerformLayout();
@@ -130,6 +190,8 @@ public partial class VistaRegistroProductoP2 : Form {
         UnidadMedida = string.Empty;
         fieldUnidadMedida.SelectedIndex = 0;
         fieldDescripcionUnidadMedida.Text = "Seleccione o registre una unidad de medida";
+        fieldTipoMateriaPrima.SelectedIndex = 0;
+        fieldDescripcionTipoMateriaPrima.Text = "Seleccione o registre un tipo de materia prima";
         PrecioCompraBase = 0;
         PrecioVentaBase = 0;
         NombreAlmacen = string.Empty;
