@@ -2,8 +2,6 @@
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
-using Google.Protobuf.WellKnownTypes;
-
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
     public partial class VistaRegistroProductoP1 : Form {
         private VistaRegistroProductoP1_1 P1DatosProveedorVentaDirecta = new VistaRegistroProductoP1_1();
