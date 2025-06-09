@@ -13,6 +13,7 @@ public partial class PresentadorContenedorModulos {
 
     private void InicializarVistaRegistroProducto() {
         _registroProducto = new PresentadorRegistroProducto(new VistaRegistroProducto());
+        _registroProducto.Vista.CargarNombresProductos(UtilesProducto.ObtenerNombresProductos().Result);
         _registroProducto.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
         _registroProducto.Vista.CargarDescripcionesUnidadesMedida(UtilesUnidadMedida.ObtenerDescripcionesUnidadesMedida());
         _registroProducto.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerNombresUnidadesMedida());

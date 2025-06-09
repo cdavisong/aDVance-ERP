@@ -2,8 +2,6 @@
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
-using Google.Protobuf.WellKnownTypes;
-
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
     public partial class VistaRegistroProductoP1 : Form {
         private VistaRegistroProductoP1_1 P1DatosProveedorVentaDirecta = new VistaRegistroProductoP1_1();
@@ -28,8 +26,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         }
 
         public string Nombre {
-            get => fieldNombre.Text;
-            set => fieldNombre.Text = value;
+            get => fieldNombreProducto.Text;
+            set => fieldNombreProducto.Text = value;
         }
 
         public string Codigo {
@@ -78,6 +76,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
                 EsVendible = CategoriaProducto == CategoriaProducto.Mercancia || 
                     CategoriaProducto == CategoriaProducto.ProductoTerminado;
             };
+            fieldNombreProducto.TextChanged += delegate (object? sender, EventArgs args) {
+                //TODO: Si el producto existe, popular sus datos
+                
+            };
             btnGenerarCodigo.Click += delegate (object? sender, EventArgs args) {
                 if (string.IsNullOrEmpty(Nombre))
                     CentroNotificaciones.Mostrar("Debe especificar un nombre único para el producto antes de generar un nuevo código de barras. Llene los campos correspondientes y presione nuevaente el botón.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
@@ -94,6 +96,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldCategoriaProducto.Items.AddRange(UtilesCategoriaProducto.CategoriaProducto);
             fieldCategoriaProducto.SelectedIndex = 0;
             fieldDescripcionCategoriaProducto.Text = UtilesCategoriaProducto.DescripcionesProducto[0];
+        }
+
+        public void CargarNombresProductos(string[] nombresProductos) {
+            fieldNombreProducto.AutoCompleteCustomSource.Clear();
+            fieldNombreProducto.AutoCompleteCustomSource.AddRange(nombresProductos);
+            fieldNombreProducto.AutoCompleteMode = AutoCompleteMode.Suggest;
+            fieldNombreProducto.AutoCompleteSource = AutoCompleteSource.CustomSource;
         }
 
         public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {

@@ -65,7 +65,18 @@ namespace aDVanceERP.PatchDB {
                         descripcion TEXT,
                         PRIMARY KEY (id_tipo_materia_prima)
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-                    """
+                    """,
+                    """"
+                    CREATE TABLE IF NOT EXISTS adv__conversion_unidad (
+                      id_conversion int(11) NOT NULL,
+                      id_unidad_origen int(11) NOT NULL,
+                      id_unidad_destino int(11) NOT NULL,
+                      factor_conversion decimal(15,6) NOT NULL,
+                      id_producto int(11) DEFAULT 0 COMMENT '0 para conversiones genéricas',
+                      PRIMARY KEY (id_conversion),
+                      UNIQUE KEY unica_conversion (id_unidad_origen, id_unidad_destino, id_producto)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+                    """"
                 ];
 
                 foreach (var query in querys)
@@ -89,7 +100,11 @@ namespace aDVanceERP.PatchDB {
                     ADD id_tipo_materia_prima INT(11) NOT NULL 
                     DEFAULT '1' 
                     AFTER id_proveedor;
-                    """
+                    """,
+                    """"
+                    ALTER TABLE adv__producto 
+                    ADD UNIQUE INDEX nombre_unico (nombre);
+                    """"
                 ];
 
                 foreach (var query in querys)

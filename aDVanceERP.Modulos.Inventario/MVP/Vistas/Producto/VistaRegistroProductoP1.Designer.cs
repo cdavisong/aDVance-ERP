@@ -24,29 +24,29 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaRegistroProductoP1));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
+            layoutCodigo = new TableLayoutPanel();
+            btnGenerarCodigo = new Guna.UI2.WinForms.Guna2Button();
+            fieldCodigo = new Guna.UI2.WinForms.Guna2TextBox();
             separador1 = new Guna.UI2.WinForms.Guna2Separator();
             fieldDescripcionCategoriaProducto = new Label();
             fieldCategoriaProducto = new Guna.UI2.WinForms.Guna2ComboBox();
             fieldTituloCategoriaProducto = new Label();
-            fieldNombre = new Guna.UI2.WinForms.Guna2TextBox();
-            fieldCodigo = new Guna.UI2.WinForms.Guna2TextBox();
+            fieldNombreProducto = new Guna.UI2.WinForms.Guna2TextBox();
             contenedorVistas = new Panel();
             fieldDescripcion = new Guna.UI2.WinForms.Guna2TextBox();
-            layoutCodigo = new TableLayoutPanel();
-            btnGenerarCodigo = new Guna.UI2.WinForms.Guna2Button();
             layoutBase.SuspendLayout();
             layoutCodigo.SuspendLayout();
             SuspendLayout();
@@ -69,7 +69,7 @@
             layoutBase.Controls.Add(fieldDescripcionCategoriaProducto, 0, 2);
             layoutBase.Controls.Add(fieldCategoriaProducto, 0, 1);
             layoutBase.Controls.Add(fieldTituloCategoriaProducto, 0, 0);
-            layoutBase.Controls.Add(fieldNombre, 0, 4);
+            layoutBase.Controls.Add(fieldNombreProducto, 0, 4);
             layoutBase.Controls.Add(contenedorVistas, 0, 9);
             layoutBase.Controls.Add(fieldDescripcion, 0, 8);
             layoutBase.Dock = DockStyle.Fill;
@@ -89,6 +89,71 @@
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutBase.Size = new Size(417, 470);
             layoutBase.TabIndex = 0;
+            // 
+            // layoutCodigo
+            // 
+            layoutCodigo.ColumnCount = 2;
+            layoutCodigo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutCodigo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            layoutCodigo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutCodigo.Controls.Add(btnGenerarCodigo, 1, 0);
+            layoutCodigo.Controls.Add(fieldCodigo, 0, 0);
+            layoutCodigo.Dock = DockStyle.Fill;
+            layoutCodigo.Location = new Point(0, 227);
+            layoutCodigo.Margin = new Padding(0);
+            layoutCodigo.Name = "layoutCodigo";
+            layoutCodigo.RowCount = 1;
+            layoutCodigo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutCodigo.Size = new Size(417, 45);
+            layoutCodigo.TabIndex = 20;
+            // 
+            // btnGenerarCodigo
+            // 
+            btnGenerarCodigo.Animated = true;
+            btnGenerarCodigo.BorderRadius = 18;
+            btnGenerarCodigo.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnGenerarCodigo.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnGenerarCodigo.CustomizableEdges = customizableEdges11;
+            btnGenerarCodigo.DialogResult = DialogResult.Cancel;
+            btnGenerarCodigo.Dock = DockStyle.Fill;
+            btnGenerarCodigo.FillColor = Color.PeachPuff;
+            btnGenerarCodigo.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            btnGenerarCodigo.ForeColor = Color.White;
+            btnGenerarCodigo.Location = new Point(370, 3);
+            btnGenerarCodigo.Name = "btnGenerarCodigo";
+            btnGenerarCodigo.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnGenerarCodigo.Size = new Size(44, 39);
+            btnGenerarCodigo.TabIndex = 33;
+            // 
+            // fieldCodigo
+            // 
+            fieldCodigo.Animated = true;
+            fieldCodigo.BorderColor = Color.Gainsboro;
+            fieldCodigo.BorderRadius = 16;
+            fieldCodigo.Cursor = Cursors.IBeam;
+            fieldCodigo.CustomizableEdges = customizableEdges13;
+            fieldCodigo.DefaultText = "";
+            fieldCodigo.DisabledState.BorderColor = Color.White;
+            fieldCodigo.DisabledState.ForeColor = Color.DimGray;
+            fieldCodigo.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldCodigo.Dock = DockStyle.Fill;
+            fieldCodigo.FocusedState.BorderColor = Color.SandyBrown;
+            fieldCodigo.Font = new Font("Segoe UI", 11.25F);
+            fieldCodigo.ForeColor = Color.Black;
+            fieldCodigo.HoverState.BorderColor = Color.SandyBrown;
+            fieldCodigo.IconLeft = (Image) resources.GetObject("fieldCodigo.IconLeft");
+            fieldCodigo.IconLeftOffset = new Point(10, 0);
+            fieldCodigo.Location = new Point(5, 5);
+            fieldCodigo.Margin = new Padding(5);
+            fieldCodigo.Name = "fieldCodigo";
+            fieldCodigo.PasswordChar = '\0';
+            fieldCodigo.PlaceholderForeColor = Color.DimGray;
+            fieldCodigo.PlaceholderText = "Código";
+            fieldCodigo.SelectedText = "";
+            fieldCodigo.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldCodigo.Size = new Size(357, 35);
+            fieldCodigo.TabIndex = 10;
+            fieldCodigo.TextOffset = new Point(5, 0);
             // 
             // separador1
             // 
@@ -118,7 +183,7 @@
             fieldCategoriaProducto.BackColor = Color.Transparent;
             fieldCategoriaProducto.BorderColor = Color.Gainsboro;
             fieldCategoriaProducto.BorderRadius = 16;
-            fieldCategoriaProducto.CustomizableEdges = customizableEdges5;
+            fieldCategoriaProducto.CustomizableEdges = customizableEdges15;
             fieldCategoriaProducto.Dock = DockStyle.Fill;
             fieldCategoriaProducto.DrawMode = DrawMode.OwnerDrawFixed;
             fieldCategoriaProducto.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -131,7 +196,7 @@
             fieldCategoriaProducto.Location = new Point(5, 40);
             fieldCategoriaProducto.Margin = new Padding(5);
             fieldCategoriaProducto.Name = "fieldCategoriaProducto";
-            fieldCategoriaProducto.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldCategoriaProducto.ShadowDecoration.CustomizableEdges = customizableEdges16;
             fieldCategoriaProducto.Size = new Size(407, 35);
             fieldCategoriaProducto.StartIndex = 0;
             fieldCategoriaProducto.TabIndex = 6;
@@ -153,65 +218,35 @@
             fieldTituloCategoriaProducto.Text = "      Categoría :";
             fieldTituloCategoriaProducto.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // fieldNombre
+            // fieldNombreProducto
             // 
-            fieldNombre.Animated = true;
-            fieldNombre.BorderColor = Color.Gainsboro;
-            fieldNombre.BorderRadius = 16;
-            fieldNombre.Cursor = Cursors.IBeam;
-            fieldNombre.CustomizableEdges = customizableEdges7;
-            fieldNombre.DefaultText = "";
-            fieldNombre.DisabledState.BorderColor = Color.White;
-            fieldNombre.DisabledState.ForeColor = Color.DimGray;
-            fieldNombre.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldNombre.Dock = DockStyle.Fill;
-            fieldNombre.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombre.Font = new Font("Segoe UI", 11.25F);
-            fieldNombre.ForeColor = Color.Black;
-            fieldNombre.HoverState.BorderColor = Color.SandyBrown;
-            fieldNombre.IconLeft = (Image) resources.GetObject("fieldNombre.IconLeft");
-            fieldNombre.IconLeftOffset = new Point(10, 0);
-            fieldNombre.Location = new Point(5, 177);
-            fieldNombre.Margin = new Padding(5);
-            fieldNombre.Name = "fieldNombre";
-            fieldNombre.PasswordChar = '\0';
-            fieldNombre.PlaceholderForeColor = Color.DimGray;
-            fieldNombre.PlaceholderText = "Nombre o identificador";
-            fieldNombre.SelectedText = "";
-            fieldNombre.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldNombre.Size = new Size(407, 35);
-            fieldNombre.TabIndex = 7;
-            fieldNombre.TextOffset = new Point(5, 0);
-            // 
-            // fieldCodigo
-            // 
-            fieldCodigo.Animated = true;
-            fieldCodigo.BorderColor = Color.Gainsboro;
-            fieldCodigo.BorderRadius = 16;
-            fieldCodigo.Cursor = Cursors.IBeam;
-            fieldCodigo.CustomizableEdges = customizableEdges3;
-            fieldCodigo.DefaultText = "";
-            fieldCodigo.DisabledState.BorderColor = Color.White;
-            fieldCodigo.DisabledState.ForeColor = Color.DimGray;
-            fieldCodigo.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldCodigo.Dock = DockStyle.Fill;
-            fieldCodigo.FocusedState.BorderColor = Color.SandyBrown;
-            fieldCodigo.Font = new Font("Segoe UI", 11.25F);
-            fieldCodigo.ForeColor = Color.Black;
-            fieldCodigo.HoverState.BorderColor = Color.SandyBrown;
-            fieldCodigo.IconLeft = (Image) resources.GetObject("fieldCodigo.IconLeft");
-            fieldCodigo.IconLeftOffset = new Point(10, 0);
-            fieldCodigo.Location = new Point(5, 5);
-            fieldCodigo.Margin = new Padding(5);
-            fieldCodigo.Name = "fieldCodigo";
-            fieldCodigo.PasswordChar = '\0';
-            fieldCodigo.PlaceholderForeColor = Color.DimGray;
-            fieldCodigo.PlaceholderText = "Código";
-            fieldCodigo.SelectedText = "";
-            fieldCodigo.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            fieldCodigo.Size = new Size(357, 35);
-            fieldCodigo.TabIndex = 10;
-            fieldCodigo.TextOffset = new Point(5, 0);
+            fieldNombreProducto.Animated = true;
+            fieldNombreProducto.BorderColor = Color.Gainsboro;
+            fieldNombreProducto.BorderRadius = 16;
+            fieldNombreProducto.Cursor = Cursors.IBeam;
+            fieldNombreProducto.CustomizableEdges = customizableEdges17;
+            fieldNombreProducto.DefaultText = "";
+            fieldNombreProducto.DisabledState.BorderColor = Color.White;
+            fieldNombreProducto.DisabledState.ForeColor = Color.DimGray;
+            fieldNombreProducto.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldNombreProducto.Dock = DockStyle.Fill;
+            fieldNombreProducto.FocusedState.BorderColor = Color.SandyBrown;
+            fieldNombreProducto.Font = new Font("Segoe UI", 11.25F);
+            fieldNombreProducto.ForeColor = Color.Black;
+            fieldNombreProducto.HoverState.BorderColor = Color.SandyBrown;
+            fieldNombreProducto.IconLeft = (Image) resources.GetObject("fieldNombreProducto.IconLeft");
+            fieldNombreProducto.IconLeftOffset = new Point(10, 0);
+            fieldNombreProducto.Location = new Point(5, 177);
+            fieldNombreProducto.Margin = new Padding(5);
+            fieldNombreProducto.Name = "fieldNombreProducto";
+            fieldNombreProducto.PasswordChar = '\0';
+            fieldNombreProducto.PlaceholderForeColor = Color.DimGray;
+            fieldNombreProducto.PlaceholderText = "Nombre o identificador";
+            fieldNombreProducto.SelectedText = "";
+            fieldNombreProducto.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            fieldNombreProducto.Size = new Size(407, 35);
+            fieldNombreProducto.TabIndex = 7;
+            fieldNombreProducto.TextOffset = new Point(5, 0);
             // 
             // contenedorVistas
             // 
@@ -228,7 +263,7 @@
             fieldDescripcion.BorderColor = Color.Gainsboro;
             fieldDescripcion.BorderRadius = 16;
             fieldDescripcion.Cursor = Cursors.IBeam;
-            fieldDescripcion.CustomizableEdges = customizableEdges9;
+            fieldDescripcion.CustomizableEdges = customizableEdges19;
             fieldDescripcion.DefaultText = "";
             fieldDescripcion.DisabledState.BorderColor = Color.White;
             fieldDescripcion.DisabledState.ForeColor = Color.DimGray;
@@ -248,45 +283,10 @@
             fieldDescripcion.PlaceholderForeColor = Color.DimGray;
             fieldDescripcion.PlaceholderText = "Descripción";
             fieldDescripcion.SelectedText = "";
-            fieldDescripcion.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            fieldDescripcion.ShadowDecoration.CustomizableEdges = customizableEdges20;
             fieldDescripcion.Size = new Size(407, 62);
             fieldDescripcion.TabIndex = 38;
             fieldDescripcion.TextOffset = new Point(5, 0);
-            // 
-            // layoutCodigo
-            // 
-            layoutCodigo.ColumnCount = 2;
-            layoutCodigo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutCodigo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
-            layoutCodigo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutCodigo.Controls.Add(btnGenerarCodigo, 1, 0);
-            layoutCodigo.Controls.Add(fieldCodigo, 0, 0);
-            layoutCodigo.Dock = DockStyle.Fill;
-            layoutCodigo.Location = new Point(0, 227);
-            layoutCodigo.Margin = new Padding(0);
-            layoutCodigo.Name = "layoutCodigo";
-            layoutCodigo.RowCount = 1;
-            layoutCodigo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutCodigo.Size = new Size(417, 45);
-            layoutCodigo.TabIndex = 20;
-            // 
-            // btnGenerarCodigo
-            // 
-            btnGenerarCodigo.Animated = true;
-            btnGenerarCodigo.BorderRadius = 18;
-            btnGenerarCodigo.CustomImages.Image = (Image) resources.GetObject("resource.Image");
-            btnGenerarCodigo.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnGenerarCodigo.CustomizableEdges = customizableEdges1;
-            btnGenerarCodigo.DialogResult = DialogResult.Cancel;
-            btnGenerarCodigo.Dock = DockStyle.Fill;
-            btnGenerarCodigo.FillColor = Color.PeachPuff;
-            btnGenerarCodigo.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnGenerarCodigo.ForeColor = Color.White;
-            btnGenerarCodigo.Location = new Point(370, 3);
-            btnGenerarCodigo.Name = "btnGenerarCodigo";
-            btnGenerarCodigo.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnGenerarCodigo.Size = new Size(44, 39);
-            btnGenerarCodigo.TabIndex = 33;
             // 
             // VistaRegistroProductoP1
             // 
@@ -310,7 +310,7 @@
         private TableLayoutPanel layoutBase;
         private Label fieldTituloCategoriaProducto;
         private Guna.UI2.WinForms.Guna2ComboBox fieldCategoriaProducto;
-        private Guna.UI2.WinForms.Guna2TextBox fieldNombre;
+        private Guna.UI2.WinForms.Guna2TextBox fieldNombreProducto;
         private Label fieldDescripcionCategoriaProducto;
         private Guna.UI2.WinForms.Guna2Separator separador1;
         private Guna.UI2.WinForms.Guna2TextBox fieldCodigo;

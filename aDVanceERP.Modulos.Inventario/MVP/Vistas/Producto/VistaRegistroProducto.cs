@@ -196,6 +196,10 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         P2UmPreciosStock.ConfigurarVisibilidadCamposPrecios(mostrarCompra, mostrarVenta);
     }
 
+    public void CargarNombresProductos(string[] nombresProductos) {
+        P1DatosGenerales.CargarNombresProductos(nombresProductos);
+    }
+
     public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
         P1DatosGenerales.CargarRazonesSocialesProveedores(nombresProveedores);
     }

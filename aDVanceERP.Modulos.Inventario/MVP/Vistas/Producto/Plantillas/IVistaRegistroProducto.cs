@@ -27,6 +27,7 @@ public interface IVistaRegistroProducto : IVistaRegistro {
     event EventHandler? EliminarUnidadMedida;
     event EventHandler? EliminarTipoMateriaPrima;
 
+    void CargarNombresProductos(string[] nombresProductos);
     void CargarRazonesSocialesProveedores(object[] nombresProveedores);
     void CargarUnidadesMedida(object[] unidadesMedida);
     void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida);
