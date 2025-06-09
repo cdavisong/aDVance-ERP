@@ -88,10 +88,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldTituloId = new Label();
             fieldTituloDescripcion = new Label();
             fieldTituloPrecioCesion = new Label();
-            fieldTituloStock = new Label();
             fieldTituloCodigo = new Label();
             fieldTituloNombre = new Label();
             fieldTituloPrecioAdquisicion = new Label();
+            fieldTituloStock = new Label();
             fieldTituloUnidadMedida = new Label();
             contenedorVistas = new Panel();
             layoutVista.SuspendLayout();
@@ -737,8 +737,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             layoutEncabezadosTabla.ColumnCount = 12;
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
@@ -784,10 +784,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldTituloDescripcion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloDescripcion.ForeColor = Color.Black;
             fieldTituloDescripcion.ImeMode = ImeMode.NoControl;
-            fieldTituloDescripcion.Location = new Point(401, 1);
+            fieldTituloDescripcion.Location = new Point(394, 1);
             fieldTituloDescripcion.Margin = new Padding(1);
             fieldTituloDescripcion.Name = "fieldTituloDescripcion";
-            fieldTituloDescripcion.Size = new Size(312, 56);
+            fieldTituloDescripcion.Size = new Size(318, 56);
             fieldTituloDescripcion.TabIndex = 16;
             fieldTituloDescripcion.Text = "Descripción";
             fieldTituloDescripcion.TextAlign = ContentAlignment.MiddleCenter;
@@ -798,27 +798,13 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldTituloPrecioCesion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloPrecioCesion.ForeColor = Color.Black;
             fieldTituloPrecioCesion.ImeMode = ImeMode.NoControl;
-            fieldTituloPrecioCesion.Location = new Point(825, 1);
+            fieldTituloPrecioCesion.Location = new Point(824, 1);
             fieldTituloPrecioCesion.Margin = new Padding(1);
             fieldTituloPrecioCesion.Name = "fieldTituloPrecioCesion";
             fieldTituloPrecioCesion.Size = new Size(108, 56);
             fieldTituloPrecioCesion.TabIndex = 18;
             fieldTituloPrecioCesion.Text = "Precio de venta base";
             fieldTituloPrecioCesion.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldTituloStock
-            // 
-            fieldTituloStock.Dock = DockStyle.Fill;
-            fieldTituloStock.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldTituloStock.ForeColor = Color.Black;
-            fieldTituloStock.ImeMode = ImeMode.NoControl;
-            fieldTituloStock.Location = new Point(935, 1);
-            fieldTituloStock.Margin = new Padding(1);
-            fieldTituloStock.Name = "fieldTituloStock";
-            fieldTituloStock.Size = new Size(108, 56);
-            fieldTituloStock.TabIndex = 19;
-            fieldTituloStock.Text = "Stock";
-            fieldTituloStock.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloCodigo
             // 
@@ -843,7 +829,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldTituloNombre.Location = new Point(181, 1);
             fieldTituloNombre.Margin = new Padding(1);
             fieldTituloNombre.Name = "fieldTituloNombre";
-            fieldTituloNombre.Size = new Size(218, 56);
+            fieldTituloNombre.Size = new Size(211, 56);
             fieldTituloNombre.TabIndex = 4;
             fieldTituloNombre.Text = "Nombre";
             fieldTituloNombre.TextAlign = ContentAlignment.MiddleCenter;
@@ -854,7 +840,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldTituloPrecioAdquisicion.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloPrecioAdquisicion.ForeColor = Color.Black;
             fieldTituloPrecioAdquisicion.ImeMode = ImeMode.NoControl;
-            fieldTituloPrecioAdquisicion.Location = new Point(715, 1);
+            fieldTituloPrecioAdquisicion.Location = new Point(714, 1);
             fieldTituloPrecioAdquisicion.Margin = new Padding(1);
             fieldTituloPrecioAdquisicion.Name = "fieldTituloPrecioAdquisicion";
             fieldTituloPrecioAdquisicion.Size = new Size(108, 56);
@@ -862,13 +848,27 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldTituloPrecioAdquisicion.Text = "Precio de compra base";
             fieldTituloPrecioAdquisicion.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // fieldTituloStock
+            // 
+            fieldTituloStock.Dock = DockStyle.Fill;
+            fieldTituloStock.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldTituloStock.ForeColor = Color.Black;
+            fieldTituloStock.ImeMode = ImeMode.NoControl;
+            fieldTituloStock.Location = new Point(934, 1);
+            fieldTituloStock.Margin = new Padding(1);
+            fieldTituloStock.Name = "fieldTituloStock";
+            fieldTituloStock.Size = new Size(108, 56);
+            fieldTituloStock.TabIndex = 19;
+            fieldTituloStock.Text = "Stock";
+            fieldTituloStock.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // fieldTituloUnidadMedida
             // 
             fieldTituloUnidadMedida.Dock = DockStyle.Fill;
             fieldTituloUnidadMedida.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloUnidadMedida.ForeColor = Color.Black;
             fieldTituloUnidadMedida.ImeMode = ImeMode.NoControl;
-            fieldTituloUnidadMedida.Location = new Point(1045, 1);
+            fieldTituloUnidadMedida.Location = new Point(1044, 1);
             fieldTituloUnidadMedida.Margin = new Padding(1);
             fieldTituloUnidadMedida.Name = "fieldTituloUnidadMedida";
             fieldTituloUnidadMedida.Size = new Size(78, 56);

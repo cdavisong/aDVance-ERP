@@ -48,18 +48,12 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
 
     public string Nombre {
         get => fieldNombre.Text;
-        set {
-            fieldNombre.Text = value;
-            fieldNombre.Margin = new Padding(1, value?.Length > 27 ? 10 : 1, 1, 1);
-        }
+        set => fieldNombre.Text = value;
     }
 
     public string Descripcion {
         get => fieldDescripcion.Text;
-        set {
-            fieldDescripcion.Text = value;
-            fieldDescripcion.Margin = new Padding(1, value?.Length > 47 ? 10 : 1, 1, 1);
-        }
+        set => fieldDescripcion.Text = value;
     }
 
     public decimal PrecioCompraBase {
