@@ -7,4 +7,6 @@ public interface IVistaTuplaAlmacen : IVistaTupla {
     string Nombre { get; set; }
     string Direccion { get; set; }
     string Notas { get; set; }
+
+    event EventHandler? DescargarProductos;
 }
