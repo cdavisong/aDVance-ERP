@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+  <!-- Buscador de productos -->
+   <Button
+    android:id="@+id/btnImportar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Importar Productos"
+    android:layout_marginTop="8dp" />
+  <EditText
+      android:id="@+id/txtBuscar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Buscar producto..."
+      android:inputType="text" />
+  <ListView
+        android:id="@+id/lstProductos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="#cccccc"
+        android:dividerHeight="1dp" />
+
+  <!-- Carrito de compras -->
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Carrito de compras"
+      android:textStyle="bold"
+      android:layout_marginTop="16dp" />
+
+  <ListView
+      android:id="@+id/lstCarrito"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:divider="#cccccc"
+      android:dividerHeight="1dp" />
+
+    <!-- Total y botones -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+      <TextView
+          android:id="@+id/lblTotal"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="Total: $0.00"
+          android:textSize="18sp"
+          android:textStyle="bold" />
+
+      <Button
+          android:id="@+id/btnPagarEfectivo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="  Pagar (Efectivo)  "
+          android:background="#4CAF50"
+          android:textColor="#FFFFFF" />
+
+      <Button
+          android:id="@+id/btnPagarTransferencia"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="  Pagar (Transferencia)  "
+          android:background="#2196F3"
+          android:textColor="#FFFFFF" />
+    </LinearLayout>
+    <Button
+      android:id="@+id/btnExportar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Exportar Datos"
+      android:layout_marginTop="8dp" />
+</LinearLayout>
