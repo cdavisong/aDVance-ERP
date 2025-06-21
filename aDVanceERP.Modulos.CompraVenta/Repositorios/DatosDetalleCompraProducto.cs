@@ -1,20 +1,24 @@
 ﻿using System.Globalization;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Modulos.CompraVenta.Repositorios;
 
 public class DatosDetalleCompraProducto : RepositorioDatosEntidadBase<DetalleCompraProducto, CriterioDetalleCompraProducto>,
-    IRepositorioDetalleCompraProducto {
-    public override string ComandoCantidad() {
+    IRepositorioDetalleCompraProducto
+{
+    public override string ComandoCantidad()
+    {
         return """
                SELECT COUNT(id_detalle_compra_producto)
                FROM adv__detalle_compra_producto;
                """;
     }
 
-    public override string ComandoAdicionar(DetalleCompraProducto objeto) {
+    public override string ComandoAdicionar(DetalleCompraProducto objeto)
+    {
         return $"""
                 INSERT INTO adv__detalle_compra_producto (
                     id_compra,
@@ -31,7 +35,8 @@ public class DatosDetalleCompraProducto : RepositorioDatosEntidadBase<DetalleCom
                 """;
     }
 
-    public override string ComandoEditar(DetalleCompraProducto objeto) {
+    public override string ComandoEditar(DetalleCompraProducto objeto)
+    {
         return $"""
                 UPDATE adv__detalle_compra_producto
                 SET
@@ -43,7 +48,8 @@ public class DatosDetalleCompraProducto : RepositorioDatosEntidadBase<DetalleCom
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    public override string ComandoEliminar(long id)
+    {
         return $"""
                 DELETE
                 FROM adv__detalle_compra_producto
@@ -51,10 +57,12 @@ public class DatosDetalleCompraProducto : RepositorioDatosEntidadBase<DetalleCom
                 """;
     }
 
-    public override string ComandoObtener(CriterioDetalleCompraProducto criterio, string dato) {
+    public override string ComandoObtener(CriterioDetalleCompraProducto criterio, string dato)
+    {
         var comando = string.Empty;
 
-        switch (criterio) {
+        switch (criterio)
+        {
             case CriterioDetalleCompraProducto.Todos:
                 comando = """
                           SELECT *
@@ -93,7 +101,8 @@ public class DatosDetalleCompraProducto : RepositorioDatosEntidadBase<DetalleCom
         return comando;
     }
 
-    public override DetalleCompraProducto MapearEntidad(MySqlDataReader lectorDatos) {
+    public override DetalleCompraProducto MapearEntidad(MySqlDataReader lectorDatos)
+    {
         return new DetalleCompraProducto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_compra_producto")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
@@ -103,7 +112,8 @@ public class DatosDetalleCompraProducto : RepositorioDatosEntidadBase<DetalleCom
         );
     }
 
-    public override string ComandoExiste(string dato) {
+    public override string ComandoExiste(string dato)
+    {
         return $"""
                 SELECT COUNT(1)
                 FROM adv__detalle_compra_producto
