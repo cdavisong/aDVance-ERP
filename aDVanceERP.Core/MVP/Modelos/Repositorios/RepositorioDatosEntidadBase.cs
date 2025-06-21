@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using MySql.Data.MySqlClient;
@@ -139,7 +138,7 @@ public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEnt
         EjecutarComandoNoQuery(conexionBd, query, parametros);
     }
 
-    public void Eliminar(En entidad, MySqlConnection? conexionBd = null) {
+    public virtual void Eliminar(En entidad, MySqlConnection? conexionBd = null) {
         var property = entidad.GetType().GetProperty("Id");
         if (property != null) {
             var id = property.GetValue(entidad);

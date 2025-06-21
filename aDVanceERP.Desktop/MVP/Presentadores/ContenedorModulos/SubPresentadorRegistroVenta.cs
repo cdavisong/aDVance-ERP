@@ -142,7 +142,7 @@ public partial class PresentadorContenedorModulos {
                     : 0.00m
             );
 
-            using (var datosProducto = new DatosDetalleVentaProducto()) {
+            using (var datosProducto = new RepoDetalleVentaProducto()) {
                 datosProducto.Adicionar(detalleVentaProducto);
             }
 

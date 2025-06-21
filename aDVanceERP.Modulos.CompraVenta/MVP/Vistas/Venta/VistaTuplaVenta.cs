@@ -3,9 +3,9 @@
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
@@ -114,8 +114,8 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
             var metodoPago = string.Empty;
             var cantidadPagada = 0m;
 
-            using (var datosVentas = new DatosVenta()) {
-                var venta = datosVentas.Buscar(CriterioBusquedaVenta.Id, Id).FirstOrDefault();
+            using (var datosVentas = new RepoVenta()) {
+                var venta = datosVentas.Buscar(FbVenta.Id, Id).resultados.FirstOrDefault();
 
                 if (venta == null)
                     return;
@@ -124,10 +124,10 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
                 datosCliente[1] = UtilesCliente.ObtenerDireccionCliente(venta.IdCliente) ?? string.Empty;
                 datosCliente[2] = UtilesCliente.ObtenerNumeroCliente(venta.IdCliente) ?? string.Empty;
 
-                using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
-                    var detalleVentaProducto = datosVentaProducto.Buscar(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
+                using (var datosVentaProducto = new RepoDetalleVentaProducto()) {
+                    var detalleVentaProducto = datosVentaProducto.Buscar(FbDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
-                    foreach (var ventaProducto in detalleVentaProducto) {
+                    foreach (var ventaProducto in detalleVentaProducto.resultados) {
                         var fila = new string[7];
 
                         fila[0] = ventaProducto.Id.ToString();
