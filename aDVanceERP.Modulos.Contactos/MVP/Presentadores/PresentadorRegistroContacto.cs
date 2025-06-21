@@ -70,7 +70,7 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
     /// </summary>
     protected override void RegistroAuxiliar(DatosContacto datosContacto, long id) {
         using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
-            var telefonos = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, (Objeto?.Id ?? 0).ToString()).ToList() ??
+            var telefonos = datosTelefonoContacto.Buscar(CriterioBusquedaTelefonoContacto.IdContacto, (Objeto?.Id ?? 0).ToString()).ToList() ??
                 new List<TelefonoContacto>();
             var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);
             var indiceTelefonoFijo = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Fijo);
@@ -119,11 +119,11 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
 
             foreach (var telefono in telefonos)
                 if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                    datosTelefonoContacto.Editar(telefono);
+                    datosTelefonoContacto.Actualizar(telefono);
                 else if (telefono.Id != 0)
-                    datosTelefonoContacto.Editar(telefono);
+                    datosTelefonoContacto.Actualizar(telefono);
                 else
-                    datosTelefonoContacto.Adicionar(telefono);
+                    datosTelefonoContacto.Insertar(telefono);
         }
     }
 }

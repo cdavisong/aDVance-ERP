@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas; 
 
-public interface IRepositorioPago : IRepositorioDatos<Pago, CriterioBusquedaPago> { }
+public interface IRepositorioPago : IRepositorioDatosEntidad<Pago, CriterioBusquedaPago> { }

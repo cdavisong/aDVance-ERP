@@ -8,7 +8,7 @@ public enum CategoriaProducto {
     MateriaPrima
 }
 
-public class Producto : IObjetoUnico {
+public class Producto : IEntidad {
     public Producto() {
         Categoria = CategoriaProducto.Mercancia;
         Nombre = "Producto genérico";

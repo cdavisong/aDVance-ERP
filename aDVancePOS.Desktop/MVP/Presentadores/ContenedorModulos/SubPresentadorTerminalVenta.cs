@@ -98,7 +98,7 @@ public partial class PresentadorContenedorModulos {
             );
 
             using (var datosProducto = new DatosDetalleVentaProducto()) {
-                datosProducto.Adicionar(detalleVentaProducto);
+                datosProducto.Insertar(detalleVentaProducto);
             }
 
             RegistrarMovimientoVentaProducto(detalleVentaProducto, producto);
@@ -115,7 +115,7 @@ public partial class PresentadorContenedorModulos {
     private static void RegistrarMovimientoVentaProducto(DetalleVentaProducto detalleVentaProducto,
         IReadOnlyList<string> producto) {
         using (var datosMovimiento = new DatosMovimiento()) {
-            datosMovimiento.Adicionar(new Movimiento(
+            datosMovimiento.Insertar(new Movimiento(
                 0,
                 detalleVentaProducto.IdProducto,
                 long.Parse(producto[5]),

@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
 
-public class DatosDetalleVentaProducto : RepositorioDatosBase<DetalleVentaProducto, CriterioDetalleVentaProducto>,
+public class DatosDetalleVentaProducto : RepositorioDatosEntidadBase<DetalleVentaProducto, CriterioDetalleVentaProducto>,
     IRepositorioDetalleVentaProducto {
     public override string ComandoCantidad() {
         return """
@@ -90,7 +90,7 @@ public class DatosDetalleVentaProducto : RepositorioDatosBase<DetalleVentaProduc
         return comando;
     }
 
-    public override DetalleVentaProducto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override DetalleVentaProducto MapearEntidad(MySqlDataReader lectorDatos) {
         return new DetalleVentaProducto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_venta_producto")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

@@ -18,12 +18,12 @@ public class PresentadorGestionClientes : PresentadorGestionBase<PresentadorTupl
         presentadorTupla.Vista.RazonSocial = objeto.RazonSocial ?? string.Empty;
 
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
+            var contacto = datosContacto.Buscar(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
 
             if (contacto != null) {
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
                     var telefonosContacto =
-                        datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
+                        datosTelefonoContacto.Buscar(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
                     var telefonoString = telefonosContacto.Aggregate(string.Empty,
                         (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
 

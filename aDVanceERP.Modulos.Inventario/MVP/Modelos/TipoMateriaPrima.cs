@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
-public class TipoMateriaPrima : IObjetoUnico {
+public class TipoMateriaPrima : IEntidad {
     public TipoMateriaPrima() {
         Id = 0;
         Nombre = string.Empty;

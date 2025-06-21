@@ -1,5 +1,5 @@
 ﻿namespace aDVanceERP.Core.MVP.Modelos.Plantillas; 
 
-public interface IObjetoUnico {
+public interface IEntidad {
     long Id { get; set; }
 }

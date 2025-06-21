@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
 
-public class DatosUnidadMedida : RepositorioDatosBase<UnidadMedida, CriterioBusquedaUnidadMedida>, IRepositorioUnidadMedida {
+public class DatosUnidadMedida : RepositorioDatosEntidadBase<UnidadMedida, CriterioBusquedaUnidadMedida>, IRepositorioUnidadMedida {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_unidad_medida) FROM adv__unidad_medida;";
     }
@@ -58,7 +58,7 @@ public class DatosUnidadMedida : RepositorioDatosBase<UnidadMedida, CriterioBusq
         return comando;
     }
 
-    public override UnidadMedida ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override UnidadMedida MapearEntidad(MySqlDataReader lectorDatos) {
         return new UnidadMedida(
             lectorDatos.GetInt64("id_unidad_medida"),
             lectorDatos.GetString("nombre"),

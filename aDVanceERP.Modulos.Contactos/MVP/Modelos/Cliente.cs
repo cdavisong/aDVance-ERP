@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos; 
 
-public class Cliente : IObjetoUnico {
+public class Cliente : IEntidad {
     public Cliente() { }
 
     public Cliente(long idCliente, string? numero, string? razonSocial, long idContacto) {

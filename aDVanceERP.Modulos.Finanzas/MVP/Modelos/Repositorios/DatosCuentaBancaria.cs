@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios; 
 
-public class DatosCuentaBancaria : RepositorioDatosBase<CuentaBancaria, CriterioBusquedaCuentaBancaria>,
+public class DatosCuentaBancaria : RepositorioDatosEntidadBase<CuentaBancaria, CriterioBusquedaCuentaBancaria>,
     IRepositorioCuentaBancaria {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_cuenta_bancaria) FROM adv__cuenta_bancaria;";
@@ -46,7 +46,7 @@ public class DatosCuentaBancaria : RepositorioDatosBase<CuentaBancaria, Criterio
         return $"SELECT COUNT(1) FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria = {dato};";
     }
 
-    public override CuentaBancaria ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override CuentaBancaria MapearEntidad(MySqlDataReader lectorDatos) {
         return new CuentaBancaria(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cuenta_bancaria")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("alias")),

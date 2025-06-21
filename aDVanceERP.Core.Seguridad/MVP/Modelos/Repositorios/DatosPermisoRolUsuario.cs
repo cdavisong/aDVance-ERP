@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
-public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, CriterioBusquedaPermisoRolUsuario>,
+public class DatosPermisoRolUsuario : RepositorioDatosEntidadBase<PermisoRolUsuario, CriterioBusquedaPermisoRolUsuario>,
     IRepositorioPermisoRolUsuario {
     public override string ComandoAdicionar(PermisoRolUsuario objeto) {
         return $"INSERT INTO adv__rol_permiso (id_rol_usuario, id_permiso) VALUES ('{objeto.IdRolUsuario}', '{objeto.IdPermiso}');";
@@ -44,7 +44,7 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
         return comando;
     }
 
-    public override PermisoRolUsuario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override PermisoRolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new PermisoRolUsuario(
             lectorDatos.GetInt64("id_rol_permiso"),
             lectorDatos.GetInt64("id_rol_usuario"),

@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
 
-public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IRepositorioVenta {
+public class DatosVenta : RepositorioDatosEntidadBase<Venta, CriterioBusquedaVenta>, IRepositorioVenta {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_venta) FROM adv__venta;";
     }
@@ -107,7 +107,7 @@ public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IR
         return comando;
     }
 
-    public override Venta ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Venta MapearEntidad(MySqlDataReader lectorDatos) {
         return new Venta(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

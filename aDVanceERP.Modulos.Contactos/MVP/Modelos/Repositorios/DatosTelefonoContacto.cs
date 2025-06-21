@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
 
-public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, CriterioBusquedaTelefonoContacto>,
+public class DatosTelefonoContacto : RepositorioDatosEntidadBase<TelefonoContacto, CriterioBusquedaTelefonoContacto>,
     IRepositorioTelefonoContacto {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_telefono_contacto) FROM adv__telefono_contacto;";
@@ -45,7 +45,7 @@ public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, Crit
         return comando;
     }
 
-    public override TelefonoContacto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override TelefonoContacto MapearEntidad(MySqlDataReader lectorDatos) {
         return new TelefonoContacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_telefono_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("prefijo")),

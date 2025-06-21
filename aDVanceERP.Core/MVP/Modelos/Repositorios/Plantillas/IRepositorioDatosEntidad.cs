@@ -1,0 +1,27 @@
+﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+
+using MySql.Data.MySqlClient;
+
+namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas; 
+
+public interface IRepositorioDatosEntidad<En, Fb> : IDisposable
+    where En : class, IEntidad, new()
+    where Fb : Enum {
+    // CRUD
+    En? ObtenerPorId(object id, MySqlConnection? conexionBd = null);
+    List<En> ObtenerTodos(MySqlConnection? conexionBd = null);
+    List<En> Buscar(Fb? criterio, string? dato, int limite = 0, int desplazamiento = 0, MySqlConnection? conexionBd = null);
+    List<En> BuscarAvanzado(Func<ConsultaBuilder, ConsultaBuilder> construirConsulta, MySqlConnection? conexionBd = null);
+
+    long Insertar(En entidad, MySqlConnection? conexionBd = null);
+    void InsertarRango(List<En> entidades, MySqlConnection? conexionBd = null);
+    void Actualizar(En entidad, MySqlConnection? conexionBd = null);
+    void ActualizarRango(List<En> entidades, MySqlConnection? conexionBd = null);
+    void Eliminar(object id, MySqlConnection? conexionBd = null);
+    void Eliminar(En entidad, MySqlConnection? conexionBd = null);
+    void EliminarRango(List<En> entidades, MySqlConnection? conexionBd = null);
+
+    // Utilidades
+    bool Existe(object id, MySqlConnection? conexionBd = null);
+    long Contar(Fb? criterio = default, MySqlConnection? conexionBd = null);
+}

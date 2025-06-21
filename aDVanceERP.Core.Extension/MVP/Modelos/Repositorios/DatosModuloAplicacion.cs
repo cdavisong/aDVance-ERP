@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios; 
 
-internal class DatosModuloAplicacion : RepositorioDatosBase<ModuloAplicacion, CriterioBusquedaModuloAplicacion>,
+internal class DatosModuloAplicacion : RepositorioDatosEntidadBase<ModuloAplicacion, CriterioBusquedaModuloAplicacion>,
     IRepositorioModuloAplicacion {
     public override string ComandoAdicionar(ModuloAplicacion objeto) {
         return $"INSERT INTO adv__modulo_aplicacion (nombre, version) VALUES ('{objeto.Nombre}', '{objeto.Version}');";
@@ -44,7 +44,7 @@ internal class DatosModuloAplicacion : RepositorioDatosBase<ModuloAplicacion, Cr
         return comando;
     }
 
-    public override ModuloAplicacion ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override ModuloAplicacion MapearEntidad(MySqlDataReader lectorDatos) {
         return new ModuloAplicacion(
             lectorDatos.GetInt64("id_modulo_aplicacion"),
             lectorDatos.GetString("nombre"),

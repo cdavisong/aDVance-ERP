@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
-    public class DatosEmpresa : RepositorioDatosBase<Empresa, CriterioBusquedaEmpresa>, IRepositorioEmpresa {
+    public class DatosEmpresa : RepositorioDatosEntidadBase<Empresa, CriterioBusquedaEmpresa>, IRepositorioEmpresa {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_empresa) 
@@ -27,7 +27,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
                 """;
         }
 
-        public override long Adicionar(Empresa objeto) {
+        public override long Insertar(Empresa objeto) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
@@ -74,7 +74,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
                 """;
         }
 
-        public override bool Editar(Empresa objeto, long nuevoId = 0) {
+        public override bool Actualizar(Empresa objeto, long nuevoId = 0) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
@@ -135,7 +135,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
             return comando;
         }
 
-        public override Empresa ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override Empresa MapearEntidad(MySqlDataReader lectorDatos) {
             var empresa = new Empresa(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_empresa")),
                 null,

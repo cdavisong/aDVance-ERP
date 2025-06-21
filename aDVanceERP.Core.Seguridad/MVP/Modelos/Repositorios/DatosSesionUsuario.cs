@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios; 
 
-public class DatosSesionUsuario : RepositorioDatosBase<SesionUsuario, CriterioBusquedaSesionUsuario>,
+public class DatosSesionUsuario : RepositorioDatosEntidadBase<SesionUsuario, CriterioBusquedaSesionUsuario>,
     IRepositorioSesionUsuario {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_sesion_usuario) FROM adv__sesion_usuario;";
@@ -42,7 +42,7 @@ public class DatosSesionUsuario : RepositorioDatosBase<SesionUsuario, CriterioBu
         return comando;
     }
 
-    public override SesionUsuario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override SesionUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new SesionUsuario(
             lectorDatos.GetInt64("id_sesion_usuario"),
             lectorDatos.GetInt32("id_cuenta_usuario"),

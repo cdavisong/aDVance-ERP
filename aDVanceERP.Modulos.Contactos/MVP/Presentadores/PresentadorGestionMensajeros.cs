@@ -22,12 +22,12 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         presentadorTupla.Vista.Nombre = objeto.Nombre;
 
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
+            var contacto = datosContacto.Buscar(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
 
             if (contacto != null) {
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
                     var telefonosContacto =
-                        datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
+                        datosTelefonoContacto.Buscar(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
                     var telefonoString = telefonosContacto.Aggregate(string.Empty,
                         (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
 
@@ -78,7 +78,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
                     );
 
                 // 3. Actualizar el mensajero 1 vez por tupla
-                datosMensajero.Editar(mensajero);
+                datosMensajero.Actualizar(mensajero);
             }
         }
 

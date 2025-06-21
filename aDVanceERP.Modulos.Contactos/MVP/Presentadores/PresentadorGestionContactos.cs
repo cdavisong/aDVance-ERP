@@ -18,7 +18,7 @@ public class PresentadorGestionContactos : PresentadorGestionBase<PresentadorTup
 
         using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
             var telefonosContacto =
-                datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, objeto.Id.ToString());
+                datosTelefonoContacto.Buscar(CriterioBusquedaTelefonoContacto.IdContacto, objeto.Id.ToString());
             var telefonoString = telefonosContacto.Aggregate(string.Empty,
                 (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
 

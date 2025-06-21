@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas; 
 
-public interface IRepositorioCuentaUsuario : IRepositorioDatos<CuentaUsuario, CriterioBusquedaCuentaUsuario> { }
+public interface IRepositorioCuentaUsuario : IRepositorioDatosEntidad<CuentaUsuario, CriterioBusquedaCuentaUsuario> { }

@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
-    public class DatosCaja : RepositorioDatosBase<Caja, CriterioBusquedaCaja>, IRepositorioCaja {
+    public class DatosCaja : RepositorioDatosEntidadBase<Caja, CriterioBusquedaCaja>, IRepositorioCaja {
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_caja) FROM adv__caja;";
         }
@@ -41,7 +41,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
             }
         }
 
-        public override Caja ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override Caja MapearEntidad(MySqlDataReader lectorDatos) {
             return new Caja(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_caja")),
                 lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha_apertura")),
