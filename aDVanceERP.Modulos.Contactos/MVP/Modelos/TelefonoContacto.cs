@@ -28,7 +28,7 @@ public class TelefonoContacto : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaTelefonoContacto {
+public enum FbTelefonoContacto {
     Todos,
     Id,
     Numero,

@@ -4,5 +4,5 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas; 
 
-public interface IVistaGestionProveedores : IVistaContenedor, IGestorDatos, IBuscadorDatos<CriterioBusquedaProveedor>,
+public interface IVistaGestionProveedores : IVistaContenedor, IGestorDatos, IBuscadorDatos<FbProveedor>,
     IGestorTablaDatos { }

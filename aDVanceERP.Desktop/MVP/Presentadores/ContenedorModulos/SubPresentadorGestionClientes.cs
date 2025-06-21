@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionClientes?.Vista == null)
             return;
 
-        _gestionClientes.Vista.CargarCriteriosBusqueda(UtilesBusquedaCliente.CriterioBusquedaCliente);
+        _gestionClientes.Vista.CargarCriteriosBusqueda(UtilesBusquedaCliente.FbCliente);
         _gestionClientes.Vista.Restaurar();
         _gestionClientes.Vista.Mostrar();
 

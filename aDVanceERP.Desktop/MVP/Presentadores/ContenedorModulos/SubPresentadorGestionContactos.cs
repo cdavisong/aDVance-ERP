@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionContactos?.Vista == null)
             return;
 
-        _gestionContactos.Vista.CargarCriteriosBusqueda(UtilesBusquedaContacto.CriterioBusquedaContacto);
+        _gestionContactos.Vista.CargarCriteriosBusqueda(UtilesBusquedaContacto.FbContacto);
         _gestionContactos.Vista.Restaurar();
         _gestionContactos.Vista.Mostrar();
 

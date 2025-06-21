@@ -31,9 +31,9 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
         set => Size = value;
     }
 
-    public CriterioBusquedaProveedor CriterioBusqueda {
+    public FbProveedor CriterioBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaProveedor)fieldCriterioBusqueda.SelectedIndex
+            ? (FbProveedor)fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int)value;
     }

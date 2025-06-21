@@ -2,13 +2,13 @@
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas;
+using aDVanceERP.Modulos.Contactos.Repositorios;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistroContacto, Contacto, DatosContacto,
-    CriterioBusquedaContacto> {
+public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistroContacto, Contacto, RepoContacto,
+    FbContacto> {
     public PresentadorRegistroContacto(IVistaRegistroContacto vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Contacto objeto) {
@@ -56,21 +56,21 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
         return nombreOk;
     }
 
-    protected override Task<Contacto?> ObtenerEntidadDesdeVista() {
-        return Task.FromResult<Contacto?>(new Contacto(Entidad?.Id ?? 0,
+    protected override Contacto? ObtenerEntidadDesdeVista() {
+        return new Contacto(Entidad?.Id ?? 0,
             Vista.Nombre,
             Vista.CorreoElectronico,
             Vista.Direccion,
             Vista.Notas
-        ));
+        );
     }
 
     /// <summary>
     ///     Registro o actualización de teléfonos para el contacto.
     /// </summary>
-    protected override void RegistroAuxiliar(DatosContacto datosContacto, long id) {
-        using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
-            var telefonos = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, (Entidad?.Id ?? 0).ToString()).ToList() ??
+    protected override void RegistroAuxiliar(RepoContacto datosContacto, long id) {
+        using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
+            var telefonos = datosTelefonoContacto.Buscar(FbTelefonoContacto.IdContacto, (Entidad?.Id ?? 0).ToString()).resultados ??
                 new List<TelefonoContacto>();
             var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);
             var indiceTelefonoFijo = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Fijo);
@@ -119,11 +119,11 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
 
             foreach (var telefono in telefonos)
                 if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                    datosTelefonoContacto.Editar(telefono);
+                    datosTelefonoContacto.Actualizar(telefono);
                 else if (telefono.Id != 0)
-                    datosTelefonoContacto.Editar(telefono);
+                    datosTelefonoContacto.Actualizar(telefono);
                 else
-                    datosTelefonoContacto.Adicionar(telefono);
+                    datosTelefonoContacto.Insertar(telefono);
         }
     }
 }

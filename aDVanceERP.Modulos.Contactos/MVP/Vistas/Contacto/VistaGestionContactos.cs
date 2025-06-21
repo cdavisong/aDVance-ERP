@@ -31,9 +31,9 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         set => Size = value;
     }
 
-    public CriterioBusquedaContacto CriterioBusqueda {
+    public FbContacto CriterioBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaContacto)fieldCriterioBusqueda.SelectedIndex
+            ? (FbContacto)fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int)value;
     }

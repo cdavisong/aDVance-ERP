@@ -1,13 +1,13 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa.Plantillas;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Contactos.Properties;
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Modulos.Contactos.Repositorios;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
-    public class PresentadorRegistroEmpresa : PresentadorRegistroBase<IVistaRegistroEmpresa, Empresa, DatosEmpresa, CriterioBusquedaEmpresa> {
+    public class PresentadorRegistroEmpresa : PresentadorRegistroBase<IVistaRegistroEmpresa, Empresa, RepoEmpresa, FbEmpresa> {
         public PresentadorRegistroEmpresa(IVistaRegistroEmpresa vista) : base(vista) {
         }
 
@@ -16,8 +16,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
             Vista.Logotipo = objeto.Logotipo ?? Resources.logoF_96px;
             Vista.Nombre = objeto.Nombre ?? string.Empty;
 
-            using (var datosContacto = new DatosContacto()) {
-                var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
+            using (var datosContacto = new RepoContacto()) {
+                var contacto = datosContacto.Buscar(FbContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
 
                 if (contacto != null) {
                     Vista.TelefonoMovil = UtilesTelefonoContacto.ObtenerTelefonoContacto(contacto.Id, true) ?? string.Empty;
@@ -63,10 +63,10 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
             return nombreOk;
         }
 
-        protected override void RegistroAuxiliar(DatosEmpresa datosEmpresa, long id) {
-            using (var datosContacto = new DatosContacto()) {
+        protected override void RegistroAuxiliar(RepoEmpresa datosEmpresa, long id) {
+            using (var datosContacto = new RepoContacto()) {
                 // Contacto
-                var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, (Entidad?.IdContacto ?? 0).ToString()).FirstOrDefault() ??
+                var contacto = datosContacto.Buscar(FbContacto.Id, (Entidad?.IdContacto ?? 0).ToString()).resultados.FirstOrDefault() ??
                     new Contacto();
 
                 contacto.Nombre = Vista.Nombre;
@@ -75,18 +75,18 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
                 contacto.Notas = "Nuestra empresa";
 
                 if (Vista.ModoEdicionDatos && contacto.Id != 0)
-                    datosContacto.Editar(contacto);
+                    datosContacto.Actualizar(contacto);
                 else if (contacto.Id != 0)
-                    datosContacto.Editar(contacto);
+                    datosContacto.Actualizar(contacto);
                 else if (Entidad != null) {
-                    Entidad.IdContacto = datosContacto.Adicionar(contacto);
+                    Entidad.IdContacto = datosContacto.Insertar(contacto);
 
                     // Editar empresa para modificar Id del contacto
-                    datosEmpresa.Editar(Entidad);
+                    datosEmpresa.Actualizar(Entidad);
                 }
 
-                using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
-                    var telefonos = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, (Entidad?.IdContacto ?? 0).ToString()).ToList() ??
+                using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
+                    var telefonos = datosTelefonoContacto.Buscar(FbTelefonoContacto.IdContacto, (Entidad?.IdContacto ?? 0).ToString()).resultados ??
                         new List<TelefonoContacto>();
                     var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);
                     var indiceTelefonoFijo = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Fijo);
@@ -135,20 +135,20 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
 
                     foreach (var telefono in telefonos)
                         if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                            datosTelefonoContacto.Editar(telefono);
+                            datosTelefonoContacto.Actualizar(telefono);
                         else if (telefono.Id != 0)
-                            datosTelefonoContacto.Editar(telefono);
+                            datosTelefonoContacto.Actualizar(telefono);
                         else
-                            datosTelefonoContacto.Adicionar(telefono);
+                            datosTelefonoContacto.Insertar(telefono);
                 }
             }
         }
 
-        protected override async Task<Empresa?> ObtenerEntidadDesdeVista() {
+        protected override Empresa? ObtenerEntidadDesdeVista() {
             return new Empresa(Entidad?.Id ?? 0,
                 Vista.Logotipo,
                 Vista.Nombre,
-                await UtilesContacto.ObtenerIdContacto(Vista.Nombre)
+                UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result
             );
         }
     }

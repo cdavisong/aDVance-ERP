@@ -31,9 +31,9 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
         set => Size = value;
     }
 
-    public CriterioBusquedaMensajero CriterioBusqueda {
+    public FbMensajero CriterioBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaMensajero) fieldCriterioBusqueda.SelectedIndex
+            ? (FbMensajero) fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int) value;
     }
