@@ -2,12 +2,12 @@
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
+using aDVanceERP.Modulos.Finanzas.Repositorios;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 
-public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaRegistroMovimientoCaja, MovimientoCaja, DatosMovimientoCaja, CriterioBusquedaMovimientoCaja> {
+public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaRegistroMovimientoCaja, MovimientoCaja, RepoMovimientoCaja, FbMovimientoCaja> {
     public PresentadorRegistroMovimientoCaja(IVIstaRegistroMovimientoCaja vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(MovimientoCaja objeto) {
@@ -21,8 +21,8 @@ public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaR
         Entidad = objeto;
     }
 
-    protected override Task<MovimientoCaja?> ObtenerEntidadDesdeVista() {
-        return Task.FromResult<MovimientoCaja?>(new MovimientoCaja(
+    protected override MovimientoCaja? ObtenerEntidadDesdeVista() {
+        return new MovimientoCaja(
             Entidad?.Id ?? 0,
             UtilesCaja.ObtenerIdCajaActiva(),
             Vista.Fecha,
@@ -32,6 +32,6 @@ public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaR
             0,
             UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0,
             Vista.Observaciones
-        ));
+        );
     }
 }

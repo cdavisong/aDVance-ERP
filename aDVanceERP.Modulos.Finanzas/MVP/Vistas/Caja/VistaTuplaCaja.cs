@@ -2,9 +2,9 @@
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 using aDVanceERP.Modulos.Finanzas.Properties;
+using aDVanceERP.Modulos.Finanzas.Repositorios;
 
 using System.Globalization;
 
@@ -124,8 +124,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 var saldoFinal = decimal.Parse(fieldSaldoActual.Text, CultureInfo.InvariantCulture);
                 var datosMovimientosCaja = new List<string[]>();
 
-                using (var datos = new DatosMovimientoCaja()) {
-                    var movimientosCaja = datos.Buscar(CriterioBusquedaMovimientoCaja.IdCaja, Id);
+                using (var datos = new RepoMovimientoCaja()) {
+                    var movimientosCaja = datos.Buscar(FbMovimientoCaja.IdCaja, Id).resultados;
 
                     foreach (var movimiento in movimientosCaja) {
                         datosMovimientosCaja.Add([

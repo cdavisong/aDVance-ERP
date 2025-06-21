@@ -2,13 +2,13 @@
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
+using aDVanceERP.Modulos.Finanzas.Repositorios;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores; 
 
 public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaRegistroCuentaBancaria, CuentaBancaria,
-    DatosCuentaBancaria, CriterioBusquedaCuentaBancaria> {
+    RepoCuentaBancaria, FbCuentaBancaria> {
     public PresentadorRegistroCuentaBancaria(IVistaRegistroCuentaBancaria vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(CuentaBancaria objeto) {
@@ -36,12 +36,12 @@ public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaR
         return aliasOk && numeroTarjetaOk;
     }
 
-    protected override async Task<CuentaBancaria?> ObtenerEntidadDesdeVista() {
+    protected override CuentaBancaria? ObtenerEntidadDesdeVista() {
         return new CuentaBancaria(Entidad?.Id ?? 0,
             Vista.Alias,
             Vista.NumeroTarjeta,
-            (TipoMoneda)Enum.Parse(typeof(TipoMoneda), Vista.Moneda),
-            await UtilesContacto.ObtenerIdContacto(Vista.NombrePropietario)
+            (TipoMoneda) Enum.Parse(typeof(TipoMoneda), Vista.Moneda),
+            UtilesContacto.ObtenerIdContacto(Vista.NombrePropietario).Result
         );
     }
 }

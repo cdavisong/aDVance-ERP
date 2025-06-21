@@ -3,9 +3,9 @@ using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja;
+using aDVanceERP.Modulos.Finanzas.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
@@ -53,15 +53,15 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroAperturaCaja?.Dispose();
         }
 
-        private void ActualizarMontoCaja(long idCaja, DatosMovimientoCaja? datosMovimientoCaja = null) {
+        private void ActualizarMontoCaja(long idCaja, RepoMovimientoCaja? datosMovimientoCaja = null) {
             if (datosMovimientoCaja == null) {
-                using (var datos = new DatosMovimientoCaja())
+                using (var datos = new RepoMovimientoCaja())
                     ActualizarMontoCaja(idCaja, datos);
 
                 return;
             }
 
-            var movimientosCaja = datosMovimientoCaja.Obtener(CriterioBusquedaMovimientoCaja.IdCaja, idCaja.ToString());
+            var movimientosCaja = datosMovimientoCaja.Obtener(FbMovimientoCaja.IdCaja, idCaja.ToString());
             decimal saldoActual = 0;
 
             foreach (var movimiento in movimientosCaja) {
