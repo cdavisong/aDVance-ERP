@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios; 
 
-internal class DatosModuloAplicacion : RepositorioDatosEntidadBase<ModuloAplicacion, CriterioBusquedaModuloAplicacion>,
+internal class DatosModuloAplicacion : RepositorioDatosEntidadBase<ModuloAplicacion, FbModuloAplicacion>,
     IRepositorioModuloAplicacion {
     public override string ComandoAdicionar(ModuloAplicacion objeto) {
         return $"INSERT INTO adv__modulo_aplicacion (nombre, version) VALUES ('{objeto.Nombre}', '{objeto.Version}');";
@@ -27,13 +27,13 @@ internal class DatosModuloAplicacion : RepositorioDatosEntidadBase<ModuloAplicac
         return $"SELECT COUNT(1) FROM adv__modulo_aplicacion WHERE nombre = '{dato}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaModuloAplicacion criterio, string dato) {
+    public override string ComandoObtener(FbModuloAplicacion criterio, string dato) {
         string comando;
         switch (criterio) {
-            case CriterioBusquedaModuloAplicacion.Id:
+            case FbModuloAplicacion.Id:
                 comando = $"SELECT * FROM adv__modulo_aplicacion WHERE id_modulo_aplicacion = {dato};";
                 break;
-            case CriterioBusquedaModuloAplicacion.Nombre:
+            case FbModuloAplicacion.Nombre:
                 comando = $"SELECT * FROM adv__modulo_aplicacion WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
                 break;
             default:

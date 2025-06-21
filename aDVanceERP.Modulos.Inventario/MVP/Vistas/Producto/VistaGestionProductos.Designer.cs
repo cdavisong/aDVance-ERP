@@ -62,7 +62,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldCriterioCategoriaProducto = new Guna2ComboBox();
             fieldNombreAlmacen = new Guna2ComboBox();
             fieldDatoBusqueda = new Guna2TextBox();
-            fieldCriterioBusqueda = new Guna2ComboBox();
+            fieldFb = new Guna2ComboBox();
             layoutTituloHerramientas = new TableLayoutPanel();
             fieldTituloFiltroCategoria = new Label();
             fieldTituloFiltroAlmacen = new Label();
@@ -201,7 +201,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             layoutHerramientas.Controls.Add(fieldCriterioCategoriaProducto, 1, 0);
             layoutHerramientas.Controls.Add(fieldNombreAlmacen, 0, 0);
             layoutHerramientas.Controls.Add(fieldDatoBusqueda, 3, 0);
-            layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 2, 0);
+            layoutHerramientas.Controls.Add(fieldFb, 2, 0);
             layoutHerramientas.Dock = DockStyle.Fill;
             layoutHerramientas.Location = new Point(50, 145);
             layoutHerramientas.Margin = new Padding(0);
@@ -292,28 +292,28 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldDatoBusqueda.TextOffset = new Point(5, 0);
             fieldDatoBusqueda.Visible = false;
             // 
-            // fieldCriterioBusqueda
+            // fieldFb
             // 
-            fieldCriterioBusqueda.Animated = true;
-            fieldCriterioBusqueda.BackColor = Color.Transparent;
-            fieldCriterioBusqueda.BorderColor = Color.Gainsboro;
-            fieldCriterioBusqueda.BorderRadius = 16;
-            fieldCriterioBusqueda.CustomizableEdges = customizableEdges7;
-            fieldCriterioBusqueda.Dock = DockStyle.Fill;
-            fieldCriterioBusqueda.DrawMode = DrawMode.OwnerDrawFixed;
-            fieldCriterioBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldCriterioBusqueda.FocusedColor = Color.Gainsboro;
-            fieldCriterioBusqueda.FocusedState.BorderColor = Color.Gainsboro;
-            fieldCriterioBusqueda.Font = new Font("Segoe UI", 11.25F);
-            fieldCriterioBusqueda.ForeColor = Color.Black;
-            fieldCriterioBusqueda.ItemHeight = 29;
-            fieldCriterioBusqueda.Location = new Point(525, 5);
-            fieldCriterioBusqueda.Margin = new Padding(5);
-            fieldCriterioBusqueda.Name = "fieldCriterioBusqueda";
-            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            fieldCriterioBusqueda.Size = new Size(290, 35);
-            fieldCriterioBusqueda.TabIndex = 27;
-            fieldCriterioBusqueda.TextOffset = new Point(10, 0);
+            fieldFb.Animated = true;
+            fieldFb.BackColor = Color.Transparent;
+            fieldFb.BorderColor = Color.Gainsboro;
+            fieldFb.BorderRadius = 16;
+            fieldFb.CustomizableEdges = customizableEdges7;
+            fieldFb.Dock = DockStyle.Fill;
+            fieldFb.DrawMode = DrawMode.OwnerDrawFixed;
+            fieldFb.DropDownStyle = ComboBoxStyle.DropDownList;
+            fieldFb.FocusedColor = Color.Gainsboro;
+            fieldFb.FocusedState.BorderColor = Color.Gainsboro;
+            fieldFb.Font = new Font("Segoe UI", 11.25F);
+            fieldFb.ForeColor = Color.Black;
+            fieldFb.ItemHeight = 29;
+            fieldFb.Location = new Point(525, 5);
+            fieldFb.Margin = new Padding(5);
+            fieldFb.Name = "fieldFb";
+            fieldFb.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            fieldFb.Size = new Size(290, 35);
+            fieldFb.TabIndex = 27;
+            fieldFb.TextOffset = new Point(10, 0);
             // 
             // layoutTituloHerramientas
             // 
@@ -971,7 +971,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         private TableLayoutPanel layoutHerramientas;
         private Guna2ComboBox fieldNombreAlmacen;
         private Guna2TextBox fieldDatoBusqueda;
-        private Guna2ComboBox fieldCriterioBusqueda;
+        private Guna2ComboBox fieldFb;
         private TableLayoutPanel layoutSeparadores;
         private Guna2Separator separador2;
         private Guna2Separator separador1;

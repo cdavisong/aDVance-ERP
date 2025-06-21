@@ -17,14 +17,14 @@ public class Permiso : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaPermiso {
+public enum FbPermiso {
     Todos,
     Id,
     Nombre
 }
 
 public static class UtilesBusquedaPermiso {
-    public static string[] CriterioBusquedaBusquedaPermiso = {
+    public static string[] FbBusquedaPermiso = {
         "Todos los permisos",
         "Identificador de BD",
         "Nombre del permiso"

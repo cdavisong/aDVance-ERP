@@ -21,14 +21,14 @@ public class Almacen : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaAlmacen {
+public enum FbAlmacen {
     Todos,
     Id,
     Nombre
 }
 
 public static class UtilesBusquedaAlmacen {
-    public static object[] CriterioBusquedaAlmacen = {
+    public static string[] FbAlmacen = {
         "Todos los almacenes",
         "Identificador de BD",
         "Nombre del almacén"

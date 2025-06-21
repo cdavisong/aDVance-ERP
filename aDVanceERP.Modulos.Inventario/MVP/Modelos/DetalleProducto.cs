@@ -19,7 +19,7 @@ public class DetalleProducto : IEntidad {
     public string? Descripcion { get; set; }
 }
 
-public enum CriterioBusquedaDetalleProducto {
+public enum FbDetalleProducto {
     Todos,
     Id,
     UnidadMedida,
@@ -27,7 +27,7 @@ public enum CriterioBusquedaDetalleProducto {
 }
 
 public static class UtilesBusquedaDetallesProducto {
-    public static object[] CriterioBusquedaDetallesProducto = {
+    public static string[] FbDetalleProducto = {
         "Todos los detalles de productos",
         "Identificador de BD",
         "Unidad de medida del producto",
