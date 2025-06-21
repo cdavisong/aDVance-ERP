@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
         _registroTipoMateriaPrima = new PresentadorRegistroTipoMateriaPrima(new VistaRegistroTipoMateriaPrima());
         _registroTipoMateriaPrima.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroTipoMateriaPrima.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroTipoMateriaPrima.DatosRegistradosActualizados += delegate {
+        _registroTipoMateriaPrima.DatosEntidadRegistradosActualizados += delegate {
             _registroProducto?.Vista.CargarTiposMateriaPrima(UtilesTipoMateriaPrima.ObtenerNombresTiposMateriasPrimas());
         };
 

@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionMovimientos() {
         _gestionMovimientos = new PresentadorGestionMovimientos(new VistaGestionMovimientos());
-        _gestionMovimientos.EditarObjeto += MostrarVistaEdicionMovimiento;
+        _gestionMovimientos.EditarEntidad += MostrarVistaEdicionMovimiento;
         _gestionMovimientos.Vista.RegistrarDatos += MostrarVistaRegistroMovimiento;
 
         if (Vista.Vistas != null)
@@ -24,6 +24,6 @@ public partial class PresentadorContenedorModulos {
         _gestionMovimientos.Vista.Restaurar();
         _gestionMovimientos.Vista.Mostrar();
 
-        await _gestionMovimientos.RefrescarListaObjetos();
+        await _gestionMovimientos.PopularTuplasDatosEntidades();
     }
 }

@@ -18,7 +18,7 @@ public partial class PresentadorContenedorModulos {
         _registroDetallePagoTransferencia.Vista.CargarAliasTarjetas(UtilesCuentaBancaria.ObtenerAliasesCuentas());
         _registroDetallePagoTransferencia.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroDetallePagoTransferencia.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroDetallePagoTransferencia.DatosRegistradosActualizados += delegate {
+        _registroDetallePagoTransferencia.DatosEntidadRegistradosActualizados += delegate {
             Transferencia = [
                 _registroDetallePagoTransferencia.Vista.Alias,
                 _registroDetallePagoTransferencia.Vista.NumeroConfirmacion,
@@ -38,7 +38,7 @@ public partial class PresentadorContenedorModulos {
         InicializarVistaRegistroDetallePagoTransferencia();
 
         if (_registroDetallePagoTransferencia != null && sender is DetallePagoTransferencia detallePagoTransferencia) {
-            _registroDetallePagoTransferencia.PopularVistaDesdeObjeto(detallePagoTransferencia);
+            _registroDetallePagoTransferencia.PopularVistaDesdeEntidad(detallePagoTransferencia);
             _registroDetallePagoTransferencia.Vista.Mostrar();
         }
 
@@ -50,7 +50,7 @@ public partial class PresentadorContenedorModulos {
             return;
 
         using (var transferencia = new DatosDetallePagoTransferencia()) {
-            transferencia.Insertar(new DetallePagoTransferencia(
+            transferencia.Adicionar(new DetallePagoTransferencia(
                 0,
                 UtilesBD.ObtenerUltimoIdTabla("venta"),
                 UtilesCuentaBancaria.ObtenerIdCuenta(Transferencia[0]),

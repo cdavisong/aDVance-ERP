@@ -11,7 +11,7 @@ public class
     PresentadorRegistroVenta : PresentadorRegistroBase<IVistaRegistroVenta, Venta, DatosVenta, CriterioBusquedaVenta> {
     public PresentadorRegistroVenta(IVistaRegistroVenta vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Venta objeto) {
+    public override void PopularVistaDesdeEntidad(Venta objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.RazonSocialCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
         Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
@@ -26,11 +26,11 @@ public class
 
         Vista.IdTipoEntrega = objeto.IdTipoEntrega;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override async Task<Venta?> ObtenerObjetoDesdeVista() {
-        return new Venta(Objeto?.Id ?? 0,
+    protected override async Task<Venta?> ObtenerEntidadDesdeVista() {
+        return new Venta(Entidad?.Id ?? 0,
             DateTime.Now,
             await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
             UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),

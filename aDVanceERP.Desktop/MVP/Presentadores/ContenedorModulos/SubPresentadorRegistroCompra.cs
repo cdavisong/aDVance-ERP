@@ -28,7 +28,7 @@ public partial class PresentadorContenedorModulos {
             _registroCompraProducto.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
             _registroCompraProducto.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
             _registroCompraProducto.Vista.CargarNombresProductos(await UtilesProducto.ObtenerNombresProductos());
-            _registroCompraProducto.DatosRegistradosActualizados += async delegate {
+            _registroCompraProducto.DatosEntidadRegistradosActualizados += async delegate {
                 ProductosCompra = _registroCompraProducto.Vista.Productos;
 
                 RegistrarDetallesCompraProducto();
@@ -36,7 +36,7 @@ public partial class PresentadorContenedorModulos {
                 if (_gestionCompras == null)
                     return;
 
-                await _gestionCompras.RefrescarListaObjetos();
+                await _gestionCompras.PopularTuplasDatosEntidades();
             };
 
             ProductosCompra?.Clear();
@@ -50,7 +50,7 @@ public partial class PresentadorContenedorModulos {
         var existenAlmacenes = false;
 
         using (var datos = new DatosAlmacen())
-            existenAlmacenes = datos.Contar() > 0;
+            existenAlmacenes = datos.Cantidad() > 0;
 
         if (!existenAlmacenes) {
             CentroNotificaciones.Mostrar("No es posible registrar nuevas compras. Debe existir al menos un almacén registrado.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
@@ -73,7 +73,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Compra compra) {
             if (_registroCompraProducto != null) {
-                _registroCompraProducto.PopularVistaDesdeObjeto(compra);
+                _registroCompraProducto.PopularVistaDesdeEntidad(compra);
                 _registroCompraProducto.Vista.Mostrar();
             }
         }
@@ -99,7 +99,7 @@ public partial class PresentadorContenedorModulos {
             );
 
             using (var datosProducto = new DatosDetalleCompraProducto())
-                datosProducto.Insertar(detalleCompraProducto);
+                datosProducto.Adicionar(detalleCompraProducto);
 
             RegistrarMovimientoCompraProducto(detalleCompraProducto, producto);
             ModificarStockCompraProducto(detalleCompraProducto, producto);
@@ -115,7 +115,7 @@ public partial class PresentadorContenedorModulos {
     private static void RegistrarMovimientoCompraProducto(DetalleCompraProducto detalleCompraProducto,
         IReadOnlyList<string> producto) {
         using (var datosMovimiento = new DatosMovimiento()) {
-            datosMovimiento.Insertar(new Movimiento(
+            datosMovimiento.Adicionar(new Movimiento(
                 0,
                 detalleCompraProducto.IdProducto,
                 0,

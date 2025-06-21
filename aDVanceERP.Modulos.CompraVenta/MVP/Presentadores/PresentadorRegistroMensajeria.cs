@@ -12,12 +12,12 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
     public PresentadorRegistroMensajeria(IVistaRegistroMensajeria vista) : base(vista) {
     }
 
-    public override async void PopularVistaDesdeObjeto(SeguimientoEntrega objeto) {
+    public override async void PopularVistaDesdeEntidad(SeguimientoEntrega objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.NombreMensajero = await UtilesMensajero.ObtenerNombreMensajero(objeto.IdMensajero);
 
         using (var datosVenta = new DatosVenta()) {
-            var venta = datosVenta.Buscar(CriterioBusquedaVenta.Id, objeto.IdVenta.ToString()).FirstOrDefault();
+            var venta = datosVenta.Obtener(CriterioBusquedaVenta.Id, objeto.IdVenta.ToString()).FirstOrDefault();
 
             if (venta == null)
                 return;
@@ -27,10 +27,10 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
             Vista.Observaciones = objeto.Observaciones;
         }
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var nombreMensajeroOk = !string.IsNullOrEmpty(Vista.NombreMensajero) && !Vista.NombreMensajero.Equals("Ninguno");
         var tipoEntregaOk = !string.IsNullOrEmpty(Vista.TipoEntrega) && !Vista.TipoEntrega.Equals("Presencial");
         var razonSocialValida = UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente) != 0;
@@ -49,8 +49,8 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
         return nombreMensajeroOk && tipoEntregaOk && direccionOk;
     }
 
-    protected override async Task<SeguimientoEntrega?> ObtenerObjetoDesdeVista() {
-        return new SeguimientoEntrega(Objeto?.Id ?? 0,
+    protected override async Task<SeguimientoEntrega?> ObtenerEntidadDesdeVista() {
+        return new SeguimientoEntrega(Entidad?.Id ?? 0,
             Vista.IdVenta,
             await UtilesMensajero.ObtenerIdMensajero(Vista.NombreMensajero),
             DateTime.Now,

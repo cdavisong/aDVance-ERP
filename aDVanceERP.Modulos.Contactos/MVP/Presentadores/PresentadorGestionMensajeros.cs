@@ -22,12 +22,12 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         presentadorTupla.Vista.Nombre = objeto.Nombre;
 
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Buscar(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
 
             if (contacto != null) {
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
                     var telefonosContacto =
-                        datosTelefonoContacto.Buscar(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
+                        datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
                     var telefonoString = telefonosContacto.Aggregate(string.Empty,
                         (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
 
@@ -45,22 +45,22 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         }
 
         presentadorTupla.Vista.Activo = objeto.Activo;
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnHabilitacionMensajero;
-        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnHabilitacionMensajero;
+        presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBtnHabilitacionMensajero;
+        presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBtnHabilitacionMensajero;
 
         return presentadorTupla;
     }
 
-    public override Task RefrescarListaObjetos() {
+    public override Task PopularTuplasDatosEntidades() {
         // Cambiar la visibilidad de los botones
         Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
 
-        return base.RefrescarListaObjetos();
+        return base.PopularTuplasDatosEntidades();
     }
 
     private void IntercambiarHabilitacionMensajero(object? sender, EventArgs e) {
         // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
-        var tuplasSeleccionadas = _tuplasObjetos.Where(t => t.TuplaSeleccionada).ToList();
+        var tuplasSeleccionadas = _tuplasEntidades.Where(t => t.TuplaSeleccionada).ToList();
 
         if (!tuplasSeleccionadas.Any()) {
             Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
@@ -74,19 +74,19 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
                         long.Parse(tupla.Vista.Id),
                         tupla.Vista.Nombre,
                         !tupla.Vista.Activo,
-                        tupla.Objeto.IdContacto
+                        tupla.Entidad.IdContacto
                     );
 
                 // 3. Actualizar el mensajero 1 vez por tupla
-                datosMensajero.Actualizar(mensajero);
+                datosMensajero.Editar(mensajero);
             }
         }
 
         Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
-        _ = RefrescarListaObjetos();
+        _ = PopularTuplasDatosEntidades();
     }
 
     private void CambiarVisibilidadBtnHabilitacionMensajero(object? sender, EventArgs e) {
-        Vista.MostrarBtnHabilitarDeshabilitarMensajero = _tuplasObjetos.Any(t => t.TuplaSeleccionada);
+        Vista.MostrarBtnHabilitarDeshabilitarMensajero = _tuplasEntidades.Any(t => t.TuplaSeleccionada);
     }
 }

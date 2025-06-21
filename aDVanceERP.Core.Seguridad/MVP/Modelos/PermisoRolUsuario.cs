@@ -17,7 +17,14 @@ public class PermisoRolUsuario : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaPermisoRolUsuario {
+public enum FbPermisoRolCuentaUsuario {
     Todos,
     Id
+}
+
+public static class UtilesBusquedaPermisoRolCuentaUsuario {
+    public static string[] FbPermisoRolCuentaUsuario = {
+        "Todos los permisos de un rol",
+        "Identificador de BD"
+    };
 }

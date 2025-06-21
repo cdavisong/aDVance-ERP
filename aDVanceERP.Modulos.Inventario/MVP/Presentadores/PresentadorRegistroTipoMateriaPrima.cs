@@ -9,15 +9,15 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 public class PresentadorRegistroTipoMateriaPrima : PresentadorRegistroBase<IVistaRegistroTipoMateriaPrima, TipoMateriaPrima, DatosTipoMateriaPrima, CriterioBusquedaTipoMateriaPrima> {
     public PresentadorRegistroTipoMateriaPrima(IVistaRegistroTipoMateriaPrima vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(TipoMateriaPrima objeto) {
+    public override void PopularVistaDesdeEntidad(TipoMateriaPrima objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.Nombre = objeto.Nombre;
         Vista.Descripcion = objeto.Descripcion ?? string.Empty;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
 
         if (!nombreOk)
@@ -26,9 +26,9 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorRegistroBase<IVist
         return nombreOk;
     }
 
-    protected override Task<TipoMateriaPrima?> ObtenerObjetoDesdeVista() {
+    protected override Task<TipoMateriaPrima?> ObtenerEntidadDesdeVista() {
         return Task.FromResult<TipoMateriaPrima?>(new TipoMateriaPrima(
-            Objeto?.Id ?? 0,
+            Entidad?.Id ?? 0,
             Vista.Nombre,
             string.IsNullOrEmpty(Vista.Descripcion) ? null : Vista.Descripcion
         ));

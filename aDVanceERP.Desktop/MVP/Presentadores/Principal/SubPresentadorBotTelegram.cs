@@ -398,7 +398,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                 var filas = new List<string[]>();
                 using (var datosVentas = new DatosVenta()) {
-                    var ventasFecha = datosVentas.Buscar(CriterioBusquedaVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd"));
+                    var ventasFecha = datosVentas.Obtener(CriterioBusquedaVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd"));
 
                     if (ventasFecha == null || !ventasFecha.Any()) {
                         await ResponderMensaje(chatId, $"ℹ️ No hay ventas registradas para el {fechaReporte:dd/MM/yyyy}");
@@ -407,7 +407,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                     foreach (var venta in ventasFecha) {
                         using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
-                            var detalleVentaProducto = datosVentaProducto.Buscar(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
+                            var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
                             foreach (var ventaProducto in detalleVentaProducto) {
                                 var fila = new string[6];
@@ -539,7 +539,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                     using (var datosUsuario = new DatosCuentaUsuario()) {
                         var usuarioEncontrado = (await datosUsuario.ObtenerAsync(
-                            CriterioBusquedaCuentaUsuario.Nombre,
+                            FbCuentaUsuario.Nombre,
                             usuario,
                             out _)).FirstOrDefault();
 
@@ -613,7 +613,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                 using (var datosUsuario = new DatosCuentaUsuario()) {
                     var usuarioExistente = (await datosUsuario.ObtenerAsync(
-                        CriterioBusquedaCuentaUsuario.Nombre,
+                        FbCuentaUsuario.Nombre,
                         usuario,
                         out _)).FirstOrDefault();
 
@@ -629,7 +629,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                         Aprobado = false
                     };
 
-                    datosUsuario.Insertar(nuevoUsuario);
+                    datosUsuario.Adicionar(nuevoUsuario);
 
                     await ResponderMensaje(mensaje.IdChat,
                         $"✅ Registro exitoso\n\n" +

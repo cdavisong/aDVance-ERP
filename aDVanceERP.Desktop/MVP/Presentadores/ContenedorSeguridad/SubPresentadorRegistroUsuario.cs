@@ -10,7 +10,7 @@ public partial class PresentadorContenedorSeguridad {
         _registroUsuario = new PresentadorRegistroUsuario(new VistaRegistroUsuario());
         _registroUsuario.MostrarVistaAutenticacionUsuario += MostrarVistaAutenticacionUsuario;
         _registroUsuario.UsuarioRegistrado += MostrarVistaAutenticacionUsuario;
-        _registroUsuario.DatosRegistradosActualizados += MostrarVistaAprobacionUsuario;
+        _registroUsuario.DatosEntidadRegistradosActualizados += MostrarVistaAprobacionUsuario;
 
         Vista.Vistas?.Registrar("vistaRegistroUsuario", _registroUsuario.Vista);
     }

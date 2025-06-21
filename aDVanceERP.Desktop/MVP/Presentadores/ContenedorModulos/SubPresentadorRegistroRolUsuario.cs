@@ -22,7 +22,7 @@ public partial class PresentadorContenedorModulos {
             _registroRolUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
             _registroRolUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
-            _registroRolUsuario.DatosRegistradosActualizados += async delegate {
+            _registroRolUsuario.DatosEntidadRegistradosActualizados += async delegate {
                 Permisos = _registroRolUsuario.Vista.Permisos;
 
                 RegistrarEditarPermisosRol(await UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario!));
@@ -30,7 +30,7 @@ public partial class PresentadorContenedorModulos {
                 if (_gestionRolesUsuarios == null)
                     return;
 
-                await _gestionRolesUsuarios.RefrescarListaObjetos();
+                await _gestionRolesUsuarios.PopularTuplasDatosEntidades();
             };
 
             Permisos?.Clear();
@@ -54,7 +54,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is RolUsuario rolUsuario) {
             if (_registroRolUsuario != null) {
-                _registroRolUsuario.PopularVistaDesdeObjeto(rolUsuario);
+                _registroRolUsuario.PopularVistaDesdeEntidad(rolUsuario);
                 _registroRolUsuario.Vista.Mostrar();
             }
         }
@@ -83,7 +83,7 @@ public partial class PresentadorContenedorModulos {
             );
 
             using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario())
-                datosPermisoRolUsuario.Insertar(permisoRolUsuario);
+                datosPermisoRolUsuario.Adicionar(permisoRolUsuario);
         }
     }
 }

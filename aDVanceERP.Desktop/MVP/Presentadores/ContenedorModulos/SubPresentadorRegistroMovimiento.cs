@@ -19,16 +19,16 @@ public partial class PresentadorContenedorModulos {
         _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMovimiento.Vista.RegistrarTipoMovimiento += MostrarVistaRegistroTipoMovimiento;
         _registroMovimiento.Vista.EliminarTipoMovimiento += EliminarTipoMovimiento;
-        _registroMovimiento.DatosRegistradosActualizados += async delegate {
+        _registroMovimiento.DatosEntidadRegistradosActualizados += async delegate {
             if (_gestionMovimientos == null)
                 return;
 
-            await _gestionMovimientos.RefrescarListaObjetos(); 
+            await _gestionMovimientos.PopularTuplasDatosEntidades(); 
 
             if (_gestionProductos == null) 
                 return;
 
-            await _gestionProductos.RefrescarListaObjetos();
+            await _gestionProductos.PopularTuplasDatosEntidades();
         };
     }
 
@@ -80,7 +80,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Movimiento movimiento) {
             if (_registroMovimiento != null) {
-                _registroMovimiento.PopularVistaDesdeObjeto(movimiento);
+                _registroMovimiento.PopularVistaDesdeEntidad(movimiento);
                 _registroMovimiento.Vista.Mostrar();
             }
         }

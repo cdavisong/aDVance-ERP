@@ -87,7 +87,7 @@ public static class UtilesCuentaUsuario {
         return tablaVacia;
     }
 
-    public static async Task CrearUsuarioAdministrador(string nombreUsuario, SecureString password) {
+    public static void CrearUsuarioAdministrador(string nombreUsuario, SecureString password) {
         var passwordSeguro = UtilesPassword.HashPassword(password);
         var passwordSalt = passwordSeguro.salt;
         var passwordHash = passwordSeguro.hash;
@@ -100,7 +100,7 @@ public static class UtilesCuentaUsuario {
                 throw new ExcepcionConexionServidorMySQL();
             }
 
-            var idRolAdministrador = await UtilesRolUsuario.VerificarOCrearRolAdministrador();
+            var idRolAdministrador = UtilesRolUsuario.VerificarOCrearRolAdministrador().Result;
 
             using (var comando = new MySqlCommand(
                        "INSERT INTO adv__cuenta_usuario (nombre, password_hash, password_salt, id_rol_usuario, administrador, aprobado) VALUES (@nombre, @passwordHash, @passwordSalt, @idRolUsuario, @administrador, @aprobado)",
@@ -111,8 +111,7 @@ public static class UtilesCuentaUsuario {
                 comando.Parameters.AddWithValue("@idRolUsuario", idRolAdministrador);
                 comando.Parameters.AddWithValue("@administrador", true);
                 comando.Parameters.AddWithValue("@aprobado", true);
-
-                await comando.ExecuteNonQueryAsync();
+                comando.ExecuteNonQuery();
             }
         }
     }

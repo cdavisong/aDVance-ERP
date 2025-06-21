@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionCuentasUsuarios() {
         _gestionCuentasUsuarios = new PresentadorGestionCuentasUsuarios(new VistaGestionCuentasUsuarios());
-        _gestionCuentasUsuarios.EditarObjeto += MostrarVistaEdicionCuentaUsuario;
+        _gestionCuentasUsuarios.EditarEntidad += MostrarVistaEdicionCuentaUsuario;
         _gestionCuentasUsuarios.Vista.RegistrarDatos += MostrarVistaRegistroCuentaUsuario;
 
         if (Vista.Vistas != null)
@@ -20,10 +20,10 @@ public partial class PresentadorContenedorModulos {
         if (_gestionCuentasUsuarios?.Vista == null)
             return;
 
-        _gestionCuentasUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaUsuario.CriterioBusquedaBusquedaCuentaUsuario);
+        _gestionCuentasUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaUsuario.FbCuentasUsuarios);
         _gestionCuentasUsuarios.Vista.Restaurar();
         _gestionCuentasUsuarios.Vista.Mostrar();
 
-        await _gestionCuentasUsuarios.RefrescarListaObjetos();
+        await _gestionCuentasUsuarios.PopularTuplasDatosEntidades();
     }
 }

@@ -10,7 +10,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaRegistroMovimientoCaja, MovimientoCaja, DatosMovimientoCaja, CriterioBusquedaMovimientoCaja> {
     public PresentadorRegistroMovimientoCaja(IVIstaRegistroMovimientoCaja vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(MovimientoCaja objeto) {
+    public override void PopularVistaDesdeEntidad(MovimientoCaja objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.Fecha = objeto.Fecha;
         Vista.Monto = objeto.Monto;
@@ -18,12 +18,12 @@ public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaR
         Vista.Concepto = objeto.Concepto ?? string.Empty;
         Vista.Observaciones = objeto.Observaciones;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override Task<MovimientoCaja?> ObtenerObjetoDesdeVista() {
+    protected override Task<MovimientoCaja?> ObtenerEntidadDesdeVista() {
         return Task.FromResult<MovimientoCaja?>(new MovimientoCaja(
-            Objeto?.Id ?? 0,
+            Entidad?.Id ?? 0,
             UtilesCaja.ObtenerIdCajaActiva(),
             Vista.Fecha,
             Vista.Monto,

@@ -11,22 +11,22 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
     CriterioBusquedaMensajero> {
     public PresentadorRegistroMensajero(IVistaRegistroMensajero vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Mensajero objeto) {
+    public override void PopularVistaDesdeEntidad(Mensajero objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.Nombre = objeto.Nombre;
 
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Buscar(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
 
             if (contacto != null) {
                 Vista.TelefonoMovil = UtilesTelefonoContacto.ObtenerTelefonoContacto(contacto.Id, true) ?? string.Empty;
             }
         }
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicionDatos;
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
         var telefonoOk = !string.IsNullOrEmpty(Vista.TelefonoMovil);
@@ -53,25 +53,25 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
     protected override void RegistroAuxiliar(DatosMensajero datosMensajero, long id) {
         using (var datosContacto = new DatosContacto()) {
             // Contacto
-            var contacto = datosContacto.Buscar(CriterioBusquedaContacto.Id, (Objeto?.IdContacto ?? 0).ToString()).FirstOrDefault() ??
+            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, (Entidad?.IdContacto ?? 0).ToString()).FirstOrDefault() ??
                 new Contacto();
 
             contacto.Nombre = Vista.Nombre;
             contacto.Notas = "Mensajero";
 
             if (Vista.ModoEdicionDatos && contacto.Id != 0)
-                datosContacto.Actualizar(contacto);
+                datosContacto.Editar(contacto);
             else if (contacto.Id != 0)
-                datosContacto.Actualizar(contacto);
-            else if (Objeto != null) {
-                Objeto.IdContacto = datosContacto.Insertar(contacto);
+                datosContacto.Editar(contacto);
+            else if (Entidad != null) {
+                Entidad.IdContacto = datosContacto.Adicionar(contacto);
 
                 // Editar mensajero para modificar Id del contacto
-                datosMensajero.Actualizar(Objeto);
+                datosMensajero.Editar(Entidad);
             }
 
             using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
-                var telefonos = datosTelefonoContacto.Buscar(CriterioBusquedaTelefonoContacto.IdContacto, (Objeto?.IdContacto ?? 0).ToString()).ToList() ??
+                var telefonos = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, (Entidad?.IdContacto ?? 0).ToString()).ToList() ??
                     new List<TelefonoContacto>();
                 var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);
                 var indiceTelefonoFijo = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Fijo);
@@ -86,7 +86,7 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
                             "+53",
                             Vista.TelefonoMovil,
                             CategoriaTelefonoContacto.Movil,
-                            Objeto?.IdContacto ?? 0);
+                            Entidad?.IdContacto ?? 0);
 
                         telefonos.Add(telefonoMovil);
                     }
@@ -99,17 +99,17 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
 
                 foreach (var telefono in telefonos)
                     if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                        datosTelefonoContacto.Actualizar(telefono);
+                        datosTelefonoContacto.Editar(telefono);
                     else if (telefono.Id != 0)
-                        datosTelefonoContacto.Actualizar(telefono);
+                        datosTelefonoContacto.Editar(telefono);
                     else
-                        datosTelefonoContacto.Insertar(telefono);
+                        datosTelefonoContacto.Adicionar(telefono);
             }
         }
     }
 
-    protected override async Task<Mensajero?> ObtenerObjetoDesdeVista() {
-        return new Mensajero(Objeto?.Id ?? 0,
+    protected override async Task<Mensajero?> ObtenerEntidadDesdeVista() {
+        return new Mensajero(Entidad?.Id ?? 0,
             Vista.Nombre,
             true,
             await UtilesContacto.ObtenerIdContacto(Vista.Nombre)

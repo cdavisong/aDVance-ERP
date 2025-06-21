@@ -26,7 +26,7 @@ public partial class PresentadorContenedorModulos {
 
             Transferencia = Array.Empty<string>();
         };
-        _registroPago.DatosRegistradosActualizados += delegate (object? sender, EventArgs args) {
+        _registroPago.DatosEntidadRegistradosActualizados += delegate (object? sender, EventArgs args) {
             if (_terminalVenta == null)
                 return;
 
@@ -59,7 +59,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Venta venta) {
             if (_registroPago != null && _terminalVenta != null) {
-                _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta.Id, string.Empty, venta.Total));
+                _registroPago.PopularVistaDesdeEntidad(new Pago(0, venta.Id, string.Empty, venta.Total));
                 _registroPago.Vista.EfectuarTransferencia += delegate {
                     MostrarVistaEdicionDetallePagoTransferencia(sender, e);
                 };
@@ -73,14 +73,14 @@ public partial class PresentadorContenedorModulos {
     private void ActualizarSeguimientoEntrega() {
         using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
             var objetoSeguimiento = datosSeguimiento
-                .Buscar(CriterioBusquedaSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString())
+                .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString())
                 .FirstOrDefault();
 
             if (objetoSeguimiento == null)
                 return;
 
             objetoSeguimiento.FechaPago = DateTime.Now;
-            datosSeguimiento.Actualizar(objetoSeguimiento);
+            datosSeguimiento.Editar(objetoSeguimiento);
         }
     }
 
@@ -101,7 +101,7 @@ public partial class PresentadorContenedorModulos {
                     $"Pago de venta #{_registroPago?.Vista.IdVenta} realizado por {UtilesCuentaUsuario.UsuarioAutenticado?.Nombre}"
                 );
 
-                datos.Insertar(movimientoCaja);
+                datos.Adicionar(movimientoCaja);
             }
     }
 }

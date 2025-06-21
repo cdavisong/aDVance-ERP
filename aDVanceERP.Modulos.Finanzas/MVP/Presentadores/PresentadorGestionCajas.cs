@@ -29,42 +29,42 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             presentadorTupla.Vista.FechaCierre = objeto.FechaCierre != DateTime.MinValue ? objeto.FechaCierre.ToString("yyyy-MM-dd HH:mm") : "-";
             presentadorTupla.Vista.Estado = (int) objeto.Estado;
             presentadorTupla.Vista.NombreUsuario = UtilesCuentaUsuario.ObtenerNombreCuentaUsuario(objeto.IdCuentaUsuario) ?? string.Empty;
-            presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBotones;
-            presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBotones;
+            presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBotones;
+            presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBotones;
             
             return presentadorTupla;
         }
 
-        public override Task RefrescarListaObjetos() {
+        public override Task PopularTuplasDatosEntidades() {
             // Cambiar la visibilidad de los botones 
             Vista.HabilitarBtnRegistroMovimientoCaja = false;
             Vista.HabilitarBtnCierreCaja = false;            
 
-            return base.RefrescarListaObjetos();
+            return base.PopularTuplasDatosEntidades();
         }
 
         private void CerrarCajaSeleccionada(object? sender, EventArgs e) {
-            foreach (var tupla in _tuplasObjetos)
+            foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
-                    tupla.Objeto.FechaCierre = DateTime.Now;
-                    tupla.Objeto.Estado = EstadoCaja.Cerrada;
+                    tupla.Entidad.FechaCierre = DateTime.Now;
+                    tupla.Entidad.Estado = EstadoCaja.Cerrada;
 
                     // Editar la venta del producto
-                    DatosObjeto.Actualizar(tupla.Objeto);
+                    RepoDatosEntidad.Editar(tupla.Entidad);
 
                     break;
                 }
 
-            _ = RefrescarListaObjetos();
+            _ = PopularTuplasDatosEntidades();
         }
 
         private void CambiarVisibilidadBotones(object? sender, EventArgs e) {
             // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
-            var tuplaSeleccionada = _tuplasObjetos.Where(t => t.TuplaSeleccionada).FirstOrDefault();
+            var tuplaSeleccionada = _tuplasEntidades.Where(t => t.TuplaSeleccionada).FirstOrDefault();
 
             // 2. Actualizar la visibilidad de botones            
-            Vista.HabilitarBtnCierreCaja = tuplaSeleccionada != null && tuplaSeleccionada.Objeto.Estado == EstadoCaja.Abierta;
-            Vista.HabilitarBtnRegistroMovimientoCaja = tuplaSeleccionada != null && tuplaSeleccionada.Objeto.Estado == EstadoCaja.Abierta;
+            Vista.HabilitarBtnCierreCaja = tuplaSeleccionada != null && tuplaSeleccionada.Entidad.Estado == EstadoCaja.Abierta;
+            Vista.HabilitarBtnRegistroMovimientoCaja = tuplaSeleccionada != null && tuplaSeleccionada.Entidad.Estado == EstadoCaja.Abierta;
         }
     }
 }

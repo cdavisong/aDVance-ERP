@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
         _registroMensajero = new PresentadorRegistroMensajero(new VistaRegistroMensajero());
         _registroMensajero.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMensajero.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroMensajero.DatosRegistradosActualizados += async delegate {
+        _registroMensajero.DatosEntidadRegistradosActualizados += async delegate {
             //...
         };
 
@@ -26,7 +26,7 @@ public partial class PresentadorContenedorModulos {
         if (_registroMensajero == null)
             return;
 
-        _registroMensajero.DatosRegistradosActualizados += delegate {
+        _registroMensajero.DatosEntidadRegistradosActualizados += delegate {
             if (_registroMensajeria == null)
                 return;
 
@@ -43,7 +43,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Mensajero mensajero) {
             if (_registroMensajero != null) {
-                _registroMensajero.PopularVistaDesdeObjeto(mensajero);
+                _registroMensajero.PopularVistaDesdeEntidad(mensajero);
                 _registroMensajero.Vista.Mostrar();
             }
         }
