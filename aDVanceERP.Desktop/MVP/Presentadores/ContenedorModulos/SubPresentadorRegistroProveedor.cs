@@ -12,11 +12,11 @@ public partial class PresentadorContenedorModulos {
         _registroProveedor = new PresentadorRegistroProveedor(new VistaRegistroProveedor());
         _registroProveedor.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroProveedor.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroProveedor.DatosRegistradosActualizados += async delegate {
+        _registroProveedor.DatosEntidadRegistradosActualizados += async delegate {
             if (_gestionProveedores == null)
                 return;
 
-            await _gestionProveedores.RefrescarListaObjetos();
+            await _gestionProveedores.PopularTuplasDatosEntidades();
         };
     }
 
@@ -35,7 +35,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Proveedor proveedor) {
             if (_registroProveedor != null) {
-                _registroProveedor.PopularVistaDesdeObjeto(proveedor);
+                _registroProveedor.PopularVistaDesdeEntidad(proveedor);
                 _registroProveedor.Vista.Mostrar();
             }
         }

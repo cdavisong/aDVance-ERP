@@ -9,16 +9,16 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
         public PresentadorRegistroAperturaCaja(IVistaRegistroAperturaCaja vista) 
             : base(vista) { }
 
-        public override void PopularVistaDesdeObjeto(Caja objeto) {
+        public override void PopularVistaDesdeEntidad(Caja objeto) {
             Vista.ModoEdicionDatos = true;
             Vista.Fecha = objeto.FechaApertura;
             Vista.SaldoInicial = objeto.SaldoInicial;
 
-            Objeto = objeto;
+            Entidad = objeto;
         }
 
-        protected override Task<Caja?> ObtenerObjetoDesdeVista() {
-            return Task.FromResult<Caja?>(new Caja(Objeto?.Id ?? 0,
+        protected override Task<Caja?> ObtenerEntidadDesdeVista() {
+            return Task.FromResult<Caja?>(new Caja(Entidad?.Id ?? 0,
                 Vista.Fecha,
                 Vista.SaldoInicial,
                 Vista.SaldoInicial,

@@ -5,12 +5,12 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores; 
 
-public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>,
+public abstract class PresentadorRegistroBase<Vr, En, Rd, Fb> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Rd, En, Fb>,
     IDisposable
     where Vr : class, IVistaRegistro
-    where Do : class, IRepositorioDatosEntidad<O, C>, new()
-    where O : class, IEntidad, new()
-    where C : Enum {
+    where Rd : class, IRepositorioDatosEntidad<En, Fb>, new()
+    where En : class, IEntidad, new()
+    where Fb : Enum {
     private bool _disposed; // Para evitar llamadas redundantes a Dispose
 
     protected PresentadorRegistroBase(Vr vista) : base(vista) {
@@ -23,7 +23,7 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
         Vista.Salir += OnSalir;
     }
 
-    protected O? Objeto { get; set; } // Objeto que se va a registrar o editar
+    protected En? Entidad { get; set; } // Entidad que se va a registrar o editar
 
     // Implementación de IDisposable
     public void Dispose() {
@@ -31,50 +31,50 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
         GC.SuppressFinalize(this); // Evitar que el GC llame al finalizador
     }
 
-    public Do DatosObjeto {
+    public Rd RepoDatosEntidad {
         get => new();
     }
 
-    public event EventHandler? DatosRegistradosActualizados;
+    public event EventHandler? DatosEntidadRegistradosActualizados;
     public event EventHandler? Salir;
 
-    public abstract void PopularVistaDesdeObjeto(O objeto);
+    public abstract void PopularVistaDesdeEntidad(En Entidad);
 
-    protected abstract Task<O?> ObtenerObjetoDesdeVista();
+    protected abstract En? ObtenerEntidadDesdeVista();
 
-    protected virtual bool RegistroEdicionDatosAutorizado() {
+    protected virtual bool DatosEntidadCorrectos() {
         return true;
     }
 
-    protected virtual void RegistroAuxiliar(Do datosObjeto, long id) { }
+    protected virtual void RegistroAuxiliar(Rd datosObjeto, long id) { }
 
     protected virtual void RegistrarDatosObjeto(object? sender, EventArgs e) {
-        _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
+        RegistrarEditarEntidad(sender, e);
     }
 
     protected virtual void EditarDatosObjeto(object? sender, EventArgs e) {
-        _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
+        RegistrarEditarEntidad(sender, e);
     }
 
-    private async Task RegistrarEditarObjetoAsync(object? sender, EventArgs e) {
-        if (!RegistroEdicionDatosAutorizado())
+    private void RegistrarEditarEntidad(object? sender, EventArgs e) {
+        if (!DatosEntidadCorrectos())
             return;
 
-        Objeto = await ObtenerObjetoDesdeVista();
+        Entidad = ObtenerEntidadDesdeVista();
 
-        if (Objeto == null)
+        if (Entidad == null)
             return;
 
-        if (Vista.ModoEdicionDatos && Objeto.Id != 0)
-            await DatosObjeto.EditarAsync(Objeto);
-        else if (Objeto.Id != 0)
-            await DatosObjeto.EditarAsync(Objeto);
+        if (Vista.ModoEdicionDatos && Entidad.Id != 0)
+            RepoDatosEntidad.Actualizar(Entidad);
+        else if (Entidad.Id != 0)
+            RepoDatosEntidad.Actualizar(Entidad);
         else
-            Objeto.Id = await DatosObjeto.AdicionarAsync(Objeto);
+            Entidad.Id = RepoDatosEntidad.Insertar(Entidad);
 
-        RegistroAuxiliar(DatosObjeto, Objeto.Id);
+        RegistroAuxiliar(RepoDatosEntidad, Entidad.Id);
 
-        DatosRegistradosActualizados?.Invoke(sender, e);
+        DatosEntidadRegistradosActualizados?.Invoke(sender, e);
         Salir?.Invoke(sender, e);
         Vista.Ocultar();
     }
@@ -85,7 +85,7 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
     }
 
     protected void InvokeDatosRegistradosActualizados(object? sender, EventArgs e) {
-        DatosRegistradosActualizados?.Invoke(sender, e);
+        DatosEntidadRegistradosActualizados?.Invoke(sender, e);
     }
 
     protected virtual void Dispose(bool disposing) {

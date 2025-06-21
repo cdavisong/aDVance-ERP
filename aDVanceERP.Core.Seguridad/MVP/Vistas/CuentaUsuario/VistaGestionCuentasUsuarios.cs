@@ -35,9 +35,9 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
         set => btnAprobarCuentaUsuario.Visible = value;
     }
 
-    public CriterioBusquedaCuentaUsuario CriterioBusqueda {
+    public FbCuentaUsuario CriterioBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaCuentaUsuario)fieldCriterioBusqueda.SelectedIndex
+            ? (FbCuentaUsuario)fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int)value;
     }

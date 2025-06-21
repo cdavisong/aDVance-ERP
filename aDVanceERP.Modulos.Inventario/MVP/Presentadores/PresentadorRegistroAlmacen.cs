@@ -10,7 +10,7 @@ public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistro
     CriterioBusquedaAlmacen> {
     public PresentadorRegistroAlmacen(IVistaRegistroAlmacen vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Almacen objeto) {
+    public override void PopularVistaDesdeEntidad(Almacen objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.Nombre = objeto.Nombre ?? string.Empty;
         Vista.Direccion = objeto.Direccion ?? string.Empty;
@@ -18,10 +18,10 @@ public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistro
         Vista.Notas = objeto.Notas ?? string.Empty;
         Vista.ModoEdicionDatos = true;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
 
         if (!nombreOk)
@@ -30,9 +30,9 @@ public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistro
         return nombreOk;
     }
 
-    protected override async Task<Almacen?> ObtenerObjetoDesdeVista() {
+    protected override async Task<Almacen?> ObtenerEntidadDesdeVista() {
         return new Almacen(
-            Objeto?.Id ?? 0,
+            Entidad?.Id ?? 0,
             Vista.Nombre,
             Vista.Direccion,
             Vista.AutorizoVenta,

@@ -10,7 +10,7 @@ public interface IRepositorioDatosEntidad<En, Fb> : IDisposable
     // CRUD
     En? ObtenerPorId(object id, MySqlConnection? conexionBd = null);
     List<En> ObtenerTodos(MySqlConnection? conexionBd = null);
-    List<En> Buscar(Fb? criterio, string? dato, int limite = 0, int desplazamiento = 0, MySqlConnection? conexionBd = null);
+    (List<En> resultados, int totalFilas) Buscar(Fb? criterio, string? dato, int limite = 0, int desplazamiento = 0, MySqlConnection? conexionBd = null);
     List<En> BuscarAvanzado(Func<ConsultaBuilder, ConsultaBuilder> construirConsulta, MySqlConnection? conexionBd = null);
 
     long Insertar(En entidad, MySqlConnection? conexionBd = null);
@@ -23,5 +23,5 @@ public interface IRepositorioDatosEntidad<En, Fb> : IDisposable
 
     // Utilidades
     bool Existe(object id, MySqlConnection? conexionBd = null);
-    long Contar(Fb? criterio = default, MySqlConnection? conexionBd = null);
+    int Contar(Fb? criterio = default, MySqlConnection? conexionBd = null);
 }

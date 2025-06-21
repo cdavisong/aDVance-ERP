@@ -11,7 +11,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
     CriterioBusquedaProducto> {
     public PresentadorRegistroProducto(IVistaRegistroProducto vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Producto objeto) {
+    public override void PopularVistaDesdeEntidad(Producto objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.CategoriaProducto = objeto.Categoria;
         Vista.Nombre = objeto.Nombre ?? string.Empty;
@@ -21,7 +21,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.TipoMateriaPrima = UtilesTipoMateriaPrima.ObtenerNombreTipoMateriaPrima(objeto.IdTipoMateriaPrima) ?? string.Empty;
 
         using (var datos = new DatosDetalleProducto()) {
-            var detalleProducto = datos.Buscar(CriterioBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).FirstOrDefault();
+            var detalleProducto = datos.Obtener(CriterioBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).FirstOrDefault();
 
             if (detalleProducto != null) {
                 Vista.UnidadMedida = UtilesUnidadMedida.ObtenerNombreUnidadMedida(detalleProducto.IdUnidadMedida) ?? string.Empty;
@@ -33,10 +33,10 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.PrecioVentaBase = objeto.PrecioVentaBase;
         Vista.ModoEdicionDatos = true;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
         var codigoOk = !string.IsNullOrEmpty(Vista.Codigo);
         var unidadMedidaOk = !string.IsNullOrEmpty(Vista.UnidadMedida);
@@ -63,23 +63,23 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
     }
 
     protected override void RegistroAuxiliar(DatosProducto datosProducto, long id) {
-        var detalleProducto = new DetalleProducto(Objeto?.IdDetalleProducto ?? 0,
+        var detalleProducto = new DetalleProducto(Entidad?.IdDetalleProducto ?? 0,
             UtilesUnidadMedida.ObtenerIdUnidadMedida(Vista.UnidadMedida).Result,
             Vista.Descripcion ?? "No hay una descripción disponible para el producto actual"
         );
 
         // Registrar detalles del producto
         using (var datos = new DatosDetalleProducto()) {
-            if (Vista.ModoEdicionDatos && Objeto?.IdDetalleProducto != 0)
-                datos.Actualizar(detalleProducto);
-            else if (Objeto?.IdDetalleProducto != 0)
-                datos.Actualizar(detalleProducto);
+            if (Vista.ModoEdicionDatos && Entidad?.IdDetalleProducto != 0)
+                datos.Editar(detalleProducto);
+            else if (Entidad?.IdDetalleProducto != 0)
+                datos.Editar(detalleProducto);
             else {
-                Objeto.IdDetalleProducto = datos.Insertar(detalleProducto);
+                Entidad.IdDetalleProducto = datos.Adicionar(detalleProducto);
 
                 // Stock inicial del producto
                 UtilesMovimiento.ModificarStockProductoAlmacen(
-                    Objeto.Id,
+                    Entidad.Id,
                     0,
                     UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
                     Vista.StockInicial
@@ -87,17 +87,17 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             }
 
             // Editar producto para modificar Id de los detalles
-            datosProducto.Actualizar(Objeto);
+            datosProducto.Editar(Entidad);
         }
     }
 
-    protected override async Task<Producto?> ObtenerObjetoDesdeVista() {
+    protected override async Task<Producto?> ObtenerEntidadDesdeVista() {
         return new Producto(
-            Objeto?.Id ?? 0,
+            Entidad?.Id ?? 0,
             Vista.CategoriaProducto,
             Vista.Nombre,
             Vista.Codigo,
-            Objeto?.IdDetalleProducto ?? 0,            
+            Entidad?.IdDetalleProducto ?? 0,            
             await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
             await UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(Vista.TipoMateriaPrima),
             Vista.EsVendible,

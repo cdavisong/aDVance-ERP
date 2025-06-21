@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionClientes() {
         _gestionClientes = new PresentadorGestionClientes(new VistaGestionClientes());
-        _gestionClientes.EditarObjeto += MostrarVistaEdicionCliente;
+        _gestionClientes.EditarEntidad += MostrarVistaEdicionCliente;
         _gestionClientes.Vista.RegistrarDatos += MostrarVistaRegistroCliente;
 
         if (Vista.Vistas != null)
@@ -24,6 +24,6 @@ public partial class PresentadorContenedorModulos {
         _gestionClientes.Vista.Restaurar();
         _gestionClientes.Vista.Mostrar();
 
-        await _gestionClientes.RefrescarListaObjetos();
+        await _gestionClientes.PopularTuplasDatosEntidades();
     }
 }

@@ -4,17 +4,17 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores.Plantillas; 
 
-public interface IPresentadorGestion<Vg, Do, O, C> : IPresentadorBase<Vg>
-    where Vg : IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
-    where Do : class, IRepositorioDatosEntidad<O, C>, new()
-    where O : class, IEntidad, new()
-    where C : Enum {
-    Do DatosObjeto { get; }
-    C? CriterioBusquedaObjeto { get; }
-    string? DatoBusquedaObjeto { get; }
+public interface IPresentadorGestion<Vg, Rd, En, Fb> : IPresentadorBase<Vg>
+    where Vg : IVistaContenedor, IGestorDatos, IBuscadorDatos<Fb>, IGestorTablaDatos
+    where Rd : class, IRepositorioDatosEntidad<En, Fb>, new()
+    where En : class, IEntidad, new()
+    where Fb : Enum {
+    Rd RepoDatosEntidad { get; }
+    Fb? FiltroBusquedaEntidad { get; }
+    string? DatosComplementariosBusqueda { get; }
 
-    event EventHandler? EditarObjeto;
+    event EventHandler? EditarEntidad;
 
-    Task BusquedaDatos(C criterio, string dato);
-    Task RefrescarListaObjetos();
+    void BuscarDatosEntidad(Fb filtroBusqueda, string datosComplementarios);
+    Task PopularTuplasDatosEntidades();
 }

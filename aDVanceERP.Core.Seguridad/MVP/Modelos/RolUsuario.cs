@@ -15,14 +15,14 @@ public class RolUsuario : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaRolUsuario {
+public enum FbRolCuentaUsuario {
     Todos,
     Id,
     Nombre
 }
 
-public static class UtilesBusquedaRolUsuario {
-    public static string[] CriterioBusquedaBusquedaRolUsuario = {
+public static class UtilesBusquedaRolCuentaUsuario {
+    public static string[] FbRolCuentaUsuario = {
         "Todos los roles",
         "Identificador de BD",
         "Nombre del rol"

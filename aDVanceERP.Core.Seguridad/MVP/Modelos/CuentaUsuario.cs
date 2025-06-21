@@ -25,14 +25,15 @@ public class CuentaUsuario : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaCuentaUsuario {
+public enum FbCuentaUsuario {
     Todos,
+    Id,
     Nombre,
     Rol
 }
 
 public static class UtilesBusquedaCuentaUsuario {
-    public static string[] CriterioBusquedaBusquedaCuentaUsuario = {
+    public static string[] FbCuentasUsuarios = {
         "Todos los usuarios",
         "Identificador de BD",
         "Nombre del usuario",

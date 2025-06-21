@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionContactos() {
         _gestionContactos = new PresentadorGestionContactos(new VistaGestionContactos());
-        _gestionContactos.EditarObjeto += MostrarVistaEdicionContacto;
+        _gestionContactos.EditarEntidad += MostrarVistaEdicionContacto;
         _gestionContactos.Vista.RegistrarDatos += MostrarVistaRegistroContacto;
 
         if (Vista.Vistas != null)
@@ -24,6 +24,6 @@ public partial class PresentadorContenedorModulos {
         _gestionContactos.Vista.Restaurar();
         _gestionContactos.Vista.Mostrar();
 
-        await _gestionContactos.RefrescarListaObjetos();
+        await _gestionContactos.PopularTuplasDatosEntidades();
     }
 }

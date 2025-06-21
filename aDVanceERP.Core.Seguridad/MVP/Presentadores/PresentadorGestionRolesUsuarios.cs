@@ -1,14 +1,14 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
-using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
+using aDVanceERP.Core.Seguridad.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
 public class PresentadorGestionRolesUsuarios : PresentadorGestionBase<PresentadorTuplaRolUsuario,
-    IVistaGestionRolesUsuarios, IVistaTuplaRolUsuario, RolUsuario, DatosRolUsuario, CriterioBusquedaRolUsuario> {
+    IVistaGestionRolesUsuarios, IVistaTuplaRolUsuario, RolUsuario, RepoRolCuentaUsuario, FbRolCuentaUsuario> {
     public PresentadorGestionRolesUsuarios(IVistaGestionRolesUsuarios vista) : base(vista) { }
 
     protected override PresentadorTuplaRolUsuario ObtenerValoresTupla(RolUsuario objeto) {

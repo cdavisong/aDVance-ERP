@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionRolesUsuarios() {
         _gestionRolesUsuarios = new PresentadorGestionRolesUsuarios(new VistaGestionRolesUsuarios());
-        _gestionRolesUsuarios.EditarObjeto += MostrarVistaEdicionRolUsuario;
+        _gestionRolesUsuarios.EditarEntidad += MostrarVistaEdicionRolUsuario;
         _gestionRolesUsuarios.Vista.RegistrarDatos += MostrarVistaRegistroRolUsuario;
 
         if (Vista.Vistas != null)
@@ -20,10 +20,10 @@ public partial class PresentadorContenedorModulos {
         if (_gestionRolesUsuarios?.Vista == null)
             return;
 
-        _gestionRolesUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaRolUsuario.CriterioBusquedaBusquedaRolUsuario);
+        _gestionRolesUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaRolCuentaUsuario.FbRolCuentaUsuario);
         _gestionRolesUsuarios.Vista.Restaurar();
         _gestionRolesUsuarios.Vista.Mostrar();
 
-        await _gestionRolesUsuarios.RefrescarListaObjetos();
+        await _gestionRolesUsuarios.PopularTuplasDatosEntidades();
     }
 }

@@ -30,9 +30,9 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
         set => Size = value;
     }
 
-    public CriterioBusquedaRolUsuario CriterioBusqueda {
+    public FbRolCuentaUsuario CriterioBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaRolUsuario)fieldCriterioBusqueda.SelectedIndex
+            ? (FbRolCuentaUsuario)fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int)value;
     }

@@ -8,7 +8,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private async void InicializarVistaGestionCajas() {
             _gestionCajas = new PresentadorGestionCajas(new VistaGestionCajas());
-            _gestionCajas.EditarObjeto += MostrarVistaEdicionAperturaCaja;
+            _gestionCajas.EditarEntidad += MostrarVistaEdicionAperturaCaja;
             _gestionCajas.Vista.RegistrarDatos += MostrarVistaRegistroAperturaCaja;
             _gestionCajas.Vista.RegistrarMovimientoCajaSeleccionada += MostrarVistaRegistroMovimientoCaja;
 
@@ -24,7 +24,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionCajas.Vista.Restaurar();
             _gestionCajas.Vista.Mostrar();
 
-            await _gestionCajas.RefrescarListaObjetos();
+            await _gestionCajas.PopularTuplasDatosEntidades();
         }
     }
 }

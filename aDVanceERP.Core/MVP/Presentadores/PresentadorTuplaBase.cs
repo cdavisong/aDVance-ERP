@@ -5,11 +5,11 @@ using aDVanceERP.Core.Utiles;
 
 namespace aDVanceERP.Core.MVP.Presentadores; 
 
-public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresentadorTupla<Vt, O>
+public abstract class PresentadorTuplaBase<Vt, En> : PresentadorBase<Vt>, IPresentadorTupla<Vt, En>
     where Vt : class, IVistaTupla
-    where O : class, IEntidad, new() {
-    protected PresentadorTuplaBase(Vt vista, O objeto) : base(vista) {
-        Objeto = objeto ?? throw new ArgumentNullException(nameof(objeto));
+    where En : class, IEntidad, new() {
+    protected PresentadorTuplaBase(Vt vista, En emtidad) : base(vista) {
+        Entidad = emtidad ?? throw new ArgumentNullException(nameof(emtidad));
 
         // Suscribir a eventos de la vista
         Vista.TuplaSeleccionada += OnTuplaSeleccionada;
@@ -22,31 +22,31 @@ public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresen
         set {
             if (value) {
                 Vista.ColorFondoTupla = VariablesGlobales.ColorResaltadoTupla;
-                ObjetoSeleccionado?.Invoke(Objeto, EventArgs.Empty);
+                EntidadSeleccionada?.Invoke(Entidad, EventArgs.Empty);
             }
             else {
                 Vista.Restaurar();
-                ObjetoDeseleccionado?.Invoke(Objeto, EventArgs.Empty);
+                EntidadDeseleccionada?.Invoke(Entidad, EventArgs.Empty);
             }
         }
     }
 
-    public O Objeto { get; }
+    public En Entidad { get; }
 
-    public event EventHandler? ObjetoSeleccionado;
-    public event EventHandler? ObjetoDeseleccionado;
-    public event EventHandler? EditarObjeto;
-    public event EventHandler? EliminarObjeto;
+    public event EventHandler? EntidadSeleccionada;
+    public event EventHandler? EntidadDeseleccionada;
+    public event EventHandler? EditarDatosEntidad;
+    public event EventHandler? EliminarDatosEntidad;
 
     private void OnTuplaSeleccionada(object? sender, EventArgs e) {
         TuplaSeleccionada = !TuplaSeleccionada;
     }
 
     private void OnEditarDatosTupla(object? sender, EventArgs e) {
-        EditarObjeto?.Invoke(Objeto, e);
+        EditarDatosEntidad?.Invoke(Entidad, e);
     }
 
     private void OnEliminarDatosTupla(object? sender, EventArgs e) {
-        EliminarObjeto?.Invoke(Objeto, e);
+        EliminarDatosEntidad?.Invoke(Entidad, e);
     }
 }

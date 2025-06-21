@@ -14,13 +14,13 @@ public partial class PresentadorContenedorModulos {
         _registroCuentaUsuario.Vista.CargarRolesUsuarios(UtilesRolUsuario.ObtenerNombresRolesUsuarios());
         _registroCuentaUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCuentaUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCuentaUsuario.DatosRegistradosActualizados += async delegate {
+        _registroCuentaUsuario.DatosEntidadRegistradosActualizados += async delegate {
             if (_gestionCuentasUsuarios == null)
                 return;
 
             _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
             
-            await _gestionCuentasUsuarios.RefrescarListaObjetos();
+            await _gestionCuentasUsuarios.PopularTuplasDatosEntidades();
         };
 
         return Task.CompletedTask;
@@ -41,7 +41,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is CuentaUsuario cuentaUsuario) {
             if (_registroCuentaUsuario != null) {
-                _registroCuentaUsuario.PopularVistaDesdeObjeto(cuentaUsuario);
+                _registroCuentaUsuario.PopularVistaDesdeEntidad(cuentaUsuario);
                 _registroCuentaUsuario.Vista.Mostrar();
             }
         }

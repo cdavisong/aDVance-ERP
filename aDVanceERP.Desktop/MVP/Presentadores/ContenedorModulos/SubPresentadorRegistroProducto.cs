@@ -26,11 +26,11 @@ public partial class PresentadorContenedorModulos {
         _registroProducto.Vista.RegistrarTipoMateriaPrima += MostrarVistaRegistroTipoMateriaPrima;
         _registroProducto.Vista.EliminarUnidadMedida += EliminarUnidadMedida;
         _registroProducto.Vista.EliminarTipoMateriaPrima += EliminarTipoMateriaPrima;
-        _registroProducto.DatosRegistradosActualizados += async delegate {
+        _registroProducto.DatosEntidadRegistradosActualizados += async delegate {
             if (_gestionProductos == null)
                 return;
 
-            await _gestionProductos?.RefrescarListaObjetos()!;
+            await _gestionProductos?.PopularTuplasDatosEntidades()!;
         };
     }
 
@@ -39,7 +39,7 @@ public partial class PresentadorContenedorModulos {
         var existenAlmacenes = false;
 
         using (var datos = new DatosAlmacen())
-            existenAlmacenes = datos.Contar() > 0;
+            existenAlmacenes = datos.Cantidad() > 0;
         
         if (!existenAlmacenes) {
             CentroNotificaciones.Mostrar("No es posible registrar nuevos productos. Debe existir al menos un almacén registrado.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
@@ -60,7 +60,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Producto producto) {
             if (_registroProducto != null) {
-                _registroProducto.PopularVistaDesdeObjeto(producto);
+                _registroProducto.PopularVistaDesdeEntidad(producto);
                 _registroProducto.Vista.Mostrar();
             }
         }

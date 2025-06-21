@@ -3,14 +3,14 @@ using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
-using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
+using aDVanceERP.Core.Seguridad.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
 public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistroUsuario, CuentaUsuario,
-    DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
+    RepoCuentaUsuario, FbCuentaUsuario> {
     public PresentadorRegistroUsuario(IVistaRegistroUsuario vista) : base(vista) {
         vista.RegistrarDatos += delegate(object? sender, EventArgs args) {
             UsuarioRegistrado?.Invoke(sender, args); 
@@ -23,19 +23,19 @@ public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistro
     public event EventHandler? UsuarioRegistrado;
     public event EventHandler? MostrarVistaAutenticacionUsuario;
 
-    public override void PopularVistaDesdeObjeto(CuentaUsuario objeto) {
+    public override void PopularVistaDesdeEntidad(CuentaUsuario objeto) {
         throw new NotImplementedException();
     }
 
-    protected override void RegistroAuxiliar(DatosCuentaUsuario datosCuentaUsuario, long id) {
+    protected override void RegistroAuxiliar(RepoCuentaUsuario datosCuentaUsuario, long id) {
         UsuarioRegistrado?.Invoke("register-user", EventArgs.Empty);
     }
 
-    protected override async Task<CuentaUsuario?> ObtenerObjetoDesdeVista() {
+    protected override CuentaUsuario? ObtenerEntidadDesdeVista() {
         try {
-            if (await UtilesCuentaUsuario.EsTablaCuentasUsuarioVacia()) {
+            if (UtilesCuentaUsuario.EsTablaCuentasUsuarioVacia().Result) {
                 if (Vista.Password != null)
-                    await UtilesCuentaUsuario.CrearUsuarioAdministrador(Vista.NombreUsuario, Vista.Password);
+                     UtilesCuentaUsuario.CrearUsuarioAdministrador(Vista.NombreUsuario, Vista.Password);
 
                 UsuarioRegistrado?.Invoke("register-admin", EventArgs.Empty);
 
@@ -48,7 +48,7 @@ public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistro
 
         var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
 
-        return new CuentaUsuario(Objeto?.Id ?? 0,
+        return new CuentaUsuario(Entidad?.Id ?? 0,
             Vista.NombreUsuario,
             passwordSeguro.hash,
             passwordSeguro.salt,

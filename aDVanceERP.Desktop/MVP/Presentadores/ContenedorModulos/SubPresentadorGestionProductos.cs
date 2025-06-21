@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
         _gestionProductos = new PresentadorGestionProductos(new VistaGestionProductos());
         _gestionProductos.MovimientoPositivoStock += MostrarVistaRegistroMovimiento;
         _gestionProductos.MovimientoNegativoStock += MostrarVistaRegistroMovimiento;
-        _gestionProductos.EditarObjeto += MostrarVistaEdicionProducto;
+        _gestionProductos.EditarEntidad += MostrarVistaEdicionProducto;
         _gestionProductos.Vista.RegistrarDatos += MostrarVistaRegistroProducto;
 
         if (Vista.Vistas != null)
@@ -28,6 +28,6 @@ public partial class PresentadorContenedorModulos {
         _gestionProductos.Vista.Restaurar();
         _gestionProductos.Vista.Mostrar();
 
-        await _gestionProductos.RefrescarListaObjetos()!;
+        await _gestionProductos.PopularTuplasDatosEntidades()!;
     }
 }

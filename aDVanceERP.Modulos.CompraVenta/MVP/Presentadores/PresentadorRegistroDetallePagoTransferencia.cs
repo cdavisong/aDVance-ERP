@@ -11,11 +11,11 @@ public class PresentadorRegistroDetallePagoTransferencia : PresentadorRegistroBa
     CriterioBusquedaDetallePagoTransferencia> {
     public PresentadorRegistroDetallePagoTransferencia(IVistaRegistroDetallePagoTransferencia vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(DetallePagoTransferencia objeto) {
+    public override void PopularVistaDesdeEntidad(DetallePagoTransferencia objeto) {
         throw new NotImplementedException();
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var aliasOk = !string.IsNullOrEmpty(Vista.Alias);
         var numeroTelefonoOk = !string.IsNullOrEmpty(Vista.NumeroConfirmacion); ;
         var numeroTransaccionOk = !string.IsNullOrEmpty(Vista.NumeroTransaccion);
@@ -30,7 +30,7 @@ public class PresentadorRegistroDetallePagoTransferencia : PresentadorRegistroBa
         return aliasOk && numeroTelefonoOk && numeroTransaccionOk;
     }
 
-    protected override async Task<DetallePagoTransferencia?> ObtenerObjetoDesdeVista() {
+    protected override async Task<DetallePagoTransferencia?> ObtenerEntidadDesdeVista() {
         throw new NotImplementedException();
     }
 }

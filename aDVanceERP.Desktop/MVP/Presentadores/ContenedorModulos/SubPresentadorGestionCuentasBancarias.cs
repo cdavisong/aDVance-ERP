@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
     private async void InicializarVistaGestionCuentasBancarias() {
         _gestionCuentasBancarias = new PresentadorGestionCuentasBancarias(new VistaGestionCuentasBancarias());
         _gestionCuentasBancarias.MostrarQrTupla += MostrarVistaQR;
-        _gestionCuentasBancarias.EditarObjeto += MostrarVistaEdicionCuentaBancaria;
+        _gestionCuentasBancarias.EditarEntidad += MostrarVistaEdicionCuentaBancaria;
         _gestionCuentasBancarias.Vista.RegistrarDatos += MostrarVistaRegistroCuentaBancaria;
 
         if (Vista.Vistas != null)
@@ -25,6 +25,6 @@ public partial class PresentadorContenedorModulos {
         _gestionCuentasBancarias.Vista.Restaurar();
         _gestionCuentasBancarias.Vista.Mostrar();
 
-        await _gestionCuentasBancarias.RefrescarListaObjetos();
+        await _gestionCuentasBancarias.PopularTuplasDatosEntidades();
     }
 }

@@ -18,7 +18,7 @@ public partial class PresentadorContenedorModulos {
         _registroMensajeria.Vista.CargarNombresMensajeros(await UtilesMensajero.ObtenerNombresMensajeros());
         _registroMensajeria.Vista.CargarTiposEntrega();
         _registroMensajeria.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
-        _registroMensajeria.DatosRegistradosActualizados += delegate {
+        _registroMensajeria.DatosEntidadRegistradosActualizados += delegate {
             if (_terminalVenta == null)
                 return;
 
@@ -50,7 +50,7 @@ public partial class PresentadorContenedorModulos {
         if (sender is Venta venta) {
             if (_registroMensajeria != null && _terminalVenta != null) {
                 using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega()) {
-                    var seguimientoEntrega = datosSeguimientoEntrega.Buscar(CriterioBusquedaSeguimientoEntrega.IdVenta, venta.Id.ToString()).FirstOrDefault();
+                    var seguimientoEntrega = datosSeguimientoEntrega.Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, venta.Id.ToString()).FirstOrDefault();
 
                     if (seguimientoEntrega != null) {
                         _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);

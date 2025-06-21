@@ -9,12 +9,12 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Presentadores;
 public class PresentadorTerminalVenta : PresentadorRegistroBase<IVistaTerminalVenta, Venta, DatosVenta, CriterioBusquedaVenta> {
     public PresentadorTerminalVenta(IVistaTerminalVenta vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Venta objeto) {
+    public override void PopularVistaDesdeEntidad(Venta objeto) {
         throw new NotImplementedException();
     }
 
-    protected override async Task<Venta?> ObtenerObjetoDesdeVista() {
-        return new Venta(Objeto?.Id ?? 0,
+    protected override async Task<Venta?> ObtenerEntidadDesdeVista() {
+        return new Venta(Entidad?.Id ?? 0,
             DateTime.Now,
             await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
             UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),

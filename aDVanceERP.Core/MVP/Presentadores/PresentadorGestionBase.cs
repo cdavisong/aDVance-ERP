@@ -4,85 +4,117 @@ using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Utiles;
 
-namespace aDVanceERP.Core.MVP.Presentadores; 
+namespace aDVanceERP.Core.MVP.Presentadores;
 
-public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : PresentadorBase<Vg>,
-    IPresentadorGestion<Vg, Do, O, C>
-    where Pt : IPresentadorTupla<Vt, O>
-    where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
+public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : PresentadorBase<Vg>,
+    IPresentadorGestion<Vg, Rd, En, Fb>
+    where Pt : IPresentadorTupla<Vt, En>
+    where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorDatos<Fb>, IGestorTablaDatos
     where Vt : IVistaTupla
-    where Do : class, IRepositorioDatosEntidad<O, C>, new()
-    where O : class, IEntidad, new()
-    where C : Enum {
-    private readonly SemaphoreSlim _semaphore = new(1, 1); // Para controlar la concurrencia
-    protected readonly List<Pt> _tuplasObjetos;
+    where Rd : class, IRepositorioDatosEntidad<En, Fb>, new()
+    where En : class, IEntidad, new()
+    where Fb : Enum {
+    protected readonly List<Pt> _tuplasEntidades;
+    private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
     protected PresentadorGestionBase(Vg vista) : base(vista) {
-        _tuplasObjetos = new List<Pt>();
+        _tuplasEntidades = new List<Pt>();
 
         Vista.BuscarDatos += OnBuscarDatos;
         Vista.AlturaContenedorTuplasModificada += OnAlturaContenedorTuplasModificada;
         Vista.SincronizarDatos += OnSincronizarDatos;
     }
 
-    public Do DatosObjeto {
+    public Rd RepoDatosEntidad {
         get => new();
     }
 
-    public C? CriterioBusquedaObjeto { get; protected set; }
-    public string? DatoBusquedaObjeto { get; protected set; }
+    public Fb? FiltroBusquedaEntidad { get; protected set; }
 
-    public event EventHandler? EditarObjeto;
+    public string? DatosComplementariosBusqueda { get; protected set; }
 
-    public async Task BusquedaDatos(C criterio, string? dato) {
-        CriterioBusquedaObjeto = criterio;
-        DatoBusquedaObjeto = dato;
+    public event EventHandler? EditarEntidad;
 
-        await RefrescarListaObjetos();
+    public async void BuscarDatosEntidad(Fb filtroBusqueda, string datosComplementarios) {
+        FiltroBusquedaEntidad = filtroBusqueda;
+        DatosComplementariosBusqueda = datosComplementarios;
+
+        await PopularTuplasDatosEntidades();
+
         Vista.PaginaActual = 1;
     }
 
-    public virtual async Task RefrescarListaObjetos() {
-        await _semaphore.WaitAsync();
+    public virtual async Task PopularTuplasDatosEntidades() {
+        if (Vista.TuplasMaximasContenedor == 0)
+            return;
+
         try {
-            if (Vista.TuplasMaximasContenedor == 0) return;
+            await _semaphore.WaitAsync();
 
-            Vista.Cerrar();
+            // 1. Liberar los recursos existentes
+            LiberarRecursosTuplas();
 
-            _tuplasObjetos.ForEach(tupla => tupla.Vista.Cerrar());
-            _tuplasObjetos.Clear();
-
-            VariablesGlobales.CoordenadaYUltimaTupla = 0;
-
+            // 2. Obtener datos paginados y total en una sola operación
             var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
-            var objetos = (await DatosObjeto.ObtenerAsync(CriterioBusquedaObjeto, DatoBusquedaObjeto,
-                out var totalFilas, Vista.TuplasMaximasContenedor, incremento)).ToList();
-            var calculoPaginas = totalFilas / Vista.TuplasMaximasContenedor;
-            var entero = totalFilas % Vista.TuplasMaximasContenedor == 0;
+            var (entidades, totalFilas) = RepoDatosEntidad.Buscar(
+                FiltroBusquedaEntidad,
+                DatosComplementariosBusqueda,
+                Vista.TuplasMaximasContenedor,
+                incremento);
+            var paginasTotales = (int)Math.Ceiling((double)totalFilas / Vista.TuplasMaximasContenedor);
 
-            Vista.PaginasTotales = calculoPaginas < 1 ? 1 : entero ? calculoPaginas : calculoPaginas + 1;
+            // 3. Asignar páginas totales
+            Vista.PaginasTotales = paginasTotales;
 
-            for (var i = 0; i < objetos.Count && i < Vista.TuplasMaximasContenedor; i++)
-                AdicionarTuplaObjeto(objetos[i]);
+            // 4. Usar Parallel.For para creación de tuplas (si son muchas)
+            var opciones = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
+            await Task.Run(() => Parallel.For(0, entidades.Count(), opciones, i => {
+                var entidad = entidades[i];
+                
+                if (Vista is Control control)
+                    control.Invoke(() => AdicionarTuplaObjeto(entidad));                
+            }));
         }
         catch (Exception ex) {
             //TODO: Manejar la excepción (por ejemplo, mostrar un mensaje al usuario)
             Console.WriteLine($"Error al refrescar la lista de objetos: {ex.Message}");
         }
         finally {
-            _semaphore.Release();
+
         }
     }
 
-    protected virtual void AdicionarTuplaObjeto(O objeto) {
+    private void LiberarRecursosTuplas() {
+        foreach (var tupla in _tuplasEntidades) {
+            tupla.Vista.Cerrar();
+
+            if (tupla.Vista is IDisposable disposable)
+                disposable.Dispose();
+        }
+
+        _tuplasEntidades.Clear();
+
+        VariablesGlobales.CoordenadaYUltimaTupla = 0;
+
+        // Forzar liberación de memoria si hay muchas tuplas
+        if (_tuplasEntidades.Capacity > 100) {
+            _tuplasEntidades.TrimExcess();
+
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Optimized);
+        }
+    }
+
+    protected virtual void AdicionarTuplaObjeto(En objeto) {
         var presentadorTupla = ObtenerValoresTupla(objeto);
-        if (presentadorTupla == null) return;
+        
+        if (presentadorTupla == null) 
+            return;
 
-        presentadorTupla.ObjetoSeleccionado += delegate { DeseleccionarTuplas(presentadorTupla.Vista); };
-        presentadorTupla.EditarObjeto += (sender, e) => EditarObjeto?.Invoke(sender, e);
-        presentadorTupla.EliminarObjeto += EliminarObjeto;
+        presentadorTupla.EntidadSeleccionada += delegate { DeseleccionarTuplas(presentadorTupla.Vista); };
+        presentadorTupla.EditarDatosEntidad += (sender, e) => EditarEntidad?.Invoke(sender, e);
+        presentadorTupla.EliminarDatosEntidad += EliminarEntidad;
 
-        _tuplasObjetos.Add(presentadorTupla);
+        _tuplasEntidades.Add(presentadorTupla);
 
         Vista.Vistas?.Registrar(
             $"vistaTupla{objeto.GetType().Name}{objeto.Id}",
@@ -96,37 +128,37 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
     }
 
     private void DeseleccionarTuplas(Vt vista) {
-        _tuplasObjetos.ForEach(tupla => { 
-            if (!tupla.Vista.Equals(vista)) 
-                tupla.TuplaSeleccionada = false; 
+        _tuplasEntidades.ForEach(tupla => {
+            if (!tupla.Vista.Equals(vista))
+                tupla.TuplaSeleccionada = false;
         });
     }
 
-    protected abstract Pt ObtenerValoresTupla(O objeto);
+    protected abstract Pt ObtenerValoresTupla(En objeto);
 
-    protected virtual async void EliminarObjeto(object? sender, EventArgs e) {
-        if (sender is O objeto)
+    protected virtual async void EliminarEntidad(object? sender, EventArgs e) {
+        if (sender is En entidad)
             try {
-                await DatosObjeto.EliminarAsync(objeto.Id);
+                RepoDatosEntidad.Eliminar(entidad.Id);
                 Vista.PaginaActual = 1;
 
-                await RefrescarListaObjetos();
+                await PopularTuplasDatosEntidades();
             }
             catch (Exception ex) {
                 throw new Exception($"Error al eliminar el objeto: {ex.Message}");
             }
     }
 
-    private async void OnBuscarDatos(object? sender, EventArgs e) {
+    private void OnBuscarDatos(object? sender, EventArgs e) {
         if (sender is not object[] objetoSplit || objetoSplit.Length < 2)
             return;
 
-        var criterioBusqueda = (C)objetoSplit[0];
+        var criterioBusqueda = (Fb)objetoSplit[0];
         var datoBusqueda = objetoSplit[1] is string[] datosBusquedaMultiple
             ? string.Join(";", datosBusquedaMultiple)
             : objetoSplit[1].ToString();
 
-        await BusquedaDatos(criterioBusqueda, datoBusqueda);
+        BuscarDatosEntidad(criterioBusqueda, datoBusqueda);
     }
 
     private async void OnAlturaContenedorTuplasModificada(object? sender, EventArgs e) {
@@ -134,10 +166,10 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
             if (!vistaForm.Visible)
                 return;
 
-        await RefrescarListaObjetos();
+        await PopularTuplasDatosEntidades();
     }
 
     private async void OnSincronizarDatos(object? sender, EventArgs e) {
-        await RefrescarListaObjetos();
+        await PopularTuplasDatosEntidades();
     }
 }

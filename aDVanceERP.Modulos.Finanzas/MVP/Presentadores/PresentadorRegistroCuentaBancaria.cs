@@ -11,17 +11,17 @@ public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaR
     DatosCuentaBancaria, CriterioBusquedaCuentaBancaria> {
     public PresentadorRegistroCuentaBancaria(IVistaRegistroCuentaBancaria vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(CuentaBancaria objeto) {
+    public override void PopularVistaDesdeEntidad(CuentaBancaria objeto) {
         Vista.Alias = objeto.Alias ?? string.Empty;
         Vista.NumeroTarjeta = objeto.NumeroTarjeta ?? string.Empty;
         Vista.Moneda = objeto.Moneda.ToString();
         Vista.NombrePropietario = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
         Vista.ModoEdicionDatos = true;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var aliasOk = !string.IsNullOrEmpty(Vista.Alias);
         var noLetrasNumeroTarjetaOk = !Vista.NumeroTarjeta.Replace(" ", "").Any(char.IsLetter);
         var numeroDijitosTarjeta = Vista.NumeroTarjeta.Select(char.IsDigit).Count(result => result == true);
@@ -36,8 +36,8 @@ public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaR
         return aliasOk && numeroTarjetaOk;
     }
 
-    protected override async Task<CuentaBancaria?> ObtenerObjetoDesdeVista() {
-        return new CuentaBancaria(Objeto?.Id ?? 0,
+    protected override async Task<CuentaBancaria?> ObtenerEntidadDesdeVista() {
+        return new CuentaBancaria(Entidad?.Id ?? 0,
             Vista.Alias,
             Vista.NumeroTarjeta,
             (TipoMoneda)Enum.Parse(typeof(TipoMoneda), Vista.Moneda),

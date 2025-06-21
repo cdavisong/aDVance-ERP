@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
         _registroUnidadMedida = new PresentadorRegistroUnidadMedida(new VistaRegistroUnidadMedida());
         _registroUnidadMedida.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroUnidadMedida.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroUnidadMedida.DatosRegistradosActualizados += delegate {
+        _registroUnidadMedida.DatosEntidadRegistradosActualizados += delegate {
             _registroProducto?.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerNombresUnidadesMedida());
         };
 
@@ -28,7 +28,7 @@ public partial class PresentadorContenedorModulos {
     }
 
     private async void EliminarUnidadMedida(object? sender, EventArgs e) {
-        using (var unidadMedida = new DatosUnidadMedida()) {
+        using (var unidadMedida = new RepoUnidadMedida()) {
             if (sender is string nombreUnidadMedida) {
                 var idUnidadMedida = await UtilesUnidadMedida.ObtenerIdUnidadMedida(nombreUnidadMedida);
 

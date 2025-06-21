@@ -37,15 +37,15 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
             pagosVenta.Count == 0 || pagosVenta.Any(p => !p.Split('|')[5].Equals("Confirmado"))
                 ? "Pendiente"
                 : "Confirmado";
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnConfirmarEntrega;
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnConfirmarPagos;
-        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnConfirmarEntrega;
-        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnConfirmarPagos;
+        presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBtnConfirmarEntrega;
+        presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBtnConfirmarPagos;
+        presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBtnConfirmarEntrega;
+        presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBtnConfirmarPagos;
 
         return presentadorTupla;
     }
 
-    public override Task RefrescarListaObjetos() {
+    public override Task PopularTuplasDatosEntidades() {
         // Cambiar la visibilidad de los botones de confirmación
         Vista.HabilitarBtnConfirmarEntrega = false;
         Vista.HabilitarBtnConfirmarPagos = false;
@@ -53,38 +53,38 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         // Actualizar el valor bruto de las ventas al refrescar la lista de objetos.
         Vista.ActualizarValorBrutoVentas();
 
-        return base.RefrescarListaObjetos();
+        return base.PopularTuplasDatosEntidades();
     }
 
     private void ConfirmarEntregaAriculos(object? sender, EventArgs e) {
-        foreach (var tupla in _tuplasObjetos)
+        foreach (var tupla in _tuplasEntidades)
             if (tupla.TuplaSeleccionada) {
-                tupla.Objeto.EstadoEntrega = "Completada";
+                tupla.Entidad.EstadoEntrega = "Completada";
 
                 // Editar la venta del producto
-                DatosObjeto.Actualizar(tupla.Objeto);
+                RepoDatosEntidad.Editar(tupla.Entidad);
 
                 // Actualizar el seguimiento de entrega
                 using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
                     var objetoSeguimiento = datosSeguimiento
-                        .Buscar(CriterioBusquedaSeguimientoEntrega.IdVenta, tupla.Vista.Id).FirstOrDefault();
+                        .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, tupla.Vista.Id).FirstOrDefault();
 
                     if (objetoSeguimiento != null) {
                         objetoSeguimiento.FechaEntrega = DateTime.Now;
 
-                        datosSeguimiento.Actualizar(objetoSeguimiento);
+                        datosSeguimiento.Editar(objetoSeguimiento);
                     }
                 }
 
                 break;
             }
 
-        _ = RefrescarListaObjetos();
+        _ = PopularTuplasDatosEntidades();
     }
 
     private void ConfirmarPagos(object? sender, EventArgs e) {
         // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
-        var tuplasSeleccionadas = _tuplasObjetos.Where(t => t.TuplaSeleccionada).ToList();
+        var tuplasSeleccionadas = _tuplasEntidades.Where(t => t.TuplaSeleccionada).ToList();
 
         if (!tuplasSeleccionadas.Any()) {
             Vista.HabilitarBtnConfirmarPagos = false;
@@ -112,7 +112,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                         FechaConfirmacion = ahora
                     };
 
-                    datosPago.Insertar(nuevoPago);
+                    datosPago.Adicionar(nuevoPago);
                 }
                 else {
                     // Actualizar pagos existentes
@@ -127,32 +127,32 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                             FechaConfirmacion = ahora
                         };
 
-                        datosPago.Actualizar(pagoActualizado);
+                        datosPago.Editar(pagoActualizado);
                     }
                 }
 
                 // 4. Actualizar seguimiento de entrega (una sola vez por tupla)
-                var objetoSeguimiento = datosSeguimiento.Buscar(
+                var objetoSeguimiento = datosSeguimiento.Obtener(
                     CriterioBusquedaSeguimientoEntrega.IdVenta,
                     tupla.Vista.Id).FirstOrDefault();
 
                 if (objetoSeguimiento != null) {
                     objetoSeguimiento.FechaPago = ahora;
                     // Nota: Corregí FechaEntrega a FechaPago para consistencia con el caso de pagos.Count == 0
-                    datosSeguimiento.Actualizar(objetoSeguimiento);
+                    datosSeguimiento.Editar(objetoSeguimiento);
                 }
             }
         }
 
         Vista.HabilitarBtnConfirmarPagos = false;
-        _ = RefrescarListaObjetos();
+        _ = PopularTuplasDatosEntidades();
     }
 
     private void CambiarVisibilidadBtnConfirmarEntrega(object? sender, EventArgs e) {
-        if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
-            foreach (var tupla in _tuplasObjetos)
+        if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+            foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
-                    if (!tupla.Objeto.EstadoEntrega.Equals("Completada")) {
+                    if (!tupla.Entidad.EstadoEntrega.Equals("Completada")) {
                         Vista.HabilitarBtnConfirmarEntrega = true;
                     }
                     else {
@@ -167,8 +167,8 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
     }
 
     private void CambiarVisibilidadBtnConfirmarPagos(object? sender, EventArgs e) {
-        if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
-            foreach (var tupla in _tuplasObjetos)
+        if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+            foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
                     if (!tupla.Vista.EstadoPago.Equals("Confirmado")) {
                         Vista.HabilitarBtnConfirmarPagos = true;

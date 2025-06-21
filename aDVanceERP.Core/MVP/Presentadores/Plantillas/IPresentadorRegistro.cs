@@ -4,13 +4,13 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores.Plantillas; 
 
-public interface IPresentadorRegistro<Vr, Do, O, C> : IPresentadorBase<Vr>
+public interface IPresentadorRegistro<Vr, Rd, En, Fb> : IPresentadorBase<Vr>
     where Vr : IVistaRegistro
-    where Do : class, IRepositorioDatosEntidad<O, C>, new()
-    where O : class, IEntidad, new()
-    where C : Enum {
-    Do DatosObjeto { get; }
+    where Rd : class, IRepositorioDatosEntidad<En, Fb>, new()
+    where En : class, IEntidad, new()
+    where Fb : Enum {
+    Rd RepoDatosEntidad { get; }
 
-    event EventHandler? DatosRegistradosActualizados;
+    event EventHandler? DatosEntidadRegistradosActualizados;
     event EventHandler? Salir;
 }

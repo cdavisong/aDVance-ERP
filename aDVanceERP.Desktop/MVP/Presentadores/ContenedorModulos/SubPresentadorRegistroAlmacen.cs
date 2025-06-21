@@ -12,11 +12,11 @@ public partial class PresentadorContenedorModulos {
         _registroAlmacen = new PresentadorRegistroAlmacen(new VistaRegistroAlmacen());
         _registroAlmacen.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroAlmacen.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroAlmacen.DatosRegistradosActualizados += async delegate {
+        _registroAlmacen.DatosEntidadRegistradosActualizados += async delegate {
             if (_gestionAlmacenes == null)
                 return;
 
-            await _gestionAlmacenes.RefrescarListaObjetos();
+            await _gestionAlmacenes.PopularTuplasDatosEntidades();
         };
 
         Vista.Vistas?.Registrar("vistaRegistroAlmacen", 
@@ -45,7 +45,7 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaEdicionAlmacen(object? sender, EventArgs e) {
         if (sender is Almacen almacen) {
             if (_registroAlmacen != null) {
-                _registroAlmacen.PopularVistaDesdeObjeto(almacen);
+                _registroAlmacen.PopularVistaDesdeEntidad(almacen);
                 _registroAlmacen.Vista.Mostrar();
             }
         }

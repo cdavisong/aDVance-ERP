@@ -10,15 +10,15 @@ public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaR
     DatosTipoMovimiento, CriterioBusquedaTipoMovimiento> {
     public PresentadorRegistroTipoMovimiento(IVistaRegistroTipoMovimiento vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(TipoMovimiento objeto) {
+    public override void PopularVistaDesdeEntidad(TipoMovimiento objeto) {
         Vista.Nombre = objeto.Nombre;
         Vista.Efecto = objeto.Efecto.ToString();
         Vista.ModoEdicionDatos = true;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
         var efectoOk = !string.IsNullOrEmpty(Vista.Efecto) && !Vista.Efecto.Equals("Ninguno");
 
@@ -30,9 +30,9 @@ public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaR
         return nombreOk && efectoOk;
     }
 
-    protected override Task<TipoMovimiento?> ObtenerObjetoDesdeVista() {
+    protected override Task<TipoMovimiento?> ObtenerEntidadDesdeVista() {
         return Task.FromResult<TipoMovimiento?>(new TipoMovimiento(
-            Objeto?.Id ?? 0,
+            Entidad?.Id ?? 0,
             Vista.Nombre,
             (EfectoMovimiento)(Enum.TryParse(typeof(EfectoMovimiento), Vista.Efecto, out var efecto)
                 ? efecto

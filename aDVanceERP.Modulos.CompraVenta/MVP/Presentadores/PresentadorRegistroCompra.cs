@@ -12,7 +12,7 @@ public class
         CriterioBusquedaCompra> {
     public PresentadorRegistroCompra(IVistaRegistroCompra vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Compra objeto) {
+    public override void PopularVistaDesdeEntidad(Compra objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
         Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;        
@@ -23,11 +23,11 @@ public class
             ((IVistaGestionDetallesCompraventaProductos)Vista).AdicionarProducto(Vista.NombreAlmacen, productoSplit[0],
                 productoSplit[1]);
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override async Task<Compra?> ObtenerObjetoDesdeVista() {
-        return new Compra(Objeto?.Id ?? 0,
+    protected override async Task<Compra?> ObtenerEntidadDesdeVista() {
+        return new Compra(Entidad?.Id ?? 0,
             DateTime.Now,
             await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
             await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),

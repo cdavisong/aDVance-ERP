@@ -9,10 +9,11 @@ namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
 public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEntidad<En, Fb>
     where En : class, IEntidad, new()
     where Fb : Enum {
-    private List<En> _entidadesCache;
+    private List<En> _entidadesCache = new List<En>();
 
-    protected RepositorioDatosEntidadBase() {
-        _entidadesCache = new List<En>();
+    protected RepositorioDatosEntidadBase(string nombreTabla, string columnaId) {
+        NombreTabla = nombreTabla;
+        ColumnaId = columnaId;
     }
 
     protected string NombreTabla { get; }
@@ -35,9 +36,12 @@ public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEnt
         return resultados.ToList();
     }
 
-    public List<En> Buscar(Fb? filtroBusqueda, string? datosComplementarios, int limite = 0, int desplazamiento = 0, MySqlConnection? conexionBd = null) {
+    public (List<En> resultados, int totalFilas) Buscar(Fb? filtroBusqueda, string? datosComplementarios, int limite = 0, int desplazamiento = 0, MySqlConnection? conexionBd = null) {
         var (whereClause, parametros) = GenerarWhereClause(filtroBusqueda, datosComplementarios);
-        var query = $"SELECT * FROM {NombreTabla} WHERE {whereClause}";
+        var query = $"""
+                SELECT SQL_CALC_FOUND_ROWS * FROM {NombreTabla} 
+                WHERE {whereClause}
+                """;
 
         // Agregar LIMIT y OFFSET si es necesario (antes del ;)
         if (limite > 0) {
@@ -46,10 +50,19 @@ public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEnt
             if (desplazamiento > 0) query += $" OFFSET {desplazamiento}";
             query += ";"; // Agregar el ; al final
         }
+        
+        var conexion = conexionBd ?? new MySqlConnection(ObtenerCadenaConexion());
+        var resultados = EjecutarConsulta(conexion, query, parametros, MapearEntidad);
 
-        var resultados = EjecutarConsulta(conexionBd, query, parametros, MapearEntidad);
+        query = """
+            SELECT FOUND_ROWS() AS TotalFilas;
+            """;
 
-        return resultados.ToList();
+        var totalFilas = EjecutarConsultaEscalar<int>(conexion, query);
+
+        conexion.Close();
+
+        return (resultados.ToList(), totalFilas);
     }
 
     public List<En> BuscarAvanzado(Func<ConsultaBuilder, ConsultaBuilder> construirConsulta, MySqlConnection? conexionBd = null) {
@@ -158,13 +171,13 @@ public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEnt
         return resultado > 0;
     }
 
-    public int Contar(Fb? filtroBusqueda, MySqlConnection? conexionBd = null) {
-        var whereClause =  > 0 ?
-            $"WHERE {GenerarWhereClause(indiceFiltro, [])}" :
+    public int Contar(Fb? filtroBusqueda = default, MySqlConnection? conexionBd = null) {
+        var whereClause = filtroBusqueda?.ToString().Contains("Todos") ?? false ?
+            $"WHERE {GenerarWhereClause(filtroBusqueda, string.Empty)}" :
             string.Empty;
 
         var query = $"SELECT COUNT(*) FROM {NombreTabla} {whereClause}";
-        return (int) EjecutarConsultaEscalar<long>(conexionBd, query);
+        return EjecutarConsultaEscalar<int>(conexionBd, query);
     }
 
     #region Métodos Protegidos para Heredar

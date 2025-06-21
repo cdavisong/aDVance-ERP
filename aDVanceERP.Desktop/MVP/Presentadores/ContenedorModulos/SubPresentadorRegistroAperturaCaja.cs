@@ -15,11 +15,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroAperturaCaja = new PresentadorRegistroAperturaCaja(new VistaRegistroAperturaCaja());
             _registroAperturaCaja.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
             _registroAperturaCaja.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroAperturaCaja.DatosRegistradosActualizados += async delegate {
+            _registroAperturaCaja.DatosEntidadRegistradosActualizados += async delegate {
                 if (_gestionCajas == null)
                     return;
 
-                await _gestionCajas.RefrescarListaObjetos();
+                await _gestionCajas.PopularTuplasDatosEntidades();
             };
         }
 
@@ -45,7 +45,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             if (sender is Caja caja) {
                 if (_registroAperturaCaja != null) {
-                    _registroAperturaCaja.PopularVistaDesdeObjeto(caja);
+                    _registroAperturaCaja.PopularVistaDesdeEntidad(caja);
                     _registroAperturaCaja.Vista.Mostrar();
                 }
             }
@@ -61,7 +61,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 return;
             }
 
-            var movimientosCaja = datosMovimientoCaja.Buscar(CriterioBusquedaMovimientoCaja.IdCaja, idCaja.ToString());
+            var movimientosCaja = datosMovimientoCaja.Obtener(CriterioBusquedaMovimientoCaja.IdCaja, idCaja.ToString());
             decimal saldoActual = 0;
 
             foreach (var movimiento in movimientosCaja) {

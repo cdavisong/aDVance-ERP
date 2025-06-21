@@ -2,16 +2,16 @@
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
-using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
+using aDVanceERP.Core.Seguridad.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
 public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<PresentadorTuplaCuentaUsuario,
-    IVistaGestionCuentasUsuarios, IVistaTuplaCuentaUsuario, CuentaUsuario, DatosCuentaUsuario,
-    CriterioBusquedaCuentaUsuario> {
+    IVistaGestionCuentasUsuarios, IVistaTuplaCuentaUsuario, CuentaUsuario, RepoCuentaUsuario,
+    FbCuentaUsuario> {
     public PresentadorGestionCuentasUsuarios(IVistaGestionCuentasUsuarios vista) : base(vista) {
         vista.AprobarSolicitudCuenta += AprobarSolicitudCuentaUsuario;
         vista.EditarDatos += delegate { Vista.HabilitarBtnAprobacionSolicitudCuenta = false; };
@@ -24,8 +24,8 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
         presentadorTupla.Vista.NombreUsuario = objeto.Nombre;
         presentadorTupla.Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
         presentadorTupla.Vista.EstadoCuentaUsuario = objeto.Aprobado ? "Activa" : "Esperando aprobación";
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
-        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
+        presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
+        presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
 
         return presentadorTupla;
     }
@@ -33,13 +33,13 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
     private void AprobarSolicitudCuentaUsuario(object? sender, EventArgs e) {
         var usuariosRol0 = 0;
 
-        foreach (var tupla in _tuplasObjetos)
+        foreach (var tupla in _tuplasEntidades)
             if (tupla.TuplaSeleccionada) {
-                if (tupla.Objeto.IdRolUsuario != 0) {
-                    tupla.Objeto.Aprobado = true;
+                if (tupla.Entidad.IdRolUsuario != 0) {
+                    tupla.Entidad.Aprobado = true;
 
                     // Editar la cuenta de usuario
-                    DatosObjeto.Actualizar(tupla.Objeto);
+                    RepoDatosEntidad.Actualizar(tupla.Entidad);
                 }
                 else {
                     usuariosRol0++;
@@ -57,14 +57,14 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
 
         Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
 
-        _ = RefrescarListaObjetos();
+        _ = PopularTuplasDatosEntidades();
     }
 
     private void CambiarVisibilidadBtnAprobacionCuentasUsuarios(object? sender, EventArgs e) {
-        if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
-            foreach (var tupla in _tuplasObjetos)
+        if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+            foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
-                    if (!tupla.Objeto.Aprobado) {
+                    if (!tupla.Entidad.Aprobado) {
                         Vista.HabilitarBtnAprobacionSolicitudCuenta = true;
                     }
                     else {

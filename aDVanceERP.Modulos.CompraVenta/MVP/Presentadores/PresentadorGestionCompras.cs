@@ -26,10 +26,10 @@ public class PresentadorGestionCompras : PresentadorGestionBase<PresentadorTupla
         return presentadorTupla;
     }
 
-    public override Task RefrescarListaObjetos() {
+    public override Task PopularTuplasDatosEntidades() {
         // Actualizar el valor bruto de las compras al refrescar la lista de objetos.
         Vista.ActualizarValorBrutoCompras();
 
-        return base.RefrescarListaObjetos();
+        return base.PopularTuplasDatosEntidades();
     }
 }
