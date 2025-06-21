@@ -2,13 +2,13 @@
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
+using aDVanceERP.Modulos.Contactos.Repositorios;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegistroProveedor, Proveedor, DatosProveedor,
-    CriterioBusquedaProveedor> {
+public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegistroProveedor, Proveedor, RepoProveedor,
+    FbProveedor> {
     public PresentadorRegistroProveedor(IVistaRegistroProveedor vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Proveedor objeto) {
@@ -16,8 +16,8 @@ public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegist
         Vista.RazonSocial = objeto.RazonSocial ?? string.Empty;
         Vista.NumeroIdentificacionTributaria = objeto.NumeroIdentificacionTributaria ?? string.Empty;
 
-        using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
+        using (var datosContacto = new RepoContacto()) {
+            var contacto = datosContacto.ObtenerPorId(objeto.IdContacto);
 
             if (contacto != null) {
                 Vista.TelefonoMovil = UtilesTelefonoContacto.ObtenerTelefonoContacto(contacto.Id, true) ?? string.Empty;
@@ -63,10 +63,10 @@ public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegist
         return nombreOk;
     }
 
-    protected override void RegistroAuxiliar(DatosProveedor datosProveedor, long id) {
-        using (var datosContacto = new DatosContacto()) {
+    protected override void RegistroAuxiliar(RepoProveedor datosProveedor, long id) {
+        using (var datosContacto = new RepoContacto()) {
             // Contacto
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, (Entidad?.IdContacto ?? 0).ToString()).FirstOrDefault() ??
+            var contacto = datosContacto.ObtenerPorId(Entidad?.IdContacto) ??
                 new Contacto();
 
             contacto.Nombre = Vista.RazonSocial;
@@ -75,18 +75,18 @@ public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegist
             contacto.Notas = "Proveedor";
 
             if (Vista.ModoEdicionDatos && contacto.Id != 0)
-                datosContacto.Editar(contacto);
+                datosContacto.Actualizar(contacto);
             else if (contacto.Id != 0)
-                datosContacto.Editar(contacto);
+                datosContacto.Actualizar(contacto);
             else if (Entidad != null) {
-                Entidad.IdContacto = datosContacto.Adicionar(contacto);
+                Entidad.IdContacto = datosContacto.Insertar(contacto);
 
                 // Editar proveedor para modificar Id del contacto
-                datosProveedor.Editar(Entidad);
+                datosProveedor.Actualizar(Entidad);
             }
 
-            using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
-                var telefonos = datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, (Entidad?.IdContacto ?? 0).ToString()).ToList() ??
+            using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
+                var telefonos = datosTelefonoContacto.Buscar(FbTelefonoContacto.IdContacto, (Entidad?.IdContacto ?? 0).ToString()).resultados ??
                     new List<TelefonoContacto>();
                 var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);
                 var indiceTelefonoFijo = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Fijo);
@@ -135,20 +135,20 @@ public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegist
 
                 foreach (var telefono in telefonos)
                     if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                        datosTelefonoContacto.Editar(telefono);
+                        datosTelefonoContacto.Actualizar(telefono);
                     else if (telefono.Id != 0)
-                        datosTelefonoContacto.Editar(telefono);
+                        datosTelefonoContacto.Actualizar(telefono);
                     else
-                        datosTelefonoContacto.Adicionar(telefono);
+                        datosTelefonoContacto.Insertar(telefono);
             }
         }
     }
 
-    protected override async Task<Proveedor?> ObtenerEntidadDesdeVista() {
+    protected override  Proveedor? ObtenerEntidadDesdeVista() {
         return new Proveedor(Entidad?.Id ?? 0,
             Vista.RazonSocial,
             Vista.NumeroIdentificacionTributaria,
-            await UtilesContacto.ObtenerIdContacto(Vista.RazonSocial)
+            UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result
         );
     }
 }

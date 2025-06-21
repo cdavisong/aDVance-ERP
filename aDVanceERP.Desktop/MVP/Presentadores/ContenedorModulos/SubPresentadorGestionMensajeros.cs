@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionMensajeros?.Vista == null)
             return;
 
-        _gestionMensajeros.Vista.CargarCriteriosBusqueda(UtilesBusquedaMensajero.CriterioBusquedaMensajero);
+        _gestionMensajeros.Vista.CargarCriteriosBusqueda(UtilesBusquedaMensajero.FbMensajero);
         _gestionMensajeros.Vista.Restaurar();
         _gestionMensajeros.Vista.Mostrar();
 

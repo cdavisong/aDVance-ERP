@@ -20,16 +20,18 @@ public class Contacto : IEntidad {
     public string? Notas { get; set; }    
 }
 
-public enum CriterioBusquedaContacto {
+public enum FbContacto {
     Todos,
     Id,
-    Nombre
+    Nombre,
+    CorreoElectronico
 }
 
 public static class UtilesBusquedaContacto {
-    public static string[] CriterioBusquedaContacto = {
+    public static string[] FbContacto = {
         "Todos los contactos",
         "Identificador de BD",
-        "Nombre del contacto"
+        "Nombre del contacto",
+        "Correo electrónico del contacto"
     };
 }

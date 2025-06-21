@@ -19,7 +19,7 @@ public class Proveedor : IEntidad {
     public long IdContacto { get; set; }
 }
 
-public enum CriterioBusquedaProveedor {
+public enum FbProveedor {
     Todos,
     Id,
     RazonSocial,
@@ -27,7 +27,7 @@ public enum CriterioBusquedaProveedor {
 }
 
 public static class UtilesBusquedaProveedor {
-    public static object[] CriterioBusquedaProveedor = {
+    public static string[] FbProveedor = {
         "Todos los proveedores",
         "Identificador de BD",
         "Razón Social del proveedor",

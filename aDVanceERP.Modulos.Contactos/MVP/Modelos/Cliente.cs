@@ -19,7 +19,7 @@ public class Cliente : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaCliente {
+public enum FbCliente {
     Todos,
     Id,
     Numero,
@@ -27,7 +27,7 @@ public enum CriterioBusquedaCliente {
 }
 
 public static class UtilesBusquedaCliente {
-    public static readonly object[] CriterioBusquedaCliente = {
+    public static readonly string[] FbCliente = {
         "Todos los clientes",
         "Identificador de BD",
         "Número del cliente",

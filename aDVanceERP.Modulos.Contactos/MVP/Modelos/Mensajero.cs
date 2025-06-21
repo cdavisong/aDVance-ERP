@@ -18,14 +18,14 @@ public class Mensajero : IEntidad {
     public long IdContacto { get; set; }    
 }
 
-public enum CriterioBusquedaMensajero {
+public enum FbMensajero {
     Todos,
     Id,
     Nombre
 }
 
 public static class UtilesBusquedaMensajero {
-    public static object[] CriterioBusquedaMensajero = {
+    public static string[] FbMensajero = {
         "Todos los mensajeros",
         "Identificador de BD",
         "Nombre del mensajero"

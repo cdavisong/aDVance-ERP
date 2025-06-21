@@ -1,13 +1,13 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
+using aDVanceERP.Modulos.Contactos.Repositorios;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
 public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTuplaMensajero, IVistaGestionMensajeros,
-    IVistaTuplaMensajero, Mensajero, DatosMensajero, CriterioBusquedaMensajero> {
+    IVistaTuplaMensajero, Mensajero, RepoMensajero, FbMensajero> {
     public PresentadorGestionMensajeros(IVistaGestionMensajeros vista) : base(vista) {
         vista.HabilitarDeshabilitarMensajero += IntercambiarHabilitacionMensajero;
         vista.EditarDatos += delegate {
@@ -21,13 +21,13 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         presentadorTupla.Vista.Id = objeto.Id.ToString();
         presentadorTupla.Vista.Nombre = objeto.Nombre;
 
-        using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
+        using (var datosContacto = new RepoContacto()) {
+            var contacto = datosContacto.Buscar(FbContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
 
             if (contacto != null) {
-                using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+                using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
                     var telefonosContacto =
-                        datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
+                        datosTelefonoContacto.Buscar(FbTelefonoContacto.IdContacto, contacto.Id.ToString()).resultados;
                     var telefonoString = telefonosContacto.Aggregate(string.Empty,
                         (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
 
@@ -68,7 +68,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         }
 
         // 2. Mover la instancia de DatosMensajero fuera del bucle
-        using (var datosMensajero = new DatosMensajero()) {
+        using (var datosMensajero = new RepoMensajero()) {
             foreach (var tupla in tuplasSeleccionadas) {
                 var mensajero = new Mensajero(
                         long.Parse(tupla.Vista.Id),
@@ -78,7 +78,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
                     );
 
                 // 3. Actualizar el mensajero 1 vez por tupla
-                datosMensajero.Editar(mensajero);
+                datosMensajero.Actualizar(mensajero);
             }
         }
 
