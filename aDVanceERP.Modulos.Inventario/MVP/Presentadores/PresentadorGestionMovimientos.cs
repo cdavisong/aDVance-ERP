@@ -1,15 +1,16 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
+using aDVanceERP.Modulos.Inventario.Repositorios;
+
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
 
 public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorTuplaMovimiento, IVistaGestionMovimientos
-    , IVistaTuplaMovimiento, Movimiento, DatosMovimiento, CriterioBusquedaMovimiento> {
+    , IVistaTuplaMovimiento, Movimiento, RepoMovimiento, FbMovimiento> {
     public PresentadorGestionMovimientos(IVistaGestionMovimientos vista) : base(vista) { }
 
     protected override PresentadorTuplaMovimiento ObtenerValoresTupla(Movimiento objeto) {

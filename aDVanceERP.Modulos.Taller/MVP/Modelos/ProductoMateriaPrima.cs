@@ -18,7 +18,7 @@ public class ProductoMateriaPrima : IEntidad {
     public float Cantidad { get; set; }
 }
 
-public enum CriterioBusquedaProductoMateriaPrima {
+public enum FbProductoMateriaPrima {
     Todos,
     Id,
     IdProducto,
@@ -26,7 +26,7 @@ public enum CriterioBusquedaProductoMateriaPrima {
 }
 
 public static class UtilesBusquedaProductoMateriaPrima {
-    public static object[] CriterioBusquedaProductoMateriaPrima = {
+    public static object[] FbProductoMateriaPrima = {
         "Todos los productos de materia prima",
         "Identificador de BD",
         "Identificador del producto",

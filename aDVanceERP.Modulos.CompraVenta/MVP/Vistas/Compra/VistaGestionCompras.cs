@@ -39,11 +39,11 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
         set => fieldFormatoReporte.Text = value;
     }
 
-    public FbCompra CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (FbCompra)fieldCriterioBusqueda.SelectedIndex
+    public FbCompra Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbCompra)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -136,11 +136,11 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         fieldDatoBusquedaFecha.ValueChanged += delegate(object? sender, EventArgs e) {
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+            BuscarDatos?.Invoke(new object[] { Fb, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                 e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -183,10 +183,10 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-        fieldCriterioBusqueda.Items.Clear();
-        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
-        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-            if (CriterioBusqueda == FbCompra.Fecha) {
+        fieldFb.Items.Clear();
+        fieldFb.Items.AddRange(criteriosBusqueda);
+        fieldFb.SelectedIndexChanged += delegate {
+            if (Fb == FbCompra.Fecha) {
                 fieldDatoBusquedaFecha.Value = DateTime.Now;
                 fieldDatoBusquedaFecha.Focus();
 
@@ -199,19 +199,19 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
                 fieldDatoBusqueda.Focus();
             }
 
-            fieldDatoBusqueda.Visible = CriterioBusqueda != FbCompra.Fecha &&
-                                        fieldCriterioBusqueda.SelectedIndex != 0;
-            fieldDatoBusquedaFecha.Visible = CriterioBusqueda == FbCompra.Fecha &&
-                                             fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Visible = Fb != FbCompra.Fecha &&
+                                        fieldFb.SelectedIndex != 0;
+            fieldDatoBusquedaFecha.Visible = Fb == FbCompra.Fecha &&
+                                             fieldFb.SelectedIndex != 0;
 
-            if (CriterioBusqueda != FbCompra.Fecha)
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+            if (Fb != FbCompra.Fecha)
+                BuscarDatos?.Invoke(new object[] { Fb, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
-        fieldCriterioBusqueda.SelectedIndex = 4;
+        fieldFb.SelectedIndex = 4;
     }
 
     public void Mostrar() {
@@ -226,7 +226,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldCriterioBusqueda.SelectedIndex = 4;
+        fieldFb.SelectedIndex = 4;
     }
 
     public void Ocultar() {

@@ -17,7 +17,7 @@ public class ModuloAplicacion : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaModuloAplicacion {
+public enum FbModuloAplicacion {
     Todos,
     Id,
     Nombre

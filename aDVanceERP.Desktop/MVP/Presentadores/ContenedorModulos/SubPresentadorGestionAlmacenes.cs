@@ -19,7 +19,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionAlmacenes?.Vista == null)
             return;
 
-        _gestionAlmacenes.Vista.CargarCriteriosBusqueda(UtilesBusquedaAlmacen.CriterioBusquedaAlmacen);
+        _gestionAlmacenes.Vista.CargarCriteriosBusqueda(UtilesBusquedaAlmacen.FbAlmacen);
         _gestionAlmacenes.Vista.Restaurar();
         _gestionAlmacenes.Vista.Mostrar();
     }

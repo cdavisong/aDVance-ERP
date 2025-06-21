@@ -1,13 +1,13 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistroAlmacen, Almacen, DatosAlmacen,
-    CriterioBusquedaAlmacen> {
+public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistroAlmacen, Almacen, RepoAlmacen,
+    FbAlmacen> {
     public PresentadorRegistroAlmacen(IVistaRegistroAlmacen vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Almacen objeto) {
@@ -30,7 +30,7 @@ public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistro
         return nombreOk;
     }
 
-    protected override async Task<Almacen?> ObtenerEntidadDesdeVista() {
+    protected override Almacen? ObtenerEntidadDesdeVista() {
         return new Almacen(
             Entidad?.Id ?? 0,
             Vista.Nombre,

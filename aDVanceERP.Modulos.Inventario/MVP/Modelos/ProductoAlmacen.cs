@@ -18,7 +18,7 @@ public class ProductoAlmacen : IEntidad {
     public float Stock { get; set; }
 }
 
-public enum CriterioBusquedaProductoAlmacen {
+public enum FbProductoAlmacen {
     Todos,
     Id,
     IdProducto,

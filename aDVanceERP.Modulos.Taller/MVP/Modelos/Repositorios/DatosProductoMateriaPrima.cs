@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
 
-public class DatosProductoMateriaPrima : RepositorioDatosEntidadBase<ProductoMateriaPrima, CriterioBusquedaProductoMateriaPrima>, IRepositorioProductoMateriaPrima {
+public class DatosProductoMateriaPrima : RepositorioDatosEntidadBase<ProductoMateriaPrima, FbProductoMateriaPrima>, IRepositorioProductoMateriaPrima {
     public override string ComandoCantidad() {
         return """
             SELECT COUNT(id_producto_materia_prima) 
@@ -48,12 +48,12 @@ public class DatosProductoMateriaPrima : RepositorioDatosEntidadBase<ProductoMat
             """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaProductoMateriaPrima criterio, string dato) {
+    public override string ComandoObtener(FbProductoMateriaPrima criterio, string dato) {
         var comando = criterio switch {
-            CriterioBusquedaProductoMateriaPrima.Todos => "SELECT * FROM adv__producto_materia_prima;",
-            CriterioBusquedaProductoMateriaPrima.Id => $"SELECT * FROM adv__producto_materia_prima WHERE id_producto_materia_prima = {dato};",
-            CriterioBusquedaProductoMateriaPrima.IdProducto => $"SELECT * FROM adv__producto_materia_prima WHERE id_producto = {dato};",
-            CriterioBusquedaProductoMateriaPrima.IdMateriaPrima => $"SELECT * FROM adv__producto_materia_prima WHERE id_materia_prima = {dato};",
+            FbProductoMateriaPrima.Todos => "SELECT * FROM adv__producto_materia_prima;",
+            FbProductoMateriaPrima.Id => $"SELECT * FROM adv__producto_materia_prima WHERE id_producto_materia_prima = {dato};",
+            FbProductoMateriaPrima.IdProducto => $"SELECT * FROM adv__producto_materia_prima WHERE id_producto = {dato};",
+            FbProductoMateriaPrima.IdMateriaPrima => $"SELECT * FROM adv__producto_materia_prima WHERE id_materia_prima = {dato};",
             _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
         };
 

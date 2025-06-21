@@ -3,4 +3,4 @@ using aDVanceERP.Modulos.Taller.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioProductoManoObra : IRepositorioDatosEntidad<ProductoManoObra, CriterioBusquedaProductoManoObra> { }
+public interface IRepositorioProductoManoObra : IRepositorioDatosEntidad<ProductoManoObra, FbProductoManoObra> { }

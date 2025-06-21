@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
 
-public class DatosActividadProduccion : RepositorioDatosEntidadBase<ActividadProduccion, CriterioBusquedaActividadProduccion>, IRepositorioActividadProduccion {
+public class DatosActividadProduccion : RepositorioDatosEntidadBase<ActividadProduccion, FbActividadProduccion>, IRepositorioActividadProduccion {
     public override string ComandoCantidad() {
         return """
             SELECT COUNT(id_actividad_produccion) 
@@ -47,12 +47,12 @@ public class DatosActividadProduccion : RepositorioDatosEntidadBase<ActividadPro
             """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaActividadProduccion criterio, string dato) {
+    public override string ComandoObtener(FbActividadProduccion criterio, string dato) {
         var comando = criterio switch {
-            CriterioBusquedaActividadProduccion.Todos => "SELECT * FROM adv__actividad_produccion;",
-            CriterioBusquedaActividadProduccion.Id => $"SELECT * FROM adv__actividad_produccion WHERE id_actividad_produccion = {dato};",
-            CriterioBusquedaActividadProduccion.Nombre => $"SELECT * FROM adv__actividad_produccion WHERE nombre LIKE '%{dato}%';",
-            CriterioBusquedaActividadProduccion.Descripcion => $"SELECT * FROM adv__actividad_produccion WHERE descripcion LIKE '%{dato}%';",
+            FbActividadProduccion.Todos => "SELECT * FROM adv__actividad_produccion;",
+            FbActividadProduccion.Id => $"SELECT * FROM adv__actividad_produccion WHERE id_actividad_produccion = {dato};",
+            FbActividadProduccion.Nombre => $"SELECT * FROM adv__actividad_produccion WHERE nombre LIKE '%{dato}%';",
+            FbActividadProduccion.Descripcion => $"SELECT * FROM adv__actividad_produccion WHERE descripcion LIKE '%{dato}%';",
             _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
         };
 

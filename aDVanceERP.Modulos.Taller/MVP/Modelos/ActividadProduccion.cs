@@ -22,7 +22,7 @@ public class ActividadProduccion : IEntidad {
     public decimal Costo { get; set; }
 }
 
-public enum CriterioBusquedaActividadProduccion {
+public enum FbActividadProduccion {
     Todos,
     Id,
     Nombre,
@@ -30,7 +30,7 @@ public enum CriterioBusquedaActividadProduccion {
 }
 
 public static class UtilesBusquedaActividadProduccion {
-    public static object[] CriterioBusquedaActividadProduccion = {
+    public static object[] FbActividadProduccion = {
         "Todas las actividades de producción",
         "Identificador de BD",
         "Nombre de la actividad",

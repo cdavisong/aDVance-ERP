@@ -31,11 +31,11 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         set => Size = value;
     }
 
-    public CriterioBusquedaMovimiento CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaMovimiento)fieldCriterioBusqueda.SelectedIndex
+    public FbMovimiento Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbMovimiento)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -89,11 +89,11 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         // Eventos
         fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+            BuscarDatos?.Invoke(new object[] { Fb, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                 e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -130,10 +130,10 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-        fieldCriterioBusqueda.Items.Clear();
-        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
-        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-            if (CriterioBusqueda == CriterioBusquedaMovimiento.Fecha) {
+        fieldFb.Items.Clear();
+        fieldFb.Items.AddRange(criteriosBusqueda);
+        fieldFb.SelectedIndexChanged += delegate {
+            if (Fb == FbMovimiento.Fecha) {
                 fieldDatoBusquedaFecha.Value = DateTime.Now;
                 fieldDatoBusquedaFecha.Focus();
             } else {
@@ -141,20 +141,20 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
                 fieldDatoBusqueda.Focus();
             }
 
-            fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaMovimiento.Fecha &&
-                                        fieldCriterioBusqueda.SelectedIndex != 0;
-            fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaMovimiento.Fecha &&
-                                             fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Visible = Fb != FbMovimiento.Fecha &&
+                                        fieldFb.SelectedIndex != 0;
+            fieldDatoBusquedaFecha.Visible = Fb == FbMovimiento.Fecha &&
+                                             fieldFb.SelectedIndex != 0;
 
-            if (CriterioBusqueda != CriterioBusquedaMovimiento.Fecha)
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+            if (Fb != FbMovimiento.Fecha)
+                BuscarDatos?.Invoke(new object[] { Fb, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Mostrar() {
@@ -169,7 +169,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Ocultar() {

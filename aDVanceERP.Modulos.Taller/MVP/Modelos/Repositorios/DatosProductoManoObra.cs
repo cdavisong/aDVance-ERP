@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
 
-public class DatosProductoManoObra : RepositorioDatosEntidadBase<ProductoManoObra, CriterioBusquedaProductoManoObra>, IRepositorioProductoManoObra {
+public class DatosProductoManoObra : RepositorioDatosEntidadBase<ProductoManoObra, FbProductoManoObra>, IRepositorioProductoManoObra {
     public override string ComandoCantidad() {
         return """
             SELECT COUNT(id_producto_mano_obra) 
@@ -44,12 +44,12 @@ public class DatosProductoManoObra : RepositorioDatosEntidadBase<ProductoManoObr
             """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaProductoManoObra criterio, string dato) {
+    public override string ComandoObtener(FbProductoManoObra criterio, string dato) {
         var comando = criterio switch {
-            CriterioBusquedaProductoManoObra.Todos => "SELECT * FROM adv__producto_mano_obra;",
-            CriterioBusquedaProductoManoObra.Id => $"SELECT * FROM adv__producto_mano_obra WHERE id_producto_mano_obra = {dato};",
-            CriterioBusquedaProductoManoObra.IdProducto => $"SELECT * FROM adv__producto_mano_obra WHERE id_producto = {dato};",
-            CriterioBusquedaProductoManoObra.IdActividadProduccion => $"SELECT * FROM adv__producto_mano_obra WHERE id_actividad_produccion = {dato};",
+            FbProductoManoObra.Todos => "SELECT * FROM adv__producto_mano_obra;",
+            FbProductoManoObra.Id => $"SELECT * FROM adv__producto_mano_obra WHERE id_producto_mano_obra = {dato};",
+            FbProductoManoObra.IdProducto => $"SELECT * FROM adv__producto_mano_obra WHERE id_producto = {dato};",
+            FbProductoManoObra.IdActividadProduccion => $"SELECT * FROM adv__producto_mano_obra WHERE id_actividad_produccion = {dato};",
             _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
         };
 

@@ -28,14 +28,14 @@ public class TipoMovimiento : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaTipoMovimiento {
+public enum FbTipoMovimiento {
     Todos,
     Id,
     Nombre
 }
 
 public static class UtilesBusquedaTipoMovimiento {
-    public static string[] CriterioBusquedaTipoMovimiento = {
+    public static string[] FbTipoMovimiento = {
         "Todos los tipos de movimiento",
         "Identificador de BD",
         "Nombre del movimiento"

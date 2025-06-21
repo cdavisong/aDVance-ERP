@@ -43,11 +43,11 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         set => fieldCriterioCategoriaProducto.SelectedIndex = value + 1;
     }
 
-    public CriterioBusquedaProducto CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex > 0
-            ? (CriterioBusquedaProducto)fieldCriterioBusqueda.SelectedIndex
+    public FbProducto Fb {
+        get => fieldFb.SelectedIndex > 0
+            ? (FbProducto)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -109,21 +109,21 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         // Eventos
         fieldNombreAlmacen.SelectedIndexChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(NombreAlmacen))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
 
             ActualizarMontoInversion();
         };
         fieldCriterioCategoriaProducto.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
             if (Categoria > -1)
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
 
             ActualizarMontoInversion();
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -180,21 +180,21 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-        fieldCriterioBusqueda.Items.Clear();
-        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
-        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+        fieldFb.Items.Clear();
+        fieldFb.Items.AddRange(criteriosBusqueda);
+        fieldFb.SelectedIndexChanged += delegate {
             fieldDatoBusqueda.Text = string.Empty;
-            fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Visible = fieldFb.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } },
+            BuscarDatos?.Invoke(new object[] { Fb, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } },
                 EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     private void ProcesarDatosScanner(string codigo) {
@@ -202,7 +202,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             return;
 
         Invoke((MethodInvoker) delegate {
-            fieldCriterioBusqueda.SelectedIndex = 2;
+            fieldFb.SelectedIndex = 2;
             fieldDatoBusqueda.Text = codigo.Replace("\0", "");
         });        
     }
@@ -220,7 +220,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         PaginasTotales = 1;
 
         fieldNombreAlmacen.SelectedIndex = 0;
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Ocultar() {

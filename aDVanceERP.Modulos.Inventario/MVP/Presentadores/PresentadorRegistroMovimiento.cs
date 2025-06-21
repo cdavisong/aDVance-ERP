@@ -3,13 +3,13 @@ using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
 
 public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegistroMovimiento, Movimiento,
-    DatosMovimiento, CriterioBusquedaMovimiento> {
+    RepoMovimiento, FbMovimiento> {
 
     public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) { }
 
@@ -87,20 +87,21 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
         return nombreProductoOk && tipoMovimientoOk && noCompraventaOk && fechaOk && cantidadOk;
     }
 
-    protected override void RegistroAuxiliar(DatosMovimiento datosMovimiento, long id) {
+    protected override void RegistroAuxiliar(RepoMovimiento datosMovimiento, long id) {
         if (Entidad != null)
             UtilesMovimiento.ModificarStockProductoAlmacen(
                 UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result,
                 UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen).Result,
                 UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
-                Vista.CantidadMovida);
+                Vista.CantidadMovida
+            );
     }
 
-    protected override async Task<Movimiento?> ObtenerEntidadDesdeVista() {
+    protected override Movimiento? ObtenerEntidadDesdeVista() {
         return new Movimiento(Entidad?.Id ?? 0,
-            await UtilesProducto.ObtenerIdProducto(Vista.NombreProducto),
-            await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen),
-            await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino),
+            UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result,
+            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen).Result,
+            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
             Vista.Fecha,
             Vista.CantidadMovida,
             UtilesMovimiento.ObtenerIdTipoMovimiento(Vista.TipoMovimiento)

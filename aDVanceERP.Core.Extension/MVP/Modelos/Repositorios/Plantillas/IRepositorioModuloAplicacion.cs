@@ -3,4 +3,4 @@
 namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios.Plantillas; 
 
 public interface
-    IRepositorioModuloAplicacion : IRepositorioDatosEntidad<ModuloAplicacion, CriterioBusquedaModuloAplicacion> { }
+    IRepositorioModuloAplicacion : IRepositorioDatosEntidad<ModuloAplicacion, FbModuloAplicacion> { }

@@ -24,7 +24,7 @@ public partial class PresentadorContenedorModulos {
             return;
 
         _gestionProductos.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
-        _gestionProductos.Vista.CargarCriteriosBusqueda(UtilesBusquedaProducto.CriterioBusquedaProducto);
+        _gestionProductos.Vista.CargarCriteriosBusqueda(UtilesBusquedaProducto.FbProducto);
         _gestionProductos.Vista.Restaurar();
         _gestionProductos.Vista.Mostrar();
 

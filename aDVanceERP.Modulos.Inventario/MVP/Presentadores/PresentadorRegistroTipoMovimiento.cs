@@ -1,13 +1,13 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento.Plantillas;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
 
 public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaRegistroTipoMovimiento, TipoMovimiento,
-    DatosTipoMovimiento, CriterioBusquedaTipoMovimiento> {
+    RepoTipoMovimiento, FbTipoMovimiento> {
     public PresentadorRegistroTipoMovimiento(IVistaRegistroTipoMovimiento vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(TipoMovimiento objeto) {
@@ -30,13 +30,13 @@ public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaR
         return nombreOk && efectoOk;
     }
 
-    protected override Task<TipoMovimiento?> ObtenerEntidadDesdeVista() {
-        return Task.FromResult<TipoMovimiento?>(new TipoMovimiento(
+    protected override TipoMovimiento? ObtenerEntidadDesdeVista() {
+        return new TipoMovimiento(
             Entidad?.Id ?? 0,
             Vista.Nombre,
             (EfectoMovimiento)(Enum.TryParse(typeof(EfectoMovimiento), Vista.Efecto, out var efecto)
                 ? efecto
                 : default(EfectoMovimiento))
-        ));
+        );
     }
 }

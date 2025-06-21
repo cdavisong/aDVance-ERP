@@ -16,7 +16,7 @@ public class ProductoManoObra : IEntidad {
     public long IdActividadProduccion { get; set; }
 }
 
-public enum CriterioBusquedaProductoManoObra {
+public enum FbProductoManoObra {
     Todos,
     Id,
     IdProducto,
@@ -24,7 +24,7 @@ public enum CriterioBusquedaProductoManoObra {
 }
 
 public static class UtilesBusquedaProductoManoObra {
-    public static object[] CriterioBusquedaProductoManoObra = {
+    public static object[] FbProductoManoObra = {
         "Todos los productos de mano de obra",
         "Identificador de BD",
         "Identificador del producto",

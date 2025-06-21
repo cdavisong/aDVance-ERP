@@ -31,11 +31,11 @@ public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBa
         set => Size = value;
     }
 
-    public FbCuentaBancaria CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (FbCuentaBancaria)fieldCriterioBusqueda.SelectedIndex
+    public FbCuentaBancaria Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbCuentaBancaria)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -88,7 +88,7 @@ public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBa
         // Eventos            
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -125,20 +125,20 @@ public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBa
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-        fieldCriterioBusqueda.Items.Clear();
-        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
-        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+        fieldFb.Items.Clear();
+        fieldFb.Items.AddRange(criteriosBusqueda);
+        fieldFb.SelectedIndexChanged += delegate {
             fieldDatoBusqueda.Text = string.Empty;
-            fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Visible = fieldFb.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+            BuscarDatos?.Invoke(new object[] { Fb, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Mostrar() {
@@ -153,7 +153,7 @@ public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBa
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Ocultar() {
