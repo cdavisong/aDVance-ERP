@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas; 
 
-public interface IRepositorioCuentaBancaria : IRepositorioDatos<CuentaBancaria, CriterioBusquedaCuentaBancaria> { }
+public interface IRepositorioCuentaBancaria : IRepositorioDatosEntidad<CuentaBancaria, CriterioBusquedaCuentaBancaria> { }

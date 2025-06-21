@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos;
 
-public class ActividadProduccion : IObjetoUnico {
+public class ActividadProduccion : IEntidad {
     public ActividadProduccion() {
         Nombre = string.Empty;
         Descripcion = "No hay descripción disponible";

@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios; 
 
-public class DatosProductoAlmacen : RepositorioDatosBase<ProductoAlmacen, CriterioBusquedaProductoAlmacen>,
+public class DatosProductoAlmacen : RepositorioDatosEntidadBase<ProductoAlmacen, CriterioBusquedaProductoAlmacen>,
     IRepositorioProductoAlmacen {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_producto_almacen) FROM adv__producto_almacen;";
@@ -49,7 +49,7 @@ public class DatosProductoAlmacen : RepositorioDatosBase<ProductoAlmacen, Criter
         return comando;
     }
 
-    public override ProductoAlmacen ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override ProductoAlmacen MapearEntidad(MySqlDataReader lectorDatos) {
         return new ProductoAlmacen(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto_almacen")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),

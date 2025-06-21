@@ -72,14 +72,14 @@ public partial class PresentadorContenedorModulos {
     private void ActualizarSeguimientoEntrega() {
         using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
             var objetoSeguimiento = datosSeguimiento
-                .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString())
+                .Buscar(CriterioBusquedaSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString())
                 .FirstOrDefault();
 
             if (objetoSeguimiento == null)
                 return;
 
             objetoSeguimiento.FechaPago = DateTime.Now;
-            datosSeguimiento.Editar(objetoSeguimiento);
+            datosSeguimiento.Actualizar(objetoSeguimiento);
         }
     }
 
@@ -90,7 +90,7 @@ public partial class PresentadorContenedorModulos {
                     continue;
 
                 var movimientoCaja = datos
-                            .Obtener(CriterioBusquedaMovimientoCaja.IdPago, pago.Id.ToString())
+                            .Buscar(CriterioBusquedaMovimientoCaja.IdPago, pago.Id.ToString())
                             .FirstOrDefault();
 
                 if (movimientoCaja == null) {
@@ -105,11 +105,11 @@ public partial class PresentadorContenedorModulos {
                         $"Pago de venta #{_registroPago?.Vista.IdVenta} realizado por {UtilesCuentaUsuario.UsuarioAutenticado?.Nombre}"
                     );
 
-                    datos.Adicionar(movimientoCaja);
+                    datos.Insertar(movimientoCaja);
                 } else {
                     movimientoCaja.Monto = pago.Monto;
 
-                    datos.Editar(movimientoCaja);
+                    datos.Actualizar(movimientoCaja);
                 }
             }
 

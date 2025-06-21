@@ -21,7 +21,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.TipoMateriaPrima = UtilesTipoMateriaPrima.ObtenerNombreTipoMateriaPrima(objeto.IdTipoMateriaPrima) ?? string.Empty;
 
         using (var datos = new DatosDetalleProducto()) {
-            var detalleProducto = datos.Obtener(CriterioBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).FirstOrDefault();
+            var detalleProducto = datos.Buscar(CriterioBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).FirstOrDefault();
 
             if (detalleProducto != null) {
                 Vista.UnidadMedida = UtilesUnidadMedida.ObtenerNombreUnidadMedida(detalleProducto.IdUnidadMedida) ?? string.Empty;
@@ -71,11 +71,11 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         // Registrar detalles del producto
         using (var datos = new DatosDetalleProducto()) {
             if (Vista.ModoEdicionDatos && Objeto?.IdDetalleProducto != 0)
-                datos.Editar(detalleProducto);
+                datos.Actualizar(detalleProducto);
             else if (Objeto?.IdDetalleProducto != 0)
-                datos.Editar(detalleProducto);
+                datos.Actualizar(detalleProducto);
             else {
-                Objeto.IdDetalleProducto = datos.Adicionar(detalleProducto);
+                Objeto.IdDetalleProducto = datos.Insertar(detalleProducto);
 
                 // Stock inicial del producto
                 UtilesMovimiento.ModificarStockProductoAlmacen(
@@ -87,7 +87,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             }
 
             // Editar producto para modificar Id de los detalles
-            datosProducto.Editar(Objeto);
+            datosProducto.Actualizar(Objeto);
         }
     }
 

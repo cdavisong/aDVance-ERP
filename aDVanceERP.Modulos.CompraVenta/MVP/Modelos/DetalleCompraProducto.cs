@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
 
-public class DetalleCompraProducto : IObjetoUnico {
+public class DetalleCompraProducto : IEntidad {
     public DetalleCompraProducto() { }
 
     public DetalleCompraProducto(long id, long idCompra, long idProducto, float cantidad, decimal precioCompra) {

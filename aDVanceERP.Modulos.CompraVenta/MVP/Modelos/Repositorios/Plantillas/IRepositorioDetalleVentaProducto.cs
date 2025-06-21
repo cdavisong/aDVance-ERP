@@ -3,4 +3,4 @@
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas; 
 
 public interface
-    IRepositorioDetalleVentaProducto : IRepositorioDatos<DetalleVentaProducto, CriterioDetalleVentaProducto> { }
+    IRepositorioDetalleVentaProducto : IRepositorioDatosEntidad<DetalleVentaProducto, CriterioDetalleVentaProducto> { }

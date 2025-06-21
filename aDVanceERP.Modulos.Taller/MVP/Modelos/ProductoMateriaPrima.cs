@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos;
 
-public class ProductoMateriaPrima : IObjetoUnico {
+public class ProductoMateriaPrima : IEntidad {
     public ProductoMateriaPrima() { }
 
     public ProductoMateriaPrima(long id, long idProducto, long idMateriaPrima, float cantidad) {

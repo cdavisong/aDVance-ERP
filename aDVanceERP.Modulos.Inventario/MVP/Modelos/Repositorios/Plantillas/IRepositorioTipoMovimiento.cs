@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas; 
 
-public interface IRepositorioTipoMovimiento : IRepositorioDatos<TipoMovimiento, CriterioBusquedaTipoMovimiento> { }
+public interface IRepositorioTipoMovimiento : IRepositorioDatosEntidad<TipoMovimiento, CriterioBusquedaTipoMovimiento> { }

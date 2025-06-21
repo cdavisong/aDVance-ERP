@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
 
 public class DatosDetallePagoTransferencia :
-    RepositorioDatosBase<DetallePagoTransferencia, CriterioBusquedaDetallePagoTransferencia>,
+    RepositorioDatosEntidadBase<DetallePagoTransferencia, CriterioBusquedaDetallePagoTransferencia>,
     IRepositorioDetallePagoTransferencia {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_detalle_pago_transferencia) FROM adv__detalle_pago_transferencia;";
@@ -54,7 +54,7 @@ public class DatosDetallePagoTransferencia :
         return $"SELECT COUNT(1) FROM adv__detalle_pago_transferencia WHERE id_detalle_pago_transferencia = {dato};";
     }
 
-    public override DetallePagoTransferencia ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override DetallePagoTransferencia MapearEntidad(MySqlDataReader lectorDatos) {
         return new DetallePagoTransferencia(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_pago_transferencia")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

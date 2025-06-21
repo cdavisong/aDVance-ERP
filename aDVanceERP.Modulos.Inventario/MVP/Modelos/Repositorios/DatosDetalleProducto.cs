@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 
-public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, CriterioBusquedaDetalleProducto>, IRepositorioDetalleProducto {
+public class DatosDetalleProducto : RepositorioDatosEntidadBase<DetalleProducto, CriterioBusquedaDetalleProducto>, IRepositorioDetalleProducto {
     public override string ComandoCantidad() {
         return """
                     SELECT COUNT(id_detalle_producto) 
@@ -64,7 +64,7 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
         return comando;
     }
 
-    public override DetalleProducto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override DetalleProducto MapearEntidad(MySqlDataReader lectorDatos) {
         return new DetalleProducto(
             id: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_detalle_producto")),
             idUnidadMedida: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_unidad_medida")),

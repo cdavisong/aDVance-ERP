@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
 
-public class DatosProductoMateriaPrima : RepositorioDatosBase<ProductoMateriaPrima, CriterioBusquedaProductoMateriaPrima>, IRepositorioProductoMateriaPrima {
+public class DatosProductoMateriaPrima : RepositorioDatosEntidadBase<ProductoMateriaPrima, CriterioBusquedaProductoMateriaPrima>, IRepositorioProductoMateriaPrima {
     public override string ComandoCantidad() {
         return """
             SELECT COUNT(id_producto_materia_prima) 
@@ -60,7 +60,7 @@ public class DatosProductoMateriaPrima : RepositorioDatosBase<ProductoMateriaPri
         return comando;
     }
 
-    public override ProductoMateriaPrima ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override ProductoMateriaPrima MapearEntidad(MySqlDataReader lectorDatos) {
         return new ProductoMateriaPrima(
             id: lectorDatos.GetInt64("id_producto_materia_prima"),
             idProducto: lectorDatos.GetInt64("id_producto"),

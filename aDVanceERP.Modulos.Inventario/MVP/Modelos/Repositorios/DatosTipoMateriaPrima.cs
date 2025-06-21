@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 
-public class DatosTipoMateriaPrima : RepositorioDatosBase<TipoMateriaPrima, CriterioBusquedaTipoMateriaPrima>, IRepositorioTipoMateriaPrima {
+public class DatosTipoMateriaPrima : RepositorioDatosEntidadBase<TipoMateriaPrima, CriterioBusquedaTipoMateriaPrima>, IRepositorioTipoMateriaPrima {
     public override string ComandoCantidad() {
         return """
             SELECT COUNT(id_tipo_materia_prima) 
@@ -58,7 +58,7 @@ public class DatosTipoMateriaPrima : RepositorioDatosBase<TipoMateriaPrima, Crit
         };
     }
 
-    public override TipoMateriaPrima ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override TipoMateriaPrima MapearEntidad(MySqlDataReader lectorDatos) {
         return new TipoMateriaPrima(
             lectorDatos.GetInt64("id_tipo_materia_prima"),
             lectorDatos.GetString("nombre"),

@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios; 
 
-public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen {
+public class DatosAlmacen : RepositorioDatosEntidadBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen {
     public override string ComandoCantidad() {
         return """
                SELECT 
@@ -45,7 +45,7 @@ public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmace
         return comando;
     }
 
-    public override Almacen ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Almacen MapearEntidad(MySqlDataReader lectorDatos) {
         return new Almacen(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),

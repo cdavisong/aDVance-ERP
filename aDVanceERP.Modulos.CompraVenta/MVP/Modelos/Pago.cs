@@ -8,7 +8,7 @@ public enum TipoMoneda {
     USD
 }
 
-public class Pago : IObjetoUnico {
+public class Pago : IEntidad {
     public Pago() { }
 
     public Pago(long id, long idVenta, string metodoPago, decimal monto) {

@@ -122,11 +122,11 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
             var filas = new List<string[]>();
 
             using (var datosVentas = new DatosVenta()) {
-                var ventasFecha = datosVentas.Obtener(CriterioBusquedaVenta.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
+                var ventasFecha = datosVentas.Buscar(CriterioBusquedaVenta.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
 
                 foreach (var venta in ventasFecha) {
                     using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
-                        var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
+                        var detalleVentaProducto = datosVentaProducto.Buscar(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
                         foreach (var ventaProducto in detalleVentaProducto) {
                             var fila = new string[6];

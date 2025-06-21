@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
 
-public class DatosActividadProduccion : RepositorioDatosBase<ActividadProduccion, CriterioBusquedaActividadProduccion>, IRepositorioActividadProduccion {
+public class DatosActividadProduccion : RepositorioDatosEntidadBase<ActividadProduccion, CriterioBusquedaActividadProduccion>, IRepositorioActividadProduccion {
     public override string ComandoCantidad() {
         return """
             SELECT COUNT(id_actividad_produccion) 
@@ -59,7 +59,7 @@ public class DatosActividadProduccion : RepositorioDatosBase<ActividadProduccion
         return comando;
     }
 
-    public override ActividadProduccion ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override ActividadProduccion MapearEntidad(MySqlDataReader lectorDatos) {
         return new ActividadProduccion(
             lectorDatos.GetInt64("id_actividad_produccion"),
             lectorDatos.GetString("nombre"),

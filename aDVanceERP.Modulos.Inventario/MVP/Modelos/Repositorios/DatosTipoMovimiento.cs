@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios; 
 
-public class DatosTipoMovimiento : RepositorioDatosBase<TipoMovimiento, CriterioBusquedaTipoMovimiento>,
+public class DatosTipoMovimiento : RepositorioDatosEntidadBase<TipoMovimiento, CriterioBusquedaTipoMovimiento>,
     IRepositorioTipoMovimiento {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_tipo_movimiento) FROM adv__tipo_movimiento;";
@@ -41,7 +41,7 @@ public class DatosTipoMovimiento : RepositorioDatosBase<TipoMovimiento, Criterio
         return comando;
     }
 
-    public override TipoMovimiento ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override TipoMovimiento MapearEntidad(MySqlDataReader lectorDatos) {
         return new TipoMovimiento(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_tipo_movimiento")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),

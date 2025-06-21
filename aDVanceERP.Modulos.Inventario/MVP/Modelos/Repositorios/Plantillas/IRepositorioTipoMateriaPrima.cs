@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioTipoMateriaPrima : IRepositorioDatos<TipoMateriaPrima, CriterioBusquedaTipoMateriaPrima> { }
+public interface IRepositorioTipoMateriaPrima : IRepositorioDatosEntidad<TipoMateriaPrima, CriterioBusquedaTipoMateriaPrima> { }

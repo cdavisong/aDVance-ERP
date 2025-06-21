@@ -6,8 +6,8 @@ namespace aDVanceERP.Core.MVP.Presentadores.Plantillas;
 
 public interface IPresentadorGestion<Vg, Do, O, C> : IPresentadorBase<Vg>
     where Vg : IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
-    where Do : class, IRepositorioDatos<O, C>, new()
-    where O : class, IObjetoUnico, new()
+    where Do : class, IRepositorioDatosEntidad<O, C>, new()
+    where O : class, IEntidad, new()
     where C : Enum {
     Do DatosObjeto { get; }
     C? CriterioBusquedaObjeto { get; }

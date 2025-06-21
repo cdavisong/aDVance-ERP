@@ -3,5 +3,5 @@ using aDVanceERP.Modulos.Taller.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioActividadProduccion : IRepositorioDatos<ActividadProduccion, CriterioBusquedaActividadProduccion> { }
+public interface IRepositorioActividadProduccion : IRepositorioDatosEntidad<ActividadProduccion, CriterioBusquedaActividadProduccion> { }
 

@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMensajero>, IRepositorioMensajero {
+public class DatosMensajero : RepositorioDatosEntidadBase<Mensajero, CriterioBusquedaMensajero>, IRepositorioMensajero {
     public override string ComandoCantidad() {
         return """
                SELECT
@@ -75,7 +75,7 @@ public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMe
         return comando;
     }
 
-    public override Mensajero ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Mensajero MapearEntidad(MySqlDataReader lectorDatos) {
         return new Mensajero(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_mensajero")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),

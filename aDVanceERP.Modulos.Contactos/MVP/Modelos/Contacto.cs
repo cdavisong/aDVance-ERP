@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos; 
 
-public class Contacto : IObjetoUnico {
+public class Contacto : IEntidad {
     public Contacto() { }
 
     public Contacto(long idContacto, string nombre, string direccionCorreoElectronico, string direccion, string notas) {

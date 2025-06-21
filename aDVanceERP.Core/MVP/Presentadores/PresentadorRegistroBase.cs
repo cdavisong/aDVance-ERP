@@ -8,8 +8,8 @@ namespace aDVanceERP.Core.MVP.Presentadores;
 public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>,
     IDisposable
     where Vr : class, IVistaRegistro
-    where Do : class, IRepositorioDatos<O, C>, new()
-    where O : class, IObjetoUnico, new()
+    where Do : class, IRepositorioDatosEntidad<O, C>, new()
+    where O : class, IEntidad, new()
     where C : Enum {
     private bool _disposed; // Para evitar llamadas redundantes a Dispose
 

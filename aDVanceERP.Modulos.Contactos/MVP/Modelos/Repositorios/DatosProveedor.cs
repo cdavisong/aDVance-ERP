@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
 
-public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaProveedor>, IRepositorioProveedor {
+public class DatosProveedor : RepositorioDatosEntidadBase<Proveedor, CriterioBusquedaProveedor>, IRepositorioProveedor {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_proveedor) FROM adv__proveedor;";
     }
@@ -46,7 +46,7 @@ public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaPr
         return comando;
     }
 
-    public override Proveedor ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Proveedor MapearEntidad(MySqlDataReader lectorDatos) {
         return new Proveedor(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("razon_social")),

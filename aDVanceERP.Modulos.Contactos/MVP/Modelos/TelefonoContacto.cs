@@ -8,7 +8,7 @@ public enum CategoriaTelefonoContacto {
     Movil
 }
 
-public class TelefonoContacto : IObjetoUnico {
+public class TelefonoContacto : IEntidad {
     public TelefonoContacto() { }
 
     public TelefonoContacto(long idTelefonoContacto, string prefijo, string numero, CategoriaTelefonoContacto categoria,

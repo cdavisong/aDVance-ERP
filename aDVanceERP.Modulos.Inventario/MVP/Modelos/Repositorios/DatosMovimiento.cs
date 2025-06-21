@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios; 
 
-public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusquedaMovimiento>, IRepositorioMovimiento {
+public class DatosMovimiento : RepositorioDatosEntidadBase<Movimiento, CriterioBusquedaMovimiento>, IRepositorioMovimiento {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_movimiento) FROM adv__movimiento;";
     }
@@ -86,7 +86,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
         return comando;
     }
 
-    public override Movimiento ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Movimiento MapearEntidad(MySqlDataReader lectorDatos) {
         return new Movimiento(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),

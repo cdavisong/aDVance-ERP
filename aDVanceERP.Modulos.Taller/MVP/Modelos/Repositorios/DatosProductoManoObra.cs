@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
 
-public class DatosProductoManoObra : RepositorioDatosBase<ProductoManoObra, CriterioBusquedaProductoManoObra>, IRepositorioProductoManoObra {
+public class DatosProductoManoObra : RepositorioDatosEntidadBase<ProductoManoObra, CriterioBusquedaProductoManoObra>, IRepositorioProductoManoObra {
     public override string ComandoCantidad() {
         return """
             SELECT COUNT(id_producto_mano_obra) 
@@ -56,7 +56,7 @@ public class DatosProductoManoObra : RepositorioDatosBase<ProductoManoObra, Crit
         return comando;
     }
 
-    public override ProductoManoObra ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override ProductoManoObra MapearEntidad(MySqlDataReader lectorDatos) {
         return new ProductoManoObra {
             Id = lectorDatos.GetInt64("id_producto_mano_obra"),
             IdProducto = lectorDatos.GetInt64("id_producto"),

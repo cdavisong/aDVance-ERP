@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
 
-public class ProductoAlmacen : IObjetoUnico {
+public class ProductoAlmacen : IEntidad {
     public ProductoAlmacen() { }
 
     public ProductoAlmacen(long idProductoAlmacen, long idProducto, long idAlmacen, float stock) {

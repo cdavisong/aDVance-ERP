@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
 
-public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaCliente>, IRepositorioCliente {
+public class DatosCliente : RepositorioDatosEntidadBase<Cliente, CriterioBusquedaCliente>, IRepositorioCliente {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_cliente) FROM adv__cliente;";
     }
@@ -42,7 +42,7 @@ public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaClient
         return comando;
     }
 
-    public override Cliente ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Cliente MapearEntidad(MySqlDataReader lectorDatos) {
         return new Cliente(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("numero")),

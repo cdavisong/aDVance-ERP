@@ -11,8 +11,8 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
     where Pt : IPresentadorTupla<Vt, O>
     where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
     where Vt : IVistaTupla
-    where Do : class, IRepositorioDatos<O, C>, new()
-    where O : class, IObjetoUnico, new()
+    where Do : class, IRepositorioDatosEntidad<O, C>, new()
+    where O : class, IEntidad, new()
     where C : Enum {
     private readonly SemaphoreSlim _semaphore = new(1, 1); // Para controlar la concurrencia
     protected readonly List<Pt> _tuplasObjetos;
