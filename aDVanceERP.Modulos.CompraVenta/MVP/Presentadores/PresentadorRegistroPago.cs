@@ -10,7 +10,7 @@ using aDVanceERP.Modulos.CompraVenta.Repositorios;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class
-    PresentadorRegistroPago : PresentadorRegistroBase<IVistaRegistroPago, Pago, DatosPago, CriterioBusquedaPago> {
+    PresentadorRegistroPago : PresentadorRegistroBase<IVistaRegistroPago, Pago, RepoPago, FbPago> {
     public PresentadorRegistroPago(IVistaRegistroPago vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Pago objeto) {
@@ -64,11 +64,11 @@ public class
         
         foreach (var objeto in objetosVista) {
             if (Vista.ModoEdicionDatos && objeto.Id != 0)
-                _ = RepoDatosEntidad.EditarAsync(Entidad);
+                RepoDatosEntidad.Actualizar(Entidad);
             else if (objeto.Id != 0)
-                _ = RepoDatosEntidad.EditarAsync(Entidad);
+                RepoDatosEntidad.Actualizar(Entidad);
             else
-                objeto.Id = RepoDatosEntidad.AdicionarAsync(objeto).Result;            
+                objeto.Id = RepoDatosEntidad.Insertar(objeto);            
         };
 
         InvokeDatosRegistradosActualizados(objetosVista, e);
@@ -96,7 +96,7 @@ public class
         return pagos;
     }
 
-    protected override Task<Pago?> ObtenerEntidadDesdeVista() {
+    protected override Pago? ObtenerEntidadDesdeVista() {
         throw new NotImplementedException();
     }    
 }

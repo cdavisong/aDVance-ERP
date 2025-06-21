@@ -2,14 +2,13 @@
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegistroMensajeria, SeguimientoEntrega,
-    DatosSeguimientoEntrega, CriterioBusquedaSeguimientoEntrega> {
+    RepoSeguimientoEntrega, FbSeguimientoEntrega> {
     public PresentadorRegistroMensajeria(IVistaRegistroMensajeria vista) : base(vista) {
     }
 
@@ -17,8 +16,8 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
         Vista.ModoEdicionDatos = true;
         Vista.NombreMensajero = await UtilesMensajero.ObtenerNombreMensajero(objeto.IdMensajero);
 
-        using (var datosVenta = new DatosVenta()) {
-            var venta = datosVenta.Obtener(CriterioBusquedaVenta.Id, objeto.IdVenta.ToString()).FirstOrDefault();
+        using (var datosVenta = new RepoVenta()) {
+            var venta = datosVenta.Buscar(FbVenta.Id, objeto.IdVenta.ToString()).resultados.FirstOrDefault();
 
             if (venta == null)
                 return;
@@ -50,10 +49,10 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
         return nombreMensajeroOk && tipoEntregaOk && direccionOk;
     }
 
-    protected override async Task<SeguimientoEntrega?> ObtenerEntidadDesdeVista() {
+    protected override SeguimientoEntrega? ObtenerEntidadDesdeVista() {
         return new SeguimientoEntrega(Entidad?.Id ?? 0,
             Vista.IdVenta,
-            await UtilesMensajero.ObtenerIdMensajero(Vista.NombreMensajero),
+            UtilesMensajero.ObtenerIdMensajero(Vista.NombreMensajero).Result,
             DateTime.Now,
             DateTime.MinValue,
             DateTime.MinValue,

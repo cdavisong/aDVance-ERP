@@ -24,7 +24,7 @@ public class DetalleVentaProducto : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioDetalleVentaProducto {
+public enum FbDetalleVentaProducto {
     Todos,
     Id,
     IdVenta,

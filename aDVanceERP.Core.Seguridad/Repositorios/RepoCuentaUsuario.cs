@@ -9,7 +9,7 @@ public class RepoCuentaUsuario : RepositorioDatosEntidadBase<CuentaUsuario, FbCu
     public RepoCuentaUsuario() : base("adv__cuenta_usuario", "id_cuenta_usuario") {
     }
 
-    public override string[] FiltrosBusqueda => (string[])UtilesBusquedaCuentaUsuario.FbCuentasUsuarios;
+    public override string[] FiltrosBusqueda => UtilesBusquedaCuentaUsuario.FbCuentasUsuarios;
 
     protected override (string Query, Dictionary<string, object> Parametros) GenerarComandoInsertar(CuentaUsuario entidad) {
         var query = $"""

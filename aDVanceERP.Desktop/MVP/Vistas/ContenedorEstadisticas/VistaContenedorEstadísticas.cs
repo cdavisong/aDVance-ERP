@@ -100,11 +100,11 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         btnDescargarAnálisisVentas.Click += delegate {
             /*var filas = new List<string[]>();
 
-            using (var datosVentas = new DatosVenta()) {
+            using (var datosVentas = new RepoVenta()) {
                 var ventasFecha = UtilesVenta.ObtenerVentas;
 
                 foreach (var venta in ventasFecha) {
-                    using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
+                    using (var datosVentaProducto = new RepoDetalleVentaProducto()) {
                         var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
                         foreach (var ventaProducto in detalleVentaProducto) {

@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.CompraVenta.Repositorios;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class
-    PresentadorRegistroVenta : PresentadorRegistroBase<IVistaRegistroVenta, Venta, DatosVenta, CriterioBusquedaVenta> {
+    PresentadorRegistroVenta : PresentadorRegistroBase<IVistaRegistroVenta, Venta, RepoVenta, FbVenta> {
     public PresentadorRegistroVenta(IVistaRegistroVenta vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Venta objeto) {
@@ -29,10 +29,10 @@ public class
         Entidad = objeto;
     }
 
-    protected override async Task<Venta?> ObtenerEntidadDesdeVista() {
+    protected override Venta? ObtenerEntidadDesdeVista() {
         return new Venta(Entidad?.Id ?? 0,
             DateTime.Now,
-            await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
+            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
             UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),
             Vista.IdTipoEntrega,
             Vista.Direccion,

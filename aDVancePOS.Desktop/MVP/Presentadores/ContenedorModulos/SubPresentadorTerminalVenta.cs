@@ -97,7 +97,7 @@ public partial class PresentadorContenedorModulos {
                     : 0.00f
             );
 
-            using (var datosProducto = new DatosDetalleVentaProducto()) {
+            using (var datosProducto = new RepoDetalleVentaProducto()) {
                 datosProducto.Insertar(detalleVentaProducto);
             }
 

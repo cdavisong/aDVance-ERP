@@ -397,8 +397,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 await ResponderMensaje(chatId, $"🔄 Generando reporte para el {fechaReporte:dd/MM/yyyy}...");
 
                 var filas = new List<string[]>();
-                using (var datosVentas = new DatosVenta()) {
-                    var ventasFecha = datosVentas.Obtener(CriterioBusquedaVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd"));
+                using (var datosVentas = new RepoVenta()) {
+                    var ventasFecha = datosVentas.Obtener(FbVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd"));
 
                     if (ventasFecha == null || !ventasFecha.Any()) {
                         await ResponderMensaje(chatId, $"ℹ️ No hay ventas registradas para el {fechaReporte:dd/MM/yyyy}");
@@ -406,8 +406,8 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     }
 
                     foreach (var venta in ventasFecha) {
-                        using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
-                            var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
+                        using (var datosVentaProducto = new RepoDetalleVentaProducto()) {
+                            var detalleVentaProducto = datosVentaProducto.Obtener(FbDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
                             foreach (var ventaProducto in detalleVentaProducto) {
                                 var fila = new string[6];

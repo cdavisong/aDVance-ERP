@@ -1,132 +1,148 @@
 ﻿using System.Globalization;
+using System.Text;
+
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.Repositorios.Plantillas;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.Repositorios;
 
-public class RepoCompra : RepositorioDatosEntidadBase<Compra, CriterioBusquedaCompra>, IRepositorioCompra
-{
-    public override string ComandoCantidad()
-    {
-        return "SELECT COUNT(id_compra) FROM adv__compra;";
-    }
+public class RepoCompra : RepositorioDatosEntidadBase<Compra, FbCompra> {
+    public RepoCompra() : base("adv__compra", "id_compra") { }
 
-    public override string ComandoAdicionar(Compra objeto)
-    {
-        return $"""
-                INSERT INTO adv__compra (fecha, id_almacen, id_proveedor, total)
-                VALUES (
-                    '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
-                    '{objeto.IdAlmacen}',
-                    '{objeto.IdProveedor}',
-                    '{objeto.Total.ToString(CultureInfo.InvariantCulture)}'
-                );
-                """;
-    }
+    public override string[] FiltrosBusqueda => UtilesBusquedaCompra.FbCompra;
 
-    public override string ComandoEditar(Compra objeto)
-    {
-        return $"""
-                UPDATE adv__compra
-                SET
-                    fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
-                    id_almacen='{objeto.IdAlmacen}',
-                    id_proveedor='{objeto.IdProveedor}',
-                    total='{objeto.Total.ToString(CultureInfo.InvariantCulture)}'
-                WHERE id_compra={objeto.Id};
-                """;
-    }
+    protected override (string Query, Dictionary<string, object> Parametros) GenerarComandoInsertar(Compra entidad) {
+        var query = $"""
+            INSERT INTO {NombreTabla} (
+                fecha,
+                id_almacen,
+                id_proveedor,
+                total
+            )
+            VALUES (
+                @fecha,
+                @id_almacen,
+                @id_proveedor,
+                @total
+            );
+            """;
 
-    public override string ComandoEliminar(long id)
-    {
-        return $"""
-                START TRANSACTION;
-
-                -- 1. Restaurar el stock restando las cantidades compradas
-                UPDATE adv__producto_almacen pa
-                JOIN adv__detalle_compra_producto dcp ON pa.id_producto = dcp.id_producto
-                JOIN adv__compra c ON dcp.id_compra = c.id_compra
-                SET pa.stock = pa.stock - dcp.cantidad
-                WHERE dcp.id_compra = {id} AND pa.id_almacen = c.id_almacen;
-
-                -- 2. Eliminar los movimientos de inventario asociados a la compra
-                DELETE m FROM adv__movimiento m
-                JOIN adv__detalle_compra_producto dcp ON m.id_producto = dcp.id_producto
-                JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
-                WHERE tm.nombre = 'Compra' AND tm.efecto = 'Carga' AND dcp.id_compra = {id};
-
-                -- 3. Eliminar los detalles de productos comprados
-                DELETE FROM adv__detalle_compra_producto WHERE id_compra = {id};
-
-                -- 4. Finalmente eliminar el registro principal de la compra
-                DELETE FROM adv__compra WHERE id_compra = {id};
-
-                COMMIT;
-
-                SELECT 1 AS Resultado;
-                """;
-    }
-
-    public override string ComandoObtener(CriterioBusquedaCompra criterio, string dato)
-    {
-        var comando = string.Empty;
-
-        switch (criterio)
+        var parametros = new Dictionary<string, object>
         {
-            case CriterioBusquedaCompra.Id:
-                comando = $"""
-                           SELECT *
-                           FROM adv__compra
-                           WHERE id_compra={dato};
-                           """;
+            { "@fecha", entidad.Fecha },
+            { "@id_almacen", entidad.IdAlmacen },
+            { "@id_proveedor", entidad.IdProveedor },
+            { "@total", entidad.Total }
+        };
+
+        return (query, parametros);
+    }
+
+    protected override (string Query, Dictionary<string, object> Parametros) GenerarComandoActualizar(Compra entidad) {
+        var query = $"""
+            UPDATE {NombreTabla}
+            SET
+                fecha = @fecha,
+                id_almacen = @id_almacen,
+                id_proveedor = @id_proveedor,
+                total = @total
+            WHERE {ColumnaId} = @id;
+            """;
+
+        var parametros = new Dictionary<string, object>
+        {
+            { "@fecha", entidad.Fecha },
+            { "@id_almacen", entidad.IdAlmacen },
+            { "@id_proveedor", entidad.IdProveedor },
+            { "@total", entidad.Total },
+            { "@id", entidad.Id }
+        };
+
+        return (query, parametros);
+    }
+
+    protected override (string WhereClause, Dictionary<string, object> Parametros) GenerarWhereClause(FbCompra filtroBusqueda, string? datosComplementarios) {
+        var whereClause = new StringBuilder();
+        var parametros = new Dictionary<string, object>();
+
+        switch (filtroBusqueda) {
+            case FbCompra.Id:
+                whereClause.Append($"{ColumnaId} = @id");
+                parametros.Add("@id", datosComplementarios);
                 break;
-            case CriterioBusquedaCompra.NombreAlmacen:
-                comando = $"""
-                           SELECT c.*
-                           FROM adv__compra c JOIN adv__almacen a ON c.id_almacen = a.id_almacen
-                           WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');
-                           """;
+            case FbCompra.NombreAlmacen:
+                whereClause.Append("id_almacen = (SELECT id_almacen FROM adv__almacen WHERE LOWER(nombre) LIKE LOWER(@nombre_almacen))");
+                parametros.Add("@nombre_almacen", $"%{datosComplementarios}%");
                 break;
-            case CriterioBusquedaCompra.RazonSocialProveedor:
-                comando = $"""
-                           SELECT c.*
-                           FROM adv__compra c JOIN adv__proveedor p ON c.id_proveedor = p.id_proveedor
-                           WHERE LOWER(p.razon_social) LIKE LOWER('%{dato}%');
-                           """;
+            case FbCompra.RazonSocialProveedor:
+                whereClause.Append("id_proveedor = (SELECT id_proveedor FROM adv__proveedor WHERE LOWER(razon_social) LIKE LOWER(@razon_social))");
+                parametros.Add("@razon_social", $"%{datosComplementarios}%");
                 break;
-            case CriterioBusquedaCompra.Fecha:
-                comando = $"""
-                           SELECT *
-                           FROM adv__compra
-                           WHERE DATE(fecha) = '{dato}';
-                           """;
+            case FbCompra.Fecha:
+                whereClause.Append("DATE(fecha) = @fecha");
+                parametros.Add("@fecha", datosComplementarios);
                 break;
             default:
-                comando = """
-                          SELECT *
-                          FROM adv__compra;
-                          """;
+                whereClause.Append("1=1");
                 break;
         }
 
-        return comando;
+        return (whereClause.ToString(), parametros);
     }
 
-    public override Compra MapearEntidad(MySqlDataReader lectorDatos)
-    {
+    protected override Compra MapearEntidad(MySqlDataReader lectorDatos) {
         return new Compra(
-            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
+            lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_compra")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
-            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
-            lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
+            lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_almacen")),
+            lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_proveedor")),
             lectorDatos.GetDecimal(lectorDatos.GetOrdinal("total"))
         );
     }
 
-    public override string ComandoExiste(string dato)
-    {
-        return $"SELECT COUNT(1) FROM adv__compra WHERE id_compra = {dato};";
+    // Sobrescribe para lógica de eliminación transaccional especial
+    public override void Eliminar(Compra entidad, MySqlConnection? conexionBd = null) {
+        var conexion = conexionBd ?? new MySqlConnection(ObtenerCadenaConexion());
+
+        if (conexionBd == null || conexion.State != System.Data.ConnectionState.Open)
+            conexion.Open();
+
+        using (var transaccion = conexion.BeginTransaction()) {
+            try {
+                // 1. Restaurar el stock restando las cantidades compradas
+                var queryStock = @"
+                    UPDATE adv__producto_almacen pa
+                    JOIN adv__detalle_compra_producto dcp ON pa.id_producto = dcp.id_producto
+                    JOIN adv__compra c ON dcp.id_compra = c.id_compra
+                    SET pa.stock = pa.stock - dcp.cantidad
+                    WHERE dcp.id_compra = @id AND pa.id_almacen = c.id_almacen;";
+                var parametros = new Dictionary<string, object> { { "@id", entidad.Id } };
+                EjecutarComandoNoQuery(conexion, queryStock, parametros, transaccion);
+
+                // 2. Eliminar los movimientos de inventario asociados a la compra
+                var queryMov = @"
+                    DELETE m FROM adv__movimiento m
+                    JOIN adv__detalle_compra_producto dcp ON m.id_producto = dcp.id_producto
+                    JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
+                    WHERE tm.nombre = 'Compra' AND tm.efecto = 'Carga' AND dcp.id_compra = @id;";
+                EjecutarComandoNoQuery(conexion, queryMov, parametros, transaccion);
+
+                // 3. Eliminar los detalles de productos comprados
+                var queryDet = @"DELETE FROM adv__detalle_compra_producto WHERE id_compra = @id;";
+                EjecutarComandoNoQuery(conexion, queryDet, parametros, transaccion);
+
+                // 4. Finalmente eliminar el registro principal de la compra
+                base.Eliminar(entidad, conexion);
+
+                transaccion.Commit();
+            } catch {
+                transaccion.Rollback();
+                throw;
+            } finally {
+                conexion.Close();
+            }
+        }
     }
 }

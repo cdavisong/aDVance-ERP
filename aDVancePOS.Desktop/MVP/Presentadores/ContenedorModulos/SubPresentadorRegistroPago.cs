@@ -73,7 +73,7 @@ public partial class PresentadorContenedorModulos {
     private void ActualizarSeguimientoEntrega() {
         using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
             var objetoSeguimiento = datosSeguimiento
-                .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString())
+                .Obtener(FbSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString())
                 .FirstOrDefault();
 
             if (objetoSeguimiento == null)

@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
 namespace aDVancePOS.Modulos.TerminalVenta.MVP.Presentadores;
 
-public class PresentadorTerminalVenta : PresentadorRegistroBase<IVistaTerminalVenta, Venta, DatosVenta, CriterioBusquedaVenta> {
+public class PresentadorTerminalVenta : PresentadorRegistroBase<IVistaTerminalVenta, Venta, RepoVenta, FbVenta> {
     public PresentadorTerminalVenta(IVistaTerminalVenta vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Venta objeto) {

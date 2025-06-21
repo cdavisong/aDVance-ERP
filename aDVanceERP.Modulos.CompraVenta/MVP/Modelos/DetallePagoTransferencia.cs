@@ -22,7 +22,7 @@ public class DetallePagoTransferencia : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaDetallePagoTransferencia {
+public enum FbDetallePagoTransferencia {
     Todos,
     Id,
     IdVenta,

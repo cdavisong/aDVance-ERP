@@ -26,7 +26,7 @@ public class SeguimientoEntrega : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaSeguimientoEntrega {
+public enum FbSeguimientoEntrega {
     Todos,
     Id,
     IdVenta,
@@ -38,7 +38,7 @@ public enum CriterioBusquedaSeguimientoEntrega {
 }
 
 public static class UtilesBusquedaSeguimientoEntrega {
-    public static object[] CriterioSeguimientoEntrega = {
+    public static string[] FbSeguimientoEntrega = {
         "Todas las entregas",
         "Identificador de BD",
         "Identificador de la venta",

@@ -9,7 +9,7 @@ using aDVanceERP.Modulos.CompraVenta.Repositorios;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaVenta, IVistaGestionVentas,
-    IVistaTuplaVenta, Venta, DatosVenta, CriterioBusquedaVenta> {
+    IVistaTuplaVenta, Venta, RepoVenta, FbVenta> {
     public PresentadorGestionVentas(IVistaGestionVentas vista) : base(vista) {
         vista.ConfirmarEntrega += ConfirmarEntregaAriculos;
         vista.ConfirmarPagos += ConfirmarPagos;
@@ -62,17 +62,16 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 tupla.Entidad.EstadoEntrega = "Completada";
 
                 // Editar la venta del producto
-                RepoDatosEntidad.Editar(tupla.Entidad);
+                RepoDatosEntidad.Actualizar(tupla.Entidad);
 
                 // Actualizar el seguimiento de entrega
-                using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
-                    var objetoSeguimiento = datosSeguimiento
-                        .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, tupla.Vista.Id).FirstOrDefault();
+                using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
+                    var objetoSeguimiento = datosSeguimiento.Buscar(FbSeguimientoEntrega.IdVenta, tupla.Vista.Id).resultados.FirstOrDefault();
 
                     if (objetoSeguimiento != null) {
                         objetoSeguimiento.FechaEntrega = DateTime.Now;
 
-                        datosSeguimiento.Editar(objetoSeguimiento);
+                        datosSeguimiento.Actualizar(objetoSeguimiento);
                     }
                 }
 
@@ -92,8 +91,8 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         }
 
         // 2. Mover las instancias de DatosPago y DatosSeguimiento fuera del bucle
-        using (var datosPago = new DatosPago())
-        using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
+        using (var datosPago = new RepoPago())
+        using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
             foreach (var tupla in tuplasSeleccionadas) {
                 var ventaId = long.Parse(tupla.Vista.Id);
                 var montoTotal = decimal.Parse(tupla.Vista.MontoTotal, CultureInfo.InvariantCulture);
@@ -112,7 +111,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                         FechaConfirmacion = ahora
                     };
 
-                    datosPago.Adicionar(nuevoPago);
+                    datosPago.Insertar(nuevoPago);
                 }
                 else {
                     // Actualizar pagos existentes
@@ -127,19 +126,19 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                             FechaConfirmacion = ahora
                         };
 
-                        datosPago.Editar(pagoActualizado);
+                        datosPago.Actualizar(pagoActualizado);
                     }
                 }
 
                 // 4. Actualizar seguimiento de entrega (una sola vez por tupla)
-                var objetoSeguimiento = datosSeguimiento.Obtener(
-                    CriterioBusquedaSeguimientoEntrega.IdVenta,
-                    tupla.Vista.Id).FirstOrDefault();
+                var objetoSeguimiento = datosSeguimiento.Buscar(
+                    FbSeguimientoEntrega.IdVenta,
+                    tupla.Vista.Id).resultados.FirstOrDefault();
 
                 if (objetoSeguimiento != null) {
                     objetoSeguimiento.FechaPago = ahora;
                     // Nota: Corregí FechaEntrega a FechaPago para consistencia con el caso de pagos.Count == 0
-                    datosSeguimiento.Editar(objetoSeguimiento);
+                    datosSeguimiento.Actualizar(objetoSeguimiento);
                 }
             }
         }

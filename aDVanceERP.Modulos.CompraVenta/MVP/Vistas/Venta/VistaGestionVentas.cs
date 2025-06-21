@@ -6,8 +6,8 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
@@ -50,9 +50,9 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         set => btnConfirmarPagos.Visible = value;
     }
 
-    public CriterioBusquedaVenta CriterioBusqueda {
+    public FbVenta CriterioBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaVenta) fieldCriterioBusqueda.SelectedIndex
+            ? (FbVenta) fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int) value;
     }
@@ -121,14 +121,14 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         btnDescargar.Click += delegate {
             var filas = new List<string[]>();
 
-            using (var datosVentas = new DatosVenta()) {
-                var ventasFecha = datosVentas.Buscar(CriterioBusquedaVenta.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
+            using (var datosVentas = new RepoVenta()) {
+                var ventasFecha = datosVentas.Buscar(FbVenta.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
 
-                foreach (var venta in ventasFecha) {
-                    using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
-                        var detalleVentaProducto = datosVentaProducto.Buscar(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
+                foreach (var venta in ventasFecha.resultados) {
+                    using (var datosVentaProducto = new RepoDetalleVentaProducto()) {
+                        var detalleVentaProducto = datosVentaProducto.Buscar(FbDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
-                        foreach (var ventaProducto in detalleVentaProducto) {
+                        foreach (var ventaProducto in detalleVentaProducto.resultados) {
                             var fila = new string[6];
 
                             fila[0] = ventaProducto.Id.ToString();
@@ -200,7 +200,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-            if (CriterioBusqueda == CriterioBusquedaVenta.Fecha) {
+            if (CriterioBusqueda == FbVenta.Fecha) {
                 fieldDatoBusquedaFecha.Value = DateTime.Now;
                 fieldDatoBusquedaFecha.Focus();
 
@@ -212,13 +212,13 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                 fieldDatoBusqueda.Focus();
             }
 
-            btnDescargar.Enabled = CriterioBusqueda == CriterioBusquedaVenta.Fecha;
-            fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaVenta.Fecha &&
+            btnDescargar.Enabled = CriterioBusqueda == FbVenta.Fecha;
+            fieldDatoBusqueda.Visible = CriterioBusqueda != FbVenta.Fecha &&
                                         fieldCriterioBusqueda.SelectedIndex != 0;
-            fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaVenta.Fecha &&
+            fieldDatoBusquedaFecha.Visible = CriterioBusqueda == FbVenta.Fecha &&
                                              fieldCriterioBusqueda.SelectedIndex != 0;
 
-            if (CriterioBusqueda != CriterioBusquedaVenta.Fecha)
+            if (CriterioBusqueda != FbVenta.Fecha)
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda

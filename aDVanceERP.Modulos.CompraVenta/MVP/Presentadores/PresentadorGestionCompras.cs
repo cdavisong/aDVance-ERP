@@ -9,7 +9,7 @@ using aDVanceERP.Modulos.CompraVenta.Repositorios;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class PresentadorGestionCompras : PresentadorGestionBase<PresentadorTuplaCompra, IVistaGestionCompras,
-    IVistaTuplaCompra, Compra, RepoCompra, CriterioBusquedaCompra> {
+    IVistaTuplaCompra, Compra, RepoCompra, FbCompra> {
     public PresentadorGestionCompras(IVistaGestionCompras vista) : base(vista) { }
 
     protected override PresentadorTuplaCompra ObtenerValoresTupla(Compra objeto) {

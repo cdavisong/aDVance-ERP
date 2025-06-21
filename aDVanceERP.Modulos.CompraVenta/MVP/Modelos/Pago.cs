@@ -29,7 +29,7 @@ public class Pago : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaPago {
+public enum FbPago {
     Todos,
     Id,
     IdVenta

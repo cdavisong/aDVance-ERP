@@ -28,7 +28,7 @@ public class Venta : IEntidad {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaVenta {
+public enum FbVenta {
     Todos,
     Id,
     NombreAlmacen,
@@ -37,7 +37,7 @@ public enum CriterioBusquedaVenta {
 }
 
 public static class UtilesBusquedaVenta {
-    public static readonly object[] CriterioBusquedaVenta = {
+    public static readonly string[] FbVenta = {
         "Todas las ventas",
         "Identificador de BD",
         "Nombre del almacén",
