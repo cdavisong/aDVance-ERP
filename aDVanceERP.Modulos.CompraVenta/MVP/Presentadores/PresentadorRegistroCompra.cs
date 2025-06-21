@@ -1,14 +1,14 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class
-    PresentadorRegistroCompra : PresentadorRegistroBase<IVistaRegistroCompra, Compra, DatosCompra,
+    PresentadorRegistroCompra : PresentadorRegistroBase<IVistaRegistroCompra, Compra, RepoCompra,
         CriterioBusquedaCompra> {
     public PresentadorRegistroCompra(IVistaRegistroCompra vista) : base(vista) { }
 

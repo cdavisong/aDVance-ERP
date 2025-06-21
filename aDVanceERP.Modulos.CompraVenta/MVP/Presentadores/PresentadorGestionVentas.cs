@@ -2,11 +2,11 @@
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaVenta, IVistaGestionVentas,
     IVistaTuplaVenta, Venta, DatosVenta, CriterioBusquedaVenta> {

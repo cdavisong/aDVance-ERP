@@ -1,33 +1,41 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Modulos.CompraVenta.Repositorios;
 
 public class DatosSeguimientoEntrega : RepositorioDatosEntidadBase<SeguimientoEntrega, CriterioBusquedaSeguimientoEntrega>,
-    IRepositorioSeguimientoEntrega {
-    public override string ComandoCantidad() {
+    IRepositorioSeguimientoEntrega
+{
+    public override string ComandoCantidad()
+    {
         return "SELECT COUNT(*) FROM adv__seguimiento_entrega";
     }
 
-    public override string ComandoAdicionar(SeguimientoEntrega objeto) {
+    public override string ComandoAdicionar(SeguimientoEntrega objeto)
+    {
         return
             $"INSERT INTO adv__seguimiento_entrega (id_venta, id_mensajero, fecha_asignacion, fecha_entrega, fecha_pago, observaciones) VALUES ({objeto.IdVenta}, {objeto.IdMensajero}, '{objeto.FechaAsignacion:yyyy-MM-dd HH:mm:ss}', '{objeto.FechaEntrega:yyyy-MM-dd HH:mm:ss}', '{objeto.FechaPago:yyyy-MM-dd HH:mm:ss}', '{objeto.Observaciones}')";
     }
 
-    public override string ComandoEditar(SeguimientoEntrega objeto) {
+    public override string ComandoEditar(SeguimientoEntrega objeto)
+    {
         return
             $"UPDATE adv__seguimiento_entrega SET id_venta = {objeto.IdVenta}, id_mensajero = {objeto.IdMensajero}, fecha_asignacion = '{objeto.FechaAsignacion:yyyy-MM-dd HH:mm:ss}', fecha_entrega = '{objeto.FechaEntrega:yyyy-MM-dd HH:mm:ss}', fecha_pago = '{objeto.FechaPago:yyyy-MM-dd HH:mm:ss}', observaciones = '{objeto.Observaciones}' WHERE id_seguimiento_entrega = {objeto.Id}";
     }
 
-    public override string ComandoEliminar(long id) {
+    public override string ComandoEliminar(long id)
+    {
         return $"DELETE FROM adv__seguimiento_entrega WHERE id_seguimiento_entrega = {id}";
     }
 
-    public override string ComandoObtener(CriterioBusquedaSeguimientoEntrega criterio, string dato) {
+    public override string ComandoObtener(CriterioBusquedaSeguimientoEntrega criterio, string dato)
+    {
         var comando = string.Empty;
 
-        switch (criterio) {
+        switch (criterio)
+        {
             case CriterioBusquedaSeguimientoEntrega.Id:
                 comando = $"SELECT * FROM adv__seguimiento_entrega WHERE id_seguimiento_entrega = {dato}";
                 break;
@@ -58,7 +66,8 @@ public class DatosSeguimientoEntrega : RepositorioDatosEntidadBase<SeguimientoEn
         return comando;
     }
 
-    public override SeguimientoEntrega MapearEntidad(MySqlDataReader lectorDatos) {
+    public override SeguimientoEntrega MapearEntidad(MySqlDataReader lectorDatos)
+    {
         return new SeguimientoEntrega(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_seguimiento_entrega")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
@@ -70,7 +79,8 @@ public class DatosSeguimientoEntrega : RepositorioDatosEntidadBase<SeguimientoEn
         );
     }
 
-    public override string ComandoExiste(string dato) {
+    public override string ComandoExiste(string dato)
+    {
         return $"SELECT COUNT(*) FROM adv__seguimiento_entrega WHERE id_seguimiento_entrega = {dato}";
     }
 }

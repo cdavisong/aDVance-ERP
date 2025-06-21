@@ -1,16 +1,20 @@
 ﻿using System.Globalization;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.CompraVenta.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.CompraVenta.Repositorios;
 
-public class DatosVenta : RepositorioDatosEntidadBase<Venta, CriterioBusquedaVenta>, IRepositorioVenta {
-    public override string ComandoCantidad() {
+public class DatosVenta : RepositorioDatosEntidadBase<Venta, CriterioBusquedaVenta>, IRepositorioVenta
+{
+    public override string ComandoCantidad()
+    {
         return "SELECT COUNT(id_venta) FROM adv__venta;";
     }
 
-    public override string ComandoAdicionar(Venta objeto) {
+    public override string ComandoAdicionar(Venta objeto)
+    {
         return $"""
                 INSERT INTO adv__venta (
                     fecha,
@@ -32,7 +36,8 @@ public class DatosVenta : RepositorioDatosEntidadBase<Venta, CriterioBusquedaVen
                 """;
     }
 
-    public override string ComandoEditar(Venta objeto) {
+    public override string ComandoEditar(Venta objeto)
+    {
         return $"""
                 UPDATE adv__venta
                 SET
@@ -47,7 +52,8 @@ public class DatosVenta : RepositorioDatosEntidadBase<Venta, CriterioBusquedaVen
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    public override string ComandoEliminar(long id)
+    {
         return $"""
                 START TRANSACTION;
 
@@ -81,10 +87,12 @@ public class DatosVenta : RepositorioDatosEntidadBase<Venta, CriterioBusquedaVen
                 """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaVenta criterio, string dato) {
+    public override string ComandoObtener(CriterioBusquedaVenta criterio, string dato)
+    {
         var comando = string.Empty;
 
-        switch (criterio) {
+        switch (criterio)
+        {
             case CriterioBusquedaVenta.Id:
                 comando = $"SELECT * FROM adv__venta WHERE id_venta={dato};";
                 break;
@@ -107,7 +115,8 @@ public class DatosVenta : RepositorioDatosEntidadBase<Venta, CriterioBusquedaVen
         return comando;
     }
 
-    public override Venta MapearEntidad(MySqlDataReader lectorDatos) {
+    public override Venta MapearEntidad(MySqlDataReader lectorDatos)
+    {
         return new Venta(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
@@ -120,7 +129,8 @@ public class DatosVenta : RepositorioDatosEntidadBase<Venta, CriterioBusquedaVen
         );
     }
 
-    public override string ComandoExiste(string dato) {
+    public override string ComandoExiste(string dato)
+    {
         return $"SELECT COUNT(1) FROM adv__venta WHERE id_venta = {dato};";
     }
 }
