@@ -90,7 +90,7 @@ public partial class PresentadorContenedorModulos {
                     continue;
 
                 var movimientoCaja = datos
-                            .Obtener(CriterioBusquedaMovimientoCaja.IdPago, pago.Id.ToString())
+                            .Obtener(FbMovimientoCaja.IdPago, pago.Id.ToString())
                             .FirstOrDefault();
 
                 if (movimientoCaja == null) {

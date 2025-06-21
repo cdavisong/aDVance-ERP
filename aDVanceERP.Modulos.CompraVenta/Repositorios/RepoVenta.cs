@@ -2,6 +2,7 @@
 
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.Repositorios;
@@ -121,9 +122,6 @@ public class RepoVenta : RepositorioDatosEntidadBase<Venta, FbVenta> {
     public override void Eliminar(Venta entidad, MySqlConnection? conexionBd = null) {
         var conexion = conexionBd ?? new MySqlConnection(ObtenerCadenaConexion());
 
-        if (conexionBd == null || conexion.State != System.Data.ConnectionState.Open)
-            conexion.Open();
-
         using (var transaccion = conexion.BeginTransaction()) {
             try {
                 // 1. Restaurar el stock sumando las cantidades vendidas
@@ -166,8 +164,7 @@ public class RepoVenta : RepositorioDatosEntidadBase<Venta, FbVenta> {
                 transaccion.Rollback();
                 throw;
             } finally {
-                if (conexionBd == null)
-                    conexion.Close();
+                conexion.Close();
             }
         }
     }

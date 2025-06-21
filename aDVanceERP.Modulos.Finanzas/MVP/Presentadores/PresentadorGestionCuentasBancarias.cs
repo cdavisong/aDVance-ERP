@@ -1,15 +1,15 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
+using aDVanceERP.Modulos.Finanzas.Repositorios;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores; 
 
 public class PresentadorGestionCuentasBancarias : PresentadorGestionBase<PresentadorTuplaCuentaBancaria,
-    IVistaGestionCuentasBancarias, IVistaTuplaCuentaBancaria, CuentaBancaria, DatosCuentaBancaria,
-    CriterioBusquedaCuentaBancaria> {
+    IVistaGestionCuentasBancarias, IVistaTuplaCuentaBancaria, CuentaBancaria, RepoCuentaBancaria,
+    FbCuentaBancaria> {
     public PresentadorGestionCuentasBancarias(IVistaGestionCuentasBancarias vista) : base(vista) { }
 
     public event EventHandler? MostrarQrTupla;

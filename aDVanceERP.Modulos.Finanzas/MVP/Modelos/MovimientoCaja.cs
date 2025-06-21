@@ -32,7 +32,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         public string? Observaciones { get; set; }
     }
 
-    public enum CriterioBusquedaMovimientoCaja {
+    public enum FbMovimientoCaja {
         Todos,
         Id,
         IdCaja,
@@ -43,7 +43,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
     }
 
     public static class UtilesBusquedaMovimientoCaja {
-        public static string[] CriterioBusquedaMovimientoCaja = {
+        public static string[] FbMovimientoCaja = {
             "Todos los movimientos de caja",
             "Identificador de BD",
             "Identificador de BD de caja",

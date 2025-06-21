@@ -106,9 +106,6 @@ public class RepoCompra : RepositorioDatosEntidadBase<Compra, FbCompra> {
     public override void Eliminar(Compra entidad, MySqlConnection? conexionBd = null) {
         var conexion = conexionBd ?? new MySqlConnection(ObtenerCadenaConexion());
 
-        if (conexionBd == null || conexion.State != System.Data.ConnectionState.Open)
-            conexion.Open();
-
         using (var transaccion = conexion.BeginTransaction()) {
             try {
                 // 1. Restaurar el stock restando las cantidades compradas

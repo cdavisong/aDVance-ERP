@@ -29,8 +29,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => Size = value;
         }
 
-        public CriterioBusquedaCaja CriterioBusqueda {
-            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaCaja) fieldCriterioBusqueda.SelectedIndex : default;
+        public FbCaja CriterioBusqueda {
+            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (FbCaja) fieldCriterioBusqueda.SelectedIndex : default;
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
@@ -153,7 +153,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-                if (CriterioBusqueda == CriterioBusquedaCaja.FechaApertura || CriterioBusqueda == CriterioBusquedaCaja.FechaCierre) {
+                if (CriterioBusqueda == FbCaja.FechaApertura || CriterioBusqueda == FbCaja.FechaCierre) {
                     fieldDatoBusquedaFecha.Value = DateTime.Now;
                     fieldDatoBusquedaFecha.Focus();
                 } else {
@@ -161,15 +161,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                     fieldDatoBusqueda.Focus();
                 }
 
-                fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaCaja.FechaApertura && 
-                                            CriterioBusqueda != CriterioBusquedaCaja.FechaCierre &&
+                fieldDatoBusqueda.Visible = CriterioBusqueda != FbCaja.FechaApertura && 
+                                            CriterioBusqueda != FbCaja.FechaCierre &&
                                             fieldCriterioBusqueda.SelectedIndex != 0;
-                fieldDatoBusquedaFecha.Visible = (CriterioBusqueda == CriterioBusquedaCaja.FechaApertura ||
-                                                 CriterioBusqueda == CriterioBusquedaCaja.FechaCierre) &&
+                fieldDatoBusquedaFecha.Visible = (CriterioBusqueda == FbCaja.FechaApertura ||
+                                                 CriterioBusqueda == FbCaja.FechaCierre) &&
                                                  fieldCriterioBusqueda.SelectedIndex != 0;
 
-                if (CriterioBusqueda != CriterioBusquedaCaja.FechaApertura &&
-                    CriterioBusqueda != CriterioBusquedaCaja.FechaCierre)
+                if (CriterioBusqueda != FbCaja.FechaApertura &&
+                    CriterioBusqueda != FbCaja.FechaCierre)
                     BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
 
                 // Ir a la primera página al cambiar el criterio de búsqueda

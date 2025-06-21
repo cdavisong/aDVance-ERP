@@ -31,9 +31,9 @@ public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBa
         set => Size = value;
     }
 
-    public CriterioBusquedaCuentaBancaria CriterioBusqueda {
+    public FbCuentaBancaria CriterioBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaCuentaBancaria)fieldCriterioBusqueda.SelectedIndex
+            ? (FbCuentaBancaria)fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int)value;
     }
