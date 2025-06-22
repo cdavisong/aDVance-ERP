@@ -1,9 +1,10 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Core.Repositorios; 
 
 public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEntidad<En, Fb>
     where En : class, IEntidad, new()
@@ -36,9 +37,11 @@ public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEnt
     }
 
     public (List<En> resultados, int totalFilas) Buscar(Fb? filtroBusqueda, string? datosComplementarios, int limite = 0, int desplazamiento = 0, MySqlConnection? conexionBd = null) {
+        // 1. Construir consulta con parámetros
         var (whereClause, parametros) = GenerarWhereClause(filtroBusqueda, datosComplementarios);
         var query = $"""
-                SELECT SQL_CALC_FOUND_ROWS * FROM {NombreTabla} 
+                SELECT * 
+                FROM {NombreTabla} 
                 WHERE {whereClause}
                 """;
 
@@ -51,17 +54,19 @@ public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEnt
         }
         
         var conexion = conexionBd ?? new MySqlConnection(ObtenerCadenaConexion());
-        var resultados = EjecutarConsulta(conexion, query, parametros, MapearEntidad);
+        var resultados = EjecutarConsulta(conexion, query, parametros, MapearEntidad).ToList();
 
-        query = """
-            SELECT FOUND_ROWS() AS TotalFilas;
+        query = $"""
+            SELECT COUNT(*) AS TotalFilas
+            FROM {NombreTabla}
+            WHERE {whereClause};
             """;
 
-        var totalFilas = EjecutarConsultaEscalar<int>(conexion, query);
+        var totalFilas = EjecutarConsultaEscalar<int>(conexion, query, parametros);
 
         conexion.Close();
 
-        return (resultados.ToList(), totalFilas);
+        return (resultados, totalFilas);
     }
 
     public List<En> BuscarAvanzado(Func<ConsultaBuilder, ConsultaBuilder> construirConsulta, MySqlConnection? conexionBd = null) {
@@ -170,12 +175,10 @@ public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEnt
         return resultado > 0;
     }
 
-    public int Contar(Fb? filtroBusqueda = default, MySqlConnection? conexionBd = null) {
-        var whereClause = filtroBusqueda?.ToString().Contains("Todos") ?? false ?
-            $"WHERE {GenerarWhereClause(filtroBusqueda, string.Empty)}" :
-            string.Empty;
-
-        var query = $"SELECT COUNT(*) FROM {NombreTabla} {whereClause}";
+    public int Contar(Fb? filtroBusqueda = default, string? datosComplementarios = "", MySqlConnection? conexionBd = null) {
+        var (whereClause, parametros) = GenerarWhereClause(filtroBusqueda, datosComplementarios);
+        
+        var query = $"SELECT COUNT(*) FROM {NombreTabla} WHERE {whereClause}";
         return EjecutarConsultaEscalar<int>(conexionBd, query);
     }
 

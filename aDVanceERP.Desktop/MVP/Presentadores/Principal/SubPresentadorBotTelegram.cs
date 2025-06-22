@@ -1,14 +1,14 @@
 ﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
-using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Core.Utiles;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using System.Globalization;
 using Telegram.Bot.Types;
+using aDVanceERP.Core.Seguridad.Repositorios;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
     public partial class PresentadorPrincipal {
@@ -398,7 +398,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                 var filas = new List<string[]>();
                 using (var datosVentas = new RepoVenta()) {
-                    var ventasFecha = datosVentas.Obtener(FbVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd"));
+                    var ventasFecha = datosVentas.Buscar(FbVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd")).resultados;
 
                     if (ventasFecha == null || !ventasFecha.Any()) {
                         await ResponderMensaje(chatId, $"ℹ️ No hay ventas registradas para el {fechaReporte:dd/MM/yyyy}");
@@ -407,13 +407,13 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                     foreach (var venta in ventasFecha) {
                         using (var datosVentaProducto = new RepoDetalleVentaProducto()) {
-                            var detalleVentaProducto = datosVentaProducto.Obtener(FbDetalleVentaProducto.IdVenta, venta.Id.ToString());
+                            var detalleVentaProducto = datosVentaProducto.Buscar(FbDetalleVentaProducto.IdVenta, venta.Id.ToString()).resultados;
 
                             foreach (var ventaProducto in detalleVentaProducto) {
                                 var fila = new string[6];
                                 fila[0] = ventaProducto.Id.ToString();
                                 fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? "Producto desconocido";
-                                fila[2] = UtilesDetalleProducto.ObtenerUnidadMedidaProducto(ventaProducto.IdProducto, true).Result ?? "u";
+                                fila[2] = UtilesDetalleProducto.ObtenerUnidadMedidaProducto(ventaProducto.IdProducto, true) ?? "u";
                                 fila[3] = ventaProducto.PrecioVentaFinal.ToString("N2", CultureInfo.InvariantCulture);
                                 fila[4] = ventaProducto.Cantidad.ToString("N2", CultureInfo.InvariantCulture);
                                 fila[5] = (ventaProducto.PrecioVentaFinal * (decimal)ventaProducto.Cantidad).ToString("N2", CultureInfo.InvariantCulture);
@@ -537,11 +537,10 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     var usuario = partes[0].Trim();
                     var password = partes[1].Trim();
 
-                    using (var datosUsuario = new DatosCuentaUsuario()) {
-                        var usuarioEncontrado = (await datosUsuario.ObtenerAsync(
+                    using (var datosUsuario = new RepoCuentaUsuario()) {
+                        var usuarioEncontrado = datosUsuario.Buscar(
                             FbCuentaUsuario.Nombre,
-                            usuario,
-                            out _)).FirstOrDefault();
+                            usuario).resultados.FirstOrDefault();
 
                         if (usuarioEncontrado == null) {
                             await ResponderMensaje(mensaje.IdChat, "🔍 Usuario no encontrado");
@@ -611,11 +610,10 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     return;
                 }
 
-                using (var datosUsuario = new DatosCuentaUsuario()) {
-                    var usuarioExistente = (await datosUsuario.ObtenerAsync(
+                using (var datosUsuario = new RepoCuentaUsuario()) {
+                    var usuarioExistente = datosUsuario.Buscar(
                         FbCuentaUsuario.Nombre,
-                        usuario,
-                        out _)).FirstOrDefault();
+                        usuario).resultados.FirstOrDefault();
 
                     if (usuarioExistente != null) {
                         await ResponderMensaje(mensaje.IdChat,
@@ -629,7 +627,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                         Aprobado = false
                     };
 
-                    datosUsuario.Adicionar(nuevoUsuario);
+                    datosUsuario.Insertar(nuevoUsuario);
 
                     await ResponderMensaje(mensaje.IdChat,
                         $"✅ Registro exitoso\n\n" +

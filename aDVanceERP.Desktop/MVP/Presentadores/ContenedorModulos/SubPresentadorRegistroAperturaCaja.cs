@@ -61,7 +61,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 return;
             }
 
-            var movimientosCaja = datosMovimientoCaja.Obtener(FbMovimientoCaja.IdCaja, idCaja.ToString());
+            var movimientosCaja = datosMovimientoCaja.Buscar(FbMovimientoCaja.IdCaja, idCaja.ToString()).resultados;
             decimal saldoActual = 0;
 
             foreach (var movimiento in movimientosCaja) {

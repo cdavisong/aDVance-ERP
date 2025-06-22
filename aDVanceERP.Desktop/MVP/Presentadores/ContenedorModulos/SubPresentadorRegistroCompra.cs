@@ -6,9 +6,9 @@ using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
@@ -49,8 +49,8 @@ public partial class PresentadorContenedorModulos {
         // Comprobar la existencia de al menos un almacén registrado.
         var existenAlmacenes = false;
 
-        using (var datos = new DatosAlmacen())
-            existenAlmacenes = datos.Cantidad() > 0;
+        using (var datos = new RepoAlmacen())
+            existenAlmacenes = datos.Contar() > 0;
 
         if (!existenAlmacenes) {
             CentroNotificaciones.Mostrar("No es posible registrar nuevas compras. Debe existir al menos un almacén registrado.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
@@ -98,8 +98,8 @@ public partial class PresentadorContenedorModulos {
                     : 0.00m
             );
 
-            using (var datosProducto = new DatosDetalleCompraProducto())
-                datosProducto.Adicionar(detalleCompraProducto);
+            using (var datosProducto = new RepoDetalleCompraProducto())
+                datosProducto.Insertar(detalleCompraProducto);
 
             RegistrarMovimientoCompraProducto(detalleCompraProducto, producto);
             ModificarStockCompraProducto(detalleCompraProducto, producto);
@@ -114,8 +114,8 @@ public partial class PresentadorContenedorModulos {
 
     private static void RegistrarMovimientoCompraProducto(DetalleCompraProducto detalleCompraProducto,
         IReadOnlyList<string> producto) {
-        using (var datosMovimiento = new DatosMovimiento()) {
-            datosMovimiento.Adicionar(new Movimiento(
+        using (var datosMovimiento = new RepoMovimiento()) {
+            datosMovimiento.Insertar(new Movimiento(
                 0,
                 detalleCompraProducto.IdProducto,
                 0,

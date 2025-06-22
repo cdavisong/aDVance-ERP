@@ -1,8 +1,8 @@
 ﻿using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 using aDVancePOS.Modulos.TerminalVenta.MVP.Presentadores;
 using aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta;
@@ -42,7 +42,7 @@ public partial class PresentadorContenedorModulos {
         var pagosVenta = UtilesVenta.ObtenerPagosPorVenta(_proximoIdVenta);
 
         if (pagosVenta.Count > 0) {
-            using (var datosPago = new DatosPago())
+            using (var datosPago = new RepoPago())
                 foreach (var pago in pagosVenta) {
                     var pagoSplit = pago.Split("|");
 
@@ -54,7 +54,7 @@ public partial class PresentadorContenedorModulos {
         var idSeguimientoEntrega = UtilesEntrega.ObtenerIdSeguimientoEntrega(_proximoIdVenta).Result;
 
         if (idSeguimientoEntrega != 0)
-            using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega())
+            using (var datosSeguimientoEntrega = new RepoSeguimientoEntrega())
                 datosSeguimientoEntrega.Eliminar(idSeguimientoEntrega);
     }
 
@@ -114,7 +114,7 @@ public partial class PresentadorContenedorModulos {
 
     private static void RegistrarMovimientoVentaProducto(DetalleVentaProducto detalleVentaProducto,
         IReadOnlyList<string> producto) {
-        using (var datosMovimiento = new DatosMovimiento()) {
+        using (var datosMovimiento = new RepoMovimiento()) {
             datosMovimiento.Insertar(new Movimiento(
                 0,
                 detalleVentaProducto.IdProducto,

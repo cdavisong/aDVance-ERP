@@ -1,7 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
 
 using MySql.Data.MySqlClient;
+
 using System.Text;
 
 namespace aDVanceERP.Core.Seguridad.Repositorios;
@@ -75,5 +76,21 @@ public class RepoPermisoRolCuentaUsuario : RepositorioDatosEntidadBase<PermisoRo
             lectorDatos.GetInt64("id_rol_usuario"),
             lectorDatos.GetInt64("id_permiso")
         );
+    }
+
+    public void EliminarPorRol(long idRolUsuario) {
+        var conexion = new MySqlConnection(ObtenerCadenaConexion());
+
+        var query = $"""
+            DELETE FROM {NombreTabla}
+            WHERE id_rol_usuario = @id_rol_usuario;
+            """;
+        var parametros = new Dictionary<string, object> {
+            { "@id_rol_usuario", idRolUsuario }
+        };
+        
+        EjecutarComandoNoQuery(conexion, query, parametros);
+
+        conexion.Close();
     }
 }

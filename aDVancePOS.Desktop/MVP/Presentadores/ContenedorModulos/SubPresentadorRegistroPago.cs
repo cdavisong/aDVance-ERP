@@ -1,11 +1,11 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.Finanzas.Repositorios;
 
 using aDVancePOS.Desktop.Utiles;
 
@@ -71,21 +71,21 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void ActualizarSeguimientoEntrega() {
-        using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
+        using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
             var objetoSeguimiento = datosSeguimiento
-                .Obtener(FbSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString())
+                .Buscar(FbSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString()).resultados
                 .FirstOrDefault();
 
             if (objetoSeguimiento == null)
                 return;
 
             objetoSeguimiento.FechaPago = DateTime.Now;
-            datosSeguimiento.Editar(objetoSeguimiento);
+            datosSeguimiento.Actualizar(objetoSeguimiento);
         }
     }
 
     private void RegistrarMovimientoCaja(List<Pago?> pagos) {
-        using (var datos = new DatosMovimientoCaja())
+        using (var datos = new RepoMovimientoCaja())
             foreach (var pago in pagos) {
                 if (pago?.MetodoPago != "Efectivo")
                     continue;
@@ -101,7 +101,7 @@ public partial class PresentadorContenedorModulos {
                     $"Pago de venta #{_registroPago?.Vista.IdVenta} realizado por {UtilesCuentaUsuario.UsuarioAutenticado?.Nombre}"
                 );
 
-                datos.Adicionar(movimientoCaja);
+                datos.Insertar(movimientoCaja);
             }
     }
 }
