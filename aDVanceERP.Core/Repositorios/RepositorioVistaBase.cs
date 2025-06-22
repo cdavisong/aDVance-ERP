@@ -1,8 +1,9 @@
 ﻿using System.Reflection;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios; 
+using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Repositorios.Plantillas;
+
+namespace aDVanceERP.Core.Repositorios; 
 
 public sealed class RepositorioVistaBase : IRepositorioVista {
     private readonly Panel _contenedorVistas;

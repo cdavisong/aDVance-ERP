@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
@@ -66,21 +66,18 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : Presentad
             // 3. Asignar páginas totales
             Vista.PaginasTotales = paginasTotales;
 
-            // 4. Usar Parallel.For para creación de tuplas (si son muchas)
-            var opciones = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            await Task.Run(() => Parallel.For(0, entidades.Count(), opciones, i => {
-                var entidad = entidades[i];
-                
+            // 4. Agregar tuplas
+            foreach ( var entidad in entidades ) {
                 if (Vista is Control control)
                     control.Invoke(() => AdicionarTuplaObjeto(entidad));                
-            }));
+            };
         }
         catch (Exception ex) {
             //TODO: Manejar la excepción (por ejemplo, mostrar un mensaje al usuario)
             Console.WriteLine($"Error al refrescar la lista de objetos: {ex.Message}");
         }
         finally {
-
+            _semaphore.Release();
         }
     }
 

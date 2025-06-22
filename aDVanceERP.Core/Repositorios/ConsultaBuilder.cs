@@ -1,4 +1,4 @@
-﻿namespace aDVanceERP.Core.MVP.Modelos.Repositorios {
+﻿namespace aDVanceERP.Core.Repositorios {
     public class ConsultaBuilder {
         public string FromClause { get; private set; }
         public string WhereClause { get; private set; } = "1=1";

@@ -23,10 +23,10 @@ public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTup
             : Vista.NombreAlmacen;
         presentadorTupla.Vista.Codigo = objeto.Codigo ?? string.Empty;
         presentadorTupla.Vista.Nombre = objeto.Nombre ?? string.Empty;
-        presentadorTupla.Vista.Descripcion = UtilesDetalleProducto.ObtenerDescripcionProducto(objeto.Id).Result ?? "No hay descripción disponible";
+        presentadorTupla.Vista.Descripcion = UtilesDetalleProducto.ObtenerDescripcionProducto(objeto.Id) ?? "No hay descripción disponible";
         presentadorTupla.Vista.PrecioCompraBase = objeto.PrecioCompraBase;
         presentadorTupla.Vista.PrecioVentaBase = objeto.PrecioVentaBase;
-        presentadorTupla.Vista.UnidadMedida = UtilesDetalleProducto.ObtenerUnidadMedidaProducto(objeto.Id, true).Result ?? "u";
+        presentadorTupla.Vista.UnidadMedida = UtilesDetalleProducto.ObtenerUnidadMedidaProducto(objeto.Id, true) ?? "u";
         presentadorTupla.Vista.Stock = string.IsNullOrEmpty(Vista.NombreAlmacen) || Vista.NombreAlmacen.Contains("Todos")
             ? UtilesProducto.ObtenerStockTotalProducto(objeto.Id).Result
             : UtilesProducto.ObtenerStockProducto(objeto.Nombre, Vista.NombreAlmacen).Result;

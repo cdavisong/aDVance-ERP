@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
 using MySql.Data.MySqlClient;

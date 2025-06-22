@@ -1,8 +1,9 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+using aDVanceERP.Core.Repositorios;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas; 
+namespace aDVanceERP.Core.Repositorios.Plantillas; 
 
 public interface IRepositorioDatosEntidad<En, Fb> : IDisposable
     where En : class, IEntidad, new()
@@ -23,5 +24,5 @@ public interface IRepositorioDatosEntidad<En, Fb> : IDisposable
 
     // Utilidades
     bool Existe(object id, MySqlConnection? conexionBd = null);
-    int Contar(Fb? criterio = default, MySqlConnection? conexionBd = null);
+    int Contar(Fb? criterio = default, string? datosComplementarios = "", MySqlConnection? conexionBd = null);
 }

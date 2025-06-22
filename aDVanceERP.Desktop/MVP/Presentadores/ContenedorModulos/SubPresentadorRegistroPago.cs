@@ -2,11 +2,11 @@
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.Finanzas.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
@@ -70,27 +70,27 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void ActualizarSeguimientoEntrega() {
-        using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
+        using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
             var objetoSeguimiento = datosSeguimiento
-                .Obtener(FbSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString())
+                .Buscar(FbSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString()).resultados
                 .FirstOrDefault();
 
             if (objetoSeguimiento == null)
                 return;
 
             objetoSeguimiento.FechaPago = DateTime.Now;
-            datosSeguimiento.Editar(objetoSeguimiento);
+            datosSeguimiento.Actualizar(objetoSeguimiento);
         }
     }
 
     private void ActualizarMovimientoCaja(List<Pago?> pagos) {
-        using (var datos = new DatosMovimientoCaja()) {
+        using (var datos = new RepoMovimientoCaja()) {
             foreach (var pago in pagos) {
                 if (pago?.MetodoPago != "Efectivo")
                     continue;
 
                 var movimientoCaja = datos
-                            .Obtener(FbMovimientoCaja.IdPago, pago.Id.ToString())
+                            .Buscar(FbMovimientoCaja.IdPago, pago.Id.ToString()).resultados
                             .FirstOrDefault();
 
                 if (movimientoCaja == null) {
@@ -105,11 +105,11 @@ public partial class PresentadorContenedorModulos {
                         $"Pago de venta #{_registroPago?.Vista.IdVenta} realizado por {UtilesCuentaUsuario.UsuarioAutenticado?.Nombre}"
                     );
 
-                    datos.Adicionar(movimientoCaja);
+                    datos.Insertar(movimientoCaja);
                 } else {
                     movimientoCaja.Monto = pago.Monto;
 
-                    datos.Editar(movimientoCaja);
+                    datos.Actualizar(movimientoCaja);
                 }
             }
 

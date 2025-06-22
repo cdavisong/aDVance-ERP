@@ -5,11 +5,11 @@ using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
@@ -57,7 +57,7 @@ public partial class PresentadorContenedorModulos {
         var pagosVenta = UtilesVenta.ObtenerPagosPorVenta(_proximoIdVenta);
 
         if (pagosVenta.Count > 0) {
-            using (var datosPago = new DatosPago())
+            using (var datosPago = new RepoPago())
                 foreach (var pago in pagosVenta) {
                     var pagoSplit = pago.Split("|");
 
@@ -69,7 +69,7 @@ public partial class PresentadorContenedorModulos {
         var idSeguimientoEntrega = UtilesEntrega.ObtenerIdSeguimientoEntrega(_proximoIdVenta).Result;
 
         if (idSeguimientoEntrega != 0)
-            using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega())
+            using (var datosSeguimientoEntrega = new RepoSeguimientoEntrega())
                 datosSeguimientoEntrega.Eliminar(idSeguimientoEntrega);
     }
 
@@ -84,8 +84,8 @@ public partial class PresentadorContenedorModulos {
         // Comprobar la existencia de al menos un almacén registrado.
         var existenAlmacenes = false;
 
-        using (var datos = new DatosAlmacen())
-            existenAlmacenes = datos.Cantidad() > 0;
+        using (var datos = new RepoAlmacen())
+            existenAlmacenes = datos.Contar() > 0;
 
         if (!existenAlmacenes) {
             CentroNotificaciones.Mostrar("No es posible registrar nuevas ventas. Debe existir al menos un almacén registrado.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
@@ -150,7 +150,7 @@ public partial class PresentadorContenedorModulos {
             );
 
             using (var datosProducto = new RepoDetalleVentaProducto()) {
-                datosProducto.Adicionar(detalleVentaProducto);
+                datosProducto.Insertar(detalleVentaProducto);
             }
 
             RegistrarMovimientoVentaProducto(detalleVentaProducto, producto);
@@ -166,8 +166,8 @@ public partial class PresentadorContenedorModulos {
 
     private static void RegistrarMovimientoVentaProducto(DetalleVentaProducto detalleVentaProducto,
         IReadOnlyList<string> producto) {
-        using (var datosMovimiento = new DatosMovimiento()) {
-            datosMovimiento.Adicionar(new Movimiento(
+        using (var datosMovimiento = new RepoMovimiento()) {
+            datosMovimiento.Insertar(new Movimiento(
                 0,
                 detalleVentaProducto.IdProducto,
                 long.Parse(producto[5]),

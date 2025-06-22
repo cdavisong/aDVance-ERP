@@ -1,9 +1,9 @@
 ﻿using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
@@ -48,11 +48,11 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Venta venta) {
             if (_registroMensajeria != null && _registroVentaProducto != null) {
-                using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega()) {
-                    var seguimientoEntrega = datosSeguimientoEntrega.Obtener(FbSeguimientoEntrega.IdVenta, venta.Id.ToString()).FirstOrDefault();
+                using (var datosSeguimientoEntrega = new RepoSeguimientoEntrega()) {
+                    var seguimientoEntrega = datosSeguimientoEntrega.ObtenerPorId(venta.Id);
 
                     if (seguimientoEntrega != null) {
-                        _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
+                        _registroMensajeria.PopularVistaDesdeEntidad(seguimientoEntrega);
                         _registroMensajeria.Vista.RazonSocialCliente = _registroVentaProducto.Vista.RazonSocialCliente;
                         _registroMensajeria.Vista.PopularProductosVenta(_registroVentaProducto.Vista.Productos);
                         _registroMensajeria.Vista.Mostrar();

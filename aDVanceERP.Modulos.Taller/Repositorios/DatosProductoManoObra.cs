@@ -1,10 +1,10 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Taller.MVP.Modelos;
-using aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Modulos.Taller.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Modulos.Taller.Repositorios;
 
 public class DatosProductoManoObra : RepositorioDatosEntidadBase<ProductoManoObra, FbProductoManoObra>, IRepositorioProductoManoObra {
     public override string ComandoCantidad() {

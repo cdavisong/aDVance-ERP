@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.MVP.Vistas.UnidadMedida;
 using aDVanceERP.Core.Utiles.Datos;
@@ -35,7 +35,7 @@ public partial class PresentadorContenedorModulos {
                 if (idUnidadMedida == 0)
                     return;
 
-                await unidadMedida.EliminarAsync(idUnidadMedida);
+                unidadMedida.Eliminar(idUnidadMedida);
             }
 
             _registroProducto?.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerNombresUnidadesMedida());

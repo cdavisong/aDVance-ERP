@@ -1,8 +1,8 @@
 ﻿using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
@@ -27,15 +27,15 @@ public partial class PresentadorContenedorModulos {
         _registroTipoMateriaPrima?.Dispose();
     }
 
-    private async void EliminarTipoMateriaPrima(object? sender, EventArgs e) {
-        using (var tipoProducto = new DatosTipoMateriaPrima()) {
+    private void EliminarTipoMateriaPrima(object? sender, EventArgs e) {
+        using (var tipoProducto = new RepoTipoMateriaPrima()) {
             if (sender is string nombreTipoMateriaPrima) {
-                var idTipoMateriaPrima = await UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(nombreTipoMateriaPrima);
+                var idTipoMateriaPrima = UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(nombreTipoMateriaPrima).Result;
 
                 if (idTipoMateriaPrima == 0)
                     return;
 
-                await tipoProducto.EliminarAsync(idTipoMateriaPrima);
+                tipoProducto.Eliminar(idTipoMateriaPrima);
             }
 
             _registroProducto?.Vista.CargarTiposMateriaPrima(UtilesTipoMateriaPrima.ObtenerNombresTiposMateriasPrimas());

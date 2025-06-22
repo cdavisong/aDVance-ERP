@@ -1,8 +1,9 @@
 ﻿using System.Globalization;
+
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios;
+using aDVanceERP.Core.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;

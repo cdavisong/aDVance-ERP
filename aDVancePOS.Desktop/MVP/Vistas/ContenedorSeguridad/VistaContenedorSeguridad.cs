@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVancePOS.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas;
+using aDVanceERP.Core.Repositorios.Plantillas;
 
 namespace aDVancePOS.Desktop.MVP.Vistas.ContenedorSeguridad;
 

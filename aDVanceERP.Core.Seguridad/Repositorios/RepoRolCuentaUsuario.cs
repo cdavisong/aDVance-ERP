@@ -1,6 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
+
 using MySql.Data.MySqlClient;
+
 using System.Text;
 
 namespace aDVanceERP.Core.Seguridad.Repositorios;

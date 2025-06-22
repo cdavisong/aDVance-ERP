@@ -1,7 +1,10 @@
-﻿using MySql.Data.MySqlClient;
+﻿using aDVanceERP.Core.MVP.Modelos;
+
+using MySql.Data.MySqlClient;
+
 using System.Text;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Core.Repositorios;
 
 public class RepoUnidadMedida : RepositorioDatosEntidadBase<UnidadMedida, FbUnidadMedida> {
     public RepoUnidadMedida() : base("adv__unidad_medida", "id_unidad_medida") {

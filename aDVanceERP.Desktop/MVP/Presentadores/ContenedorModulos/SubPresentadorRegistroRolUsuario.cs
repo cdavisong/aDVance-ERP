@@ -2,9 +2,9 @@
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
-using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
+using aDVanceERP.Core.Seguridad.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
@@ -69,7 +69,7 @@ public partial class PresentadorContenedorModulos {
         if (idRolUsuario == 0)
             idRolUsuario = UtilesBD.ObtenerUltimoIdTabla("rol_usuario");
         else {
-            using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario())
+            using (var datosPermisoRolUsuario = new RepoPermisoRolCuentaUsuario())
                 datosPermisoRolUsuario.EliminarPorRol(idRolUsuario);
 
             UtilesRolUsuario.LimpiarCacheRol(idRolUsuario);
@@ -82,8 +82,8 @@ public partial class PresentadorContenedorModulos {
                 long.Parse(permiso[0])
             );
 
-            using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario())
-                datosPermisoRolUsuario.Adicionar(permisoRolUsuario);
+            using (var datosPermisoRolUsuario = new RepoPermisoRolCuentaUsuario())
+                datosPermisoRolUsuario.Insertar(permisoRolUsuario);
         }
     }
 }

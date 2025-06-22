@@ -1,7 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios;
 using aDVanceERP.Core.Utiles;
 using aDVancePOS.Desktop.MVP.Vistas.Principal.Plantillas;
+using aDVanceERP.Core.Repositorios.Plantillas;
 
 namespace aDVancePOS.Desktop.MVP.Vistas.Principal {
     public partial class VistaPrincipal : Form, IVistaPrincipal {

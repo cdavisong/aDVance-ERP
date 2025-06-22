@@ -10,7 +10,7 @@ using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 using aDVanceERP.Modulos.CompraVenta;
 using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.Contactos.Repositorios;
 using aDVanceERP.Modulos.Finanzas;
 using aDVanceERP.Modulos.Inventario;
 
@@ -47,7 +47,7 @@ public partial class PresentadorPrincipal {
         #endregion
 
         // Verificar el registro de la empresa y mostrar la vista de Login
-        using (var datosEmpresa = new DatosEmpresa()) {
+        using (var datosEmpresa = new RepoEmpresa()) {
             if (datosEmpresa.Contar() == 0)
                 MostrarVistaRegistroEmpresa(this, EventArgs.Empty);
             else _isRegistroEmpresa = true;
@@ -75,8 +75,8 @@ public partial class PresentadorPrincipal {
     }
 
     private void ActualizarDatosEmpresa() {
-        using (var datosEmpresa = new DatosEmpresa()) {
-            _empresa = datosEmpresa.Obtener().FirstOrDefault();
+        using (var datosEmpresa = new RepoEmpresa()) {
+            _empresa = datosEmpresa.ObtenerTodos().FirstOrDefault();
 
             if (_menuUsuario != null && _empresa != null) {
                 _menuUsuario.Vista.LogotipoEmpresa = _empresa.Logotipo;

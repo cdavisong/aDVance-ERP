@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas; 
+namespace aDVanceERP.Core.Repositorios.Plantillas; 
 
 public interface IRepositorioVista {
     List<IVista>? Vistas { get; }

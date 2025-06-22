@@ -1,12 +1,11 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Taller.MVP.Modelos;
-using aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Taller.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Modulos.Taller.Repositorios;
 
-public class DatosActividadProduccion : RepositorioDatosEntidadBase<ActividadProduccion, FbActividadProduccion>, IRepositorioActividadProduccion {
+public class DatosActividadProduccion : RepositorioDatosEntidadBase<ActividadProduccion, FbActividadProduccion> {
     public override string ComandoCantidad() {
         return """
             SELECT COUNT(id_actividad_produccion) 

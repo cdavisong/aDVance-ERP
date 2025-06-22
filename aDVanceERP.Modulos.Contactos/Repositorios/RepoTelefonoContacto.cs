@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 
 using MySql.Data.MySqlClient;
