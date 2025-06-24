@@ -24,9 +24,9 @@ using Android.Provider;
 
 namespace aDVancePOS.Mobile {
     [Activity(
-        Label = "@string/app_name", 
-        MainLauncher = true, 
-        LaunchMode = LaunchMode.SingleTop, 
+        Label = "@string/app_name",
+        MainLauncher = true,
+        LaunchMode = LaunchMode.SingleTop,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     [IntentFilter(new[] { Intent.ActionView },
         Categories = new[] {
@@ -62,12 +62,9 @@ namespace aDVancePOS.Mobile {
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            //CheckPermissions();
-            InicializarDatos();
+            //CheckPermissions();            
             InicializarControlesUI();
-
-            // Verificar y solicitar permisos primero
-            VerificarYConfigurarPermisos();
+            InicializarDatos();
         }
 
         private void InicializarControlesUI() {
@@ -96,12 +93,12 @@ namespace aDVancePOS.Mobile {
         }
 
         private void ConfigurarEventos() {
-            var downloadsPath = _dataService.DirectorioDescargas;
+            var downloadsPath = ObtenerRutaArchivosInterna();
             var filePath = Path.Combine(downloadsPath, "productos_almacen.json");
 
             _txtBuscar.TextChanged += (sender, e) => BuscarProductos();
-            _lstProductos.ItemClick += (sender, e) => { 
-                AgregarAlCarrito(e.Position); 
+            _lstProductos.ItemClick += (sender, e) => {
+                AgregarAlCarrito(e.Position);
             };
             _btnPagarEfectivo.Click += (sender, e) => RealizarPago("Efectivo");
             _btnPagarTransferencia.Click += (sender, e) => RealizarPago("Transferencia");
@@ -109,63 +106,13 @@ namespace aDVancePOS.Mobile {
             _btnExportar.Click += (sender, e) => ExportarDatos();
         }
 
-        private void VerificarYConfigurarPermisos() {
-            if (NecesitaSolicitarPermisos()) {
-                SolicitarPermisos();
+        private string? ObtenerRutaArchivosInterna() {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Q) {
+                // Para Android 10+ usamos el contexto
+                return Application.Context.GetExternalFilesDir("")?.AbsolutePath;
             } else {
-                InicializarDatos();
-            }
-        }
-
-        private bool NecesitaSolicitarPermisos() {
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M) {
-                return CheckSelfPermission(Manifest.Permission.ReadExternalStorage) != Permission.Granted ||
-                       CheckSelfPermission(Manifest.Permission.WriteExternalStorage) != Permission.Granted;
-            }
-            return false;
-        }
-
-        private void SolicitarPermisos() {
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M) {
-                RequestPermissions(
-                    new[]
-                    {
-                        Manifest.Permission.ReadExternalStorage,
-                        Manifest.Permission.WriteExternalStorage
-                    },
-                    RequestStoragePermissionCode);
-            }
-        }
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults) {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            if (requestCode == RequestStoragePermissionCode) {
-                if (grantResults.Length > 0 && grantResults.All(r => r == Permission.Granted)) {
-                    // Permisos concedidos - inicializar datos
-                    Toast.MakeText(this, "Permisos concedidos", ToastLength.Short).Show();
-                    InicializarDatos();
-                } else {
-                    // Permisos denegados - mostrar explicación y opción para intentar nuevamente
-                    MostrarExplicacionPermisos();
-                }
-            }
-        }
-
-        private void MostrarExplicacionPermisos() {
-            if (ShouldShowRequestPermissionRationale(Manifest.Permission.ReadExternalStorage)) {
-                new AlertDialog.Builder(this)
-                    .SetTitle("Permisos requeridos")
-                    .SetMessage("La aplicación necesita acceso al almacenamiento para cargar los productos y guardar las ventas.")
-                    .SetPositiveButton("Intentar nuevamente", (sender, args) => {
-                        SolicitarPermisos();
-                    })
-                    .SetNegativeButton("Cancelar", (sender, args) => {
-                        Toast.MakeText(this, "La funcionalidad estará limitada", ToastLength.Long).Show();
-                    })
-                    .Show();
-            } else {
-                Toast.MakeText(this, "Permisos denegados permanentemente. Puede cambiarlo en Configuración de la aplicación.", ToastLength.Long).Show();
+                // Para versiones anteriores
+                return Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
             }
         }
 
@@ -213,24 +160,19 @@ namespace aDVancePOS.Mobile {
                 if (File.Exists(filePath)) {
                     var jsonContent = File.ReadAllText(filePath);
 
-                    if (_dataService.ValidarEstructuraProductos(jsonContent)) {
-                        // Copiar el archivo a la ubicación interna de la app
-                        File.WriteAllText(_dataService.ProductosPath, jsonContent);
+                    // Copiar el archivo a la ubicación interna de la app
+                    File.WriteAllText(_dataService.ProductosPath, jsonContent);
 
-                        // Opcional: mover el archivo a la carpeta de importados
-                        var importDir = Path.Combine(_dataService.DirectorioDescargas, "imported");
-                        Directory.CreateDirectory(importDir);
-                        var destPath = Path.Combine(importDir, Path.GetFileName(filePath));
-                        File.Move(filePath, destPath, true);
+                    // Opcional: mover el archivo a la carpeta de importados
+                    var importDir = Path.Combine(_dataService.DirectorioDescargas, "imported");
+                    Directory.CreateDirectory(importDir);
+                    var destPath = Path.Combine(importDir, Path.GetFileName(filePath));
+                    File.Move(filePath, destPath, true);
 
-                        _dataService = new ServicioDatos(); // Reiniciar servicio
-                        BuscarProductos();
+                    _dataService = new ServicioDatos(); // Reiniciar servicio
+                    BuscarProductos();
 
-                        Toast.MakeText(this, "Productos importados correctamente", ToastLength.Long).Show();
-                        BuscarProductos();
-                    } else {
-                        Toast.MakeText(this, "El archivo no tiene el formato correcto", ToastLength.Long).Show();
-                    }
+                    Toast.MakeText(this, "Productos importados correctamente", ToastLength.Long).Show();
                 } else {
                     Toast.MakeText(this, "Archivo no encontrado", ToastLength.Long).Show();
                 }

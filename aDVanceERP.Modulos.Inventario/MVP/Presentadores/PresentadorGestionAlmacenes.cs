@@ -26,7 +26,7 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
 
     private void OnDescargarProductos(object? sender, EventArgs e) {
         var id = sender as string;
-        var success = UtilesAlmacen.ExportarProductosAlmacenToJsonFileAsync(long.Parse(id), $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\productos_almacen_{id}.json");
+        var success = UtilesAlmacen.ExportarProductosAlmacenToJsonFileAsync(long.Parse(id), $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\productos_almacen.json");
 
         if (success)
             CentroNotificaciones.Mostrar("Se ha exportado un archivo codificado hacia el escritorio con la lista de productos del almacén seleccionado satisfactoriamente");
