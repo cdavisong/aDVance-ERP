@@ -100,21 +100,27 @@ namespace aDVancePOS.Mobile.Servicios {
             File.WriteAllText(VentasPath, ventasJson);
         }
 
-        public bool ValidarEstructuraProductos(string json) {
+        public List<Producto> ValidarEstructuraProductos(string json) {
             try {
                 var productos = JsonConvert.DeserializeObject<List<Producto>>(json);
+                var productosValidados = new List<Producto>();
 
                 if (productos == null || productos.Count == 0)
-                    return false;
+                    return productosValidados;
 
-                // Verificar que todos los productos tengan los campos mínimos requeridos
-                return productos.All(p =>
-                    p.id_producto > 0 &&
-                    !string.IsNullOrEmpty(p.nombre) &&
-                    p.precio_venta_base > 0 &&
-                    p.stock >= 0);
+                foreach (var producto in productos) {
+                    if (
+                        producto.id_producto > 0 &&
+                        !string.IsNullOrEmpty(producto.nombre) &&
+                        producto.precio_venta_base > 0 &&
+                        producto.stock >= 0) {
+                        productosValidados.Add(producto);
+                    } 
+                }
+
+                return productosValidados;
             } catch {
-                return false;
+                return new List<Producto>();
             }
         }
     }

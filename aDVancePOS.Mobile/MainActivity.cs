@@ -22,9 +22,9 @@ using Android.Provider;
 
 namespace aDVancePOS.Mobile {
     [Activity(
-        Label = "@string/app_name", 
-        MainLauncher = true, 
-        LaunchMode = LaunchMode.SingleTop, 
+        Label = "@string/app_name",
+        MainLauncher = true,
+        LaunchMode = LaunchMode.SingleTop,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     [IntentFilter(new[] { Intent.ActionView },
         Categories = new[] {
@@ -58,9 +58,9 @@ namespace aDVancePOS.Mobile {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
-            //CheckPermissions();
-            InicializarDatos();
+            //CheckPermissions();            
             InicializarControlesUI();
+            InicializarDatos();
         }
 
         private void InicializarControlesUI() {
@@ -89,17 +89,27 @@ namespace aDVancePOS.Mobile {
         }
 
         private void ConfigurarEventos() {
-            var downloadsPath = _dataService.DirectorioDescargas;
+            var downloadsPath = ObtenerRutaArchivosInterna();
             var filePath = Path.Combine(downloadsPath, "productos_almacen.json");
 
             _txtBuscar.TextChanged += (sender, e) => BuscarProductos();
-            _lstProductos.ItemClick += (sender, e) => { 
-                AgregarAlCarrito(e.Position); 
+            _lstProductos.ItemClick += (sender, e) => {
+                AgregarAlCarrito(e.Position);
             };
             _btnPagarEfectivo.Click += (sender, e) => RealizarPago("Efectivo");
             _btnPagarTransferencia.Click += (sender, e) => RealizarPago("Transferencia");
             _btnImportar.Click += (sender, e) => ImportarProductos(filePath);
             _btnExportar.Click += (sender, e) => ExportarDatos();
+        }
+
+        private string? ObtenerRutaArchivosInterna() {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Q) {
+                // Para Android 10+ usamos el contexto
+                return Application.Context.GetExternalFilesDir("")?.AbsolutePath;
+            } else {
+                // Para versiones anteriores
+                return Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
+            }
         }
 
         private void InicializarDatos() {
@@ -127,23 +137,19 @@ namespace aDVancePOS.Mobile {
                 if (File.Exists(filePath)) {
                     var jsonContent = File.ReadAllText(filePath);
 
-                    if (_dataService.ValidarEstructuraProductos(jsonContent)) {
-                        // Copiar el archivo a la ubicación interna de la app
-                        File.WriteAllText(_dataService.ProductosPath, jsonContent);
+                    // Copiar el archivo a la ubicación interna de la app
+                    File.WriteAllText(_dataService.ProductosPath, jsonContent);
 
-                        // Opcional: mover el archivo a la carpeta de importados
-                        var importDir = Path.Combine(_dataService.DirectorioDescargas, "imported");
-                        Directory.CreateDirectory(importDir);
-                        var destPath = Path.Combine(importDir, Path.GetFileName(filePath));
-                        File.Move(filePath, destPath, true);
+                    // Opcional: mover el archivo a la carpeta de importados
+                    var importDir = Path.Combine(_dataService.DirectorioDescargas, "imported");
+                    Directory.CreateDirectory(importDir);
+                    var destPath = Path.Combine(importDir, Path.GetFileName(filePath));
+                    File.Move(filePath, destPath, true);
 
-                        _dataService = new ServicioDatos(); // Reiniciar servicio
-                        BuscarProductos();
+                    _dataService = new ServicioDatos(); // Reiniciar servicio
+                    BuscarProductos();
 
-                        Toast.MakeText(this, "Productos importados correctamente", ToastLength.Long).Show();
-                    } else {
-                        Toast.MakeText(this, "El archivo no tiene el formato correcto", ToastLength.Long).Show();
-                    }
+                    Toast.MakeText(this, "Productos importados correctamente", ToastLength.Long).Show();
                 } else {
                     Toast.MakeText(this, "Archivo no encontrado", ToastLength.Long).Show();
                 }
