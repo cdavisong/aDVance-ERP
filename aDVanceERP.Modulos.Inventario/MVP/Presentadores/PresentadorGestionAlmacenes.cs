@@ -24,11 +24,11 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         return presentadorTupla;
     }
 
-    private async void OnDescargarProductos(object? sender, EventArgs e) {
+    private void OnDescargarProductos(object? sender, EventArgs e) {
         var id = sender as string;
-        var success = await UtilesAlmacen.ExportarProductosAlmacenToJsonFileAsync(long.Parse(id), $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\productos_almacen_{id}.json");
+        var success = UtilesAlmacen.ExportarProductosAlmacenToJsonFileAsync(long.Parse(id), $@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\productos_almacen_{id}.json");
 
         if (success)
-            CentroNotificaciones.Mostrar("Se ha exportado un archivo codificado hacia el escritorio con la lista de productos del almacén seleccionado satisfactoriamente");        
+            CentroNotificaciones.Mostrar("Se ha exportado un archivo codificado hacia el escritorio con la lista de productos del almacén seleccionado satisfactoriamente");
     }
 }
