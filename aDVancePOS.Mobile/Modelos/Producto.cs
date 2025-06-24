@@ -1,14 +1,14 @@
 ﻿namespace aDVancePOS.Mobile.Modelos {
     public class Producto {
-        public int IdProducto { get; set; }
-        public string Codigo { get; set; }
-        public string Nombre { get; set; }
-        public string Categoria { get; set; }
-        public double PrecioCompraBase { get; set; }
-        public double PrecioVentaBase { get; set; }
-        public int Stock { get; set; }
-        public string NombreAlmacen { get; set; }
-        public string UnidadMedida { get; set; }
-        public string AbreviaturaMedida { get; set; }
+        public int id_producto { get; set; }
+        public string codigo { get; set; }
+        public string nombre { get; set; }
+        public string categoria { get; set; }
+        public decimal precio_compra_base { get; set; }
+        public decimal precio_venta_base { get; set; }
+        public int stock { get; set; }
+        public string nombre_almacen { get; set; }
+        public string unidad_medida { get; set; }
+        public string abreviatura_medida { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 using aDVancePOS.Mobile.Modelos;
 using aDVancePOS.Mobile.Servicios;
+using aDVancePOS.Mobile.Controladores;
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,19 +16,36 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Widget;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
+using aDVancePOS.Mobile.Adaptadores;
+using Android.Provider;
 
 
 namespace aDVancePOS.Mobile {
-    [Activity(Label = "@string/app_name", MainLauncher = true)]
+    [Activity(
+        Label = "@string/app_name", 
+        MainLauncher = true, 
+        LaunchMode = LaunchMode.SingleTop, 
+        ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [IntentFilter(new[] { Intent.ActionView },
+        Categories = new[] {
+            Intent.CategoryDefault,
+            Intent.CategoryBrowsable
+        },
+        DataMimeType = "application/json",
+        DataScheme = "file",
+        DataHost = "*",
+        DataPathPattern = ".*\\.json")]
     public class MainActivity : Activity {
         // Constante para el código de solicitud de permisos
-        private const int RequestStoragePermissionCode = 1000;
+        private const int RequestStoragePermission = 1;
 
         private ServicioDatos _dataService;
         private List<Producto> _productosEncontrados;
         private List<ProductoVendido> _carrito;
-        private ArrayAdapter _productosAdapter;
-        private ArrayAdapter _carritoAdapter;
+        private ProductoAdapter _productosAdapter;
+        private ProductoVendidoAdapter _carritoAdapter;
 
         private EditText _txtBuscar;
         private ListView _lstProductos;
@@ -43,7 +62,8 @@ namespace aDVancePOS.Mobile {
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            // Inicializar controles UI
+            //CheckPermissions();
+            InicializarDatos();
             InicializarControlesUI();
 
             // Verificar y solicitar permisos primero
@@ -67,20 +87,25 @@ namespace aDVancePOS.Mobile {
 
         private void ConfigurarAdaptadores() {
             _productosEncontrados = new List<Producto>();
-            _productosAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, _productosEncontrados);
+            _productosAdapter = new ProductoAdapter(this, _productosEncontrados);
             _lstProductos.Adapter = _productosAdapter;
 
             _carrito = new List<ProductoVendido>();
-            _carritoAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleListItem1, _carrito);
+            _carritoAdapter = new ProductoVendidoAdapter(this, _carrito);
             _lstCarrito.Adapter = _carritoAdapter;
         }
 
         private void ConfigurarEventos() {
+            var downloadsPath = _dataService.DirectorioDescargas;
+            var filePath = Path.Combine(downloadsPath, "productos_almacen.json");
+
             _txtBuscar.TextChanged += (sender, e) => BuscarProductos();
-            _lstProductos.ItemClick += (sender, e) => AgregarAlCarrito(e.Position);
+            _lstProductos.ItemClick += (sender, e) => { 
+                AgregarAlCarrito(e.Position); 
+            };
             _btnPagarEfectivo.Click += (sender, e) => RealizarPago("Efectivo");
             _btnPagarTransferencia.Click += (sender, e) => RealizarPago("Transferencia");
-            _btnImportar.Click += (sender, e) => ImportarProductos();
+            _btnImportar.Click += (sender, e) => ImportarProductos(filePath);
             _btnExportar.Click += (sender, e) => ExportarDatos();
         }
 
@@ -158,46 +183,29 @@ namespace aDVancePOS.Mobile {
             }
 
             // Inicializar servicios
-            _dataService = new ServicioDatos(productosPath, ventasPath);
+            _dataService = new ServicioDatos();
+
+            CargarDatosIniciales();
         }
 
-        private string GetInitialProductData() {
-            // Ruta donde esperamos encontrar el archivo (en el almacenamiento externo)
-            var externalPath = Android.OS.Environment.ExternalStorageDirectory.Path;
-            var expectedFilePath = Path.Combine(externalPath, "productos_almacen.json");
-
+        private void CargarDatosIniciales() {
             try {
-                // Verificar si el archivo existe
-                if (File.Exists(expectedFilePath)) {
-                    // Leer el contenido del archivo
-                    var fileContent = File.ReadAllText(expectedFilePath);
+                var downloadsPath = _dataService.DirectorioDescargas;
+                var filePath = Path.Combine(downloadsPath, "productos_almacen.json");
 
-                    // Validar que es un JSON válido
-                    var tempList = JsonConvert.DeserializeObject<List<Producto>>(fileContent);
-                    if (tempList != null && tempList.Count > 0) {
-                        return fileContent;
-                    }
+                if (File.Exists(filePath)) {
+                    ImportarProductos(filePath);
                 }
 
                 // Si el archivo no existe o no es válido, usar datos por defecto
                 Toast.MakeText(this, "No se encontró archivo válido", ToastLength.Long).Show();
                 return @"[]";
             } catch (Exception ex) {
-                Toast.MakeText(this, $"Error cargando archivo: {ex.Message}", ToastLength.Long).Show();
-                // Retornar datos por defecto en caso de error
-                return @"[]";
+                Toast.MakeText(this, $"Error cargando datos iniciales: {ex.Message}", ToastLength.Short).Show();
             }
         }
 
-        private void ImportarProductos() {
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.M) {
-                if (CheckSelfPermission(Manifest.Permission.ReadExternalStorage) != Permission.Granted) {
-                    RequestPermissions(new[] { Manifest.Permission.ReadExternalStorage }, RequestStoragePermissionCode);
-                    Toast.MakeText(this, "Por favor concede los permisos e intenta nuevamente", ToastLength.Long).Show();
-                    return;
-                }
-            }
-
+        private void ImportarProductos(string filePath) {
             try {
                 var externalPath = Android.OS.Environment.ExternalStorageDirectory.Path;
                 var filePath = Path.Combine(externalPath, "productos_almacen.json");
@@ -206,24 +214,43 @@ namespace aDVancePOS.Mobile {
                     var jsonContent = File.ReadAllText(filePath);
 
                     if (_dataService.ValidarEstructuraProductos(jsonContent)) {
-                        var internalPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "productos.json");
-                        File.WriteAllText(internalPath, jsonContent);
+                        // Copiar el archivo a la ubicación interna de la app
+                        File.WriteAllText(_dataService.ProductosPath, jsonContent);
 
-                        // Recargar el servicio de datos
-                        _dataService = new ServicioDatos(internalPath,
-                            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ventas.json"));
+                        // Opcional: mover el archivo a la carpeta de importados
+                        var importDir = Path.Combine(_dataService.DirectorioDescargas, "imported");
+                        Directory.CreateDirectory(importDir);
+                        var destPath = Path.Combine(importDir, Path.GetFileName(filePath));
+                        File.Move(filePath, destPath, true);
+
+                        _dataService = new ServicioDatos(); // Reiniciar servicio
+                        BuscarProductos();
 
                         Toast.MakeText(this, "Productos importados correctamente", ToastLength.Long).Show();
                         BuscarProductos();
                     } else {
-                        Toast.MakeText(this, "El archivo no tiene la estructura correcta", ToastLength.Long).Show();
+                        Toast.MakeText(this, "El archivo no tiene el formato correcto", ToastLength.Long).Show();
                     }
                 } else {
-                    Toast.MakeText(this, "Archivo no encontrado en almacenamiento", ToastLength.Long).Show();
+                    Toast.MakeText(this, "Archivo no encontrado", ToastLength.Long).Show();
                 }
             } catch (Exception ex) {
                 Toast.MakeText(this, $"Error al importar: {ex.Message}", ToastLength.Long).Show();
             }
+        }
+
+        private void ExportarDatos() {
+            var downloadsPath = _dataService.DirectorioDescargas;
+            Directory.CreateDirectory(downloadsPath);
+
+            var exportTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            var productosExportPath = Path.Combine(downloadsPath, $"productos_export_{exportTime}.json");
+            var ventasExportPath = Path.Combine(downloadsPath, $"ventas_export_{exportTime}.json");
+
+            File.Copy(_dataService.ProductosPath, productosExportPath, true);
+            File.Copy(_dataService.VentasPath, ventasExportPath, true);
+
+            Toast.MakeText(this, $"Datos exportados a:\n{downloadsPath}", ToastLength.Long).Show();
         }
 
         private void BuscarProductos() {
@@ -243,13 +270,13 @@ namespace aDVancePOS.Mobile {
             input.Text = "1";
 
             new AlertDialog.Builder(this)
-                .SetTitle($"Agregar {producto.Nombre}")
+                .SetTitle($"Agregar {producto.nombre}")
                 .SetMessage("Ingrese la cantidad:")
                 .SetView(input)
                 .SetPositiveButton("Agregar", (sender, e) => {
                     if (int.TryParse(input.Text, out int cantidad) && cantidad > 0) {
                         // Verificar si ya está en el carrito
-                        var itemExistente = _carrito.FirstOrDefault(p => p.Producto.IdProducto == producto.IdProducto);
+                        var itemExistente = _carrito.FirstOrDefault(p => p.Producto.id_producto == producto.id_producto);
                         if (itemExistente != null) {
                             itemExistente.Cantidad += cantidad;
                         } else {
@@ -271,7 +298,7 @@ namespace aDVancePOS.Mobile {
             _carritoAdapter.AddAll(_carrito);
             _carritoAdapter.NotifyDataSetChanged();
 
-            var total = _carrito.Sum(item => item.Producto.PrecioVentaBase * item.Cantidad);
+            var total = _carrito.Sum(item => item.Producto.precio_venta_base * item.Cantidad);
             _lblTotal.Text = $"Total: ${total:N2}";
         }
 
@@ -283,7 +310,7 @@ namespace aDVancePOS.Mobile {
 
             var venta = new Venta {
                 Productos = new List<ProductoVendido>(_carrito),
-                Total = _carrito.Sum(item => item.Producto.PrecioVentaBase * item.Cantidad),
+                Total = _carrito.Sum(item => (double) item.Producto.precio_venta_base * item.Cantidad),
                 MetodoPago = metodoPago
             };
 

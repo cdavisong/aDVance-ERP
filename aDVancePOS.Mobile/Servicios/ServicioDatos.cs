@@ -1,5 +1,7 @@
 ﻿using aDVancePOS.Mobile.Modelos;
 
+using Android.OS;
+
 using Newtonsoft.Json;
 
 using System.Xml;
@@ -8,17 +10,42 @@ namespace aDVancePOS.Mobile.Servicios {
     public class ServicioDatos {
         private List<Producto> _productos;
         private List<Venta> _ventas;
+        
+        public ServicioDatos() {
+            if (!Directory.Exists(ObtenerRutaArchivosInterna()))
+                Directory.CreateDirectory(ObtenerRutaArchivosInterna());
 
-        public ServicioDatos(string productosPath, string ventasPath) {
-            ProductosPath = productosPath;
-            VentasPath = ventasPath;
+            DirectorioDescargas = ObtenerRutaArchivosInterna() ?? "";
+            ProductosPath = Path.Combine(DirectorioDescargas, "productos.json");
+            VentasPath = Path.Combine(DirectorioDescargas, "ventas.json");
+
+            if (!File.Exists(ProductosPath)) {
+                File.WriteAllText(ProductosPath, "[]");
+            }
+
+            if (!File.Exists(VentasPath)) {
+                File.WriteAllText(VentasPath, "[]");
+            }
+
             CargarProductos();
             CargarVentas();
         }
 
+        public string DirectorioDescargas { get; }
+
         public string ProductosPath { get; }
 
         public string VentasPath { get; }
+
+        private string? ObtenerRutaArchivosInterna() {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Q) {
+                // Para Android 10+ usamos el contexto
+                return Application.Context.GetExternalFilesDir("")?.AbsolutePath;
+            } else {
+                // Para versiones anteriores
+                return Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
+            }
+        }
 
         private void CargarProductos() {
             if (File.Exists(ProductosPath)) {
@@ -40,20 +67,20 @@ namespace aDVancePOS.Mobile.Servicios {
 
         public List<Producto> BuscarProductos(string termino) {
             return _productos.Where(p =>
-                p.Nombre.Contains(termino, StringComparison.OrdinalIgnoreCase) ||
-                p.Codigo.Contains(termino, StringComparison.OrdinalIgnoreCase))
+                p.nombre.Contains(termino, StringComparison.OrdinalIgnoreCase) ||
+                p.codigo.Contains(termino, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
         public Producto ObtenerProductoPorId(int id) {
-            return _productos.FirstOrDefault(p => p.IdProducto == id);
+            return _productos.FirstOrDefault(p => p.id_producto == id);
         }
 
         public void RegistrarVenta(Venta venta) {
             // Actualizar stock
             foreach (var item in venta.Productos) {
-                var producto = _productos.First(p => p.IdProducto == item.Producto.IdProducto);
-                producto.Stock -= item.Cantidad;
+                var producto = _productos.First(p => p.id_producto == item.Producto.id_producto);
+                producto.stock -= item.Cantidad;
             }
 
             // Guardar venta
@@ -82,10 +109,10 @@ namespace aDVancePOS.Mobile.Servicios {
 
                 // Verificar que todos los productos tengan los campos mínimos requeridos
                 return productos.All(p =>
-                    p.IdProducto > 0 &&
-                    !string.IsNullOrEmpty(p.Nombre) &&
-                    p.PrecioVentaBase > 0 &&
-                    p.Stock >= 0);
+                    p.id_producto > 0 &&
+                    !string.IsNullOrEmpty(p.nombre) &&
+                    p.precio_venta_base > 0 &&
+                    p.stock >= 0);
             } catch {
                 return false;
             }
