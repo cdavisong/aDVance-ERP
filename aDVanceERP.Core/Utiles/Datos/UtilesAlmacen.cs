@@ -63,4 +63,8 @@ public static class UtilesAlmacen {
             return nombres.ToArray();
         }) ?? Array.Empty<object>();
     }
+
+    public static bool ExportarProductosAlmacenToJsonFileAsync(long v1, string v2) {
+        
+    }
 }
