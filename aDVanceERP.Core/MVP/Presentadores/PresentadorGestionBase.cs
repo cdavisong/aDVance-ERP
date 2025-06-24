@@ -47,9 +47,12 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
         try {
             if (Vista.TuplasMaximasContenedor == 0) return;
 
-            Vista.Cerrar();
+            Vista.Vistas?.Cerrar(true);
 
-            _tuplasObjetos.ForEach(tupla => tupla.Vista.Cerrar());
+            _tuplasObjetos.ForEach(tupla => {
+                    tupla.EliminarObjeto -= EliminarObjeto;
+                    tupla.Vista.Cerrar();
+                });
             _tuplasObjetos.Clear();
 
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
