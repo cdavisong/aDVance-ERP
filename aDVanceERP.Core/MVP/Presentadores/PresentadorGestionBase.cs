@@ -51,10 +51,16 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : Presentad
         try {
             await _semaphore.WaitAsync();
 
-            // 1. Liberar los recursos existentes
-            LiberarRecursosTuplas();
+            Vista.Vistas?.Cerrar(true);
 
-            // 2. Obtener datos paginados y total en una sola operación
+            _tuplasObjetos.ForEach(tupla => {
+                    tupla.EliminarObjeto -= EliminarObjeto;
+                    tupla.Vista.Cerrar();
+                });
+            _tuplasObjetos.Clear();
+
+            VariablesGlobales.CoordenadaYUltimaTupla = 0;
+
             var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
             var (entidades, totalFilas) = RepoDatosEntidad.Buscar(
                 FiltroBusquedaEntidad,

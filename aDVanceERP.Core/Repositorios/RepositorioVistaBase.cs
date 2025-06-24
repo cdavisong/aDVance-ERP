@@ -123,6 +123,10 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
 
         try {
             if (cerrarTodo) {
+                foreach (var vista in Vistas)
+                    vista.Cerrar();
+                Vistas.Clear();
+
                 foreach (var control in _contenedorVistas.Controls.OfType<IVista>().ToList()) {
                     control.Cerrar();
                     (control as Control)?.Dispose();
