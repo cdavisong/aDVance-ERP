@@ -5,4 +5,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
 public class PresentadorMenuSeguridad : PresentadorBase<IVistaMenuSeguridad> {
     public PresentadorMenuSeguridad(IVistaMenuSeguridad vista) : base(vista) { }
+
+    public override void Dispose() {
+        //...
+    }
 }

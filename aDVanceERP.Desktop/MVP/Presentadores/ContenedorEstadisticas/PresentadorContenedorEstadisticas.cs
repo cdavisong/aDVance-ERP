@@ -20,4 +20,8 @@ public class PresentadorContenedorEstadisticas : PresentadorBase<IVistaContenedo
         Vista.MontoGananciaTotalNegocio = UtilesVenta.ObtenerValorGananciaTotalNegocio();
         Vista.MontoGananciaAcumuladaDia = UtilesVenta.ObtenerValorGananciaDia(DateTime.Now);
     }
+
+    public override void Dispose() {
+        //...
+    }
 }

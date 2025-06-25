@@ -87,6 +87,17 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
+        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+            fieldDatoBusqueda.Text = string.Empty;
+            fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Focus();
+
+            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+
+            // Ir a la primera página al cambiar el criterio de búsqueda
+            PaginaActual = 1;
+            HabilitarBotonesPaginacion();
+        };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
                 BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
@@ -126,20 +137,10 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-        fieldFb.Items.Clear();
-        fieldFb.Items.AddRange(criteriosBusqueda);
-        fieldFb.SelectedIndexChanged += delegate {
-            fieldDatoBusqueda.Text = string.Empty;
-            fieldDatoBusqueda.Visible = fieldFb.SelectedIndex != 0;
-            fieldDatoBusqueda.Focus();
-
-            BuscarDatos?.Invoke(new object[] { Fb, string.Empty }, EventArgs.Empty);
-
-            // Ir a la primera página al cambiar el criterio de búsqueda
-            PaginaActual = 1;
-            HabilitarBotonesPaginacion();
-        };
-        fieldFb.SelectedIndex = 0;
+        fieldCriterioBusqueda.Items.Clear();
+        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
+        
+        fieldCriterioBusqueda.SelectedIndex = 0;
     }
 
     public void Mostrar() {

@@ -7,9 +7,11 @@ namespace aDVanceERP.Core.MVP.Presentadores;
 
 public abstract class PresentadorTuplaBase<Vt, En> : PresentadorBase<Vt>, IPresentadorTupla<Vt, En>
     where Vt : class, IVistaTupla
-    where En : class, IEntidad, new() {
-    protected PresentadorTuplaBase(Vt vista, En emtidad) : base(vista) {
-        Entidad = emtidad ?? throw new ArgumentNullException(nameof(emtidad));
+    where O : class, IObjetoUnico, new() {
+    private bool disposedValue;
+
+    protected PresentadorTuplaBase(Vt vista, O objeto) : base(vista) {
+        Objeto = objeto ?? throw new ArgumentNullException(nameof(objeto));
 
         // Suscribir a eventos de la vista
         Vista.TuplaSeleccionada += OnTuplaSeleccionada;
@@ -22,16 +24,16 @@ public abstract class PresentadorTuplaBase<Vt, En> : PresentadorBase<Vt>, IPrese
         set {
             if (value) {
                 Vista.ColorFondoTupla = VariablesGlobales.ColorResaltadoTupla;
-                EntidadSeleccionada?.Invoke(Entidad, EventArgs.Empty);
+                ObjetoSeleccionado?.Invoke(Vista, EventArgs.Empty);
             }
             else {
                 Vista.Restaurar();
-                EntidadDeseleccionada?.Invoke(Entidad, EventArgs.Empty);
+                ObjetoDeseleccionado?.Invoke(Vista, EventArgs.Empty);
             }
         }
     }
 
-    public En Entidad { get; }
+    public O Objeto { get; private set; }
 
     public event EventHandler? EntidadSeleccionada;
     public event EventHandler? EntidadDeseleccionada;
@@ -48,5 +50,24 @@ public abstract class PresentadorTuplaBase<Vt, En> : PresentadorBase<Vt>, IPrese
 
     private void OnEliminarDatosTupla(object? sender, EventArgs e) {
         EliminarDatosEntidad?.Invoke(Entidad, e);
+    }
+
+    protected virtual void Dispose(bool disposing) {
+        if (!disposedValue) {
+            if (disposing) {
+                // TODO: eliminar el estado administrado (objetos administrados)
+            }
+
+            Vista.TuplaSeleccionada -= OnTuplaSeleccionada;
+            Vista.EditarDatosTupla -= OnEditarDatosTupla;
+            Vista.EliminarDatosTupla -= OnEliminarDatosTupla;
+
+            disposedValue = true;
+        }
+    }
+
+    public override void Dispose() {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

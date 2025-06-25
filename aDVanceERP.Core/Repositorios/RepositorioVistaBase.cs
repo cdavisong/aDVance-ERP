@@ -7,6 +7,7 @@ namespace aDVanceERP.Core.Repositorios;
 
 public sealed class RepositorioVistaBase : IRepositorioVista {
     private readonly Panel _contenedorVistas;
+    private bool disposedValue;
 
     public RepositorioVistaBase(Panel contenedorVistas) {
         _contenedorVistas = contenedorVistas ?? throw new ArgumentNullException(nameof(contenedorVistas));
@@ -101,10 +102,11 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
 
         try {
             if (ocultarTodo) {
-                foreach (var control in _contenedorVistas.Controls.OfType<IVista>()) {
-                    control.Ocultar();
-                    control.Habilitada = true;
-                }
+                if (Vistas != null)
+                    foreach (var vista in Vistas) {
+                        vista.Ocultar();
+                        vista.Habilitada = true;
+                    }
             }
             else {
                 if (VistaActual != null) {
@@ -123,14 +125,14 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
 
         try {
             if (cerrarTodo) {
-                foreach (var vista in Vistas)
-                    vista.Cerrar();
-                Vistas.Clear();
+                if (Vistas != null)
+                    foreach (var vista in Vistas)
+                        vista.Cerrar();
 
-                foreach (var control in _contenedorVistas.Controls.OfType<IVista>().ToList()) {
-                    control.Cerrar();
+                foreach (var control in _contenedorVistas.Controls.OfType<IVista>().ToList())
                     (control as Control)?.Dispose();
-                }
+
+                Vistas?.Clear();
             }
             else {
                 VistaActual?.Cerrar();
@@ -189,5 +191,31 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
 
     private void ResumeRedraw() {
         _contenedorVistas.ResumeLayout();
+    }
+
+    private void Dispose(bool disposing) {
+        if (!disposedValue) {
+            if (disposing) {
+                _contenedorVistas.Resize -= ActualizarDimensionesVistas;
+            }
+
+            Cerrar();
+
+            // TODO: establecer los campos grandes como NULL
+            disposedValue = true;
+        }
+    }
+
+    // // TODO: reemplazar el finalizador solo si "Dispose(bool disposing)" tiene código para liberar los recursos no administrados
+    // ~RepositorioVistaBase()
+    // {
+    //     // No cambie este código. Coloque el código de limpieza en el método "Dispose(bool disposing)".
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose() {
+        // No cambie este código. Coloque el código de limpieza en el método "Dispose(bool disposing)".
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

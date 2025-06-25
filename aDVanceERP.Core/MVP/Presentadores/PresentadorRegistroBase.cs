@@ -5,8 +5,7 @@ using aDVanceERP.Core.Repositorios.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores; 
 
-public abstract class PresentadorRegistroBase<Vr, En, Rd, Fb> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Rd, En, Fb>,
-    IDisposable
+public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>
     where Vr : class, IVistaRegistro
     where Rd : class, IRepositorioDatosEntidad<En, Fb>, new()
     where En : class, IEntidad, new()
@@ -25,13 +24,7 @@ public abstract class PresentadorRegistroBase<Vr, En, Rd, Fb> : PresentadorBase<
 
     protected En? Entidad { get; set; } // Entidad que se va a registrar o editar
 
-    // Implementación de IDisposable
-    public void Dispose() {
-        Dispose(true);
-        GC.SuppressFinalize(this); // Evitar que el GC llame al finalizador
-    }
-
-    public Rd RepoDatosEntidad {
+    public Do DatosObjeto {
         get => new();
     }
 
@@ -96,13 +89,16 @@ public abstract class PresentadorRegistroBase<Vr, En, Rd, Fb> : PresentadorBase<
             // Liberar recursos administrados
             if (Vista is IDisposable disposableVista)
                 disposableVista.Dispose();
-        // Liberar otros recursos administrados si es necesario
-        // Liberar recursos no administrados si es necesario
+
+        Vista.RegistrarDatos -= RegistrarDatosObjeto;
+        Vista.EditarDatos -= EditarDatosObjeto;
+        Vista.Salir -= OnSalir;
 
         _disposed = true;
     }
 
-    ~PresentadorRegistroBase() {
-        Dispose(false);
+    public override void Dispose() {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

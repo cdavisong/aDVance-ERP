@@ -5,4 +5,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 
 public class PresentadorMenuFinanzas : PresentadorBase<IVistaMenuFinanzas> {
     public PresentadorMenuFinanzas(IVistaMenuFinanzas vista) : base(vista) { }
+
+    public override void Dispose() {
+        //...
+    }
 }

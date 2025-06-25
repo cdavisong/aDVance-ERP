@@ -95,6 +95,31 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             Vistas = new RepositorioVistaBase(contenedorVistas);
 
             // Eventos
+            fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+                if (CriterioBusqueda == CriterioBusquedaCaja.FechaApertura || CriterioBusqueda == CriterioBusquedaCaja.FechaCierre) {
+                    fieldDatoBusquedaFecha.Value = DateTime.Now;
+                    fieldDatoBusquedaFecha.Focus();
+                }
+                else {
+                    fieldDatoBusqueda.Text = string.Empty;
+                    fieldDatoBusqueda.Focus();
+                }
+
+                fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaCaja.FechaApertura &&
+                                            CriterioBusqueda != CriterioBusquedaCaja.FechaCierre &&
+                                            fieldCriterioBusqueda.SelectedIndex != 0;
+                fieldDatoBusquedaFecha.Visible = (CriterioBusqueda == CriterioBusquedaCaja.FechaApertura ||
+                                                 CriterioBusqueda == CriterioBusquedaCaja.FechaCierre) &&
+                                                 fieldCriterioBusqueda.SelectedIndex != 0;
+
+                if (CriterioBusqueda != CriterioBusquedaCaja.FechaApertura &&
+                    CriterioBusqueda != CriterioBusquedaCaja.FechaCierre)
+                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+
+                // Ir a la primera página al cambiar el criterio de búsqueda
+                PaginaActual = 1;
+                HabilitarBotonesPaginacion();
+            };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(DatoBusqueda))
                     BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
@@ -150,34 +175,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         }
 
         public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-            fieldFb.Items.Clear();
-            fieldFb.Items.AddRange(criteriosBusqueda);
-            fieldFb.SelectedIndexChanged += delegate {
-                if (Fb == FbCaja.FechaApertura || Fb == FbCaja.FechaCierre) {
-                    fieldDatoBusquedaFecha.Value = DateTime.Now;
-                    fieldDatoBusquedaFecha.Focus();
-                } else {
-                    fieldDatoBusqueda.Text = string.Empty;
-                    fieldDatoBusqueda.Focus();
-                }
-
-                fieldDatoBusqueda.Visible = Fb != FbCaja.FechaApertura && 
-                                            Fb != FbCaja.FechaCierre &&
-                                            fieldFb.SelectedIndex != 0;
-                fieldDatoBusquedaFecha.Visible = (Fb == FbCaja.FechaApertura ||
-                                                 Fb == FbCaja.FechaCierre) &&
-                                                 fieldFb.SelectedIndex != 0;
-
-                if (Fb != FbCaja.FechaApertura &&
-                    Fb != FbCaja.FechaCierre)
-                    BuscarDatos?.Invoke(new object[] { Fb, string.Empty }, EventArgs.Empty);
-
-                // Ir a la primera página al cambiar el criterio de búsqueda
-                PaginaActual = 1;
-                HabilitarBotonesPaginacion();
-            };
-
-            fieldFb.SelectedIndex = 2;
+            fieldCriterioBusqueda.Items.Clear();
+            fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
+            
+            fieldCriterioBusqueda.SelectedIndex = 2;
         }
 
         public void Mostrar() {
