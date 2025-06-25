@@ -20,8 +20,8 @@ namespace aDVancePOS.Mobile.Adaptadores {
             var txtSubtotal = convertView.FindViewById<TextView>(Resource.Id.txtSubtotal);
 
             txtNombre.Text = item.Producto.nombre;
-            txtCantidad.Text = item.Cantidad.ToString(); // Sin "Cant:"
-            txtSubtotal.Text = $"{(item.Producto.precio_venta_base * item.Cantidad):N2}"; // Sin "Subtotal:"
+            txtCantidad.Text = $"{item.Cantidad}";
+            txtSubtotal.Text = $"{(item.Producto.precio_venta_base * item.Cantidad):N2}";
 
             return convertView;
         }

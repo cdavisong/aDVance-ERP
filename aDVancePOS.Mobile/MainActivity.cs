@@ -1,24 +1,10 @@
 using aDVancePOS.Mobile.Modelos;
 using aDVancePOS.Mobile.Servicios;
-using aDVancePOS.Mobile.Controladores;
 
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-using Android;
-using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
-using Android.Widget;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
 using aDVancePOS.Mobile.Adaptadores;
-using Android.Provider;
+using Android.Views;
 
 namespace aDVancePOS.Mobile {
     [Activity(
@@ -26,15 +12,6 @@ namespace aDVancePOS.Mobile {
         MainLauncher = true,
         LaunchMode = LaunchMode.SingleTop,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    [IntentFilter(new[] { Intent.ActionView },
-        Categories = new[] {
-            Intent.CategoryDefault,
-            Intent.CategoryBrowsable
-        },
-        DataMimeType = "application/json",
-        DataScheme = "file",
-        DataHost = "*",
-        DataPathPattern = ".*\\.json")]
     public class MainActivity : Activity {
         // Constante para el código de solicitud de permisos
         private const int RequestStoragePermission = 1;
@@ -51,11 +28,16 @@ namespace aDVancePOS.Mobile {
         private TextView _lblTotal;
         private Button _btnPagarEfectivo;
         private Button _btnPagarTransferencia;
-        private Button _btnImportar;
+        private ImageButton _btnImportar;
         private Button _btnExportar;
 
         protected override void OnCreate(Bundle? savedInstanceState) {
             base.OnCreate(savedInstanceState);
+
+            // Configuración inicial de la ventana
+            RequestWindowFeature(WindowFeatures.NoTitle);
+            Window?.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
+
             SetContentView(Resource.Layout.activity_main);
 
             //CheckPermissions();            
@@ -70,12 +52,15 @@ namespace aDVancePOS.Mobile {
             _lblTotal = FindViewById<TextView>(Resource.Id.lblTotal);
             _btnPagarEfectivo = FindViewById<Button>(Resource.Id.btnPagarEfectivo);
             _btnPagarTransferencia = FindViewById<Button>(Resource.Id.btnPagarTransferencia);
-            _btnImportar = FindViewById<Button>(Resource.Id.btnImportar);
+            _btnImportar = FindViewById<ImageButton>(Resource.Id.btnImportar);
             _btnExportar = FindViewById<Button>(Resource.Id.btnExportar);
 
             // Configurar adaptadores y eventos
             ConfigurarAdaptadores();
             ConfigurarEventos();
+
+            // Acciones UI
+            OcultarInterfazSistema();
         }
 
         private void ConfigurarAdaptadores() {
@@ -102,6 +87,11 @@ namespace aDVancePOS.Mobile {
             _btnExportar.Click += (sender, e) => ExportarDatos();
         }
 
+        private void OcultarInterfazSistema() {
+            Window.InsetsController?.Hide(WindowInsets.Type.SystemBars());
+            Window.SetDecorFitsSystemWindows(false);
+        }
+
         private string? ObtenerRutaArchivosInterna() {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Q) {
                 // Para Android 10+ usamos el contexto
@@ -124,9 +114,10 @@ namespace aDVancePOS.Mobile {
                 var downloadsPath = _dataService.DirectorioDescargas;
                 var filePath = Path.Combine(downloadsPath, "productos_almacen.json");
 
-                if (File.Exists(filePath)) {
-                    ImportarProductos(filePath);
-                }
+                if (File.Exists(filePath))
+                    ImportarProductos(filePath);                
+
+                BuscarProductos();
             } catch (Exception ex) {
                 Toast.MakeText(this, $"Error cargando datos iniciales: {ex.Message}", ToastLength.Short).Show();
             }
@@ -147,7 +138,6 @@ namespace aDVancePOS.Mobile {
                     File.Move(filePath, destPath, true);
 
                     _dataService = new ServicioDatos(); // Reiniciar servicio
-                    BuscarProductos();
 
                     Toast.MakeText(this, "Productos importados correctamente", ToastLength.Long).Show();
                 } else {
