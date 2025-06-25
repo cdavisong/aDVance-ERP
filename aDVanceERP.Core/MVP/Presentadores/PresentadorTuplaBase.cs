@@ -70,4 +70,23 @@ public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresen
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
+
+    protected virtual void Dispose(bool disposing) {
+        if (!disposedValue) {
+            if (disposing) {
+                // TODO: eliminar el estado administrado (objetos administrados)
+            }
+
+            Vista.TuplaSeleccionada -= OnTuplaSeleccionada;
+            Vista.EditarDatosTupla -= OnEditarDatosTupla;
+            Vista.EliminarDatosTupla -= OnEliminarDatosTupla;
+
+            disposedValue = true;
+        }
+    }
+
+    public override void Dispose() {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
+    }
 }
