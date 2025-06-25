@@ -229,7 +229,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     }
 
     public void Cerrar() {
-        // ...
+        //...
     }
 
     private async void ActualizarMontoInversion() {

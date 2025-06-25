@@ -56,6 +56,7 @@ public partial class VistaTuplaAlmacen : Form, IVistaTuplaAlmacen {
     }
 
     public event EventHandler? TuplaSeleccionada;
+    public event EventHandler? DescargarProductos;
     public event EventHandler? EditarDatosTupla;
     public event EventHandler? EliminarDatosTupla;
     public event EventHandler? Salir;
@@ -67,6 +68,7 @@ public partial class VistaTuplaAlmacen : Form, IVistaTuplaAlmacen {
         fieldDireccion.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldNotas.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
+        btnExportarProductos.Click += delegate (object? sender, EventArgs e) { DescargarProductos?.Invoke(Id, e); };
         btnEditar.Click += delegate(object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
         btnEliminar.Click += delegate(object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
     }
