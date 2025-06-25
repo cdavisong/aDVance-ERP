@@ -146,6 +146,33 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
 
             UtilesReportes.GenerarReporteVentas(fieldDatoBusquedaFecha.Value, filas);
         };
+        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+            if (CriterioBusqueda == CriterioBusquedaVenta.Fecha) {
+                fieldDatoBusquedaFecha.Value = DateTime.Now;
+                fieldDatoBusquedaFecha.Focus();
+
+                ActualizarValorBrutoVentas();
+            }
+            else {
+                layoutValorBrutoVenta.Visible = false;
+
+                fieldDatoBusqueda.Text = string.Empty;
+                fieldDatoBusqueda.Focus();
+            }
+
+            btnDescargar.Enabled = CriterioBusqueda == CriterioBusquedaVenta.Fecha;
+            fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaVenta.Fecha &&
+                                        fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaVenta.Fecha &&
+                                             fieldCriterioBusqueda.SelectedIndex != 0;
+
+            if (CriterioBusqueda != CriterioBusquedaVenta.Fecha)
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+
+            // Ir a la primera página al cambiar el criterio de búsqueda
+            PaginaActual = 1;
+            HabilitarBotonesPaginacion();
+        };
         fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
@@ -199,33 +226,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
         fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
-        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-            if (CriterioBusqueda == CriterioBusquedaVenta.Fecha) {
-                fieldDatoBusquedaFecha.Value = DateTime.Now;
-                fieldDatoBusquedaFecha.Focus();
-
-                ActualizarValorBrutoVentas();
-            } else {
-                layoutValorBrutoVenta.Visible = false;
-
-                fieldDatoBusqueda.Text = string.Empty;
-                fieldDatoBusqueda.Focus();
-            }
-
-            btnDescargar.Enabled = CriterioBusqueda == CriterioBusquedaVenta.Fecha;
-            fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaVenta.Fecha &&
-                                        fieldCriterioBusqueda.SelectedIndex != 0;
-            fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaVenta.Fecha &&
-                                             fieldCriterioBusqueda.SelectedIndex != 0;
-
-            if (CriterioBusqueda != CriterioBusquedaVenta.Fecha)
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
-
-            // Ir a la primera página al cambiar el criterio de búsqueda
-            PaginaActual = 1;
-            HabilitarBotonesPaginacion();
-        };
-
+        
         fieldCriterioBusqueda.SelectedIndex = 4;
     }
 

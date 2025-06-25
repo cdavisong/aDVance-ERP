@@ -181,7 +181,8 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     }
 
     private void ActualizarVisibilidadCamposPrecios() {
-        bool mostrarCompra = P1DatosGenerales.CategoriaProducto == CategoriaProducto.MateriaPrima ||
+        bool mostrarCompra = P1DatosGenerales.CategoriaProducto == CategoriaProducto.ProductoTerminado ||
+                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.MateriaPrima ||
                              P1DatosGenerales.CategoriaProducto == CategoriaProducto.Mercancia;
         bool mostrarVenta = P1DatosGenerales.CategoriaProducto == CategoriaProducto.Mercancia ||
                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.ProductoTerminado ||

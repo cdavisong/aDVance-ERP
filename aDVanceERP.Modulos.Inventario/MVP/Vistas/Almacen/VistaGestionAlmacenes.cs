@@ -5,7 +5,7 @@ using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 
 public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
     private int _paginaActual = 1;
@@ -87,47 +87,6 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
-            if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
-            else SincronizarDatos?.Invoke(sender, e);
-        };
-        btnCerrar.Click += delegate(object? sender, EventArgs e) {
-            Salir?.Invoke(sender, e);
-            Ocultar();
-        };
-        btnRegistrar.Click += delegate(object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
-        btnPrimeraPagina.Click += delegate(object? sender, EventArgs e) {
-            PaginaActual = 1;
-            MostrarPrimeraPagina?.Invoke(sender, e);
-            SincronizarDatos?.Invoke(sender, e);
-            HabilitarBotonesPaginacion();
-        };
-        btnPaginaAnterior.Click += delegate(object? sender, EventArgs e) {
-            PaginaActual--;
-            MostrarPaginaAnterior?.Invoke(sender, e);
-            SincronizarDatos?.Invoke(sender, e);
-            HabilitarBotonesPaginacion();
-        };
-        btnPaginaSiguiente.Click += delegate(object? sender, EventArgs e) {
-            PaginaActual++;
-            MostrarPaginaSiguiente?.Invoke(sender, e);
-            SincronizarDatos?.Invoke(sender, e);
-            HabilitarBotonesPaginacion();
-        };
-        btnUltimaPagina.Click += delegate(object? sender, EventArgs e) {
-            PaginaActual = PaginasTotales;
-            MostrarUltimaPagina?.Invoke(sender, e);
-            SincronizarDatos?.Invoke(sender, e);
-            HabilitarBotonesPaginacion();
-        };
-        btnSincronizarDatos.Click += delegate(object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
-        contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
-    }
-
-    public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-        fieldCriterioBusqueda.Items.Clear();
-        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {
             fieldDatoBusqueda.Text = string.Empty;
             fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
@@ -139,6 +98,47 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
+        fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
+            if (!string.IsNullOrEmpty(DatoBusqueda))
+                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+            else SincronizarDatos?.Invoke(sender, e);
+        };
+        btnCerrar.Click += delegate (object? sender, EventArgs e) {
+            Salir?.Invoke(sender, e);
+            Ocultar();
+        };
+        btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
+        btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
+            PaginaActual = 1;
+            MostrarPrimeraPagina?.Invoke(sender, e);
+            SincronizarDatos?.Invoke(sender, e);
+            HabilitarBotonesPaginacion();
+        };
+        btnPaginaAnterior.Click += delegate (object? sender, EventArgs e) {
+            PaginaActual--;
+            MostrarPaginaAnterior?.Invoke(sender, e);
+            SincronizarDatos?.Invoke(sender, e);
+            HabilitarBotonesPaginacion();
+        };
+        btnPaginaSiguiente.Click += delegate (object? sender, EventArgs e) {
+            PaginaActual++;
+            MostrarPaginaSiguiente?.Invoke(sender, e);
+            SincronizarDatos?.Invoke(sender, e);
+            HabilitarBotonesPaginacion();
+        };
+        btnUltimaPagina.Click += delegate (object? sender, EventArgs e) {
+            PaginaActual = PaginasTotales;
+            MostrarUltimaPagina?.Invoke(sender, e);
+            SincronizarDatos?.Invoke(sender, e);
+            HabilitarBotonesPaginacion();
+        };
+        btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
+        contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
+    }
+
+    public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+        fieldCriterioBusqueda.Items.Clear();
+        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
         fieldCriterioBusqueda.SelectedIndex = 0;
     }
 

@@ -11,16 +11,14 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
 public class PresentadorAutenticacionUsuario : PresentadorBase<IVistaAutenticacionUsuario> {
     public PresentadorAutenticacionUsuario(IVistaAutenticacionUsuario vista) : base(vista) {
-        vista.Autenticar += AutenticarUsuario;
-        vista.RegistrarCuenta += delegate(object? sender, EventArgs args) {
-            MostrarVistaRegistroCuentaUsuario?.Invoke("register-user", args);
-        };
+        vista.Autenticar += OnAutenticarUsuario;
+        vista.RegistrarCuenta += OnRegistrarCuenta; 
     }
 
     public event EventHandler? UsuarioAutenticado;
     public event EventHandler? MostrarVistaRegistroCuentaUsuario;
 
-    private async void AutenticarUsuario(object? sender, EventArgs args) {
+   private async void OnAutenticarUsuario(object? sender, EventArgs args) {
         if (string.IsNullOrEmpty(Vista.NombreUsuario) || Vista.Password.Length == 0) {
             CentroNotificaciones.Mostrar(
                 "Debe especificar un usuario y contraseña para autenticarse en el sistema. Por favor, rellene los campos correctamente.",
@@ -59,5 +57,14 @@ public class PresentadorAutenticacionUsuario : PresentadorBase<IVistaAutenticaci
         catch (ExcepcionConexionServidorMySQL e) {
             CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);
         }
+    }
+
+    private void OnRegistrarCuenta(object? sender, EventArgs e) {
+        MostrarVistaRegistroCuentaUsuario?.Invoke("register-user", e);
+    }
+
+    public override void Dispose() {
+        Vista.Autenticar -= OnAutenticarUsuario;
+        Vista.RegistrarCuenta -= OnRegistrarCuenta;
     }
 }

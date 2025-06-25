@@ -10,4 +10,8 @@ public class PresentadorNotificacion : PresentadorBase<IVistaNotificacion> {
     public PresentadorNotificacion(IVistaNotificacion vista, Notificacion modelo) : base(vista) {
         _modelo = modelo;
     }
+
+    public override void Dispose() {
+        //...
+    }
 }

@@ -9,4 +9,6 @@ public abstract class PresentadorBase<V> : IPresentadorBase<V> where V : class, 
     }
 
     public V Vista { get; }
+
+    public abstract void Dispose();
 }

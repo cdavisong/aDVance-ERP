@@ -5,4 +5,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
 public class PresentadorAprobacionUsuario : PresentadorBase<IVistaAprobacionUsuario> {
     public PresentadorAprobacionUsuario(IVistaAprobacionUsuario vista) : base(vista) { }
+
+    public override void Dispose() {
+        //...
+    }
 }

@@ -40,9 +40,9 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
         var codigoOk = !string.IsNullOrEmpty(Vista.Codigo);
         var unidadMedidaOk = !string.IsNullOrEmpty(Vista.UnidadMedida);
-        var precioCompraOk =
-            (Vista.CategoriaProducto == CategoriaProducto.ProductoTerminado && Vista.PrecioCompraBase == 0) ||
-            (Vista.CategoriaProducto != CategoriaProducto.ProductoTerminado && Vista.PrecioCompraBase > 0);
+        var precioCompraOk = true;
+            //(Vista.CategoriaProducto == CategoriaProducto.ProductoTerminado && Vista.PrecioCompraBase == 0) ||
+            //(Vista.CategoriaProducto != CategoriaProducto.ProductoTerminado && Vista.PrecioCompraBase > 0);
         var precioVentaOk = 
             (Vista.CategoriaProducto == CategoriaProducto.MateriaPrima && Vista.EsVendible && Vista.PrecioVentaBase > 0) ||
             (Vista.CategoriaProducto == CategoriaProducto.MateriaPrima && !Vista.EsVendible && Vista.PrecioVentaBase == 0) ||

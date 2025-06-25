@@ -93,6 +93,17 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
+        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+            fieldDatoBusqueda.Text = string.Empty;
+            fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Focus();
+
+            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+
+            // Ir a la primera página al cambiar el criterio de búsqueda
+            PaginaActual = 1;
+            HabilitarBotonesPaginacion();
+        };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
                 BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
@@ -138,17 +149,7 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
         fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
-        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-            fieldDatoBusqueda.Text = string.Empty;
-            fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
-            fieldDatoBusqueda.Focus();
-
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
-
-            // Ir a la primera página al cambiar el criterio de búsqueda
-            PaginaActual = 1;
-            HabilitarBotonesPaginacion();
-        };
+        
         fieldCriterioBusqueda.SelectedIndex = 0;
         btnAprobarCuentaUsuario.Hide();
     }

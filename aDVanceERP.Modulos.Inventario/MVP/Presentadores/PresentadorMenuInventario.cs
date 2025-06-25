@@ -5,4 +5,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorMenuInventario : PresentadorBase<IVistaMenuInventario> {
     public PresentadorMenuInventario(IVistaMenuInventario vista) : base(vista) { }
+
+    public override void Dispose() {
+        //...
+    }
 }
