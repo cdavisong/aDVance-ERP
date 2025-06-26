@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Datos.Modelos; 
 
-public class ConfiguracionServidorMySQL : IConfServidorMySQL {
+public class ConfiguracionServidorMySQL {
     public ConfiguracionServidorMySQL() {
         Servidor = "127.0.0.1";
         BaseDatos = "advanceerp";
