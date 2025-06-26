@@ -12,6 +12,7 @@
     <Content Include="icons8_erp_system.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\aDVanceERP.Core.Datos\aDVanceERP.Core.Datos.csproj" />
     <ProjectReference Include="..\aDVanceERP.Core.Mensajes\aDVanceERP.Core.Mensajes.csproj" />
     <ProjectReference Include="..\aDVanceERP.Core.Seguridad\aDVanceERP.Core.Seguridad.csproj" />
     <ProjectReference Include="..\aDVanceERP.Core\aDVanceERP.Core.csproj" />

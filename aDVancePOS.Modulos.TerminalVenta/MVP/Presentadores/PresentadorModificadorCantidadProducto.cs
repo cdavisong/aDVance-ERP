@@ -7,5 +7,9 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Presentadores {
         public PresentadorModificadorCantidadProducto(IVistaModificadorCantidadProducto vista) : base(vista) {
             
         }
+
+        public override void Dispose() {
+            //...
+        }
     }
 }

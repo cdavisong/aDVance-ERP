@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
@@ -6,7 +7,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
         // Método auxiliar para ejecutar consultas y devolver un valor escalar
         private static async Task<T?> EjecutarConsultaEscalar<T>(string query, Func<MySqlDataReader, T> mapper,
             params MySqlParameter[]? parameters) {
-            await using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            await using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     await conexion.OpenAsync().ConfigureAwait(false);
 
@@ -32,7 +33,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             params MySqlParameter[]? parameters) {
             var resultados = new List<T>();
 
-            await using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            await using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     await conexion.OpenAsync().ConfigureAwait(false);
 

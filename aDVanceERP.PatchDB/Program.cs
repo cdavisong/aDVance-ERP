@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Utiles;
 
 using MySql.Data.MySqlClient;
@@ -49,7 +50,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void CrearTablasNuevas() {
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 } catch (Exception) {
@@ -86,7 +87,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void ModificarTablasExistentes() {
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 } catch (Exception) {
@@ -114,7 +115,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void PopularDatosTablasNuevas() {
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 } catch (Exception) {

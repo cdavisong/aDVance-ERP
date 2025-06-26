@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 
@@ -29,7 +30,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
         public override long Adicionar(Empresa objeto) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 conexion.Open();
 
                 using (var comando = new MySqlCommand(ComandoAdicionar(objeto), conexion)) {
@@ -47,7 +48,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
         public override async Task<long> AdicionarAsync(Empresa objeto) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 await conexion.OpenAsync().ConfigureAwait(false);
 
                 using (var comando = new MySqlCommand(ComandoAdicionar(objeto), conexion)) {
@@ -76,7 +77,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
         public override bool Editar(Empresa objeto, long nuevoId = 0) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 conexion.Open();
 
                 using (var comando = new MySqlCommand(ComandoEditar(objeto), conexion)) {
@@ -94,7 +95,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
         public override async Task<bool> EditarAsync(Empresa objeto, long nuevoId = 0) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 await conexion.OpenAsync().ConfigureAwait(false);
 
                 using (var comando = new MySqlCommand(ComandoEditar(objeto), conexion)) {

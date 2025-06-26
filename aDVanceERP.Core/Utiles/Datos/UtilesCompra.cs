@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using aDVanceERP.Core.Datos;
 using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
@@ -9,7 +10,7 @@ public static class UtilesCompra {
     private static decimal EjecutarConsultaDecimal(string query, params MySqlParameter[] parameters) {
         decimal resultado = 0;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
 
@@ -36,7 +37,7 @@ public static class UtilesCompra {
     private static int EjecutarConsultaEntero(string query, params MySqlParameter[] parameters) {
         var resultado = 0;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
 
@@ -63,7 +64,7 @@ public static class UtilesCompra {
     private static float EjecutarConsultaFlotante(string query, params MySqlParameter[] parameters) {
         var resultado = 0F;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
 
@@ -90,7 +91,7 @@ public static class UtilesCompra {
     private static List<string> EjecutarConsultaLista(string query, params MySqlParameter[] parameters) {
         var resultado = new List<string>();
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
 
