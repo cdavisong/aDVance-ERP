@@ -68,8 +68,8 @@ namespace aDVancePOS.Mobile.Servicios {
         public List<Producto> BuscarProductos(string termino) {
             return _productos.Where(p =>
                 p.nombre.Contains(termino, StringComparison.OrdinalIgnoreCase) ||
-                p.codigo.Contains(termino, StringComparison.OrdinalIgnoreCase))
-                .ToList();
+                p.codigo.Contains(termino, StringComparison.OrdinalIgnoreCase) &&
+                p.stock > 0).ToList();
         }
 
         public Producto ObtenerProductoPorId(int id) {
@@ -79,8 +79,11 @@ namespace aDVancePOS.Mobile.Servicios {
         public void RegistrarVenta(Venta venta) {
             // Actualizar stock
             foreach (var item in venta.Productos) {
-                var producto = _productos.First(p => p.id_producto == item.Producto.id_producto);
-                producto.stock -= item.Cantidad;
+                var producto = _productos.FirstOrDefault(p => p.id_producto == item.Producto.id_producto);
+                if (producto != null) {
+                    producto.stock -= item.Cantidad;
+                    if (producto.stock < 0) producto.stock = 0; // Prevenir stock negativo
+                }
             }
 
             // Guardar venta
@@ -113,9 +116,9 @@ namespace aDVancePOS.Mobile.Servicios {
                         producto.id_producto > 0 &&
                         !string.IsNullOrEmpty(producto.nombre) &&
                         producto.precio_venta_base > 0 &&
-                        producto.stock >= 0) {
+                        producto.stock > 0) {
                         productosValidados.Add(producto);
-                    } 
+                    }
                 }
 
                 return productosValidados;
