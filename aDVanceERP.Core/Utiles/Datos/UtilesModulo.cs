@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos; 
@@ -7,7 +8,7 @@ public static class UtilesModulo {
     public static long ObtenerIdModulo(string nombreModulo) {
         var idModulo = 0;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }
@@ -32,7 +33,7 @@ public static class UtilesModulo {
     public static string? ObtenerNombreModulo(long idModulo) {
         var nombreModulo = string.Empty;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }
@@ -56,7 +57,7 @@ public static class UtilesModulo {
     public static string[] ObtenerNombresModulos() {
         var nombresModuloes = new List<string>();
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }

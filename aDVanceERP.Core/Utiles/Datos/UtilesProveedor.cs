@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos; 
@@ -7,7 +8,7 @@ public static class UtilesProveedor {
     public static async Task<long> ObtenerIdProveedor(string? nombreProveedor) {
         var idProveedor = 0;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
             }
@@ -32,7 +33,7 @@ public static class UtilesProveedor {
     public static string? ObtenerRazonSocialProveedor(long idProveedor) {
         var razonSocialProveedor = string.Empty;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }
@@ -56,7 +57,7 @@ public static class UtilesProveedor {
     public static object[] ObtenerRazonesSocialesProveedores() {
         var nombresProveedores = new List<string>();
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }

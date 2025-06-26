@@ -20,4 +20,8 @@ public partial class PresentadorContenedorModulos : PresentadorBase<IVistaConten
     }
 
     private IVistaPrincipal VistaPrincipal { get; }
+
+    public override void Dispose() {
+        //...
+    }
 }

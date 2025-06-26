@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos; 
@@ -7,7 +8,7 @@ public static class UtilesProducto {
     // Método auxiliar para ejecutar consultas y devolver un valor escalar
     private static async Task<T?> EjecutarConsultaEscalar<T>(string query, Func<MySqlDataReader, T> mapper,
         params MySqlParameter[]? parameters) {
-        await using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        await using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
 
@@ -36,7 +37,7 @@ public static class UtilesProducto {
         params MySqlParameter[]? parameters) {
         var resultados = new List<T>();
 
-        await using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        await using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
 
@@ -251,7 +252,7 @@ public static class UtilesProducto {
         };
 
         try {
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 conexion.Open();
 
                 // Primero verificar el precio actual
@@ -309,7 +310,7 @@ public static class UtilesProducto {
         };
 
         try {
-            using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 conexion.Open();
 
                 // Verificar el precio actual

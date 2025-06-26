@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos; 
@@ -7,7 +8,7 @@ public static class UtilesContacto {
     public static async Task<long> ObtenerIdContacto(string nombreContacto) {
         var idContacto = 0;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
             }
@@ -31,7 +32,7 @@ public static class UtilesContacto {
     public static string? ObtenerNombreContacto(long idContacto) {
         var nombreContacto = string.Empty;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }
@@ -55,7 +56,7 @@ public static class UtilesContacto {
     public static string? ObtenerCorreoElectronicoContacto(long idContacto) {
         var correoElectronicoContacto = string.Empty;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             } catch (Exception) {
@@ -78,7 +79,7 @@ public static class UtilesContacto {
     public static object[] ObtenerNombresContactos() {
         var nombresContactos = new List<string>();
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }

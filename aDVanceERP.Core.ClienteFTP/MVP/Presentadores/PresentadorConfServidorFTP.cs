@@ -25,4 +25,8 @@ public class PresentadorConfServidorFTP : PresentadorBase<IVistaConfServidorFTP>
             }
         }
     }
+
+    public override void Dispose() {
+        //...
+    }
 }
