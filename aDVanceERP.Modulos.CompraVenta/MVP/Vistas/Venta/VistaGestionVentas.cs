@@ -105,6 +105,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     public event EventHandler? SincronizarDatos;
     public event EventHandler? Salir;
     public event EventHandler? RegistrarDatos;
+    public event EventHandler<string>? ImportarVentasArchivo;
     public event EventHandler? ConfirmarEntrega;
     public event EventHandler? ConfirmarPagos;
     public event EventHandler? EditarDatos;
@@ -187,6 +188,27 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
             Ocultar();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
+        btnImportarArchivoVentas.Click += delegate (object? sender, EventArgs e) { 
+            var filedialog = new OpenFileDialog {
+                Filter = "Archivos JSON (*.xlsx)|*.json",
+                Title = "Importar Ventas desde Archivo"
+            };
+
+            if (filedialog.ShowDialog() != DialogResult.OK) 
+                return;
+
+            var archivo = filedialog.FileName;
+            var ventas = string.Empty;
+
+            try {
+                ventas = File.ReadAllText(archivo);
+            } catch (Exception ex) {
+                MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            ImportarVentasArchivo?.Invoke(sender, ventas); 
+        };
         btnConfirmarEntrega.Click += delegate (object? sender, EventArgs e) { ConfirmarEntrega?.Invoke(sender, e); };
         btnConfirmarPagos.Click += delegate (object? sender, EventArgs e) { ConfirmarPagos?.Invoke(sender, e); };
         btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {

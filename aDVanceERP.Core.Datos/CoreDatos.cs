@@ -24,7 +24,7 @@ namespace aDVanceERP.Core.Datos {
 
             if (!File.Exists(ruta)) {
                 Directory.CreateDirectory(@".\settings");
-                File.WriteAllText(ruta, $"{ConfServidorMySQL.Servidor};{ConfServidorMySQL.BaseDatos};{ConfServidorMySQL.Usuario};{ConfServidorMySQL.Password}");
+                File.WriteAllText(ruta, "127.0.0.1;advanceerp;admin;admin");
             }
 
             var datos = File.ReadAllText(ruta);

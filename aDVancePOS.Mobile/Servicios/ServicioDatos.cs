@@ -37,7 +37,7 @@ namespace aDVancePOS.Mobile.Servicios {
 
         public string VentasPath { get; }
 
-        private string? ObtenerRutaArchivosInterna() {
+        public static string? ObtenerRutaArchivosInterna() {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Q) {
                 // Directorio de medios externos específico de la aplicación
                 return Application.Context.GetExternalMediaDirs().FirstOrDefault()?.AbsolutePath;
@@ -94,6 +94,23 @@ namespace aDVancePOS.Mobile.Servicios {
 
             // Guardar cambios
             GuardarDatos();
+        }
+
+        public double ObtenerTotalVentasAcumuladas() {
+            return _ventas.Sum(v => v.Total);
+        }
+
+        public (double Efectivo, double Transferencia, double Total) ObtenerEstadisticasVentas() {
+            double efectivo = _ventas.Where(v => v.MetodoPago == "Efectivo").Sum(v => v.Total);
+            double transferencia = _ventas.Where(v => v.MetodoPago == "Transferencia").Sum(v => v.Total);
+            double total = efectivo + transferencia;
+
+            return (efectivo, transferencia, total);
+        }
+
+        public void LimpiarVentas() {
+            _ventas.Clear();
+            GuardarDatos(); // Para persistir los cambios
         }
 
         private void GuardarDatos() {

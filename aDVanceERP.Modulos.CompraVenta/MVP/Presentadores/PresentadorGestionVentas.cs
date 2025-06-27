@@ -6,13 +6,15 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
+using Newtonsoft.Json;
+
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaVenta, IVistaGestionVentas,
     IVistaTuplaVenta, Venta, RepoVenta, FbVenta> {
     public PresentadorGestionVentas(IVistaGestionVentas vista) : base(vista) {
-        vista.ConfirmarEntrega += ConfirmarEntregaAriculos;
-        vista.ConfirmarPagos += ConfirmarPagos;
+        vista.ConfirmarEntrega += OnConfirmarEntregaAriculos;
+        vista.ConfirmarPagos += OnConfirmarPagos;
         vista.EditarDatos += delegate {
             Vista.HabilitarBtnConfirmarEntrega = false;
             Vista.HabilitarBtnConfirmarPagos = false;
@@ -56,8 +58,8 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         return base.PopularTuplasDatosEntidades();
     }
 
-    private void ConfirmarEntregaAriculos(object? sender, EventArgs e) {
-        foreach (var tupla in _tuplasEntidades)
+    private void OnConfirmarEntregaAriculos(object? sender, EventArgs e) {
+        foreach (var tupla in _tuplasObjetos)
             if (tupla.TuplaSeleccionada) {
                 tupla.Entidad.EstadoEntrega = "Completada";
 
@@ -81,7 +83,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         _ = PopularTuplasDatosEntidades();
     }
 
-    private void ConfirmarPagos(object? sender, EventArgs e) {
+    private void OnConfirmarPagos(object? sender, EventArgs e) {
         // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
         var tuplasSeleccionadas = _tuplasEntidades.Where(t => t.TuplaSeleccionada).ToList();
 

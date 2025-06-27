@@ -69,10 +69,10 @@ public partial class PresentadorContenedorModulos {
         _registroPago?.Dispose();
     }
 
-    private void ActualizarSeguimientoEntrega() {
-        using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
+    private void ActualizarSeguimientoEntrega(long idVenta = 0) {
+        using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
             var objetoSeguimiento = datosSeguimiento
-                .Buscar(FbSeguimientoEntrega.IdVenta, _registroPago?.Vista.IdVenta.ToString()).resultados
+                .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, (idVenta != 0 ? idVenta : _registroPago?.Vista.IdVenta).ToString())
                 .FirstOrDefault();
 
             if (objetoSeguimiento == null)

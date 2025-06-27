@@ -73,7 +73,7 @@ public partial class PresentadorContenedorModulos {
                 datosSeguimientoEntrega.Eliminar(idSeguimientoEntrega);
     }
 
-    private async void MostrarVistaRegistroVentaProducto(object? sender, EventArgs e) {
+    private async void OnMostrarVistaRegistroVentaProducto(object? sender, EventArgs e) {
         // Comprobar la existencia de una caja abierta  antes de comenzar las ventas del día
         if (!UtilesCaja.ExisteCajaActiva()) {
             CentroNotificaciones.Mostrar("No existen cajas activas en la sección de finanzas, debe registrar una apertura de caja antes de proceder con nuevas ventas", TipoNotificacion.Advertencia);
@@ -108,7 +108,7 @@ public partial class PresentadorContenedorModulos {
         _registroVentaProducto.Dispose();
     }
 
-    private async void MostrarVistaEdicionVentaProducto(object? sender, EventArgs e) {
+    private async void OnMostrarVistaEdicionVentaProducto(object? sender, EventArgs e) {
         await InicializarVistaRegistroVentaProducto();
 
         if (_registroVentaProducto != null && sender is Venta venta) {            

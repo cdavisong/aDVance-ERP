@@ -13,6 +13,7 @@ public interface IVistaGestionVentas : IVistaContenedor, IGestorDatos, IBuscador
 
     event EventHandler? DescargarReporte;
     event EventHandler? ImprimirReporte;
+    event EventHandler<string>? ImportarVentasArchivo;
     event EventHandler? ConfirmarEntrega;
     event EventHandler? ConfirmarPagos;
 
