@@ -13,6 +13,21 @@
       To learn more, see: https://learn.microsoft.com/dotnet/core/deploying/trimming/trimming-options#trimming-granularity
     -->
     <TrimMode>full</TrimMode>
+    <AndroidSigningKeyStore>jks_advance_scanner.keystore</AndroidSigningKeyStore>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidLinkTool>r8</AndroidLinkTool>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningStorePass>solrac0809</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>advance_scanner</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>solrac0809</AndroidSigningKeyPass>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningStorePass>solrac0809</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>advance_scanner</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>solrac0809</AndroidSigningKeyPass>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

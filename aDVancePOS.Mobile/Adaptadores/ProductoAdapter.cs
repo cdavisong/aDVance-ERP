@@ -21,8 +21,8 @@ namespace aDVancePOS.Mobile.Adaptadores {
             var txtStock = convertView.FindViewById<TextView>(Resource.Id.txtStock);
 
             txtNombre.Text = producto.nombre;
-            txtPrecio.Text = $"{producto.precio_venta_base:N2}"; // Sin "Precio:"
-            txtStock.Text = $"{producto.stock}"; // Sin "Stock:"
+            txtPrecio.Text = $"${producto.precio_venta_base:N2}";
+            txtStock.Text = $"Stock: {producto.stock}";
 
             return convertView;
         }

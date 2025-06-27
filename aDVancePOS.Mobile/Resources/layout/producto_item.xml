@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:textSize="14sp"
-        android:textColor="#4CAF50"
+        android:textColor="#B22222"
         android:textStyle="bold"
         android:focusable="false"
         android:focusableInTouchMode="false"/>

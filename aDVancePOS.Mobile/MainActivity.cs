@@ -1,24 +1,10 @@
 using aDVancePOS.Mobile.Modelos;
 using aDVancePOS.Mobile.Servicios;
-using aDVancePOS.Mobile.Controladores;
 
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-using Android;
-using Android.App;
-using Android.Content;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
-using Android.Widget;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
 using aDVancePOS.Mobile.Adaptadores;
-using Android.Provider;
+using Android.Views;
 
 namespace aDVancePOS.Mobile {
     [Activity(
@@ -26,15 +12,6 @@ namespace aDVancePOS.Mobile {
         MainLauncher = true,
         LaunchMode = LaunchMode.SingleTop,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    [IntentFilter(new[] { Intent.ActionView },
-        Categories = new[] {
-            Intent.CategoryDefault,
-            Intent.CategoryBrowsable
-        },
-        DataMimeType = "application/json",
-        DataScheme = "file",
-        DataHost = "*",
-        DataPathPattern = ".*\\.json")]
     public class MainActivity : Activity {
         // Constante para el código de solicitud de permisos
         private const int RequestStoragePermission = 1;
@@ -51,11 +28,16 @@ namespace aDVancePOS.Mobile {
         private TextView _lblTotal;
         private Button _btnPagarEfectivo;
         private Button _btnPagarTransferencia;
-        private Button _btnImportar;
-        private Button _btnExportar;
+        private ImageButton _btnImportar;
+        private ImageButton _btnExportar;
 
         protected override void OnCreate(Bundle? savedInstanceState) {
             base.OnCreate(savedInstanceState);
+
+            // Configuración inicial de la ventana
+            RequestWindowFeature(WindowFeatures.NoTitle);
+            Window?.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
+
             SetContentView(Resource.Layout.activity_main);
 
             //CheckPermissions();            
@@ -70,12 +52,15 @@ namespace aDVancePOS.Mobile {
             _lblTotal = FindViewById<TextView>(Resource.Id.lblTotal);
             _btnPagarEfectivo = FindViewById<Button>(Resource.Id.btnPagarEfectivo);
             _btnPagarTransferencia = FindViewById<Button>(Resource.Id.btnPagarTransferencia);
-            _btnImportar = FindViewById<Button>(Resource.Id.btnImportar);
-            _btnExportar = FindViewById<Button>(Resource.Id.btnExportar);
+            _btnImportar = FindViewById<ImageButton>(Resource.Id.btnImportar);
+            _btnExportar = FindViewById<ImageButton>(Resource.Id.btnExportar);
 
             // Configurar adaptadores y eventos
             ConfigurarAdaptadores();
             ConfigurarEventos();
+
+            // Acciones UI
+            OcultarInterfazSistema();
         }
 
         private void ConfigurarAdaptadores() {
@@ -96,10 +81,29 @@ namespace aDVancePOS.Mobile {
             _lstProductos.ItemClick += (sender, e) => {
                 AgregarAlCarrito(e.Position);
             };
+            _lstCarrito.ItemLongClick += (sender, e) => {
+                var productoVendido = _carrito[e.Position];
+
+                new AlertDialog.Builder(this)
+                    .SetTitle("Eliminar producto")
+                    .SetMessage($"¿Desea eliminar {productoVendido.Producto.nombre} del carrito?")
+                    .SetPositiveButton("Eliminar", (sender, args) => {
+                        _carrito.RemoveAt(e.Position);
+                        ActualizarCarrito();
+                        Toast.MakeText(this, "Producto eliminado", ToastLength.Short).Show();
+                    })
+                    .SetNegativeButton("Cancelar", (sender, e) => { })
+                    .Show();
+            };
             _btnPagarEfectivo.Click += (sender, e) => RealizarPago("Efectivo");
             _btnPagarTransferencia.Click += (sender, e) => RealizarPago("Transferencia");
             _btnImportar.Click += (sender, e) => ImportarProductos(filePath);
             _btnExportar.Click += (sender, e) => ExportarDatos();
+        }
+
+        private void OcultarInterfazSistema() {
+            Window.InsetsController?.Hide(WindowInsets.Type.SystemBars());
+            Window.SetDecorFitsSystemWindows(false);
         }
 
         private string? ObtenerRutaArchivosInterna() {
@@ -124,9 +128,10 @@ namespace aDVancePOS.Mobile {
                 var downloadsPath = _dataService.DirectorioDescargas;
                 var filePath = Path.Combine(downloadsPath, "productos_almacen.json");
 
-                if (File.Exists(filePath)) {
-                    ImportarProductos(filePath);
-                }
+                if (File.Exists(filePath))
+                    ImportarProductos(filePath);                
+
+                BuscarProductos();
             } catch (Exception ex) {
                 Toast.MakeText(this, $"Error cargando datos iniciales: {ex.Message}", ToastLength.Short).Show();
             }
@@ -147,7 +152,6 @@ namespace aDVancePOS.Mobile {
                     File.Move(filePath, destPath, true);
 
                     _dataService = new ServicioDatos(); // Reiniciar servicio
-                    BuscarProductos();
 
                     Toast.MakeText(this, "Productos importados correctamente", ToastLength.Long).Show();
                 } else {
@@ -183,6 +187,11 @@ namespace aDVancePOS.Mobile {
         private void AgregarAlCarrito(int position) {
             var producto = _productosEncontrados[position];
 
+            if (producto.stock <= 0) {
+                Toast.MakeText(this, "Producto sin stock disponible", ToastLength.Short).Show();
+                return;
+            }
+
             // Mostrar diálogo para cantidad
             var input = new EditText(this);
             input.InputType = Android.Text.InputTypes.ClassNumber;
@@ -194,6 +203,12 @@ namespace aDVancePOS.Mobile {
                 .SetView(input)
                 .SetPositiveButton("Agregar", (sender, e) => {
                     if (int.TryParse(input.Text, out int cantidad) && cantidad > 0) {
+                        // Validar cantidad contra stock
+                        if (cantidad > producto.stock) {
+                            Toast.MakeText(this, $"Cantidad excede stock disponible ({producto.stock})", ToastLength.Short).Show();
+                            return;
+                        }
+
                         // Verificar si ya está en el carrito
                         var itemExistente = _carrito.FirstOrDefault(p => p.Producto.id_producto == producto.id_producto);
                         if (itemExistente != null) {
@@ -227,19 +242,30 @@ namespace aDVancePOS.Mobile {
                 return;
             }
 
-            var venta = new Venta {
-                Productos = new List<ProductoVendido>(_carrito),
-                Total = _carrito.Sum(item => (double) item.Producto.precio_venta_base * item.Cantidad),
-                MetodoPago = metodoPago
-            };
+            var total = _carrito.Sum(item => item.Producto.precio_venta_base * item.Cantidad);
 
-            _dataService.RegistrarVenta(venta);
+            new AlertDialog.Builder(this)
+                .SetTitle("Confirmar pago")
+                .SetMessage($"Total: ${total:N2}\nMétodo: {metodoPago}\n¿Confirmar venta?")
+                .SetPositiveButton("Confirmar", (sender, e) => {
+                    var venta = new Venta {
+                        Productos = new List<ProductoVendido>(_carrito),
+                        Total = (double) total,
+                        MetodoPago = metodoPago
+                    };
 
-            // Limpiar carrito
-            _carrito.Clear();
-            ActualizarCarrito();
-
-            Toast.MakeText(this, $"Venta registrada ({metodoPago})", ToastLength.Long).Show();
+                    _dataService.RegistrarVenta(venta);
+                    _carrito.Clear();
+                    ActualizarCarrito();
+                    BuscarProductos(); // Refrescar lista de productos
+                    Toast.MakeText(this, $"Venta registrada ({metodoPago})", ToastLength.Long).Show();
+                })
+                .SetNegativeButton("Cancelar", (sender, e) => {
+                    _carrito.Clear();
+                    ActualizarCarrito();
+                    Toast.MakeText(this, "Venta cancelada", ToastLength.Short).Show();
+                })
+                .Show();
         }
     }
 }
