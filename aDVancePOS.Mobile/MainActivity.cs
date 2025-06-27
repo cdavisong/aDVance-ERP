@@ -13,10 +13,7 @@ namespace aDVancePOS.Mobile {
         LaunchMode = LaunchMode.SingleTop,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Activity {
-        // Constante para el código de solicitud de permisos
-        private const int RequestStoragePermission = 1;
-
-        private ServicioDatos _dataService;
+        private ServicioDatos _servicioDatos;
         private List<Producto> _productosEncontrados;
         private List<ProductoVendido> _carrito;
         private ProductoAdapter _productosAdapter;
@@ -29,7 +26,7 @@ namespace aDVancePOS.Mobile {
         private Button _btnPagarEfectivo;
         private Button _btnPagarTransferencia;
         private ImageButton _btnImportar;
-        private ImageButton _btnExportar;
+        private Button _btnCerrarVenta;
 
         protected override void OnCreate(Bundle? savedInstanceState) {
             base.OnCreate(savedInstanceState);
@@ -43,6 +40,7 @@ namespace aDVancePOS.Mobile {
             //CheckPermissions();            
             InicializarControlesUI();
             InicializarDatos();
+            ActualizarEstadisticasVentas();
         }
 
         private void InicializarControlesUI() {
@@ -53,7 +51,7 @@ namespace aDVancePOS.Mobile {
             _btnPagarEfectivo = FindViewById<Button>(Resource.Id.btnPagarEfectivo);
             _btnPagarTransferencia = FindViewById<Button>(Resource.Id.btnPagarTransferencia);
             _btnImportar = FindViewById<ImageButton>(Resource.Id.btnImportar);
-            _btnExportar = FindViewById<ImageButton>(Resource.Id.btnExportar);
+            _btnCerrarVenta = FindViewById<Button>(Resource.Id.btnCierreVenta);
 
             // Configurar adaptadores y eventos
             ConfigurarAdaptadores();
@@ -74,7 +72,7 @@ namespace aDVancePOS.Mobile {
         }
 
         private void ConfigurarEventos() {
-            var downloadsPath = ObtenerRutaArchivosInterna();
+            var downloadsPath = ServicioDatos.ObtenerRutaArchivosInterna();
             var filePath = Path.Combine(downloadsPath, "productos_almacen.json");
 
             _txtBuscar.TextChanged += (sender, e) => BuscarProductos();
@@ -97,40 +95,32 @@ namespace aDVancePOS.Mobile {
             };
             _btnPagarEfectivo.Click += (sender, e) => RealizarPago("Efectivo");
             _btnPagarTransferencia.Click += (sender, e) => RealizarPago("Transferencia");
-            _btnImportar.Click += (sender, e) => ImportarProductos(filePath);
-            _btnExportar.Click += (sender, e) => ExportarDatos();
+            _btnImportar.Click += (sender, e) => {
+                ImportarProductos(filePath);
+                BuscarProductos();
+            };
+            _btnCerrarVenta.Click += (sender, e) => RealizarCierreVenta();
         }
 
         private void OcultarInterfazSistema() {
             Window.InsetsController?.Hide(WindowInsets.Type.SystemBars());
             Window.SetDecorFitsSystemWindows(false);
         }
-
-        private string? ObtenerRutaArchivosInterna() {
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Q) {
-                // Para Android 10+ usamos el contexto
-                return Application.Context.GetExternalFilesDir("")?.AbsolutePath;
-            } else {
-                // Para versiones anteriores
-                return Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
-            }
-        }
-
+        
         private void InicializarDatos() {
             // Inicializar servicios
-            _dataService = new ServicioDatos();
+            _servicioDatos = new ServicioDatos();
 
             CargarDatosIniciales();
         }
 
         private void CargarDatosIniciales() {
             try {
-                var downloadsPath = _dataService.DirectorioDescargas;
+                var downloadsPath = _servicioDatos.DirectorioDescargas;
                 var filePath = Path.Combine(downloadsPath, "productos_almacen.json");
 
                 if (File.Exists(filePath))
-                    ImportarProductos(filePath);                
-
+                    ImportarProductos(filePath);
                 BuscarProductos();
             } catch (Exception ex) {
                 Toast.MakeText(this, $"Error cargando datos iniciales: {ex.Message}", ToastLength.Short).Show();
@@ -143,15 +133,15 @@ namespace aDVancePOS.Mobile {
                     var jsonContent = File.ReadAllText(filePath);
 
                     // Copiar el archivo a la ubicación interna de la app
-                    File.WriteAllText(_dataService.ProductosPath, jsonContent);
+                    File.WriteAllText(_servicioDatos.ProductosPath, jsonContent);
 
                     // Opcional: mover el archivo a la carpeta de importados
-                    var importDir = Path.Combine(_dataService.DirectorioDescargas, "imported");
+                    var importDir = Path.Combine(_servicioDatos.DirectorioDescargas, "imported");
                     Directory.CreateDirectory(importDir);
                     var destPath = Path.Combine(importDir, Path.GetFileName(filePath));
                     File.Move(filePath, destPath, true);
 
-                    _dataService = new ServicioDatos(); // Reiniciar servicio
+                    _servicioDatos = new ServicioDatos(); // Reiniciar servicio
 
                     Toast.MakeText(this, "Productos importados correctamente", ToastLength.Long).Show();
                 } else {
@@ -163,22 +153,22 @@ namespace aDVancePOS.Mobile {
         }
 
         private void ExportarDatos() {
-            var downloadsPath = _dataService.DirectorioDescargas;
+            var downloadsPath = _servicioDatos.DirectorioDescargas;
             Directory.CreateDirectory(downloadsPath);
 
             var exportTime = DateTime.Now.ToString("yyyyMMdd_HHmmss");
             var productosExportPath = Path.Combine(downloadsPath, $"productos_export_{exportTime}.json");
             var ventasExportPath = Path.Combine(downloadsPath, $"ventas_export_{exportTime}.json");
 
-            File.Copy(_dataService.ProductosPath, productosExportPath, true);
-            File.Copy(_dataService.VentasPath, ventasExportPath, true);
+            File.Copy(_servicioDatos.ProductosPath, productosExportPath, true);
+            File.Copy(_servicioDatos.VentasPath, ventasExportPath, true);
 
             Toast.MakeText(this, $"Datos exportados a:\n{downloadsPath}", ToastLength.Long).Show();
         }
 
         private void BuscarProductos() {
             var termino = _txtBuscar.Text;
-            _productosEncontrados = _dataService.BuscarProductos(termino);
+            _productosEncontrados = _servicioDatos.BuscarProductos(termino);
             _productosAdapter.Clear();
             _productosAdapter.AddAll(_productosEncontrados);
             _productosAdapter.NotifyDataSetChanged();
@@ -249,15 +239,16 @@ namespace aDVancePOS.Mobile {
                 .SetMessage($"Total: ${total:N2}\nMétodo: {metodoPago}\n¿Confirmar venta?")
                 .SetPositiveButton("Confirmar", (sender, e) => {
                     var venta = new Venta {
-                        Productos = new List<ProductoVendido>(_carrito),
+                        Productos = [.. _carrito],
                         Total = (double) total,
                         MetodoPago = metodoPago
                     };
 
-                    _dataService.RegistrarVenta(venta);
+                    _servicioDatos.RegistrarVenta(venta);
                     _carrito.Clear();
                     ActualizarCarrito();
-                    BuscarProductos(); // Refrescar lista de productos
+                    BuscarProductos();
+                    ActualizarEstadisticasVentas();
                     Toast.MakeText(this, $"Venta registrada ({metodoPago})", ToastLength.Long).Show();
                 })
                 .SetNegativeButton("Cancelar", (sender, e) => {
@@ -265,6 +256,33 @@ namespace aDVancePOS.Mobile {
                     ActualizarCarrito();
                     Toast.MakeText(this, "Venta cancelada", ToastLength.Short).Show();
                 })
+                .Show();
+        }
+
+        private void ActualizarEstadisticasVentas() {
+            var (efectivo, transferencia, total) = _servicioDatos.ObtenerEstadisticasVentas();
+
+            FindViewById<TextView>(Resource.Id.lblVentasEfectivo).Text = $"Efectivo: ${efectivo:N2}";
+            FindViewById<TextView>(Resource.Id.lblVentasTransferencia).Text = $"Transferencias: ${transferencia:N2}";
+            FindViewById<TextView>(Resource.Id.lblVentasTotal).Text = $"Total acumulado: ${total:N2}";
+        }
+
+        private void RealizarCierreVenta() {
+            if (_servicioDatos.ObtenerTotalVentasAcumuladas() <= 0) {
+                Toast.MakeText(this, "No hay ventas para cerrar", ToastLength.Short).Show();
+                return;
+            }
+
+            new AlertDialog.Builder(this)
+                .SetTitle("Cierre de venta")
+                .SetMessage("¿Desea realizar el cierre de venta?\nSe exportarán los datos y se reiniciarán los acumulados.")
+                .SetPositiveButton("Confirmar", (sender, e) => {
+                    ExportarDatos();
+                    _servicioDatos.LimpiarVentas();
+                    ActualizarEstadisticasVentas();
+                    Toast.MakeText(this, "Cierre de venta realizado", ToastLength.Long).Show();
+                })
+                .SetNegativeButton("Cancelar", (sender, e) => { })
                 .Show();
         }
     }
