@@ -1,5 +1,4 @@
 ﻿using aDVanceERP.Core.ClienteFTP.MVP.Vistas.Plantillas;
-using aDVanceERP.Core.Utiles;
 
 namespace aDVanceERP.Core.ClienteFTP.MVP.Vistas; 
 
@@ -59,14 +58,14 @@ public partial class VistaConfServidorFTP : Form, IVistaConfServidorFTP {
     }
 
     public void Restaurar() {
-        var confServidorFTP = UtilesConfServidores.ObtenerConfServidorFTP();
+        //var confServidorFTP = UtilesConfServidores.ObtenerConfServidorFTP();
 
-        if (confServidorFTP == null)
-            return;
+        //if (confServidorFTP == null)
+        //    return;
 
-        Servidor = confServidorFTP.ElementAt(0);
-        Usuario = confServidorFTP.ElementAt(1);
-        Password = confServidorFTP.ElementAt(2);
+        //Servidor = confServidorFTP.ElementAt(0);
+        //Usuario = confServidorFTP.ElementAt(1);
+        //Password = confServidorFTP.ElementAt(2);
     }
 
     public void Ocultar() {

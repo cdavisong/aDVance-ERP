@@ -102,7 +102,7 @@ public partial class PresentadorContenedorModulos {
                         $"Venta",
                         pago.Id,
                         UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0,
-                        $"Pago de venta #{_registroPago?.Vista.IdVenta} realizado por {UtilesCuentaUsuario.UsuarioAutenticado?.Nombre}"
+                        $"Pago de venta #{(pago.IdVenta > 0 ? pago.IdVenta : _registroPago?.Vista.IdVenta)} realizado por {UtilesCuentaUsuario.UsuarioAutenticado?.Nombre}"
                     );
 
                     datos.Adicionar(movimientoCaja);

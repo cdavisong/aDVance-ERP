@@ -64,15 +64,15 @@ public partial class VistaConfServidorMySQL : Form, IVistaConfServidorMySQL {
     }
 
     public void Restaurar() {
-        var confServidorMySQL = UtilesConfServidores.ObtenerConfServidorMySQL();
+        //var confServidorMySQL = UtilesConfServidores.ObtenerConfServidorMySQL();
 
-        if (confServidorMySQL == null)
-            return;
+        //if (confServidorMySQL == null)
+        //    return;
 
-        Servidor = confServidorMySQL.ElementAt(0);
-        BaseDatos = confServidorMySQL.ElementAt(1);
-        Usuario = confServidorMySQL.ElementAt(2);
-        Password = confServidorMySQL.ElementAt(3);
+        //Servidor = confServidorMySQL.ElementAt(0);
+        //BaseDatos = confServidorMySQL.ElementAt(1);
+        //Usuario = confServidorMySQL.ElementAt(2);
+        //Password = confServidorMySQL.ElementAt(3);
     }
 
     public void Ocultar() {
