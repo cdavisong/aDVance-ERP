@@ -14,6 +14,8 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas;
 using aDVanceERP.Modulos.Inventario;
 
+using System.Management;
+
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal;
 
 public partial class PresentadorPrincipal {
@@ -26,6 +28,9 @@ public partial class PresentadorPrincipal {
         // Eventos
         Vista.SubMenuUsuario += MostrarVistaMenuUsuario;
         Vista.Salir += DisponerModulos;
+
+        // Eventos de deteccion de dispositivos
+        DetectUSBDevices();
 
         #region Menu de usuario
 
@@ -72,7 +77,15 @@ public partial class PresentadorPrincipal {
         UtilesServidorScanner.Servidor.IniciarAsync(9002);
 
         #endregion
+
+        #region Característica : Deteccion de dispositivos Android
+
+
+
+        #endregion
     }
+
+
 
     private void ActualizarDatosEmpresa() {
         using (var datosEmpresa = new DatosEmpresa()) {
