@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Excepciones;
 
 using MySql.Data.MySqlClient;
 
@@ -6,7 +7,7 @@ namespace aDVanceERP.Core.Utiles.Datos;
 
 public static class UtilesTelefonoContacto {
     private static string? ObtenerTelefonoDesdeBD(string query) {
-        using var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL());
+        using var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
 
         try {
             conexion.Open();

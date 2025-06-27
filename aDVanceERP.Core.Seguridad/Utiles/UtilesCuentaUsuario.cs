@@ -1,4 +1,5 @@
 ﻿using System.Security;
+using aDVanceERP.Core.Datos;
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Utiles;
@@ -13,7 +14,7 @@ public static class UtilesCuentaUsuario {
     public static string[]? PermisosUsuarioTelegram { get; set; }
 
     private static async Task<T?> EjecutarConsultaAsync<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
-        using var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL());
+        using var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
         try {
             await conexion.OpenAsync().ConfigureAwait(false);
         }
@@ -31,7 +32,7 @@ public static class UtilesCuentaUsuario {
     }
 
     private static T? EjecutarConsulta<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
-        using var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL());
+        using var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
         try {
             conexion.Open();
         }
@@ -64,7 +65,7 @@ public static class UtilesCuentaUsuario {
     public static async Task<bool> EsTablaCuentasUsuarioVacia() {
         var tablaVacia = false;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }
@@ -91,7 +92,7 @@ public static class UtilesCuentaUsuario {
         var passwordSalt = passwordSeguro.salt;
         var passwordHash = passwordSeguro.hash;
 
-        using (var conexion = new MySqlConnection(UtilesConfServidores.ObtenerStringConfServidorMySQL())) {
+        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }

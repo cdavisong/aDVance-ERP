@@ -25,4 +25,8 @@ public partial class PresentadorContenedorSeguridad : PresentadorBase<IVistaCont
     }
 
     private IVistaPrincipal VistaPrincipal { get; }
+
+    public override void Dispose() {
+        //...
+    }
 }

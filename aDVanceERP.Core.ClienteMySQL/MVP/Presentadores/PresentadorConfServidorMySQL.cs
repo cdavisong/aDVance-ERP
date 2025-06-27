@@ -26,4 +26,7 @@ public class PresentadorConfServidorMySQL : PresentadorBase<IVistaConfServidorMy
             }
         }
     }
+    public override void Dispose() {
+        //...
+    }
 }
