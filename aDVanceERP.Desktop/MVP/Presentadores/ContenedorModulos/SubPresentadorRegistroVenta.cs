@@ -74,13 +74,6 @@ public partial class PresentadorContenedorModulos {
     }
 
     private async void OnMostrarVistaRegistroVentaProducto(object? sender, EventArgs e) {
-        // Comprobar la existencia de una caja abierta  antes de comenzar las ventas del día
-        if (!UtilesCaja.ExisteCajaActiva()) {
-            CentroNotificaciones.Mostrar("No existen cajas activas en la sección de finanzas, debe registrar una apertura de caja antes de proceder con nuevas ventas", TipoNotificacion.Advertencia);
-
-            return;
-        }
-
         // Comprobar la existencia de al menos un almacén registrado.
         var existenAlmacenes = false;
 

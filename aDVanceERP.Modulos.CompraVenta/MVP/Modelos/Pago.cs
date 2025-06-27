@@ -17,7 +17,7 @@ public class Pago : IEntidad {
         MetodoPago = metodoPago;
         Monto = monto;
         FechaConfirmacion = DateTime.Now;
-        Estado = "Completado";
+        Estado = "Confirmado";
     }
 
     public long IdVenta { get; set; }

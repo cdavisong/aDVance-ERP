@@ -1,7 +1,8 @@
 ﻿using System.Globalization;
-
-using aDVanceERP.Core.Repositorios;
-using aDVanceERP.Core.Repositorios.Plantillas;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
@@ -187,8 +188,24 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
             Salir?.Invoke(sender, e);
             Ocultar();
         };
-        btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
-        btnImportarArchivoVentas.Click += delegate (object? sender, EventArgs e) { 
+        btnRegistrar.Click += delegate (object? sender, EventArgs e) {
+            // Comprobar la existencia de una caja abierta  antes de comenzar las ventas del día
+            if (!UtilesCaja.ExisteCajaActiva()) {
+                CentroNotificaciones.Mostrar("No existen cajas activas en la sección de finanzas, debe registrar una apertura de caja antes de proceder con nuevas ventas", TipoNotificacion.Advertencia);
+
+                return;
+            }
+
+            RegistrarDatos?.Invoke(sender, e); 
+        };
+        btnImportarArchivoVentas.Click += delegate (object? sender, EventArgs e) {
+            // Comprobar la existencia de una caja abierta  antes de importar ventas
+            if (!UtilesCaja.ExisteCajaActiva()) {
+                CentroNotificaciones.Mostrar("No existen cajas activas en la sección de finanzas, debe registrar una apertura de caja antes de proceder con nuevas ventas", TipoNotificacion.Advertencia);
+
+                return;
+            }
+
             var filedialog = new OpenFileDialog {
                 Filter = "Archivos JSON (*.xlsx)|*.json",
                 Title = "Importar Ventas desde Archivo"

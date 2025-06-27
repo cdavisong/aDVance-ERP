@@ -1,12 +1,8 @@
-﻿using aDVanceERP.Core.Datos;
-using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-
-using MySql.Data.MySqlClient;
 
 using Newtonsoft.Json;
 
@@ -44,14 +40,15 @@ public partial class PresentadorContenedorModulos {
         if (ventasJson == null)
             return;
 
-        var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
+        //TODO: Mejorar la velocidad de la operación con una conexion unica 
+        //var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
 
         foreach (var ventaJson in ventasJson) {
-            var idVenta = 0L;
             var idAlmacen = 0L;
 
             foreach (var productoVendidoJson in ventaJson.Productos) {
-                idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(productoVendidoJson.Producto.nombre_almacen).Result;
+                if (idAlmacen == 0)
+                    idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(productoVendidoJson.Producto.nombre_almacen).Result;
 
                 var tuplaProducto = new string[] {
                     productoVendidoJson.Producto.id_producto.ToString(),
@@ -69,7 +66,7 @@ public partial class PresentadorContenedorModulos {
             }
 
             using (var repoVentas = new DatosVenta()) {
-                idVenta = repoVentas.Adicionar(new Venta(0,
+                ventaJson.IdVenta = repoVentas.Adicionar(new Venta(0,
                     ventaJson.Fecha,
                     idAlmacen,
                     0,
@@ -81,15 +78,23 @@ public partial class PresentadorContenedorModulos {
             }
 
             var pago = new Pago(0,
-                idVenta,
-                ventaJson.MetodoPago,
-                (decimal) ventaJson.Total);
+               ventaJson.IdVenta,
+               ventaJson.MetodoPago,
+               (decimal)ventaJson.Total);
+
+
+            using (var repoPagos = new DatosPago()) {
+                pago.Id = repoPagos.Adicionar(pago);
+            }
 
             RegistrarDetallesVentaProducto();
-            ActualizarSeguimientoEntrega(idVenta);
+            ActualizarSeguimientoEntrega(ventaJson.IdVenta);
             ActualizarMovimientoCaja([pago]);
-            RegistrarTransferenciaVenta();
+
+            ProductosVenta?.Clear();
         }
+
+        _gestionVentas?.RefrescarListaObjetos();
     }
 }
 
@@ -112,7 +117,7 @@ internal class ProductoVendidoJson {
 }
 
 internal class VentaJson {
-    public int IdVenta { get; set; }
+    public long IdVenta { get; set; }
     public DateTime Fecha { get; set; }
     public List<ProductoVendidoJson> Productos { get; set; }
     public double Total { get; set; }
