@@ -39,11 +39,12 @@ namespace aDVancePOS.Mobile.Servicios {
 
         private string? ObtenerRutaArchivosInterna() {
             if (Build.VERSION.SdkInt >= BuildVersionCodes.Q) {
-                // Para Android 10+ usamos el contexto
-                return Application.Context.GetExternalFilesDir("")?.AbsolutePath;
+                // Directorio de medios externos específico de la aplicación
+                return Application.Context.GetExternalMediaDirs().FirstOrDefault()?.AbsolutePath;
             } else {
-                // Para versiones anteriores
-                return Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
+                // Directorio público de medios (por ejemplo, Descargas)
+                return Android.OS.Environment.GetExternalStoragePublicDirectory(
+                    Android.OS.Environment.DirectoryDownloads)?.AbsolutePath;
             }
         }
 
