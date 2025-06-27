@@ -13,8 +13,8 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
     IVistaGestionCuentasUsuarios, IVistaTuplaCuentaUsuario, CuentaUsuario, DatosCuentaUsuario,
     CriterioBusquedaCuentaUsuario> {
     public PresentadorGestionCuentasUsuarios(IVistaGestionCuentasUsuarios vista) : base(vista) {
-        vista.AprobarSolicitudCuenta += AprobarSolicitudCuentaUsuario;
-        vista.EditarDatos += delegate { Vista.HabilitarBtnAprobacionSolicitudCuenta = false; };
+        vista.AprobarSolicitudCuenta += OnAprobarSolicitudCuentaUsuario;
+        vista.EditarDatos += OnEditarDatos;
     }
 
     protected override PresentadorTuplaCuentaUsuario ObtenerValoresTupla(CuentaUsuario objeto) {
@@ -24,13 +24,13 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
         presentadorTupla.Vista.NombreUsuario = objeto.Nombre;
         presentadorTupla.Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
         presentadorTupla.Vista.EstadoCuentaUsuario = objeto.Aprobado ? "Activa" : "Esperando aprobación";
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
-        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnAprobacionCuentasUsuarios;
+        presentadorTupla.ObjetoSeleccionado += OnCambioSeleccionObjeto;
+        presentadorTupla.ObjetoDeseleccionado += OnCambioSeleccionObjeto;
 
         return presentadorTupla;
     }
 
-    private void AprobarSolicitudCuentaUsuario(object? sender, EventArgs e) {
+    private void OnAprobarSolicitudCuentaUsuario(object? sender, EventArgs e) {
         var usuariosRol0 = 0;
 
         foreach (var tupla in _tuplasObjetos)
@@ -60,7 +60,11 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
         _ = RefrescarListaObjetos();
     }
 
-    private void CambiarVisibilidadBtnAprobacionCuentasUsuarios(object? sender, EventArgs e) {
+    private void OnEditarDatos(object? sender, EventArgs e) {
+        Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
+    }
+
+    private void OnCambioSeleccionObjeto(object? sender, EventArgs e) {
         if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
             foreach (var tupla in _tuplasObjetos)
                 if (tupla.TuplaSeleccionada) {
@@ -76,5 +80,12 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
         else {
             Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
         }
+    }
+
+    protected override void Dispose(bool disposing) {
+        Vista.AprobarSolicitudCuenta -= OnAprobarSolicitudCuentaUsuario;
+        Vista.EditarDatos -= OnEditarDatos;
+
+        base.Dispose(disposing);
     }
 }

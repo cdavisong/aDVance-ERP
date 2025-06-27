@@ -8,6 +8,8 @@ namespace aDVanceERP.Core.MVP.Presentadores;
 public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresentadorTupla<Vt, O>
     where Vt : class, IVistaTupla
     where O : class, IObjetoUnico, new() {
+    private bool disposedValue;
+
     protected PresentadorTuplaBase(Vt vista, O objeto) : base(vista) {
         Objeto = objeto ?? throw new ArgumentNullException(nameof(objeto));
 
@@ -22,16 +24,16 @@ public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresen
         set {
             if (value) {
                 Vista.ColorFondoTupla = VariablesGlobales.ColorResaltadoTupla;
-                ObjetoSeleccionado?.Invoke(Objeto, EventArgs.Empty);
+                ObjetoSeleccionado?.Invoke(Vista, EventArgs.Empty);
             }
             else {
                 Vista.Restaurar();
-                ObjetoDeseleccionado?.Invoke(Objeto, EventArgs.Empty);
+                ObjetoDeseleccionado?.Invoke(Vista, EventArgs.Empty);
             }
         }
     }
 
-    public O Objeto { get; }
+    public O Objeto { get; private set; }
 
     public event EventHandler? ObjetoSeleccionado;
     public event EventHandler? ObjetoDeseleccionado;
@@ -48,5 +50,24 @@ public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresen
 
     private void OnEliminarDatosTupla(object? sender, EventArgs e) {
         EliminarObjeto?.Invoke(Objeto, e);
+    }
+
+    protected virtual void Dispose(bool disposing) {
+        if (!disposedValue) {
+            if (disposing) {
+                // TODO: eliminar el estado administrado (objetos administrados)
+            }
+
+            Vista.TuplaSeleccionada -= OnTuplaSeleccionada;
+            Vista.EditarDatosTupla -= OnEditarDatosTupla;
+            Vista.EliminarDatosTupla -= OnEliminarDatosTupla;
+
+            disposedValue = true;
+        }
+    }
+
+    public override void Dispose() {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -16,6 +16,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
     where C : Enum {
     private readonly SemaphoreSlim _semaphore = new(1, 1); // Para controlar la concurrencia
     protected readonly List<Pt> _tuplasObjetos;
+    private bool disposedValue;
 
     protected PresentadorGestionBase(Vg vista) : base(vista) {
         _tuplasObjetos = new List<Pt>();
@@ -49,10 +50,13 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
 
             Vista.Vistas?.Cerrar(true);
 
-            _tuplasObjetos.ForEach(tupla => {
-                    tupla.EliminarObjeto -= EliminarObjeto;
-                    tupla.Vista.Cerrar();
-                });
+            // Desuscribir eventos del presentador de tuplas
+            foreach (var presentadorTupla in _tuplasObjetos) {
+                presentadorTupla.ObjetoSeleccionado -= OnObjetoSeleccionado;
+                presentadorTupla.EditarObjeto -= OnEditarObjeto;
+                presentadorTupla.EliminarObjeto -= OnEliminarObjeto;
+                presentadorTupla.Dispose();
+            }
             _tuplasObjetos.Clear();
 
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
@@ -81,9 +85,9 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
         var presentadorTupla = ObtenerValoresTupla(objeto);
         if (presentadorTupla == null) return;
 
-        presentadorTupla.ObjetoSeleccionado += delegate { DeseleccionarTuplas(presentadorTupla.Vista); };
-        presentadorTupla.EditarObjeto += (sender, e) => EditarObjeto?.Invoke(sender, e);
-        presentadorTupla.EliminarObjeto += EliminarObjeto;
+        presentadorTupla.ObjetoSeleccionado += OnObjetoSeleccionado;
+        presentadorTupla.EditarObjeto += OnEditarObjeto;
+        presentadorTupla.EliminarObjeto += OnEliminarObjeto;
 
         _tuplasObjetos.Add(presentadorTupla);
 
@@ -98,7 +102,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
         VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    private void DeseleccionarTuplas(Vt vista) {
+    private void DeseleccionarTuplas(IVistaTupla vista) {
         _tuplasObjetos.ForEach(tupla => { 
             if (!tupla.Vista.Equals(vista)) 
                 tupla.TuplaSeleccionada = false; 
@@ -107,7 +111,15 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
 
     protected abstract Pt ObtenerValoresTupla(O objeto);
 
-    protected virtual async void EliminarObjeto(object? sender, EventArgs e) {
+    protected virtual void OnObjetoSeleccionado(object? sender, EventArgs e) {
+        DeseleccionarTuplas(sender as IVistaTupla);
+    }
+
+    protected virtual void OnEditarObjeto(object? sender, EventArgs e) {
+        EditarObjeto?.Invoke(sender, e);
+    }
+
+    protected virtual async void OnEliminarObjeto(object? sender, EventArgs e) {
         if (sender is O objeto)
             try {
                 await DatosObjeto.EliminarAsync(objeto.Id);
@@ -142,5 +154,24 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
 
     private async void OnSincronizarDatos(object? sender, EventArgs e) {
         await RefrescarListaObjetos();
+    }
+
+    protected virtual void Dispose(bool disposing) {
+        if (!disposedValue) {
+            if (disposing) {
+                Vista.BuscarDatos -= OnBuscarDatos;
+                Vista.AlturaContenedorTuplasModificada -= OnAlturaContenedorTuplasModificada;
+                Vista.SincronizarDatos -= OnSincronizarDatos;
+            }
+
+            // TODO: liberar los recursos no administrados (objetos no administrados) y reemplazar el finalizador
+            // TODO: establecer los campos grandes como NULL
+            disposedValue = true;
+        }
+    }
+
+    public override void Dispose() {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -5,6 +5,7 @@ using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
+using Guna.UI2.WinForms;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
 
@@ -107,19 +108,20 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
 
     public void Inicializar() {
         // Eventos
-        fieldId.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldCodigo.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldNombre.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldDescripcion.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldPrecioCompraBase.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldPrecioVentaBase.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldStock.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        btnEditar.Click += delegate (object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
+        foreach (var control in layoutVista.Controls) {
+            if (control is Guna2CircleButton || control is Guna2Button)
+                continue;
+
+            ((Control)control).Click += OnSeleccionTupla;
+        }
         btnMovimientoPositivo.Click += delegate (object? sender, EventArgs e) {
             MovimientoPositivoStock?.Invoke(NombreAlmacen, e);
         };
         btnMovimientoNegativo.Click += delegate (object? sender, EventArgs e) {
             MovimientoNegativoStock?.Invoke(NombreAlmacen, e);
+        };
+        btnEditar.Click += delegate (object? sender, EventArgs e) {
+            EditarDatosTupla?.Invoke(this, e);
         };
         btnEliminar.Click += async delegate (object? sender, EventArgs e) {
             if (await UtilesProducto.PuedeEliminarProducto(long.Parse(Id)))
@@ -129,6 +131,10 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
                     $"No se puede eliminar el producto {Nombre}, existen registros de movimientos asociados al mismo y podría dañar la integridad y trazabilidad de los datos.",
                     TipoNotificacion.Advertencia);
         };
+    }
+
+    private void OnSeleccionTupla(object? sender, EventArgs e) {
+        TuplaSeleccionada?.Invoke(this, e);
     }
 
     public void Mostrar() {
