@@ -105,8 +105,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEliminar.BorderColor = Color.Gainsboro;
             btnEliminar.BorderRadius = 16;
             btnEliminar.BorderThickness = 1;
-            btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
-            btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnEliminar.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage");
+            btnEliminar.CustomImages.Image = (Image)resources.GetObject("resource.Image");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnEliminar.CustomizableEdges = customizableEdges1;
             btnEliminar.Dock = DockStyle.Fill;
@@ -156,8 +156,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEditar.BorderColor = Color.Gainsboro;
             btnEditar.BorderRadius = 16;
             btnEditar.BorderThickness = 1;
-            btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
-            btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnEditar.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage1");
+            btnEditar.CustomImages.Image = (Image)resources.GetObject("resource.Image1");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnEditar.CustomizableEdges = customizableEdges3;
             btnEditar.Dock = DockStyle.Fill;
@@ -207,8 +207,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnExportarProductos.BorderColor = Color.Gainsboro;
             btnExportarProductos.BorderRadius = 16;
             btnExportarProductos.BorderThickness = 1;
-            btnExportarProductos.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage2");
-            btnExportarProductos.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
+            btnExportarProductos.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage2");
+            btnExportarProductos.CustomImages.Image = (Image)resources.GetObject("resource.Image2");
             btnExportarProductos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnExportarProductos.CustomizableEdges = customizableEdges5;
             btnExportarProductos.Dock = DockStyle.Fill;
