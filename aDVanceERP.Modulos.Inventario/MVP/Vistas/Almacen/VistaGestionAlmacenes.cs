@@ -11,16 +11,12 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 
 public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
-    private ControladorArchivosAndroid _androidFileManager;
-
     private int _paginaActual = 1;
     private int _paginasTotales = 1;
 
     public VistaGestionAlmacenes() {
         InitializeComponent();
         Inicializar();
-
-        _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
     }
 
     public bool Habilitada {
@@ -101,7 +97,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
             fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);            
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -141,22 +137,12 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
-        contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
-    }
-
-    public bool VerificarConexionDispositivo() {
-        var conexionOk = true;
-
-        try {
-            // Verificar conexión del dispositivo
-            if (!_androidFileManager.CheckDeviceConnection())
-                conexionOk = false;
-        } catch (Exception ex) {
-            CentroNotificaciones.Mostrar($"Error al verificar conexión del dispositivo: {ex.Message}", TipoNotificacion.Error);
-        }
-
-        return conexionOk;
+        btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) {
+            SincronizarDatos?.Invoke(sender, e);            
+        };
+        contenedorVistas.Resize += delegate { 
+            AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); 
+        };
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
@@ -167,7 +153,6 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
 
     public void Mostrar() {
         Habilitada = true;
-        DispositivoConectado = VerificarConexionDispositivo();
         VerificarPermisos();
         BringToFront();
         Show();
