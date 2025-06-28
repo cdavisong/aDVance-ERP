@@ -75,7 +75,7 @@
         android:layout_width="54dp"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
-        android:src="@drawable/import_24px"
+        android:src="@drawable/refresh_24px"
         android:background="@drawable/rounded_button"
         android:contentDescription="Importar"
         android:scaleType="center"
