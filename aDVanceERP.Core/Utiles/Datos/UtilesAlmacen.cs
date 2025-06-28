@@ -66,7 +66,7 @@ public static class UtilesAlmacen {
         }) ?? Array.Empty<object>();
     }
 
-    public static string ExportarProductosAlmacenToJsonAsync(long idAlmacen) {
+    public static string ObtenerProductosAlmacenJson(long idAlmacen) {
         const string query = @"
         SELECT 
             p.id_producto,
@@ -122,16 +122,6 @@ public static class UtilesAlmacen {
             });
         } catch (Exception ex) {
             throw new Exception($"Error al exportar productos del almacén: {ex.Message}", ex);
-        }
-    }
-
-    public static bool ExportarProductosAlmacenToJsonFileAsync(long idAlmacen, string filePath) {
-        try {
-            var json = ExportarProductosAlmacenToJsonAsync(idAlmacen);
-            File.WriteAllText(filePath, json);
-            return true;
-        } catch (Exception ex) {
-            throw new Exception($"Error al guardar el archivo JSON: {ex.Message}", ex);
         }
     }
 }

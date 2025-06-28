@@ -1,5 +1,8 @@
-﻿using aDVanceERP.Core.Repositorios;
-using aDVanceERP.Core.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.MVP.Modelos;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
@@ -8,12 +11,16 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 
 public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
+    private ControladorArchivosAndroid _androidFileManager;
+
     private int _paginaActual = 1;
     private int _paginasTotales = 1;
 
     public VistaGestionAlmacenes() {
         InitializeComponent();
         Inicializar();
+
+        _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
     }
 
     public bool Habilitada {
@@ -69,6 +76,8 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
     }
 
     public IRepositorioVista? Vistas { get; private set; }
+
+    public bool DispositivoConectado { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -136,6 +145,20 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
     }
 
+    public bool VerificarConexionDispositivo() {
+        var conexionOk = true;
+
+        try {
+            // Verificar conexión del dispositivo
+            if (!_androidFileManager.CheckDeviceConnection())
+                conexionOk = false;
+        } catch (Exception ex) {
+            CentroNotificaciones.Mostrar($"Error al verificar conexión del dispositivo: {ex.Message}", TipoNotificacion.Error);
+        }
+
+        return conexionOk;
+    }
+
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
         fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
@@ -144,6 +167,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
 
     public void Mostrar() {
         Habilitada = true;
+        DispositivoConectado = VerificarConexionDispositivo();
         VerificarPermisos();
         BringToFront();
         Show();

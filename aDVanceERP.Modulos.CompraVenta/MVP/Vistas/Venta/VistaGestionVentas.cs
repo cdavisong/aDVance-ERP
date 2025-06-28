@@ -1,6 +1,8 @@
 ﻿using System.Globalization;
+
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
@@ -13,12 +15,16 @@ using aDVanceERP.Modulos.CompraVenta.Repositorios;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
 public partial class VistaGestionVentas : Form, IVistaGestionVentas {
+    private ControladorArchivosAndroid _androidFileManager;
+
     private int _paginaActual = 1;
     private int _paginasTotales = 1;
 
     public VistaGestionVentas() {
         InitializeComponent();
         Inicializar();
+
+        _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
     }
 
     public bool Habilitada {
@@ -138,7 +144,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                             fila[2] = "U";
                             fila[3] = ventaProducto.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
                             fila[4] = ventaProducto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture);
-                            fila[5] = (ventaProducto.PrecioVentaFinal * (decimal)ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+                            fila[5] = (ventaProducto.PrecioVentaFinal * (decimal) ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
 
                             filas.Add(fila);
                         }
@@ -154,8 +160,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                 fieldDatoBusquedaFecha.Focus();
 
                 ActualizarValorBrutoVentas();
-            }
-            else {
+            } else {
                 layoutValorBrutoVenta.Visible = false;
 
                 fieldDatoBusqueda.Text = string.Empty;
@@ -196,7 +201,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                 return;
             }
 
-            RegistrarDatos?.Invoke(sender, e); 
+            RegistrarDatos?.Invoke(sender, e);
         };
         btnImportarArchivoVentas.Click += delegate (object? sender, EventArgs e) {
             // Comprobar la existencia de una caja abierta  antes de importar ventas
@@ -206,25 +211,47 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                 return;
             }
 
-            var filedialog = new OpenFileDialog {
-                Filter = "Archivos JSON (*.xlsx)|*.json",
-                Title = "Importar Ventas desde Archivo"
-            };
-
-            if (filedialog.ShowDialog() != DialogResult.OK) 
+            if (!VerificarConexionDispositivo()) {
+                CentroNotificaciones.Mostrar("Conecte un dispositivo Android con depuración USB activada", TipoNotificacion.Advertencia);
                 return;
+            } else {
+                if (!_androidFileManager.EnsureDirectoryExists()) {
+                    CentroNotificaciones.Mostrar("No se pudo crear el directorio en el dispositivo Android o la aplicación no está instalada", TipoNotificacion.Error);
 
-            var archivo = filedialog.FileName;
-            var ventas = string.Empty;
+                    return;
+                }
+            }
 
-            try {
-                ventas = File.ReadAllText(archivo);
-            } catch (Exception ex) {
-                MessageBox.Show($"Error al leer el archivo: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            var ventasFiles = _androidFileManager.ListVentasFilesOnDevice();
+
+            if (!ventasFiles.Any()) {
+                CentroNotificaciones.Mostrar("No se encontraron archivos de ventas en el dispositivo", TipoNotificacion.Advertencia);
+                
                 return;
             }
 
-            ImportarVentasArchivo?.Invoke(sender, ventas); 
+            var latestFile = ventasFiles
+                .OrderByDescending(f => f.exportTime)
+                .First();
+
+            var rutaArchivoVentas = Path.Combine(Application.StartupPath, "ventas.json");
+
+            if (_androidFileManager.PullFileFromDevice(latestFile.fileName, rutaArchivoVentas)) {
+                _androidFileManager.DeleteFileFromDevice(latestFile.fileName);
+
+                var ventasJson = File.ReadAllText(rutaArchivoVentas);
+                if (string.IsNullOrEmpty(ventasJson)) {
+                    CentroNotificaciones.Mostrar("No se encontraron datos de ventas en el archivo importado", TipoNotificacion.Advertencia);
+                    return;
+                }
+
+                ImportarVentasArchivo?.Invoke(sender, ventasJson);
+
+                // Limpiar archivo temporal
+                try { File.Delete(rutaArchivoVentas); } catch { }
+            } else {
+                CentroNotificaciones.Mostrar("Error al importar el archivo de ventas desde el dispositivo Android", TipoNotificacion.Error);
+            }
         };
         btnConfirmarEntrega.Click += delegate (object? sender, EventArgs e) { ConfirmarEntrega?.Invoke(sender, e); };
         btnConfirmarPagos.Click += delegate (object? sender, EventArgs e) { ConfirmarPagos?.Invoke(sender, e); };
@@ -256,6 +283,22 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
     }
 
+    private bool VerificarConexionDispositivo() {
+        var conexionOk = true;
+
+        try {
+            // Verificar conexión del dispositivo
+            if (!_androidFileManager.CheckDeviceConnection())
+                conexionOk = false;
+        } catch (Exception ex) {
+            CentroNotificaciones.Mostrar($"Error al verificar conexión del dispositivo: {ex.Message}", TipoNotificacion.Error);
+        }
+
+        btnImportarArchivoVentas.Visible = conexionOk;
+
+        return conexionOk;
+    }
+
     public void ActualizarValorBrutoVentas() {
         ValorBrutoVenta = UtilesVenta.ObtenerValorBrutoVentaDia(fieldDatoBusquedaFecha.Value)
             .ToString("N2", CultureInfo.InvariantCulture);
@@ -265,13 +308,14 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
         fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
-        
+
         fieldCriterioBusqueda.SelectedIndex = 4;
     }
 
     public void Mostrar() {
         Habilitada = true;
         VerificarPermisos();
+        VerificarConexionDispositivo();
         BringToFront();
         Show();
     }
