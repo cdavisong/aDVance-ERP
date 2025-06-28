@@ -178,7 +178,8 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldFb.SelectedIndex = 0;
+        if (fieldCriterioBusqueda.Items.Count > 0)
+            fieldCriterioBusqueda.SelectedIndex = 0;
     }
 
     public void Ocultar() {
