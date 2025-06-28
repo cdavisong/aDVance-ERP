@@ -1,4 +1,6 @@
-﻿using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.MVP.Modelos;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
@@ -12,12 +14,14 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
     private PresentadorGestionVentas? _gestionVentas;
+    private ControladorArchivosAndroid _androidFileManager;
 
     private async void InicializarVistaGestionVentas() {
         _gestionVentas = new PresentadorGestionVentas(new VistaGestionVentas());
         _gestionVentas.EditarObjeto += OnMostrarVistaEdicionVentaProducto;
         _gestionVentas.Vista.RegistrarDatos += OnMostrarVistaRegistroVentaProducto;
         _gestionVentas.Vista.ImportarVentasArchivo += OnImportarVentasArchivo;
+        _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
 
         if (Vista.Vistas != null)
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionVentas", _gestionVentas.Vista));
@@ -95,6 +99,8 @@ public partial class PresentadorContenedorModulos {
         }
 
         _gestionVentas?.RefrescarListaObjetos();
+
+        CentroNotificaciones.Mostrar("Importación de ventas finalizada, las ventas han sido importadas correctamente desde el dispositivo.");
     }
 }
 

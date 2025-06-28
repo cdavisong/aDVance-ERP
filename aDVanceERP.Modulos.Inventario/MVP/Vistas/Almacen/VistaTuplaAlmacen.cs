@@ -50,6 +50,11 @@ public partial class VistaTuplaAlmacen : Form, IVistaTuplaAlmacen {
         }
     }
 
+    public bool MostrarBotonExportarProductos {
+        get => btnExportarProductos.Visible;
+        set => btnExportarProductos.Visible = value;
+    }
+
     public Color ColorFondoTupla {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;

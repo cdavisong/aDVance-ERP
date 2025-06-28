@@ -163,7 +163,7 @@ namespace aDVancePOS.Mobile {
             File.Copy(_servicioDatos.ProductosPath, productosExportPath, true);
             File.Copy(_servicioDatos.VentasPath, ventasExportPath, true);
 
-            Toast.MakeText(this, $"Datos exportados a:\n{downloadsPath}", ToastLength.Long).Show();
+            Toast.MakeText(this, $"Datos exportados", ToastLength.Long).Show();
         }
 
         private void BuscarProductos() {
