@@ -132,9 +132,6 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
 
     public void Inicializar() {
         // Eventos
-        btnCerrar.Click += delegate (object? sender, EventArgs args) {
-            Salir?.Invoke(sender, args);
-        };
         P1DatosGenerales.CategoriaProductoCambiada += delegate (object? sender, EventArgs args) {
             ActualizarVisibilidadCamposPrecios();
 

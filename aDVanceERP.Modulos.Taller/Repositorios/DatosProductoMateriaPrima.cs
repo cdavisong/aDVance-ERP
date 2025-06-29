@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Taller.MVP.Modelos;
+using aDVanceERP.Modulos.Taller.Modelos;
+
 using MySql.Data.MySqlClient;
 
 using System.Globalization;
