@@ -178,7 +178,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             
-            fieldCriterioBusqueda.SelectedIndex = 2;
+            fieldCriterioBusqueda.SelectedIndex = 0;
         }
 
         public void Mostrar() {
@@ -194,7 +194,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             HabilitarBtnRegistroMovimientoCaja = false;
             HabilitarBtnCierreCaja = false;
 
-            fieldFb.SelectedIndex = 2;
+            fieldCriterioBusqueda.SelectedIndex = 0;
         }
 
         public void Ocultar() {
