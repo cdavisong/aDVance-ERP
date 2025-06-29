@@ -39,9 +39,9 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         public static async Task<long> ObtenerIdUnidadMedida(string? nombreUnidadMedida) {
-            const string query = "SELECT id_unidad_medida FROM adv__unidad_medida WHERE LOWER(nombre) LIKE LOWER(@NombreUnidadMedida);";
+            const string query = "SELECT id_unidad_medida FROM adv__unidad_medida WHERE nombre = @NombreUnidadMedida;";
             var result = await EjecutarConsultaAsync(query, lector => lector.GetInt32("id_unidad_medida"),
-                new MySqlParameter("@NombreUnidadMedida", $"%{nombreUnidadMedida}%"));
+                new MySqlParameter("@NombreUnidadMedida", $"{nombreUnidadMedida}"));
             return result != 0 ? result : 0;
         }
 

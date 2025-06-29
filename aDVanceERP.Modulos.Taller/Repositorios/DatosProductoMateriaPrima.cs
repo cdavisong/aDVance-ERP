@@ -1,22 +1,23 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Taller.MVP.Modelos;
-using aDVanceERP.Modulos.Taller.Repositorios.Plantillas;
-
 using MySql.Data.MySqlClient;
 
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Repositorios;
 
-public class DatosProductoMateriaPrima : RepositorioDatosEntidadBase<ProductoMateriaPrima, FbProductoMateriaPrima>, IRepositorioProductoMateriaPrima {
-    public override string ComandoCantidad() {
+public class DatosProductoMateriaPrima : RepositorioDatosBase<ProductoMateriaPrima, CriterioBusquedaProductoMateriaPrima>
+{
+    public override string ComandoCantidad()
+    {
         return """
             SELECT COUNT(id_producto_materia_prima) 
             FROM adv__producto_materia_prima;
             """;
     }
 
-    public override string ComandoAdicionar(ProductoMateriaPrima objeto) {
+    public override string ComandoAdicionar(ProductoMateriaPrima objeto)
+    {
         return $"""
             INSERT INTO adv__producto_materia_prima (
                 id_producto,
@@ -31,7 +32,8 @@ public class DatosProductoMateriaPrima : RepositorioDatosEntidadBase<ProductoMat
             """;
     }
 
-    public override string ComandoEditar(ProductoMateriaPrima objeto) {
+    public override string ComandoEditar(ProductoMateriaPrima objeto)
+    {
         return $"""
             UPDATE adv__producto_materia_prima
             SET
@@ -42,26 +44,30 @@ public class DatosProductoMateriaPrima : RepositorioDatosEntidadBase<ProductoMat
             """;
     }
 
-    public override string ComandoEliminar(long id) {
-       return $"""
+    public override string ComandoEliminar(long id)
+    {
+        return $"""
             DELETE FROM adv__producto_materia_prima 
             WHERE id_producto_materia_prima = {id};
             """;
     }
 
-    public override string ComandoObtener(FbProductoMateriaPrima criterio, string dato) {
-        var comando = criterio switch {
-            FbProductoMateriaPrima.Todos => "SELECT * FROM adv__producto_materia_prima;",
-            FbProductoMateriaPrima.Id => $"SELECT * FROM adv__producto_materia_prima WHERE id_producto_materia_prima = {dato};",
-            FbProductoMateriaPrima.IdProducto => $"SELECT * FROM adv__producto_materia_prima WHERE id_producto = {dato};",
-            FbProductoMateriaPrima.IdMateriaPrima => $"SELECT * FROM adv__producto_materia_prima WHERE id_materia_prima = {dato};",
+    public override string ComandoObtener(CriterioBusquedaProductoMateriaPrima criterio, string dato)
+    {
+        var comando = criterio switch
+        {
+            CriterioBusquedaProductoMateriaPrima.Todos => "SELECT * FROM adv__producto_materia_prima;",
+            CriterioBusquedaProductoMateriaPrima.Id => $"SELECT * FROM adv__producto_materia_prima WHERE id_producto_materia_prima = {dato};",
+            CriterioBusquedaProductoMateriaPrima.IdProducto => $"SELECT * FROM adv__producto_materia_prima WHERE id_producto = {dato};",
+            CriterioBusquedaProductoMateriaPrima.IdMateriaPrima => $"SELECT * FROM adv__producto_materia_prima WHERE id_materia_prima = {dato};",
             _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
         };
 
         return comando;
     }
 
-    public override ProductoMateriaPrima MapearEntidad(MySqlDataReader lectorDatos) {
+    public override ProductoMateriaPrima ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    {
         return new ProductoMateriaPrima(
             id: lectorDatos.GetInt64("id_producto_materia_prima"),
             idProducto: lectorDatos.GetInt64("id_producto"),
@@ -70,7 +76,8 @@ public class DatosProductoMateriaPrima : RepositorioDatosEntidadBase<ProductoMat
         );
     }
 
-    public override string ComandoExiste(string dato) {
+    public override string ComandoExiste(string dato)
+    {
         return $"""
             SELECT COUNT(1) 
             FROM adv__producto_materia_prima 
