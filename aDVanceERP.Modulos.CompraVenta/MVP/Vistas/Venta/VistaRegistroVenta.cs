@@ -171,7 +171,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         fieldNombreAlmacen.SelectedIndexChanged += async delegate {
             var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
 
-            CargarNombresProductos(await UtilesProducto.ObtenerNombresProductos(idAlmacen, true));
+            CargarNombresProductos(await UtilesProducto.ObtenerNombresProductos(idAlmacen, "Todas", true));
 
             fieldNombreProducto.Focus();
         };

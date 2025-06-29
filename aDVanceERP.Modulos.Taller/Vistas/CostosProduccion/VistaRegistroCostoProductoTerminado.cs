@@ -1,11 +1,15 @@
-﻿using aDVanceERP.Modulos.Taller.Vistas.CostosProduccion.Plantillas;
+﻿using aDVanceERP.Modulos.Taller.Interfaces;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
-    public partial class VistaRegistroCostoProductoTerminado : Form, IVistaRegistroContacto {
+    public partial class VistaRegistroCostoProductoTerminado : Form, IVistaRegistroCostoProductoTerminado {
         private bool _modoEdicion;
+        private int _paginaActual = 1;
+
+        private VistaRegistroDatosGenerales P1DatosGenerales = new VistaRegistroDatosGenerales();
 
         public VistaRegistroCostoProductoTerminado() {
             InitializeComponent();
+            InicializarVistas();
             Inicializar();
         }
 
@@ -24,44 +28,11 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
             set => Size = value;
         }
 
-        public string Nombre {
-            get => fieldNombre.Text;
-            set => fieldNombre.Text = value;
-        }
-
-        public string TelefonoMovil {
-            get => fieldTelefonoMovil.Text;
-            set => fieldTelefonoMovil.Text = value;
-        }
-
-        public string TelefonoFijo {
-            get => fieldTelefonoFijo.Text;
-            set => fieldTelefonoFijo.Text = value;
-        }
-
-        public string CorreoElectronico {
-            get => fieldCorreoElectronico.Text;
-            set => fieldCorreoElectronico.Text = value;
-        }
-
-        public string Direccion {
-            get => fieldDireccion.Text;
-            set {
-                fieldDireccion.Text = value;
-                fieldDireccion.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
-            }
-        }
-
-        public string Notas {
-            get => fieldNotas.Text;
-            set => fieldNotas.Text = value;
-        }
-
         public bool ModoEdicionDatos {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
-                btnRegistrar.Text = value ? "Actualizar contacto" : "Registrar contacto";
+                btnRegistrar.Text = value ? "Actualizar costos" : "Registrar costos";
                 _modoEdicion = value;
             }
         }
@@ -71,10 +42,30 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
         public event EventHandler? EliminarDatos;
         public event EventHandler? Salir;
 
+        private void InicializarVistas() {
+            // 1. Datos generales del producto
+            P1DatosGenerales.Dock = DockStyle.Fill;
+            P1DatosGenerales.TopLevel = false;
+
+            contenedorVistas.Controls.Clear();
+            contenedorVistas.Controls.Add(P1DatosGenerales);
+
+            // Mostrar vista de datos generales
+            P1DatosGenerales.Show();
+            P1DatosGenerales.BringToFront();
+        }
+
         public void Inicializar() {
             // Eventos
-            btnCerrar.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
+            btnRegistrar.Click += delegate (object? sender, EventArgs args) {
+                if (ModoEdicionDatos)
+                    EditarDatos?.Invoke(sender, args);
+                else
+                    RegistrarDatos?.Invoke(sender, args);
+            };
+            btnAnterior.Click += delegate (object? sender, EventArgs args) {
+                if (_paginaActual > 1)
+                    RetrocederPagina();
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
@@ -82,9 +73,80 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
                 else
                     RegistrarDatos?.Invoke(sender, args);
             };
+            btnSiguiente.Click += delegate (object? sender, EventArgs args) {
+                if (_paginaActual < 2)
+                    AvanzarPagina();
+            };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);
             };
+
+            // Navegación
+            ConfigurarParametrosBotonesNavegacion(false, true);
+        }
+
+        private void AvanzarPagina() {
+            // Mapeo de navegación: página actual -> siguiente página
+            var navegacion = new Dictionary<int, Action> {
+                [1] = () => MostrarOcultarFormularios(P2UmPreciosStock, [P1DatosGenerales])
+            };
+
+            if (navegacion.TryGetValue(_paginaActual, out var action)) {
+                action.Invoke();
+                _paginaActual++;
+            }
+
+            ActualizarBotones();
+        }
+
+        private void RetrocederPagina() {
+            // Mapeo de navegación: página actual -> página anterior
+            var navegacion = new Dictionary<int, Action> {
+                [2] = () => MostrarOcultarFormularios(P1DatosGenerales, [P2UmPreciosStock])
+            };
+
+            if (navegacion.TryGetValue(_paginaActual, out var action)) {
+                action.Invoke();
+                _paginaActual--;
+            }
+
+            ActualizarBotones();
+        }
+
+        private void ActualizarBotones() {
+            var mostrarBotonAnterior = _paginaActual > 1;
+            var mostrarBotonSiguiente = _paginaActual < 2;
+
+            ConfigurarParametrosBotonesNavegacion(mostrarBotonAnterior, mostrarBotonSiguiente);
+        }
+
+        private void MostrarOcultarFormularios(Form formularioMostrar, Form[] formulariosOcultar) {
+            foreach (var form in formulariosOcultar)
+                form.Hide();
+
+            formularioMostrar.Show();
+            formularioMostrar.BringToFront();
+        }
+
+        public void ConfigurarParametrosBotonesNavegacion(bool mostrarAnterior, bool mostrarSiguiente) {
+            // Ajustar visibilidad y ancho de columna para botón anterior
+            btnAnterior.Visible = mostrarAnterior;
+            layoutNavegacion.ColumnStyles[0].Width = mostrarAnterior ? 50F : 0F;
+
+            // Ajustar visibilidad y ancho de columna para botón siguiente
+            btnSiguiente.Visible = mostrarSiguiente;
+            layoutNavegacion.ColumnStyles[2].Width = mostrarSiguiente ? 50F : 0F;
+
+            // Ajustar bordes del botón registrar
+            btnRegistrar.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges(
+                !mostrarAnterior,
+                !mostrarSiguiente,
+                !mostrarAnterior,
+                !mostrarSiguiente
+            );
+
+            // Forzar el redibujado del layout
+            layoutBotones.PerformLayout();
         }
 
         public void Mostrar() {
@@ -93,12 +155,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
         }
 
         public void Restaurar() {
-            Nombre = string.Empty;
-            TelefonoMovil = string.Empty;
-            TelefonoFijo = string.Empty;
-            CorreoElectronico = string.Empty;
-            Direccion = string.Empty;
-            Notas = string.Empty;
             ModoEdicionDatos = false;
         }
 
