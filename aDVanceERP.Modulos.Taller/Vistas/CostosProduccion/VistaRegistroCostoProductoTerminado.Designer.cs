@@ -30,25 +30,33 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
             components = new Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaRegistroCostoProductoTerminado));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaRegistroCostoProductoTerminado));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
-            layoutBotones = new TableLayoutPanel();
-            btnSalir = new Guna2Button();
-            btnRegistrar = new Guna2Button();
             layoutVista = new TableLayoutPanel();
             fieldIcono = new PictureBox();
             fieldSubtitulo = new Label();
             layoutTitulo = new TableLayoutPanel();
             fieldTitulo = new Label();
             contenedorVistas = new Panel();
+            layoutBotones = new TableLayoutPanel();
+            btnSalir = new Guna2Button();
+            layoutNavegacion = new TableLayoutPanel();
+            btnSiguiente = new Guna2Button();
+            btnAnterior = new Guna2Button();
+            btnRegistrar = new Guna2Button();
             layoutBase.SuspendLayout();
-            layoutBotones.SuspendLayout();
             layoutVista.SuspendLayout();
             ((ISupportInitialize) fieldIcono).BeginInit();
             layoutTitulo.SuspendLayout();
+            layoutBotones.SuspendLayout();
+            layoutNavegacion.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -78,63 +86,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
             layoutBase.RowStyles.Add(new RowStyle(SizeType.Absolute, 65F));
             layoutBase.Size = new Size(500, 685);
             layoutBase.TabIndex = 2;
-            // 
-            // layoutBotones
-            // 
-            layoutBotones.BackColor = Color.White;
-            layoutBotones.ColumnCount = 4;
-            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
-            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 22F));
-            layoutBotones.Controls.Add(btnSalir, 2, 0);
-            layoutBotones.Controls.Add(btnRegistrar, 1, 0);
-            layoutBotones.Dock = DockStyle.Fill;
-            layoutBotones.Location = new Point(13, 620);
-            layoutBotones.Margin = new Padding(3, 0, 0, 0);
-            layoutBotones.Name = "layoutBotones";
-            layoutBotones.RowCount = 2;
-            layoutBotones.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutBotones.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutBotones.Size = new Size(487, 65);
-            layoutBotones.TabIndex = 2;
-            // 
-            // btnSalir
-            // 
-            btnSalir.Animated = true;
-            btnSalir.BorderColor = Color.Gainsboro;
-            btnSalir.BorderRadius = 18;
-            btnSalir.BorderThickness = 1;
-            btnSalir.CustomizableEdges = customizableEdges1;
-            btnSalir.Dock = DockStyle.Fill;
-            btnSalir.FillColor = Color.White;
-            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnSalir.ForeColor = Color.Gainsboro;
-            btnSalir.HoverState.BorderColor = Color.PeachPuff;
-            btnSalir.HoverState.FillColor = Color.PeachPuff;
-            btnSalir.HoverState.ForeColor = Color.Black;
-            btnSalir.Location = new Point(302, 3);
-            btnSalir.Name = "btnSalir";
-            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnSalir.Size = new Size(160, 39);
-            btnSalir.TabIndex = 14;
-            btnSalir.Text = "Salir";
-            // 
-            // btnRegistrar
-            // 
-            btnRegistrar.Animated = true;
-            btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges3;
-            btnRegistrar.Dock = DockStyle.Fill;
-            btnRegistrar.FillColor = Color.PeachPuff;
-            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnRegistrar.ForeColor = Color.Black;
-            btnRegistrar.Location = new Point(53, 3);
-            btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnRegistrar.Size = new Size(243, 39);
-            btnRegistrar.TabIndex = 15;
-            btnRegistrar.Text = "Registrar contacto";
             // 
             // layoutVista
             // 
@@ -234,6 +185,122 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
             contenedorVistas.Size = new Size(417, 470);
             contenedorVistas.TabIndex = 9;
             // 
+            // layoutBotones
+            // 
+            layoutBotones.BackColor = Color.White;
+            layoutBotones.ColumnCount = 4;
+            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
+            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 22F));
+            layoutBotones.Controls.Add(btnSalir, 2, 0);
+            layoutBotones.Controls.Add(layoutNavegacion, 1, 0);
+            layoutBotones.Dock = DockStyle.Fill;
+            layoutBotones.Location = new Point(13, 620);
+            layoutBotones.Margin = new Padding(3, 0, 0, 0);
+            layoutBotones.Name = "layoutBotones";
+            layoutBotones.RowCount = 2;
+            layoutBotones.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutBotones.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutBotones.Size = new Size(487, 65);
+            layoutBotones.TabIndex = 4;
+            // 
+            // btnSalir
+            // 
+            btnSalir.Animated = true;
+            btnSalir.BorderColor = Color.Gainsboro;
+            btnSalir.BorderRadius = 18;
+            btnSalir.BorderThickness = 1;
+            btnSalir.CustomizableEdges = customizableEdges1;
+            btnSalir.Dock = DockStyle.Fill;
+            btnSalir.FillColor = Color.White;
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnSalir.ForeColor = Color.Gainsboro;
+            btnSalir.HoverState.BorderColor = Color.PeachPuff;
+            btnSalir.HoverState.FillColor = Color.PeachPuff;
+            btnSalir.HoverState.ForeColor = Color.Black;
+            btnSalir.Location = new Point(302, 3);
+            btnSalir.Name = "btnSalir";
+            btnSalir.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnSalir.Size = new Size(160, 39);
+            btnSalir.TabIndex = 1;
+            btnSalir.Text = "Salir";
+            // 
+            // layoutNavegacion
+            // 
+            layoutNavegacion.ColumnCount = 3;
+            layoutNavegacion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            layoutNavegacion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutNavegacion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+            layoutNavegacion.Controls.Add(btnSiguiente, 2, 0);
+            layoutNavegacion.Controls.Add(btnAnterior, 0, 0);
+            layoutNavegacion.Controls.Add(btnRegistrar, 1, 0);
+            layoutNavegacion.Dock = DockStyle.Fill;
+            layoutNavegacion.Location = new Point(50, 0);
+            layoutNavegacion.Margin = new Padding(0);
+            layoutNavegacion.Name = "layoutNavegacion";
+            layoutNavegacion.RowCount = 1;
+            layoutNavegacion.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutNavegacion.Size = new Size(249, 45);
+            layoutNavegacion.TabIndex = 3;
+            // 
+            // btnSiguiente
+            // 
+            btnSiguiente.Animated = true;
+            btnSiguiente.BorderRadius = 18;
+            btnSiguiente.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnSiguiente.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            customizableEdges3.BottomLeft = false;
+            customizableEdges3.TopLeft = false;
+            btnSiguiente.CustomizableEdges = customizableEdges3;
+            btnSiguiente.Dock = DockStyle.Fill;
+            btnSiguiente.FillColor = Color.PeachPuff;
+            btnSiguiente.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnSiguiente.ForeColor = Color.Black;
+            btnSiguiente.Location = new Point(199, 3);
+            btnSiguiente.Margin = new Padding(0, 3, 3, 3);
+            btnSiguiente.Name = "btnSiguiente";
+            btnSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnSiguiente.Size = new Size(47, 39);
+            btnSiguiente.TabIndex = 4;
+            // 
+            // btnAnterior
+            // 
+            btnAnterior.Animated = true;
+            btnAnterior.BorderRadius = 18;
+            btnAnterior.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnAnterior.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            customizableEdges5.BottomRight = false;
+            customizableEdges5.TopRight = false;
+            btnAnterior.CustomizableEdges = customizableEdges5;
+            btnAnterior.Dock = DockStyle.Fill;
+            btnAnterior.FillColor = Color.PeachPuff;
+            btnAnterior.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnAnterior.ForeColor = Color.Black;
+            btnAnterior.Location = new Point(3, 3);
+            btnAnterior.Margin = new Padding(3, 3, 0, 3);
+            btnAnterior.Name = "btnAnterior";
+            btnAnterior.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnAnterior.Size = new Size(47, 39);
+            btnAnterior.TabIndex = 2;
+            // 
+            // btnRegistrar
+            // 
+            btnRegistrar.Animated = true;
+            btnRegistrar.BorderRadius = 18;
+            btnRegistrar.CustomizableEdges = customizableEdges7;
+            btnRegistrar.Dock = DockStyle.Fill;
+            btnRegistrar.FillColor = Color.PeachPuff;
+            btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnRegistrar.ForeColor = Color.Black;
+            btnRegistrar.Location = new Point(50, 3);
+            btnRegistrar.Margin = new Padding(0, 3, 0, 3);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnRegistrar.Size = new Size(149, 39);
+            btnRegistrar.TabIndex = 0;
+            btnRegistrar.Text = "Registrar costos";
+            // 
             // VistaRegistroCostoProductoTerminado
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -248,10 +315,11 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
             StartPosition = FormStartPosition.Manual;
             Text = "VistaRegistroCostoProductoTerminado";
             layoutBase.ResumeLayout(false);
-            layoutBotones.ResumeLayout(false);
             layoutVista.ResumeLayout(false);
             ((ISupportInitialize) fieldIcono).EndInit();
             layoutTitulo.ResumeLayout(false);
+            layoutBotones.ResumeLayout(false);
+            layoutNavegacion.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -259,14 +327,17 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
 
         private Guna2BorderlessForm formatoBase;
         private TableLayoutPanel layoutBase;
-        private TableLayoutPanel layoutBotones;
-        private Guna2Button btnSalir;
-        private Guna2Button btnRegistrar;
         private TableLayoutPanel layoutVista;
         private PictureBox fieldIcono;
         private Label fieldSubtitulo;
         private TableLayoutPanel layoutTitulo;
         private Label fieldTitulo;
         private Panel contenedorVistas;
+        private TableLayoutPanel layoutBotones;
+        private Guna2Button btnSalir;
+        private TableLayoutPanel layoutNavegacion;
+        private Guna2Button btnSiguiente;
+        private Guna2Button btnAnterior;
+        private Guna2Button btnRegistrar;
     }
 }
