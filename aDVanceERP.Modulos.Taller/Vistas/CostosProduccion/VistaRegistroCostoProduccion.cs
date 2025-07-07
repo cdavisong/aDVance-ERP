@@ -1,13 +1,14 @@
 ﻿using aDVanceERP.Modulos.Taller.Interfaces;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
-    public partial class VistaRegistroCostoProductoTerminado : Form, IVistaRegistroCostoProductoTerminado {
+    public partial class VistaRegistroCostoProduccion : Form, IVistaRegistroCostoProduccion {
         private bool _modoEdicion;
         private int _paginaActual = 1;
 
         private VistaRegistroDatosGenerales P1DatosGenerales = new VistaRegistroDatosGenerales();
+        private VistaRegistroMateriaPrima P2MateriasPrimas = new VistaRegistroMateriaPrima();
 
-        public VistaRegistroCostoProductoTerminado() {
+        public VistaRegistroCostoProduccion() {
             InitializeComponent();
             InicializarVistas();
             Inicializar();
@@ -47,8 +48,13 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
             P1DatosGenerales.Dock = DockStyle.Fill;
             P1DatosGenerales.TopLevel = false;
 
+            // 2. Materias primas
+            P2MateriasPrimas.Dock = DockStyle.Fill;
+            P2MateriasPrimas.TopLevel = false;
+
             contenedorVistas.Controls.Clear();
             contenedorVistas.Controls.Add(P1DatosGenerales);
+            contenedorVistas.Controls.Add(P2MateriasPrimas);
 
             // Mostrar vista de datos generales
             P1DatosGenerales.Show();
@@ -88,7 +94,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
         private void AvanzarPagina() {
             // Mapeo de navegación: página actual -> siguiente página
             var navegacion = new Dictionary<int, Action> {
-                [1] = () => MostrarOcultarFormularios(P2UmPreciosStock, [P1DatosGenerales])
+                [1] = () => MostrarOcultarFormularios(P2MateriasPrimas, [P1DatosGenerales])
             };
 
             if (navegacion.TryGetValue(_paginaActual, out var action)) {
@@ -102,7 +108,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
         private void RetrocederPagina() {
             // Mapeo de navegación: página actual -> página anterior
             var navegacion = new Dictionary<int, Action> {
-                [2] = () => MostrarOcultarFormularios(P1DatosGenerales, [P2UmPreciosStock])
+                [2] = () => MostrarOcultarFormularios(P1DatosGenerales, [P2MateriasPrimas])
             };
 
             if (navegacion.TryGetValue(_paginaActual, out var action)) {

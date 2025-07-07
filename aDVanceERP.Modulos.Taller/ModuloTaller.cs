@@ -5,6 +5,10 @@ public static class ModuloTaller {
 
     public static readonly string[] Permisos = {
         "MOD_TALLER_TODOS",
+        "MOD_TALLER_COSTOS_TODOS",
+        "MOD_TALLER_COSTOS_ADICIONAR",
+        "MOD_TALLER_COSTOS_EDITAR",
+        "MOD_TALLER_COSTOS_ELIMINAR",
         "MOD_TALLER_ACTIVIDADES_TODOS",
         "MOD_TALLER_ACTIVIDADES_ADICIONAR",
         "MOD_TALLER_ACTIVIDADES_EDITAR",

@@ -10,6 +10,7 @@ public interface IVistaContenedorModulos : IVistaContenedor {
     event EventHandler? MostrarMenuContactos;
     event EventHandler? MostrarMenuFinanzas;
     event EventHandler? MostrarMenuInventario;
+    event EventHandler? MostrarMenuTaller;
     event EventHandler? MostrarMenuVentas;
     event EventHandler? MostrarMenuSeguridad;
     event EventHandler? CambioModulo;

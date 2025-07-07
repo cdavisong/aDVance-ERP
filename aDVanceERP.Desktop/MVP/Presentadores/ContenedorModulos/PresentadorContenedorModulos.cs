@@ -13,6 +13,7 @@ public partial class PresentadorContenedorModulos : PresentadorBase<IVistaConten
         Vista.MostrarMenuContactos += MostrarVistaMenuContacto;
         Vista.MostrarMenuFinanzas += MostrarVistaMenuFinanzas;
         Vista.MostrarMenuInventario += MostrarVistaMenuInventario;
+        Vista.MostrarMenuTaller += MostrarVistaMenuTaller;
         Vista.MostrarMenuVentas += MostrarVistaMenuVentas;
         Vista.MostrarMenuSeguridad += MostrarVistaMenuSeguridad;
 
@@ -47,6 +48,13 @@ public partial class PresentadorContenedorModulos : PresentadorBase<IVistaConten
         InicializarVistaGestionMovimientos();
         InicializarVistaGestionAlmacenes();
         InicializarVistaRegistroAlmacen();
+
+        #endregion
+
+        #region Módulo : Taller
+
+        InicializarVistaMenuTaller();
+        InicializarVistaGestionCostosProduccion();
 
         #endregion
 

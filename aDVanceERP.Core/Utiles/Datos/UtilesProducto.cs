@@ -105,50 +105,56 @@ public static class UtilesProducto {
         return await EjecutarConsultaEscalar(query, lector => lector.GetString(lector.GetOrdinal("nombre")),
             parametros);
     }
-    
-    public static async Task<string[]> ObtenerNombresProductos(long idAlmacen = 0, string categoria = "Todas", bool soloProductosVenta = false, bool incluirDescripcion) {
+
+    public static async Task<string[]> ObtenerNombresProductos(long idAlmacen = 0, string categoria = "Todas", bool soloProductosVenta = false, bool incluirDescripcion = false) {
         var parametros = new List<MySqlParameter>();
-        
+        var condiciones = new List<string>();
+
         string query = """
-                        SELECT
-                        p.nombre
-                        FROM adv__producto p
-                        JOIN adv__producto_almacen pa ON p.id_producto = pa.id_producto
-                        JOIN adv__detalle_producto_almacen dp ON p.id_detalle_producto = dp.id_detalle_producto;
-                        """;
+            SELECT p.nombre
+            """;
 
-        if (incluirDescripcion)
-            query = query.Replace("p.nombre", "p.nombre, dp.descripcion");
-        
+        if (incluirDescripcion) {
+            query += ", dp.descripcion";
+        }
+
+        query += """
+
+            FROM adv__producto p
+            JOIN adv__producto_almacen pa ON p.id_producto = pa.id_producto
+            LEFT JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
+            """;
+
         if (idAlmacen != 0) {
-            query = query.Replace(";", """
-                
-                WHERE pa.id_almacen = @IdAlmacen;
-                """);
-
+            condiciones.Add("pa.id_almacen = @IdAlmacen");
             parametros.Add(new MySqlParameter("@IdAlmacen", idAlmacen));
         }
-        
 
-        if (!categoria.Equals("Todas")) {
-            query = query.Replace(";", """
-                 AND p.categoria = @Categoria;
-                """);
-
+        if (!categoria.Equals("Todas", StringComparison.OrdinalIgnoreCase)) {
+            condiciones.Add("p.categoria = @Categoria");
             parametros.Add(new MySqlParameter("@Categoria", categoria));
         }
 
         if (soloProductosVenta) {
-            query = query.Replace(";", """
-                 AND p.es_vendible = @EsVendible;
-                """);
-
+            condiciones.Add("p.es_vendible = @EsVendible");
             parametros.Add(new MySqlParameter("@EsVendible", true));
         }
 
-        var nombres = await EjecutarConsultaLista(query, lector => 
-        $"{ lector.GetString(lector.GetOrdinal("nombre")) }" +
-        $"{ (incluirDescripcion ? $"|{lector.GetString(lector.GetOrdinal("descripcion"))}" : string.Empty) }", parametros.ToArray());
+        if (condiciones.Count > 0) {
+            query += " WHERE " + string.Join(" AND ", condiciones);
+        }
+
+        var nombres = await EjecutarConsultaLista(query, lector =>
+        {
+            var nombre = lector.GetString(lector.GetOrdinal("nombre"));
+            var descripcion = incluirDescripcion ?
+                (lector.IsDBNull(lector.GetOrdinal("descripcion")) ?
+                    string.Empty :
+                    lector.GetString(lector.GetOrdinal("descripcion"))) :
+                string.Empty;
+
+            return $"{nombre}{(incluirDescripcion ? $"|{descripcion}" : string.Empty)}";
+        }, parametros.ToArray());
 
         return nombres.ToArray();
     }
