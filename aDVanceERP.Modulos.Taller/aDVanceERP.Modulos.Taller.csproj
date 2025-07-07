@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\aDVanceERP.Core.Seguridad\aDVanceERP.Core.Seguridad.csproj" />
     <ProjectReference Include="..\aDVanceERP.Core\aDVanceERP.Core.csproj" />
   </ItemGroup>
 
@@ -21,6 +22,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Vistas\CostosProduccion\VistaRegistroMateriaPrima.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vistas\CostosProduccion\VistaTuplaCostoProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vistas\Menu\VistaMenuTaller.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

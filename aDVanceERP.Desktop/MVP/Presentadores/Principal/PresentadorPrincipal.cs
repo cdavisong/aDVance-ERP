@@ -13,6 +13,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.Repositorios;
 using aDVanceERP.Modulos.Finanzas;
 using aDVanceERP.Modulos.Inventario;
+using aDVanceERP.Modulos.Taller;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal;
 
@@ -100,6 +101,7 @@ public partial class PresentadorPrincipal {
             UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloContactos.Nombre, ModuloContactos.Permisos);
             UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloFinanzas.Nombre, ModuloFinanzas.Permisos);
             UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloInventario.Nombre, ModuloInventario.Permisos);
+            UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloTaller.Nombre, ModuloTaller.Permisos);
             UtilesSeguridadModulosAplicacion.InicializarPermisosModulo(ModuloCompraventa.Nombre, ModuloCompraventa.Permisos);
         } catch (ExcepcionConexionServidorMySQL e) {
             CentroNotificaciones.Mostrar(e.Message, TipoNotificacion.Error);

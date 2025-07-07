@@ -37,7 +37,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
         }
 
         private void CargarNombresProductosTerminados() {
-            var nombresDescripcionesProductos = UtilesProducto.ObtenerNombresProductos(0, "ProductosTerminados", false, true).Result;
+            var nombresDescripcionesProductos = UtilesProducto.ObtenerNombresProductos(0, "ProductoTerminado", false, true).Result;
             var nombres = nombresDescripcionesProductos.Select(ndp => ndp.Split('|')[0]).ToArray();
 
             _descripcionesProductos = nombresDescripcionesProductos.Select(ndp => ndp.Split('|')[1]).ToArray();

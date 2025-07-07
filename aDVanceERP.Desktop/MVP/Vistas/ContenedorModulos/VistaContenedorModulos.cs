@@ -7,10 +7,9 @@ using aDVanceERP.Modulos.CompraVenta;
 using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Finanzas;
 using aDVanceERP.Modulos.Inventario;
+using aDVanceERP.Modulos.Taller;
 
-using TheArtOfDevHtmlRenderer.Core.Entities;
-
-namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos; 
+namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos;
 
 public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     public VistaContenedorModulos() {
@@ -53,6 +52,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     public event EventHandler? MostrarMenuContactos;
     public event EventHandler? MostrarMenuFinanzas;
     public event EventHandler? MostrarMenuInventario;
+    public event EventHandler? MostrarMenuTaller;
     public event EventHandler? MostrarMenuVentas;
     public event EventHandler? MostrarMenuSeguridad;
     public event EventHandler? CambioModulo;
@@ -64,13 +64,14 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
         btnInicio.Checked = true;
 
         // Eventos
-        btnInicio.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(1, e); };
-        btnEstadisticas.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(2, e); };
-        btnModuloContactos.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(3, e); };
-        btnModuloFinanzas.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(4, e); };
-        btnModuloInventario.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(5, e); };
-        btnModuloVentas.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(6, e); };
-        btnModuloSeguridad.Click += delegate(object? sender, EventArgs e) { PresionarBotonModulo(7, e); };
+        btnInicio.Click += delegate (object? sender, EventArgs e) { PresionarBotonModulo(1, e); };
+        btnEstadisticas.Click += delegate (object? sender, EventArgs e) { PresionarBotonModulo(2, e); };
+        btnModuloContactos.Click += delegate (object? sender, EventArgs e) { PresionarBotonModulo(3, e); };
+        btnModuloFinanzas.Click += delegate (object? sender, EventArgs e) { PresionarBotonModulo(4, e); };
+        btnModuloInventario.Click += delegate (object? sender, EventArgs e) { PresionarBotonModulo(5, e); };
+        btnModuloTaller.Click += delegate (object? sender, EventArgs e) { PresionarBotonModulo(8, e); };
+        btnModuloVentas.Click += delegate (object? sender, EventArgs e) { PresionarBotonModulo(6, e); };
+        btnModuloSeguridad.Click += delegate (object? sender, EventArgs e) { PresionarBotonModulo(7, e); };
         CambioModulo += delegate { Restaurar(); };
 
         MostrarMensajePortada();
@@ -120,23 +121,26 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
                 if (!btnModuloSeguridad.Checked)
                     btnModuloSeguridad.Checked = true;
                 break;
+            case 8:
+                MostrarMenuTaller?.Invoke(btnModuloTaller, e);
+                if (!btnModuloTaller.Checked)
+                    btnModuloTaller.Checked = true;
+                break;
         }
     }
 
     public void Mostrar() {
         btnEstadisticas.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
         btnModuloContactos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
-                                     (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(
-                                         ModuloContactos.Nombre) ?? false);
+                                     (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloContactos.Nombre) ?? false);
         btnModuloFinanzas.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
-                                    (UtilesCuentaUsuario.PermisosUsuario
-                                        ?.ContienePermisoParcial(ModuloFinanzas.Nombre) ?? false);
+                                    (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloFinanzas.Nombre) ?? false);
         btnModuloInventario.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
-                                      (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloInventario
-                                          .Nombre) ?? false);
+                                      (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloInventario.Nombre) ?? false);
+        btnModuloInventario.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
+                                     (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloTaller.Nombre) ?? false);
         btnModuloVentas.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
-                                  (UtilesCuentaUsuario.PermisosUsuario
-                                      ?.ContienePermisoParcial(ModuloCompraventa.Nombre) ?? false);
+                                  (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloCompraventa.Nombre) ?? false);
         btnModuloSeguridad.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
 
         BringToFront();
