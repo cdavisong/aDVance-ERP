@@ -8,19 +8,19 @@ using aDVanceERP.Modulos.Taller.Vistas.CostosProduccion;
 
 namespace aDVanceERP.Modulos.Taller.Presentadores.CostosProduccion {
     public class PresentadorGestionCostosProduccion : PresentadorGestionBase<PresentadorTuplaCostoProduccion, IVistaGestionCostosProduccion,
-        IVistaTuplaCostoProduccion, CostoProduccion, RepoCostoProduccion, FiltroBusquedaCostoProduccion> {
+        IVistaTuplaCostoProduccion, CostoDirecto, RepoCostoDirecto, FiltroBusquedaCostoProduccion> {
         public PresentadorGestionCostosProduccion(IVistaGestionCostosProduccion vista) : base(vista) {
         }
 
-        protected override PresentadorTuplaCostoProduccion ObtenerValoresTupla(CostoProduccion objeto) {
-            var presentadorTupla = new PresentadorTuplaCostoProduccion(new VistaTuplaCostoProduccion(), objeto);
+        protected override PresentadorTuplaCostoProduccion ObtenerValoresTupla(CostoDirecto objeto) {
+            var presentadorTupla = new PresentadorTuplaCostoProduccion(new VistaTuplaCostoDirecto(), objeto);
 
             presentadorTupla.Vista.Id = objeto.Id.ToString();
             presentadorTupla.Vista.FechaRegistro = objeto.FechaRegistro.ToString("yyyy-MM-dd");
             presentadorTupla.Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
             presentadorTupla.Vista.CostoMateriaPrima = objeto.CostoMateriaPrima;
             presentadorTupla.Vista.CostoManoObra = objeto.CostoManoObra;
-            presentadorTupla.Vista.CostoIndirectoFabricacion = objeto.CostoIndirectoFabricacion;
+            presentadorTupla.Vista.CostoIndirectoFabricacion = objeto.OtrosCostos;
             presentadorTupla.Vista.CostoTotal = objeto.CostoTotal;
             presentadorTupla.Vista.Observaciones = objeto.Observaciones ?? "No hay observaciones";
 

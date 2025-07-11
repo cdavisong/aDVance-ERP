@@ -8,7 +8,7 @@ public partial class PresentadorContenedorModulos {
     private PresentadorGestionCostosProduccion? _gestionCostosProduccion;
 
     private async void InicializarVistaGestionCostosProduccion() {
-        _gestionCostosProduccion = new PresentadorGestionCostosProduccion(new VistaGestionCostosProduccion());
+        _gestionCostosProduccion = new PresentadorGestionCostosProduccion(new VistaGestionCostosDirectos());
         _gestionCostosProduccion.EditarObjeto += MostrarVistaEdicionCostoProduccion;
         _gestionCostosProduccion.Vista.RegistrarDatos += MostrarVistaRegistroCostoProduccion;
 

@@ -22,7 +22,7 @@ public class ActividadProduccion : IObjetoUnico {
     public decimal Costo { get; set; }
 }
 
-public enum CriterioBusquedaActividadProduccion {
+public enum FiltroBusquedaActividadProduccion {
     Todos,
     Id,
     Nombre,

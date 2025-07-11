@@ -27,8 +27,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.Menu {
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuTaller));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -120,7 +120,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.Menu {
             btnCostosProduccion.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnCostosProduccion.CustomImages.ImageOffset = new Point(0, 32);
             btnCostosProduccion.CustomImages.ImageSize = new Size(131, 8);
-            btnCostosProduccion.CustomizableEdges = customizableEdges3;
+            btnCostosProduccion.CustomizableEdges = customizableEdges1;
             btnCostosProduccion.Dock = DockStyle.Left;
             btnCostosProduccion.FillColor = Color.WhiteSmoke;
             btnCostosProduccion.Font = new Font("Segoe UI", 11.25F);
@@ -128,10 +128,10 @@ namespace aDVanceERP.Modulos.Taller.Vistas.Menu {
             btnCostosProduccion.Location = new Point(0, 0);
             btnCostosProduccion.Margin = new Padding(0);
             btnCostosProduccion.Name = "btnCostosProduccion";
-            btnCostosProduccion.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnCostosProduccion.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnCostosProduccion.Size = new Size(160, 50);
             btnCostosProduccion.TabIndex = 10;
-            btnCostosProduccion.Text = "Costos prod.";
+            btnCostosProduccion.Text = "Costos directos";
             // 
             // VistaMenuTaller
             // 

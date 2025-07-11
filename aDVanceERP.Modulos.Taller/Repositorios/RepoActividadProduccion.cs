@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Taller.Repositorios;
 
-public class DatosActividadProduccion : RepositorioDatosBase<ActividadProduccion, CriterioBusquedaActividadProduccion>
+public class RepoActividadProduccion : RepositorioDatosBase<ActividadProduccion, FiltroBusquedaActividadProduccion>
 {
     public override string ComandoCantidad()
     {
@@ -51,14 +51,14 @@ public class DatosActividadProduccion : RepositorioDatosBase<ActividadProduccion
             """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaActividadProduccion criterio, string dato)
+    public override string ComandoObtener(FiltroBusquedaActividadProduccion criterio, string dato)
     {
         var comando = criterio switch
         {
-            CriterioBusquedaActividadProduccion.Todos => "SELECT * FROM adv__actividad_produccion;",
-            CriterioBusquedaActividadProduccion.Id => $"SELECT * FROM adv__actividad_produccion WHERE id_actividad_produccion = {dato};",
-            CriterioBusquedaActividadProduccion.Nombre => $"SELECT * FROM adv__actividad_produccion WHERE nombre LIKE '%{dato}%';",
-            CriterioBusquedaActividadProduccion.Descripcion => $"SELECT * FROM adv__actividad_produccion WHERE descripcion LIKE '%{dato}%';",
+            FiltroBusquedaActividadProduccion.Todos => "SELECT * FROM adv__actividad_produccion;",
+            FiltroBusquedaActividadProduccion.Id => $"SELECT * FROM adv__actividad_produccion WHERE id_actividad_produccion = {dato};",
+            FiltroBusquedaActividadProduccion.Nombre => $"SELECT * FROM adv__actividad_produccion WHERE nombre LIKE '%{dato}%';",
+            FiltroBusquedaActividadProduccion.Descripcion => $"SELECT * FROM adv__actividad_produccion WHERE descripcion LIKE '%{dato}%';",
             _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
         };
 

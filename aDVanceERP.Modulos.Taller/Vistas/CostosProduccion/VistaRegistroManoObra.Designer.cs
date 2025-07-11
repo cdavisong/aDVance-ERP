@@ -1,5 +1,5 @@
 ﻿namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
-    partial class VistaRegistroMateriaPrima {
+    partial class VistaRegistroManoObra {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaRegistroMateriaPrima));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaRegistroManoObra));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -35,20 +35,20 @@
             layoutBase = new TableLayoutPanel();
             layoutSubtotal = new TableLayoutPanel();
             symbolPeso = new Label();
-            fieldCostoTotalMateriales = new Label();
-            fieldTituloCostoTotalMateriales = new Label();
-            fieldDescripcionProducto = new Label();
+            fieldCostoTotalActividades = new Label();
+            fieldTituloCostoTotalManoObra = new Label();
+            fieldDescripcionActividad = new Label();
             layoutGestionMateriaPrima = new TableLayoutPanel();
             btnAdicionarMateriaPrima = new Guna.UI2.WinForms.Guna2Button();
             fieldCantidad = new Guna.UI2.WinForms.Guna2TextBox();
-            fieldNombreProducto = new Guna.UI2.WinForms.Guna2TextBox();
-            fieldTituloMAteriaPrimaDirecta = new Label();
+            fieldNombreActividad = new Guna.UI2.WinForms.Guna2TextBox();
+            fieldTituloManoObraDirecta = new Label();
             contenedorVistas = new Panel();
             separador1 = new Guna.UI2.WinForms.Guna2Separator();
             layoutEncabezadosTabla = new TableLayoutPanel();
             fieldTituloCantidad = new Label();
             fieldTituloCosto = new Label();
-            fieldTituloMaterial = new Label();
+            fieldTituloActividad = new Label();
             layoutBase.SuspendLayout();
             layoutSubtotal.SuspendLayout();
             layoutGestionMateriaPrima.SuspendLayout();
@@ -69,9 +69,9 @@
             layoutBase.ColumnCount = 1;
             layoutBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutBase.Controls.Add(layoutSubtotal, 0, 6);
-            layoutBase.Controls.Add(fieldDescripcionProducto, 0, 2);
+            layoutBase.Controls.Add(fieldDescripcionActividad, 0, 2);
             layoutBase.Controls.Add(layoutGestionMateriaPrima, 0, 1);
-            layoutBase.Controls.Add(fieldTituloMAteriaPrimaDirecta, 0, 0);
+            layoutBase.Controls.Add(fieldTituloManoObraDirecta, 0, 0);
             layoutBase.Controls.Add(contenedorVistas, 0, 4);
             layoutBase.Controls.Add(separador1, 0, 5);
             layoutBase.Controls.Add(layoutEncabezadosTabla, 0, 3);
@@ -97,8 +97,8 @@
             layoutSubtotal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutSubtotal.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutSubtotal.Controls.Add(symbolPeso, 0, 0);
-            layoutSubtotal.Controls.Add(fieldCostoTotalMateriales, 0, 0);
-            layoutSubtotal.Controls.Add(fieldTituloCostoTotalMateriales, 0, 0);
+            layoutSubtotal.Controls.Add(fieldCostoTotalActividades, 0, 0);
+            layoutSubtotal.Controls.Add(fieldTituloCostoTotalManoObra, 0, 0);
             layoutSubtotal.Dock = DockStyle.Fill;
             layoutSubtotal.Location = new Point(0, 425);
             layoutSubtotal.Margin = new Padding(0);
@@ -123,49 +123,49 @@
             symbolPeso.Text = "$";
             symbolPeso.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldCostoTotalMateriales
+            // fieldCostoTotalActividades
             // 
-            fieldCostoTotalMateriales.Dock = DockStyle.Fill;
-            fieldCostoTotalMateriales.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldCostoTotalMateriales.ForeColor = Color.Black;
-            fieldCostoTotalMateriales.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldCostoTotalMateriales.ImeMode = ImeMode.NoControl;
-            fieldCostoTotalMateriales.Location = new Point(302, 5);
-            fieldCostoTotalMateriales.Margin = new Padding(15, 5, 3, 3);
-            fieldCostoTotalMateriales.Name = "fieldCostoTotalMateriales";
-            fieldCostoTotalMateriales.Size = new Size(92, 37);
-            fieldCostoTotalMateriales.TabIndex = 1;
-            fieldCostoTotalMateriales.Text = "0.00";
-            fieldCostoTotalMateriales.TextAlign = ContentAlignment.MiddleRight;
+            fieldCostoTotalActividades.Dock = DockStyle.Fill;
+            fieldCostoTotalActividades.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldCostoTotalActividades.ForeColor = Color.Black;
+            fieldCostoTotalActividades.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldCostoTotalActividades.ImeMode = ImeMode.NoControl;
+            fieldCostoTotalActividades.Location = new Point(302, 5);
+            fieldCostoTotalActividades.Margin = new Padding(15, 5, 3, 3);
+            fieldCostoTotalActividades.Name = "fieldCostoTotalActividades";
+            fieldCostoTotalActividades.Size = new Size(92, 37);
+            fieldCostoTotalActividades.TabIndex = 1;
+            fieldCostoTotalActividades.Text = "0.00";
+            fieldCostoTotalActividades.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // fieldTituloCostoTotalMateriales
+            // fieldTituloCostoTotalManoObra
             // 
-            fieldTituloCostoTotalMateriales.Dock = DockStyle.Fill;
-            fieldTituloCostoTotalMateriales.Font = new Font("Segoe UI", 11.25F);
-            fieldTituloCostoTotalMateriales.ForeColor = Color.DimGray;
-            fieldTituloCostoTotalMateriales.Image = (Image) resources.GetObject("fieldTituloCostoTotalMateriales.Image");
-            fieldTituloCostoTotalMateriales.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloCostoTotalMateriales.ImeMode = ImeMode.NoControl;
-            fieldTituloCostoTotalMateriales.Location = new Point(15, 5);
-            fieldTituloCostoTotalMateriales.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloCostoTotalMateriales.Name = "fieldTituloCostoTotalMateriales";
-            fieldTituloCostoTotalMateriales.Size = new Size(269, 37);
-            fieldTituloCostoTotalMateriales.TabIndex = 0;
-            fieldTituloCostoTotalMateriales.Text = "      Costo total en materiales";
-            fieldTituloCostoTotalMateriales.TextAlign = ContentAlignment.MiddleLeft;
+            fieldTituloCostoTotalManoObra.Dock = DockStyle.Fill;
+            fieldTituloCostoTotalManoObra.Font = new Font("Segoe UI", 11.25F);
+            fieldTituloCostoTotalManoObra.ForeColor = Color.DimGray;
+            fieldTituloCostoTotalManoObra.Image = (Image) resources.GetObject("fieldTituloCostoTotalManoObra.Image");
+            fieldTituloCostoTotalManoObra.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloCostoTotalManoObra.ImeMode = ImeMode.NoControl;
+            fieldTituloCostoTotalManoObra.Location = new Point(15, 5);
+            fieldTituloCostoTotalManoObra.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloCostoTotalManoObra.Name = "fieldTituloCostoTotalManoObra";
+            fieldTituloCostoTotalManoObra.Size = new Size(269, 37);
+            fieldTituloCostoTotalManoObra.TabIndex = 0;
+            fieldTituloCostoTotalManoObra.Text = "      Costo total en actividades";
+            fieldTituloCostoTotalManoObra.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // fieldDescripcionMateriaPrima
+            // fieldDescripcionActividad
             // 
-            fieldDescripcionProducto.Dock = DockStyle.Fill;
-            fieldDescripcionProducto.Font = new Font("Segoe UI", 11.25F);
-            fieldDescripcionProducto.ForeColor = Color.Black;
-            fieldDescripcionProducto.ImeMode = ImeMode.NoControl;
-            fieldDescripcionProducto.Location = new Point(10, 85);
-            fieldDescripcionProducto.Margin = new Padding(10, 5, 10, 1);
-            fieldDescripcionProducto.Name = "fieldDescripcionMateriaPrima";
-            fieldDescripcionProducto.Size = new Size(397, 66);
-            fieldDescripcionProducto.TabIndex = 20;
-            fieldDescripcionProducto.Text = "No ha descripción disponible para la materia prima seleccionada";
+            fieldDescripcionActividad.Dock = DockStyle.Fill;
+            fieldDescripcionActividad.Font = new Font("Segoe UI", 11.25F);
+            fieldDescripcionActividad.ForeColor = Color.Black;
+            fieldDescripcionActividad.ImeMode = ImeMode.NoControl;
+            fieldDescripcionActividad.Location = new Point(10, 85);
+            fieldDescripcionActividad.Margin = new Padding(10, 5, 10, 1);
+            fieldDescripcionActividad.Name = "fieldDescripcionActividad";
+            fieldDescripcionActividad.Size = new Size(397, 66);
+            fieldDescripcionActividad.TabIndex = 20;
+            fieldDescripcionActividad.Text = "No ha descripción disponible para la actividad seleccionada";
             // 
             // layoutGestionMateriaPrima
             // 
@@ -175,7 +175,7 @@
             layoutGestionMateriaPrima.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             layoutGestionMateriaPrima.Controls.Add(btnAdicionarMateriaPrima, 2, 0);
             layoutGestionMateriaPrima.Controls.Add(fieldCantidad, 1, 0);
-            layoutGestionMateriaPrima.Controls.Add(fieldNombreProducto, 0, 0);
+            layoutGestionMateriaPrima.Controls.Add(fieldNombreActividad, 0, 0);
             layoutGestionMateriaPrima.Dock = DockStyle.Fill;
             layoutGestionMateriaPrima.Location = new Point(0, 35);
             layoutGestionMateriaPrima.Margin = new Padding(0);
@@ -239,52 +239,52 @@
             fieldCantidad.TextAlign = HorizontalAlignment.Right;
             fieldCantidad.TextOffset = new Point(5, 0);
             // 
-            // fieldNombreProducto
+            // fieldNombreActividad
             // 
-            fieldNombreProducto.Animated = true;
-            fieldNombreProducto.BorderColor = Color.Gainsboro;
-            fieldNombreProducto.BorderRadius = 16;
-            fieldNombreProducto.Cursor = Cursors.IBeam;
-            fieldNombreProducto.CustomizableEdges = customizableEdges11;
-            fieldNombreProducto.DefaultText = "";
-            fieldNombreProducto.DisabledState.BorderColor = Color.Gainsboro;
-            fieldNombreProducto.DisabledState.FillColor = Color.White;
-            fieldNombreProducto.DisabledState.ForeColor = Color.DimGray;
-            fieldNombreProducto.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldNombreProducto.Dock = DockStyle.Fill;
-            fieldNombreProducto.FocusedState.BorderColor = Color.SandyBrown;
-            fieldNombreProducto.Font = new Font("Segoe UI", 11.25F);
-            fieldNombreProducto.ForeColor = Color.Black;
-            fieldNombreProducto.HoverState.BorderColor = Color.SandyBrown;
-            fieldNombreProducto.IconLeft = (Image) resources.GetObject("fieldNombreProducto.IconLeft");
-            fieldNombreProducto.IconLeftOffset = new Point(10, 0);
-            fieldNombreProducto.Location = new Point(5, 5);
-            fieldNombreProducto.Margin = new Padding(5);
-            fieldNombreProducto.Name = "fieldNombreProducto";
-            fieldNombreProducto.PasswordChar = '\0';
-            fieldNombreProducto.PlaceholderForeColor = Color.DimGray;
-            fieldNombreProducto.PlaceholderText = "Nombre de la materia prima";
-            fieldNombreProducto.SelectedText = "";
-            fieldNombreProducto.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            fieldNombreProducto.Size = new Size(262, 35);
-            fieldNombreProducto.TabIndex = 0;
-            fieldNombreProducto.TextOffset = new Point(5, 0);
+            fieldNombreActividad.Animated = true;
+            fieldNombreActividad.BorderColor = Color.Gainsboro;
+            fieldNombreActividad.BorderRadius = 16;
+            fieldNombreActividad.Cursor = Cursors.IBeam;
+            fieldNombreActividad.CustomizableEdges = customizableEdges11;
+            fieldNombreActividad.DefaultText = "";
+            fieldNombreActividad.DisabledState.BorderColor = Color.Gainsboro;
+            fieldNombreActividad.DisabledState.FillColor = Color.White;
+            fieldNombreActividad.DisabledState.ForeColor = Color.DimGray;
+            fieldNombreActividad.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldNombreActividad.Dock = DockStyle.Fill;
+            fieldNombreActividad.FocusedState.BorderColor = Color.SandyBrown;
+            fieldNombreActividad.Font = new Font("Segoe UI", 11.25F);
+            fieldNombreActividad.ForeColor = Color.Black;
+            fieldNombreActividad.HoverState.BorderColor = Color.SandyBrown;
+            fieldNombreActividad.IconLeft = (Image) resources.GetObject("fieldNombreActividad.IconLeft");
+            fieldNombreActividad.IconLeftOffset = new Point(10, 0);
+            fieldNombreActividad.Location = new Point(5, 5);
+            fieldNombreActividad.Margin = new Padding(5);
+            fieldNombreActividad.Name = "fieldNombreActividad";
+            fieldNombreActividad.PasswordChar = '\0';
+            fieldNombreActividad.PlaceholderForeColor = Color.DimGray;
+            fieldNombreActividad.PlaceholderText = "Nombre de la actividad";
+            fieldNombreActividad.SelectedText = "";
+            fieldNombreActividad.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            fieldNombreActividad.Size = new Size(262, 35);
+            fieldNombreActividad.TabIndex = 0;
+            fieldNombreActividad.TextOffset = new Point(5, 0);
             // 
-            // fieldTituloMAteriaPrimaDirecta
+            // fieldTituloManoObraDirecta
             // 
-            fieldTituloMAteriaPrimaDirecta.Dock = DockStyle.Fill;
-            fieldTituloMAteriaPrimaDirecta.Font = new Font("Segoe UI", 11.25F);
-            fieldTituloMAteriaPrimaDirecta.ForeColor = Color.DimGray;
-            fieldTituloMAteriaPrimaDirecta.Image = (Image) resources.GetObject("fieldTituloMAteriaPrimaDirecta.Image");
-            fieldTituloMAteriaPrimaDirecta.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloMAteriaPrimaDirecta.ImeMode = ImeMode.NoControl;
-            fieldTituloMAteriaPrimaDirecta.Location = new Point(15, 5);
-            fieldTituloMAteriaPrimaDirecta.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloMAteriaPrimaDirecta.Name = "fieldTituloMAteriaPrimaDirecta";
-            fieldTituloMAteriaPrimaDirecta.Size = new Size(399, 27);
-            fieldTituloMAteriaPrimaDirecta.TabIndex = 5;
-            fieldTituloMAteriaPrimaDirecta.Text = "      Materia prima directa :";
-            fieldTituloMAteriaPrimaDirecta.TextAlign = ContentAlignment.MiddleLeft;
+            fieldTituloManoObraDirecta.Dock = DockStyle.Fill;
+            fieldTituloManoObraDirecta.Font = new Font("Segoe UI", 11.25F);
+            fieldTituloManoObraDirecta.ForeColor = Color.DimGray;
+            fieldTituloManoObraDirecta.Image = (Image) resources.GetObject("fieldTituloManoObraDirecta.Image");
+            fieldTituloManoObraDirecta.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloManoObraDirecta.ImeMode = ImeMode.NoControl;
+            fieldTituloManoObraDirecta.Location = new Point(15, 5);
+            fieldTituloManoObraDirecta.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloManoObraDirecta.Name = "fieldTituloManoObraDirecta";
+            fieldTituloManoObraDirecta.Size = new Size(399, 27);
+            fieldTituloManoObraDirecta.TabIndex = 5;
+            fieldTituloManoObraDirecta.Text = "      Mano de obra directa :";
+            fieldTituloManoObraDirecta.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // contenedorVistas
             // 
@@ -315,7 +315,7 @@
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutEncabezadosTabla.Controls.Add(fieldTituloCantidad, 2, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloCosto, 1, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloMaterial, 0, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloActividad, 0, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
             layoutEncabezadosTabla.Location = new Point(1, 153);
             layoutEncabezadosTabla.Margin = new Padding(1);
@@ -353,27 +353,27 @@
             fieldTituloCosto.Text = "Costo";
             fieldTituloCosto.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldTituloMaterial
+            // fieldTituloActividad
             // 
-            fieldTituloMaterial.Dock = DockStyle.Fill;
-            fieldTituloMaterial.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldTituloMaterial.ForeColor = Color.Black;
-            fieldTituloMaterial.ImeMode = ImeMode.NoControl;
-            fieldTituloMaterial.Location = new Point(1, 1);
-            fieldTituloMaterial.Margin = new Padding(1);
-            fieldTituloMaterial.Name = "fieldTituloMaterial";
-            fieldTituloMaterial.Size = new Size(173, 41);
-            fieldTituloMaterial.TabIndex = 0;
-            fieldTituloMaterial.Text = "Material";
-            fieldTituloMaterial.TextAlign = ContentAlignment.MiddleCenter;
+            fieldTituloActividad.Dock = DockStyle.Fill;
+            fieldTituloActividad.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldTituloActividad.ForeColor = Color.Black;
+            fieldTituloActividad.ImeMode = ImeMode.NoControl;
+            fieldTituloActividad.Location = new Point(1, 1);
+            fieldTituloActividad.Margin = new Padding(1);
+            fieldTituloActividad.Name = "fieldTituloActividad";
+            fieldTituloActividad.Size = new Size(173, 41);
+            fieldTituloActividad.TabIndex = 0;
+            fieldTituloActividad.Text = "Actividad";
+            fieldTituloActividad.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // VistaRegistroMateriaPrima
+            // VistaRegistroManoObra
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(417, 470);
             Controls.Add(layoutBase);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "VistaRegistroMateriaPrima";
+            Name = "VistaRegistroManoObra";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
@@ -389,21 +389,21 @@
 
         private Guna.UI2.WinForms.Guna2BorderlessForm formatoBase;
         private TableLayoutPanel layoutBase;
-        private Label fieldTituloMAteriaPrimaDirecta;
+        private Label fieldTituloManoObraDirecta;
         private Panel contenedorVistas;
         private TableLayoutPanel layoutGestionMateriaPrima;
         private Guna.UI2.WinForms.Guna2Button btnAdicionarMateriaPrima;
         private Guna.UI2.WinForms.Guna2TextBox fieldCantidad;
-        private Guna.UI2.WinForms.Guna2TextBox fieldNombreProducto;
-        private Label fieldDescripcionProducto;
+        private Guna.UI2.WinForms.Guna2TextBox fieldNombreActividad;
+        private Label fieldDescripcionActividad;
         private TableLayoutPanel layoutEncabezadosTabla;
         private Label fieldTituloCantidad;
         private Label fieldTituloCosto;
-        private Label fieldTituloMaterial;
+        private Label fieldTituloActividad;
         private Guna.UI2.WinForms.Guna2Separator separador1;
         private TableLayoutPanel layoutSubtotal;
         private Label symbolPeso;
-        private Label fieldCostoTotalMateriales;
-        private Label fieldTituloCostoTotalMateriales;
+        private Label fieldCostoTotalActividades;
+        private Label fieldTituloCostoTotalManoObra;
     }
 }

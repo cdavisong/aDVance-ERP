@@ -1,24 +1,24 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
-    public class CostoProduccion : IObjetoUnico {
-        public CostoProduccion() {
+    public class CostoDirecto : IObjetoUnico {
+        public CostoDirecto() {
             Id = 0;
             IdProducto = 0;
             CostoMateriaPrima = 0.0m;
             CostoManoObra = 0.0m;
-            CostoIndirectoFabricacion = 0.0m;
+            OtrosCostos = 0.0m;
             CostoTotal = 0.0m;
             FechaRegistro = DateTime.Now;
-            Observaciones = "No hay observaciones para el costo de producción actual";
+            Observaciones = "No hay observaciones para el costo directo de producción actual";
         }
 
-        public CostoProduccion(long id, long idProducto, decimal costoMateriaPrima, decimal costoManoObra, decimal costoIndirectoFabricacion, decimal costoTotal, string? observaciones) {
+        public CostoDirecto(long id, long idProducto, decimal costoMateriaPrima, decimal costoManoObra, decimal costoIndirectoFabricacion, decimal costoTotal, string? observaciones) {
             Id = id;
             IdProducto = idProducto;
             CostoMateriaPrima = costoMateriaPrima;
             CostoManoObra = costoManoObra;
-            CostoIndirectoFabricacion = costoIndirectoFabricacion;
+            OtrosCostos = costoIndirectoFabricacion;
             CostoTotal = costoTotal;
             Observaciones = observaciones;
         }
@@ -27,7 +27,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public long IdProducto { get; set; }
         public decimal CostoMateriaPrima { get; set; }
         public decimal CostoManoObra { get; set; }
-        public decimal CostoIndirectoFabricacion { get; set; }
+        public decimal OtrosCostos { get; set; }
         public decimal CostoTotal { get; set; }
         public DateTime FechaRegistro { get; set; }
         public string? Observaciones { get; set; }

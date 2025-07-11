@@ -1,14 +1,16 @@
 ﻿using aDVanceERP.Modulos.Taller.Interfaces;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
-    public partial class VistaRegistroCostoProduccion : Form, IVistaRegistroCostoProduccion {
+    public partial class VistaRegistroCostoDirecto : Form, IVistaRegistroCostoDirecto {
         private bool _modoEdicion;
         private int _paginaActual = 1;
 
         private VistaRegistroDatosGenerales P1DatosGenerales = new VistaRegistroDatosGenerales();
         private VistaRegistroMateriaPrima P2MateriasPrimas = new VistaRegistroMateriaPrima();
+        private VistaRegistroManoObra P3ManoObra = new VistaRegistroManoObra();
+        private VistaRegistroOtrosCostos P4OtrosCostos = new VistaRegistroOtrosCostos();
 
-        public VistaRegistroCostoProduccion() {
+        public VistaRegistroCostoDirecto() {
             InitializeComponent();
             InicializarVistas();
             Inicializar();
@@ -52,9 +54,19 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
             P2MateriasPrimas.Dock = DockStyle.Fill;
             P2MateriasPrimas.TopLevel = false;
 
+            // 3. Mano de obra
+            P3ManoObra.Dock = DockStyle.Fill;
+            P3ManoObra.TopLevel = false;
+
+            // 4. Otros costos y resumen
+            P4OtrosCostos.Dock = DockStyle.Fill;
+            P4OtrosCostos.TopLevel = false;
+
             contenedorVistas.Controls.Clear();
             contenedorVistas.Controls.Add(P1DatosGenerales);
             contenedorVistas.Controls.Add(P2MateriasPrimas);
+            contenedorVistas.Controls.Add(P3ManoObra);
+            contenedorVistas.Controls.Add(P4OtrosCostos);
 
             // Mostrar vista de datos generales
             P1DatosGenerales.Show();
@@ -80,7 +92,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
                     RegistrarDatos?.Invoke(sender, args);
             };
             btnSiguiente.Click += delegate (object? sender, EventArgs args) {
-                if (_paginaActual < 2)
+                if (_paginaActual < 4)
                     AvanzarPagina();
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
@@ -94,7 +106,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
         private void AvanzarPagina() {
             // Mapeo de navegación: página actual -> siguiente página
             var navegacion = new Dictionary<int, Action> {
-                [1] = () => MostrarOcultarFormularios(P2MateriasPrimas, [P1DatosGenerales])
+                [1] = () => MostrarOcultarFormularios(P2MateriasPrimas, [P1DatosGenerales]),
+                [2] = () => MostrarOcultarFormularios(P3ManoObra, [P2MateriasPrimas]),
+                [3] = () => MostrarOcultarFormularios(P4OtrosCostos, [P3ManoObra])
             };
 
             if (navegacion.TryGetValue(_paginaActual, out var action)) {
@@ -108,6 +122,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
         private void RetrocederPagina() {
             // Mapeo de navegación: página actual -> página anterior
             var navegacion = new Dictionary<int, Action> {
+                [4] = () => MostrarOcultarFormularios(P3ManoObra, [P4OtrosCostos]),
+                [3] = () => MostrarOcultarFormularios(P2MateriasPrimas, [P3ManoObra]),
                 [2] = () => MostrarOcultarFormularios(P1DatosGenerales, [P2MateriasPrimas])
             };
 
@@ -121,7 +137,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
 
         private void ActualizarBotones() {
             var mostrarBotonAnterior = _paginaActual > 1;
-            var mostrarBotonSiguiente = _paginaActual < 2;
+            var mostrarBotonSiguiente = _paginaActual < 4;
 
             ConfigurarParametrosBotonesNavegacion(mostrarBotonAnterior, mostrarBotonSiguiente);
         }
