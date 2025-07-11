@@ -4,16 +4,16 @@ using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Repositorios;
 
 namespace aDVanceERP.Modulos.Taller.Presentadores.CostosProduccion {
-    public class PresentadorRegistroCostoProduccion : PresentadorRegistroBase<IVistaRegistroCostoProduccion, CostoProduccion, RepoCostoProduccion, FiltroBusquedaCostoProduccion> {
-        public PresentadorRegistroCostoProduccion(IVistaRegistroCostoProduccion vista) : base(vista) {
+    public class PresentadorRegistroCostoProduccion : PresentadorRegistroBase<IVistaRegistroCostoDirecto, CostoDirecto, RepoCostoDirecto, FiltroBusquedaCostoProduccion> {
+        public PresentadorRegistroCostoProduccion(IVistaRegistroCostoDirecto vista) : base(vista) {
         }
 
-        public override void PopularVistaDesdeObjeto(CostoProduccion objeto) {
+        public override void PopularVistaDesdeObjeto(CostoDirecto objeto) {
             Vista.ModoEdicionDatos = true;
 
         }
 
-        protected override Task<CostoProduccion?> ObtenerObjetoDesdeVista() {
+        protected override Task<CostoDirecto?> ObtenerObjetoDesdeVista() {
             throw new NotImplementedException();
         }
     }

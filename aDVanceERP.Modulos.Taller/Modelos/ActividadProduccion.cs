@@ -22,7 +22,7 @@ public class ActividadProduccion : IEntidad {
     public decimal Costo { get; set; }
 }
 
-public enum FbActividadProduccion {
+public enum FiltroBusquedaActividadProduccion {
     Todos,
     Id,
     Nombre,

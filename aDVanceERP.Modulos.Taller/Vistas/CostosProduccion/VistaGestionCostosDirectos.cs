@@ -6,11 +6,11 @@ using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
-    public partial class VistaGestionCostosProduccion : Form, IVistaGestionCostosProduccion {
+    public partial class VistaGestionCostosDirectos : Form, IVistaGestionCostosProduccion {
         private int _paginaActual = 1;
         private int _paginasTotales = 1;
 
-        public VistaGestionCostosProduccion() {
+        public VistaGestionCostosDirectos() {
             InitializeComponent();
             Inicializar();
         }
