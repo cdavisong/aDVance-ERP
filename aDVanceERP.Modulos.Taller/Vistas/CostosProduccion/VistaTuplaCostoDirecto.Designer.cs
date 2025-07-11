@@ -3,7 +3,7 @@
 using System.ComponentModel;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
-    partial class VistaTuplaCostoProduccion {
+    partial class VistaTuplaCostoDirecto {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -28,7 +28,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaCostoProduccion));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaCostoDirecto));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();

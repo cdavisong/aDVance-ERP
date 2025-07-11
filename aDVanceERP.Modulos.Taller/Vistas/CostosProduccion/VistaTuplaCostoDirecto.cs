@@ -7,8 +7,8 @@ using Guna.UI2.WinForms;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.CostosProduccion;
 
-public partial class VistaTuplaCostoProduccion : Form, IVistaTuplaCostoProduccion {
-    public VistaTuplaCostoProduccion() {
+public partial class VistaTuplaCostoDirecto : Form, IVistaTuplaCostoProduccion {
+    public VistaTuplaCostoDirecto() {
         InitializeComponent();
         Inicializar();
     }

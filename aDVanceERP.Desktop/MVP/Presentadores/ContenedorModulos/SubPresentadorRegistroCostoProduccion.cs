@@ -8,7 +8,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private PresentadorRegistroCostoProduccion? _registroCostoProduccion;
 
         private void InicializarVistaRegistroCostoProduccion() {
-            _registroCostoProduccion = new PresentadorRegistroCostoProduccion(new VistaRegistroCostoProduccion());
+            _registroCostoProduccion = new PresentadorRegistroCostoProduccion(new VistaRegistroCostoDirecto());
             _registroCostoProduccion.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
             _registroCostoProduccion.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroCostoProduccion.DatosRegistradosActualizados += async delegate {
@@ -32,7 +32,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaEdicionCostoProduccion(object? sender, EventArgs e) {
             InicializarVistaRegistroCostoProduccion();
 
-            if (sender is CostoProduccion costoProduccion) {
+            if (sender is CostoDirecto costoProduccion) {
                 if (_registroCostoProduccion != null) {
                     _registroCostoProduccion.PopularVistaDesdeObjeto(costoProduccion);
                     _registroCostoProduccion.Vista.Mostrar();
