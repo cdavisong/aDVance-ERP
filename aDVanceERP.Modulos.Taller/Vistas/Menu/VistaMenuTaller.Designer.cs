@@ -27,14 +27,14 @@ namespace aDVanceERP.Modulos.Taller.Vistas.Menu {
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaMenuTaller));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
             fieldTitulo = new Label();
             panelRelleno = new Panel();
-            btnCostosProduccion = new Guna2Button();
+            btnOrdenesProduccion = new Guna2Button();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
             panelRelleno.SuspendLayout();
@@ -100,7 +100,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.Menu {
             // panelRelleno
             // 
             panelRelleno.BackColor = Color.WhiteSmoke;
-            panelRelleno.Controls.Add(btnCostosProduccion);
+            panelRelleno.Controls.Add(btnOrdenesProduccion);
             panelRelleno.Dock = DockStyle.Fill;
             panelRelleno.Font = new Font("Segoe UI", 11.25F);
             panelRelleno.Location = new Point(160, 0);
@@ -109,29 +109,29 @@ namespace aDVanceERP.Modulos.Taller.Vistas.Menu {
             panelRelleno.Size = new Size(834, 50);
             panelRelleno.TabIndex = 0;
             // 
-            // btnCostosProduccion
+            // btnOrdenesProduccion
             // 
-            btnCostosProduccion.Animated = true;
-            btnCostosProduccion.BackColor = Color.WhiteSmoke;
-            btnCostosProduccion.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            btnCostosProduccion.CheckedState.FillColor = Color.WhiteSmoke;
-            btnCostosProduccion.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            btnCostosProduccion.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
-            btnCostosProduccion.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnCostosProduccion.CustomImages.ImageOffset = new Point(0, 32);
-            btnCostosProduccion.CustomImages.ImageSize = new Size(131, 8);
-            btnCostosProduccion.CustomizableEdges = customizableEdges1;
-            btnCostosProduccion.Dock = DockStyle.Left;
-            btnCostosProduccion.FillColor = Color.WhiteSmoke;
-            btnCostosProduccion.Font = new Font("Segoe UI", 11.25F);
-            btnCostosProduccion.ForeColor = Color.Black;
-            btnCostosProduccion.Location = new Point(0, 0);
-            btnCostosProduccion.Margin = new Padding(0);
-            btnCostosProduccion.Name = "btnCostosProduccion";
-            btnCostosProduccion.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnCostosProduccion.Size = new Size(160, 50);
-            btnCostosProduccion.TabIndex = 10;
-            btnCostosProduccion.Text = "Costos directos";
+            btnOrdenesProduccion.Animated = true;
+            btnOrdenesProduccion.BackColor = Color.WhiteSmoke;
+            btnOrdenesProduccion.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnOrdenesProduccion.CheckedState.FillColor = Color.WhiteSmoke;
+            btnOrdenesProduccion.CheckedState.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            btnOrdenesProduccion.CustomImages.CheckedImage = (Image) resources.GetObject("resource.CheckedImage");
+            btnOrdenesProduccion.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnOrdenesProduccion.CustomImages.ImageOffset = new Point(0, 32);
+            btnOrdenesProduccion.CustomImages.ImageSize = new Size(131, 8);
+            btnOrdenesProduccion.CustomizableEdges = customizableEdges3;
+            btnOrdenesProduccion.Dock = DockStyle.Left;
+            btnOrdenesProduccion.FillColor = Color.WhiteSmoke;
+            btnOrdenesProduccion.Font = new Font("Segoe UI", 11.25F);
+            btnOrdenesProduccion.ForeColor = Color.Black;
+            btnOrdenesProduccion.Location = new Point(0, 0);
+            btnOrdenesProduccion.Margin = new Padding(0);
+            btnOrdenesProduccion.Name = "btnOrdenesProduccion";
+            btnOrdenesProduccion.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnOrdenesProduccion.Size = new Size(160, 50);
+            btnOrdenesProduccion.TabIndex = 10;
+            btnOrdenesProduccion.Text = "Ordenes de prod.";
             // 
             // VistaMenuTaller
             // 
@@ -160,6 +160,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.Menu {
         private TableLayoutPanel layoutDistribucion;
         private Panel panelRelleno;
         private Label fieldTitulo;
-        private Guna2Button btnCostosProduccion;
+        private Guna2Button btnOrdenesProduccion;
     }
 }

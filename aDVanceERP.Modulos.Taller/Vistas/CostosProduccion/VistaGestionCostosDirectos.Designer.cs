@@ -760,7 +760,7 @@
             contenedorVistas.Size = new Size(1286, 218);
             contenedorVistas.TabIndex = 13;
             // 
-            // VistaGestionCostosDirectos
+            // VistaRegistroOrdenProduccion
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(1356, 608);
@@ -768,7 +768,7 @@
             Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
-            Name = "VistaGestionCostosDirectos";
+            Name = "VistaRegistroOrdenProduccion";
             ShowIcon = false;
             ShowInTaskbar = false;
             Text = "VistaGestionCostosProduccion";

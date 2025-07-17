@@ -37,7 +37,6 @@
             fieldTituloResumen = new Label();
             layoutMontoOtrosCostos = new TableLayoutPanel();
             fieldOtrosCostos = new Guna.UI2.WinForms.Guna2TextBox();
-            fieldTituloOtrosCostos = new Label();
             layoutBase.SuspendLayout();
             layoutMontoOtrosCostos.SuspendLayout();
             SuspendLayout();
@@ -151,7 +150,6 @@
             layoutMontoOtrosCostos.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             layoutMontoOtrosCostos.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutMontoOtrosCostos.Controls.Add(fieldOtrosCostos, 1, 0);
-            layoutMontoOtrosCostos.Controls.Add(fieldTituloOtrosCostos, 0, 0);
             layoutMontoOtrosCostos.Dock = DockStyle.Fill;
             layoutMontoOtrosCostos.Location = new Point(0, 35);
             layoutMontoOtrosCostos.Margin = new Padding(0);
@@ -194,21 +192,6 @@
             fieldOtrosCostos.TextAlign = HorizontalAlignment.Right;
             fieldOtrosCostos.TextOffset = new Point(5, 0);
             // 
-            // fieldTituloOtrosCostos
-            // 
-            fieldTituloOtrosCostos.Dock = DockStyle.Fill;
-            fieldTituloOtrosCostos.Font = new Font("Segoe UI", 11.25F);
-            fieldTituloOtrosCostos.ForeColor = Color.DimGray;
-            fieldTituloOtrosCostos.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloOtrosCostos.ImeMode = ImeMode.NoControl;
-            fieldTituloOtrosCostos.Location = new Point(15, 5);
-            fieldTituloOtrosCostos.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloOtrosCostos.Name = "fieldTituloOtrosCostos";
-            fieldTituloOtrosCostos.Size = new Size(269, 37);
-            fieldTituloOtrosCostos.TabIndex = 0;
-            fieldTituloOtrosCostos.Text = "  ●   Otros costos de producción";
-            fieldTituloOtrosCostos.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // VistaRegistroOtrosCostos
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -233,7 +216,6 @@
         private Label fieldTituloOtrosCostos;
         private TableLayoutPanel layoutMontoOtrosCostos;
         private Guna.UI2.WinForms.Guna2TextBox fieldOtrosCostos;
-        private Label fieldTituloOtrosCostos;
         private Label fieldTituloResumen;
         private Label label1;
         private Guna.UI2.WinForms.Guna2TextBox fieldObservaciones;

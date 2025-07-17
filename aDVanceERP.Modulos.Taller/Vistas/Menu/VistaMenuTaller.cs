@@ -24,18 +24,18 @@ public partial class VistaMenuTaller : Form, IVistaMenuTaller {
         set => Size = value;
     }
 
-    public event EventHandler? VerCostosProduccion;
+    public event EventHandler? VerOrdenesProduccion;
     public event EventHandler? CambioMenu;
     public event EventHandler? Salir;
 
     public void Inicializar() {
         // Eventos
-        btnCostosProduccion.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
+        btnOrdenesProduccion.Click += delegate (object? sender, EventArgs e) { PresionarBotonSeleccion(1, e); };
     }
 
     public void MostrarCaracteristicaInicial() {
-        if (btnCostosProduccion.Visible)
-            btnCostosProduccion.PerformClick();
+        if (btnOrdenesProduccion.Visible)
+            btnOrdenesProduccion.PerformClick();
     }
 
     public void PresionarBotonSeleccion(object? sender, EventArgs e) {
@@ -48,9 +48,9 @@ public partial class VistaMenuTaller : Form, IVistaMenuTaller {
 
         switch (indice) {
             case 1:
-                VerCostosProduccion?.Invoke(btnCostosProduccion, e);
-                if (!btnCostosProduccion.Checked)
-                    btnCostosProduccion.Checked = true;
+                VerOrdenesProduccion?.Invoke(btnOrdenesProduccion, e);
+                if (!btnOrdenesProduccion.Checked)
+                    btnOrdenesProduccion.Checked = true;
                 break;
         }
     }
@@ -62,7 +62,7 @@ public partial class VistaMenuTaller : Form, IVistaMenuTaller {
     }
 
     public void Restaurar() {
-        btnCostosProduccion.Checked = false;
+        btnOrdenesProduccion.Checked = false;
     }
 
     public void Ocultar() {
@@ -74,7 +74,7 @@ public partial class VistaMenuTaller : Form, IVistaMenuTaller {
     }
 
     private void VerificarPermisos() {
-        btnCostosProduccion.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
+        btnOrdenesProduccion.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_TALLER_COSTOS")
                                || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_TALLER_TODOS");
     }
