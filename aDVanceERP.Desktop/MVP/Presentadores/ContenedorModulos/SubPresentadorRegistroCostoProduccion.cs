@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Taller.Vistas.CostosProduccion;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
-        private PresentadorRegistroCostoProduccion? _registroCostoProduccion;
+        private PresentadorRegistroOrdenProduccion? _registroCostoProduccion;
 
         private void InicializarVistaRegistroCostoProduccion() {
             _registroCostoProduccion = new PresentadorRegistroCostoProduccion(new VistaRegistroCostoDirecto());

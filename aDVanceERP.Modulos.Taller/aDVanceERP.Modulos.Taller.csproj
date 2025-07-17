@@ -36,6 +36,9 @@
     <Compile Update="Vistas\Menu\VistaMenuTaller.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Vistas\OrdenProduccion\VistaRegistroOrdenProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

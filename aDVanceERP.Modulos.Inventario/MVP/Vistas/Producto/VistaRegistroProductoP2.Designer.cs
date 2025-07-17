@@ -31,6 +31,10 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -41,10 +45,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             fieldDescripcionTipoMateriaPrima = new Label();
@@ -55,6 +55,8 @@
             fieldTituloTipoMateriaPrima = new Label();
             fieldDescripcionUnidadMedida = new Label();
             layoutUnidadMedida = new TableLayoutPanel();
+            btnEliminarUnidadMedida = new Guna.UI2.WinForms.Guna2Button();
+            btnAdicionarUnidadMedida = new Guna.UI2.WinForms.Guna2Button();
             fieldUnidadMedida = new Guna.UI2.WinForms.Guna2ComboBox();
             layoutPrecioVentaBase = new TableLayoutPanel();
             fieldPrecioVentaBase = new Guna.UI2.WinForms.Guna2TextBox();
@@ -73,8 +75,6 @@
             fieldStockInicial = new Guna.UI2.WinForms.Guna2TextBox();
             separador2 = new Guna.UI2.WinForms.Guna2Separator();
             separador3 = new Guna.UI2.WinForms.Guna2Separator();
-            btnAdicionarUnidadMedida = new Guna.UI2.WinForms.Guna2Button();
-            btnEliminarUnidadMedida = new Guna.UI2.WinForms.Guna2Button();
             layoutBase.SuspendLayout();
             layoutTipoMateriaPrima.SuspendLayout();
             layoutUnidadMedida.SuspendLayout();
@@ -270,6 +270,42 @@
             layoutUnidadMedida.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutUnidadMedida.Size = new Size(417, 45);
             layoutUnidadMedida.TabIndex = 32;
+            // 
+            // btnEliminarUnidadMedida
+            // 
+            btnEliminarUnidadMedida.Animated = true;
+            btnEliminarUnidadMedida.BorderRadius = 18;
+            btnEliminarUnidadMedida.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
+            btnEliminarUnidadMedida.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnEliminarUnidadMedida.CustomizableEdges = customizableEdges7;
+            btnEliminarUnidadMedida.DialogResult = DialogResult.Cancel;
+            btnEliminarUnidadMedida.Dock = DockStyle.Fill;
+            btnEliminarUnidadMedida.FillColor = Color.PeachPuff;
+            btnEliminarUnidadMedida.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            btnEliminarUnidadMedida.ForeColor = Color.White;
+            btnEliminarUnidadMedida.Location = new Point(370, 3);
+            btnEliminarUnidadMedida.Name = "btnEliminarUnidadMedida";
+            btnEliminarUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnEliminarUnidadMedida.Size = new Size(44, 39);
+            btnEliminarUnidadMedida.TabIndex = 36;
+            // 
+            // btnAdicionarUnidadMedida
+            // 
+            btnAdicionarUnidadMedida.Animated = true;
+            btnAdicionarUnidadMedida.BorderRadius = 18;
+            btnAdicionarUnidadMedida.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
+            btnAdicionarUnidadMedida.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnAdicionarUnidadMedida.CustomizableEdges = customizableEdges9;
+            btnAdicionarUnidadMedida.DialogResult = DialogResult.Cancel;
+            btnAdicionarUnidadMedida.Dock = DockStyle.Fill;
+            btnAdicionarUnidadMedida.FillColor = Color.PeachPuff;
+            btnAdicionarUnidadMedida.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            btnAdicionarUnidadMedida.ForeColor = Color.White;
+            btnAdicionarUnidadMedida.Location = new Point(320, 3);
+            btnAdicionarUnidadMedida.Name = "btnAdicionarUnidadMedida";
+            btnAdicionarUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnAdicionarUnidadMedida.Size = new Size(44, 39);
+            btnAdicionarUnidadMedida.TabIndex = 35;
             // 
             // fieldUnidadMedida
             // 
@@ -605,42 +641,6 @@
             separador3.Name = "separador3";
             separador3.Size = new Size(411, 14);
             separador3.TabIndex = 34;
-            // 
-            // btnAdicionarUnidadMedida
-            // 
-            btnAdicionarUnidadMedida.Animated = true;
-            btnAdicionarUnidadMedida.BorderRadius = 18;
-            btnAdicionarUnidadMedida.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
-            btnAdicionarUnidadMedida.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAdicionarUnidadMedida.CustomizableEdges = customizableEdges9;
-            btnAdicionarUnidadMedida.DialogResult = DialogResult.Cancel;
-            btnAdicionarUnidadMedida.Dock = DockStyle.Fill;
-            btnAdicionarUnidadMedida.FillColor = Color.PeachPuff;
-            btnAdicionarUnidadMedida.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnAdicionarUnidadMedida.ForeColor = Color.White;
-            btnAdicionarUnidadMedida.Location = new Point(320, 3);
-            btnAdicionarUnidadMedida.Name = "btnAdicionarUnidadMedida";
-            btnAdicionarUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnAdicionarUnidadMedida.Size = new Size(44, 39);
-            btnAdicionarUnidadMedida.TabIndex = 35;
-            // 
-            // btnEliminarUnidadMedida
-            // 
-            btnEliminarUnidadMedida.Animated = true;
-            btnEliminarUnidadMedida.BorderRadius = 18;
-            btnEliminarUnidadMedida.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
-            btnEliminarUnidadMedida.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminarUnidadMedida.CustomizableEdges = customizableEdges7;
-            btnEliminarUnidadMedida.DialogResult = DialogResult.Cancel;
-            btnEliminarUnidadMedida.Dock = DockStyle.Fill;
-            btnEliminarUnidadMedida.FillColor = Color.PeachPuff;
-            btnEliminarUnidadMedida.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnEliminarUnidadMedida.ForeColor = Color.White;
-            btnEliminarUnidadMedida.Location = new Point(370, 3);
-            btnEliminarUnidadMedida.Name = "btnEliminarUnidadMedida";
-            btnEliminarUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            btnEliminarUnidadMedida.Size = new Size(44, 39);
-            btnEliminarUnidadMedida.TabIndex = 36;
             // 
             // VistaRegistroProductoP2
             // 
