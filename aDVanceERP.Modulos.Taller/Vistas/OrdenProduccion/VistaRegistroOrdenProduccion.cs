@@ -1,8 +1,12 @@
 ﻿using aDVanceERP.Modulos.Taller.Interfaces;
 
+using System.Globalization;
+
 namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
     public partial class VistaRegistroOrdenProduccion : Form, IVistaRegistroOrdenProduccion {
         private bool _modoEdicion;
+        private string _numeroOrden = "-";
+        private DateTime _fechaApertura = DateTime.Now;
 
         public VistaRegistroOrdenProduccion() {
             InitializeComponent();
@@ -30,6 +34,37 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 btnAbrirCerrarOrdenProduccion.Text = value ? "Cerrar orden de producción" : "Abrir orden de producción";
                 _modoEdicion = value;
             }
+        }
+
+        public string NumeroOrden { 
+            get => _numeroOrden;
+            set {
+                _numeroOrden = value;
+                fieldSubtitulo.Text = $"Registro Nro. {_numeroOrden} del {FechaApertura:dd/MM/yyyy}";
+            }
+        }
+
+        public DateTime FechaApertura {
+            get => _fechaApertura;
+            set {
+                _fechaApertura = value;
+                fieldSubtitulo.Text = $"Registro Nro. {NumeroOrden} del {FechaApertura:dd/MM/yyyy}";
+            }
+        }
+
+        public string NombreProductoTerminado {
+            get => fieldNombreProductoTerminado.Text;
+            set => fieldNombreProductoTerminado.Text = value;
+        }
+
+        public decimal Cantidad {
+            get => decimal.TryParse(fieldCantidadProducir.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0m;
+            set => fieldCantidadProducir.Text = value.ToString("N2", CultureInfo.InvariantCulture);
+        }
+
+        public decimal MargenGanancia {
+            get => decimal.TryParse(fieldMargenGananciaDeseado.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var margen) ? margen : 0m;
+            set => fieldMargenGananciaDeseado.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public event EventHandler? RegistrarDatos;

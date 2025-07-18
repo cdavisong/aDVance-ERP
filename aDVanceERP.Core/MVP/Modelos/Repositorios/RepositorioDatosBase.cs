@@ -2,7 +2,6 @@
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
-using aDVanceERP.Core.Utiles;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios; 

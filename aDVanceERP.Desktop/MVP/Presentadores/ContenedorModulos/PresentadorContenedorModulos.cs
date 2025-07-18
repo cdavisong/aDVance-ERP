@@ -54,7 +54,7 @@ public partial class PresentadorContenedorModulos : PresentadorBase<IVistaConten
         #region Módulo : Taller
 
         InicializarVistaMenuTaller();
-        InicializarVistaGestionCostosProduccion();
+        //InicializarVistaGestionOrdenesProduccion();
 
         #endregion
 

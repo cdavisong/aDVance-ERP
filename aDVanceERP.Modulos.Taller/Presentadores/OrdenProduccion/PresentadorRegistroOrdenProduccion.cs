@@ -2,7 +2,7 @@
 using aDVanceERP.Modulos.Taller.Modelos;
 
 namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
-    public class PresentadorRegistroOrdenProduccion : PresentadorRegistroBase<IVistaRegistroOrdenProduccion, > {
+    /*public class PresentadorRegistroOrdenProduccion : PresentadorRegistroBase<IVistaRegistroOrdenProduccion, > {
         public PresentadorRegistroOrdenProduccion(IVistaRegistroCostoDirecto vista) : base(vista) {
         }
 
@@ -14,5 +14,5 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
         protected override Task<CostoDirecto?> ObtenerObjetoDesdeVista() {
             throw new NotImplementedException();
         }
-    }
+    }*/
 }

@@ -1,39 +1,60 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
-namespace aDVanceERP.Modulos.Taller.Modelos;
-
-public class ActividadProduccion : IEntidad {
-    public ActividadProduccion() {
-        Nombre = string.Empty;
-        Descripcion = "No hay descripción disponible";
-        Costo = 0.0m;
+namespace aDVanceERP.Modulos.Taller.Modelos {
+    public enum TipoCostoActividad {
+        PorHora,
+        Fijo
     }
 
-    public ActividadProduccion(long id, string nombre, string descripcion, decimal costo) {
-        Id = id;
-        Nombre = nombre;
-        Descripcion = descripcion;
-        Costo = costo;
+    public class ActividadProduccion : IObjetoUnico {
+        public ActividadProduccion() {
+            Nombre = "Genérica";
+            TipoCosto = TipoCostoActividad.PorHora;
+            Costo = 0.0m; // Costo por hora o costo fijo
+            Descripcion = null;
+            Activo = true;
+        }
+
+        public ActividadProduccion(long id, string nombre, TipoCostoActividad tipoCosto, decimal costo,
+            string? descripcion, bool activo) {
+            Id = id;
+            Nombre = nombre;
+            TipoCosto = tipoCosto;
+            Costo = costo;
+            Descripcion = descripcion;
+            Activo = activo;
+        }
+
+        public long Id { get; set; }
+        public string Nombre { get; set; } // Ej: "Corte", "Costura", "Planchado"
+        public TipoCostoActividad TipoCosto { get; set; }
+        public decimal Costo { get; set; } // Costo por hora o costo fijo
+        public string? Descripcion { get; set; }
+        public bool Activo { get; set; } = true;
     }
 
-    public long Id { get; set; }
-    public string Nombre { get; set; }
-    public string Descripcion { get; set; }
-    public decimal Costo { get; set; }
-}
+    public enum CriterioBusquedaActividadProduccion {
+        Todas,
+        Id,
+        Nombre,
+        TipoCosto,
+        Estado
+    }
 
-public enum FiltroBusquedaActividadProduccion {
-    Todos,
-    Id,
-    Nombre,
-    Descripcion
-}
+    public static class UtilesBusquedaActividadProduccion {
+        public static object[] CriterioBusquedaActividadProduccion =
+        {
+            "Todas las actividades",
+            "Identificador de BD",
+            "Nombre de la actividad",
+            "Tipo de costo",
+            "Estado (activo/inactivo)"
+        };
 
-public static class UtilesBusquedaActividadProduccion {
-    public static object[] FbActividadProduccion = {
-        "Todas las actividades de producción",
-        "Identificador de BD",
-        "Nombre de la actividad",
-        "Descripción de la actividad"
-    };
+        public static object[] TiposCostoActividad =
+        {
+            "Por hora",
+            "Costo fijo"
+        };
+    }
 }
