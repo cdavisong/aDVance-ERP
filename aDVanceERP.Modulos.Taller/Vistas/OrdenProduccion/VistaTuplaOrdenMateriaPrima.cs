@@ -3,10 +3,10 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 
-public partial class VistaTuplaDetalleMateriaPrima : Form, IVistaTuplaDetalleMateriaPrima {
+public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateriaPrima {
     private bool _enabled = true;
 
-    public VistaTuplaDetalleMateriaPrima() {
+    public VistaTuplaOrdenMateriaPrima() {
         InitializeComponent();
         Inicializar();
     }
@@ -30,9 +30,9 @@ public partial class VistaTuplaDetalleMateriaPrima : Form, IVistaTuplaDetalleMat
         set => Size = value;
     }
 
-    public string IdProducto { get; set; }
+    public string IdOrdenMateriaPrima { get; set; }
 
-    public string NombreProducto {
+    public string NombreMateriaPrima {
         get => fieldNombreProducto.Text;
         set {
             fieldNombreProducto.Text = value;
@@ -77,7 +77,7 @@ public partial class VistaTuplaDetalleMateriaPrima : Form, IVistaTuplaDetalleMat
         fieldCantidad.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
         btnEliminar.Click += delegate(object? sender, EventArgs e) {
-            EliminarDatosTupla?.Invoke(new[] { IdProducto, NombreProducto, PrecioUnitario, Cantidad }, e);
+            EliminarDatosTupla?.Invoke(new[] { NombreMateriaPrima, Cantidad, PrecioUnitario }, e);
         };
     }
 
@@ -103,7 +103,7 @@ public partial class VistaTuplaDetalleMateriaPrima : Form, IVistaTuplaDetalleMat
             return;
 
         PrecioUnitario = monto.ToString("N2", CultureInfo.InvariantCulture);
-        PrecioUnitarioModificado?.Invoke(this,
+        PrecioUnitarioModificado?.Invoke(new[] { NombreMateriaPrima, Cantidad, PrecioUnitario },
             EventArgs.Empty); // Dispara el evento para notificar que se ha modificado el monto
     }
 }

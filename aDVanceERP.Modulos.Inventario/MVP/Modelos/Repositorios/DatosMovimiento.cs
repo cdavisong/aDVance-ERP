@@ -93,7 +93,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_origen")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen_destino")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
-            lectorDatos.GetFloat(lectorDatos.GetOrdinal("cantidad_movida")),
+            lectorDatos.GetDecimal(lectorDatos.GetOrdinal("cantidad_movida")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_movimiento"))
         );
     }

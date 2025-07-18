@@ -97,7 +97,7 @@ public class DatosDetalleVentaProducto : RepositorioDatosBase<DetalleVentaProduc
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
             lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra_vigente")),
             lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_final")),
-            lectorDatos.GetFloat(lectorDatos.GetOrdinal("cantidad"))
+            lectorDatos.GetDecimal(lectorDatos.GetOrdinal("cantidad"))
         );
     }
 

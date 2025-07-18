@@ -29,9 +29,9 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         set => Size = value;
     }
 
-    public float CantidadProductosRegistrados {
-        get => float.TryParse(fieldCantProductosRegistrados.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0;
-        set => fieldCantProductosRegistrados.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+    public decimal CantidadProductosRegistrados {
+        get => decimal.TryParse(fieldCantProductosRegistrados.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0;
+        set => fieldCantProductosRegistrados.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
     public decimal MontoInversionProductos {
@@ -42,9 +42,9 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         set => fieldMontoInversionProductoss.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
     }
 
-    public float CantidadProductosVendidos {
-        get => float.TryParse(fieldCantProductosVendidos.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0;
-        set => fieldCantProductosVendidos.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+    public decimal CantidadProductosVendidos {
+        get => decimal.TryParse(fieldCantProductosVendidos.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0;
+        set => fieldCantProductosVendidos.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
     public decimal MontoVentaProductosVendidos {

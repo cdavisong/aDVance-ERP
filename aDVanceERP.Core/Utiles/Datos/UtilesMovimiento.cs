@@ -113,7 +113,7 @@ public static class UtilesMovimiento {
     }
 
     public static void ModificarStockProductoAlmacen(long idProducto, long idAlmacenOrigen, long idAlmacenDestino,
-        float cantidad) {
+        decimal cantidad) {
         using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();

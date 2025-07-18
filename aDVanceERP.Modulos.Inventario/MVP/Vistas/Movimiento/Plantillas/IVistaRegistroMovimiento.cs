@@ -7,7 +7,7 @@ public interface IVistaRegistroMovimiento : IVistaRegistro {
     string? NombreAlmacenOrigen { get; set; }
     string? NombreAlmacenDestino { get; set; }
     DateTime Fecha { get; set; }
-    float CantidadMovida { get; set; }
+    decimal CantidadMovida { get; set; }
     string TipoMovimiento { get; set; }
 
 

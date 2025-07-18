@@ -53,7 +53,8 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
 
                 Vistas?.Add(vista);
 
-                AjustarDimensiones(vista, dimensiones, modoRedimensionado);
+                // Actualiza las dimensiones de las vistas
+                ActualizarDimensionesVistas(vista, EventArgs.Empty);
             }
         }
         finally {
@@ -167,6 +168,17 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
     }
 
     private void ActualizarDimensionesVistas(object? sender, EventArgs e) {
+        if (sender is IVista vistaSender) {
+            if (vistaSender is Control control && control.Tag is string modoRedimensionado)
+                if (control.InvokeRequired)
+                    control.BeginInvoke(() => {
+                        AjustarDimensiones(vistaSender, vistaSender.Dimensiones, modoRedimensionado);
+                    });
+                else AjustarDimensiones(vistaSender, vistaSender.Dimensiones, modoRedimensionado);
+
+            return;
+        }
+
         SuspendRedraw(); // Suspender el redibujado
 
         try {

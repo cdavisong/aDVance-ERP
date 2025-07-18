@@ -210,7 +210,23 @@ namespace aDVanceERP.PatchDB {
                     """
                     ALTER TABLE adv__producto 
                     ADD UNIQUE INDEX nombre_unico (nombre);
-                    """
+                    """,
+                    """"
+                    ALTER TABLE adv__producto_almacen 
+                    CHANGE stock stock DECIMAL(10,2) NOT NULL;
+                    """",
+                    """"
+                    ALTER TABLE adv__movimiento 
+                    CHANGE cantidad_movida cantidad_movida DECIMAL(10,2) NOT NULL;
+                    """",
+                    """"
+                    ALTER TABLE adv__detalle_compra_producto 
+                    CHANGE cantidad cantidad DECIMAL(10,2) NOT NULL;
+                    """",
+                    """"
+                    ALTER TABLE adv__detalle_venta_producto 
+                    CHANGE cantidad cantidad DECIMAL(10,2) NOT NULL;
+                    """"
                 ];
 
                 foreach (var query in querys)

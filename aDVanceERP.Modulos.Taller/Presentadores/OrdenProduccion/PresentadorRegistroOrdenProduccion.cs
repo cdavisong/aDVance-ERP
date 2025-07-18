@@ -1,18 +1,20 @@
-﻿using aDVanceERP.Modulos.Taller.Interfaces;
+﻿using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
+using aDVanceERP.Modulos.Taller.Repositorios;
 
 namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
-    /*public class PresentadorRegistroOrdenProduccion : PresentadorRegistroBase<IVistaRegistroOrdenProduccion, > {
-        public PresentadorRegistroOrdenProduccion(IVistaRegistroCostoDirecto vista) : base(vista) {
+    public class PresentadorRegistroOrdenProduccion : PresentadorRegistroBase<IVistaRegistroOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, CriterioBusquedaOrdenProduccion> {
+        public PresentadorRegistroOrdenProduccion(IVistaRegistroOrdenProduccion vista) : base(vista) {
         }
 
-        public override void PopularVistaDesdeObjeto(CostoDirecto objeto) {
+        public override void PopularVistaDesdeObjeto(Modelos.OrdenProduccion objeto) {
             Vista.ModoEdicionDatos = true;
 
         }
 
-        protected override Task<CostoDirecto?> ObtenerObjetoDesdeVista() {
+        protected override async Task<Modelos.OrdenProduccion?> ObtenerObjetoDesdeVista() {
             throw new NotImplementedException();
         }
-    }*/
+    }
 }

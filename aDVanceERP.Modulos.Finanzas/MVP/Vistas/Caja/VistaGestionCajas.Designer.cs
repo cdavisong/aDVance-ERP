@@ -51,8 +51,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
             layoutHerramientas = new TableLayoutPanel();
@@ -64,7 +62,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             fieldTituloFiltrosBusqueda = new Label();
             separador1 = new Guna2Separator();
             layoutTitulo = new TableLayoutPanel();
-            btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
             fieldIcono = new PictureBox();
             fieldSubtitulo = new Label();
@@ -305,7 +302,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             layoutTitulo.ColumnCount = 2;
             layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutTitulo.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
-            layoutTitulo.Controls.Add(btnCerrar, 1, 0);
             layoutTitulo.Controls.Add(fieldTitulo, 0, 0);
             layoutTitulo.Dock = DockStyle.Fill;
             layoutTitulo.Location = new Point(50, 0);
@@ -315,25 +311,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             layoutTitulo.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             layoutTitulo.Size = new Size(1286, 45);
             layoutTitulo.TabIndex = 14;
-            // 
-            // btnCerrar
-            // 
-            btnCerrar.Animated = true;
-            btnCerrar.AutoRoundedCorners = true;
-            btnCerrar.BorderColor = Color.Gray;
-            btnCerrar.BorderRadius = 18;
-            btnCerrar.CustomizableEdges = customizableEdges7;
-            btnCerrar.Dock = DockStyle.Fill;
-            btnCerrar.FillColor = Color.White;
-            btnCerrar.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnCerrar.ForeColor = Color.Black;
-            btnCerrar.HoverState.FillColor = Color.White;
-            btnCerrar.Image = (Image) resources.GetObject("btnCerrar.Image");
-            btnCerrar.Location = new Point(1239, 3);
-            btnCerrar.Name = "btnCerrar";
-            btnCerrar.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            btnCerrar.Size = new Size(44, 39);
-            btnCerrar.TabIndex = 8;
             // 
             // fieldTitulo
             // 
@@ -569,7 +546,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnPaginaAnterior.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnPaginaAnterior.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaAnterior.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaAnterior.CustomizableEdges = customizableEdges9;
+            btnPaginaAnterior.CustomizableEdges = customizableEdges7;
             btnPaginaAnterior.Dock = DockStyle.Fill;
             btnPaginaAnterior.FillColor = Color.WhiteSmoke;
             btnPaginaAnterior.Font = new Font("Segoe UI", 9F);
@@ -580,7 +557,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnPaginaAnterior.Location = new Point(36, 1);
             btnPaginaAnterior.Margin = new Padding(1);
             btnPaginaAnterior.Name = "btnPaginaAnterior";
-            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnPaginaAnterior.Size = new Size(33, 33);
             btnPaginaAnterior.TabIndex = 1;
             // 
@@ -593,7 +570,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnPrimeraPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnPrimeraPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPrimeraPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnPrimeraPagina.CustomizableEdges = customizableEdges11;
+            btnPrimeraPagina.CustomizableEdges = customizableEdges9;
             btnPrimeraPagina.Dock = DockStyle.Fill;
             btnPrimeraPagina.FillColor = Color.WhiteSmoke;
             btnPrimeraPagina.Font = new Font("Segoe UI", 9F);
@@ -604,7 +581,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnPrimeraPagina.Location = new Point(1, 1);
             btnPrimeraPagina.Margin = new Padding(1);
             btnPrimeraPagina.Name = "btnPrimeraPagina";
-            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnPrimeraPagina.Size = new Size(33, 33);
             btnPrimeraPagina.TabIndex = 0;
             // 
@@ -617,7 +594,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnPaginaSiguiente.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
             btnPaginaSiguiente.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaSiguiente.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaSiguiente.CustomizableEdges = customizableEdges13;
+            btnPaginaSiguiente.CustomizableEdges = customizableEdges11;
             btnPaginaSiguiente.Dock = DockStyle.Fill;
             btnPaginaSiguiente.FillColor = Color.WhiteSmoke;
             btnPaginaSiguiente.Font = new Font("Segoe UI", 9F);
@@ -628,7 +605,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnPaginaSiguiente.Location = new Point(311, 1);
             btnPaginaSiguiente.Margin = new Padding(1);
             btnPaginaSiguiente.Name = "btnPaginaSiguiente";
-            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnPaginaSiguiente.Size = new Size(33, 33);
             btnPaginaSiguiente.TabIndex = 2;
             // 
@@ -641,7 +618,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnUltimaPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
             btnUltimaPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnUltimaPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnUltimaPagina.CustomizableEdges = customizableEdges15;
+            btnUltimaPagina.CustomizableEdges = customizableEdges13;
             btnUltimaPagina.Dock = DockStyle.Fill;
             btnUltimaPagina.FillColor = Color.WhiteSmoke;
             btnUltimaPagina.Font = new Font("Segoe UI", 9F);
@@ -652,7 +629,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnUltimaPagina.Location = new Point(346, 1);
             btnUltimaPagina.Margin = new Padding(1);
             btnUltimaPagina.Name = "btnUltimaPagina";
-            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnUltimaPagina.Size = new Size(33, 33);
             btnUltimaPagina.TabIndex = 3;
             // 
@@ -665,7 +642,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnSincronizarDatos.CustomImages.Image = (Image) resources.GetObject("resource.Image4");
             btnSincronizarDatos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnSincronizarDatos.CustomImages.ImageSize = new Size(24, 24);
-            btnSincronizarDatos.CustomizableEdges = customizableEdges17;
+            btnSincronizarDatos.CustomizableEdges = customizableEdges15;
             btnSincronizarDatos.Dock = DockStyle.Fill;
             btnSincronizarDatos.FillColor = Color.WhiteSmoke;
             btnSincronizarDatos.Font = new Font("Segoe UI", 9F);
@@ -676,7 +653,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnSincronizarDatos.Location = new Point(391, 1);
             btnSincronizarDatos.Margin = new Padding(1);
             btnSincronizarDatos.Name = "btnSincronizarDatos";
-            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnSincronizarDatos.Size = new Size(33, 33);
             btnSincronizarDatos.TabIndex = 4;
             // 
@@ -726,7 +703,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnCierreCaja.Animated = true;
             btnCierreCaja.BackColor = Color.White;
             btnCierreCaja.BorderRadius = 18;
-            btnCierreCaja.CustomizableEdges = customizableEdges19;
+            btnCierreCaja.CustomizableEdges = customizableEdges17;
             btnCierreCaja.Dock = DockStyle.Left;
             btnCierreCaja.FillColor = Color.FromArgb(  255,   196,   196);
             btnCierreCaja.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
@@ -736,7 +713,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnCierreCaja.Location = new Point(643, 3);
             btnCierreCaja.Margin = new Padding(0);
             btnCierreCaja.Name = "btnCierreCaja";
-            btnCierreCaja.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnCierreCaja.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnCierreCaja.Size = new Size(320, 39);
             btnCierreCaja.TabIndex = 10;
             btnCierreCaja.Text = "Cierre de la caja seleccionada";
@@ -747,7 +724,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnRegistrarMovimientoCaja.Animated = true;
             btnRegistrarMovimientoCaja.BackColor = Color.White;
             btnRegistrarMovimientoCaja.BorderRadius = 18;
-            btnRegistrarMovimientoCaja.CustomizableEdges = customizableEdges21;
+            btnRegistrarMovimientoCaja.CustomizableEdges = customizableEdges19;
             btnRegistrarMovimientoCaja.Dock = DockStyle.Left;
             btnRegistrarMovimientoCaja.FillColor = Color.PeachPuff;
             btnRegistrarMovimientoCaja.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
@@ -757,7 +734,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnRegistrarMovimientoCaja.Location = new Point(323, 3);
             btnRegistrarMovimientoCaja.Margin = new Padding(0);
             btnRegistrarMovimientoCaja.Name = "btnRegistrarMovimientoCaja";
-            btnRegistrarMovimientoCaja.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            btnRegistrarMovimientoCaja.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnRegistrarMovimientoCaja.Size = new Size(320, 39);
             btnRegistrarMovimientoCaja.TabIndex = 9;
             btnRegistrarMovimientoCaja.Text = "Registrar movimiento de caja";
@@ -768,7 +745,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnRegistrar.Animated = true;
             btnRegistrar.BackColor = Color.White;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges23;
+            btnRegistrar.CustomizableEdges = customizableEdges21;
             btnRegistrar.Dock = DockStyle.Left;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
@@ -778,7 +755,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             btnRegistrar.Location = new Point(3, 3);
             btnRegistrar.Margin = new Padding(0);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges22;
             btnRegistrar.Size = new Size(320, 39);
             btnRegistrar.TabIndex = 7;
             btnRegistrar.Text = "Apertura de nueva caja";
@@ -813,7 +790,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         private Guna2BorderlessForm formatoBase;
         private TableLayoutPanel layoutVista;
         private TableLayoutPanel layoutTitulo;
-        private Guna2Button btnCerrar;
         private Label fieldTitulo;
         private PictureBox fieldIcono;
         private Label fieldSubtitulo;

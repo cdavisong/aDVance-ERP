@@ -150,7 +150,7 @@ public static class UtilesVenta {
         return EjecutarConsultaEntero(query) > 0;
     }
 
-    public static float ObtenerTotalProductosVendidosHoy() {
+    public static decimal ObtenerTotalProductosVendidosHoy() {
         const string query = """
                              SELECT SUM(dva.cantidad) AS total_vendido_hoy
                              FROM adv__detalle_venta_producto dva
@@ -158,7 +158,7 @@ public static class UtilesVenta {
                              WHERE DATE(v.fecha) = CURDATE();
                              """;
 
-        return EjecutarConsultaFlotante(query);
+        return EjecutarConsultaDecimal(query);
     }
 
     public static float ObtenerCantidadProductosVenta(long idVenta) {
