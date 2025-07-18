@@ -159,7 +159,7 @@ public static class UtilesProducto {
         return nombres.ToArray();
     }
 
-    public static async Task<float> ObtenerStockTotalProductos() {
+    public static async Task<decimal> ObtenerStockTotalProductos() {
         const string query = """
                              SELECT
                                 SUM(aa.stock) AS total_productos
@@ -167,10 +167,10 @@ public static class UtilesProducto {
                              JOIN adv__producto a ON aa.id_producto = a.id_producto;
                              """;
 
-        return await EjecutarConsultaEscalar(query, lector => lector.GetFloat(lector.GetOrdinal("total_productos")));
+        return await EjecutarConsultaEscalar(query, lector => lector.GetDecimal(lector.GetOrdinal("total_productos")));
     }
 
-    public static async Task<float> ObtenerStockTotalProducto(long idProducto) {
+    public static async Task<decimal> ObtenerStockTotalProducto(long idProducto) {
         // Usamos COALESCE para devolver 0 si SUM(stock) es NULL
         const string query = """
                              SELECT
@@ -182,11 +182,11 @@ public static class UtilesProducto {
             new MySqlParameter("@IdProducto", idProducto)
         };
 
-        return await EjecutarConsultaEscalar(query, lector => lector.GetFloat(lector.GetOrdinal("stock_total")),
+        return await EjecutarConsultaEscalar(query, lector => lector.GetDecimal(lector.GetOrdinal("stock_total")),
             parametros);
     }
 
-    public static async Task<float> ObtenerStockProducto(string nombreProducto, string? nombreAlmacen) {
+    public static async Task<decimal> ObtenerStockProducto(string nombreProducto, string? nombreAlmacen) {
         const string query = """
                              SELECT
                                  aa.stock
@@ -200,10 +200,10 @@ public static class UtilesProducto {
             new MySqlParameter("@NombreAlmacen", nombreAlmacen)
         };
 
-        return await EjecutarConsultaEscalar(query, lector => lector.GetFloat(lector.GetOrdinal("stock")), parametros);
+        return await EjecutarConsultaEscalar(query, lector => lector.GetDecimal(lector.GetOrdinal("stock")), parametros);
     }
 
-    public static async Task<Dictionary<long, float>> ObtenerStockProducto(long idProducto) {
+    public static async Task<Dictionary<long, decimal>> ObtenerStockProducto(long idProducto) {
         const string query = """
         SELECT 
             pa.id_almacen,
@@ -223,7 +223,7 @@ public static class UtilesProducto {
         var resultados = await EjecutarConsultaLista(query,
             lector => new {
                 IdAlmacen = lector.GetInt64("id_almacen"),
-                Stock = lector.GetFloat("stock"),
+                Stock = lector.GetDecimal("stock"),
                 Unidad = lector.GetString("abreviatura")
             }, parametros);
 

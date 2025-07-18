@@ -129,10 +129,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 BuscarDatos?.Invoke(new object[] { Fb, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                     e);
             };
-            btnCerrar.Click += delegate (object? sender, EventArgs e) {
-                Salir?.Invoke(sender, e);
-                Ocultar();
-            };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarDatos?.Invoke(sender, e);
             };

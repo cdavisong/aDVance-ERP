@@ -61,7 +61,7 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
         get => decimal.TryParse(fieldPrecioCompraBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
             out var value)
             ? value
-            : 0;
+            : 0m;
         set => fieldPrecioCompraBase.Text = value > 0
                 ? value.ToString("N2", CultureInfo.InvariantCulture)
                 : "-";
@@ -71,7 +71,7 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
         get => decimal.TryParse(fieldPrecioVentaBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
             out var value)
             ? value
-            : 0;
+            : 0m;
         set => fieldPrecioVentaBase.Text = value > 0
                 ? value.ToString("N2", CultureInfo.InvariantCulture)
                 : "-";
@@ -82,15 +82,15 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
         set => fieldUnidadMedida.Text = value;
     }
 
-    public float Stock {
-        get => float.TryParse(fieldStock.Text, NumberStyles.Float, CultureInfo.InvariantCulture, 
+    public decimal Stock {
+        get => decimal.TryParse(fieldStock.Text, NumberStyles.Any, CultureInfo.InvariantCulture, 
             out var value) 
             ? value 
             : 0;
         set {
             fieldStock.ForeColor = value == 0 ? Color.Firebrick : Color.FromArgb(115, 109, 106);
             fieldStock.Font = new Font(fieldStock.Font, value == 0 ? FontStyle.Bold : FontStyle.Regular);
-            fieldStock.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+            fieldStock.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
     }
 

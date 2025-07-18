@@ -3,7 +3,7 @@
 using System.ComponentModel;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
-    partial class VistaTuplaDetalleMateriaPrima {
+    partial class VistaTuplaOrdenActividadProduccion {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -29,16 +29,16 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         private void InitializeComponent() {
             components = new Container();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaDetalleMateriaPrima));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaOrdenActividadProduccion));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
-            fieldPrecioUnitario = new Guna2TextBox();
+            fieldCosto = new Guna2TextBox();
             btnEliminar = new Guna2Button();
-            fieldNombreProducto = new Label();
+            fieldNombreActividad = new Label();
             fieldCantidad = new Label();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
@@ -75,9 +75,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutVista.Controls.Add(fieldPrecioUnitario, 0, 0);
+            layoutVista.Controls.Add(fieldCosto, 0, 0);
             layoutVista.Controls.Add(btnEliminar, 3, 0);
-            layoutVista.Controls.Add(fieldNombreProducto, 0, 0);
+            layoutVista.Controls.Add(fieldNombreActividad, 0, 0);
             layoutVista.Controls.Add(fieldCantidad, 2, 0);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(0, 0);
@@ -88,38 +88,38 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             layoutVista.Size = new Size(417, 41);
             layoutVista.TabIndex = 0;
             // 
-            // fieldPrecioCompraventa
+            // fieldCosto
             // 
-            fieldPrecioUnitario.Animated = true;
-            fieldPrecioUnitario.AutoRoundedCorners = true;
-            fieldPrecioUnitario.BorderColor = Color.Gainsboro;
-            fieldPrecioUnitario.BorderRadius = 16;
-            fieldPrecioUnitario.Cursor = Cursors.IBeam;
-            fieldPrecioUnitario.CustomizableEdges = customizableEdges1;
-            fieldPrecioUnitario.DefaultText = "";
-            fieldPrecioUnitario.DisabledState.BorderColor = Color.White;
-            fieldPrecioUnitario.DisabledState.ForeColor = Color.DimGray;
-            fieldPrecioUnitario.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioUnitario.Dock = DockStyle.Fill;
-            fieldPrecioUnitario.FocusedState.BorderColor = Color.SandyBrown;
-            fieldPrecioUnitario.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldPrecioUnitario.ForeColor = Color.Black;
-            fieldPrecioUnitario.HoverState.BorderColor = Color.SandyBrown;
-            fieldPrecioUnitario.IconLeftOffset = new Point(10, 0);
-            fieldPrecioUnitario.IconRight = (Image) resources.GetObject("fieldPrecioCompraventa.IconRight");
-            fieldPrecioUnitario.IconRightOffset = new Point(6, 0);
-            fieldPrecioUnitario.IconRightSize = new Size(12, 12);
-            fieldPrecioUnitario.Location = new Point(200, 3);
-            fieldPrecioUnitario.Name = "fieldPrecioCompraventa";
-            fieldPrecioUnitario.PasswordChar = '\0';
-            fieldPrecioUnitario.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioUnitario.PlaceholderText = "Precio";
-            fieldPrecioUnitario.SelectedText = "";
-            fieldPrecioUnitario.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            fieldPrecioUnitario.Size = new Size(124, 35);
-            fieldPrecioUnitario.TabIndex = 5;
-            fieldPrecioUnitario.TextAlign = HorizontalAlignment.Right;
-            fieldPrecioUnitario.TextOffset = new Point(5, 0);
+            fieldCosto.Animated = true;
+            fieldCosto.AutoRoundedCorners = true;
+            fieldCosto.BorderColor = Color.Gainsboro;
+            fieldCosto.BorderRadius = 16;
+            fieldCosto.Cursor = Cursors.IBeam;
+            fieldCosto.CustomizableEdges = customizableEdges1;
+            fieldCosto.DefaultText = "";
+            fieldCosto.DisabledState.BorderColor = Color.White;
+            fieldCosto.DisabledState.ForeColor = Color.DimGray;
+            fieldCosto.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldCosto.Dock = DockStyle.Fill;
+            fieldCosto.FocusedState.BorderColor = Color.SandyBrown;
+            fieldCosto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldCosto.ForeColor = Color.Black;
+            fieldCosto.HoverState.BorderColor = Color.SandyBrown;
+            fieldCosto.IconLeftOffset = new Point(10, 0);
+            fieldCosto.IconRight = (Image) resources.GetObject("fieldCosto.IconRight");
+            fieldCosto.IconRightOffset = new Point(6, 0);
+            fieldCosto.IconRightSize = new Size(12, 12);
+            fieldCosto.Location = new Point(200, 3);
+            fieldCosto.Name = "fieldCosto";
+            fieldCosto.PasswordChar = '\0';
+            fieldCosto.PlaceholderForeColor = Color.DimGray;
+            fieldCosto.PlaceholderText = "Costo";
+            fieldCosto.SelectedText = "";
+            fieldCosto.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldCosto.Size = new Size(124, 35);
+            fieldCosto.TabIndex = 5;
+            fieldCosto.TextAlign = HorizontalAlignment.Right;
+            fieldCosto.TextOffset = new Point(5, 0);
             // 
             // btnEliminar
             // 
@@ -144,19 +144,20 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 0;
             // 
-            // fieldNombreProducto
+            // fieldNombreActividad
             // 
-            fieldNombreProducto.Dock = DockStyle.Fill;
-            fieldNombreProducto.Font = new Font("Segoe UI", 11.25F);
-            fieldNombreProducto.ForeColor = Color.DimGray;
-            fieldNombreProducto.ImeMode = ImeMode.NoControl;
-            fieldNombreProducto.Location = new Point(1, 1);
-            fieldNombreProducto.Margin = new Padding(1);
-            fieldNombreProducto.Name = "fieldNombreProducto";
-            fieldNombreProducto.Size = new Size(195, 39);
-            fieldNombreProducto.TabIndex = 1;
-            fieldNombreProducto.Text = "nombreProducto";
-            fieldNombreProducto.TextAlign = ContentAlignment.MiddleLeft;
+            fieldNombreActividad.AutoEllipsis = true;
+            fieldNombreActividad.Dock = DockStyle.Fill;
+            fieldNombreActividad.Font = new Font("Segoe UI", 11.25F);
+            fieldNombreActividad.ForeColor = Color.DimGray;
+            fieldNombreActividad.ImeMode = ImeMode.NoControl;
+            fieldNombreActividad.Location = new Point(1, 1);
+            fieldNombreActividad.Margin = new Padding(1);
+            fieldNombreActividad.Name = "fieldNombreActividad";
+            fieldNombreActividad.Size = new Size(195, 39);
+            fieldNombreActividad.TabIndex = 1;
+            fieldNombreActividad.Text = "nombreActividad";
+            fieldNombreActividad.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldCantidad
             // 
@@ -172,7 +173,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldCantidad.Text = "cant.";
             fieldCantidad.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // VistaTuplaDetalleCompraventaProducto
+            // VistaTuplaOrdenActividadProduccion
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
@@ -181,7 +182,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
-            Name = "VistaTuplaDetalleCompraventaProducto";
+            Name = "VistaTuplaOrdenActividadProduccion";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;
@@ -197,8 +198,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         private TableLayoutPanel layoutBase;
         private TableLayoutPanel layoutVista;
         private Guna2Button btnEliminar;
-        private Label fieldNombreProducto;
+        private Label fieldNombreActividad;
         private Label fieldCantidad;
-        private Guna2TextBox fieldPrecioUnitario;
+        private Guna2TextBox fieldCosto;
     }
 }

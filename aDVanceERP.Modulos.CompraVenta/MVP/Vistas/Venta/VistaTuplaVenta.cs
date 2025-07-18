@@ -109,7 +109,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
             var datosCliente = new string[3];
             var datosVentaProductos = new List<string[]>();
             var fechaFactura = DateTime.ParseExact(Fecha, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            var numeroFactura = $"{fechaFactura.ToString("yyyyMMdd")}-{float.Parse(CantidadProductos, NumberStyles.Float, CultureInfo.InvariantCulture):000.00}-{long.Parse(Id):000000}";
+            var numeroFactura = $"{fechaFactura.ToString("yyyyMMdd")}-{decimal.Parse(CantidadProductos, NumberStyles.Any, CultureInfo.InvariantCulture):000.00}-{long.Parse(Id):000000}";
             var pagos = UtilesVenta.ObtenerPagosPorVenta(long.Parse(Id));
             var metodoPago = string.Empty;
             var cantidadPagada = 0m;

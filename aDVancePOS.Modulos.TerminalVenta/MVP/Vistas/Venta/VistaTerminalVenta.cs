@@ -276,8 +276,8 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                 if (Productos != null) {
                     var stockComprometido = Productos
                         .Where(a => a[0].Equals(idProducto.ToString()) && a[5].Equals(idAlmacen.ToString()))
-                        .Sum(a => float.Parse(a[4], NumberStyles.Float, CultureInfo.InvariantCulture));
-                    if (float.Parse(adCantidad, NumberStyles.Float, CultureInfo.InvariantCulture) + stockComprometido > stockProducto) {
+                        .Sum(a => decimal.Parse(a[4], NumberStyles.Any, CultureInfo.InvariantCulture));
+                    if (decimal.Parse(adCantidad, NumberStyles.Any, CultureInfo.InvariantCulture) + stockComprometido > stockProducto) {
                         btnCantidadProducto.ForeColor = Color.Firebrick;
                         btnCantidadProducto.Font = new Font(btnCantidadProducto.Font, FontStyle.Bold);
                         btnCantidadProducto.Margin = new Padding(3);
@@ -308,9 +308,9 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                         Productos.FindIndex(a => a[0].Equals(idProducto.ToString()) && a[5].Equals(idAlmacen.ToString()));
                     if (indiceProducto != -1) {
                         Productos[indiceProducto][4] =
-                            (float.Parse(Productos[indiceProducto][4], NumberStyles.Float, CultureInfo.InvariantCulture) + 
-                             float.Parse(adCantidad, NumberStyles.Float, CultureInfo.InvariantCulture))
-                             .ToString("0.00", CultureInfo.InvariantCulture);
+                            (decimal.Parse(Productos[indiceProducto][4], NumberStyles.Any, CultureInfo.InvariantCulture) + 
+                             decimal.Parse(adCantidad, NumberStyles.Any, CultureInfo.InvariantCulture))
+                             .ToString("N2", CultureInfo.InvariantCulture);
                     } else {
                         Productos.Add(tuplaProducto);
                         ProductoAgregado?.Invoke(tuplaProducto, EventArgs.Empty);
@@ -390,14 +390,14 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
 
             if (Productos != null)
                 foreach (var producto in Productos) {
-                    var cantidad = float.TryParse(producto[4], NumberStyles.Float, CultureInfo.InvariantCulture, 
+                    var cantidad = decimal.TryParse(producto[4], NumberStyles.Any, CultureInfo.InvariantCulture, 
                         out var cantProductos) 
                         ? cantProductos : 
-                        0f;
+                        0m;
 
                     Subtotal += decimal.TryParse(producto[3], NumberStyles.Any, CultureInfo.InvariantCulture,
                         out var precioVentaTotal)
-                        ? precioVentaTotal * (decimal)cantidad
+                        ? precioVentaTotal * cantidad
                         : 0m;
                 }
 

@@ -75,7 +75,7 @@ public partial class VistaMenuTaller : Form, IVistaMenuTaller {
 
     private void VerificarPermisos() {
         btnOrdenesProduccion.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false)
-                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_TALLER_COSTOS")
-                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_TALLER_TODOS");
+                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoParcial("MOD_TALLER_ORDENES_PRODUCCION")
+                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_TALLER_ORDENES_PRODUCCION_TODOS");
     }
 }

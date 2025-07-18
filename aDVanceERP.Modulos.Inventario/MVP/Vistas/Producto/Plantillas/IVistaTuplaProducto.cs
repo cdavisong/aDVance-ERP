@@ -11,7 +11,7 @@ public interface IVistaTuplaProducto : IVistaTupla {
     decimal PrecioCompraBase { get; set; }
     decimal PrecioVentaBase { get; set; }
     string UnidadMedida { get; set; }
-    float Stock { get; set; }
+    decimal Stock { get; set; }
 
     event EventHandler? MovimientoPositivoStock;
     event EventHandler? MovimientoNegativoStock;

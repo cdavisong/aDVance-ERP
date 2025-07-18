@@ -137,9 +137,9 @@ public partial class PresentadorContenedorModulos {
                 decimal.TryParse(producto[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var precioVentaFinal)
                     ? precioVentaFinal
                     : 0.00m,
-                float.TryParse(producto[4], NumberStyles.Float, CultureInfo.InvariantCulture, out var cantidad)
+                decimal.TryParse(producto[4], NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad)
                     ? cantidad
-                    : 0.00f
+                    : 0.00m
             );
 
             using (var datosProducto = new RepoDetalleVentaProducto()) {

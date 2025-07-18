@@ -226,8 +226,8 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
                 Productos.FindIndex(a => a[0].Equals(idProducto.ToString()) && a[4].Equals(idAlmacen.ToString()));
             if (indiceProducto != -1) {
                 Productos[indiceProducto][3] =
-                    (float.Parse(Productos[indiceProducto][3], NumberStyles.Float, CultureInfo.InvariantCulture) + 
-                     float.Parse(adCantidad, NumberStyles.Float, CultureInfo.InvariantCulture))
+                    (decimal.Parse(Productos[indiceProducto][3], NumberStyles.Any, CultureInfo.InvariantCulture) + 
+                     decimal.Parse(adCantidad, NumberStyles.Any, CultureInfo.InvariantCulture))
                      .ToString("0.00", CultureInfo.InvariantCulture);
             }
             else {
@@ -303,14 +303,14 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             return;
 
         foreach (var producto in Productos) {
-            var cantidad = float.TryParse(producto[3], NumberStyles.Float, CultureInfo.InvariantCulture,
+            var cantidad = decimal.TryParse(producto[3], NumberStyles.Any, CultureInfo.InvariantCulture,
                 out var cantProductos)
                 ? cantProductos
                 : 0;
 
             Total += decimal.TryParse(producto[2], NumberStyles.Any, CultureInfo.InvariantCulture,
                 out var precioCompraTotal)
-                ? precioCompraTotal * (decimal)cantidad
+                ? precioCompraTotal * cantidad
                 : 0;
         }
     }

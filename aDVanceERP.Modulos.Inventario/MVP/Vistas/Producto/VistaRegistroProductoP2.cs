@@ -36,7 +36,7 @@ public partial class VistaRegistroProductoP2 : Form {
         get => decimal.TryParse(fieldPrecioVentaBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
                  out var value)
                  ? value
-                 : 0;
+                 : 0m;
         set => fieldPrecioVentaBase.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
@@ -45,11 +45,11 @@ public partial class VistaRegistroProductoP2 : Form {
         set => fieldNombreAlmacen.Text = value;
     }
 
-    public float StockInicial {
-        get => float.TryParse(fieldStockInicial.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value)
+    public decimal StockInicial {
+        get => decimal.TryParse(fieldStockInicial.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value)
                  ? value
-                 : 0f;
-        set => fieldStockInicial.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+                 : 0m;
+        set => fieldStockInicial.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
     public bool ModoEdicionDatos {

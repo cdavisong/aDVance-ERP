@@ -6,7 +6,7 @@ public class Movimiento : IEntidad {
     public Movimiento() { }
 
     public Movimiento(long id, long idProducto, long idAlmacenOrigen, long idAlmacenDestino, DateTime fecha,
-        float cantidadMovida, long idTipoMovimiento) {
+        decimal cantidadMovida, long idTipoMovimiento) {
         Id = id;
         IdProducto = idProducto;
         IdAlmacenOrigen = idAlmacenOrigen;
@@ -20,7 +20,7 @@ public class Movimiento : IEntidad {
     public long IdAlmacenOrigen { get; set; }
     public long IdAlmacenDestino { get; set; }
     public DateTime Fecha { get; set; }
-    public float CantidadMovida { get; set; }
+    public decimal CantidadMovida { get; set; }
     public long IdTipoMovimiento { get; set; }
 
     public long Id { get; set; }

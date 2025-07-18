@@ -48,9 +48,9 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         set { }
     }
 
-    public float CantidadMovida {
-        get => float.TryParse(fieldCantidadMovida.Text, CultureInfo.InvariantCulture, out var value) ? value : 0;
-        set => fieldCantidadMovida.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+    public decimal CantidadMovida {
+        get => decimal.TryParse(fieldCantidadMovida.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var value) ? value : 0m;
+        set => fieldCantidadMovida.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
     public string TipoMovimiento {

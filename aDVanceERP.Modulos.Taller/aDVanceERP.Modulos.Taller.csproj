@@ -24,7 +24,13 @@
     <Compile Update="Vistas\OrdenProduccion\VistaRegistroOrdenProduccion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Vistas\OrdenProduccion\VistaTuplaDetalleMateriaPrima.cs">
+    <Compile Update="Vistas\OrdenProduccion\VistaTuplaOrdenActividadProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vistas\OrdenProduccion\VistaTuplaOrdenGastoIndirecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Vistas\OrdenProduccion\VistaTuplaOrdenMateriaPrima.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -34,6 +40,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>
