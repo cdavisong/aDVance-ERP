@@ -18,21 +18,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Vistas\CostosProduccion\VistaRegistroOtrosCostos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Vistas\CostosProduccion\VistaRegistroDatosGenerales.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Vistas\CostosProduccion\VistaRegistroManoObra.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Vistas\CostosProduccion\VistaRegistroMateriaPrima.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Vistas\CostosProduccion\VistaTuplaCostoDirecto.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Vistas\Menu\VistaMenuTaller.cs">
       <SubType>Form</SubType>
     </Compile>
