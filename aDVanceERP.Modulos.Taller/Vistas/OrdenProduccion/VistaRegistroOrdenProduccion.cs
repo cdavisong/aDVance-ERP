@@ -69,6 +69,21 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             set => fieldCantidadProducir.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
+        public string Observaciones {
+            get => fieldObservaciones.Text;
+            set => fieldObservaciones.Text = value;
+        }
+
+        public decimal CostoTotal {
+            get => decimal.TryParse(fieldCostoTotalProduccion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0m;
+            set => fieldCostoTotalProduccion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
+        }
+
+        public decimal PrecioUnitario {
+            get => decimal.TryParse(fieldPrecioUnitarioProducto.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0m;
+            set => fieldPrecioUnitarioProducto.Text = value.ToString("N2", CultureInfo.InvariantCulture);
+        }
+
         public decimal MargenGanancia {
             get => decimal.TryParse(fieldMargenGananciaDeseado.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var margen) ? margen : 0m;
             set => fieldMargenGananciaDeseado.Text = value.ToString("N2", CultureInfo.InvariantCulture);

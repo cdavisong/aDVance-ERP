@@ -7,6 +7,12 @@ namespace aDVanceERP.Modulos.Taller.Interfaces {
         string NombreProductoTerminado { get; set; }
         decimal Cantidad { get; set; }
         decimal MargenGanancia { get; set; }
+        string Observaciones { get; set; }
+        decimal CostoTotal { get; set; }
+        decimal PrecioUnitario { get; set; }
+        List<string[]> MateriasPrimas { get; }
+        List<string[]> ActividadesProduccion { get; }
+        List<string[]> GastosIndirectos { get; }
 
         event EventHandler? MateriaPrimaEliminada;
         event EventHandler? ActividadProduccionEliminada;

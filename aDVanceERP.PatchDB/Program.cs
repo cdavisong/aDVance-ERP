@@ -33,12 +33,14 @@ namespace aDVanceERP.PatchDB {
 
             try {
                 ExecuteStep(EliminarTablasObsoletas, "Eliminación de tablas obsoletas");
+                ExecuteStep(EliminarProductosDuplicados, "Eliminación de productos duplicados");
                 ExecuteStep(CrearTablasProduccion, "Creación de tablas de producción");
                 ExecuteStep(AgregarIndices, "Agregar índices optimizados");
                 ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
 
                 RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 RenderStatus($"Error crítico: {ex.Message}", ConsoleColor.Red);
             }
 
@@ -53,7 +55,8 @@ namespace aDVanceERP.PatchDB {
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
-                } catch (Exception) {
+                }
+                catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
 
@@ -67,7 +70,8 @@ namespace aDVanceERP.PatchDB {
                     using (var cmd = new MySqlCommand(query, conexion)) {
                         try {
                             cmd.ExecuteNonQuery();
-                        } catch (MySqlException ex) {
+                        }
+                        catch (MySqlException ex) {
                             // Ignorar errores si las tablas no existen
                             if (!ex.Message.Contains("Unknown table")) throw;
                         }
@@ -80,7 +84,8 @@ namespace aDVanceERP.PatchDB {
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
-                } catch (Exception) {
+                }
+                catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
 
@@ -104,25 +109,14 @@ namespace aDVanceERP.PatchDB {
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
                     """,
                     """
-                    CREATE TABLE IF NOT EXISTS adv__actividad_produccion (
-                        id_actividad_produccion INT(11) NOT NULL AUTO_INCREMENT,
-                        nombre VARCHAR(100) NOT NULL COMMENT 'Ej: Corte, Costura, Planchado',
-                        tipo_costo ENUM('PorHora','Fijo') NOT NULL DEFAULT 'PorHora',
-                        costo DECIMAL(10,2) NOT NULL COMMENT 'Costo por hora o costo fijo',
-                        descripcion TEXT NULL,
-                        activo TINYINT(1) NOT NULL DEFAULT 1,
-                        PRIMARY KEY (id_actividad_produccion)
-                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-                    """,
-                    """
                     CREATE TABLE IF NOT EXISTS adv__orden_actividad (
                         id_orden_actividad INT(11) NOT NULL AUTO_INCREMENT,
                         id_orden_produccion INT(11) NOT NULL,
-                        id_actividad_produccion INT(11) NOT NULL,
-                        cantidad DECIMAL(10,2) NOT NULL COMMENT 'Horas o unidades según tipo',
-                        costo_total DECIMAL(10,2) NOT NULL,
+                        nombre VARCHAR(100) NOT NULL,
+                        cantidad DECIMAL(10,2) NOT NULL,
+                        costo DECIMAL(10,2) NOT NULL,
+                        total DECIMAL(10,2) NOT NULL,
                         fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-                        observaciones VARCHAR(255) NULL,
                         PRIMARY KEY (id_orden_actividad)
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
                     """,
@@ -133,7 +127,7 @@ namespace aDVanceERP.PatchDB {
                         id_producto INT(11) NOT NULL COMMENT 'Materia prima consumida',
                         cantidad DECIMAL(10,2) NOT NULL,
                         costo_unitario DECIMAL(10,2) NOT NULL,
-                        costo_total DECIMAL(10,2) NOT NULL,
+                        total DECIMAL(10,2) NOT NULL,
                         fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
                         PRIMARY KEY (id_orden_material)
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -143,11 +137,111 @@ namespace aDVanceERP.PatchDB {
                         id_orden_gasto_indirecto INT(11) NOT NULL AUTO_INCREMENT,
                         id_orden_produccion INT(11) NOT NULL,
                         concepto VARCHAR(100) NOT NULL,
+                        cantidad DECIMAL(10,2) NOT NULL,                    
                         monto DECIMAL(10,2) NOT NULL,
+                        total DECIMAL(10,2) NOT NULL,
                         fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-                        observaciones VARCHAR(255) NULL,
                         PRIMARY KEY (id_orden_gasto_indirecto)
                     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                    """
+                ];
+
+                foreach (var query in querys)
+                    using (var cmd = new MySqlCommand(query, conexion))
+                        cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static void EliminarProductosDuplicados() {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+                try {
+                    conexion.Open();
+                }
+                catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                List<string> querys =
+                [
+                    """
+                    -- 1. Crear tabla temporal para identificar los duplicados
+                    CREATE TEMPORARY TABLE temp_productos_duplicados AS
+                    SELECT 
+                        MIN(id_producto) AS id_a_conservar,
+                        nombre,
+                        GROUP_CONCAT(id_producto) AS ids_duplicados,
+                        COUNT(*) AS total_duplicados
+                    FROM adv__producto
+                    GROUP BY nombre
+                    HAVING COUNT(*) > 1;
+                    """,
+                    """
+                    -- 2. Actualizar tablas relacionadas para apuntar al ID que se conservará
+                    -- Tabla adv__detalle_compra_producto
+                    UPDATE adv__detalle_compra_producto dcp
+                    JOIN temp_productos_duplicados tpd ON FIND_IN_SET(dcp.id_producto, tpd.ids_duplicados)
+                    SET dcp.id_producto = tpd.id_a_conservar
+                    WHERE dcp.id_producto != tpd.id_a_conservar;
+                    """,
+                    """"
+                    -- Tabla adv__detalle_venta_producto
+                    UPDATE adv__detalle_venta_producto dvp
+                    JOIN temp_productos_duplicados tpd ON FIND_IN_SET(dvp.id_producto, tpd.ids_duplicados)
+                    SET dvp.id_producto = tpd.id_a_conservar
+                    WHERE dvp.id_producto != tpd.id_a_conservar;
+                    """",
+                    """"
+                    -- Tabla adv__producto_almacen
+                    UPDATE adv__producto_almacen pa
+                    JOIN temp_productos_duplicados tpd ON FIND_IN_SET(pa.id_producto, tpd.ids_duplicados)
+                    SET pa.id_producto = tpd.id_a_conservar
+                    WHERE pa.id_producto != tpd.id_a_conservar;
+                    """",
+                    """"
+                    -- Tabla adv__producto_materia_prima
+                    UPDATE adv__producto_materia_prima pmp
+                    JOIN temp_productos_duplicados tpd ON FIND_IN_SET(pmp.id_producto, tpd.ids_duplicados)
+                    SET pmp.id_producto = tpd.id_a_conservar
+                    WHERE pmp.id_producto != tpd.id_a_conservar;
+                    """",
+                    """"
+                    -- Tabla adv__orden_material
+                    UPDATE adv__orden_material om
+                    JOIN temp_productos_duplicados tpd ON FIND_IN_SET(om.id_producto, tpd.ids_duplicados)
+                    SET om.id_producto = tpd.id_a_conservar
+                    WHERE om.id_producto != tpd.id_a_conservar;
+                    """",
+                    """
+                    -- 3. Consolidar stock en los almacenes
+                    UPDATE adv__producto_almacen pa
+                    JOIN (
+                        SELECT 
+                            id_producto, 
+                            id_almacen, 
+                            SUM(stock) AS stock_total
+                        FROM adv__producto_almacen
+                        GROUP BY id_producto, id_almacen
+                        HAVING COUNT(*) > 1
+                    ) AS stocks ON pa.id_producto = stocks.id_producto AND pa.id_almacen = stocks.id_almacen
+                    JOIN temp_productos_duplicados tpd ON FIND_IN_SET(pa.id_producto, tpd.ids_duplicados)
+                    SET pa.stock = stocks.stock_total
+                    WHERE pa.id_producto = tpd.id_a_conservar;
+                    """,
+                    """
+                    -- Eliminar registros duplicados de producto_almacen
+                    DELETE pa FROM adv__producto_almacen pa
+                    JOIN temp_productos_duplicados tpd ON FIND_IN_SET(pa.id_producto, tpd.ids_duplicados)
+                    WHERE pa.id_producto != tpd.id_a_conservar;
+                    """,
+                    """
+                    -- 4. Eliminar los productos duplicados (conservando solo el primero)
+                    DELETE p FROM adv__producto p
+                    JOIN temp_productos_duplicados tpd ON FIND_IN_SET(p.id_producto, tpd.ids_duplicados)
+                    WHERE p.id_producto != tpd.id_a_conservar;
+                    """,
+                    """
+                    -- 5. Eliminar la tabla temporal
+                    DROP TEMPORARY TABLE IF EXISTS temp_productos_duplicados;
                     """
                 ];
 
@@ -161,7 +255,8 @@ namespace aDVanceERP.PatchDB {
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
-                } catch (Exception) {
+                }
+                catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
 
@@ -194,13 +289,13 @@ namespace aDVanceERP.PatchDB {
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
-                } catch (Exception) {
+                }
+                catch (Exception) {
                     throw new ExcepcionConexionServidorMySQL();
                 }
 
                 List<string> querys =
                 [
-                    // Modificaciones existentes
                     """
                     ALTER TABLE adv__producto 
                     ADD id_tipo_materia_prima INT(11) NOT NULL 
@@ -248,7 +343,8 @@ namespace aDVanceERP.PatchDB {
                 Console.Write("COMPLETADO");
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("]");
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 Console.SetCursorPosition(60, Console.CursorTop);
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.Write("[");

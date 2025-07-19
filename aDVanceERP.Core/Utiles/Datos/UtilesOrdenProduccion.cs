@@ -80,5 +80,30 @@ namespace aDVanceERP.Core.Utiles.Datos {
 
             return conceptos;
         }
+
+        /// <summary>
+        /// Obtiene el próximo número de orden de producción disponible en formato OP#####
+        /// </summary>
+        public static string ObtenerProximoNumeroOrden() {
+            var query = """
+                SELECT CONCAT('OP', LPAD(
+                    IFNULL(
+                        MAX(CAST(SUBSTRING(numero_orden, 3) AS UNSIGNED)), 
+                        0
+                    ) + 1, 
+                    5, '0'
+                )) AS proximo_numero_orden
+                FROM adv__orden_produccion
+                WHERE numero_orden REGEXP '^OP[0-9]{5}$';
+            """;
+
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+                conexion.Open();
+                using (var cmd = new MySqlCommand(query, conexion)) {
+                    var result = cmd.ExecuteScalar();
+                    return result?.ToString() ?? "OP00001"; // Valor por defecto si no hay resultados
+                }
+            }
+        }
     }
 }
