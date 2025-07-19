@@ -211,7 +211,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             fieldCantidad.ReadOnly = true;
         }
 
-        var precioCompraBaseProducto = await UtilesProducto.ObtenerPrecioCompraBase(idProducto);
+        var precioCompraBaseProducto = await UtilesProducto.ObtenerPrecioCompra(idProducto);
         var tuplaProducto = new[] {
             idProducto.ToString(),
             adNombreProducto,

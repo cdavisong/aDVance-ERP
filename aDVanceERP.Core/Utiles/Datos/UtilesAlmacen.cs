@@ -59,9 +59,33 @@ public static class UtilesAlmacen {
             : "SELECT nombre FROM adv__almacen;";
         return EjecutarConsulta(query, lector => {
             var nombres = new List<string>();
+
             do {
                 nombres.Add(lector.GetString("nombre"));
             } while (lector.Read());
+
+            return nombres.ToArray();
+        }) ?? Array.Empty<object>();
+    }
+
+    public static object[] ObtenerNombresAlmacenesProductosTerminados() {
+        var query = """
+            SELECT DISTINCT a.nombre 
+            FROM adv__almacen a
+            JOIN adv__producto_almacen pa ON a.id_almacen = pa.id_almacen
+            JOIN adv__producto p ON pa.id_producto = p.id_producto
+            WHERE a.autorizo_venta = 0 
+            AND p.categoria = 'ProductoTerminado'
+            AND pa.stock > 0;
+            """;
+
+        return EjecutarConsulta(query, lector => {
+            var nombres = new List<string>();
+
+            do {
+                nombres.Add(lector.GetString("nombre"));
+            } while (lector.Read());
+
             return nombres.ToArray();
         }) ?? Array.Empty<object>();
     }
@@ -73,7 +97,8 @@ public static class UtilesAlmacen {
             p.codigo,
             p.nombre,
             p.categoria,
-            p.precio_compra_base,
+            p.precio_compra,
+            p.costo_produccion_unitario,
             p.precio_venta_base,
             pa.stock,
             a.nombre AS nombre_almacen,
@@ -102,7 +127,8 @@ public static class UtilesAlmacen {
                         ["codigo"] = lector.GetString("codigo"),
                         ["nombre"] = lector.GetString("nombre"),
                         ["categoria"] = lector.GetString("categoria"),
-                        ["precio_compra_base"] = lector.GetDecimal("precio_compra_base"),
+                        ["precio_compra"] = lector.GetDecimal("precio_compra"),
+                        ["costo_produccion_unitario"] = lector.GetDecimal("costo_produccion_unitario"),
                         ["precio_venta_base"] = lector.GetDecimal("precio_venta_base"),
                         ["stock"] = lector.GetInt32("stock"),
                         ["nombre_almacen"] = lector.GetString("nombre_almacen"),

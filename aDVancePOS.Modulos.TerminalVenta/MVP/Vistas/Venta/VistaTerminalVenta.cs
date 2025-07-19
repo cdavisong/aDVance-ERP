@@ -291,7 +291,7 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
                     btnCantidadProducto.Margin = new Padding(3);
                 }
 
-                var precioCompraVigenteProducto = await UtilesProducto.ObtenerPrecioCompraBase(idProducto);
+                var precioCompraVigenteProducto = await UtilesProducto.ObtenerPrecioCompra(idProducto);
                 var precioVentaBaseProducto = await UtilesProducto.ObtenerPrecioVentaBase(idProducto);
                 var tuplaProducto = new[] {
                     idProducto.ToString(),

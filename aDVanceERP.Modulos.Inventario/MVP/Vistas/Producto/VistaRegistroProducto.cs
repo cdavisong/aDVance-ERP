@@ -72,9 +72,18 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         set => P2UmPreciosStock.TipoMateriaPrima = value;
     }
 
-    public decimal PrecioCompraBase {
-        get => P2UmPreciosStock.PrecioCompraBase;
-        set => P2UmPreciosStock.PrecioCompraBase = value;
+    public decimal PrecioCompra {
+        get => CategoriaProducto == CategoriaProducto.Mercancia || CategoriaProducto == CategoriaProducto.MateriaPrima 
+            ? P2UmPreciosStock.PrecioCompra 
+            : 0m;
+        set => P2UmPreciosStock.PrecioCompra = value;
+    }
+
+    public decimal CostoProduccionUnitario {
+        get => CategoriaProducto == CategoriaProducto.ProductoTerminado
+            ? P2UmPreciosStock.CostoProduccionUnitario
+            : 0m; 
+        set => P2UmPreciosStock.CostoProduccionUnitario = value;
     }
 
     public decimal PrecioVentaBase {
@@ -178,20 +187,15 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     }
 
     private void ActualizarVisibilidadCamposPrecios() {
-        bool mostrarCompra = P1DatosGenerales.CategoriaProducto == CategoriaProducto.ProductoTerminado ||
-                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.MateriaPrima ||
-                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.Mercancia;
         bool mostrarVenta = P1DatosGenerales.CategoriaProducto == CategoriaProducto.Mercancia ||
                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.ProductoTerminado ||
                             P1DatosGenerales.CategoriaProducto == CategoriaProducto.MateriaPrima && P1DatosGenerales.EsVendible;
 
-        // Limpiar los precios de compraventa segun visibilidad
-        if (!mostrarCompra)
-            P2UmPreciosStock.PrecioCompraBase = 0;
+        // Limpiar el precios de venta segun visibilidad
         if (!mostrarVenta)
             P2UmPreciosStock.PrecioVentaBase = 0;
 
-        P2UmPreciosStock.ConfigurarVisibilidadCamposPrecios(mostrarCompra, mostrarVenta);
+        P2UmPreciosStock.ConfigurarVisibilidadCamposPrecios(CategoriaProducto == CategoriaProducto.ProductoTerminado, mostrarVenta);
     }
 
     public void CargarNombresProductos(string[] nombresProductos) {

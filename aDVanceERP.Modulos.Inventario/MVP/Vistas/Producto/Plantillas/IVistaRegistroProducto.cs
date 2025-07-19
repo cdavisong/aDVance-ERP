@@ -17,7 +17,8 @@ public interface IVistaRegistroProducto : IVistaRegistro {
     // P2 : Unidad de medida, precios de compraventa y stock inicial
     string UnidadMedida { get; set; }
     string TipoMateriaPrima { get; set; }
-    decimal PrecioCompraBase { get; set; }
+    decimal PrecioCompra { get; set; }
+    decimal CostoProduccionUnitario { get; set; }
     decimal PrecioVentaBase { get; set; }
     string? NombreAlmacen { get; set; }
     decimal StockInicial { get; set; }

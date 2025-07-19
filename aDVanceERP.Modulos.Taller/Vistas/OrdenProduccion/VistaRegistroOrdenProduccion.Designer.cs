@@ -130,7 +130,7 @@
             fieldCostoTotalProduccion = new Label();
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna.UI2.WinForms.Guna2Button();
-            btnAbrirCerrarOrdenProduccion = new Guna.UI2.WinForms.Guna2Button();
+            btnAbrirActualizarOrdenProduccion = new Guna.UI2.WinForms.Guna2Button();
             layoutVista.SuspendLayout();
             layoutTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) fieldIcono).BeginInit();
@@ -1489,7 +1489,7 @@
             layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 170F));
             layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutBotones.Controls.Add(btnSalir, 2, 0);
-            layoutBotones.Controls.Add(btnAbrirCerrarOrdenProduccion, 1, 0);
+            layoutBotones.Controls.Add(btnAbrirActualizarOrdenProduccion, 1, 0);
             layoutBotones.Dock = DockStyle.Fill;
             layoutBotones.Location = new Point(53, 620);
             layoutBotones.Margin = new Padding(3, 0, 0, 0);
@@ -1522,19 +1522,19 @@
             // 
             // btnAbrirCerrarOrdenProduccion
             // 
-            btnAbrirCerrarOrdenProduccion.Animated = true;
-            btnAbrirCerrarOrdenProduccion.BorderRadius = 18;
-            btnAbrirCerrarOrdenProduccion.CustomizableEdges = customizableEdges59;
-            btnAbrirCerrarOrdenProduccion.Dock = DockStyle.Fill;
-            btnAbrirCerrarOrdenProduccion.FillColor = Color.PeachPuff;
-            btnAbrirCerrarOrdenProduccion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnAbrirCerrarOrdenProduccion.ForeColor = Color.Black;
-            btnAbrirCerrarOrdenProduccion.Location = new Point(886, 3);
-            btnAbrirCerrarOrdenProduccion.Name = "btnAbrirCerrarOrdenProduccion";
-            btnAbrirCerrarOrdenProduccion.ShadowDecoration.CustomizableEdges = customizableEdges60;
-            btnAbrirCerrarOrdenProduccion.Size = new Size(224, 39);
-            btnAbrirCerrarOrdenProduccion.TabIndex = 15;
-            btnAbrirCerrarOrdenProduccion.Text = "Abrir orden de producción";
+            btnAbrirActualizarOrdenProduccion.Animated = true;
+            btnAbrirActualizarOrdenProduccion.BorderRadius = 18;
+            btnAbrirActualizarOrdenProduccion.CustomizableEdges = customizableEdges59;
+            btnAbrirActualizarOrdenProduccion.Dock = DockStyle.Fill;
+            btnAbrirActualizarOrdenProduccion.FillColor = Color.PeachPuff;
+            btnAbrirActualizarOrdenProduccion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnAbrirActualizarOrdenProduccion.ForeColor = Color.Black;
+            btnAbrirActualizarOrdenProduccion.Location = new Point(886, 3);
+            btnAbrirActualizarOrdenProduccion.Name = "btnAbrirCerrarOrdenProduccion";
+            btnAbrirActualizarOrdenProduccion.ShadowDecoration.CustomizableEdges = customizableEdges60;
+            btnAbrirActualizarOrdenProduccion.Size = new Size(224, 39);
+            btnAbrirActualizarOrdenProduccion.TabIndex = 15;
+            btnAbrirActualizarOrdenProduccion.Text = "Abrir orden de producción";
             // 
             // VistaRegistroOrdenProduccion
             // 
@@ -1643,7 +1643,7 @@
         private Label fieldPrecioUnitarioProducto;
         private TableLayoutPanel layoutBotones;
         private Guna.UI2.WinForms.Guna2Button btnSalir;
-        private Guna.UI2.WinForms.Guna2Button btnAbrirCerrarOrdenProduccion;
+        private Guna.UI2.WinForms.Guna2Button btnAbrirActualizarOrdenProduccion;
         private Guna.UI2.WinForms.Guna2Separator separador5;
         private Guna.UI2.WinForms.Guna2TextBox fieldCantidadProducir;
         private TableLayoutPanel layoutMontoOtrosCostos;

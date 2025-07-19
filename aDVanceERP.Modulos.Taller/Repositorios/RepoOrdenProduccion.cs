@@ -17,18 +17,24 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
             return $"""
                 INSERT INTO adv__orden_produccion (
                     numero_orden,
+                    fecha_apertura,
                     id_producto,
                     cantidad,
                     estado,
                     observaciones,
+                    costo_total,
+                    precio_unitario,
                     margen_ganancia
                 )
                 VALUES (
                     '{objeto.NumeroOrden}',
+                    '{objeto.FechaApertura.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}',
                     {objeto.IdProducto},
                     {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     '{objeto.Estado}',
                     '{objeto.Observaciones?.Replace("'", "''") ?? string.Empty}',
+                    {objeto.CostoTotal.ToString(CultureInfo.InvariantCulture)},
+                    {objeto.PrecioUnitario.ToString(CultureInfo.InvariantCulture)},
                     {objeto.MargenGanancia.ToString(CultureInfo.InvariantCulture)}
                 );
                 """;

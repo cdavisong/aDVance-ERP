@@ -33,8 +33,8 @@ namespace aDVanceERP.PatchDB {
 
             try {
                 ExecuteStep(EliminarTablasObsoletas, "Eliminación de tablas obsoletas");
-                ExecuteStep(EliminarProductosDuplicados, "Eliminación de productos duplicados");
                 ExecuteStep(CrearTablasProduccion, "Creación de tablas de producción");
+                ExecuteStep(EliminarProductosDuplicados, "Eliminación de productos duplicados");
                 ExecuteStep(AgregarIndices, "Agregar índices optimizados");
                 ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
 
@@ -183,34 +183,34 @@ namespace aDVanceERP.PatchDB {
                     SET dcp.id_producto = tpd.id_a_conservar
                     WHERE dcp.id_producto != tpd.id_a_conservar;
                     """,
-                    """"
+                    """
                     -- Tabla adv__detalle_venta_producto
                     UPDATE adv__detalle_venta_producto dvp
                     JOIN temp_productos_duplicados tpd ON FIND_IN_SET(dvp.id_producto, tpd.ids_duplicados)
                     SET dvp.id_producto = tpd.id_a_conservar
                     WHERE dvp.id_producto != tpd.id_a_conservar;
-                    """",
-                    """"
+                    """,
+                    """
                     -- Tabla adv__producto_almacen
                     UPDATE adv__producto_almacen pa
                     JOIN temp_productos_duplicados tpd ON FIND_IN_SET(pa.id_producto, tpd.ids_duplicados)
                     SET pa.id_producto = tpd.id_a_conservar
                     WHERE pa.id_producto != tpd.id_a_conservar;
-                    """",
-                    """"
+                    """,
+                    """
                     -- Tabla adv__producto_materia_prima
                     UPDATE adv__producto_materia_prima pmp
                     JOIN temp_productos_duplicados tpd ON FIND_IN_SET(pmp.id_producto, tpd.ids_duplicados)
                     SET pmp.id_producto = tpd.id_a_conservar
                     WHERE pmp.id_producto != tpd.id_a_conservar;
-                    """",
-                    """"
+                    """,
+                    """
                     -- Tabla adv__orden_material
                     UPDATE adv__orden_material om
                     JOIN temp_productos_duplicados tpd ON FIND_IN_SET(om.id_producto, tpd.ids_duplicados)
                     SET om.id_producto = tpd.id_a_conservar
                     WHERE om.id_producto != tpd.id_a_conservar;
-                    """",
+                    """,
                     """
                     -- 3. Consolidar stock en los almacenes
                     UPDATE adv__producto_almacen pa
@@ -268,7 +268,7 @@ namespace aDVanceERP.PatchDB {
                     "ALTER TABLE adv__orden_produccion ADD INDEX idx_producto (id_producto);",
                     
                     // Índices para orden_actividad
-                    "ALTER TABLE adv__orden_actividad ADD INDEX idx_orden_actividad (id_orden_produccion, id_actividad_produccion);",
+                    "ALTER TABLE adv__orden_actividad ADD INDEX idx_orden_actividad (id_orden_produccion, nombre);",
                     
                     // Índices para orden_material
                     "ALTER TABLE adv__orden_material ADD INDEX idx_orden_material (id_orden_produccion, id_producto);",
@@ -298,7 +298,7 @@ namespace aDVanceERP.PatchDB {
                 [
                     """
                     ALTER TABLE adv__producto 
-                    ADD id_tipo_materia_prima INT(11) NOT NULL 
+                    ADD IF NOT EXISTS id_tipo_materia_prima INT(11) NOT NULL 
                     DEFAULT '1' 
                     AFTER id_proveedor;
                     """,
@@ -306,22 +306,40 @@ namespace aDVanceERP.PatchDB {
                     ALTER TABLE adv__producto 
                     ADD UNIQUE INDEX nombre_unico (nombre);
                     """,
-                    """"
+                    """
                     ALTER TABLE adv__producto_almacen 
                     CHANGE stock stock DECIMAL(10,2) NOT NULL;
-                    """",
-                    """"
+                    """,
+                    """
                     ALTER TABLE adv__movimiento 
                     CHANGE cantidad_movida cantidad_movida DECIMAL(10,2) NOT NULL;
-                    """",
-                    """"
+                    """,
+                    """
                     ALTER TABLE adv__detalle_compra_producto 
                     CHANGE cantidad cantidad DECIMAL(10,2) NOT NULL;
-                    """",
-                    """"
+                    """,
+                    """
                     ALTER TABLE adv__detalle_venta_producto 
                     CHANGE cantidad cantidad DECIMAL(10,2) NOT NULL;
-                    """"
+                    """,
+                    """
+                    ALTER TABLE adv__producto 
+                    ADD COLUMN costo_produccion_unitario DECIMAL(10,2) NOT NULL AFTER precio_compra_base DEFAULT 0,
+                    ADD COLUMN precio_compra DECIMAL(10,2) NOT NULL AFTER precio_compra_base DEFAULT 0;
+
+                    -- Actualizar los datos existentes
+                    -- Para Mercancía y Materia Prima: copiar a precio_compra
+                    UPDATE adv__producto 
+                    SET precio_compra = precio_compra_base
+                    WHERE categoria IN ('Mercancia', 'MateriaPrima');
+
+                    -- Para Producto Terminado: copiar a costo_produccion_unitario
+                    UPDATE adv__producto 
+                    SET costo_produccion_unitario = precio_compra_base
+                    WHERE categoria = 'ProductoTerminado';
+
+                    ALTER TABLE adv__producto DROP COLUMN precio_compra_base;
+                    """
                 ];
 
                 foreach (var query in querys)

@@ -1,4 +1,7 @@
 ﻿using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion;
 using aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
@@ -24,6 +27,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if (_registroOrdenProduccion == null)
                 return;
 
+            _registroOrdenProduccion.Vista.Restaurar();
             _registroOrdenProduccion.Vista.CargarNombresProductosTerminados(UtilesProducto.ObtenerNombresProductos(0, "ProductoTerminado").Result);
             _registroOrdenProduccion.Vista.CargarNombresMateriasPrimas(UtilesProducto.ObtenerNombresProductos(0, "MateriaPrima").Result);
             _registroOrdenProduccion.Vista.CargarNombresActividadesProduccion([.. UtilesOrdenProduccion.ObtenerNombresActividadesUtilizadas()]);
@@ -34,8 +38,9 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void MostrarVistaEdicionOrdenProduccion(object? sender, EventArgs e) {
             if (sender is OrdenProduccion ordenProduccion) {
                 if (_registroOrdenProduccion != null) {
-                    _registroOrdenProduccion.PopularVistaDesdeObjeto(ordenProduccion);
+                    _registroOrdenProduccion.Vista.Restaurar();
                     _registroOrdenProduccion.Vista.Mostrar();
+                    _registroOrdenProduccion.PopularVistaDesdeObjeto(ordenProduccion);
                 }
             }
         }

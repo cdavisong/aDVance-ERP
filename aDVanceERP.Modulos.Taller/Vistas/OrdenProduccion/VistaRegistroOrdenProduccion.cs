@@ -5,11 +5,14 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
+using aDVanceERP.Modulos.Taller.Modelos;
+using aDVanceERP.Modulos.Taller.Repositorios;
 
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
     public partial class VistaRegistroOrdenProduccion : Form, IVistaRegistroOrdenProduccion {
+        private bool _habilitada;
         private bool _modoEdicion;
         private string _numeroOrden = "-";
         private DateTime _fechaApertura = DateTime.Now;
@@ -20,8 +23,22 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         }
 
         public bool Habilitada {
-            get => Enabled;
-            set => Enabled = value;
+            get => _habilitada;
+            set {
+                fieldNombreProductoTerminado.ReadOnly = !value;
+                fieldCantidadProducir.ReadOnly = !value;
+                fieldMargenGananciaDeseado.ReadOnly = !value;
+                fieldObservaciones.ReadOnly = !value;
+                fieldNombreMateriaPrima.ReadOnly = !value;
+                fieldCantidadMateriaPrima.ReadOnly = !value;
+                fieldNombreActividadProduccion.ReadOnly = !value;
+                fieldCantidadActividadesProduccion.ReadOnly = !value;
+                fieldConceptoGastoIndirecto.ReadOnly = !value;
+                fieldCantidadGastoIndirecto.ReadOnly = !value;
+                btnAbrirActualizarOrdenProduccion.Visible = value;
+
+                _habilitada = value; 
+            }
         }
 
         public Point Coordenadas {
@@ -38,10 +55,13 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
-                btnAbrirCerrarOrdenProduccion.Text = value ? "Cerrar orden de producción" : "Abrir orden de producción";
+                fieldSubtitulo.Text = $"Registro Nro. {_numeroOrden} del {FechaApertura:dd/MM/yyyy}";
+                btnAbrirActualizarOrdenProduccion.Text = value ? "Actualizar orden de producción" : "Abrir orden de producción";
                 _modoEdicion = value;
             }
         }
+
+        public long Id { get; set; }
 
         public string NumeroOrden {
             get => _numeroOrden;
@@ -75,12 +95,12 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         }
 
         public decimal CostoTotal {
-            get => decimal.TryParse(fieldCostoTotalProduccion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0m;
+            get => decimal.TryParse(fieldCostoTotalProduccion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var costoTotal) ? costoTotal : 0m;
             set => fieldCostoTotalProduccion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public decimal PrecioUnitario {
-            get => decimal.TryParse(fieldPrecioUnitarioProducto.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0m;
+            get => decimal.TryParse(fieldPrecioUnitarioProducto.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var precioUnitario) ? precioUnitario : 0m;
             set => fieldPrecioUnitarioProducto.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
@@ -111,6 +131,10 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             VistasMateriaPrima = new RepositorioVistaBase(contenedorVistasMateriaPrima);
             VistasActividadProduccion = new RepositorioVistaBase(contenedorVistasActividadesProduccion);
             VistasGastosIndirectos = new RepositorioVistaBase(contenedorVistasGastosIndirectos);
+
+            // Datos
+            FechaApertura = DateTime.Now;
+            NumeroOrden = UtilesOrdenProduccion.ObtenerProximoNumeroOrden();
 
             // Eventos
             #region Materias primas
@@ -255,21 +279,21 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldMargenGananciaDeseado.TextChanged += delegate (object? sender, EventArgs args) {
                 ActualizarPrecioUnitarioProducto();
             };
-            btnAbrirCerrarOrdenProduccion.Click += delegate (object? sender, EventArgs args) {
-                //if (ModoEdicionDatos)
-                //    EditarDatos?.Invoke(sender, args);
-                //else
-                //    RegistrarDatos?.Invoke(sender, args);
+            btnAbrirActualizarOrdenProduccion.Click += delegate (object? sender, EventArgs args) {
+                if (ModoEdicionDatos)
+                    EditarDatos?.Invoke(sender, args);
+                else
+                    RegistrarDatos?.Invoke(sender, args);
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);
             };
-            contenedorVistasMateriaPrima.Resize += delegate {
-                VistasMateriaPrima?.Vistas?.ForEach(vista => {
-                    if (vista is IVistaTupla tupla)
-                        tupla.Dimensiones = new Size(contenedorVistasMateriaPrima.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada);
-                });
-            };
+            //contenedorVistasMateriaPrima.Resize += delegate {
+            //    VistasMateriaPrima?.Vistas?.ForEach(vista => {
+            //        if (vista is IVistaTupla tupla)
+            //            tupla.Dimensiones = new Size(contenedorVistasMateriaPrima.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada);
+            //    });
+            //};
         }
 
         #region Autocompletamiento en campos
@@ -327,7 +351,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     return;
                 }
 
-                var adPrecio = UtilesProducto.ObtenerPrecioCompraBase(idProducto).Result;
+                var adPrecio = UtilesProducto.ObtenerPrecioCompra(idProducto).Result;
                 var tuplaMateriaPrimaExistente = MateriasPrimas.FirstOrDefault(p => p[0].Equals(adNombre));
                 var tuplaMateriaPrima = tuplaMateriaPrimaExistente
                     ?? [adNombre, "0", adPrecio.ToString("N2", CultureInfo.InvariantCulture)];
@@ -362,8 +386,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 }
 
                 var tuplaActividadProduccionExistente = ActividadesProduccion.FirstOrDefault(p => p[0].Equals(adNombre));
+                var costoActividadProduccion = UtilesOrdenProduccion.ObtenerCostoOrdenActividadProduccion(Id, adNombre);
                 var tuplaActividadProduccion = tuplaActividadProduccionExistente
-                    ?? [adNombre, "0", "1.00"];
+                    ?? [adNombre, "0", costoActividadProduccion <= 0 ? "1.00" : costoActividadProduccion.ToString("N2", CultureInfo.InvariantCulture)];
                 tuplaActividadProduccion[1] = adCantidadTotal.ToString("N2", CultureInfo.InvariantCulture);
 
                 if (tuplaActividadProduccionExistente == null)
@@ -395,8 +420,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 }
 
                 var tuplaGastoIndirectoExistente = GastosIndirectos.FirstOrDefault(p => p[0].Equals(adConcepto));
+                var adMonto = UtilesOrdenProduccion.ObtenerCostoOrdenGastoIndirecto(Id, adConcepto);
                 var tuplaGastoIndirecto = tuplaGastoIndirectoExistente
-                    ?? [adConcepto, "0", "1.00"];
+                    ?? [adConcepto, "0", adMonto <= 0 ? "1.00" : adMonto.ToString("N2", CultureInfo.InvariantCulture)];
                 tuplaGastoIndirecto[1] = adCantidadTotal.ToString("N2", CultureInfo.InvariantCulture);
 
                 if (tuplaGastoIndirectoExistente == null)
@@ -412,13 +438,35 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 CentroNotificaciones.Mostrar("Debe ingresar un concepto válido para el gasto indirecto.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
         }
 
-        public void Mostrar() {
+        public void Mostrar() {            
             BringToFront();
             Show();
         }
 
         public void Restaurar() {
             ModoEdicionDatos = false;
+            fieldNombreProductoTerminado.Text = string.Empty;
+            fieldCantidadProducir.Text = string.Empty;
+            fieldMargenGananciaDeseado.Text = string.Empty;
+            fieldObservaciones.Text = string.Empty;
+            fieldCostoTotalMateriales.Text = "0.00";
+            fieldCostoTotalActividadesProduccion.Text = "0.00";
+            fieldMontoTotalGastosIndirectos.Text = "0.00";
+            fieldCostoTotalProduccion.Text = "0.00";
+            fieldPrecioUnitarioProducto.Text = "0.00";            
+            fieldNombreMateriaPrima.Text = string.Empty;
+            fieldCantidadMateriaPrima.Text = string.Empty;
+            fieldNombreActividadProduccion.Text = string.Empty;
+            fieldCantidadActividadesProduccion.Text = string.Empty;
+            fieldConceptoGastoIndirecto.Text = string.Empty;
+            fieldCantidadGastoIndirecto.Text = string.Empty;
+
+            MateriasPrimas.Clear();
+            LimpiarTuplasContenedor(contenedorVistasMateriaPrima);
+            ActividadesProduccion.Clear();
+            LimpiarTuplasContenedor(contenedorVistasActividadesProduccion);
+            GastosIndirectos.Clear();
+            LimpiarTuplasContenedor(contenedorVistasGastosIndirectos);
         }
 
         public void Ocultar() {
@@ -449,8 +497,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 tuplaOrdenMateriaPrima.NombreMateriaPrima = materiaPrima[0];
                 tuplaOrdenMateriaPrima.Cantidad = materiaPrima[1];
                 tuplaOrdenMateriaPrima.PrecioUnitario = materiaPrima[2];
-                tuplaOrdenMateriaPrima.Habilitada = !ModoEdicionDatos;
                 tuplaOrdenMateriaPrima.Dimensiones = new Size(contenedorVistasMateriaPrima.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada);
+                tuplaOrdenMateriaPrima.Habilitada = !ModoEdicionDatos;
                 tuplaOrdenMateriaPrima.PrecioUnitarioModificado += delegate (object? sender, EventArgs args) {
                     materiaPrima = sender as string[];
 
@@ -463,6 +511,15 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 };
                 tuplaOrdenMateriaPrima.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                     materiaPrima = sender as string[];
+
+                    using (var datosObjeto = new RepoOrdenMateriaPrima()) {
+                        var materiaPrimaExistente = datosObjeto.Obtener(
+                            CriterioBusquedaOrdenMateriaPrima.Producto, 
+                            $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{UtilesProducto.ObtenerIdProducto(materiaPrima?[0]).Result.ToString()}").FirstOrDefault();
+
+                        if (materiaPrimaExistente != null)
+                            datosObjeto.Eliminar(materiaPrimaExistente.Id);
+                    }
 
                     MateriasPrimas.RemoveAt(MateriasPrimas.FindIndex(p => p[0].Equals(materiaPrima?[0])));
                     MateriaPrimaEliminada?.Invoke(materiaPrima, args);
@@ -503,8 +560,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 tuplaOrdenActividadProduccion.NombreActividadProduccion = actividadProduccion[0];
                 tuplaOrdenActividadProduccion.Cantidad = actividadProduccion[1];
                 tuplaOrdenActividadProduccion.CostoActividad = actividadProduccion[2];
-                tuplaOrdenActividadProduccion.Habilitada = !ModoEdicionDatos;
                 tuplaOrdenActividadProduccion.Dimensiones = new Size(contenedorVistasActividadesProduccion.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada);
+                tuplaOrdenActividadProduccion.Habilitada = !ModoEdicionDatos;
                 tuplaOrdenActividadProduccion.CostoActividadModificado += delegate (object? sender, EventArgs args) {
                     actividadProduccion = sender as string[];
 
@@ -517,6 +574,15 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 };
                 tuplaOrdenActividadProduccion.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                     actividadProduccion = sender as string[];
+
+                    using (var datosObjeto = new RepoOrdenActividadProduccion()) {
+                        var actividadProduccionExistente = datosObjeto.Obtener(
+                            CriterioBusquedaOrdenActividadProduccion.Nombre, 
+                            $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{actividadProduccion?[0]}").FirstOrDefault();
+
+                        if (actividadProduccionExistente != null)
+                            datosObjeto.Eliminar(actividadProduccionExistente.Id);
+                    }
 
                     ActividadesProduccion.RemoveAt(ActividadesProduccion.FindIndex(p => p[0].Equals(actividadProduccion?[0])));
                     ActividadProduccionEliminada?.Invoke(actividadProduccion, args);
@@ -558,8 +624,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 tuplaOrdenGastoIndirecto.ConceptoGasto = gastoIndirecto[0];
                 tuplaOrdenGastoIndirecto.Cantidad = gastoIndirecto[1];
                 tuplaOrdenGastoIndirecto.Monto = gastoIndirecto[2];
-                tuplaOrdenGastoIndirecto.Habilitada = !ModoEdicionDatos;
                 tuplaOrdenGastoIndirecto.Dimensiones = new Size(contenedorVistasGastosIndirectos.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada);
+                tuplaOrdenGastoIndirecto.Habilitada = !ModoEdicionDatos;
                 tuplaOrdenGastoIndirecto.MontoGastoModificado += delegate (object? sender, EventArgs args) {
                     gastoIndirecto = sender as string[];
 
@@ -572,6 +638,15 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 };
                 tuplaOrdenGastoIndirecto.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                     gastoIndirecto = sender as string[];
+
+                    using (var datosObjeto = new RepoOrdenGastoIndirecto()) {
+                        var gastoIndirectoExistente = datosObjeto.Obtener(
+                            CriterioBusquedaOrdenGastoIndirecto.Concepto, 
+                            $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{gastoIndirecto?[0]}").FirstOrDefault();
+
+                        if (gastoIndirectoExistente != null)
+                            datosObjeto.Eliminar(gastoIndirectoExistente.Id);
+                    }
 
                     GastosIndirectos.RemoveAt(GastosIndirectos.FindIndex(p => p[0].Equals(gastoIndirecto?[0])));
                     GastoIndirectoEliminado?.Invoke(gastoIndirecto, args);

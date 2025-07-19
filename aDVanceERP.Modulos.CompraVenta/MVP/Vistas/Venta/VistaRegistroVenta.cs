@@ -296,7 +296,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                 fieldCantidad.ReadOnly = true;
             }
 
-            var precioCompraVigenteProducto = await UtilesProducto.ObtenerPrecioCompraBase(idProducto);
+            var precioCompraVigenteProducto = await UtilesProducto.ObtenerPrecioCompra(idProducto);
             var precioVentaBaseProducto = await UtilesProducto.ObtenerPrecioVentaBase(idProducto);
             var tuplaProducto = new[] {
                 idProducto.ToString(),

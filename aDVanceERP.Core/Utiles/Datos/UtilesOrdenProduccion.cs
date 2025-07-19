@@ -36,11 +36,10 @@ namespace aDVanceERP.Core.Utiles.Datos {
         public static List<string> ObtenerNombresActividadesUtilizadas() {
             var nombres = new List<string>();
             var query = """
-            SELECT DISTINCT ap.nombre
-            FROM adv__orden_actividad oa
-            JOIN adv__actividad_produccion ap ON oa.id_actividad_produccion = ap.id_actividad_produccion
-            WHERE ap.activo = 1
-            ORDER BY ap.nombre;
+            SELECT DISTINCT nombre
+            FROM adv__orden_actividad
+            WHERE nombre IS NOT NULL AND nombre != ''
+            ORDER BY nombre;
             """;
 
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
@@ -102,6 +101,56 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 using (var cmd = new MySqlCommand(query, conexion)) {
                     var result = cmd.ExecuteScalar();
                     return result?.ToString() ?? "OP00001"; // Valor por defecto si no hay resultados
+                }
+            }
+        }
+
+        public static decimal ObtenerCostoOrdenActividadProduccion(long idOrdenProduccion, string nombre) {
+            var query = """
+                SELECT costo 
+                FROM adv__orden_actividad 
+                WHERE 
+                    (id_orden_produccion = @idOrdenProduccion OR @idOrdenProduccion = 0)
+                    AND nombre = @nombre
+                ORDER BY 
+                    CASE WHEN @idOrdenProduccion = 0 THEN fecha_registro END DESC,
+                    id_orden_produccion = @idOrdenProduccion DESC
+                LIMIT 1;
+                """;
+
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+                conexion.Open();
+                using (var cmd = new MySqlCommand(query, conexion)) {
+                    cmd.Parameters.AddWithValue("@idOrdenProduccion", idOrdenProduccion);
+                    cmd.Parameters.AddWithValue("@nombre", nombre);
+
+                    var result = cmd.ExecuteScalar();
+                    return result != DBNull.Value && result != null ? Convert.ToDecimal(result) : 0m;
+                }
+            }
+        }
+
+        public static decimal ObtenerCostoOrdenGastoIndirecto(long idOrdenProduccion, string concepto) {
+            var query = """
+                SELECT monto 
+                FROM adv__orden_gasto_indirecto 
+                WHERE 
+                    (id_orden_produccion = @idOrdenProduccion OR @idOrdenProduccion = 0)
+                    AND concepto = @concepto
+                ORDER BY 
+                    CASE WHEN @idOrdenProduccion = 0 THEN fecha_registro END DESC,
+                    id_orden_produccion = @idOrdenProduccion DESC
+                LIMIT 1;
+                """;
+
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+                conexion.Open();
+                using (var cmd = new MySqlCommand(query, conexion)) {
+                    cmd.Parameters.AddWithValue("@idOrdenProduccion", idOrdenProduccion);
+                    cmd.Parameters.AddWithValue("@concepto", concepto);
+
+                    var result = cmd.ExecuteScalar();
+                    return result != null ? Convert.ToDecimal(result) : 0m;
                 }
             }
         }
