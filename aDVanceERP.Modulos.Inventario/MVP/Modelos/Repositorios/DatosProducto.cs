@@ -21,19 +21,21 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                     id_proveedor,
                     id_tipo_materia_prima,
                     es_vendible,
-                    precio_compra_base,
+                    precio_compra,
+                    costo_produccion_unitario,
                     precio_venta_base
                 )
                 VALUES (
                     '{objeto.Codigo}',
                     '{objeto.Categoria}',
                     '{objeto.Nombre}',
-                    '{objeto.IdDetalleProducto}',
-                    '{objeto.IdProveedor}',
-                    '{objeto.IdTipoMateriaPrima}',
+                    {objeto.IdDetalleProducto},
+                    {objeto.IdProveedor},
+                    {objeto.IdTipoMateriaPrima},
                     '{(objeto.EsVendible ? 1 : 0)}',
-                    '{objeto.PrecioCompraBase}',
-                    '{objeto.PrecioVentaBase}'
+                    {objeto.PrecioCompra.ToString(CultureInfo.InvariantCulture)},
+                    {objeto.CostoProduccionUnitario.ToString(CultureInfo.InvariantCulture)},
+                    {objeto.PrecioVentaBase.ToString(CultureInfo.InvariantCulture)}
                 );
                 """;
     }
@@ -45,12 +47,13 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                     codigo='{objeto.Codigo}',
                     categoria='{objeto.Categoria}',
                     nombre='{objeto.Nombre}',
-                    id_detalle_producto='{objeto.IdDetalleProducto}',
-                    id_proveedor='{objeto.IdProveedor}',
-                    id_tipo_materia_prima='{objeto.IdTipoMateriaPrima}',
-                    es_vendible={(objeto.EsVendible ? 1 : 0)},
-                    precio_compra_base='{objeto.PrecioCompraBase.ToString(CultureInfo.InvariantCulture)}',
-                    precio_venta_base='{objeto.PrecioVentaBase.ToString(CultureInfo.InvariantCulture)}'
+                    id_detalle_producto={objeto.IdDetalleProducto},
+                    id_proveedor={objeto.IdProveedor},
+                    id_tipo_materia_prima={objeto.IdTipoMateriaPrima},
+                    es_vendible='{(objeto.EsVendible ? 1 : 0)}',
+                    precio_compra={objeto.PrecioCompra.ToString(CultureInfo.InvariantCulture)},
+                    costo_produccion_unitario={objeto.CostoProduccionUnitario.ToString(CultureInfo.InvariantCulture)},
+                    precio_venta_base={objeto.PrecioVentaBase.ToString(CultureInfo.InvariantCulture)}
                 WHERE id_producto={objeto.Id};
                 """;
     }
@@ -148,7 +151,8 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
             idTipoMateriaPrima: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_materia_prima")),
             idProveedor: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
             esVendible: lectorDatos.GetBoolean(lectorDatos.GetOrdinal("es_vendible")),
-            precioCompraBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra_base")),
+            precioCompra: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra")),
+            costoProduccionUnitario: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("costo_produccion_unitario")),
             precioVentaBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_base"))
         );
     }

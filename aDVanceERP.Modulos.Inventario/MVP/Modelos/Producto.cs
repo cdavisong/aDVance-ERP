@@ -15,7 +15,7 @@ public class Producto : IObjetoUnico {
     }
 
     public Producto(long id, CategoriaProducto categoria, string nombre, string codigo, long idDetalleProducto, long idProveedor,
-        long idTipoMateriaPrima, bool esVendible, decimal precioCompraBase, decimal precioVentaBase) {
+        long idTipoMateriaPrima, bool esVendible, decimal precioCompra, decimal costoProduccionUnitario, decimal precioVentaBase) {
         Id = id;
         Categoria = categoria;
         Nombre = nombre;
@@ -24,7 +24,8 @@ public class Producto : IObjetoUnico {
         IdProveedor = idProveedor;
         IdTipoMateriaPrima = idTipoMateriaPrima;
         EsVendible = esVendible;
-        PrecioCompraBase = precioCompraBase;
+        PrecioCompra = precioCompra;
+        CostoProduccionUnitario = costoProduccionUnitario;
         PrecioVentaBase = precioVentaBase;
     }
 
@@ -36,7 +37,8 @@ public class Producto : IObjetoUnico {
     public long IdProveedor { get; set; }
     public long IdTipoMateriaPrima { get; set; } = 0; // Solo para materias primas
     public bool EsVendible { get; set; } = true;
-    public decimal PrecioCompraBase { get; }
+    public decimal PrecioCompra { get; }
+    public decimal CostoProduccionUnitario { get; } = 0.0m; // Solo para productos terminados
     public decimal PrecioVentaBase { get; }
 }
 

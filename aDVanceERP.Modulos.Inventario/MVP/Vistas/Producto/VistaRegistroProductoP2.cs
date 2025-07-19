@@ -24,12 +24,20 @@ public partial class VistaRegistroProductoP2 : Form {
 
     public string[] DescripcionesTiposMateriaPrima { get; private set; } = Array.Empty<string>();
 
-    public decimal PrecioCompraBase {
-        get => decimal.TryParse(fieldPrecioCompraBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
+    public decimal PrecioCompra {
+        get => decimal.TryParse(fieldCostoUnitario.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
                  out var value)
                  ? value
                  : 0;
-        set => fieldPrecioCompraBase.Text = value.ToString("N2", CultureInfo.InvariantCulture);
+        set => fieldCostoUnitario.Text = value.ToString("N2", CultureInfo.InvariantCulture);
+    }
+
+    public decimal CostoProduccionUnitario {
+        get => decimal.TryParse(fieldCostoUnitario.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
+                 out var value)
+                 ? value
+                 : 0;
+        set => fieldCostoUnitario.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
     public decimal PrecioVentaBase {
@@ -147,24 +155,15 @@ public partial class VistaRegistroProductoP2 : Form {
             fieldTipoMateriaPrima.SelectedIndex = 0;
     }
 
-    public void ConfigurarVisibilidadCamposPrecios(bool mostrarCompra, bool mostrarVenta) {
-        // Ajustar visibilidad y altura de fila para precio de compra
-        layoutPrecioCompraBase.Visible = mostrarCompra;
-        layoutBase.RowStyles[9].Height = mostrarCompra ? 45F : 0F;
+    public void ConfigurarVisibilidadCamposPrecios(bool costoUnitarioProduccion, bool mostrarVenta) {
+        // Actualizar label de título de costo unitario o precio de compra
+        fieldTituloCostoUnitario.Text = costoUnitarioProduccion
+            ? "  ●   Costo unitario de producción"
+            : "  ●   Precio de compra";
 
         // Ajustar visibilidad y altura de fila para precio de venta
         layoutPrecioVentaBase.Visible = mostrarVenta;
         layoutBase.RowStyles[10].Height = mostrarVenta ? 45F : 0F;
-
-        bool algunCampoVisible = mostrarCompra || mostrarVenta;
-
-        // Ajustar visibilidad y altura de fila para el titulo de compraventa
-        fieldTituloPrecios.Visible = algunCampoVisible;
-        layoutBase.RowStyles[8].Height = algunCampoVisible ? 35F : 0F;
-
-        // Ajustar el separador según si hay algún campo visible
-        separador2.Visible = algunCampoVisible;
-        layoutBase.RowStyles[7].Height = algunCampoVisible ? 20F : 0F;
 
         // Forzar el redibujado del layout
         layoutBase.PerformLayout();
@@ -192,7 +191,7 @@ public partial class VistaRegistroProductoP2 : Form {
         fieldDescripcionUnidadMedida.Text = "Seleccione o registre una unidad de medida";
         fieldTipoMateriaPrima.SelectedIndex = 0;
         fieldDescripcionTipoMateriaPrima.Text = "Seleccione o registre un tipo de materia prima";
-        PrecioCompraBase = 0;
+        PrecioCompra = 0;
         PrecioVentaBase = 0;
         NombreAlmacen = string.Empty;
         fieldNombreAlmacen.SelectedIndex = 0;

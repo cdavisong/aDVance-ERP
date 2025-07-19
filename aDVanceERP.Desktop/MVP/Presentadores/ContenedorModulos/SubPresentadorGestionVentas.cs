@@ -57,7 +57,8 @@ public partial class PresentadorContenedorModulos {
                 var tuplaProducto = new string[] {
                     productoVendidoJson.Producto.id_producto.ToString(),
                     productoVendidoJson.Producto.nombre,
-                    productoVendidoJson.Producto.precio_compra_base.ToString("N2", CultureInfo.InvariantCulture),
+                    productoVendidoJson.Producto.precio_compra.ToString("N2", CultureInfo.InvariantCulture),
+                    productoVendidoJson.Producto.costo_produccion_unitario.ToString("N2", CultureInfo.InvariantCulture),
                     productoVendidoJson.Producto.precio_venta_base.ToString("N2", CultureInfo.InvariantCulture),
                     productoVendidoJson.Cantidad.ToString(),
                     idAlmacen.ToString()
@@ -109,7 +110,8 @@ internal class ProductoJson {
     public string codigo { get; set; }
     public string nombre { get; set; }
     public string categoria { get; set; }
-    public decimal precio_compra_base { get; set; }
+    public decimal precio_compra { get; set; }
+    public decimal costo_produccion_unitario { get; set; }
     public decimal precio_venta_base { get; set; }
     public int stock { get; set; }
     public string nombre_almacen { get; set; }

@@ -105,7 +105,7 @@ public partial class PresentadorContenedorModulos {
             ModificarStockCompraProducto(detalleCompraProducto, producto);
 
             // Actualizar precio de compra en tabla producto
-            UtilesProducto.ActualizarPrecioCompraBase(
+            UtilesProducto.ActualizarPrecioCompra(
                 detalleCompraProducto.IdProducto,
                 detalleCompraProducto.PrecioCompra
             );

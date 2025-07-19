@@ -20,14 +20,16 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                     id_producto,
                     cantidad,
                     costo_unitario,
-                    total
+                    total,
+                    fecha_registro
                 )
                 VALUES (
                     {objeto.IdOrdenProduccion},
                     {objeto.IdProducto},
                     {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     {objeto.CostoUnitario.ToString(CultureInfo.InvariantCulture)},
-                    {objeto.CostoTotal.ToString(CultureInfo.InvariantCulture)}
+                    {objeto.Total.ToString(CultureInfo.InvariantCulture)},
+                    '{objeto.FechaRegistro.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}'
                 );
                 """;
         }
@@ -40,7 +42,8 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                     id_producto = {objeto.IdProducto},
                     cantidad = {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     costo_unitario = {objeto.CostoUnitario.ToString(CultureInfo.InvariantCulture)},
-                    total = {objeto.CostoTotal.ToString(CultureInfo.InvariantCulture)}
+                    total = {objeto.Total.ToString(CultureInfo.InvariantCulture)},
+                    fecha_registro = '{objeto.FechaRegistro.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}'
                 WHERE id_orden_material = {objeto.Id};
                 """;
         }
@@ -53,6 +56,8 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
         }
 
         public override string ComandoObtener(CriterioBusquedaOrdenMateriaPrima criterio, string dato) {
+            var datoSplit = dato.Split(';');
+
             return criterio switch {
                 CriterioBusquedaOrdenMateriaPrima.Todos =>
                     "SELECT * FROM adv__orden_material;",
@@ -61,7 +66,9 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 CriterioBusquedaOrdenMateriaPrima.OrdenProduccion =>
                     $"SELECT * FROM adv__orden_material WHERE id_orden_produccion = {dato};",
                 CriterioBusquedaOrdenMateriaPrima.Producto =>
-                    $"SELECT * FROM adv__orden_material WHERE id_producto = {dato};",
+                    datoSplit.Length > 1
+                        ? $"SELECT * FROM adv__orden_material WHERE id_orden_produccion = {datoSplit[0]} AND id_producto = {datoSplit[1]}"
+                        : $"SELECT * FROM adv__orden_material WHERE id_producto = {dato};",
                 CriterioBusquedaOrdenMateriaPrima.FechaRegistro =>
                     $"SELECT * FROM adv__orden_material WHERE DATE(fecha_registro) = '{dato}';",
                 _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
@@ -75,7 +82,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 IdProducto = lectorDatos.GetInt64("id_producto"),
                 Cantidad = lectorDatos.GetDecimal("cantidad"),
                 CostoUnitario = lectorDatos.GetDecimal("costo_unitario"),
-                CostoTotal = lectorDatos.GetDecimal("costo_total"),
+                Total = lectorDatos.GetDecimal("total"),
                 FechaRegistro = lectorDatos.GetDateTime("fecha_registro")
             };
         }

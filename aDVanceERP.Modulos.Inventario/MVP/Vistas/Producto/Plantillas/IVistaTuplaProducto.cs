@@ -8,7 +8,7 @@ public interface IVistaTuplaProducto : IVistaTupla {
     string Codigo { get; set; }
     string Nombre { get; set; }
     string Descripcion { get; set; }
-    decimal PrecioCompraBase { get; set; }
+    decimal CostoUnitario { get; set; }
     decimal PrecioVentaBase { get; set; }
     string UnidadMedida { get; set; }
     decimal Stock { get; set; }

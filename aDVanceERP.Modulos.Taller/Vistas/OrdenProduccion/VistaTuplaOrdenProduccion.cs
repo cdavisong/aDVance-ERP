@@ -37,6 +37,11 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             set => fieldId.Text = value;
         }
 
+        public string NumeroOrden {
+            get => fieldNumeroOrden.Text;
+            set => fieldNumeroOrden.Text = value;
+        }
+
         public string FechaApertura {
             get => fieldFechaApertura.Text;
             set => fieldFechaApertura.Text = value;

@@ -7,7 +7,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
             Nombre = string.Empty;
             Cantidad = 0.0m;
             Costo = 0.0m;
-            CostoTotal = 0.0m;
+            Total = 0.0m;
             FechaRegistro = DateTime.Now;
         }
 
@@ -18,7 +18,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
             Nombre = nombre;
             Cantidad = cantidad;
             Costo = costo;
-            CostoTotal = costoTotal;
+            Total = costoTotal;
             FechaRegistro = DateTime.Now;
         }
 
@@ -27,7 +27,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public string Nombre { get; set; }
         public decimal Cantidad { get; set; }
         public decimal Costo { get; set; }
-        public decimal CostoTotal { get; set; }
+        public decimal Total { get; set; }
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
     }
 

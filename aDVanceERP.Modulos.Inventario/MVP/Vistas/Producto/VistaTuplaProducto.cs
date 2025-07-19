@@ -57,7 +57,7 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
         set => fieldDescripcion.Text = value;
     }
 
-    public decimal PrecioCompraBase {
+    public decimal CostoUnitario {
         get => decimal.TryParse(fieldPrecioCompraBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
             out var value)
             ? value

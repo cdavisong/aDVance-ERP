@@ -24,27 +24,27 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaRegistroProductoP2));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges37 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges38 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges39 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges40 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             fieldDescripcionTipoMateriaPrima = new Label();
@@ -62,8 +62,8 @@
             fieldPrecioVentaBase = new Guna.UI2.WinForms.Guna2TextBox();
             fieldTituloPrecioVentaBase = new Label();
             layoutPrecioCompraBase = new TableLayoutPanel();
-            fieldPrecioCompraBase = new Guna.UI2.WinForms.Guna2TextBox();
-            fieldTituloPrecioCompraBase = new Label();
+            fieldCostoUnitario = new Guna.UI2.WinForms.Guna2TextBox();
+            fieldTituloCostoUnitario = new Label();
             fieldTituloPrecios = new Label();
             separador1 = new Guna.UI2.WinForms.Guna2Separator();
             fieldTituloUnidadMedida = new Label();
@@ -171,7 +171,7 @@
             fieldTipoMateriaPrima.BackColor = Color.Transparent;
             fieldTipoMateriaPrima.BorderColor = Color.Gainsboro;
             fieldTipoMateriaPrima.BorderRadius = 16;
-            fieldTipoMateriaPrima.CustomizableEdges = customizableEdges1;
+            fieldTipoMateriaPrima.CustomizableEdges = customizableEdges21;
             fieldTipoMateriaPrima.Dock = DockStyle.Fill;
             fieldTipoMateriaPrima.DrawMode = DrawMode.OwnerDrawFixed;
             fieldTipoMateriaPrima.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -183,7 +183,7 @@
             fieldTipoMateriaPrima.Location = new Point(5, 5);
             fieldTipoMateriaPrima.Margin = new Padding(5);
             fieldTipoMateriaPrima.Name = "fieldTipoMateriaPrima";
-            fieldTipoMateriaPrima.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            fieldTipoMateriaPrima.ShadowDecoration.CustomizableEdges = customizableEdges22;
             fieldTipoMateriaPrima.Size = new Size(307, 35);
             fieldTipoMateriaPrima.TabIndex = 32;
             fieldTipoMateriaPrima.TextOffset = new Point(10, 0);
@@ -194,7 +194,7 @@
             btnAdicionarTipoMateriaPrima.BorderRadius = 18;
             btnAdicionarTipoMateriaPrima.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnAdicionarTipoMateriaPrima.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAdicionarTipoMateriaPrima.CustomizableEdges = customizableEdges3;
+            btnAdicionarTipoMateriaPrima.CustomizableEdges = customizableEdges23;
             btnAdicionarTipoMateriaPrima.DialogResult = DialogResult.Cancel;
             btnAdicionarTipoMateriaPrima.Dock = DockStyle.Fill;
             btnAdicionarTipoMateriaPrima.FillColor = Color.PeachPuff;
@@ -202,7 +202,7 @@
             btnAdicionarTipoMateriaPrima.ForeColor = Color.White;
             btnAdicionarTipoMateriaPrima.Location = new Point(320, 3);
             btnAdicionarTipoMateriaPrima.Name = "btnAdicionarTipoMateriaPrima";
-            btnAdicionarTipoMateriaPrima.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnAdicionarTipoMateriaPrima.ShadowDecoration.CustomizableEdges = customizableEdges24;
             btnAdicionarTipoMateriaPrima.Size = new Size(44, 39);
             btnAdicionarTipoMateriaPrima.TabIndex = 33;
             // 
@@ -212,7 +212,7 @@
             btnEliminarTipoMateriaPrima.BorderRadius = 18;
             btnEliminarTipoMateriaPrima.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEliminarTipoMateriaPrima.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminarTipoMateriaPrima.CustomizableEdges = customizableEdges5;
+            btnEliminarTipoMateriaPrima.CustomizableEdges = customizableEdges25;
             btnEliminarTipoMateriaPrima.DialogResult = DialogResult.Cancel;
             btnEliminarTipoMateriaPrima.Dock = DockStyle.Fill;
             btnEliminarTipoMateriaPrima.FillColor = Color.PeachPuff;
@@ -220,7 +220,7 @@
             btnEliminarTipoMateriaPrima.ForeColor = Color.White;
             btnEliminarTipoMateriaPrima.Location = new Point(370, 3);
             btnEliminarTipoMateriaPrima.Name = "btnEliminarTipoMateriaPrima";
-            btnEliminarTipoMateriaPrima.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            btnEliminarTipoMateriaPrima.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnEliminarTipoMateriaPrima.Size = new Size(44, 39);
             btnEliminarTipoMateriaPrima.TabIndex = 34;
             // 
@@ -277,7 +277,7 @@
             btnEliminarUnidadMedida.BorderRadius = 18;
             btnEliminarUnidadMedida.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
             btnEliminarUnidadMedida.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminarUnidadMedida.CustomizableEdges = customizableEdges7;
+            btnEliminarUnidadMedida.CustomizableEdges = customizableEdges27;
             btnEliminarUnidadMedida.DialogResult = DialogResult.Cancel;
             btnEliminarUnidadMedida.Dock = DockStyle.Fill;
             btnEliminarUnidadMedida.FillColor = Color.PeachPuff;
@@ -285,7 +285,7 @@
             btnEliminarUnidadMedida.ForeColor = Color.White;
             btnEliminarUnidadMedida.Location = new Point(370, 3);
             btnEliminarUnidadMedida.Name = "btnEliminarUnidadMedida";
-            btnEliminarUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnEliminarUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnEliminarUnidadMedida.Size = new Size(44, 39);
             btnEliminarUnidadMedida.TabIndex = 36;
             // 
@@ -295,7 +295,7 @@
             btnAdicionarUnidadMedida.BorderRadius = 18;
             btnAdicionarUnidadMedida.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
             btnAdicionarUnidadMedida.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnAdicionarUnidadMedida.CustomizableEdges = customizableEdges9;
+            btnAdicionarUnidadMedida.CustomizableEdges = customizableEdges29;
             btnAdicionarUnidadMedida.DialogResult = DialogResult.Cancel;
             btnAdicionarUnidadMedida.Dock = DockStyle.Fill;
             btnAdicionarUnidadMedida.FillColor = Color.PeachPuff;
@@ -303,7 +303,7 @@
             btnAdicionarUnidadMedida.ForeColor = Color.White;
             btnAdicionarUnidadMedida.Location = new Point(320, 3);
             btnAdicionarUnidadMedida.Name = "btnAdicionarUnidadMedida";
-            btnAdicionarUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnAdicionarUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges30;
             btnAdicionarUnidadMedida.Size = new Size(44, 39);
             btnAdicionarUnidadMedida.TabIndex = 35;
             // 
@@ -313,7 +313,7 @@
             fieldUnidadMedida.BackColor = Color.Transparent;
             fieldUnidadMedida.BorderColor = Color.Gainsboro;
             fieldUnidadMedida.BorderRadius = 16;
-            fieldUnidadMedida.CustomizableEdges = customizableEdges11;
+            fieldUnidadMedida.CustomizableEdges = customizableEdges31;
             fieldUnidadMedida.Dock = DockStyle.Fill;
             fieldUnidadMedida.DrawMode = DrawMode.OwnerDrawFixed;
             fieldUnidadMedida.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -325,7 +325,7 @@
             fieldUnidadMedida.Location = new Point(5, 5);
             fieldUnidadMedida.Margin = new Padding(5);
             fieldUnidadMedida.Name = "fieldUnidadMedida";
-            fieldUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            fieldUnidadMedida.ShadowDecoration.CustomizableEdges = customizableEdges32;
             fieldUnidadMedida.Size = new Size(307, 35);
             fieldUnidadMedida.TabIndex = 32;
             fieldUnidadMedida.TextOffset = new Point(10, 0);
@@ -354,7 +354,7 @@
             fieldPrecioVentaBase.BorderColor = Color.Gainsboro;
             fieldPrecioVentaBase.BorderRadius = 16;
             fieldPrecioVentaBase.Cursor = Cursors.IBeam;
-            fieldPrecioVentaBase.CustomizableEdges = customizableEdges13;
+            fieldPrecioVentaBase.CustomizableEdges = customizableEdges33;
             fieldPrecioVentaBase.DefaultText = "";
             fieldPrecioVentaBase.DisabledState.BorderColor = Color.White;
             fieldPrecioVentaBase.DisabledState.ForeColor = Color.DimGray;
@@ -374,7 +374,7 @@
             fieldPrecioVentaBase.PlaceholderForeColor = Color.DimGray;
             fieldPrecioVentaBase.PlaceholderText = "Precio";
             fieldPrecioVentaBase.SelectedText = "";
-            fieldPrecioVentaBase.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            fieldPrecioVentaBase.ShadowDecoration.CustomizableEdges = customizableEdges34;
             fieldPrecioVentaBase.Size = new Size(124, 35);
             fieldPrecioVentaBase.TabIndex = 6;
             fieldPrecioVentaBase.TextAlign = HorizontalAlignment.Right;
@@ -392,7 +392,7 @@
             fieldTituloPrecioVentaBase.Name = "fieldTituloPrecioVentaBase";
             fieldTituloPrecioVentaBase.Size = new Size(269, 33);
             fieldTituloPrecioVentaBase.TabIndex = 0;
-            fieldTituloPrecioVentaBase.Text = "  ●   Precio de venta base";
+            fieldTituloPrecioVentaBase.Text = "  ●   Precio de venta (sin impuestos)";
             fieldTituloPrecioVentaBase.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // layoutPrecioCompraBase
@@ -401,8 +401,8 @@
             layoutPrecioCompraBase.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutPrecioCompraBase.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             layoutPrecioCompraBase.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            layoutPrecioCompraBase.Controls.Add(fieldPrecioCompraBase, 1, 0);
-            layoutPrecioCompraBase.Controls.Add(fieldTituloPrecioCompraBase, 0, 0);
+            layoutPrecioCompraBase.Controls.Add(fieldCostoUnitario, 1, 0);
+            layoutPrecioCompraBase.Controls.Add(fieldTituloCostoUnitario, 0, 0);
             layoutPrecioCompraBase.Dock = DockStyle.Fill;
             layoutPrecioCompraBase.Location = new Point(0, 285);
             layoutPrecioCompraBase.Margin = new Padding(0);
@@ -412,53 +412,53 @@
             layoutPrecioCompraBase.Size = new Size(417, 41);
             layoutPrecioCompraBase.TabIndex = 20;
             // 
-            // fieldPrecioCompraBase
+            // fieldCostoUnitario
             // 
-            fieldPrecioCompraBase.Animated = true;
-            fieldPrecioCompraBase.AutoRoundedCorners = true;
-            fieldPrecioCompraBase.BorderColor = Color.Gainsboro;
-            fieldPrecioCompraBase.BorderRadius = 16;
-            fieldPrecioCompraBase.Cursor = Cursors.IBeam;
-            fieldPrecioCompraBase.CustomizableEdges = customizableEdges15;
-            fieldPrecioCompraBase.DefaultText = "";
-            fieldPrecioCompraBase.DisabledState.BorderColor = Color.White;
-            fieldPrecioCompraBase.DisabledState.ForeColor = Color.DimGray;
-            fieldPrecioCompraBase.DisabledState.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioCompraBase.Dock = DockStyle.Fill;
-            fieldPrecioCompraBase.FocusedState.BorderColor = Color.SandyBrown;
-            fieldPrecioCompraBase.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldPrecioCompraBase.ForeColor = Color.Black;
-            fieldPrecioCompraBase.HoverState.BorderColor = Color.SandyBrown;
-            fieldPrecioCompraBase.IconLeftOffset = new Point(10, 0);
-            fieldPrecioCompraBase.IconRight = (Image) resources.GetObject("fieldPrecioCompraBase.IconRight");
-            fieldPrecioCompraBase.IconRightOffset = new Point(6, 0);
-            fieldPrecioCompraBase.IconRightSize = new Size(12, 12);
-            fieldPrecioCompraBase.Location = new Point(290, 3);
-            fieldPrecioCompraBase.Name = "fieldPrecioCompraBase";
-            fieldPrecioCompraBase.PasswordChar = '\0';
-            fieldPrecioCompraBase.PlaceholderForeColor = Color.DimGray;
-            fieldPrecioCompraBase.PlaceholderText = "Precio";
-            fieldPrecioCompraBase.SelectedText = "";
-            fieldPrecioCompraBase.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            fieldPrecioCompraBase.Size = new Size(124, 35);
-            fieldPrecioCompraBase.TabIndex = 6;
-            fieldPrecioCompraBase.TextAlign = HorizontalAlignment.Right;
-            fieldPrecioCompraBase.TextOffset = new Point(5, 0);
+            fieldCostoUnitario.Animated = true;
+            fieldCostoUnitario.AutoRoundedCorners = true;
+            fieldCostoUnitario.BorderColor = Color.Gainsboro;
+            fieldCostoUnitario.BorderRadius = 16;
+            fieldCostoUnitario.Cursor = Cursors.IBeam;
+            fieldCostoUnitario.CustomizableEdges = customizableEdges35;
+            fieldCostoUnitario.DefaultText = "";
+            fieldCostoUnitario.DisabledState.BorderColor = Color.White;
+            fieldCostoUnitario.DisabledState.ForeColor = Color.DimGray;
+            fieldCostoUnitario.DisabledState.PlaceholderForeColor = Color.DimGray;
+            fieldCostoUnitario.Dock = DockStyle.Fill;
+            fieldCostoUnitario.FocusedState.BorderColor = Color.SandyBrown;
+            fieldCostoUnitario.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldCostoUnitario.ForeColor = Color.Black;
+            fieldCostoUnitario.HoverState.BorderColor = Color.SandyBrown;
+            fieldCostoUnitario.IconLeftOffset = new Point(10, 0);
+            fieldCostoUnitario.IconRight = (Image) resources.GetObject("fieldCostoUnitario.IconRight");
+            fieldCostoUnitario.IconRightOffset = new Point(6, 0);
+            fieldCostoUnitario.IconRightSize = new Size(12, 12);
+            fieldCostoUnitario.Location = new Point(290, 3);
+            fieldCostoUnitario.Name = "fieldCostoUnitario";
+            fieldCostoUnitario.PasswordChar = '\0';
+            fieldCostoUnitario.PlaceholderForeColor = Color.DimGray;
+            fieldCostoUnitario.PlaceholderText = "Precio";
+            fieldCostoUnitario.SelectedText = "";
+            fieldCostoUnitario.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            fieldCostoUnitario.Size = new Size(124, 35);
+            fieldCostoUnitario.TabIndex = 6;
+            fieldCostoUnitario.TextAlign = HorizontalAlignment.Right;
+            fieldCostoUnitario.TextOffset = new Point(5, 0);
             // 
-            // fieldTituloPrecioCompraBase
+            // fieldTituloCostoUnitario
             // 
-            fieldTituloPrecioCompraBase.Dock = DockStyle.Fill;
-            fieldTituloPrecioCompraBase.Font = new Font("Segoe UI", 11.25F);
-            fieldTituloPrecioCompraBase.ForeColor = Color.DimGray;
-            fieldTituloPrecioCompraBase.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldTituloPrecioCompraBase.ImeMode = ImeMode.NoControl;
-            fieldTituloPrecioCompraBase.Location = new Point(15, 5);
-            fieldTituloPrecioCompraBase.Margin = new Padding(15, 5, 3, 3);
-            fieldTituloPrecioCompraBase.Name = "fieldTituloPrecioCompraBase";
-            fieldTituloPrecioCompraBase.Size = new Size(269, 33);
-            fieldTituloPrecioCompraBase.TabIndex = 0;
-            fieldTituloPrecioCompraBase.Text = "  ●   Precio de compra base";
-            fieldTituloPrecioCompraBase.TextAlign = ContentAlignment.MiddleLeft;
+            fieldTituloCostoUnitario.Dock = DockStyle.Fill;
+            fieldTituloCostoUnitario.Font = new Font("Segoe UI", 11.25F);
+            fieldTituloCostoUnitario.ForeColor = Color.DimGray;
+            fieldTituloCostoUnitario.ImageAlign = ContentAlignment.MiddleLeft;
+            fieldTituloCostoUnitario.ImeMode = ImeMode.NoControl;
+            fieldTituloCostoUnitario.Location = new Point(15, 5);
+            fieldTituloCostoUnitario.Margin = new Padding(15, 5, 3, 3);
+            fieldTituloCostoUnitario.Name = "fieldTituloCostoUnitario";
+            fieldTituloCostoUnitario.Size = new Size(269, 33);
+            fieldTituloCostoUnitario.TabIndex = 0;
+            fieldTituloCostoUnitario.Text = "  ●   Precio de compra";
+            fieldTituloCostoUnitario.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldTituloPrecios
             // 
@@ -573,7 +573,7 @@
             fieldNombreAlmacen.BackColor = Color.Transparent;
             fieldNombreAlmacen.BorderColor = Color.Gainsboro;
             fieldNombreAlmacen.BorderRadius = 16;
-            fieldNombreAlmacen.CustomizableEdges = customizableEdges17;
+            fieldNombreAlmacen.CustomizableEdges = customizableEdges37;
             fieldNombreAlmacen.Dock = DockStyle.Fill;
             fieldNombreAlmacen.DrawMode = DrawMode.OwnerDrawFixed;
             fieldNombreAlmacen.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -585,7 +585,7 @@
             fieldNombreAlmacen.Location = new Point(5, 5);
             fieldNombreAlmacen.Margin = new Padding(5);
             fieldNombreAlmacen.Name = "fieldNombreAlmacen";
-            fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            fieldNombreAlmacen.ShadowDecoration.CustomizableEdges = customizableEdges38;
             fieldNombreAlmacen.Size = new Size(198, 35);
             fieldNombreAlmacen.TabIndex = 27;
             fieldNombreAlmacen.TextOffset = new Point(10, 0);
@@ -596,7 +596,7 @@
             fieldStockInicial.BorderColor = Color.Gainsboro;
             fieldStockInicial.BorderRadius = 16;
             fieldStockInicial.Cursor = Cursors.IBeam;
-            fieldStockInicial.CustomizableEdges = customizableEdges19;
+            fieldStockInicial.CustomizableEdges = customizableEdges39;
             fieldStockInicial.DefaultText = "0";
             fieldStockInicial.DisabledState.BorderColor = Color.Gainsboro;
             fieldStockInicial.DisabledState.FillColor = Color.White;
@@ -618,7 +618,7 @@
             fieldStockInicial.PlaceholderForeColor = Color.DimGray;
             fieldStockInicial.PlaceholderText = "";
             fieldStockInicial.SelectedText = "";
-            fieldStockInicial.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            fieldStockInicial.ShadowDecoration.CustomizableEdges = customizableEdges40;
             fieldStockInicial.Size = new Size(199, 35);
             fieldStockInicial.TabIndex = 2;
             fieldStockInicial.TextAlign = HorizontalAlignment.Right;
@@ -670,8 +670,8 @@
         private Label fieldTituloPrecios;
         private Guna.UI2.WinForms.Guna2Separator separador1;
         private TableLayoutPanel layoutPrecioCompraBase;
-        private Guna.UI2.WinForms.Guna2TextBox fieldPrecioCompraBase;
-        private Label fieldTituloPrecioCompraBase;
+        private Guna.UI2.WinForms.Guna2TextBox fieldCostoUnitario;
+        private Label fieldTituloCostoUnitario;
         private TableLayoutPanel layoutPrecioVentaBase;
         private Guna.UI2.WinForms.Guna2TextBox fieldPrecioVentaBase;
         private Label fieldTituloPrecioVentaBase;

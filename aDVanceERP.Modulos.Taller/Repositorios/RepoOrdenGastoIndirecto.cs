@@ -20,14 +20,16 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                     concepto,
                     cantidad,
                     monto,
-                    total
+                    total,
+                    fecha_registro
                 )
                 VALUES (
                     {objeto.IdOrdenProduccion},
                     '{objeto.Concepto}',
                     {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     {objeto.Monto.ToString(CultureInfo.InvariantCulture)},
-                    {objeto.Total.ToString(CultureInfo.InvariantCulture)}
+                    {objeto.Total.ToString(CultureInfo.InvariantCulture)},
+                    '{objeto.FechaRegistro.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}'
                 );
                 """;
         }
@@ -40,7 +42,8 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                     concepto = '{objeto.Concepto}',
                     cantidad = {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     monto = {objeto.Monto.ToString(CultureInfo.InvariantCulture)},
-                    total = {objeto.Total.ToString(CultureInfo.InvariantCulture)}
+                    total = {objeto.Total.ToString(CultureInfo.InvariantCulture)},
+                    fecha_registro = '{objeto.FechaRegistro.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}'
                 WHERE id_orden_gasto_indirecto = {objeto.Id};
                 """;
         }
@@ -53,6 +56,8 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
         }
 
         public override string ComandoObtener(CriterioBusquedaOrdenGastoIndirecto criterio, string dato) {
+            var datoSplit = dato.Split(';');
+
             return criterio switch {
                 CriterioBusquedaOrdenGastoIndirecto.Todos =>
                     "SELECT * FROM adv__orden_gasto_indirecto;",
@@ -61,7 +66,9 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 CriterioBusquedaOrdenGastoIndirecto.OrdenProduccion =>
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE id_orden_produccion = {dato};",
                 CriterioBusquedaOrdenGastoIndirecto.Concepto =>
-                    $"SELECT * FROM adv__orden_gasto_indirecto WHERE concepto LIKE '%{dato}%';",
+                    datoSplit.Length > 1
+                        ? $"SELECT * FROM adv__orden_material WHERE id_orden_produccion = {datoSplit[0]} AND concepto = '{datoSplit[1]}'"
+                        : $"SELECT * FROM adv__orden_gasto_indirecto WHERE concepto LIKE '%{dato}%';",
                 CriterioBusquedaOrdenGastoIndirecto.FechaRegistro =>
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE DATE(fecha_registro) = '{dato}';",
                 _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
@@ -73,10 +80,10 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 Id = lectorDatos.GetInt64("id_orden_gasto_indirecto"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),
                 Concepto = lectorDatos.GetString("concepto"),
+                Cantidad = lectorDatos.GetDecimal("cantidad"),
                 Monto = lectorDatos.GetDecimal("monto"),
-                FechaRegistro = lectorDatos.GetDateTime("fecha_registro"),
-                Observaciones = lectorDatos.IsDBNull(lectorDatos.GetOrdinal("observaciones")) ?
-                    null : lectorDatos.GetString("observaciones")
+                Total = lectorDatos.GetDecimal("total"),
+                FechaRegistro = lectorDatos.GetDateTime("fecha_registro")
             };
         }
 

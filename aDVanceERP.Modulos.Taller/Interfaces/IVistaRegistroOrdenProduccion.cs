@@ -2,6 +2,7 @@
 
 namespace aDVanceERP.Modulos.Taller.Interfaces {
     public interface IVistaRegistroOrdenProduccion : IVistaRegistro {
+        long Id { get; set; }
         string NumeroOrden { get; set; }
         DateTime FechaApertura { get; set; }
         string NombreProductoTerminado { get; set; }

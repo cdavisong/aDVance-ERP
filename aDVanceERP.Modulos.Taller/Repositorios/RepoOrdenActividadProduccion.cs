@@ -17,17 +17,19 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
             return $"""
                 INSERT INTO adv__orden_actividad (
                     id_orden_produccion,
-                    id_actividad_produccion,
+                    nombre,
                     cantidad,
-                    costo_total,
-                    observaciones
+                    costo,
+                    total,
+                    fecha_registro
                 )
                 VALUES (
                     {objeto.IdOrdenProduccion},
-                    {objeto.IdActividadProduccion},
+                    '{objeto.Nombre}',
                     {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
-                    {objeto.CostoTotal.ToString(CultureInfo.InvariantCulture)},
-                    '{objeto.Observaciones?.Replace("'", "''") ?? string.Empty}'
+                    {objeto.Costo.ToString(CultureInfo.InvariantCulture)},
+                    {objeto.Total.ToString(CultureInfo.InvariantCulture)},
+                    '{objeto.FechaRegistro.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}'
                 );
                 """;
         }
@@ -37,10 +39,11 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 UPDATE adv__orden_actividad
                 SET
                     id_orden_produccion = {objeto.IdOrdenProduccion},
-                    id_actividad_produccion = {objeto.IdActividadProduccion},
+                    nombre = '{objeto.Nombre}',
                     cantidad = {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
-                    costo_total = {objeto.CostoTotal.ToString(CultureInfo.InvariantCulture)},
-                    observaciones = '{objeto.Observaciones?.Replace("'", "''") ?? string.Empty}'
+                    costo = {objeto.Costo.ToString(CultureInfo.InvariantCulture)},
+                    total = {objeto.Total.ToString(CultureInfo.InvariantCulture)},
+                    fecha_registro = '{objeto.FechaRegistro.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}'
                 WHERE id_orden_actividad = {objeto.Id};
                 """;
         }
@@ -53,15 +56,19 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
         }
 
         public override string ComandoObtener(CriterioBusquedaOrdenActividadProduccion criterio, string dato) {
+            var datoSplit = dato.Split(';');
+
             return criterio switch {
-                CriterioBusquedaOrdenActividadProduccion.Todas =>
+                CriterioBusquedaOrdenActividadProduccion.Todos =>
                     "SELECT * FROM adv__orden_actividad;",
                 CriterioBusquedaOrdenActividadProduccion.Id =>
                     $"SELECT * FROM adv__orden_actividad WHERE id_orden_actividad = {dato};",
                 CriterioBusquedaOrdenActividadProduccion.OrdenProduccion =>
                     $"SELECT * FROM adv__orden_actividad WHERE id_orden_produccion = {dato};",
-                CriterioBusquedaOrdenActividadProduccion.Actividad =>
-                    $"SELECT * FROM adv__orden_actividad WHERE id_actividad_produccion = {dato};",
+                CriterioBusquedaOrdenActividadProduccion.Nombre =>
+                    datoSplit.Length > 1
+                        ? $"SELECT * FROM adv__orden_actividad WHERE id_orden_produccion = {datoSplit[0]} AND nombre = '{datoSplit[1]}';"
+                        : $"SELECT * FROM adv__orden_actividad WHERE nombre LIKE '%{dato}%';",
                 CriterioBusquedaOrdenActividadProduccion.FechaRegistro =>
                     $"SELECT * FROM adv__orden_actividad WHERE DATE(fecha_registro) = '{dato}';",
                 _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
@@ -72,12 +79,11 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
             return new OrdenActividadProduccion {
                 Id = lectorDatos.GetInt64("id_orden_actividad"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),
-                IdActividadProduccion = lectorDatos.GetInt64("id_actividad_produccion"),
+                Nombre = lectorDatos.GetString("nombre"),
                 Cantidad = lectorDatos.GetDecimal("cantidad"),
-                CostoTotal = lectorDatos.GetDecimal("costo_total"),
-                FechaRegistro = lectorDatos.GetDateTime("fecha_registro"),
-                Observaciones = lectorDatos.IsDBNull(lectorDatos.GetOrdinal("observaciones")) ?
-                    null : lectorDatos.GetString("observaciones")
+                Costo = lectorDatos.GetDecimal("costo"),
+                Total = lectorDatos.GetDecimal("total"),
+                FechaRegistro = lectorDatos.GetDateTime("fecha_registro")
             };
         }
 

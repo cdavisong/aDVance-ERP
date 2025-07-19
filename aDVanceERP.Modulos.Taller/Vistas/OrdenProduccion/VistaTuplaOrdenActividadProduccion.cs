@@ -4,7 +4,7 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 
 public partial class VistaTuplaOrdenActividadProduccion : Form, IVistaTuplaOrdenActividadProduccion {
-    private bool _enabled = true;
+    private bool _habilitada = true;
 
     public VistaTuplaOrdenActividadProduccion() {
         InitializeComponent();
@@ -12,11 +12,12 @@ public partial class VistaTuplaOrdenActividadProduccion : Form, IVistaTuplaOrden
     }
 
     public bool Habilitada {
-        get => _enabled;
+        get => _habilitada;
         set {
-            _enabled = value;
             fieldCosto.ReadOnly = !value;
             btnEliminar.Enabled = value;
+
+            _habilitada = value;
         }
     }
 

@@ -4,7 +4,8 @@
         public string codigo { get; set; }
         public string nombre { get; set; }
         public string categoria { get; set; }
-        public decimal precio_compra_base { get; set; }
+        public decimal precio_compra { get; set; }
+        public decimal costo_produccion_unitario { get; set; }
         public decimal precio_venta_base { get; set; }
         public int stock { get; set; }
         public string nombre_almacen { get; set; }

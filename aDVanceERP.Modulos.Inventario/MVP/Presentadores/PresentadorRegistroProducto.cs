@@ -29,7 +29,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             }
         }
         
-        Vista.PrecioCompraBase = objeto.PrecioCompraBase;
+        Vista.PrecioCompra = objeto.PrecioCompra;
         Vista.PrecioVentaBase = objeto.PrecioVentaBase;
         Vista.ModoEdicionDatos = true;
 
@@ -101,7 +101,8 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
             await UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(Vista.TipoMateriaPrima),
             Vista.EsVendible,
-            Vista.PrecioCompraBase,
+            Vista.PrecioCompra,
+            Vista.CostoProduccionUnitario,
             Vista.PrecioVentaBase
         );
     }

@@ -291,9 +291,9 @@ public static class UtilesProducto {
         }
     }
 
-    public static async Task<decimal> ObtenerPrecioCompraBase(long idProducto) {
+    public static async Task<decimal> ObtenerPrecioCompra(long idProducto) {
         const string query = """
-                             SELECT precio_compra_base
+                             SELECT precio_compra
                              FROM adv__producto
                              WHERE id_producto = @IdProducto;
                              """;
@@ -302,19 +302,33 @@ public static class UtilesProducto {
         };
 
         return await EjecutarConsultaEscalar(query,
-            lector => lector.GetDecimal(lector.GetOrdinal("precio_compra_base")), parametros);
+            lector => lector.GetDecimal(lector.GetOrdinal("precio_compra")), parametros);
     }
 
-    public static bool ActualizarPrecioCompraBase(long idProducto, decimal nuevoPrecioCompra) {
+    public static async Task<decimal> ObtenerCostoProduccionUnitario(long idProducto) {
+        const string query = """
+                             SELECT costo_produccion_unitario
+                             FROM adv__producto
+                             WHERE id_producto = @IdProducto;
+                             """;
+        var parametros = new[] {
+            new MySqlParameter("@IdProducto", idProducto)
+        };
+
+        return await EjecutarConsultaEscalar(query,
+            lector => lector.GetDecimal(lector.GetOrdinal("costo_produccion_unitario")), parametros);
+    }
+
+    public static bool ActualizarPrecioCompra(long idProducto, decimal nuevoPrecioCompra) {
         const string queryVerificar = """
-                                      SELECT precio_compra_base
+                                      SELECT precio_compra
                                       FROM adv__producto
                                       WHERE id_producto = @IdProducto;
                                       """;
 
         const string queryActualizar = """
                                        UPDATE adv__producto
-                                       SET precio_compra_base = @PrecioCompra
+                                       SET precio_compra = @PrecioCompra
                                        WHERE id_producto = @IdProducto;
                                        """;
 
@@ -345,6 +359,47 @@ public static class UtilesProducto {
             }
         }
         catch {
+            return false;
+        }
+    }
+
+    public static bool ActualizarCostoProduccionUnitario(long idProducto, decimal nuevoCostoProduccion) {
+        const string queryVerificar = """
+                                      SELECT costo_produccion_unitario
+                                      FROM adv__producto
+                                      WHERE id_producto = @IdProducto;
+                                      """;
+        const string queryActualizar = """
+                                       UPDATE adv__producto
+                                       SET costo_produccion_unitario = @CostoProduccion
+                                       WHERE id_producto = @IdProducto;
+                                       """;
+        var parametros = new[] {
+            new MySqlParameter("@IdProducto", idProducto),
+            new MySqlParameter("@CostoProduccion", nuevoCostoProduccion)
+        };
+
+        try {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+                conexion.Open();
+
+                // Verificar el costo actual
+                decimal costoActual;
+                using (var comandoVerificar = new MySqlCommand(queryVerificar, conexion)) {
+                    comandoVerificar.Parameters.Add(parametros[0]);
+                    costoActual = Convert.ToDecimal(comandoVerificar.ExecuteScalar());
+                }
+
+                // Solo actualizar si es diferente
+                if (costoActual == nuevoCostoProduccion)
+                    return false; // No se actualizó porque el costo es igual
+
+                using (var comandoActualizar = new MySqlCommand(queryActualizar, conexion)) {
+                    comandoActualizar.Parameters.AddRange(parametros);
+                    return comandoActualizar.ExecuteNonQuery() > 0;
+                }
+            }
+        } catch {
             return false;
         }
     }

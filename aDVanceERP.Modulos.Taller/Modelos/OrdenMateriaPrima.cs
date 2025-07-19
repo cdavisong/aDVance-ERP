@@ -7,7 +7,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
             IdProducto = 0; // Materia prima consumida
             Cantidad = 0.0m;
             CostoUnitario = 0.0m;
-            CostoTotal = 0.0m;
+            Total = 0.0m;
             FechaRegistro = DateTime.Now;
         }
 
@@ -18,7 +18,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
             IdProducto = idProducto; // Materia prima consumida
             Cantidad = cantidad;
             CostoUnitario = costoUnitario;
-            CostoTotal = costoTotal;
+            Total = costoTotal;
             FechaRegistro = DateTime.Now;
         }
 
@@ -27,7 +27,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public long IdProducto { get; set; } // Materia prima consumida
         public decimal Cantidad { get; set; }
         public decimal CostoUnitario { get; set; }
-        public decimal CostoTotal { get; set; }
+        public decimal Total { get; set; }
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
     }
 

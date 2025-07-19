@@ -131,7 +131,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.Menu {
             btnOrdenesProduccion.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnOrdenesProduccion.Size = new Size(160, 50);
             btnOrdenesProduccion.TabIndex = 10;
-            btnOrdenesProduccion.Text = "Ordenes de prod.";
+            btnOrdenesProduccion.Text = "Órdenes de prod.";
             // 
             // VistaMenuTaller
             // 

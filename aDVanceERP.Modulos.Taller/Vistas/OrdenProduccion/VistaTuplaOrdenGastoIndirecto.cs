@@ -1,10 +1,11 @@
 ﻿using aDVanceERP.Modulos.Taller.Interfaces;
+
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 
 public partial class VistaTuplaOrdenGastoIndirecto : Form, IVistaTuplaOrdenGastoIndirecto {
-    private bool _enabled = true;
+    private bool _habilitada = true;
 
     public VistaTuplaOrdenGastoIndirecto() {
         InitializeComponent();
@@ -12,11 +13,12 @@ public partial class VistaTuplaOrdenGastoIndirecto : Form, IVistaTuplaOrdenGasto
     }
 
     public bool Habilitada {
-        get => _enabled;
+        get => _habilitada;
         set {
-            _enabled = value;
             fieldMonto.ReadOnly = !value;
             btnEliminar.Enabled = value;
+
+            _habilitada = value;
         }
     }
 
@@ -63,10 +65,10 @@ public partial class VistaTuplaOrdenGastoIndirecto : Form, IVistaTuplaOrdenGasto
 
     public void Inicializar() {
         // Eventos
-        fieldConceptoGasto.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldMonto.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldConceptoGasto.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldMonto.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldMonto.LostFocus += delegate { FormatearMontoModificado(); };
-        fieldMonto.KeyDown += delegate(object? sender, KeyEventArgs args) {
+        fieldMonto.KeyDown += delegate (object? sender, KeyEventArgs args) {
             if (args.KeyCode != Keys.Enter)
                 return;
 
@@ -74,9 +76,9 @@ public partial class VistaTuplaOrdenGastoIndirecto : Form, IVistaTuplaOrdenGasto
 
             args.SuppressKeyPress = true;
         };
-        fieldCantidad.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldCantidad.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
-        btnEliminar.Click += delegate(object? sender, EventArgs e) {
+        btnEliminar.Click += delegate (object? sender, EventArgs e) {
             EliminarDatosTupla?.Invoke(new[] { ConceptoGasto, Cantidad, Monto }, e);
         };
     }
