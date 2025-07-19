@@ -4,37 +4,38 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
     public class OrdenActividadProduccion : IObjetoUnico {
         public OrdenActividadProduccion() {
             IdOrdenProduccion = 0;
-            IdActividadProduccion = 0;
-            Cantidad = 0.0m; // Horas o unidades según tipo
+            Nombre = string.Empty;
+            Cantidad = 0.0m;
+            Costo = 0.0m;
             CostoTotal = 0.0m;
             FechaRegistro = DateTime.Now;
-            Observaciones = string.Empty;
         }
 
-        public OrdenActividadProduccion(long id, long idOrdenProduccion, long idActividadProduccion, decimal cantidad, decimal costoTotal, DateTime fechaRegistro, string observaciones) {
+        public OrdenActividadProduccion(long id, long idOrdenProduccion, string nombre, decimal cantidad,
+            decimal costo, decimal costoTotal) {
             Id = id;
             IdOrdenProduccion = idOrdenProduccion;
-            IdActividadProduccion = idActividadProduccion;
-            Cantidad = cantidad; // Horas o unidades según tipo
+            Nombre = nombre;
+            Cantidad = cantidad;
+            Costo = costo;
             CostoTotal = costoTotal;
-            FechaRegistro = fechaRegistro;
-            Observaciones = observaciones;
-        }   
+            FechaRegistro = DateTime.Now;
+        }
 
         public long Id { get; set; }
         public long IdOrdenProduccion { get; set; }
-        public long IdActividadProduccion { get; set; }
-        public decimal Cantidad { get; set; } // Horas o unidades según tipo
+        public string Nombre { get; set; }
+        public decimal Cantidad { get; set; }
+        public decimal Costo { get; set; }
         public decimal CostoTotal { get; set; }
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
-        public string Observaciones { get; set; }
     }
 
     public enum CriterioBusquedaOrdenActividadProduccion {
-        Todas,
+        Todos,
         Id,
         OrdenProduccion,
-        Actividad,
+        Nombre,
         FechaRegistro
     }
 

@@ -20,7 +20,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                     id_producto,
                     cantidad,
                     costo_unitario,
-                    costo_total
+                    total
                 )
                 VALUES (
                     {objeto.IdOrdenProduccion},
@@ -40,7 +40,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                     id_producto = {objeto.IdProducto},
                     cantidad = {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     costo_unitario = {objeto.CostoUnitario.ToString(CultureInfo.InvariantCulture)},
-                    costo_total = {objeto.CostoTotal.ToString(CultureInfo.InvariantCulture)}
+                    total = {objeto.CostoTotal.ToString(CultureInfo.InvariantCulture)}
                 WHERE id_orden_material = {objeto.Id};
                 """;
         }

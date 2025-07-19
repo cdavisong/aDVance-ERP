@@ -18,14 +18,16 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 INSERT INTO adv__orden_gasto_indirecto (
                     id_orden_produccion,
                     concepto,
+                    cantidad,
                     monto,
-                    observaciones
+                    total
                 )
                 VALUES (
                     {objeto.IdOrdenProduccion},
                     '{objeto.Concepto}',
+                    {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     {objeto.Monto.ToString(CultureInfo.InvariantCulture)},
-                    '{objeto.Observaciones?.Replace("'", "''") ?? string.Empty}'
+                    {objeto.Total.ToString(CultureInfo.InvariantCulture)}
                 );
                 """;
         }
@@ -36,8 +38,9 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 SET
                     id_orden_produccion = {objeto.IdOrdenProduccion},
                     concepto = '{objeto.Concepto}',
+                    cantidad = {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     monto = {objeto.Monto.ToString(CultureInfo.InvariantCulture)},
-                    observaciones = '{objeto.Observaciones?.Replace("'", "''") ?? string.Empty}'
+                    total = {objeto.Total.ToString(CultureInfo.InvariantCulture)}
                 WHERE id_orden_gasto_indirecto = {objeto.Id};
                 """;
         }
@@ -59,8 +62,6 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE id_orden_produccion = {dato};",
                 CriterioBusquedaOrdenGastoIndirecto.Concepto =>
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE concepto LIKE '%{dato}%';",
-                CriterioBusquedaOrdenGastoIndirecto.Monto =>
-                    $"SELECT * FROM adv__orden_gasto_indirecto WHERE monto = {dato};",
                 CriterioBusquedaOrdenGastoIndirecto.FechaRegistro =>
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE DATE(fecha_registro) = '{dato}';",
                 _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)

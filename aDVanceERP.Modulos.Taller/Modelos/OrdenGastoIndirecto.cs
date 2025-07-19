@@ -1,31 +1,36 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Datos.Interfaces;
+using aDVanceERP.Core.MVP.Modelos.Plantillas;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
     public class OrdenGastoIndirecto : IObjetoUnico {
         public OrdenGastoIndirecto() {
             IdOrdenProduccion = 0;
             Concepto = string.Empty;
+            Cantidad = 0.0m;
             Monto = 0.0m;
+            Total = 0.0m;
             FechaRegistro = DateTime.Now;
-            Observaciones = string.Empty;
         }
 
-        public OrdenGastoIndirecto(long id, long idOrdenProduccion, string concepto, decimal monto, 
-            DateTime fechaRegistro, string observaciones) {
+        public OrdenGastoIndirecto(long id, long idOrdenProduccion, string concepto, decimal cantidad,
+            decimal monto, decimal costoTotal) {
             Id = id;
             IdOrdenProduccion = idOrdenProduccion;
             Concepto = concepto;
+            Cantidad = cantidad;
             Monto = monto;
-            FechaRegistro = fechaRegistro;
-            Observaciones = observaciones;
+            Total = costoTotal;
+            FechaRegistro = DateTime.Now;
         }
 
         public long Id { get; set; }
         public long IdOrdenProduccion { get; set; }
         public string Concepto { get; set; }
+        public decimal Cantidad { get; set; }
         public decimal Monto { get; set; }
+        public decimal Total { get; set; }
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
-        public string Observaciones { get; set; }
     }
 
     public enum CriterioBusquedaOrdenGastoIndirecto {
@@ -33,7 +38,6 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         Id,
         OrdenProduccion,
         Concepto,
-        Monto,
         FechaRegistro
     }
 
@@ -44,7 +48,6 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
             "Identificador de BD",
             "Orden de producción asociada",
             "Concepto del gasto",
-            "Monto del gasto",
             "Fecha de registro"
         };
     }
