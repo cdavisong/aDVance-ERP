@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -121,7 +121,7 @@
     <value>17, 17</value>
   </metadata>
   <data name="fieldTitulo.Text" xml:space="preserve">
-    <value>&lt;h3&gt;Bienvenido al instalador de aDVance ERP &lt;span style="font-size: smaller; color: gray;"&gt;0.3.41.988-beta&lt;/span&gt;&lt;/h3&gt;
+    <value>&lt;h3&gt;Bienvenido al instalador de aDVance ERP &lt;span style="font-size: smaller; color: gray;"&gt;0.4.22.240-beta&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;Este asistente le guiará a través del proceso de instalación.&lt;/p&gt;
 

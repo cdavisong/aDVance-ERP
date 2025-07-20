@@ -92,7 +92,7 @@ internal static class Program {
                 // Registrar la versión aplicada
                 const string registerVersion = @"
                     INSERT INTO adv__db_version (version, applied_date, patch_name)
-                    VALUES (@version, NOW(), 'Comenzando con la expansión a procesos productivos. Fase BETA de la aplicación')";
+                    VALUES (@version, NOW(), 'Órdenes de producción y reportes de inventario. Fase BETA de la aplicación')";
 
                 using (var cmd = new MySqlCommand(registerVersion, conexion)) {
                     cmd.Parameters.AddWithValue("@version", CurrentDbVersion);

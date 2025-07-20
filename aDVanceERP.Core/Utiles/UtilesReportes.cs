@@ -29,10 +29,8 @@ public static class UtilesReportes {
         const int margenDerecho = 40;
         const int margenSuperior = 40;
         const int margenInferior = 40;
-        const int alturaEncabezado = 120;
-        const int alturaPie = 30;
         const int alturaFila = 18;
-        const int maxFilasPorPagina = 23; // Ajustado para hoja horizontal  
+        const int maxFilasPorPagina = 26;
 
         var fontTitulo = new XFont("Arial", 14, XFontStyleEx.Bold);
         var fontSubtitulo = new XFont("Arial", 10, XFontStyleEx.Regular);
@@ -40,14 +38,13 @@ public static class UtilesReportes {
         var fontEncabezado = new XFont("Arial", 12, XFontStyleEx.Bold);
         var fontAlmacen = new XFont("Arial", 12, XFontStyleEx.Bold);
 
-        int paginaActual = 1;
-        int filasProcesadas = 0; 
-        int filasEnPaginaActual = 0;
-        PdfPage pagina = null;
+        // Primera pasada: Generar todo el contenido
+        List<PdfPage> paginasGeneradas = new List<PdfPage>();
+        PdfPage paginaActual = null;
         XGraphics gfx = null;
         double yPoint = 0;
+        int filasEnPaginaActual = 0;
 
-        // Procesar cada almacén  
         foreach (var almacen in almacenes) {
             var productosEnAlmacen = inventario.ContainsKey(almacen.Key) ? inventario[almacen.Key] : new List<Dictionary<string, string>>();
 
@@ -57,39 +54,57 @@ public static class UtilesReportes {
             int productosProcesados = 0;
 
             while (productosProcesados < productosEnAlmacen.Count) {
-                // Calcular espacio disponible en la página actual  
-                int espacioDisponible = maxFilasPorPagina - filasEnPaginaActual;
+                // Crear nueva página si es necesario
+                if (paginaActual == null || filasEnPaginaActual >= maxFilasPorPagina - 3) {
+                    // Cerrar el contexto gráfico anterior si existe
+                    if (gfx != null) {
+                        gfx.Dispose();
+                    }
 
-                // Si no hay espacio o es nueva página, crear una  
-                if (pagina == null || espacioDisponible <= (productosProcesados == 0 ? 2 : 0)) {
-                    pagina = documento.AddPage();
-                    pagina.Orientation = PageOrientation.Landscape;
-                    pagina.Size = PageSize.A4;
-                    gfx = XGraphics.FromPdfPage(pagina);
+                    paginaActual = documento.AddPage();
+                    paginaActual.Orientation = PageOrientation.Landscape;
+                    paginaActual.Size = PageSize.A4;
+                    paginasGeneradas.Add(paginaActual);
+                    gfx = XGraphics.FromPdfPage(paginaActual);
                     yPoint = margenSuperior;
                     filasEnPaginaActual = 0;
 
-                    // Dibujar encabezado  
-                    DibujarEncabezadoInventario(gfx, pagina, fontTitulo, fontSubtitulo,
+                    // Dibujar encabezado
+                    DibujarEncabezadoInventario(gfx, paginaActual, fontTitulo, fontSubtitulo,
                         margenIzquierdo, margenDerecho, ref yPoint);
-                    filasEnPaginaActual += 2; // El encabezado ocupa aproximadamente 2 filas  
+                    filasEnPaginaActual += 2;
                 }
 
-                // Encabezado de almacén (solo si es el inicio de un nuevo almacén en la página)  
+                // Encabezado de almacén
                 if (productosProcesados == 0) {
+                    if (filasEnPaginaActual > maxFilasPorPagina - 3) {
+                        // Cerrar el contexto gráfico actual
+                        gfx.Dispose();
+
+                        paginaActual = documento.AddPage();
+                        paginaActual.Orientation = PageOrientation.Landscape;
+                        paginasGeneradas.Add(paginaActual);
+                        gfx = XGraphics.FromPdfPage(paginaActual);
+                        yPoint = margenSuperior;
+                        filasEnPaginaActual = 0;
+
+                        DibujarEncabezadoInventario(gfx, paginaActual, fontTitulo, fontSubtitulo,
+                            margenIzquierdo, margenDerecho, ref yPoint);
+                        filasEnPaginaActual += 2;
+                    }
+
                     gfx.DrawString($"ALMACÉN: {almacen.Value.ToUpper()}", fontAlmacen, XBrushes.Black,
-                        new XRect(margenIzquierdo, yPoint, pagina.Width - margenIzquierdo - margenDerecho, 20),
+                        new XRect(margenIzquierdo, yPoint, paginaActual.Width - margenIzquierdo - margenDerecho, 20),
                         XStringFormats.TopLeft);
                     yPoint += 25;
                     filasEnPaginaActual += 1;
 
-                    // Dibujar encabezados de tabla  
-                    DibujarEncabezadosTablaInventario(gfx, pagina, fontEncabezado,
+                    DibujarEncabezadosTablaInventario(gfx, paginaActual, fontEncabezado,
                         margenIzquierdo, margenDerecho, ref yPoint);
                     filasEnPaginaActual += 1;
                 }
 
-                // Calcular cuántas filas podemos poner en esta página  
+                // Calcular cuántas filas podemos poner en esta página
                 int filasDisponibles = maxFilasPorPagina - filasEnPaginaActual;
                 int filasAProcesar = Math.Min(filasDisponibles, productosEnAlmacen.Count - productosProcesados);
 
@@ -100,27 +115,48 @@ public static class UtilesReportes {
 
                     productosProcesados++;
                     filasEnPaginaActual++;
-                    filasProcesadas++;
                 }
 
-                // Si completamos el almacén o la página, dibujar totales o pie de página  
+                // Totales del almacén
                 if (productosProcesados == productosEnAlmacen.Count) {
+                    if (filasEnPaginaActual > maxFilasPorPagina - 2) {
+                        // Cerrar el contexto gráfico actual
+                        gfx.Dispose();
+
+                        paginaActual = documento.AddPage();
+                        paginaActual.Orientation = PageOrientation.Landscape;
+                        paginasGeneradas.Add(paginaActual);
+                        gfx = XGraphics.FromPdfPage(paginaActual);
+                        yPoint = margenSuperior;
+                        filasEnPaginaActual = 0;
+
+                        DibujarEncabezadoInventario(gfx, paginaActual, fontTitulo, fontSubtitulo,
+                            margenIzquierdo, margenDerecho, ref yPoint);
+                        filasEnPaginaActual += 2;
+                    }
+
                     DibujarTotalesAlmacen(gfx, fontContenido, productosEnAlmacen,
                         margenIzquierdo, margenDerecho, ref yPoint, alturaFila);
-                    filasEnPaginaActual += 2; // Totales ocupan aproximadamente 2 filas  
-                }
-
-                if (filasEnPaginaActual >= maxFilasPorPagina || productosProcesados == productosEnAlmacen.Count) {
-                    DibujarPiePaginaInventario(gfx, pagina, fontSubtitulo,
-                        margenIzquierdo, margenDerecho,
-                        margenInferior, ref yPoint, paginaActual,
-                        documento.Pages.Count);
-                    paginaActual++;
+                    filasEnPaginaActual += 2;
                 }
             }
         }
 
-        // Guardar el documento  
+        // Cerrar el último contexto gráfico si existe
+        if (gfx != null) {
+            gfx.Dispose();
+        }
+
+        // Segunda pasada: Numerar las páginas correctamente usando el mismo contexto gráfico
+        for (int i = 0; i < documento.Pages.Count; i++) {
+            using (var gfxUnificado = XGraphics.FromPdfPage(documento.Pages[i])) {
+                DibujarPiePaginaInventario(gfxUnificado, documento.Pages[i], fontSubtitulo,
+                    margenIzquierdo, margenDerecho,
+                    margenInferior, i + 1, documento.Pages.Count);
+            }
+        }
+
+        // Guardar el documento
         var nombreArchivo = $"inventario-almacenes-{DateTime.Now:yyyyMMdd-HHmmss}.pdf";
 
         if (documento.Pages.Count <= 0)
@@ -310,13 +346,13 @@ public static class UtilesReportes {
 
     private static void DibujarPiePaginaInventario(XGraphics gfx, PdfPage pagina, XFont fontSubtitulo,
                                            int margenIzquierdo, int margenDerecho,
-                                           int margenInferior, ref double yPoint, int paginaActual,
+                                           int margenInferior, int paginaActual,
                                            int totalPaginas) {
-        // Pie de página
         var textoPie = $"Página {paginaActual} de {totalPaginas} - {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
 
         gfx.DrawString(textoPie, fontSubtitulo, XBrushes.Black,
-            new XRect(margenIzquierdo, pagina.Height - margenInferior, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            new XRect(margenIzquierdo, pagina.Height - margenInferior,
+                pagina.Width - margenIzquierdo - margenDerecho, 20),
             XStringFormats.BottomRight);
     }
 

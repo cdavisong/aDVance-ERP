@@ -28,27 +28,27 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         /// </summary>
         private void InitializeComponent() {
             components = new Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges41 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges42 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges43 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaGestionOrdenesProduccion));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges44 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges45 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges46 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges47 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges48 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges49 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges50 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges51 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges52 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges53 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges54 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges55 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges56 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges57 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges58 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges59 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges60 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutVista = new TableLayoutPanel();
             layoutHerramientas = new TableLayoutPanel();
@@ -64,13 +64,15 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldIcono = new PictureBox();
             fieldSubtitulo = new Label();
             layoutEncabezadosTabla = new TableLayoutPanel();
+            fieldTituloUnidadesTotales = new Label();
+            fieldTituloPrecioUnitario = new Label();
             fieldTituloFechaCierre = new Label();
             fieldTituloEstado = new Label();
-            fieldNumeroOrden = new Label();
-            fieldTituloId = new Label();
             fieldTituloDireccion = new Label();
             fieldFechaApertura = new Label();
             fieldNombreProducto = new Label();
+            fieldNumeroOrden = new Label();
+            fieldTituloId = new Label();
             contenedorVistas = new Panel();
             layoutControlesTabla = new TableLayoutPanel();
             btnPaginaAnterior = new Guna2Button();
@@ -83,8 +85,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             panelBotonesGestion = new Panel();
             btnCerrarOrdenProduccion = new Guna2Button();
             btnRegistrar = new Guna2Button();
-            fieldTituloPrecioUnitario = new Label();
-            fieldTituloUnidadesTotales = new Label();
             layoutVista.SuspendLayout();
             layoutHerramientas.SuspendLayout();
             panelDatosComplementariosBusqueda.SuspendLayout();
@@ -183,7 +183,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldDatoBusquedaFecha.CheckedState.FillColor = Color.White;
             fieldDatoBusquedaFecha.CheckedState.ForeColor = Color.Black;
             fieldDatoBusquedaFecha.CustomFormat = "yyyy-MM-dd";
-            fieldDatoBusquedaFecha.CustomizableEdges = customizableEdges41;
+            fieldDatoBusquedaFecha.CustomizableEdges = customizableEdges1;
             fieldDatoBusquedaFecha.Dock = DockStyle.Fill;
             fieldDatoBusquedaFecha.FillColor = Color.White;
             fieldDatoBusquedaFecha.Font = new Font("Segoe UI", 11.25F);
@@ -194,7 +194,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldDatoBusquedaFecha.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             fieldDatoBusquedaFecha.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             fieldDatoBusquedaFecha.Name = "fieldDatoBusquedaFecha";
-            fieldDatoBusquedaFecha.ShadowDecoration.CustomizableEdges = customizableEdges42;
+            fieldDatoBusquedaFecha.ShadowDecoration.CustomizableEdges = customizableEdges2;
             fieldDatoBusquedaFecha.Size = new Size(320, 35);
             fieldDatoBusquedaFecha.TabIndex = 25;
             fieldDatoBusquedaFecha.Value = new DateTime(2025, 2, 20, 21, 31, 28, 166);
@@ -207,7 +207,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldDatoBusqueda.BorderColor = Color.Gainsboro;
             fieldDatoBusqueda.BorderRadius = 18;
             fieldDatoBusqueda.Cursor = Cursors.IBeam;
-            fieldDatoBusqueda.CustomizableEdges = customizableEdges43;
+            fieldDatoBusqueda.CustomizableEdges = customizableEdges3;
             fieldDatoBusqueda.DefaultText = "";
             fieldDatoBusqueda.DisabledState.BorderColor = Color.White;
             fieldDatoBusqueda.DisabledState.ForeColor = Color.DimGray;
@@ -226,7 +226,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldDatoBusqueda.PlaceholderForeColor = Color.DimGray;
             fieldDatoBusqueda.PlaceholderText = "Datos complementarios de búsqueda";
             fieldDatoBusqueda.SelectedText = "";
-            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges44;
+            fieldDatoBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges4;
             fieldDatoBusqueda.Size = new Size(320, 35);
             fieldDatoBusqueda.TabIndex = 9;
             fieldDatoBusqueda.TextOffset = new Point(5, 0);
@@ -238,7 +238,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldCriterioBusqueda.BackColor = Color.Transparent;
             fieldCriterioBusqueda.BorderColor = Color.Gainsboro;
             fieldCriterioBusqueda.BorderRadius = 16;
-            fieldCriterioBusqueda.CustomizableEdges = customizableEdges45;
+            fieldCriterioBusqueda.CustomizableEdges = customizableEdges5;
             fieldCriterioBusqueda.Dock = DockStyle.Fill;
             fieldCriterioBusqueda.DrawMode = DrawMode.OwnerDrawFixed;
             fieldCriterioBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -250,7 +250,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldCriterioBusqueda.Location = new Point(5, 5);
             fieldCriterioBusqueda.Margin = new Padding(5);
             fieldCriterioBusqueda.Name = "fieldCriterioBusqueda";
-            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges46;
+            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges6;
             fieldCriterioBusqueda.Size = new Size(290, 35);
             fieldCriterioBusqueda.TabIndex = 27;
             fieldCriterioBusqueda.TextOffset = new Point(10, 0);
@@ -322,7 +322,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldTitulo.Name = "fieldTitulo";
             fieldTitulo.Size = new Size(1230, 45);
             fieldTitulo.TabIndex = 3;
-            fieldTitulo.Text = "Gestión de órdenes de trabajo";
+            fieldTitulo.Text = "Gestión de órdenes de producción";
             fieldTitulo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldIcono
@@ -348,7 +348,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldSubtitulo.Name = "fieldSubtitulo";
             fieldSubtitulo.Size = new Size(1280, 39);
             fieldSubtitulo.TabIndex = 2;
-            fieldSubtitulo.Text = "Registro, edición, eliminación, búsqueda de órdenes de trabajo.";
+            fieldSubtitulo.Text = "Registro, edición, eliminación, búsqueda de órdenes de producción.";
             // 
             // layoutEncabezadosTabla
             // 
@@ -384,6 +384,34 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             layoutEncabezadosTabla.Size = new Size(1284, 58);
             layoutEncabezadosTabla.TabIndex = 11;
             // 
+            // fieldTituloUnidadesTotales
+            // 
+            fieldTituloUnidadesTotales.Dock = DockStyle.Fill;
+            fieldTituloUnidadesTotales.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldTituloUnidadesTotales.ForeColor = Color.Black;
+            fieldTituloUnidadesTotales.ImeMode = ImeMode.NoControl;
+            fieldTituloUnidadesTotales.Location = new Point(585, 1);
+            fieldTituloUnidadesTotales.Margin = new Padding(1);
+            fieldTituloUnidadesTotales.Name = "fieldTituloUnidadesTotales";
+            fieldTituloUnidadesTotales.Size = new Size(58, 56);
+            fieldTituloUnidadesTotales.TabIndex = 23;
+            fieldTituloUnidadesTotales.Text = "U";
+            fieldTituloUnidadesTotales.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloPrecioUnitario
+            // 
+            fieldTituloPrecioUnitario.Dock = DockStyle.Fill;
+            fieldTituloPrecioUnitario.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldTituloPrecioUnitario.ForeColor = Color.Black;
+            fieldTituloPrecioUnitario.ImeMode = ImeMode.NoControl;
+            fieldTituloPrecioUnitario.Location = new Point(775, 1);
+            fieldTituloPrecioUnitario.Margin = new Padding(1);
+            fieldTituloPrecioUnitario.Name = "fieldTituloPrecioUnitario";
+            fieldTituloPrecioUnitario.Size = new Size(128, 56);
+            fieldTituloPrecioUnitario.TabIndex = 22;
+            fieldTituloPrecioUnitario.Text = "Precio unitario";
+            fieldTituloPrecioUnitario.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // fieldTituloFechaCierre
             // 
             fieldTituloFechaCierre.Dock = DockStyle.Fill;
@@ -411,34 +439,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldTituloEstado.TabIndex = 20;
             fieldTituloEstado.Text = "Estado";
             fieldTituloEstado.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldNumeroOrden
-            // 
-            fieldNumeroOrden.Dock = DockStyle.Fill;
-            fieldNumeroOrden.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldNumeroOrden.ForeColor = Color.Black;
-            fieldNumeroOrden.ImeMode = ImeMode.NoControl;
-            fieldNumeroOrden.Location = new Point(61, 1);
-            fieldNumeroOrden.Margin = new Padding(1);
-            fieldNumeroOrden.Name = "fieldNumeroOrden";
-            fieldNumeroOrden.Size = new Size(78, 56);
-            fieldNumeroOrden.TabIndex = 15;
-            fieldNumeroOrden.Text = "Nro. Orden";
-            fieldNumeroOrden.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldTituloId
-            // 
-            fieldTituloId.Dock = DockStyle.Fill;
-            fieldTituloId.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldTituloId.ForeColor = Color.Black;
-            fieldTituloId.ImeMode = ImeMode.NoControl;
-            fieldTituloId.Location = new Point(1, 1);
-            fieldTituloId.Margin = new Padding(1);
-            fieldTituloId.Name = "fieldTituloId";
-            fieldTituloId.Size = new Size(58, 56);
-            fieldTituloId.TabIndex = 14;
-            fieldTituloId.Text = "Id";
-            fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloDireccion
             // 
@@ -481,6 +481,34 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldNombreProducto.TabIndex = 5;
             fieldNombreProducto.Text = "Producto";
             fieldNombreProducto.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldNumeroOrden
+            // 
+            fieldNumeroOrden.Dock = DockStyle.Fill;
+            fieldNumeroOrden.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldNumeroOrden.ForeColor = Color.Black;
+            fieldNumeroOrden.ImeMode = ImeMode.NoControl;
+            fieldNumeroOrden.Location = new Point(61, 1);
+            fieldNumeroOrden.Margin = new Padding(1);
+            fieldNumeroOrden.Name = "fieldNumeroOrden";
+            fieldNumeroOrden.Size = new Size(78, 56);
+            fieldNumeroOrden.TabIndex = 15;
+            fieldNumeroOrden.Text = "Nro. Orden";
+            fieldNumeroOrden.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloId
+            // 
+            fieldTituloId.Dock = DockStyle.Fill;
+            fieldTituloId.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldTituloId.ForeColor = Color.Black;
+            fieldTituloId.ImeMode = ImeMode.NoControl;
+            fieldTituloId.Location = new Point(1, 1);
+            fieldTituloId.Margin = new Padding(1);
+            fieldTituloId.Name = "fieldTituloId";
+            fieldTituloId.Size = new Size(58, 56);
+            fieldTituloId.TabIndex = 14;
+            fieldTituloId.Text = "Id";
+            fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // contenedorVistas
             // 
@@ -533,7 +561,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnPaginaAnterior.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnPaginaAnterior.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaAnterior.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaAnterior.CustomizableEdges = customizableEdges47;
+            btnPaginaAnterior.CustomizableEdges = customizableEdges7;
             btnPaginaAnterior.Dock = DockStyle.Fill;
             btnPaginaAnterior.FillColor = Color.WhiteSmoke;
             btnPaginaAnterior.Font = new Font("Segoe UI", 9F);
@@ -544,7 +572,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnPaginaAnterior.Location = new Point(36, 1);
             btnPaginaAnterior.Margin = new Padding(1);
             btnPaginaAnterior.Name = "btnPaginaAnterior";
-            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges48;
+            btnPaginaAnterior.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnPaginaAnterior.Size = new Size(33, 33);
             btnPaginaAnterior.TabIndex = 1;
             // 
@@ -557,7 +585,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnPrimeraPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnPrimeraPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPrimeraPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnPrimeraPagina.CustomizableEdges = customizableEdges49;
+            btnPrimeraPagina.CustomizableEdges = customizableEdges9;
             btnPrimeraPagina.Dock = DockStyle.Fill;
             btnPrimeraPagina.FillColor = Color.WhiteSmoke;
             btnPrimeraPagina.Font = new Font("Segoe UI", 9F);
@@ -568,7 +596,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnPrimeraPagina.Location = new Point(1, 1);
             btnPrimeraPagina.Margin = new Padding(1);
             btnPrimeraPagina.Name = "btnPrimeraPagina";
-            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges50;
+            btnPrimeraPagina.ShadowDecoration.CustomizableEdges = customizableEdges10;
             btnPrimeraPagina.Size = new Size(33, 33);
             btnPrimeraPagina.TabIndex = 0;
             // 
@@ -581,7 +609,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnPaginaSiguiente.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
             btnPaginaSiguiente.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnPaginaSiguiente.CustomImages.ImageSize = new Size(24, 24);
-            btnPaginaSiguiente.CustomizableEdges = customizableEdges51;
+            btnPaginaSiguiente.CustomizableEdges = customizableEdges11;
             btnPaginaSiguiente.Dock = DockStyle.Fill;
             btnPaginaSiguiente.FillColor = Color.WhiteSmoke;
             btnPaginaSiguiente.Font = new Font("Segoe UI", 9F);
@@ -592,7 +620,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnPaginaSiguiente.Location = new Point(311, 1);
             btnPaginaSiguiente.Margin = new Padding(1);
             btnPaginaSiguiente.Name = "btnPaginaSiguiente";
-            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges52;
+            btnPaginaSiguiente.ShadowDecoration.CustomizableEdges = customizableEdges12;
             btnPaginaSiguiente.Size = new Size(33, 33);
             btnPaginaSiguiente.TabIndex = 2;
             // 
@@ -605,7 +633,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnUltimaPagina.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
             btnUltimaPagina.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnUltimaPagina.CustomImages.ImageSize = new Size(24, 24);
-            btnUltimaPagina.CustomizableEdges = customizableEdges53;
+            btnUltimaPagina.CustomizableEdges = customizableEdges13;
             btnUltimaPagina.Dock = DockStyle.Fill;
             btnUltimaPagina.FillColor = Color.WhiteSmoke;
             btnUltimaPagina.Font = new Font("Segoe UI", 9F);
@@ -616,7 +644,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnUltimaPagina.Location = new Point(346, 1);
             btnUltimaPagina.Margin = new Padding(1);
             btnUltimaPagina.Name = "btnUltimaPagina";
-            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges54;
+            btnUltimaPagina.ShadowDecoration.CustomizableEdges = customizableEdges14;
             btnUltimaPagina.Size = new Size(33, 33);
             btnUltimaPagina.TabIndex = 3;
             // 
@@ -629,7 +657,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnSincronizarDatos.CustomImages.Image = (Image) resources.GetObject("resource.Image4");
             btnSincronizarDatos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnSincronizarDatos.CustomImages.ImageSize = new Size(24, 24);
-            btnSincronizarDatos.CustomizableEdges = customizableEdges55;
+            btnSincronizarDatos.CustomizableEdges = customizableEdges15;
             btnSincronizarDatos.Dock = DockStyle.Fill;
             btnSincronizarDatos.FillColor = Color.WhiteSmoke;
             btnSincronizarDatos.Font = new Font("Segoe UI", 9F);
@@ -640,7 +668,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnSincronizarDatos.Location = new Point(391, 1);
             btnSincronizarDatos.Margin = new Padding(1);
             btnSincronizarDatos.Name = "btnSincronizarDatos";
-            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges56;
+            btnSincronizarDatos.ShadowDecoration.CustomizableEdges = customizableEdges16;
             btnSincronizarDatos.Size = new Size(33, 33);
             btnSincronizarDatos.TabIndex = 4;
             // 
@@ -689,7 +717,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnCerrarOrdenProduccion.Animated = true;
             btnCerrarOrdenProduccion.BackColor = Color.White;
             btnCerrarOrdenProduccion.BorderRadius = 18;
-            btnCerrarOrdenProduccion.CustomizableEdges = customizableEdges57;
+            btnCerrarOrdenProduccion.CustomizableEdges = customizableEdges17;
             btnCerrarOrdenProduccion.Dock = DockStyle.Left;
             btnCerrarOrdenProduccion.FillColor = Color.FromArgb(  255,   196,   196);
             btnCerrarOrdenProduccion.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
@@ -699,7 +727,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnCerrarOrdenProduccion.Location = new Point(323, 3);
             btnCerrarOrdenProduccion.Margin = new Padding(0);
             btnCerrarOrdenProduccion.Name = "btnCerrarOrdenProduccion";
-            btnCerrarOrdenProduccion.ShadowDecoration.CustomizableEdges = customizableEdges58;
+            btnCerrarOrdenProduccion.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnCerrarOrdenProduccion.Size = new Size(320, 39);
             btnCerrarOrdenProduccion.TabIndex = 11;
             btnCerrarOrdenProduccion.Text = "Cerrar la orden de prod. seleccionada";
@@ -710,7 +738,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnRegistrar.Animated = true;
             btnRegistrar.BackColor = Color.White;
             btnRegistrar.BorderRadius = 18;
-            btnRegistrar.CustomizableEdges = customizableEdges59;
+            btnRegistrar.CustomizableEdges = customizableEdges19;
             btnRegistrar.Dock = DockStyle.Left;
             btnRegistrar.FillColor = Color.PeachPuff;
             btnRegistrar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
@@ -720,38 +748,10 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             btnRegistrar.Location = new Point(3, 3);
             btnRegistrar.Margin = new Padding(0);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges60;
+            btnRegistrar.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnRegistrar.Size = new Size(320, 39);
             btnRegistrar.TabIndex = 7;
             btnRegistrar.Text = "Apertura de  orden de produccion";
-            // 
-            // fieldTituloPrecioUnitario
-            // 
-            fieldTituloPrecioUnitario.Dock = DockStyle.Fill;
-            fieldTituloPrecioUnitario.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldTituloPrecioUnitario.ForeColor = Color.Black;
-            fieldTituloPrecioUnitario.ImeMode = ImeMode.NoControl;
-            fieldTituloPrecioUnitario.Location = new Point(775, 1);
-            fieldTituloPrecioUnitario.Margin = new Padding(1);
-            fieldTituloPrecioUnitario.Name = "fieldTituloPrecioUnitario";
-            fieldTituloPrecioUnitario.Size = new Size(128, 56);
-            fieldTituloPrecioUnitario.TabIndex = 22;
-            fieldTituloPrecioUnitario.Text = "Precio unitario";
-            fieldTituloPrecioUnitario.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // fieldTituloUnidadesTotales
-            // 
-            fieldTituloUnidadesTotales.Dock = DockStyle.Fill;
-            fieldTituloUnidadesTotales.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            fieldTituloUnidadesTotales.ForeColor = Color.Black;
-            fieldTituloUnidadesTotales.ImeMode = ImeMode.NoControl;
-            fieldTituloUnidadesTotales.Location = new Point(585, 1);
-            fieldTituloUnidadesTotales.Margin = new Padding(1);
-            fieldTituloUnidadesTotales.Name = "fieldTituloUnidadesTotales";
-            fieldTituloUnidadesTotales.Size = new Size(58, 56);
-            fieldTituloUnidadesTotales.TabIndex = 23;
-            fieldTituloUnidadesTotales.Text = "U";
-            fieldTituloUnidadesTotales.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // VistaGestionOrdenesProduccion
             // 
