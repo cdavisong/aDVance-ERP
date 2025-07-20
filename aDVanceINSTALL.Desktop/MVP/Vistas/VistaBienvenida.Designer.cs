@@ -32,7 +32,7 @@
             fieldImagen = new PictureBox();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)fieldImagen).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) fieldImagen).BeginInit();
             SuspendLayout();
             // 
             // formatoBase
@@ -91,7 +91,7 @@
             // 
             fieldImagen.BackgroundImageLayout = ImageLayout.Center;
             fieldImagen.Dock = DockStyle.Fill;
-            fieldImagen.Image = (Image)resources.GetObject("fieldImagen.Image");
+            fieldImagen.Image = (Image) resources.GetObject("fieldImagen.Image");
             fieldImagen.Location = new Point(3, 3);
             fieldImagen.Name = "fieldImagen";
             fieldImagen.Size = new Size(244, 381);
@@ -113,7 +113,7 @@
             Text = "VistaBienvenida";
             layoutBase.ResumeLayout(false);
             layoutDistribucion.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)fieldImagen).EndInit();
+            ((System.ComponentModel.ISupportInitialize) fieldImagen).EndInit();
             ResumeLayout(false);
         }
 

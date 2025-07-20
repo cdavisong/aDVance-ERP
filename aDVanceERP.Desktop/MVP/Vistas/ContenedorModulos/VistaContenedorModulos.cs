@@ -232,7 +232,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
                     </div>
     
                     <div class=""trust-section"">
-                        <div class=""trust-title"">Estas empresas confían en nosotros</div>
+                        <div class=""trust-title"">Estas empresas confían en nosotros. Únete a la familia!</div>
                     </div>
                 </body>
                 </html>
