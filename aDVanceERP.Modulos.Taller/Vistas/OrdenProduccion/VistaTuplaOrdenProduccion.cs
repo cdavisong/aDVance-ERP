@@ -57,6 +57,16 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             set => fieldCostoTotal.Text = value;
         }
 
+        public string TotalUnidadesProducidas {
+            get => fieldTotalUnidadesProducidas.Text;
+            set => fieldTotalUnidadesProducidas.Text = value;
+        }
+
+        public string PrecioUnitario {
+            get => fieldPrecioUnitario.Text;
+            set => fieldPrecioUnitario.Text = value;
+        }
+
         public int Estado {
             get => _estado;
             set {
@@ -73,11 +83,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         public string FechaCierre {
             get => fieldFechaCierre.Text;
             set => fieldFechaCierre.Text = value;
-        }
-
-        public string Observaciones {
-            get => fieldObservaciones.Text;
-            set => fieldObservaciones.Text = value;
         }
 
         public event EventHandler? TuplaSeleccionada;

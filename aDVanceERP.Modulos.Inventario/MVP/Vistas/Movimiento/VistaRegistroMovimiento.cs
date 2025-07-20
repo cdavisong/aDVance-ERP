@@ -139,7 +139,9 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
 
             if (string.IsNullOrEmpty(tipoMovimientoString) || 
                 tipoMovimientoString.Equals("Compra") || 
-                tipoMovimientoString.Equals("Venta"))
+                tipoMovimientoString.Equals("Venta") ||
+                tipoMovimientoString.Equals("Gasto material") ||
+                tipoMovimientoString.Equals("Producción"))
                 continue;
 
             fieldTipoMovimiento.Items.Add(tipoMovimiento);

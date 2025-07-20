@@ -76,14 +76,20 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         get => CategoriaProducto == CategoriaProducto.Mercancia || CategoriaProducto == CategoriaProducto.MateriaPrima 
             ? P2UmPreciosStock.PrecioCompra 
             : 0m;
-        set => P2UmPreciosStock.PrecioCompra = value;
+        set {
+            if (CategoriaProducto == CategoriaProducto.Mercancia || CategoriaProducto == CategoriaProducto.MateriaPrima)
+                P2UmPreciosStock.PrecioCompra = value;
+        }
     }
 
     public decimal CostoProduccionUnitario {
         get => CategoriaProducto == CategoriaProducto.ProductoTerminado
             ? P2UmPreciosStock.CostoProduccionUnitario
-            : 0m; 
-        set => P2UmPreciosStock.CostoProduccionUnitario = value;
+            : 0m;
+        set {
+            if (CategoriaProducto == CategoriaProducto.ProductoTerminado)
+                P2UmPreciosStock.CostoProduccionUnitario = value;
+        }
     }
 
     public decimal PrecioVentaBase {

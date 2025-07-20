@@ -18,6 +18,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 INSERT INTO adv__orden_produccion (
                     numero_orden,
                     fecha_apertura,
+                    id_almacen,
                     id_producto,
                     cantidad,
                     estado,
@@ -29,6 +30,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 VALUES (
                     '{objeto.NumeroOrden}',
                     '{objeto.FechaApertura.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}',
+                    {objeto.IdAlmacen},
                     {objeto.IdProducto},
                     {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     '{objeto.Estado}',
@@ -45,6 +47,8 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 UPDATE adv__orden_produccion
                 SET
                     numero_orden = '{objeto.NumeroOrden}',
+                    fecha_apertura = '{objeto.FechaApertura.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}',
+                    id_almacen = {objeto.IdAlmacen},
                     id_producto = {objeto.IdProducto},
                     cantidad = {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     estado = '{objeto.Estado}',
@@ -94,13 +98,14 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 FechaApertura = lectorDatos.GetDateTime("fecha_apertura"),
                 FechaCierre = lectorDatos.IsDBNull(lectorDatos.GetOrdinal("fecha_cierre")) ?
                     null : lectorDatos.GetDateTime("fecha_cierre"),
+                IdAlmacen = lectorDatos.GetInt64("id_almacen"),
                 IdProducto = lectorDatos.GetInt64("id_producto"),
                 Cantidad = lectorDatos.GetDecimal("cantidad"),
                 Estado = (EstadoOrdenProduccion) Enum.Parse(
                     typeof(EstadoOrdenProduccion),
                     lectorDatos.GetString("estado")),
                 Observaciones = lectorDatos.IsDBNull(lectorDatos.GetOrdinal("observaciones")) ?
-                    null : lectorDatos.GetString("observaciones"),
+                    string.Empty : lectorDatos.GetString("observaciones"),
                 CostoTotal = lectorDatos.GetDecimal("costo_total"),
                 PrecioUnitario = lectorDatos.GetDecimal("precio_unitario"),
                 MargenGanancia = lectorDatos.GetDecimal("margen_ganancia")

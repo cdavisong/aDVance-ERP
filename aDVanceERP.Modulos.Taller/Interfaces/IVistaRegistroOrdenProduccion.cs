@@ -6,11 +6,13 @@ namespace aDVanceERP.Modulos.Taller.Interfaces {
         string NumeroOrden { get; set; }
         DateTime FechaApertura { get; set; }
         string NombreProductoTerminado { get; set; }
+        string NombreAlmacenDestino { get; set; }
         decimal Cantidad { get; set; }
         decimal MargenGanancia { get; set; }
         string Observaciones { get; set; }
         decimal CostoTotal { get; set; }
         decimal PrecioUnitario { get; set; }
+        string NombreAlmacenMateriales { get; }
         List<string[]> MateriasPrimas { get; }
         List<string[]> ActividadesProduccion { get; }
         List<string[]> GastosIndirectos { get; }
@@ -19,11 +21,15 @@ namespace aDVanceERP.Modulos.Taller.Interfaces {
         event EventHandler? ActividadProduccionEliminada;
         event EventHandler? GastoIndirectoEliminado;
 
+
+        void CargarNombresAlmacenesMateriales(object[] nombresAlmacenes);
+        void CargarNombresAlmacenesDestino(object[] nombresAlmacenes);
+
         void CargarNombresProductosTerminados(string[] nombresProductosTerminados);
         void CargarNombresMateriasPrimas(string[] nombresMateriasPrimas);
         void CargarNombresActividadesProduccion(string[] nombresActividadesProduccion);
         void CargarConceptosGastosIndirectos(string[] conceptosGastosIndirectos);
-        void AdicionarMateriaPrima(string nombre = "", decimal cantidad = 0m);
+        void AdicionarMateriaPrima(string nombreAlmacen = "", string nombre = "", decimal cantidad = 0m);
         void AdicionarActividadProduccion(string nombre = "", decimal cantidad = 0m);
         void AdicionarGastoIndirecto(string concepto = "", decimal cantidad = 0m);
     }

@@ -1,10 +1,9 @@
 ﻿using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion;
 using aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
+
+using System.Runtime.CompilerServices;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
@@ -27,22 +26,31 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if (_registroOrdenProduccion == null)
                 return;
 
-            _registroOrdenProduccion.Vista.Restaurar();
-            _registroOrdenProduccion.Vista.CargarNombresProductosTerminados(UtilesProducto.ObtenerNombresProductos(0, "ProductoTerminado").Result);
-            _registroOrdenProduccion.Vista.CargarNombresMateriasPrimas(UtilesProducto.ObtenerNombresProductos(0, "MateriaPrima").Result);
-            _registroOrdenProduccion.Vista.CargarNombresActividadesProduccion([.. UtilesOrdenProduccion.ObtenerNombresActividadesUtilizadas()]);
-            _registroOrdenProduccion.Vista.CargarConceptosGastosIndirectos([.. UtilesOrdenProduccion.ObtenerConceptosGastosIndirectosUtilizados()]);
+            CargarCamposDinamicosVista();
+
+            _registroOrdenProduccion.Vista.Restaurar();            
             _registroOrdenProduccion.Vista.Mostrar();
         }
+
+        
 
         private void MostrarVistaEdicionOrdenProduccion(object? sender, EventArgs e) {
             if (sender is OrdenProduccion ordenProduccion) {
                 if (_registroOrdenProduccion != null) {
-                    _registroOrdenProduccion.Vista.Restaurar();
+                    CargarCamposDinamicosVista();
+
+                    _registroOrdenProduccion.Vista.Restaurar();                    
                     _registroOrdenProduccion.Vista.Mostrar();
                     _registroOrdenProduccion.PopularVistaDesdeObjeto(ordenProduccion);
                 }
             }
+        }
+
+        private void CargarCamposDinamicosVista() {
+            _registroOrdenProduccion.Vista.CargarNombresAlmacenesMateriales(UtilesAlmacen.ObtenerNombresAlmacenes());
+            _registroOrdenProduccion.Vista.CargarNombresAlmacenesDestino(UtilesAlmacen.ObtenerNombresAlmacenes());
+            _registroOrdenProduccion.Vista.CargarNombresActividadesProduccion([.. UtilesOrdenProduccion.ObtenerNombresActividadesUtilizadas()]);
+            _registroOrdenProduccion.Vista.CargarConceptosGastosIndirectos([.. UtilesOrdenProduccion.ObtenerConceptosGastosIndirectosUtilizados()]);
         }
     }
 }
