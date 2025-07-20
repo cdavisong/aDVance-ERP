@@ -27,14 +27,14 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaContenedorModulos));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -45,18 +45,28 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloContactos = new Guna2CircleButton();
             btnModuloFinanzas = new Guna2CircleButton();
             btnModuloInventario = new Guna2CircleButton();
+            btnModuloTaller = new Guna2CircleButton();
             btnModuloVentas = new Guna2CircleButton();
             btnModuloSeguridad = new Guna2CircleButton();
             contenedorVistas = new Panel();
             layoutMensajeBienvenida = new TableLayoutPanel();
+            panelMensajeBienvenida = new Panel();
             fieldTextoBienvenida = new Guna2HtmlLabel();
-            btnModuloTaller = new Guna2CircleButton();
+            layoutLogotipos = new TableLayoutPanel();
+            fieldEmpresa1 = new PictureBox();
+            fieldEmpresa2 = new PictureBox();
+            fieldEmpresa3 = new PictureBox();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
             layoutMenuLateral.SuspendLayout();
             layoutModulos.SuspendLayout();
             contenedorVistas.SuspendLayout();
             layoutMensajeBienvenida.SuspendLayout();
+            panelMensajeBienvenida.SuspendLayout();
+            layoutLogotipos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) fieldEmpresa1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) fieldEmpresa2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) fieldEmpresa3).BeginInit();
             SuspendLayout();
             // 
             // formatoBase
@@ -146,7 +156,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnInicio.ImageSize = new Size(24, 24);
             btnInicio.Location = new Point(3, 3);
             btnInicio.Name = "btnInicio";
-            btnInicio.ShadowDecoration.CustomizableEdges = customizableEdges1;
+            btnInicio.ShadowDecoration.CustomizableEdges = customizableEdges17;
             btnInicio.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnInicio.Size = new Size(44, 44);
             btnInicio.TabIndex = 0;
@@ -164,7 +174,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnEstadisticas.ImageSize = new Size(24, 24);
             btnEstadisticas.Location = new Point(3, 53);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnEstadisticas.ShadowDecoration.CustomizableEdges = customizableEdges18;
             btnEstadisticas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnEstadisticas.Size = new Size(44, 44);
             btnEstadisticas.TabIndex = 1;
@@ -182,7 +192,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloContactos.ImageSize = new Size(24, 24);
             btnModuloContactos.Location = new Point(3, 103);
             btnModuloContactos.Name = "btnModuloContactos";
-            btnModuloContactos.ShadowDecoration.CustomizableEdges = customizableEdges3;
+            btnModuloContactos.ShadowDecoration.CustomizableEdges = customizableEdges19;
             btnModuloContactos.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloContactos.Size = new Size(44, 44);
             btnModuloContactos.TabIndex = 3;
@@ -200,7 +210,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloFinanzas.ImageSize = new Size(24, 24);
             btnModuloFinanzas.Location = new Point(3, 153);
             btnModuloFinanzas.Name = "btnModuloFinanzas";
-            btnModuloFinanzas.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnModuloFinanzas.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnModuloFinanzas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloFinanzas.Size = new Size(44, 44);
             btnModuloFinanzas.TabIndex = 5;
@@ -218,10 +228,28 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloInventario.ImageSize = new Size(24, 24);
             btnModuloInventario.Location = new Point(3, 203);
             btnModuloInventario.Name = "btnModuloInventario";
-            btnModuloInventario.ShadowDecoration.CustomizableEdges = customizableEdges5;
+            btnModuloInventario.ShadowDecoration.CustomizableEdges = customizableEdges21;
             btnModuloInventario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloInventario.Size = new Size(44, 44);
             btnModuloInventario.TabIndex = 2;
+            // 
+            // btnModuloTaller
+            // 
+            btnModuloTaller.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            btnModuloTaller.CheckedState.FillColor = Color.PeachPuff;
+            btnModuloTaller.CustomImages.Image = (Image) resources.GetObject("resource.Image5");
+            btnModuloTaller.CustomImages.ImageAlign = HorizontalAlignment.Center;
+            btnModuloTaller.CustomImages.ImageSize = new Size(24, 24);
+            btnModuloTaller.FillColor = Color.White;
+            btnModuloTaller.Font = new Font("Segoe UI", 9F);
+            btnModuloTaller.ForeColor = Color.White;
+            btnModuloTaller.ImageSize = new Size(24, 24);
+            btnModuloTaller.Location = new Point(3, 253);
+            btnModuloTaller.Name = "btnModuloTaller";
+            btnModuloTaller.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            btnModuloTaller.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            btnModuloTaller.Size = new Size(44, 44);
+            btnModuloTaller.TabIndex = 7;
             // 
             // btnModuloVentas
             // 
@@ -236,7 +264,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloVentas.ImageSize = new Size(24, 24);
             btnModuloVentas.Location = new Point(3, 303);
             btnModuloVentas.Name = "btnModuloVentas";
-            btnModuloVentas.ShadowDecoration.CustomizableEdges = customizableEdges7;
+            btnModuloVentas.ShadowDecoration.CustomizableEdges = customizableEdges23;
             btnModuloVentas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloVentas.Size = new Size(44, 44);
             btnModuloVentas.TabIndex = 4;
@@ -254,7 +282,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloSeguridad.ImageSize = new Size(24, 24);
             btnModuloSeguridad.Location = new Point(3, 353);
             btnModuloSeguridad.Name = "btnModuloSeguridad";
-            btnModuloSeguridad.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            btnModuloSeguridad.ShadowDecoration.CustomizableEdges = customizableEdges24;
             btnModuloSeguridad.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloSeguridad.Size = new Size(44, 44);
             btnModuloSeguridad.TabIndex = 6;
@@ -275,44 +303,95 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             layoutMensajeBienvenida.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             layoutMensajeBienvenida.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 1000F));
             layoutMensajeBienvenida.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            layoutMensajeBienvenida.Controls.Add(fieldTextoBienvenida, 1, 1);
+            layoutMensajeBienvenida.Controls.Add(panelMensajeBienvenida, 1, 0);
+            layoutMensajeBienvenida.Controls.Add(layoutLogotipos, 1, 1);
             layoutMensajeBienvenida.Dock = DockStyle.Fill;
             layoutMensajeBienvenida.Location = new Point(0, 0);
             layoutMensajeBienvenida.Name = "layoutMensajeBienvenida";
             layoutMensajeBienvenida.RowCount = 3;
-            layoutMensajeBienvenida.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            layoutMensajeBienvenida.RowStyles.Add(new RowStyle(SizeType.Absolute, 500F));
-            layoutMensajeBienvenida.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            layoutMensajeBienvenida.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutMensajeBienvenida.RowStyles.Add(new RowStyle(SizeType.Absolute, 160F));
+            layoutMensajeBienvenida.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
             layoutMensajeBienvenida.Size = new Size(1306, 598);
             layoutMensajeBienvenida.TabIndex = 1;
             // 
+            // panelMensajeBienvenida
+            // 
+            panelMensajeBienvenida.Controls.Add(fieldTextoBienvenida);
+            panelMensajeBienvenida.Dock = DockStyle.Fill;
+            panelMensajeBienvenida.Location = new Point(156, 3);
+            panelMensajeBienvenida.Name = "panelMensajeBienvenida";
+            panelMensajeBienvenida.Size = new Size(994, 382);
+            panelMensajeBienvenida.TabIndex = 2;
+            // 
             // fieldTextoBienvenida
             // 
-            fieldTextoBienvenida.BackColor = Color.Transparent;
+            fieldTextoBienvenida.AutoSize = false;
+            fieldTextoBienvenida.BackColor = Color.White;
             fieldTextoBienvenida.Dock = DockStyle.Fill;
-            fieldTextoBienvenida.Location = new Point(156, 52);
+            fieldTextoBienvenida.Location = new Point(0, 0);
             fieldTextoBienvenida.Name = "fieldTextoBienvenida";
-            fieldTextoBienvenida.Size = new Size(994, 494);
-            fieldTextoBienvenida.TabIndex = 0;
+            fieldTextoBienvenida.Size = new Size(994, 382);
+            fieldTextoBienvenida.TabIndex = 1;
             fieldTextoBienvenida.Text = null;
             // 
-            // btnModuloTaller
+            // layoutLogotipos
             // 
-            btnModuloTaller.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            btnModuloTaller.CheckedState.FillColor = Color.PeachPuff;
-            btnModuloTaller.CustomImages.Image = (Image) resources.GetObject("resource.Image5");
-            btnModuloTaller.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnModuloTaller.CustomImages.ImageSize = new Size(24, 24);
-            btnModuloTaller.FillColor = Color.White;
-            btnModuloTaller.Font = new Font("Segoe UI", 9F);
-            btnModuloTaller.ForeColor = Color.White;
-            btnModuloTaller.ImageSize = new Size(24, 24);
-            btnModuloTaller.Location = new Point(3, 253);
-            btnModuloTaller.Name = "btnModuloTaller";
-            btnModuloTaller.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            btnModuloTaller.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            btnModuloTaller.Size = new Size(44, 44);
-            btnModuloTaller.TabIndex = 7;
+            layoutLogotipos.ColumnCount = 7;
+            layoutLogotipos.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            layoutLogotipos.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
+            layoutLogotipos.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutLogotipos.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
+            layoutLogotipos.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutLogotipos.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
+            layoutLogotipos.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            layoutLogotipos.Controls.Add(fieldEmpresa1, 1, 0);
+            layoutLogotipos.Controls.Add(fieldEmpresa2, 3, 0);
+            layoutLogotipos.Controls.Add(fieldEmpresa3, 5, 0);
+            layoutLogotipos.Dock = DockStyle.Fill;
+            layoutLogotipos.Location = new Point(153, 388);
+            layoutLogotipos.Margin = new Padding(0);
+            layoutLogotipos.Name = "layoutLogotipos";
+            layoutLogotipos.RowCount = 1;
+            layoutLogotipos.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutLogotipos.Size = new Size(1000, 160);
+            layoutLogotipos.TabIndex = 1;
+            // 
+            // fieldEmpresa1
+            // 
+            fieldEmpresa1.BackgroundImage = Properties.Resources.empresa1;
+            fieldEmpresa1.BackgroundImageLayout = ImageLayout.Center;
+            fieldEmpresa1.Dock = DockStyle.Right;
+            fieldEmpresa1.Location = new Point(240, 0);
+            fieldEmpresa1.Margin = new Padding(0);
+            fieldEmpresa1.Name = "fieldEmpresa1";
+            fieldEmpresa1.Size = new Size(160, 160);
+            fieldEmpresa1.TabIndex = 0;
+            fieldEmpresa1.TabStop = false;
+            // 
+            // fieldEmpresa2
+            // 
+            fieldEmpresa2.BackgroundImage = Properties.Resources.empresa2;
+            fieldEmpresa2.BackgroundImageLayout = ImageLayout.Center;
+            fieldEmpresa2.Dock = DockStyle.Fill;
+            fieldEmpresa2.Location = new Point(420, 0);
+            fieldEmpresa2.Margin = new Padding(0);
+            fieldEmpresa2.Name = "fieldEmpresa2";
+            fieldEmpresa2.Size = new Size(160, 160);
+            fieldEmpresa2.TabIndex = 1;
+            fieldEmpresa2.TabStop = false;
+            // 
+            // fieldEmpresa3
+            // 
+            fieldEmpresa3.BackgroundImage = Properties.Resources.empresa3;
+            fieldEmpresa3.BackgroundImageLayout = ImageLayout.Center;
+            fieldEmpresa3.Dock = DockStyle.Fill;
+            fieldEmpresa3.Location = new Point(600, 0);
+            fieldEmpresa3.Margin = new Padding(0);
+            fieldEmpresa3.Name = "fieldEmpresa3";
+            fieldEmpresa3.Size = new Size(160, 160);
+            fieldEmpresa3.TabIndex = 2;
+            fieldEmpresa3.TabStop = false;
             // 
             // VistaContenedorModulos
             // 
@@ -335,7 +414,11 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             layoutModulos.ResumeLayout(false);
             contenedorVistas.ResumeLayout(false);
             layoutMensajeBienvenida.ResumeLayout(false);
-            layoutMensajeBienvenida.PerformLayout();
+            panelMensajeBienvenida.ResumeLayout(false);
+            layoutLogotipos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize) fieldEmpresa1).EndInit();
+            ((System.ComponentModel.ISupportInitialize) fieldEmpresa2).EndInit();
+            ((System.ComponentModel.ISupportInitialize) fieldEmpresa3).EndInit();
             ResumeLayout(false);
         }
 
@@ -353,9 +436,14 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         private Guna2CircleButton btnModuloContactos;
         private Guna2CircleButton btnModuloVentas;
         private Guna2CircleButton btnModuloFinanzas;
-        private Guna2HtmlLabel fieldTextoBienvenida;
         private TableLayoutPanel layoutMensajeBienvenida;
         private Guna2CircleButton btnModuloSeguridad;
         private Guna2CircleButton btnModuloTaller;
+        private TableLayoutPanel layoutLogotipos;
+        private PictureBox fieldEmpresa1;
+        private PictureBox fieldEmpresa2;
+        private PictureBox fieldEmpresa3;
+        private Panel panelMensajeBienvenida;
+        private Guna2HtmlLabel fieldTextoBienvenida;
     }
 }

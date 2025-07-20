@@ -58,11 +58,11 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
     }
 
     public decimal CostoUnitario {
-        get => decimal.TryParse(fieldPrecioCompraBase.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
+        get => decimal.TryParse(fieldCostoUnitario.Text, NumberStyles.Any, CultureInfo.InvariantCulture,
             out var value)
             ? value
             : 0m;
-        set => fieldPrecioCompraBase.Text = value > 0
+        set => fieldCostoUnitario.Text = value > 0
                 ? value.ToString("N2", CultureInfo.InvariantCulture)
                 : "-";
     }

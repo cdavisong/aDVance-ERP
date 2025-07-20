@@ -1,6 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 
+using aDVanceERP.Core.Datos;
+
+using MySql.Data.MySqlClient;
+
 using PdfSharp;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
@@ -8,6 +12,1271 @@ using PdfSharp.Pdf;
 namespace aDVanceERP.Core.Utiles;
 
 public static class UtilesReportes {
+    #region Inventario por almacenes
+
+    public static void GenerarReporteInventarioAlmacenes(bool mostrar = true) {
+        // Obtener datos de la base de datos  
+        var almacenes = ObtenerAlmacenes();
+        var inventario = ObtenerInventarioPorAlmacenes();
+
+        // Crear documento PDF  
+        var documento = new PdfDocument();
+        documento.Info.Title = "Reporte de Inventario por Almacenes";
+        documento.Info.Author = "aDVanceERP";
+
+        // Configuración de márgenes y fuentes  
+        const int margenIzquierdo = 40;
+        const int margenDerecho = 40;
+        const int margenSuperior = 40;
+        const int margenInferior = 40;
+        const int alturaEncabezado = 120;
+        const int alturaPie = 30;
+        const int alturaFila = 18;
+        const int maxFilasPorPagina = 23; // Ajustado para hoja horizontal  
+
+        var fontTitulo = new XFont("Arial", 14, XFontStyleEx.Bold);
+        var fontSubtitulo = new XFont("Arial", 10, XFontStyleEx.Regular);
+        var fontContenido = new XFont("Arial", 12, XFontStyleEx.Regular);
+        var fontEncabezado = new XFont("Arial", 12, XFontStyleEx.Bold);
+        var fontAlmacen = new XFont("Arial", 12, XFontStyleEx.Bold);
+
+        int paginaActual = 1;
+        int filasProcesadas = 0; 
+        int filasEnPaginaActual = 0;
+        PdfPage pagina = null;
+        XGraphics gfx = null;
+        double yPoint = 0;
+
+        // Procesar cada almacén  
+        foreach (var almacen in almacenes) {
+            var productosEnAlmacen = inventario.ContainsKey(almacen.Key) ? inventario[almacen.Key] : new List<Dictionary<string, string>>();
+
+            if (productosEnAlmacen.Count == 0)
+                continue;
+
+            int productosProcesados = 0;
+
+            while (productosProcesados < productosEnAlmacen.Count) {
+                // Calcular espacio disponible en la página actual  
+                int espacioDisponible = maxFilasPorPagina - filasEnPaginaActual;
+
+                // Si no hay espacio o es nueva página, crear una  
+                if (pagina == null || espacioDisponible <= (productosProcesados == 0 ? 2 : 0)) {
+                    pagina = documento.AddPage();
+                    pagina.Orientation = PageOrientation.Landscape;
+                    pagina.Size = PageSize.A4;
+                    gfx = XGraphics.FromPdfPage(pagina);
+                    yPoint = margenSuperior;
+                    filasEnPaginaActual = 0;
+
+                    // Dibujar encabezado  
+                    DibujarEncabezadoInventario(gfx, pagina, fontTitulo, fontSubtitulo,
+                        margenIzquierdo, margenDerecho, ref yPoint);
+                    filasEnPaginaActual += 2; // El encabezado ocupa aproximadamente 2 filas  
+                }
+
+                // Encabezado de almacén (solo si es el inicio de un nuevo almacén en la página)  
+                if (productosProcesados == 0) {
+                    gfx.DrawString($"ALMACÉN: {almacen.Value.ToUpper()}", fontAlmacen, XBrushes.Black,
+                        new XRect(margenIzquierdo, yPoint, pagina.Width - margenIzquierdo - margenDerecho, 20),
+                        XStringFormats.TopLeft);
+                    yPoint += 25;
+                    filasEnPaginaActual += 1;
+
+                    // Dibujar encabezados de tabla  
+                    DibujarEncabezadosTablaInventario(gfx, pagina, fontEncabezado,
+                        margenIzquierdo, margenDerecho, ref yPoint);
+                    filasEnPaginaActual += 1;
+                }
+
+                // Calcular cuántas filas podemos poner en esta página  
+                int filasDisponibles = maxFilasPorPagina - filasEnPaginaActual;
+                int filasAProcesar = Math.Min(filasDisponibles, productosEnAlmacen.Count - productosProcesados);
+
+                for (int i = 0; i < filasAProcesar; i++) {
+                    var producto = productosEnAlmacen[productosProcesados];
+                    DibujarFilaInventario(gfx, fontContenido, producto,
+                        margenIzquierdo, margenDerecho, ref yPoint, alturaFila);
+
+                    productosProcesados++;
+                    filasEnPaginaActual++;
+                    filasProcesadas++;
+                }
+
+                // Si completamos el almacén o la página, dibujar totales o pie de página  
+                if (productosProcesados == productosEnAlmacen.Count) {
+                    DibujarTotalesAlmacen(gfx, fontContenido, productosEnAlmacen,
+                        margenIzquierdo, margenDerecho, ref yPoint, alturaFila);
+                    filasEnPaginaActual += 2; // Totales ocupan aproximadamente 2 filas  
+                }
+
+                if (filasEnPaginaActual >= maxFilasPorPagina || productosProcesados == productosEnAlmacen.Count) {
+                    DibujarPiePaginaInventario(gfx, pagina, fontSubtitulo,
+                        margenIzquierdo, margenDerecho,
+                        margenInferior, ref yPoint, paginaActual,
+                        documento.Pages.Count);
+                    paginaActual++;
+                }
+            }
+        }
+
+        // Guardar el documento  
+        var nombreArchivo = $"inventario-almacenes-{DateTime.Now:yyyyMMdd-HHmmss}.pdf";
+
+        if (documento.Pages.Count <= 0)
+            return;
+
+        documento.Save(nombreArchivo);
+
+        // Mostrar el documento PDF al usuario  
+        if (mostrar)
+            Process.Start(new ProcessStartInfo {
+                FileName = nombreArchivo,
+                UseShellExecute = true
+            });
+    }
+
+    private static void DibujarEncabezadoInventario(XGraphics gfx, PdfPage pagina, XFont fontTitulo, XFont fontSubtitulo,
+                                            int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        // Agregar título
+        gfx.DrawString("INVENTARIO POR ALMACENES", fontTitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.TopCenter);
+        yPoint += 25;
+
+        // Agregar información del reporte
+        gfx.DrawString($"Fecha: {DateTime.Now:dd/MM/yyyy HH:mm:ss}", fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width, 15), XStringFormats.TopLeft);
+        yPoint += 20;
+    }
+
+    private static void DibujarEncabezadosTablaInventario(XGraphics gfx, PdfPage pagina, XFont fontEncabezado,
+                                                  int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        // Anchuras de columnas ajustadas para hoja horizontal
+        var anchoCodigo = 100;
+        var anchoUM = 30;
+        var anchoStock = 45;
+        var anchoPrecioCosto = 80;
+        var anchoPrecioVenta = 70;
+        var anchoCategoria = 150;
+
+        // Calcular ancho disponible para producto (dinámico)
+        double anchoTotalFijo = anchoCodigo + anchoUM + anchoStock +
+                              anchoPrecioCosto + anchoPrecioVenta + anchoCategoria;
+        double anchoDisponible = pagina.Width - margenIzquierdo - margenDerecho;
+        double anchoProducto = anchoDisponible - anchoTotalFijo;
+
+        // Posición X inicial
+        double xPos = margenIzquierdo;
+
+        // Encabezados de columna
+        gfx.DrawString("Código", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCodigo, 20), XStringFormats.TopLeft);
+        xPos += anchoCodigo;
+
+        gfx.DrawString("Producto", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoProducto, 20), XStringFormats.TopLeft);
+        xPos += anchoProducto;
+
+        gfx.DrawString("UM", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoUM, 20), XStringFormats.TopCenter);
+        xPos += anchoUM;
+
+        gfx.DrawString("Stock", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoStock, 20), XStringFormats.TopRight);
+        xPos += anchoStock;
+
+        gfx.DrawString("Costo", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoPrecioCosto, 20), XStringFormats.TopRight);
+        xPos += anchoPrecioCosto;
+
+        gfx.DrawString("P. Venta", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoPrecioVenta, 20), XStringFormats.TopRight);
+        xPos += anchoPrecioVenta;
+
+        gfx.DrawString("Categoría", fontEncabezado, XBrushes.Black,
+            new XRect(xPos + 10, yPoint, anchoCategoria, 20), XStringFormats.TopLeft);
+
+        // Línea divisoria
+        yPoint += 20;
+        gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint, pagina.Width - margenDerecho, yPoint);
+        yPoint += 5;
+    }
+
+    private static void DibujarFilaInventario(XGraphics gfx, XFont fontContenido, Dictionary<string, string> producto,
+                                      int margenIzquierdo, int margenDerecho, ref double yPoint, int alturaFila) {
+        // Anchuras de columnas (consistentes con encabezados)
+        var anchoCodigo = 100;
+        var anchoUM = 30;
+        var anchoStock = 45;
+        var anchoPrecioCosto = 80;
+        var anchoPrecioVenta = 70;
+        var anchoCategoria = 150;
+
+        // Calcular ancho disponible para producto (dinámico)
+        double anchoTotalFijo = anchoCodigo + anchoUM + anchoStock +
+                              anchoPrecioCosto + anchoPrecioVenta + anchoCategoria;
+        double anchoDisponible = gfx.PageSize.Width - margenIzquierdo - margenDerecho;
+        double anchoProducto = anchoDisponible - anchoTotalFijo;
+
+        // Posición X inicial
+        double xPos = margenIzquierdo;
+
+        // Código del producto
+        gfx.DrawString(producto["codigo"], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCodigo, alturaFila), XStringFormats.TopLeft);
+        xPos += anchoCodigo;
+
+        // Nombre del producto
+        gfx.DrawString(producto["nombre"], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoProducto, alturaFila), XStringFormats.TopLeft);
+        xPos += anchoProducto;
+
+        // Unidad de medida
+        gfx.DrawString(producto["unidad_medida"], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoUM, alturaFila), XStringFormats.TopCenter);
+        xPos += anchoUM;
+
+        // Stock
+        gfx.DrawString(producto["stock"], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoStock, alturaFila), XStringFormats.TopRight);
+        xPos += anchoStock;
+
+        // Precio costo (compra o producción)
+        gfx.DrawString(producto["precio_costo"], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoPrecioCosto, alturaFila), XStringFormats.TopRight);
+        xPos += anchoPrecioCosto;
+
+        // Precio venta
+        gfx.DrawString(producto["precio_venta"], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoPrecioVenta, alturaFila), XStringFormats.TopRight);
+        xPos += anchoPrecioVenta;
+
+        // Categoría
+        string categoria = producto["categoria"] switch {
+            "ProductoTerminado" => "PROD. TERMINADO",
+            "MateriaPrima" => "MATERIA PRIMA",
+            _ => "MERCANCÍA"
+        };
+        gfx.DrawString(categoria, fontContenido, XBrushes.Black,
+            new XRect(xPos + 10, yPoint, anchoCategoria, alturaFila), XStringFormats.TopLeft);
+
+        yPoint += alturaFila;
+    }
+
+    private static void DibujarTotalesAlmacen(XGraphics gfx, XFont fontContenido, List<Dictionary<string, string>> productos,
+                                      int margenIzquierdo, int margenDerecho, ref double yPoint, int alturaFila) {
+        // Calcular totales
+        int totalProductos = productos.Count;
+        decimal valorTotalCosto = productos.Sum(p => decimal.Parse(p["stock"], NumberStyles.Any, CultureInfo.InvariantCulture) * decimal.Parse(p["precio_costo"], NumberStyles.Any, CultureInfo.InvariantCulture));
+
+        // Dibujar línea divisoria
+        gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint, gfx.PageSize.Width - margenDerecho, yPoint);
+        yPoint += 5;
+
+        // Anchuras de columnas (consistentes con encabezados)
+        var anchoCodigo = 100;
+        var anchoUM = 30;
+        var anchoStock = 45;
+        var anchoPrecioCosto = 80;
+        var anchoPrecioVenta = 70;
+        var anchoCategoria = 150;
+
+        // Calcular ancho disponible para producto (dinámico)
+        double anchoTotalFijo = anchoCodigo + anchoUM + anchoStock +
+                              anchoPrecioCosto + anchoPrecioVenta + anchoCategoria;
+        double anchoDisponible = gfx.PageSize.Width - margenIzquierdo - margenDerecho;
+        double anchoProducto = anchoDisponible - anchoTotalFijo;
+
+        // Posición X inicial
+        double xPos = margenIzquierdo;
+
+        // Total productos
+        gfx.DrawString("TOTAL ALMACÉN:", fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCodigo + anchoProducto, alturaFila), XStringFormats.TopRight);
+        xPos += anchoCodigo + anchoProducto;
+
+        gfx.DrawString(totalProductos.ToString("N0", CultureInfo.InvariantCulture), fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoUM + anchoStock, alturaFila), XStringFormats.TopRight);
+        xPos += anchoUM + anchoStock;
+
+        // Valor total costo/compra
+        gfx.DrawString($"${valorTotalCosto.ToString("N2", CultureInfo.InvariantCulture)}", fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoPrecioCosto, alturaFila), XStringFormats.TopRight);
+        xPos += anchoPrecioCosto;
+
+        yPoint += alturaFila;
+    }
+
+    private static void DibujarPiePaginaInventario(XGraphics gfx, PdfPage pagina, XFont fontSubtitulo,
+                                           int margenIzquierdo, int margenDerecho,
+                                           int margenInferior, ref double yPoint, int paginaActual,
+                                           int totalPaginas) {
+        // Pie de página
+        var textoPie = $"Página {paginaActual} de {totalPaginas} - {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+
+        gfx.DrawString(textoPie, fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, pagina.Height - margenInferior, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.BottomRight);
+    }
+
+    #region Métodos para obtener datos de la base de datos
+
+    private static Dictionary<int, string> ObtenerAlmacenes() {
+        var almacenes = new Dictionary<int, string>();
+
+        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            connection.Open();
+
+            var query = "SELECT id_almacen, nombre FROM adv__almacen ORDER BY nombre";
+
+            using (var command = new MySqlCommand(query, connection)) {
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        almacenes[reader.GetInt32("id_almacen")] = reader.GetString("nombre");
+                    }
+                }
+            }
+        }
+
+        return almacenes;
+    }
+
+    private static Dictionary<int, List<Dictionary<string, string>>> ObtenerInventarioPorAlmacenes() {
+        var inventario = new Dictionary<int, List<Dictionary<string, string>>>();
+
+        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            connection.Open();
+
+            var query = """
+            SELECT 
+                pa.id_almacen,
+                p.id_producto,
+                p.codigo,
+                p.nombre,
+                p.categoria,
+                CASE 
+                    WHEN p.categoria = 'ProductoTerminado' THEN p.costo_produccion_unitario
+                    ELSE p.precio_compra
+                END as precio_costo,
+                p.precio_venta_base as precio_venta,
+                pa.stock,
+                um.abreviatura as unidad_medida
+            FROM adv__producto_almacen pa
+            JOIN adv__producto p ON pa.id_producto = p.id_producto
+            JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
+            JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
+            WHERE pa.stock > 0
+            ORDER BY pa.id_almacen, p.nombre
+            """;
+
+            using (var command = new MySqlCommand(query, connection)) {
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        int idAlmacen = reader.GetInt32("id_almacen");
+
+                        if (!inventario.ContainsKey(idAlmacen)) {
+                            inventario[idAlmacen] = new List<Dictionary<string, string>>();
+                        }
+
+                        var producto = new Dictionary<string, string> {
+                            ["codigo"] = reader["codigo"].ToString(),
+                            ["nombre"] = reader["nombre"].ToString(),
+                            ["categoria"] = reader["categoria"].ToString(),
+                            ["precio_costo"] = reader.GetDecimal("precio_costo").ToString("N2", CultureInfo.InvariantCulture),
+                            ["precio_venta"] = reader.GetDecimal("precio_venta").ToString("N2", CultureInfo.InvariantCulture),
+                            ["stock"] = reader.GetDecimal("stock").ToString("N2", CultureInfo.InvariantCulture),
+                            ["unidad_medida"] = reader["unidad_medida"].ToString()
+                        };
+
+                        inventario[idAlmacen].Add(producto);
+                    }
+                }
+            }
+        }
+
+        return inventario;
+    }
+
+    #endregion
+
+    #endregion
+    #region Mayor de inventario [Incompleto]
+
+    public static void GenerarReporteMayor(DateTime fechaInicio, DateTime fechaFin,
+                                long idAlmacen = 0, string categoria = "Todas",
+                                bool mostrar = true) {
+        // Obtener datos de la base de datos
+        var movimientos = ObtenerMovimientosInventario(fechaInicio, fechaFin, idAlmacen, categoria);
+        var saldosIniciales = ObtenerSaldosIniciales(fechaInicio, idAlmacen, categoria);
+        var productos = ObtenerProductosConUnidadMedida(idAlmacen, categoria);
+
+        // Procesar datos para el reporte
+        var filas = ProcesarDatosParaMayor(movimientos, saldosIniciales, productos, fechaInicio, fechaFin);
+
+        // Crear documento PDF
+        var documento = new PdfDocument();
+        documento.Info.Title = "Reporte de Mayor de Inventario";
+        documento.Info.Author = "aDVanceERP";
+
+        // Configuración de márgenes y fuentes
+        const int margenIzquierdo = 40;
+        const int margenDerecho = 40;
+        const int margenSuperior = 40;
+        const int margenInferior = 40;
+        const int alturaEncabezado = 120;
+        const int alturaPie = 30;
+        const int alturaFila = 18;
+        const int maxFilasPorPagina = 23;
+
+        var fontTitulo = new XFont("Arial", 14, XFontStyleEx.Bold);
+        var fontSubtitulo = new XFont("Arial", 10, XFontStyleEx.Regular);
+        var fontContenido = new XFont("Arial", 12, XFontStyleEx.Regular);
+        var fontEncabezado = new XFont("Arial", 12, XFontStyleEx.Bold);
+
+        int paginaActual = 1;
+        int filasProcesadas = 0;
+        PdfPage pagina = null;
+        XGraphics gfx = null;
+        double yPoint = 0;
+
+        while (filasProcesadas < filas.Count) {
+            if (pagina == null || filasProcesadas % maxFilasPorPagina == 0) {
+                // Crear página en orientación horizontal
+                pagina = documento.AddPage();
+                pagina.Orientation = PageOrientation.Landscape;
+                pagina.Size = PageSize.A4;
+                gfx = XGraphics.FromPdfPage(pagina);
+                yPoint = margenSuperior;
+
+                // Dibujar encabezado
+                DibujarEncabezadoMayor(gfx, pagina, fontTitulo, fontSubtitulo,
+                    fechaInicio, fechaFin, idAlmacen, categoria,
+                    margenIzquierdo, margenDerecho, ref yPoint);
+
+                // Dibujar encabezados de tabla
+                DibujarEncabezadosTablaMayor(gfx, pagina, fontEncabezado,
+                    margenIzquierdo, margenDerecho, ref yPoint);
+            }
+
+            // Dibujar filas de datos
+            int filasEnPagina = Math.Min(maxFilasPorPagina, filas.Count - filasProcesadas);
+            for (int i = 0; i < filasEnPagina; i++) {
+                var fila = filas[filasProcesadas];
+                DibujarFilaMayor(gfx, fontContenido, fila,
+                    margenIzquierdo, margenDerecho, ref yPoint, alturaFila);
+                filasProcesadas++;
+            }
+
+            // Dibujar pie de página
+            if (filasProcesadas == filas.Count || filasProcesadas % maxFilasPorPagina == 0) {
+                DibujarPiePaginaMayor(gfx, pagina, fontSubtitulo,
+                    margenIzquierdo, margenDerecho,
+                    margenInferior, ref yPoint, paginaActual,
+                    documento.Pages.Count);
+                paginaActual++;
+            }
+        }
+
+        // Guardar el documento
+        var nombreArchivo = $"mayor-inventario-{fechaInicio:yyyy-MM-dd}-{fechaFin:yyyy-MM-dd}.pdf";
+
+        if (documento.Pages.Count <= 0)
+            return;
+
+        documento.Save(nombreArchivo);
+
+        // Mostrar el documento PDF al usuario
+        if (mostrar)
+            Process.Start(new ProcessStartInfo {
+                FileName = nombreArchivo,
+                UseShellExecute = true
+            });
+    }
+
+    private static void DibujarEncabezadoMayor(XGraphics gfx, PdfPage pagina, XFont fontTitulo, XFont fontSubtitulo,
+                                        DateTime fechaInicio, DateTime fechaFin, long idAlmacen, string categoria,
+                                        int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        // Obtener nombre del almacén
+        string nombreAlmacen = idAlmacen == 0 ? "Todos los almacenes" : ObtenerNombreAlmacen(idAlmacen);
+
+        // Agregar título
+        gfx.DrawString("MAYOR DE INVENTARIO", fontTitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.TopLeft);
+        yPoint += 25;
+
+        // Agregar información del reporte
+        gfx.DrawString($"Período: {fechaInicio.ToShortDateString()} - {fechaFin.ToShortDateString()}", fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width, 15), XStringFormats.TopLeft);
+        yPoint += 15;
+
+        gfx.DrawString($"Almacén: {nombreAlmacen}", fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width, 15), XStringFormats.TopLeft);
+        yPoint += 15;
+
+        categoria =
+            categoria == "Todas" ? "Todas las categorías" :
+            categoria == "ProductoTerminado" ? "Productos Terminados" :
+            categoria == "MateriaPrima" ? "Materias Primas" :
+            "Mercancías";
+        gfx.DrawString($"Categoría: {categoria}", fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width, 15), XStringFormats.TopLeft);
+        yPoint += 20;
+    }
+
+    private static void DibujarEncabezadosTablaMayor(XGraphics gfx, PdfPage pagina, XFont fontEncabezado,
+                                            int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        // Anchuras fijas para las columnas
+        var anchoCodigo = 100;
+        var anchoUM = 30;
+        var anchoSaldoInicial = 70;
+        var anchoDetalle = 120;
+        var anchoEntradas = 60;
+        var anchoSalidas = 60;
+        var anchoSaldoFinal = 70;
+        var anchoCosto = 60;
+
+        // Calcular ancho disponible para producto (dinámico)
+        double anchoTotalFijo = anchoCodigo + anchoUM + anchoSaldoInicial + anchoDetalle +
+                              anchoEntradas + anchoSalidas + anchoSaldoFinal + anchoCosto;
+        double anchoDisponible = pagina.Width - margenIzquierdo - margenDerecho;
+        double anchoProducto = anchoDisponible - anchoTotalFijo;
+
+        // Posición X inicial
+        double xPos = margenIzquierdo;
+
+        // Encabezados de columna
+        gfx.DrawString("Código", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCodigo, 18), XStringFormats.TopLeft);
+        xPos += anchoCodigo;
+
+        gfx.DrawString("Producto", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoProducto, 18), XStringFormats.TopLeft);
+        xPos += anchoProducto;
+
+        gfx.DrawString("UM", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoUM, 18), XStringFormats.TopCenter);
+        xPos += anchoUM;
+
+        gfx.DrawString("Saldo Ini.", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSaldoInicial, 18), XStringFormats.TopRight);
+        xPos += anchoSaldoInicial;
+
+        gfx.DrawString("Detalle Movimiento", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoDetalle, 18), XStringFormats.TopLeft);
+        xPos += anchoDetalle;
+
+        gfx.DrawString("Entradas", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoEntradas, 18), XStringFormats.TopRight);
+        xPos += anchoEntradas;
+
+        gfx.DrawString("Salidas", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSalidas, 18), XStringFormats.TopRight);
+        xPos += anchoSalidas;
+
+        gfx.DrawString("Saldo Fin.", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSaldoFinal, 18), XStringFormats.TopRight);
+        xPos += anchoSaldoFinal;
+
+        gfx.DrawString("Costo", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCosto, 18), XStringFormats.TopRight);
+
+        // Línea divisoria
+        yPoint += 18;
+        gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint, pagina.Width - margenDerecho, yPoint);
+        yPoint += 5;
+    }
+
+    private static void DibujarFilaMayor(XGraphics gfx, XFont fontContenido, string[] fila,
+                                int margenIzquierdo, int margenDerecho, ref double yPoint, int alturaFila) {
+        // Anchuras fijas (consistentes con encabezados)
+        var anchoCodigo = 100;
+        var anchoUM = 30;
+        var anchoSaldoInicial = 70;
+        var anchoDetalle = 120;
+        var anchoEntradas = 60;
+        var anchoSalidas = 60;
+        var anchoSaldoFinal = 70;
+        var anchoCosto = 60;
+
+        // Calcular ancho para producto (dinámico)
+        double anchoTotalFijo = anchoCodigo + anchoUM + anchoSaldoInicial + anchoDetalle +
+                              anchoEntradas + anchoSalidas + anchoSaldoFinal + anchoCosto;
+        double anchoDisponible = gfx.PageSize.Width - margenIzquierdo - margenDerecho;
+        double anchoProducto = anchoDisponible - anchoTotalFijo;
+
+        // Posición X inicial
+        double xPos = margenIzquierdo;
+
+        // Código del producto (solo en la primera fila del producto)
+        if (fila[0] != "") {
+            gfx.DrawString(fila[0], fontContenido, XBrushes.Black,
+                new XRect(xPos, yPoint, anchoCodigo, alturaFila), XStringFormats.TopLeft);
+        }
+        xPos += anchoCodigo;
+
+        // Nombre del producto (solo en la primera fila del producto)
+        if (fila[1] != "") {
+            gfx.DrawString(fila[1], fontContenido, XBrushes.Black,
+                new XRect(xPos, yPoint, anchoProducto, alturaFila), XStringFormats.TopLeft);
+        }
+        xPos += anchoProducto;
+
+        // Unidad de medida (solo en la primera fila del producto)
+        if (fila[2] != "") {
+            gfx.DrawString(fila[2], fontContenido, XBrushes.Black,
+                new XRect(xPos, yPoint, anchoUM, alturaFila), XStringFormats.TopCenter);
+        }
+        xPos += anchoUM;
+
+        // Saldo inicial (solo en la primera fila del producto)
+        if (fila[3] != "") {
+            gfx.DrawString(fila[3], fontContenido, XBrushes.Black,
+                new XRect(xPos, yPoint, anchoSaldoInicial, alturaFila), XStringFormats.TopRight);
+        }
+        xPos += anchoSaldoInicial;
+
+        // Detalle del movimiento
+        gfx.DrawString(fila[4], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoDetalle, alturaFila), XStringFormats.TopLeft);
+        xPos += anchoDetalle;
+
+        // Entradas
+        gfx.DrawString(fila[5], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoEntradas, alturaFila), XStringFormats.TopRight);
+        xPos += anchoEntradas;
+
+        // Salidas
+        gfx.DrawString(fila[6], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSalidas, alturaFila), XStringFormats.TopRight);
+        xPos += anchoSalidas;
+
+        // Saldo final
+        gfx.DrawString(fila[7], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSaldoFinal, alturaFila), XStringFormats.TopRight);
+        xPos += anchoSaldoFinal;
+
+        // Costo
+        gfx.DrawString(fila[8], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCosto, alturaFila), XStringFormats.TopRight);
+
+        yPoint += alturaFila;
+    }
+
+    private static void DibujarPiePaginaMayor(XGraphics gfx, PdfPage pagina, XFont fontSubtitulo,
+                                    int margenIzquierdo, int margenDerecho,
+                                    int margenInferior, ref double yPoint, int paginaActual,
+                                    int totalPaginas) {
+        // Pie de página
+        var fechaGeneracion = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+        var textoPie = $"{fechaGeneracion} - Página {paginaActual} de {totalPaginas}";
+
+        gfx.DrawString(textoPie, fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, pagina.Height - margenInferior, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.BottomRight);
+    }
+
+    private static List<string[]> ProcesarDatosParaMayor(List<Dictionary<string, object>> movimientos,
+                                                Dictionary<int, decimal> saldosIniciales,
+                                                Dictionary<int, Dictionary<string, string>> productos,
+                                                DateTime fechaInicio, DateTime fechaFin) {
+        var filas = new List<string[]>();
+
+        // Agrupar movimientos por producto
+        var movimientosPorProducto = movimientos
+            .GroupBy(m => m["id_producto"])
+            .ToDictionary(g => (int) g.Key, g => g.OrderBy(m => m["fecha"]).ToList());
+
+        // Procesar cada producto
+        foreach (var productoId in productos.Keys) {
+            var productoInfo = productos[productoId];
+            decimal saldoActual = saldosIniciales.ContainsKey(productoId) ? saldosIniciales[productoId] : 0;
+            bool primeraFila = true;
+
+            // Agregar fila de saldo inicial
+            filas.Add(new string[] {
+            primeraFila ? productoInfo["codigo"] : "",
+            primeraFila ? productoInfo["nombre"] : "",
+            primeraFila ? productoInfo["unidad_medida"] : "",
+            saldoActual.ToString("N2"),
+            "Saldo inicial",
+            "",
+            "",
+            saldoActual.ToString("N2"),
+            productoInfo["costo_unitario"]
+        });
+            primeraFila = false;
+
+            // Procesar movimientos del producto
+            if (movimientosPorProducto.ContainsKey(productoId)) {
+                foreach (var movimiento in movimientosPorProducto[productoId]) {
+                    decimal cantidad = Convert.ToDecimal(movimiento["cantidad_movida"]);
+                    string tipoMovimiento = movimiento["tipo_movimiento"].ToString();
+                    string efecto = movimiento["efecto"].ToString();
+                    DateTime fechaMovimiento = Convert.ToDateTime(movimiento["fecha"]);
+                    string detalle = $"{fechaMovimiento:dd/MM/yyyy} - {tipoMovimiento}";
+
+                    decimal entradas = 0;
+                    decimal salidas = 0;
+
+                    if (efecto == "Carga") {
+                        entradas = cantidad;
+                        saldoActual += cantidad;
+                    } else if (efecto == "Descarga") {
+                        salidas = cantidad;
+                        saldoActual -= cantidad;
+                    } else if (efecto == "Transferencia") {
+                        // Determinar si es entrada o salida según el almacén
+                        int idAlmacenOrigen = Convert.ToInt32(movimiento["id_almacen_origen"]);
+                        int idAlmacenDestino = Convert.ToInt32(movimiento["id_almacen_destino"]);
+
+                        // Asumimos que el reporte es para un almacén específico o todos
+                        // Si es transferencia de otro almacén a este, es entrada
+                        // Si es transferencia de este a otro almacén, es salida
+                        // En el caso de "todos los almacenes", mostramos ambas
+                        entradas = cantidad;
+                        salidas = cantidad;
+                        saldoActual = saldoActual; // No cambia el saldo total
+                    }
+
+                    filas.Add(new string[] {
+                    "", // Código vacío para filas subsiguientes
+                    "", // Nombre vacío para filas subsiguientes
+                    "", // UM vacía para filas subsiguientes
+                    "",
+                    detalle,
+                    entradas.ToString("N2"),
+                    salidas.ToString("N2"),
+                    saldoActual.ToString("N2"),
+                    productoInfo["costo_unitario"]
+                });
+                }
+            }
+
+            // Agregar línea divisoria entre productos
+            filas.Add(new string[] { "", "", "", "", "", "", "", "", "" });
+        }
+
+        return filas;
+    }
+
+    #endregion
+    #region Submayor de inventario
+
+    public static void GenerarReporteSubmayor(DateTime fechaInicio, DateTime fechaFin,
+                                        long idAlmacen = 0, string categoria = "Todas",
+                                        bool mostrar = true) {
+        // Obtener datos de la base de datos
+        var movimientos = ObtenerMovimientosInventario(fechaInicio, fechaFin, idAlmacen, categoria);
+        var saldosIniciales = ObtenerSaldosIniciales(fechaInicio, idAlmacen, categoria);
+        var productos = ObtenerProductosConUnidadMedida(idAlmacen, categoria);
+
+        // Procesar datos para el reporte
+        var filas = ProcesarDatosParaReporte(movimientos, saldosIniciales, productos, fechaInicio, fechaFin);
+
+        // Crear documento PDF
+        var documento = new PdfDocument();
+        documento.Info.Title = "Reporte de Submayor de Inventario";
+        documento.Info.Author = "aDVanceERP";
+
+        // Configuración de márgenes y fuentes
+        const int margenIzquierdo = 40;
+        const int margenDerecho = 40;
+        const int margenSuperior = 40;
+        const int margenInferior = 40;
+        const int alturaEncabezado = 120;
+        const int alturaPie = 30;
+        const int alturaFila = 18; // Aumentado para Arial 12
+        const int maxFilasPorPagina = 23; // Ajustado por el mayor tamaño de fuente
+
+        var fontTitulo = new XFont("Arial", 14, XFontStyleEx.Bold);
+        var fontSubtitulo = new XFont("Arial", 10, XFontStyleEx.Regular);
+        var fontContenido = new XFont("Arial", 12, XFontStyleEx.Regular); // Tamaño 12 como solicitado
+        var fontEncabezado = new XFont("Arial", 12, XFontStyleEx.Bold);
+
+        int paginaActual = 1;
+        int filasProcesadas = 0;
+        PdfPage pagina = null;
+        XGraphics gfx = null;
+        double yPoint = 0;
+
+        while (filasProcesadas < filas.Count) {
+            if (pagina == null || filasProcesadas % maxFilasPorPagina == 0) {
+                // Crear página en orientación horizontal
+                pagina = documento.AddPage();
+                pagina.Orientation = PageOrientation.Landscape;
+                pagina.Size = PageSize.A4;
+                gfx = XGraphics.FromPdfPage(pagina);
+                yPoint = margenSuperior;
+
+                // Dibujar encabezado (según formato original)
+                DibujarEncabezadoSubmayorOriginal(gfx, pagina, fontTitulo, fontSubtitulo,
+                    fechaInicio, fechaFin, idAlmacen, categoria,
+                    margenIzquierdo, margenDerecho, ref yPoint);
+
+                // Dibujar encabezados de tabla con columna de número
+                DibujarEncabezadosTablaSubmayorConNumeros(gfx, pagina, fontEncabezado,
+                    margenIzquierdo, margenDerecho, ref yPoint);
+            }
+
+            // Dibujar filas de datos
+            int filasEnPagina = Math.Min(maxFilasPorPagina, filas.Count - filasProcesadas);
+            for (int i = 0; i < filasEnPagina; i++) {
+                var fila = filas[filasProcesadas];
+                DibujarFilaSubmayorConNumeros(gfx, fontContenido, fila, filasProcesadas + 1,
+                                  margenIzquierdo, margenDerecho, ref yPoint, alturaFila);
+                filasProcesadas++;
+            }
+
+            // Dibujar pie de página
+            if (filasProcesadas == filas.Count || filasProcesadas % maxFilasPorPagina == 0) {
+                DibujarPiePaginaSubmayorOriginal(gfx, pagina, fontSubtitulo,
+                                        margenIzquierdo, margenDerecho,
+                                        margenInferior, ref yPoint, paginaActual,
+                                        documento.Pages.Count);
+                paginaActual++;
+            }
+        }
+
+        // Guardar el documento
+        var nombreArchivo = $"submayor-inventario-{fechaInicio:yyyy-MM-dd}-{fechaFin:yyyy-MM-dd}.pdf";
+
+        if (documento.Pages.Count <= 0)
+            return;
+
+        documento.Save(nombreArchivo);
+
+        // Mostrar el documento PDF al usuario
+        if (mostrar)
+            Process.Start(new ProcessStartInfo {
+                FileName = nombreArchivo,
+                UseShellExecute = true
+            });
+    }
+
+    // Métodos auxiliares actualizados
+    private static void DibujarEncabezadoSubmayorOriginal(XGraphics gfx, PdfPage pagina, XFont fontTitulo, XFont fontSubtitulo,
+                                                DateTime fechaInicio, DateTime fechaFin, long idAlmacen, string categoria,
+                                                int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        // Obtener nombre del almacén
+        string nombreAlmacen = idAlmacen == 0 ? "Todos los almacenes" : ObtenerNombreAlmacen(idAlmacen);
+
+        // Agregar título
+        gfx.DrawString("SUBMAYOR DE INVENTARIO", fontTitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.TopLeft);
+        yPoint += 25;
+
+        // Agregar información del reporte
+        gfx.DrawString($"Período: {fechaInicio.ToShortDateString()} - {fechaFin.ToShortDateString()}", fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width, 15), XStringFormats.TopLeft);
+        yPoint += 15;
+
+        gfx.DrawString($"Almacén: {nombreAlmacen}", fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width, 15), XStringFormats.TopLeft);
+        yPoint += 15;
+
+        categoria = 
+            categoria == "Todas" ? "Todas las categorías" : 
+            categoria == "ProductoTerminado" ? "Productos Terminados" :
+            categoria == "MateriaPrima" ? "Materias Primas" :
+            "Mercancías";
+        gfx.DrawString($"Categoría: {categoria}", fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, yPoint, pagina.Width, 15), XStringFormats.TopLeft);
+        yPoint += 20;
+    }
+
+    private static void DibujarEncabezadosTablaSubmayorConNumeros(XGraphics gfx, PdfPage pagina, XFont fontEncabezado,
+                                                      int margenIzquierdo, int margenDerecho, ref double yPoint) {
+        // Anchuras fijas para todas las columnas excepto producto
+        var anchoNumero = 40;
+        var anchoCodigo = 100;
+        var anchoUM = 30;
+        var anchoSaldoInicial = 60;
+        var anchoEntradas = 60;
+        var anchoSalidas = 60;
+        var anchoSaldoFinal = 70;
+        var anchoCostoPromedio = 80;
+
+        // Calcular ancho disponible para producto (dinámico)
+        double anchoTotalFijo = anchoNumero + anchoCodigo + anchoUM + anchoSaldoInicial +
+                              anchoEntradas + anchoSalidas + anchoSaldoFinal + anchoCostoPromedio;
+        double anchoDisponible = pagina.Width - margenIzquierdo - margenDerecho;
+        double anchoProducto = anchoDisponible - anchoTotalFijo;
+
+        // Posición X inicial
+        double xPos = margenIzquierdo;
+
+        // Encabezados de columna
+        gfx.DrawString("#", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoNumero, 18), XStringFormats.TopCenter);
+        xPos += anchoNumero;
+
+        gfx.DrawString("Código", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCodigo, 18), XStringFormats.TopLeft);
+        xPos += anchoCodigo;
+
+        gfx.DrawString("Producto", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoProducto, 18), XStringFormats.TopLeft);
+        xPos += anchoProducto;
+
+        gfx.DrawString("UM", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoUM, 18), XStringFormats.TopCenter);
+        xPos += anchoUM;
+
+        gfx.DrawString("Saldo Ini.", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSaldoInicial, 18), XStringFormats.TopRight);
+        xPos += anchoSaldoInicial;
+
+        gfx.DrawString("Entradas", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoEntradas, 18), XStringFormats.TopRight);
+        xPos += anchoEntradas;
+
+        gfx.DrawString("Salidas", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSalidas, 18), XStringFormats.TopRight);
+        xPos += anchoSalidas;
+
+        gfx.DrawString("Saldo Fin.", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSaldoFinal, 18), XStringFormats.TopRight);
+        xPos += anchoSaldoFinal;
+
+        gfx.DrawString("Costo Prom.", fontEncabezado, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCostoPromedio, 18), XStringFormats.TopRight);
+
+        // Línea divisoria
+        yPoint += 18;
+        gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint, pagina.Width - margenDerecho, yPoint);
+        yPoint += 5;
+    }
+
+    private static void DibujarFilaSubmayorConNumeros(XGraphics gfx, XFont fontContenido, string[] fila, int numeroFila,
+                                          int margenIzquierdo, int margenDerecho, ref double yPoint, int alturaFila) {
+        // Anchuras fijas (consistentes con encabezados)
+        var anchoNumero = 40;
+        var anchoCodigo = 100;
+        var anchoUM = 30;
+        var anchoSaldoInicial = 60;
+        var anchoEntradas = 60;
+        var anchoSalidas = 60;
+        var anchoSaldoFinal = 70;
+        var anchoCostoPromedio = 80;
+
+        // Calcular ancho para producto (dinámico)
+        double anchoTotalFijo = anchoNumero + anchoCodigo + anchoUM + anchoSaldoInicial +
+                              anchoEntradas + anchoSalidas + anchoSaldoFinal + anchoCostoPromedio;
+        double anchoDisponible = gfx.PageSize.Width - margenIzquierdo - margenDerecho;
+        double anchoProducto = anchoDisponible - anchoTotalFijo;
+
+        // Posición X inicial
+        double xPos = margenIzquierdo;
+
+        // Número de fila
+        gfx.DrawString(numeroFila.ToString(), fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoNumero, alturaFila), XStringFormats.TopCenter);
+        xPos += anchoNumero;
+
+        // Código del producto
+        gfx.DrawString(fila[0], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCodigo, alturaFila), XStringFormats.TopLeft);
+        xPos += anchoCodigo;
+
+        // Nombre del producto (usa todo el ancho disponible)
+        gfx.DrawString(fila[1], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoProducto, alturaFila), XStringFormats.TopLeft);
+        xPos += anchoProducto;
+
+        // Unidad de medida
+        gfx.DrawString(fila[2], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoUM, alturaFila), XStringFormats.TopCenter);
+        xPos += anchoUM;
+
+        // Saldo inicial
+        gfx.DrawString(fila[3], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSaldoInicial, alturaFila), XStringFormats.TopRight);
+        xPos += anchoSaldoInicial;
+
+        // Entradas
+        gfx.DrawString(fila[4], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoEntradas, alturaFila), XStringFormats.TopRight);
+        xPos += anchoEntradas;
+
+        // Salidas
+        gfx.DrawString(fila[5], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSalidas, alturaFila), XStringFormats.TopRight);
+        xPos += anchoSalidas;
+
+        // Saldo final
+        gfx.DrawString(fila[6], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoSaldoFinal, alturaFila), XStringFormats.TopRight);
+        xPos += anchoSaldoFinal;
+
+        // Costo promedio
+        gfx.DrawString(fila[7], fontContenido, XBrushes.Black,
+            new XRect(xPos, yPoint, anchoCostoPromedio, alturaFila), XStringFormats.TopRight);
+
+        yPoint += alturaFila;
+    }
+
+    private static void DibujarPiePaginaSubmayorOriginal(XGraphics gfx, PdfPage pagina, XFont fontSubtitulo,
+                                               int margenIzquierdo, int margenDerecho,
+                                               int margenInferior, ref double yPoint, int paginaActual,
+                                               int totalPaginas) {
+        // Pie de página original
+        var fechaGeneracion = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+        var textoPie = $"{fechaGeneracion} - Página {paginaActual} de {totalPaginas}";
+
+        gfx.DrawString(textoPie, fontSubtitulo, XBrushes.Black,
+            new XRect(margenIzquierdo, pagina.Height - margenInferior, pagina.Width - margenIzquierdo - margenDerecho, 20),
+            XStringFormats.BottomRight);
+    }
+
+    // Métodos para obtener datos de la base de datos
+    private static List<Dictionary<string, object>> ObtenerMovimientosInventario(DateTime fechaInicio, DateTime fechaFin, long idAlmacen, string categoria) {
+        var movimientos = new List<Dictionary<string, object>>();
+
+        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            connection.Open();
+
+            var query = @"
+                SELECT 
+                    m.id_movimiento,
+                    m.id_producto,
+                    p.codigo,
+                    p.nombre,
+                    p.categoria,
+                    m.id_almacen_origen,
+                    m.id_almacen_destino,
+                    m.fecha,
+                    m.cantidad_movida,
+                    tm.nombre as tipo_movimiento,
+                    tm.efecto,
+                    pa.stock as saldo_actual
+                FROM adv__movimiento m
+                JOIN adv__producto p ON m.id_producto = p.id_producto
+                JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
+                JOIN adv__producto_almacen pa ON m.id_producto = pa.id_producto 
+                    AND (m.id_almacen_origen = pa.id_almacen OR m.id_almacen_destino = pa.id_almacen)
+                WHERE m.fecha BETWEEN @fechaInicio AND @fechaFin
+            ";
+
+            if (idAlmacen > 0) {
+                query += " AND (m.id_almacen_origen = @idAlmacen OR m.id_almacen_destino = @idAlmacen)";
+            }
+
+            if (categoria != "Todas") {
+                query += " AND p.categoria = @categoria";
+            }
+
+            query += " ORDER BY p.codigo, m.fecha";
+
+            using (var command = new MySqlCommand(query, connection)) {
+                command.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                command.Parameters.AddWithValue("@fechaFin", fechaFin);
+
+                if (idAlmacen > 0) {
+                    command.Parameters.AddWithValue("@idAlmacen", idAlmacen);
+                }
+
+                if (categoria != "Todas") {
+                    command.Parameters.AddWithValue("@categoria", categoria);
+                }
+
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        var movimiento = new Dictionary<string, object>();
+                        for (int i = 0; i < reader.FieldCount; i++) {
+                            movimiento[reader.GetName(i)] = reader.GetValue(i);
+                        }
+                        movimientos.Add(movimiento);
+                    }
+                }
+            }
+        }
+
+        return movimientos;
+    }
+
+    private static Dictionary<int, decimal> ObtenerSaldosIniciales(DateTime fechaInicio, long idAlmacen, string categoria) {
+        var saldos = new Dictionary<int, decimal>();
+
+        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            connection.Open();
+
+            var query = @"
+                SELECT 
+                    m.id_producto,
+                    SUM(CASE 
+                        WHEN tm.efecto = 'Carga' THEN m.cantidad_movida
+                        WHEN tm.efecto = 'Descarga' THEN -m.cantidad_movida
+                        WHEN tm.efecto = 'Transferencia' AND m.id_almacen_destino = @idAlmacenParam THEN m.cantidad_movida
+                        WHEN tm.efecto = 'Transferencia' AND m.id_almacen_origen = @idAlmacenParam THEN -m.cantidad_movida
+                        ELSE 0
+                    END) as saldo_inicial
+                FROM adv__movimiento m
+                JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
+                JOIN adv__producto p ON m.id_producto = p.id_producto
+                WHERE m.fecha < @fechaInicio
+            ";
+
+            if (idAlmacen > 0) {
+                query += " AND (m.id_almacen_origen = @idAlmacenParam OR m.id_almacen_destino = @idAlmacenParam)";
+            }
+
+            if (categoria != "Todas") {
+                query += " AND p.categoria = @categoria";
+            }
+
+            query += " GROUP BY m.id_producto";
+
+            using (var command = new MySqlCommand(query, connection)) {
+                command.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                command.Parameters.AddWithValue("@idAlmacenParam", idAlmacen);
+
+                if (categoria != "Todas") {
+                    command.Parameters.AddWithValue("@categoria", categoria);
+                }
+
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        int idProducto = reader.GetInt32("id_producto");
+                        decimal saldo = reader.GetDecimal("saldo_inicial");
+                        saldos[idProducto] = saldo;
+                    }
+                }
+            }
+        }
+
+        return saldos;
+    }
+
+    private static Dictionary<int, Dictionary<string, string>> ObtenerProductosConUnidadMedida(long idAlmacen, string categoria) {
+        var productos = new Dictionary<int, Dictionary<string, string>>();
+
+        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            connection.Open();
+
+            var query = """
+                SELECT 
+                p.id_producto,
+                p.codigo,
+                p.nombre,
+                p.categoria,
+                um.abreviatura as unidad_medida,
+                CASE 
+                    WHEN p.categoria = 'ProductoTerminado' THEN p.costo_produccion_unitario
+                    ELSE p.precio_compra
+                END as costo_unitario
+                FROM adv__producto p
+                JOIN adv__producto_almacen pa ON p.id_producto = pa.id_producto
+                JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
+                JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
+                """;
+
+            if (idAlmacen > 0) {
+                query += " WHERE pa.id_almacen = @idAlmacen";
+            }
+
+            if (categoria != "Todas") {
+                query += $" {(idAlmacen > 0 ? " AND" : " WHERE")} p.categoria = @categoria";
+            }
+
+            using (var command = new MySqlCommand(query, connection)) {
+                if (idAlmacen > 0) {
+                    command.Parameters.AddWithValue("@idAlmacen", idAlmacen);
+                }
+
+                if (categoria != "Todas") {
+                    command.Parameters.AddWithValue("@categoria", categoria);
+                }
+
+                using (var reader = command.ExecuteReader()) {
+                    while (reader.Read()) {
+                        var producto = new Dictionary<string, string>();
+                        producto["codigo"] = reader["codigo"].ToString();
+                        producto["nombre"] = reader["nombre"].ToString();
+                        producto["unidad_medida"] = reader["unidad_medida"].ToString();
+                        producto["costo_unitario"] = reader["costo_unitario"].ToString();
+                        producto["categoria"] = reader["categoria"].ToString();
+
+                        productos[reader.GetInt32("id_producto")] = producto;
+                    }
+                }
+            }
+        }
+
+        return productos;
+    }
+
+    private static string ObtenerNombreAlmacen(long idAlmacen) {
+        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            connection.Open();
+
+            var query = "SELECT nombre FROM adv__almacen WHERE id_almacen = @idAlmacen";
+
+            using (var command = new MySqlCommand(query, connection)) {
+                command.Parameters.AddWithValue("@idAlmacen", idAlmacen);
+                return command.ExecuteScalar()?.ToString() ?? "Almacén desconocido";
+            }
+        }
+    }
+
+    private static List<string[]> ProcesarDatosParaReporte(List<Dictionary<string, object>> movimientos,
+                                                     Dictionary<int, decimal> saldosIniciales,
+                                                     Dictionary<int, Dictionary<string, string>> productos,
+                                                     DateTime fechaInicio, DateTime fechaFin) {
+        var filas = new List<string[]>();
+
+        // Agrupar movimientos por producto
+        var movimientosPorProducto = movimientos
+            .GroupBy(m => m["id_producto"])
+            .ToDictionary(g => (int) g.Key, g => g.ToList());
+
+        // Procesar cada producto
+        foreach (var productoId in productos.Keys) {
+            var productoInfo = productos[productoId];
+            decimal saldoInicial = saldosIniciales.ContainsKey(productoId) ? saldosIniciales[productoId] : 0;
+            decimal entradas = 0;
+            decimal salidas = 0;
+
+            if (movimientosPorProducto.ContainsKey(productoId)) {
+                foreach (var movimiento in movimientosPorProducto[productoId]) {
+                    decimal cantidad = Convert.ToDecimal(movimiento["cantidad_movida"]);
+                    string efecto = movimiento["efecto"].ToString();
+
+                    if (efecto == "Carga") {
+                        entradas += cantidad;
+                    } else if (efecto == "Descarga") {
+                        salidas += cantidad;
+                    }
+                    // Para transferencias, dependemos de si es origen o destino
+                }
+            }
+
+            decimal saldoFinal = saldoInicial + entradas - salidas;
+            decimal costoUnitario = decimal.Parse(productoInfo["costo_unitario"]);
+
+            // Crear fila para el reporte
+            var fila = new string[]
+            {
+            productoInfo["codigo"],
+            productoInfo["nombre"],
+            productoInfo["unidad_medida"],
+            saldoInicial.ToString("N2"),
+            entradas.ToString("N2"),
+            salidas.ToString("N2"),
+            saldoFinal.ToString("N2"),
+            costoUnitario.ToString("N2")
+            };
+
+            filas.Add(fila);
+        }
+
+        return filas;
+    }
+
+    #endregion
+
     public static void GenerarReporteVentas(DateTime fecha, List<string[]> filas,
                                       string cliente = "Todos los clientes",
                                       string usuario = "Todos los usuarios",

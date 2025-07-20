@@ -17,6 +17,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
             return $"""
                 INSERT INTO adv__orden_material (
                     id_orden_produccion,
+                    id_almacen,
                     id_producto,
                     cantidad,
                     costo_unitario,
@@ -25,6 +26,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 )
                 VALUES (
                     {objeto.IdOrdenProduccion},
+                    {objeto.IdAlmacen},
                     {objeto.IdProducto},
                     {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     {objeto.CostoUnitario.ToString(CultureInfo.InvariantCulture)},
@@ -39,6 +41,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 UPDATE adv__orden_material
                 SET
                     id_orden_produccion = {objeto.IdOrdenProduccion},
+                    id_almacen = {objeto.IdAlmacen},
                     id_producto = {objeto.IdProducto},
                     cantidad = {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     costo_unitario = {objeto.CostoUnitario.ToString(CultureInfo.InvariantCulture)},
@@ -79,6 +82,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
             return new OrdenMateriaPrima {
                 Id = lectorDatos.GetInt64("id_orden_material"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),
+                IdAlmacen = lectorDatos.GetInt64("id_almacen"),
                 IdProducto = lectorDatos.GetInt64("id_producto"),
                 Cantidad = lectorDatos.GetDecimal("cantidad"),
                 CostoUnitario = lectorDatos.GetDecimal("costo_unitario"),

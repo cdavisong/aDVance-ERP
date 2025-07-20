@@ -16,13 +16,14 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
             Observaciones = "No hay observaciones para la orden de producción actual";
         }
 
-        public OrdenProduccion(long id, string numeroOrden, DateTime fechaApertura, DateTime? fechaCierre, long idProducto,
+        public OrdenProduccion(long id, string numeroOrden, DateTime fechaApertura, DateTime? fechaCierre, long idAlmacen, long idProducto,
             decimal cantidad, EstadoOrdenProduccion estado, string observaciones, decimal costoTotal, decimal precioUnitario,
             decimal margenGanancia) {
             Id = id;
             NumeroOrden = numeroOrden;
             FechaApertura = fechaApertura;
             FechaCierre = fechaCierre;
+            IdAlmacen = idAlmacen; // Almacén destino luego de la producción
             IdProducto = idProducto;
             Cantidad = cantidad;
             Estado = estado;
@@ -36,6 +37,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public string NumeroOrden { get; set; }
         public DateTime FechaApertura { get; set; }
         public DateTime? FechaCierre { get; set; }
+        public long IdAlmacen { get; set; } // Almacén destino luego de la producción
         public long IdProducto { get; set; } // Producto terminado
         public decimal Cantidad { get; set; }
         public EstadoOrdenProduccion Estado { get; set; }

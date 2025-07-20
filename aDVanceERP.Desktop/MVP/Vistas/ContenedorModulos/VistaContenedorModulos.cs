@@ -130,7 +130,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     }
 
     public void Mostrar() {
-        btnEstadisticas.Visible = UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
+        btnEstadisticas.Visible = false;//UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false;
         btnModuloContactos.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
                                      (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloContactos.Nombre) ?? false);
         btnModuloFinanzas.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
@@ -158,72 +158,85 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
             }
 
         var textoHTML = @"
-<!DOCTYPE html>
-<html lang=""es"">
-<head>
-    <meta charset=""UTF-8"">
-    <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-    <style>
-        body {
-            font-family: Segoe UI, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        .header {
-            color: #FFFFFF;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        .logo {
-            font-family: Segoe UI, sans-serif;
-            font-size: 24px; /* Tamaño de fuente ajustado */
-        }
-        .dv {
-            color: Gray;
-            font-weight: bold;
-        }
-        .advance {
-            color: #333333;
-            font-weight: bold;
-        }
-        .erp {
-            background-color: Firebrick;
-            color: white;
-            font-weight: bold;
-            padding: 2px;
-        }
-        .version {
-            color: Gray;
-            font-size: 10px;
-        }
-        .welcome-text {
-            margin-top: 20px;
-            font-size: 24px;
-        }
-        .description {
-            margin-top: 10px;
-            font-size: 16px;
-        }
-    </style>
-</head>
-<body>
-    <div class=""header"">
-        <div class=""logo"">
-            <span class=""advance"">a</span><span class=""dv"">DV</span><span class=""advance"">ance</span> <span class=""erp"">ERP</span> <span class=""version"">" + version + @"</span>  
-        </div>
-    </div>
-    <div class=""welcome-text"">
-        <p>¡Estamos encantados de tenerte aquí!</p>
-        <p>La solución integral para la gestión de tus recursos empresariales comienza ahora.</p>
-    </div>
-    <div class=""description"">
-        <p>Con aDVance ERP, optimiza tus procesos, mejora la eficiencia y lleva tu negocio al siguiente nivel.</p>
-        <p>Explora nuestras funcionalidades y descubre cómo podemos ayudarte a alcanzar el éxito.</p>
-    </div>
-    <p></p>
-</body>
-</html>
-";
+            <!DOCTYPE html>
+            <html lang=""es"">
+            <head>
+                <meta charset=""UTF-8"">
+                <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+                <style>
+                    body {
+                        font-family: Segoe UI, sans-serif;
+                        text-align: center;
+                        padding: 10px;
+                    }
+                    .header {
+                        color: #FFFFFF;
+                        padding: 20px;
+                        border-radius: 8px;
+                    }
+                    .logo {
+                        font-family: Segoe UI, sans-serif;
+                        font-size: 24px; /* Tamaño de fuente ajustado */
+                    }
+                    .dv {
+                        color: Gray;
+                        font-weight: bold;
+                    }
+                    .advance {
+                        color: #333333;
+                        font-weight: bold;
+                    }
+                    .erp {
+                        background-color: Firebrick;
+                        color: white;
+                        font-weight: bold;
+                        padding: 2px;
+                    }
+                    .version {
+                        color: Gray;
+                        font-size: 10px;
+                    }
+                    .welcome-text {
+                        margin-top: 20px;
+                        font-size: 24px;
+                    }
+                    .description {
+                        margin-top: 10px;
+                        font-size: 16px;
+                    }
+                    .trust-section {
+                        margin-top: 40px;
+                        padding: 20px;
+                    }
+                    .trust-title {
+                        font-size: 20px;
+                        font-weight: bold;
+                        margin-bottom: 20px;
+                        color: #333333;
+                    }
+                </style>
+                </head>
+                <body>
+                    <div class=""header"">
+                        <div class=""logo"">
+                            <span class=""advance"">a</span><span class=""dv"">DV</span><span class=""advance"">ance</span> <span class=""erp"">ERP</span> <span class=""version"">" + version + @"</span>  
+                        </div>
+                    </div>
+                    <div class=""welcome-text"">
+                        <p>¡Estamos encantados de tenerte aquí!</p>
+                        <p>La solución integral para la gestión de tus recursos empresariales comienza ahora.</p>
+                    </div>
+                    <div class=""description"">
+                        <p>Con aDVance ERP, optimiza tus procesos, mejora la eficiencia y lleva tu negocio al siguiente nivel.</p>
+                        <p>Explora nuestras funcionalidades y descubre cómo podemos ayudarte a alcanzar el éxito.</p>
+                    </div>
+    
+                    <div class=""trust-section"">
+                        <div class=""trust-title"">Estas empresas confían en nosotros</div>
+                    </div>
+                </body>
+                </html>
+                ";
 
         fieldTextoBienvenida.Text = textoHTML;
         fieldTextoBienvenida.Visible = true;

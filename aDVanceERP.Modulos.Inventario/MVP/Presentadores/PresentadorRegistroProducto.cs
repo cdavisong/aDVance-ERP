@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistroProducto, Producto, RepoProducto,
     FbProducto> {
@@ -28,7 +28,8 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
                 Vista.Descripcion = detalleProducto.Descripcion ?? "No hay una descripción disponible para el producto actual";
             }
         }
-        
+
+        Vista.CostoProduccionUnitario = objeto.CostoProduccionUnitario;
         Vista.PrecioCompra = objeto.PrecioCompra;
         Vista.PrecioVentaBase = objeto.PrecioVentaBase;
         Vista.ModoEdicionDatos = true;
@@ -40,26 +41,15 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
         var codigoOk = !string.IsNullOrEmpty(Vista.Codigo);
         var unidadMedidaOk = !string.IsNullOrEmpty(Vista.UnidadMedida);
-        var precioCompraOk = true;
-            //(Vista.CategoriaProducto == CategoriaProducto.ProductoTerminado && Vista.PrecioCompraBase == 0) ||
-            //(Vista.CategoriaProducto != CategoriaProducto.ProductoTerminado && Vista.PrecioCompraBase > 0);
-        var precioVentaOk = 
-            (Vista.CategoriaProducto == CategoriaProducto.MateriaPrima && Vista.EsVendible && Vista.PrecioVentaBase > 0) ||
-            (Vista.CategoriaProducto == CategoriaProducto.MateriaPrima && !Vista.EsVendible && Vista.PrecioVentaBase == 0) ||
-            (Vista.CategoriaProducto != CategoriaProducto.MateriaPrima && Vista.PrecioVentaBase > 0);
-        
+
         if (!nombreOk)
             CentroNotificaciones.Mostrar("El campo de nombre es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!codigoOk)
             CentroNotificaciones.Mostrar("El campo de código es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!unidadMedidaOk)
             CentroNotificaciones.Mostrar("El campo de unidad de medida es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
-        if (!precioCompraOk)
-            CentroNotificaciones.Mostrar("Debe especificar un monto válido para el precio de compra, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
-        if (!precioVentaOk)
-            CentroNotificaciones.Mostrar("Debe especificar un monto válido para el precio de venta, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
 
-        return nombreOk && codigoOk && unidadMedidaOk && precioCompraOk && precioVentaOk;
+        return nombreOk && codigoOk && unidadMedidaOk;
     }
 
     protected override void RegistroAuxiliar(RepoProducto datosProducto, long id) {
@@ -97,9 +87,9 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             Vista.CategoriaProducto,
             Vista.Nombre,
             Vista.Codigo,
-            Entidad?.IdDetalleProducto ?? 0,
-            UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor).Result,
-            UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(Vista.TipoMateriaPrima).Result,
+            Objeto?.IdDetalleProducto ?? 0,
+            await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
+            await UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(Vista.TipoMateriaPrima),
             Vista.EsVendible,
             Vista.PrecioCompra,
             Vista.CostoProduccionUnitario,

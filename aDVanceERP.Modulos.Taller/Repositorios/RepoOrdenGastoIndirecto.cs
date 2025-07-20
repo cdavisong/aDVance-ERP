@@ -67,7 +67,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE id_orden_produccion = {dato};",
                 CriterioBusquedaOrdenGastoIndirecto.Concepto =>
                     datoSplit.Length > 1
-                        ? $"SELECT * FROM adv__orden_material WHERE id_orden_produccion = {datoSplit[0]} AND concepto = '{datoSplit[1]}'"
+                        ? $"SELECT * FROM adv__orden_gasto_indirecto WHERE id_orden_produccion = {datoSplit[0]} AND concepto = '{datoSplit[1]}'"
                         : $"SELECT * FROM adv__orden_gasto_indirecto WHERE concepto LIKE '%{dato}%';",
                 CriterioBusquedaOrdenGastoIndirecto.FechaRegistro =>
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE DATE(fecha_registro) = '{dato}';",

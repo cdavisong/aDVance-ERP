@@ -29,16 +29,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             set => Size = value;
         }
 
-        public string NombreAlmacen {
-            get => fieldNombreAlmacen.SelectedIndex >= 0 ? fieldNombreAlmacen.SelectedItem?.ToString() ?? string.Empty : string.Empty;
-            private set {
-                if (fieldNombreAlmacen.Items.Contains(value))
-                    fieldNombreAlmacen.SelectedItem = value;
-                else
-                    fieldNombreAlmacen.SelectedIndex = -1;
-            }
-        }
-
         public CriterioBusquedaOrdenProduccion CriterioBusqueda {
             get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaOrdenProduccion) fieldCriterioBusqueda.SelectedIndex : default;
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
@@ -170,12 +160,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             };
         }
 
-        public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
-            fieldNombreAlmacen.Items.Clear();
-            fieldNombreAlmacen.Items.AddRange(nombresAlmacenes);
-            fieldNombreAlmacen.SelectedIndex = fieldNombreAlmacen.Items.Count > 0 ? 0 : -1;
-        }
-
         public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
@@ -195,7 +179,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             PaginasTotales = 1;
             HabilitarBtnCierreOrdenProduccion = false;
 
-            fieldNombreAlmacen.SelectedIndex = 0;
+
             fieldCriterioBusqueda.SelectedIndex = 0;
         }
 

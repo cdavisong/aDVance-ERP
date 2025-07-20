@@ -11,10 +11,11 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
             FechaRegistro = DateTime.Now;
         }
 
-        public OrdenMateriaPrima(long id, long idOrdenProduccion, long idProducto, decimal cantidad, 
+        public OrdenMateriaPrima(long id, long idOrdenProduccion, long idAlmacen, long idProducto, decimal cantidad, 
             decimal costoUnitario, decimal costoTotal) {
             Id = id;
             IdOrdenProduccion = idOrdenProduccion;
+            IdAlmacen = idAlmacen; // Almacén donde se registra el consumo
             IdProducto = idProducto; // Materia prima consumida
             Cantidad = cantidad;
             CostoUnitario = costoUnitario;
@@ -24,6 +25,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
 
         public long Id { get; set; }
         public long IdOrdenProduccion { get; set; }
+        public long IdAlmacen { get; set; } // Almacén donde se registra el consumo
         public long IdProducto { get; set; } // Materia prima consumida
         public decimal Cantidad { get; set; }
         public decimal CostoUnitario { get; set; }

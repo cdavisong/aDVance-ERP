@@ -35,8 +35,10 @@ namespace aDVanceERP.PatchDB {
                 ExecuteStep(EliminarTablasObsoletas, "Eliminación de tablas obsoletas");
                 ExecuteStep(CrearTablasProduccion, "Creación de tablas de producción");
                 ExecuteStep(EliminarProductosDuplicados, "Eliminación de productos duplicados");
+                ExecuteStep(EliminarInconsistenciasDatos, "Eliminación de inconsistencias de datos");
                 ExecuteStep(AgregarIndices, "Agregar índices optimizados");
                 ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+                ExecuteStep(PopularDatos, "Popular nuevos datos");
 
                 RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
             }
@@ -97,6 +99,7 @@ namespace aDVanceERP.PatchDB {
                         numero_orden VARCHAR(20) NOT NULL,
                         fecha_apertura DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
                         fecha_cierre DATETIME NULL,
+                        id_almacen INT(11) NOT NULL,
                         id_producto INT(11) NOT NULL COMMENT 'Producto terminado',
                         cantidad DECIMAL(10,2) NOT NULL,
                         estado ENUM('Abierta','En Proceso','Cerrada','Cancelada') NOT NULL DEFAULT 'Abierta',
@@ -124,6 +127,7 @@ namespace aDVanceERP.PatchDB {
                     CREATE TABLE IF NOT EXISTS adv__orden_material (
                         id_orden_material INT(11) NOT NULL AUTO_INCREMENT,
                         id_orden_produccion INT(11) NOT NULL,
+                        id_almacen INT(11) NOT NULL,
                         id_producto INT(11) NOT NULL COMMENT 'Materia prima consumida',
                         cantidad DECIMAL(10,2) NOT NULL,
                         costo_unitario DECIMAL(10,2) NOT NULL,
@@ -251,6 +255,64 @@ namespace aDVanceERP.PatchDB {
             }
         }
 
+        private static void EliminarInconsistenciasDatos() {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+                List<string> querys =
+                [
+                    """
+                    -- Eliminar registros de producto_almacen que no tienen correspondencia en productos
+                    DELETE pa FROM adv__producto_almacen pa
+                    LEFT JOIN adv__producto p ON pa.id_producto = p.id_producto
+                    WHERE p.id_producto IS NULL;
+                    """,
+                    """
+                    -- Eliminar registros duplicados en producto_almacen (mismo producto y almacén)
+                    -- Manteniendo el registro con el id_producto_almacen más bajo
+                    DELETE pa1 FROM adv__producto_almacen pa1
+                    INNER JOIN adv__producto_almacen pa2 
+                    WHERE 
+                        pa1.id_producto_almacen > pa2.id_producto_almacen AND
+                        pa1.id_producto = pa2.id_producto AND
+                        pa1.id_almacen = pa2.id_almacen;
+                    """,
+                    """
+                    -- Corregir valores de stock negativos (establecer a 0)
+                    UPDATE adv__producto_almacen
+                    SET stock = 0.00
+                    WHERE stock < 0;
+                    """,
+                    """
+                    -- Corregir valores para precio de compra y costos de producción negativos (establecer a 0)
+                    UPDATE adv__producto
+                    SET precio_compra = 0.00
+                    WHERE precio_compra < 0;
+                    
+                    UPDATE adv__producto
+                    SET costo_produccion_unitario = 0.00
+                    WHERE costo_produccion_unitario < 0;
+                    """,
+                    """
+                    -- Eliminar movimientos con tipos no definidos en la tabla adv__tipo_movimiento
+                    DELETE m FROM adv__movimiento m
+                    LEFT JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
+                    WHERE tm.id_tipo_movimiento IS NULL;
+                    """,
+                    """
+                    -- Eliminar registros problemáticos
+                    DELETE FROM adv__movimiento WHERE id_movimiento = 268; -- Movimiento no afecta stock
+                    """
+                ];
+                foreach (var query in querys)
+                    using (var cmd = new MySqlCommand(query, conexion))
+                        cmd.ExecuteNonQuery();
+            }
+        }
+
         private static void AgregarIndices() {
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
@@ -347,6 +409,46 @@ namespace aDVanceERP.PatchDB {
                         cmd.ExecuteNonQuery();
             }
         }
+
+        private static void PopularDatos() {
+            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+                try {
+                    conexion.Open();
+                } catch (Exception) {
+                    throw new ExcepcionConexionServidorMySQL();
+                }
+
+                List<string> querys =
+                [
+                    """
+                    INSERT INTO adv__tipo_movimiento (
+                        nombre, 
+                        efecto
+                    ) 
+                    VALUES (
+                        'Producción',
+                        'Carga'
+                    );
+                    """,
+                    """
+                    INSERT INTO adv__tipo_movimiento (
+                        nombre, 
+                        efecto
+                    ) 
+                    VALUES (
+                        'Gasto material',
+                        'Descarga'
+                    );
+                    """
+                ];
+
+                foreach (var query in querys)
+                    using (var cmd = new MySqlCommand(query, conexion))
+                        cmd.ExecuteNonQuery();
+            }
+        }
+
+        //
 
         #region Funciones de Interfaz
 

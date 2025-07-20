@@ -18,17 +18,20 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             };
         }
 
+        public event EventHandler<Modelos.OrdenProduccion> OrdenProduccionCerrada;
+
         protected override PresentadortuplaOrdenProduccion ObtenerValoresTupla(Modelos.OrdenProduccion objeto) {
             var presentadorTupla = new PresentadortuplaOrdenProduccion(new VistaTuplaOrdenProduccion(), objeto);
 
             presentadorTupla.Vista.Id = objeto.Id.ToString();
             presentadorTupla.Vista.NumeroOrden = objeto.NumeroOrden;
             presentadorTupla.Vista.FechaApertura = objeto.FechaApertura.ToString("yyyy-MM-dd");
-            presentadorTupla.Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;            
+            presentadorTupla.Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
+            presentadorTupla.Vista.TotalUnidadesProducidas = objeto.Cantidad.ToString(CultureInfo.InvariantCulture);
             presentadorTupla.Vista.CostoTotal = objeto.CostoTotal.ToString("N2", CultureInfo.InvariantCulture);
+            presentadorTupla.Vista.PrecioUnitario = objeto.PrecioUnitario.ToString("N2", CultureInfo.InvariantCulture);
             presentadorTupla.Vista.Estado = (int) objeto.Estado;
             presentadorTupla.Vista.FechaCierre = objeto.FechaCierre.HasValue ? !objeto.FechaCierre.Equals(DateTime.MinValue) ? objeto.FechaCierre.Value.ToString("yyyy-MM-dd") : "-" : "-";
-            presentadorTupla.Vista.Observaciones = objeto.Observaciones;
             presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnCierreOrdenProduccion;
             presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnCierreOrdenProduccion;
 
@@ -45,13 +48,35 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                         // Editar la orden de producción
                         DatosObjeto.Editar(tupla.Objeto);
 
+                        // Actualizar el costo unitario de producción en el producto correspondiente
+                        UtilesProducto.ActualizarCostoProduccionUnitario(tupla.Objeto.IdProducto, tupla.Objeto.PrecioUnitario);
+
+                        // Disminuir el stock de materiales utilizados en la orden de producción
+                        using (var datosObjeto = new RepoOrdenMateriaPrima()) {
+                            var materiasPrimas = datosObjeto.Obtener(CriterioBusquedaOrdenMateriaPrima.OrdenProduccion, tupla.Objeto.Id.ToString());
+
+                            if (materiasPrimas != null) {
+                                foreach (var materiaPrima in materiasPrimas) {
+                                    UtilesMovimiento.ModificarStockProductoAlmacen(
+                                        materiaPrima.IdProducto,
+                                        materiaPrima.IdAlmacen,
+                                        0,
+                                        materiaPrima.Cantidad
+                                    );
+                                }
+                            }
+                        }
+
                         // Aumentar el stock del producto terminado en el almacén seleccionado
                         UtilesMovimiento.ModificarStockProductoAlmacen(
                             tupla.Objeto.IdProducto,
                             0,
-                            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
+                            tupla.Objeto.IdAlmacen,
                             tupla.Objeto.Cantidad
                         );
+
+                        // Invocar evento de cierre para la orden de produccion y registrar los movimientos correspondientes
+                        OrdenProduccionCerrada?.Invoke(this, tupla.Objeto);
 
                         break;
                     }

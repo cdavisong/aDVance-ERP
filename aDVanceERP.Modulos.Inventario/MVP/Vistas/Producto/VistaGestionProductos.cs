@@ -1,14 +1,14 @@
 ﻿using System.Globalization;
 
-using aDVanceERP.Core.Repositorios;
-using aDVanceERP.Core.Repositorios.Plantillas;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
 
 public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     private int _paginaActual = 1;
@@ -44,11 +44,11 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         set => fieldCriterioCategoriaProducto.SelectedIndex = value + 1;
     }
 
-    public FbProducto Fb {
-        get => fieldFb.SelectedIndex > 0
-            ? (FbProducto)fieldFb.SelectedIndex
+    public CriterioBusquedaProducto CriterioBusqueda {
+        get => fieldCriterioBusqueda.SelectedIndex > 0
+            ? (CriterioBusquedaProducto) fieldCriterioBusqueda.SelectedIndex
             : default;
-        set => fieldFb.SelectedIndex = (int)value;
+        set => fieldCriterioBusqueda.SelectedIndex = (int) value;
     }
 
     public string? DatoBusqueda {
@@ -108,7 +108,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        fieldNombreAlmacen.SelectedIndexChanged += delegate(object? sender, EventArgs e) {
+        fieldNombreAlmacen.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(NombreAlmacen))
                 BuscarDatos?.Invoke(new object[] { Fb, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
@@ -134,51 +134,54 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
-        fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
+        fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
                 BuscarDatos?.Invoke(new object[] { Fb, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
-        btnCerrar.Click += delegate(object? sender, EventArgs e) {
+        btnCerrar.Click += delegate (object? sender, EventArgs e) {
             Salir?.Invoke(sender, e);
             Ocultar();
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs e) {
+        btnRegistrar.Click += delegate (object? sender, EventArgs e) {
             RegistrarDatos?.Invoke(sender, e);
 
             ActualizarMontoInversion();
         };
-        btnPrimeraPagina.Click += delegate(object? sender, EventArgs e) {
+        btnExportarInventarioAlmacenes.Click += delegate {
+            UtilesReportes.GenerarReporteInventarioAlmacenes();
+        };
+        btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = 1;
             MostrarPrimeraPagina?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnPaginaAnterior.Click += delegate(object? sender, EventArgs e) {
+        btnPaginaAnterior.Click += delegate (object? sender, EventArgs e) {
             PaginaActual--;
             MostrarPaginaAnterior?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnPaginaSiguiente.Click += delegate(object? sender, EventArgs e) {
+        btnPaginaSiguiente.Click += delegate (object? sender, EventArgs e) {
             PaginaActual++;
             MostrarPaginaSiguiente?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnUltimaPagina.Click += delegate(object? sender, EventArgs e) {
+        btnUltimaPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = PaginasTotales;
             MostrarUltimaPagina?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnSincronizarDatos.Click += delegate(object? sender, EventArgs e) {
+        btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) {
             SincronizarDatos?.Invoke(sender, e);
 
             ActualizarMontoInversion();
         };
-        contenedorVistas.Resize += delegate { 
-            AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); 
+        contenedorVistas.Resize += delegate {
+            AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
         };
 
         // Enlace de scanner
@@ -205,7 +208,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         Invoke((MethodInvoker) delegate {
             fieldFb.SelectedIndex = 2;
             fieldDatoBusqueda.Text = codigo.Replace("\0", "");
-        });        
+        });
     }
 
     public void Mostrar() {

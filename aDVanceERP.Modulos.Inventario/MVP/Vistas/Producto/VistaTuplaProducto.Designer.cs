@@ -49,7 +49,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldCodigo = new Label();
             btnEliminar = new Guna2Button();
             fieldNombre = new Label();
-            fieldPrecioCompraBase = new Label();
+            fieldCostoUnitario = new Label();
             fieldStock = new Label();
             fieldUnidadMedida = new Label();
             layoutBase.SuspendLayout();
@@ -103,7 +103,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             layoutVista.Controls.Add(fieldCodigo, 1, 0);
             layoutVista.Controls.Add(btnEliminar, 11, 0);
             layoutVista.Controls.Add(fieldNombre, 1, 0);
-            layoutVista.Controls.Add(fieldPrecioCompraBase, 3, 0);
+            layoutVista.Controls.Add(fieldCostoUnitario, 3, 0);
             layoutVista.Controls.Add(fieldStock, 6, 0);
             layoutVista.Controls.Add(fieldUnidadMedida, 7, 0);
             layoutVista.Dock = DockStyle.Fill;
@@ -278,17 +278,17 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             // 
             // fieldPrecioCompraBase
             // 
-            fieldPrecioCompraBase.Dock = DockStyle.Fill;
-            fieldPrecioCompraBase.Font = new Font("Segoe UI", 11.25F);
-            fieldPrecioCompraBase.ForeColor = Color.DimGray;
-            fieldPrecioCompraBase.ImeMode = ImeMode.NoControl;
-            fieldPrecioCompraBase.Location = new Point(671, 1);
-            fieldPrecioCompraBase.Margin = new Padding(1);
-            fieldPrecioCompraBase.Name = "fieldPrecioCompraBase";
-            fieldPrecioCompraBase.Size = new Size(108, 39);
-            fieldPrecioCompraBase.TabIndex = 14;
-            fieldPrecioCompraBase.Text = "precioCompra.";
-            fieldPrecioCompraBase.TextAlign = ContentAlignment.MiddleCenter;
+            fieldCostoUnitario.Dock = DockStyle.Fill;
+            fieldCostoUnitario.Font = new Font("Segoe UI", 11.25F);
+            fieldCostoUnitario.ForeColor = Color.DimGray;
+            fieldCostoUnitario.ImeMode = ImeMode.NoControl;
+            fieldCostoUnitario.Location = new Point(671, 1);
+            fieldCostoUnitario.Margin = new Padding(1);
+            fieldCostoUnitario.Name = "fieldPrecioCompraBase";
+            fieldCostoUnitario.Size = new Size(108, 39);
+            fieldCostoUnitario.TabIndex = 14;
+            fieldCostoUnitario.Text = "precioCompra.";
+            fieldCostoUnitario.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldStock
             // 
@@ -345,7 +345,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         private Label fieldNombre;
         private Label fieldId;
         private Guna2Button btnEditar;
-        private Label fieldPrecioCompraBase;
+        private Label fieldCostoUnitario;
         private Label fieldDescripcion;
         private Label fieldCodigo;
         private Label fieldStock;
