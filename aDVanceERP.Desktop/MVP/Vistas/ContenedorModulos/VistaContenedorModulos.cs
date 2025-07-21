@@ -137,7 +137,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
                                     (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloFinanzas.Nombre) ?? false);
         btnModuloInventario.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
                                       (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloInventario.Nombre) ?? false);
-        btnModuloInventario.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
+        btnModuloTaller.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
                                      (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloTaller.Nombre) ?? false);
         btnModuloVentas.Visible = (UtilesCuentaUsuario.UsuarioAutenticado?.Administrador ?? false) ||
                                   (UtilesCuentaUsuario.PermisosUsuario?.ContienePermisoParcial(ModuloCompraventa.Nombre) ?? false);
