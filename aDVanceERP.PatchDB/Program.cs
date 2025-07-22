@@ -32,12 +32,12 @@ namespace aDVanceERP.PatchDB {
             Console.WriteLine($"               versión {version}\n");
 
             try {
-                ExecuteStep(EliminarTablasObsoletas, "Eliminación de tablas obsoletas");
-                ExecuteStep(CrearTablasProduccion, "Creación de tablas de producción");
-                ExecuteStep(EliminarProductosDuplicados, "Eliminación de productos duplicados");
-                ExecuteStep(EliminarInconsistenciasDatos, "Eliminación de inconsistencias de datos");
-                ExecuteStep(AgregarIndices, "Agregar índices optimizados");
-                ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+                //ExecuteStep(EliminarTablasObsoletas, "Eliminación de tablas obsoletas");
+                //ExecuteStep(CrearTablasProduccion, "Creación de tablas de producción");
+                //ExecuteStep(EliminarProductosDuplicados, "Eliminación de productos duplicados");
+                //ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+                //ExecuteStep(EliminarInconsistenciasDatos, "Eliminación de inconsistencias de datos");
+                //ExecuteStep(AgregarIndices, "Agregar índices optimizados");
                 ExecuteStep(PopularDatos, "Popular nuevos datos");
 
                 RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
@@ -363,7 +363,7 @@ namespace aDVanceERP.PatchDB {
                     ADD IF NOT EXISTS id_tipo_materia_prima INT(11) NOT NULL 
                     DEFAULT '1' 
                     AFTER id_proveedor;
-                    """,
+                    """/*,
                     """
                     ALTER TABLE adv__producto 
                     ADD UNIQUE INDEX nombre_unico (nombre);
@@ -383,24 +383,24 @@ namespace aDVanceERP.PatchDB {
                     """
                     ALTER TABLE adv__detalle_venta_producto 
                     CHANGE cantidad cantidad DECIMAL(10,2) NOT NULL;
-                    """,
+                    """*/,
                     """
                     ALTER TABLE adv__producto 
-                    ADD COLUMN costo_produccion_unitario DECIMAL(10,2) NOT NULL AFTER precio_compra_base DEFAULT 0,
-                    ADD COLUMN precio_compra DECIMAL(10,2) NOT NULL AFTER precio_compra_base DEFAULT 0;
+                    ADD COLUMN costo_produccion_unitario DECIMAL(10,2) NOT NULL AFTER precio_compra,
+                    ADD COLUMN precio_compra DECIMAL(10,2) NOT NULL AFTER precio_compra;
 
                     -- Actualizar los datos existentes
                     -- Para Mercancía y Materia Prima: copiar a precio_compra
                     UPDATE adv__producto 
-                    SET precio_compra = precio_compra_base
+                    SET precio_compra = precio_compra
                     WHERE categoria IN ('Mercancia', 'MateriaPrima');
 
                     -- Para Producto Terminado: copiar a costo_produccion_unitario
                     UPDATE adv__producto 
-                    SET costo_produccion_unitario = precio_compra_base
+                    SET costo_produccion_unitario = precio_compra
                     WHERE categoria = 'ProductoTerminado';
 
-                    ALTER TABLE adv__producto DROP COLUMN precio_compra_base;
+                    ALTER TABLE adv__producto DROP COLUMN precio_compra;
                     """
                 ];
 

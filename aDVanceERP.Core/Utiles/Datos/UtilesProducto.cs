@@ -106,6 +106,20 @@ public static class UtilesProducto {
             parametros);
     }
 
+    public static async Task<string?> ObtenerCategoriaProducto(long idProducto) {
+        const string query = """
+                             SELECT
+                                categoria
+                             FROM adv__producto
+                             WHERE id_producto = @idProducto;
+                             """;
+        var parametros = new[] {
+            new MySqlParameter("@idProducto", idProducto)
+        };
+
+        return await EjecutarConsultaEscalar(query, lector => lector.GetString(lector.GetOrdinal("categoria")), parametros);
+    }
+
     public static async Task<string[]> ObtenerNombresProductos(long idAlmacen = 0, string categoria = "Todas", bool soloProductosVenta = false, bool incluirDescripcion = false) {
         var parametros = new List<MySqlParameter>();
         var condiciones = new List<string>();
