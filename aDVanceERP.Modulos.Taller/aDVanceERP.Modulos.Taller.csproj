@@ -24,9 +24,7 @@
     <Compile Update="Vistas\OrdenProduccion\VistaRegistroOrdenProduccion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Vistas\OrdenProduccion\VistaTuplaOrdenActividadProduccion.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Vistas\OrdenProduccion\VistaTuplaOrdenActividadProduccion.cs" />
     <Compile Update="Vistas\OrdenProduccion\VistaTuplaOrdenGastoIndirecto.cs">
       <SubType>Form</SubType>
     </Compile>

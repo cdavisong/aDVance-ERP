@@ -79,7 +79,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     public List<string[]>? Productos { get; private set; }
 
     public decimal Cantidad {
-        get => decimal.TryParse(fieldTotalVenta.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) 
+        get => decimal.TryParse(fieldCantidad.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) 
             ? cantidad 
             : 0;
         set => fieldCantidad.Text = value.ToString("N2", CultureInfo.InvariantCulture);
@@ -296,7 +296,10 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                 fieldCantidad.ReadOnly = true;
             }
 
-            var precioCompraVigenteProducto = await UtilesProducto.ObtenerPrecioCompra(idProducto);
+            var categoriaProducto = await UtilesProducto.ObtenerCategoriaProducto(idProducto);
+            var precioCompraVigenteProducto = categoriaProducto.Equals("ProductoTerminado") 
+                ? await UtilesProducto.ObtenerCostoProduccionUnitario(idProducto) 
+                : await UtilesProducto.ObtenerPrecioCompra(idProducto);
             var precioVentaBaseProducto = await UtilesProducto.ObtenerPrecioVentaBase(idProducto);
             var tuplaProducto = new[] {
                 idProducto.ToString(),
