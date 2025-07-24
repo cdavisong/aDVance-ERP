@@ -135,7 +135,7 @@ public static class UtilesProducto {
         query += """
 
             FROM adv__producto p
-            JOIN adv__producto_almacen pa ON p.id_producto = pa.id_producto
+            JOIN adv__inventario pa ON p.id_producto = pa.id_producto
             LEFT JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
             """;
 
@@ -176,8 +176,8 @@ public static class UtilesProducto {
     public static async Task<decimal> ObtenerStockTotalProductos() {
         const string query = """
                              SELECT
-                                SUM(aa.stock) AS total_productos
-                             FROM adv__producto_almacen aa
+                                SUM(aa.cantidad) AS total_productos
+                             FROM adv__inventario aa
                              JOIN adv__producto a ON aa.id_producto = a.id_producto;
                              """;
 
@@ -185,11 +185,11 @@ public static class UtilesProducto {
     }
 
     public static async Task<decimal> ObtenerStockTotalProducto(long idProducto) {
-        // Usamos COALESCE para devolver 0 si SUM(stock) es NULL
+        // Usamos COALESCE para devolver 0 si SUM(cantidad) es NULL
         const string query = """
                              SELECT
-                                COALESCE(SUM(stock), 0) as stock_total
-                             FROM adv__producto_almacen
+                                COALESCE(SUM(cantidad), 0) as stock_total
+                             FROM adv__inventario
                              WHERE id_producto = @IdProducto;
                              """;
         var parametros = new[] {
@@ -203,8 +203,8 @@ public static class UtilesProducto {
     public static async Task<decimal> ObtenerStockProducto(string nombreProducto, string? nombreAlmacen) {
         const string query = """
                              SELECT
-                                 aa.stock
-                             FROM adv__producto_almacen aa
+                                 aa.cantidad
+                             FROM adv__inventario aa
                              JOIN adv__producto ar ON aa.id_producto = ar.id_producto
                              JOIN adv__almacen al ON aa.id_almacen = al.id_almacen
                              WHERE ar.nombre = @NombreProducto AND al.nombre = @NombreAlmacen;
@@ -214,16 +214,16 @@ public static class UtilesProducto {
             new MySqlParameter("@NombreAlmacen", nombreAlmacen)
         };
 
-        return await EjecutarConsultaEscalar(query, lector => lector.GetDecimal(lector.GetOrdinal("stock")), parametros);
+        return await EjecutarConsultaEscalar(query, lector => lector.GetDecimal(lector.GetOrdinal("cantidad")), parametros);
     }
 
     public static async Task<Dictionary<long, decimal>> ObtenerStockProducto(long idProducto) {
         const string query = """
         SELECT 
             pa.id_almacen,
-            pa.stock,
+            pa.cantidad,
             um.abreviatura
-        FROM adv__producto_almacen pa
+        FROM adv__inventario pa
         JOIN adv__producto p ON pa.id_producto = p.id_producto
         JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
         JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
@@ -237,7 +237,7 @@ public static class UtilesProducto {
         var resultados = await EjecutarConsultaLista(query,
             lector => new {
                 IdAlmacen = lector.GetInt64("id_almacen"),
-                Stock = lector.GetDecimal("stock"),
+                Stock = lector.GetDecimal("cantidad"),
                 Unidad = lector.GetString("abreviatura")
             }, parametros);
 
@@ -303,6 +303,23 @@ public static class UtilesProducto {
         catch {
             return false;
         }
+    }
+
+    public static async Task<decimal> ObtenerCostoUnitario(long idProducto) {
+        var categoria = await ObtenerCategoriaProducto(idProducto);
+        var column = categoria.Equals("ProductoTerminado") ? "costo_produccion_unitario" : "precio_compra";
+        var query = $"""
+            SELECT {column}
+            FROM adv__producto
+            WHERE id_producto = @IdProducto;
+            """;
+
+        var parametros = new[] {
+            new MySqlParameter("@IdProducto", idProducto)
+        };
+
+        return await EjecutarConsultaEscalar(query,
+            lector => lector.GetDecimal(lector.GetOrdinal($"{column}")), parametros);
     }
 
     public static async Task<decimal> ObtenerPrecioCompra(long idProducto) {

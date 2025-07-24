@@ -1,11 +1,14 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen {
-    public override string ComandoCantidad() {
+public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen
+{
+    public override string ComandoCantidad()
+    {
         return """
                SELECT 
                    COUNT(id_almacen) 
@@ -13,24 +16,29 @@ public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmace
                """;
     }
 
-    public override string ComandoAdicionar(Almacen objeto) {
+    public override string ComandoAdicionar(Almacen objeto)
+    {
         return
             $"INSERT INTO adv__almacen (nombre, direccion, autorizo_venta, notas) VALUES ('{objeto.Nombre}', '{objeto.Direccion}', '{(objeto.AutorizoVenta ? 1 : 0)}', '{objeto.Notas}');";
     }
 
-    public override string ComandoEditar(Almacen objeto) {
+    public override string ComandoEditar(Almacen objeto)
+    {
         return
             $"UPDATE adv__almacen SET nombre='{objeto.Nombre}', direccion='{objeto.Direccion}', autorizo_venta='{(objeto.AutorizoVenta ? 1 : 0)}', notas='{objeto.Notas}' WHERE id_almacen={objeto.Id};";
     }
 
-    public override string ComandoEliminar(long id) {
+    public override string ComandoEliminar(long id)
+    {
         return $"DELETE FROM adv__almacen WHERE id_almacen={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaAlmacen criterio, string dato) {
+    public override string ComandoObtener(CriterioBusquedaAlmacen criterio, string dato)
+    {
         var comando = string.Empty;
 
-        switch (criterio) {
+        switch (criterio)
+        {
             case CriterioBusquedaAlmacen.Id:
                 comando = $"SELECT * FROM adv__almacen WHERE id_almacen={dato};";
                 break;
@@ -45,7 +53,8 @@ public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmace
         return comando;
     }
 
-    public override Almacen ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Almacen ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    {
         return new Almacen(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
@@ -55,7 +64,8 @@ public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmace
         );
     }
 
-    public override string ComandoExiste(string dato) {
+    public override string ComandoExiste(string dato)
+    {
         return $"SELECT * FROM adv__almacen WHERE nombre='{dato}';";
     }
 }

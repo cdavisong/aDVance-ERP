@@ -132,7 +132,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
 
                         fila[0] = ventaProducto.Id.ToString();
                         fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? string.Empty;
-                        fila[2] = ventaProducto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture);
+                        fila[2] = ventaProducto.Cantidad.ToString("N2", CultureInfo.InvariantCulture);
                         fila[3] = ventaProducto.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
                         fila[4] = "-";
                         fila[5] = "0.00%";

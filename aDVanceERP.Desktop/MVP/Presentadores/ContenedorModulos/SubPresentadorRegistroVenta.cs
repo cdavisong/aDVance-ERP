@@ -9,7 +9,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
@@ -174,11 +174,12 @@ public partial class PresentadorContenedorModulos {
 
     private static void ModificarStockVentaProducto(DetalleVentaProducto detalleVentaProducto,
         IReadOnlyList<string> producto) {
-        UtilesMovimiento.ModificarStockProductoAlmacen(
+        UtilesMovimiento.ModificarInventario(
             detalleVentaProducto.IdProducto,
             long.Parse(producto[5]),
             0,
-            detalleVentaProducto.Cantidad
+            detalleVentaProducto.Cantidad,
+            UtilesProducto.ObtenerCostoUnitario(detalleVentaProducto.IdProducto).Result
         );
     }
 }

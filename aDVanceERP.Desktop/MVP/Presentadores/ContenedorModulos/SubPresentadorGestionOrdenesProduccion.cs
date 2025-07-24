@@ -1,7 +1,6 @@
 ﻿using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion;
 using aDVanceERP.Modulos.Taller.Repositorios;

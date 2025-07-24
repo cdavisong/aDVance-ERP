@@ -1,16 +1,20 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusquedaMovimiento>, IRepositorioMovimiento {
-    public override string ComandoCantidad() {
+public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusquedaMovimiento>, IRepositorioMovimiento
+{
+    public override string ComandoCantidad()
+    {
         return "SELECT COUNT(id_movimiento) FROM adv__movimiento;";
     }
 
-    public override string ComandoAdicionar(Movimiento objeto) {
+    public override string ComandoAdicionar(Movimiento objeto)
+    {
         return $"""
                 INSERT INTO adv__movimiento (
                     id_producto,
@@ -25,13 +29,14 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
                     '{objeto.IdAlmacenOrigen}',
                     '{objeto.IdAlmacenDestino}',
                     '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
-                    '{objeto.CantidadMovida.ToString("0.00", CultureInfo.InvariantCulture)}',
+                    '{objeto.CantidadMovida.ToString("N2", CultureInfo.InvariantCulture)}',
                     '{objeto.IdTipoMovimiento}'
                 );
                 """;
     }
 
-    public override string ComandoEditar(Movimiento objeto) {
+    public override string ComandoEditar(Movimiento objeto)
+    {
         return $"""
                 UPDATE adv__movimiento
                 SET
@@ -39,20 +44,23 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
                     id_almacen_origen='{objeto.IdAlmacenOrigen}',
                     id_almacen_destino='{objeto.IdAlmacenDestino}',
                     fecha='{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
-                    cantidad_movida='{objeto.CantidadMovida.ToString("0.00", CultureInfo.InvariantCulture)}',
+                    cantidad_movida='{objeto.CantidadMovida.ToString("N2", CultureInfo.InvariantCulture)}',
                     id_tipo_movimiento='{objeto.IdTipoMovimiento}'
                 WHERE id_movimiento='{objeto.Id}';
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    public override string ComandoEliminar(long id)
+    {
         return $"DELETE FROM adv__movimiento WHERE id_movimiento='{id}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaMovimiento criterio, string dato) {
+    public override string ComandoObtener(CriterioBusquedaMovimiento criterio, string dato)
+    {
         string? comando;
 
-        switch (criterio) {
+        switch (criterio)
+        {
             case CriterioBusquedaMovimiento.Id:
                 comando = $"SELECT * FROM adv__movimiento WHERE id_movimiento = '{dato}';";
                 break;
@@ -86,7 +94,8 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
         return comando;
     }
 
-    public override Movimiento ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Movimiento ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    {
         return new Movimiento(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
@@ -98,7 +107,8 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
         );
     }
 
-    public override string ComandoExiste(string dato) {
+    public override string ComandoExiste(string dato)
+    {
         return $"SELECT COUNT(1) FROM adv__movimiento WHERE id_movimiento='{dato}';";
     }
 }

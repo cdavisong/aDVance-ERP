@@ -38,11 +38,11 @@ public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>,
         return $"""
                 START TRANSACTION;
 
-                -- 1. Restaurar el stock restando las cantidades compradas
-                UPDATE adv__producto_almacen pa
+                -- 1. Restaurar el cantidad restando las cantidades compradas
+                UPDATE adv__inventario pa
                 JOIN adv__detalle_compra_producto dcp ON pa.id_producto = dcp.id_producto
                 JOIN adv__compra c ON dcp.id_compra = c.id_compra
-                SET pa.stock = pa.stock - dcp.cantidad
+                SET pa.cantidad = pa.cantidad - dcp.cantidad
                 WHERE dcp.id_compra = {id} AND pa.id_almacen = c.id_almacen;
 
                 -- 2. Eliminar los movimientos de inventario asociados a la compra

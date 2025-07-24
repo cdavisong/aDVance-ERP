@@ -16,14 +16,13 @@ public class Movimiento : IObjetoUnico {
         IdTipoMovimiento = idTipoMovimiento;
     }
 
+    public long Id { get; set; }
     public long IdProducto { get; set; }
     public long IdAlmacenOrigen { get; set; }
     public long IdAlmacenDestino { get; set; }
     public DateTime Fecha { get; set; }
     public decimal CantidadMovida { get; set; }
     public long IdTipoMovimiento { get; set; }
-
-    public long Id { get; set; }
 }
 
 public enum CriterioBusquedaMovimiento {

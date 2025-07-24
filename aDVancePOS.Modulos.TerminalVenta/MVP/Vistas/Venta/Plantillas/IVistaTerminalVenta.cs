@@ -7,7 +7,7 @@ public interface IVistaTerminalVenta : IVistaRegistro {
     string? NombreAlmacen { get; set; }
     string? NombreProducto { get; set; }
     List<string[]>? Productos { get; }
-    float Cantidad { get; set; }
+    decimal Cantidad { get; set; }
     decimal Subtotal { get; set; }
     decimal Descuento { get; set; }
     decimal Total { get; set; }

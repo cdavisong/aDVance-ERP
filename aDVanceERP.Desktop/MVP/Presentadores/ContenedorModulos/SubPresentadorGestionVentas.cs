@@ -113,7 +113,7 @@ internal class ProductoJson {
     public decimal precio_compra { get; set; }
     public decimal costo_produccion_unitario { get; set; }
     public decimal precio_venta_base { get; set; }
-    public int stock { get; set; }
+    public int cantidad { get; set; }
     public string nombre_almacen { get; set; }
     public string unidad_medida { get; set; }
     public string abreviatura_medida { get; set; }

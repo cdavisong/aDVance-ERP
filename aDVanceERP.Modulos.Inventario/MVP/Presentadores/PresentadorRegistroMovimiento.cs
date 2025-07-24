@@ -3,10 +3,10 @@ using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegistroMovimiento, Movimiento,
     DatosMovimiento, CriterioBusquedaMovimiento> {
@@ -88,12 +88,15 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
     }
 
     protected override void RegistroAuxiliar(DatosMovimiento datosMovimiento, long id) {
+        var idProducto = UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result;
+
         if (Objeto != null)
-            UtilesMovimiento.ModificarStockProductoAlmacen(
-                UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result,
+            UtilesMovimiento.ModificarInventario(
+                idProducto,
                 UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen).Result,
                 UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
-                Vista.CantidadMovida);
+                Vista.CantidadMovida,
+                UtilesProducto.ObtenerCostoUnitario(idProducto).Result);
     }
 
     protected override async Task<Movimiento?> ObtenerObjetoDesdeVista() {

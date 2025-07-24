@@ -2,8 +2,8 @@
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
@@ -68,11 +68,12 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
                 Objeto.IdDetalleProducto = datos.Adicionar(detalleProducto);
 
                 // Stock inicial del producto
-                UtilesMovimiento.ModificarStockProductoAlmacen(
+                UtilesMovimiento.ModificarInventario(
                     Objeto.Id,
                     0,
                     UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
-                    Vista.StockInicial
+                    Vista.StockInicial,
+                    UtilesProducto.ObtenerCostoUnitario(Objeto.Id).Result
                 );
             }
 

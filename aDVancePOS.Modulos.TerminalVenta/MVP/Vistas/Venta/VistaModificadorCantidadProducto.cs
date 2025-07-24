@@ -25,9 +25,9 @@ namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta {
             set => Size = value;
         }
 
-        public float CantidadProducto {
-            get => float.TryParse(fieldCantidad.Text, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 1;
-            set => fieldCantidad.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
+        public decimal CantidadProducto {
+            get => decimal.TryParse(fieldCantidad.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 1;
+            set => fieldCantidad.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
 
         public event EventHandler? Salir;

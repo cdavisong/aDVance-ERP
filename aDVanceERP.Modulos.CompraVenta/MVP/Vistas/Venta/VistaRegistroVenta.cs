@@ -260,9 +260,9 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             var stockProducto = await UtilesProducto.ObtenerStockProducto(adNombreProducto, adNombreAlmacen);
 
             if (!ModoEdicionDatos) {
-                // Verificar ID y stock del producto
+                // Verificar ID y cantidad del producto
                 if (idProducto == 0 || stockProducto == 0) {
-                    CentroNotificaciones.Mostrar($"El producto {adNombreProducto} no existe o no tiene stock disponible en el almacén {adNombreAlmacen}. Rectifique los datos.", TipoNotificacion.Advertencia);
+                    CentroNotificaciones.Mostrar($"El producto {adNombreProducto} no existe o no tiene cantidad disponible en el almacén {adNombreAlmacen}. Rectifique los datos.", TipoNotificacion.Advertencia);
 
                     NombreProducto = string.Empty;
 
@@ -272,7 +272,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                     return;
                 }
 
-                // Verificar que la cantidad no exceda el stock del producto
+                // Verificar que la cantidad no exceda el cantidad del producto
                 if (Productos != null) {
                     var stockComprometido = Productos
                         .Where(a => a[0].Equals(idProducto.ToString()) && a[5].Equals(idAlmacen.ToString()))
@@ -282,7 +282,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                         fieldCantidad.Font = new Font(fieldCantidad.Font, FontStyle.Bold);
                         fieldCantidad.Margin = new Padding(3);
 
-                        CentroNotificaciones.Mostrar($"La cantidad del producto {adNombreProducto} excede el stock disponible ({stockProducto}). Rectifique los datos o aumente la cantidad disponible en almacén.", TipoNotificacion.Advertencia);
+                        CentroNotificaciones.Mostrar($"La cantidad del producto {adNombreProducto} excede el cantidad disponible ({stockProducto}). Rectifique los datos o aumente la cantidad disponible en almacén.", TipoNotificacion.Advertencia);
                         return;
                     }
 

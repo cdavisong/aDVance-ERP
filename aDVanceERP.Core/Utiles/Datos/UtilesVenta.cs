@@ -118,7 +118,7 @@ public static class UtilesVenta {
                                 }
                                 else if (reader.GetFieldType(i) == typeof(float)) {
                                     var valorDecimal = reader.GetFloat(i);
-                                    fila += valorDecimal.ToString("0.00", CultureInfo.InvariantCulture) + "|";
+                                    fila += valorDecimal.ToString("N2", CultureInfo.InvariantCulture) + "|";
                                 }
                                 else {
                                     fila += reader[i] + "|";
@@ -161,7 +161,7 @@ public static class UtilesVenta {
         return EjecutarConsultaDecimal(query);
     }
 
-    public static float ObtenerCantidadProductosVenta(long idVenta) {
+    public static decimal ObtenerCantidadProductosVenta(long idVenta) {
         const string query = """
                              SELECT SUM(cantidad) AS total_productos
                              FROM adv__detalle_venta_producto
@@ -171,7 +171,7 @@ public static class UtilesVenta {
             new MySqlParameter("@IdVenta", idVenta)
         };
 
-        return EjecutarConsultaFlotante(query, parametros);
+        return EjecutarConsultaDecimal(query, parametros);
     }
 
     public static IEnumerable<string> ObtenerProductosPorVenta(long idVenta) {

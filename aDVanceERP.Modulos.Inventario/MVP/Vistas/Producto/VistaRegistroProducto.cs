@@ -132,7 +132,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         // 1. Datos generales del producto
         P1DatosGenerales.Dock = DockStyle.Fill;
         P1DatosGenerales.TopLevel = false;
-        // 3. Unidad de medida, precios de compra y venta, stock inicial
+        // 3. Unidad de medida, precios de compra y venta, cantidad inicial
         P2UmPreciosStock.Dock = DockStyle.Fill;
         P2UmPreciosStock.TopLevel = false;
 

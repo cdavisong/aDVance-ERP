@@ -1,10 +1,9 @@
 ﻿using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
-
+using aDVanceERP.Modulos.Inventario.Repositorios;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
@@ -21,7 +20,7 @@ public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorT
         presentadorTupla.Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
         presentadorTupla.Vista.ActualizarIconoStock(UtilesMovimiento.ObtenerEfectoTipoMovimiento(objeto.IdTipoMovimiento));
         presentadorTupla.Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
-        presentadorTupla.Vista.CantidadMovida = objeto.CantidadMovida.ToString("0.00", CultureInfo.InvariantCulture);
+        presentadorTupla.Vista.CantidadMovida = objeto.CantidadMovida.ToString("N2", CultureInfo.InvariantCulture);
         presentadorTupla.Vista.TipoMovimiento = UtilesMovimiento.ObtenerNombreTipoMovimiento(objeto.IdTipoMovimiento) ?? string.Empty;
         presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("yyyy-MM-dd");
 

@@ -82,7 +82,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
         }
 
         private bool RequiereAutenticacion(string comando) {
-            var comandosProtegidos = new[] { "/ventas", "/ganancias", "/reporteventas", "/resumen", "/nuevaventa", "/ventasdia", "/stock", "/productos" };
+            var comandosProtegidos = new[] { "/ventas", "/ganancias", "/reporteventas", "/resumen", "/nuevaventa", "/ventasdia", "/cantidad", "/productos" };
             return comandosProtegidos.Contains(comando.Trim().ToLower());
         }
         #endregion
@@ -415,7 +415,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                                 fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? "Producto desconocido";
                                 fila[2] = UtilesDetalleProducto.ObtenerUnidadMedidaProducto(ventaProducto.IdProducto, true).Result ?? "u";
                                 fila[3] = ventaProducto.PrecioVentaFinal.ToString("N2", CultureInfo.InvariantCulture);
-                                fila[4] = ventaProducto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture);
+                                fila[4] = ventaProducto.Cantidad.ToString("N2", CultureInfo.InvariantCulture);
                                 fila[5] = (ventaProducto.PrecioVentaFinal * (decimal)ventaProducto.Cantidad).ToString("N2", CultureInfo.InvariantCulture);
                                 filas.Add(fila);
                             }
@@ -512,7 +512,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 "/ventasdia - Listar ventas de hoy\n\n" +
 
                 "📦 Inventario:\n" +
-                "/stock - Consultar inventario\n" +
+                "/cantidad - Consultar inventario\n" +
                 "/productos - Listar productos\n\n" +
 
                 "🆘 Ayuda:\n" +

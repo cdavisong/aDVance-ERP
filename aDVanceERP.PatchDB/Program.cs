@@ -35,10 +35,10 @@ namespace aDVanceERP.PatchDB {
                 //ExecuteStep(EliminarTablasObsoletas, "Eliminación de tablas obsoletas");
                 //ExecuteStep(CrearTablasProduccion, "Creación de tablas de producción");
                 //ExecuteStep(EliminarProductosDuplicados, "Eliminación de productos duplicados");
-                //ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+                ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
                 //ExecuteStep(EliminarInconsistenciasDatos, "Eliminación de inconsistencias de datos");
                 //ExecuteStep(AgregarIndices, "Agregar índices optimizados");
-                ExecuteStep(PopularDatos, "Popular nuevos datos");
+                //ExecuteStep(PopularDatos, "Popular nuevos datos");
 
                 RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
             }
@@ -195,8 +195,8 @@ namespace aDVanceERP.PatchDB {
                     WHERE dvp.id_producto != tpd.id_a_conservar;
                     """,
                     """
-                    -- Tabla adv__producto_almacen
-                    UPDATE adv__producto_almacen pa
+                    -- Tabla adv__inventario
+                    UPDATE adv__inventario pa
                     JOIN temp_productos_duplicados tpd ON FIND_IN_SET(pa.id_producto, tpd.ids_duplicados)
                     SET pa.id_producto = tpd.id_a_conservar
                     WHERE pa.id_producto != tpd.id_a_conservar;
@@ -216,24 +216,24 @@ namespace aDVanceERP.PatchDB {
                     WHERE om.id_producto != tpd.id_a_conservar;
                     """,
                     """
-                    -- 3. Consolidar stock en los almacenes
-                    UPDATE adv__producto_almacen pa
+                    -- 3. Consolidar cantidad en los almacenes
+                    UPDATE adv__inventario pa
                     JOIN (
                         SELECT 
                             id_producto, 
                             id_almacen, 
-                            SUM(stock) AS stock_total
-                        FROM adv__producto_almacen
+                            SUM(cantidad) AS stock_total
+                        FROM adv__inventario
                         GROUP BY id_producto, id_almacen
                         HAVING COUNT(*) > 1
                     ) AS stocks ON pa.id_producto = stocks.id_producto AND pa.id_almacen = stocks.id_almacen
                     JOIN temp_productos_duplicados tpd ON FIND_IN_SET(pa.id_producto, tpd.ids_duplicados)
-                    SET pa.stock = stocks.stock_total
+                    SET pa.cantidad = stocks.stock_total
                     WHERE pa.id_producto = tpd.id_a_conservar;
                     """,
                     """
                     -- Eliminar registros duplicados de producto_almacen
-                    DELETE pa FROM adv__producto_almacen pa
+                    DELETE pa FROM adv__inventario pa
                     JOIN temp_productos_duplicados tpd ON FIND_IN_SET(pa.id_producto, tpd.ids_duplicados)
                     WHERE pa.id_producto != tpd.id_a_conservar;
                     """,
@@ -266,25 +266,25 @@ namespace aDVanceERP.PatchDB {
                 [
                     """
                     -- Eliminar registros de producto_almacen que no tienen correspondencia en productos
-                    DELETE pa FROM adv__producto_almacen pa
+                    DELETE pa FROM adv__inventario pa
                     LEFT JOIN adv__producto p ON pa.id_producto = p.id_producto
                     WHERE p.id_producto IS NULL;
                     """,
                     """
                     -- Eliminar registros duplicados en producto_almacen (mismo producto y almacén)
-                    -- Manteniendo el registro con el id_producto_almacen más bajo
-                    DELETE pa1 FROM adv__producto_almacen pa1
-                    INNER JOIN adv__producto_almacen pa2 
+                    -- Manteniendo el registro con el id_inventario más bajo
+                    DELETE pa1 FROM adv__inventario pa1
+                    INNER JOIN adv__inventario pa2 
                     WHERE 
-                        pa1.id_producto_almacen > pa2.id_producto_almacen AND
+                        pa1.id_inventario > pa2.id_inventario AND
                         pa1.id_producto = pa2.id_producto AND
                         pa1.id_almacen = pa2.id_almacen;
                     """,
                     """
-                    -- Corregir valores de stock negativos (establecer a 0)
-                    UPDATE adv__producto_almacen
-                    SET stock = 0.00
-                    WHERE stock < 0;
+                    -- Corregir valores de cantidad negativos (establecer a 0)
+                    UPDATE adv__inventario
+                    SET cantidad = 0.00
+                    WHERE cantidad < 0;
                     """,
                     """
                     -- Corregir valores para precio de compra y costos de producción negativos (establecer a 0)
@@ -304,7 +304,7 @@ namespace aDVanceERP.PatchDB {
                     """,
                     """
                     -- Eliminar registros problemáticos
-                    DELETE FROM adv__movimiento WHERE id_movimiento = 268; -- Movimiento no afecta stock
+                    DELETE FROM adv__movimiento WHERE id_movimiento = 268; -- Movimiento no afecta cantidad
                     """
                 ];
                 foreach (var query in querys)
@@ -359,48 +359,41 @@ namespace aDVanceERP.PatchDB {
                 List<string> querys =
                 [
                     """
-                    ALTER TABLE adv__producto 
-                    ADD IF NOT EXISTS id_tipo_materia_prima INT(11) NOT NULL 
-                    DEFAULT '1' 
-                    AFTER id_proveedor;
-                    """/*,
-                    """
-                    ALTER TABLE adv__producto 
-                    ADD UNIQUE INDEX nombre_unico (nombre);
+                    ALTER TABLE `adv__movimiento` 
+                    ADD IF NOT EXISTS `fecha_creacion` DATETIME NOT NULL 
+                    DEFAULT CURRENT_TIMESTAMP 
+                    AFTER `id_almacen_destino`;
                     """,
                     """
-                    ALTER TABLE adv__producto_almacen 
-                    CHANGE stock stock DECIMAL(10,2) NOT NULL;
+                    ALTER TABLE `adv__movimiento` 
+                    ADD IF NOT EXISTS `estado` ENUM('Pendiente','Completado','Cancelado') NOT NULL 
+                    AFTER `fecha_creacion`;
                     """,
                     """
-                    ALTER TABLE adv__movimiento 
-                    CHANGE cantidad_movida cantidad_movida DECIMAL(10,2) NOT NULL;
+                    ALTER TABLE `adv__movimiento` 
+                    ADD IF NOT EXISTS `costo_unitario` DECIMAL NOT NULL 
+                    AFTER `id_producto`;
                     """,
                     """
-                    ALTER TABLE adv__detalle_compra_producto 
-                    CHANGE cantidad cantidad DECIMAL(10,2) NOT NULL;
+                    ALTER TABLE `adv__movimiento` 
+                    ADD IF NOT EXISTS `costo_total` DECIMAL(12,4) 
+                    GENERATED ALWAYS AS (`cantidad_movida` * `costo_unitario`) STORED 
+                    AFTER `costo_unitario`;
                     """,
                     """
-                    ALTER TABLE adv__detalle_venta_producto 
-                    CHANGE cantidad cantidad DECIMAL(10,2) NOT NULL;
-                    """*/,
+                    ALTER TABLE `adv__movimiento` 
+                    ADD IF NOT EXISTS  `saldo_inicial` DECIMAL(10,2) NOT NULL 
+                    AFTER `fecha`;
+                    """,
                     """
-                    ALTER TABLE adv__producto 
-                    ADD COLUMN costo_produccion_unitario DECIMAL(10,2) NOT NULL AFTER precio_compra,
-                    ADD COLUMN precio_compra DECIMAL(10,2) NOT NULL AFTER precio_compra;
-
-                    -- Actualizar los datos existentes
-                    -- Para Mercancía y Materia Prima: copiar a precio_compra
-                    UPDATE adv__producto 
-                    SET precio_compra = precio_compra
-                    WHERE categoria IN ('Mercancia', 'MateriaPrima');
-
-                    -- Para Producto Terminado: copiar a costo_produccion_unitario
-                    UPDATE adv__producto 
-                    SET costo_produccion_unitario = precio_compra
-                    WHERE categoria = 'ProductoTerminado';
-
-                    ALTER TABLE adv__producto DROP COLUMN precio_compra;
+                    ALTER TABLE `adv__movimiento` 
+                    ADD IF NOT EXISTS `saldo_final` DECIMAL(10,2) NOT NULL 
+                    AFTER `cantidad_movida`;
+                    """,
+                    """
+                    ALTER TABLE `adv__movimiento` 
+                    ADD IF NOT EXISTS `id_cuenta_usuario` INT(11) NOT NULL 
+                    AFTER `id_tipo_movimiento`;
                     """
                 ];
 
@@ -410,7 +403,7 @@ namespace aDVanceERP.PatchDB {
             }
         }
 
-        private static void PopularDatos() {
+        private static void MejorarInventario() {
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
@@ -421,24 +414,35 @@ namespace aDVanceERP.PatchDB {
                 List<string> querys =
                 [
                     """
-                    INSERT INTO adv__tipo_movimiento (
-                        nombre, 
-                        efecto
-                    ) 
-                    VALUES (
-                        'Producción',
-                        'Carga'
-                    );
+                    RENAME TABLE `advanceerp`.`adv__inventario` 
+                    TO `advanceerp`.`adv__inventario`;
                     """,
                     """
-                    INSERT INTO adv__tipo_movimiento (
-                        nombre, 
-                        efecto
-                    ) 
-                    VALUES (
-                        'Gasto material',
-                        'Descarga'
-                    );
+                    ALTER TABLE `adv__inventario` 
+                    CHANGE `id_inventario` `id_inventario` INT(11) NOT NULL 
+                    AUTO_INCREMENT;
+                    """,
+                    """
+                    ALTER TABLE `adv__inventario` 
+                    CHANGE `cantidad` `cantidad` DECIMAL(10,2) NOT NULL;
+                    """,
+                    """
+                    ALTER TABLE `adv__inventario` 
+                    ADD `costo_promedio` DECIMAL(12,4) NOT NULL 
+                    DEFAULT 0 
+                    AFTER `cantidad`;
+                    """,
+                    """
+                    ALTER TABLE `adv__inventario` 
+                    ADD `valor_total` DECIMAL(12,4) NOT NULL 
+                    DEFAULT 0 
+                    AFTER `costo_promedio`;
+                    """,
+                    """
+                    ALTER TABLE `adv__inventario` 
+                    ADD `ultima_actualizacion` DATETIME on update CURRENT_TIMESTAMP NOT NULL 
+                    DEFAULT CURRENT_TIMESTAMP 
+                    AFTER `valor_total`;
                     """
                 ];
 

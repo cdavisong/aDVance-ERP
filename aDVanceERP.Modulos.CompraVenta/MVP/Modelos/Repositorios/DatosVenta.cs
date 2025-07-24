@@ -51,11 +51,11 @@ public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IR
         return $"""
                 START TRANSACTION;
 
-                -- 1. Restaurar el stock sumando las cantidades vendidas
-                UPDATE adv__producto_almacen pa
+                -- 1. Restaurar el cantidad sumando las cantidades vendidas
+                UPDATE adv__inventario pa
                 JOIN adv__detalle_venta_producto dvp ON pa.id_producto = dvp.id_producto
                 JOIN adv__venta v ON dvp.id_venta = v.id_venta
-                SET pa.stock = pa.stock + dvp.cantidad
+                SET pa.cantidad = pa.cantidad + dvp.cantidad
                 WHERE dvp.id_venta = {id} AND pa.id_almacen = v.id_almacen;
 
                 -- 2. Eliminar los movimientos de inventario asociados a la venta
