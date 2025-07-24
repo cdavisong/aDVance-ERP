@@ -301,7 +301,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             fieldStock.Name = "fieldStock";
             fieldStock.Size = new Size(108, 39);
             fieldStock.TabIndex = 16;
-            fieldStock.Text = "stock";
+            fieldStock.Text = "cantidad";
             fieldStock.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldUnidadMedida

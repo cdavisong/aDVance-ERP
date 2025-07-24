@@ -51,28 +51,30 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                         // Actualizar el costo unitario de producción en el producto correspondiente
                         UtilesProducto.ActualizarCostoProduccionUnitario(tupla.Objeto.IdProducto, tupla.Objeto.PrecioUnitario);
 
-                        // Disminuir el stock de materiales utilizados en la orden de producción
+                        // Disminuir el cantidad de materiales utilizados en la orden de producción
                         using (var datosObjeto = new RepoOrdenMateriaPrima()) {
                             var materiasPrimas = datosObjeto.Obtener(CriterioBusquedaOrdenMateriaPrima.OrdenProduccion, tupla.Objeto.Id.ToString());
 
                             if (materiasPrimas != null) {
                                 foreach (var materiaPrima in materiasPrimas) {
-                                    UtilesMovimiento.ModificarStockProductoAlmacen(
+                                    UtilesMovimiento.ModificarInventario(
                                         materiaPrima.IdProducto,
                                         materiaPrima.IdAlmacen,
                                         0,
-                                        materiaPrima.Cantidad
+                                        materiaPrima.Cantidad,
+                                        UtilesProducto.ObtenerCostoUnitario(materiaPrima.IdProducto).Result
                                     );
                                 }
                             }
                         }
 
-                        // Aumentar el stock del producto terminado en el almacén seleccionado
-                        UtilesMovimiento.ModificarStockProductoAlmacen(
+                        // Aumentar el cantidad del producto terminado en el almacén seleccionado
+                        UtilesMovimiento.ModificarInventario(
                             tupla.Objeto.IdProducto,
                             0,
                             tupla.Objeto.IdAlmacen,
-                            tupla.Objeto.Cantidad
+                            tupla.Objeto.Cantidad,
+                            UtilesProducto.ObtenerCostoUnitario(tupla.Objeto.IdProducto).Result
                         );
 
                         // Invocar evento de cierre para la orden de produccion y registrar los movimientos correspondientes

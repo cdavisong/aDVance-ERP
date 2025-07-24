@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTuplaProducto, IVistaGestionProductos,
     IVistaTuplaProducto, Producto, RepoProducto, FbProducto> {

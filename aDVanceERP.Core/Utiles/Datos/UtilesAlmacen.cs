@@ -72,11 +72,11 @@ public static class UtilesAlmacen {
         var query = """
             SELECT DISTINCT a.nombre 
             FROM adv__almacen a
-            JOIN adv__producto_almacen pa ON a.id_almacen = pa.id_almacen
+            JOIN adv__inventario pa ON a.id_almacen = pa.id_almacen
             JOIN adv__producto p ON pa.id_producto = p.id_producto
             WHERE a.autorizo_venta = 0 
             AND p.categoria = 'ProductoTerminado'
-            AND pa.stock > 0;
+            AND pa.cantidad > 0;
             """;
 
         return EjecutarConsulta(query, lector => {
@@ -100,14 +100,14 @@ public static class UtilesAlmacen {
             p.precio_compra,
             p.costo_produccion_unitario,
             p.precio_venta_base,
-            pa.stock,
+            pa.cantidad,
             a.nombre AS nombre_almacen,
             IFNULL(um.nombre, '') AS unidad_medida,
             IFNULL(um.abreviatura, '') AS abreviatura_medida
         FROM 
             adv__producto p
         JOIN 
-            adv__producto_almacen pa ON p.id_producto = pa.id_producto
+            adv__inventario pa ON p.id_producto = pa.id_producto
         JOIN 
             adv__almacen a ON pa.id_almacen = a.id_almacen
         LEFT JOIN
@@ -130,7 +130,7 @@ public static class UtilesAlmacen {
                         ["precio_compra"] = lector.GetDecimal("precio_compra"),
                         ["costo_produccion_unitario"] = lector.GetDecimal("costo_produccion_unitario"),
                         ["precio_venta_base"] = lector.GetDecimal("precio_venta_base"),
-                        ["stock"] = lector.GetInt32("stock"),
+                        ["cantidad"] = lector.GetInt32("cantidad"),
                         ["nombre_almacen"] = lector.GetString("nombre_almacen"),
                         ["unidad_medida"] = lector.GetString("unidad_medida"),
                         ["abreviatura_medida"] = lector.GetString("abreviatura_medida")

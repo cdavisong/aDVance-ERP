@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegistroMovimiento, Movimiento,
     RepoMovimiento, FbMovimiento> {
@@ -87,14 +87,16 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
         return nombreProductoOk && tipoMovimientoOk && noCompraventaOk && fechaOk && cantidadOk;
     }
 
-    protected override void RegistroAuxiliar(RepoMovimiento datosMovimiento, long id) {
-        if (Entidad != null)
-            UtilesMovimiento.ModificarStockProductoAlmacen(
-                UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result,
+    protected override void RegistroAuxiliar(DatosMovimiento datosMovimiento, long id) {
+        var idProducto = UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result;
+
+        if (Objeto != null)
+            UtilesMovimiento.ModificarInventario(
+                idProducto,
                 UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen).Result,
                 UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
-                Vista.CantidadMovida
-            );
+                Vista.CantidadMovida,
+                UtilesProducto.ObtenerCostoUnitario(idProducto).Result);
     }
 
     protected override Movimiento? ObtenerEntidadDesdeVista() {

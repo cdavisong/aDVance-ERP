@@ -129,11 +129,12 @@ public partial class PresentadorContenedorModulos {
 
     private static void ModificarStockCompraProducto(DetalleCompraProducto detalleCompraProducto,
         IReadOnlyList<string> producto) {
-        UtilesMovimiento.ModificarStockProductoAlmacen(
+        UtilesMovimiento.ModificarInventario(
             detalleCompraProducto.IdProducto,
             0,
             long.Parse(producto[4]),
-            detalleCompraProducto.Cantidad
+            detalleCompraProducto.Cantidad,
+            UtilesProducto.ObtenerCostoUnitario(detalleCompraProducto.IdProducto).Result
         );
     }
 }

@@ -1,17 +1,20 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios.Plantillas;
-
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProducto>, IRepositorioProducto {
-    public override string ComandoCantidad() {
+public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProducto>, IRepositorioProducto
+{
+    public override string ComandoCantidad()
+    {
         return "SELECT COUNT(id_producto) FROM adv__producto;";
     }
 
-    public override string ComandoAdicionar(Producto objeto) {
+    public override string ComandoAdicionar(Producto objeto)
+    {
         return $"""
                 INSERT INTO adv__producto (
                     codigo,
@@ -40,7 +43,8 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                 """;
     }
 
-    public override string ComandoEditar(Producto objeto) {
+    public override string ComandoEditar(Producto objeto)
+    {
         return $"""
                 UPDATE adv__producto
                 SET
@@ -58,7 +62,8 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    public override string ComandoEliminar(long id)
+    {
         return $"""
             DELETE FROM adv__detalle_producto
             WHERE id_detalle_producto = (
@@ -72,7 +77,8 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
             """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaProducto criterio, string dato) {
+    public override string ComandoObtener(CriterioBusquedaProducto criterio, string dato)
+    {
         if (string.IsNullOrEmpty(dato))
             dato = "Todos";
 
@@ -86,8 +92,8 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
         var aplicarFiltroCategoria = datoMultiple.Length > 2 && !todasLasCategorias;
 
         // Partes adicionales de la consulta
-        const string comandoAdicionalSelect = ", ta.stock, a.nombre AS nombre_almacen";
-        const string comandoAdicionalJoin = "JOIN adv__producto_almacen ta ON t.id_producto = ta.id_producto JOIN adv__almacen a ON ta.id_almacen = a.id_almacen ";
+        const string comandoAdicionalSelect = ", ta.cantidad, a.nombre AS nombre_almacen";
+        const string comandoAdicionalJoin = "JOIN adv__inventario ta ON t.id_producto = ta.id_producto JOIN adv__almacen a ON ta.id_almacen = a.id_almacen ";
 
         // Construcción de condiciones WHERE
         var condiciones = new List<string>();
@@ -100,7 +106,8 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
 
         string whereClause = condiciones.Count > 0 ? $"WHERE {string.Join(" AND ", condiciones)}" : "";
 
-        switch (criterio) {
+        switch (criterio)
+        {
             case CriterioBusquedaProducto.Id:
                 comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
                          $"FROM adv__producto t " +
@@ -113,14 +120,14 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                          $"FROM adv__producto t " +
                          $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
                          $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
-                         $"LOWER(t.codigo) LIKE LOWER('%{((datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1)) ? datoMultiple[2] : dato)}%');";
+                         $"LOWER(t.codigo) LIKE LOWER('%{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}%');";
                 break;
             case CriterioBusquedaProducto.Nombre:
                 comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
                          $"FROM adv__producto t " +
                          $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
                          $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
-                         $"LOWER(t.nombre) LIKE LOWER('%{((datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1)) ? datoMultiple[2] : dato)}%');";
+                         $"LOWER(t.nombre) LIKE LOWER('%{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}%');";
                 break;
             case CriterioBusquedaProducto.Descripcion:
                 comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
@@ -128,7 +135,7 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
                          $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
                          $"JOIN adv__detalle_producto dp ON t.id_detalle_producto = dp.id_detalle_producto " +
                          $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
-                         $"LOWER(dp.descripcion) LIKE LOWER('%{((datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1)) ? datoMultiple[2] : dato)}%');";
+                         $"LOWER(dp.descripcion) LIKE LOWER('%{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}%');";
                 break;
             default:
                 comando = $"SELECT t.*{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
@@ -141,10 +148,11 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
         return comando;
     }
 
-    public override Producto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Producto ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    {
         return new Producto(
             id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
-            categoria: (CategoriaProducto) Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
+            categoria: (CategoriaProducto)Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
             nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
             codigo: lectorDatos.GetString(lectorDatos.GetOrdinal("codigo")),
             idDetalleProducto: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_producto")),
@@ -157,7 +165,8 @@ public class DatosProducto : RepositorioDatosBase<Producto, CriterioBusquedaProd
         );
     }
 
-    public override string ComandoExiste(string dato) {
+    public override string ComandoExiste(string dato)
+    {
         return $"""
             SELECT COUNT(1) 
             FROM adv__producto 

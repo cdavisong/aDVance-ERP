@@ -112,8 +112,8 @@ public static class UtilesMovimiento {
         return nombresTiposMovimientos.ToArray();
     }
 
-    public static void ModificarStockProductoAlmacen(long idProducto, long idAlmacenOrigen, long idAlmacenDestino,
-        decimal cantidad) {
+    public static void ModificarInventario(long idProducto, long idAlmacenOrigen, long idAlmacenDestino,
+        decimal cantidad, decimal costoUnitario) {
         using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
@@ -128,14 +128,17 @@ public static class UtilesMovimiento {
 
                     try {
                         if (idAlmacenOrigen > 0) {
-                            // Decrementar stock en el almacén de origen
+                            // Decrementar cantidad en el almacén de origen
                             comando.CommandText = """
-                                                  UPDATE adv__producto_almacen
-                                                  SET stock = stock - @Cantidad
-                                                  WHERE id_producto = @IdProducto
-                                                    AND id_almacen = @IdAlmacenOrigen;
+                                                  UPDATE adv__inventario
+                                                  SET 
+                                                    cantidad = cantidad - @Cantidad,
+                                                    valor_total = valor_total - (@Cantidad * @CostoUnitario),
+                                                    costo_promedio = valor_total / @Cantidad
+                                                  WHERE id_producto = @IdProducto AND id_almacen = @IdAlmacenOrigen;
                                                   """;
                             comando.Parameters.AddWithValue("@Cantidad", cantidad);
+                            comando.Parameters.AddWithValue("@CostoUnitario", costoUnitario);
                             comando.Parameters.AddWithValue("@IdProducto", idProducto);
                             comando.Parameters.AddWithValue("@IdAlmacenOrigen", idAlmacenOrigen);
 
@@ -147,9 +150,8 @@ public static class UtilesMovimiento {
                             // Verificar si el producto ya existe en el almacén de destino
                             comando.CommandText = """
                                                   SELECT COUNT(*)
-                                                  FROM adv__producto_almacen
-                                                  WHERE id_producto = @IdProducto
-                                                    AND id_almacen = @IdAlmacenDestino;
+                                                  FROM adv__inventario
+                                                  WHERE id_producto = @IdProducto AND id_almacen = @IdAlmacenDestino;
                                                   """;
                             comando.Parameters.AddWithValue("@IdProducto", idProducto);
                             comando.Parameters.AddWithValue("@IdAlmacenDestino", idAlmacenDestino);
@@ -157,29 +159,36 @@ public static class UtilesMovimiento {
                             var count = Convert.ToInt32(comando.ExecuteScalar());
                             comando.Parameters.Clear();
 
-                            // Incrementar stock en el almacén de destino y de ser necesario, insertar nuevo
-                            // registro en la tabla `adv__producto_almacen` para el producto en el almacén de destino
+                            // Incrementar cantidad en el almacén de destino y de ser necesario, insertar nuevo
+                            // registro en la tabla `adv__inventario` para el producto en el almacén de destino
                             comando.CommandText = count > 0
                                 ? """
-                                  UPDATE adv__producto_almacen
-                                  SET stock = stock + @Cantidad
-                                  WHERE id_producto = @IdProducto
-                                    AND id_almacen = @IdAlmacenDestino;
+                                  UPDATE adv__inventario
+                                  SET 
+                                    cantidad = cantidad + @Cantidad,
+                                    valor_total = valor_total - (@Cantidad * @CostoUnitario),
+                                    costo_promedio = valor_total / @Cantidad
+                                  WHERE id_producto = @IdProducto AND id_almacen = @IdAlmacenDestino;
                                   """
                                 : """
-                                  INSERT INTO adv__producto_almacen (
+                                  INSERT INTO adv__inventario (
                                     id_producto,
                                     id_almacen,
-                                    stock
+                                    cantidad,
+                                    valor_total,
+                                    costo_promedio,                                    
                                   )
                                   VALUES (
                                     @IdProducto,
                                     @IdAlmacenDestino,
-                                    @Cantidad
+                                    @Cantidad,
+                                    @Cantidad,
+                                    valor_total / @Cantidad
                                   );
                                   """;
 
                             comando.Parameters.AddWithValue("@Cantidad", cantidad);
+                            comando.Parameters.AddWithValue("@CostoUnitario", costoUnitario);
                             comando.Parameters.AddWithValue("@IdProducto", idProducto);
                             comando.Parameters.AddWithValue("@IdAlmacenDestino", idAlmacenDestino);
                             comando.ExecuteNonQuery();

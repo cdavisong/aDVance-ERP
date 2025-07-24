@@ -143,7 +143,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                             fila[1] = UtilesProducto.ObtenerNombreProducto(ventaProducto.IdProducto).Result ?? string.Empty;
                             fila[2] = "U";
                             fila[3] = ventaProducto.PrecioVentaFinal.ToString("N", CultureInfo.InvariantCulture);
-                            fila[4] = ventaProducto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture);
+                            fila[4] = ventaProducto.Cantidad.ToString("N2", CultureInfo.InvariantCulture);
                             fila[5] = (ventaProducto.PrecioVentaFinal * (decimal) ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
 
                             filas.Add(fila);

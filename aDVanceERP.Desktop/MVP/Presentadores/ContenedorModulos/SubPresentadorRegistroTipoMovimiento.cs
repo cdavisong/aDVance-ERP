@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento;
 using aDVanceERP.Modulos.Inventario.Repositorios;

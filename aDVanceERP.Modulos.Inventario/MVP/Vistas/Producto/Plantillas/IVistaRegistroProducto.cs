@@ -14,7 +14,7 @@ public interface IVistaRegistroProducto : IVistaRegistro {
     string RazonSocialProveedor { get; set; }
     bool EsVendible { get; set; }
 
-    // P2 : Unidad de medida, precios de compraventa y stock inicial
+    // P2 : Unidad de medida, precios de compraventa y cantidad inicial
     string UnidadMedida { get; set; }
     string TipoMateriaPrima { get; set; }
     decimal PrecioCompra { get; set; }

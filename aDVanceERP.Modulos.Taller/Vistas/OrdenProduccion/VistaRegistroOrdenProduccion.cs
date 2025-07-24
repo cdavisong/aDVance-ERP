@@ -392,7 +392,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 var adCantidadTotal = adCantidad + cantidadAcumulada;
 
                 if (!ModoEdicionDatos && stockProducto < adCantidadTotal) {
-                    CentroNotificaciones.Mostrar($"No hay suficiente stock de la materia prima '{adNombre}' para satisfacer la demanda de fabricación especificada. Stock actual: {stockProducto}.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
+                    CentroNotificaciones.Mostrar($"No hay suficiente cantidad de la materia prima '{adNombre}' para satisfacer la demanda de fabricación especificada. Stock actual: {stockProducto}.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
                     return;
                 }
 

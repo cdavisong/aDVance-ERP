@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTuplaAlmacen, IVistaGestionAlmacenes,
     IVistaTuplaAlmacen, Almacen, DatosAlmacen, CriterioBusquedaAlmacen> {

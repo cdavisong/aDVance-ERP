@@ -25,7 +25,7 @@ public class DatosDetalleCompraProducto : RepositorioDatosBase<DetalleCompraProd
                 VALUES (
                     {objeto.IdCompra},
                     {objeto.IdProducto},
-                    '{objeto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture)}',
+                    '{objeto.Cantidad.ToString("N2", CultureInfo.InvariantCulture)}',
                     {objeto.PrecioCompra.ToString(CultureInfo.InvariantCulture)}
                 );          
                 """;
@@ -37,7 +37,7 @@ public class DatosDetalleCompraProducto : RepositorioDatosBase<DetalleCompraProd
                 SET
                     id_compra={objeto.IdCompra},
                     id_producto={objeto.IdProducto},
-                    cantidad='{objeto.Cantidad.ToString("0.00", CultureInfo.InvariantCulture)}',
+                    cantidad='{objeto.Cantidad.ToString("N2", CultureInfo.InvariantCulture)}',
                     precio_compra={objeto.PrecioCompra.ToString(CultureInfo.InvariantCulture)}
                 WHERE id_detalle_compra_producto={objeto.Id};
                 """;

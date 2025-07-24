@@ -170,14 +170,14 @@ public partial class VistaRegistroProductoP2 : Form {
     }
 
     public void ConfigurarVisibilidadCamposAlmacenStock(bool mostrarAlmacenStock) {
-        // Ajustar visibilidad y altura de filas para almacén y stock inicial
+        // Ajustar visibilidad y altura de filas para almacén y cantidad inicial
         layoutTituloAlmacenStock.Visible = mostrarAlmacenStock;
         layoutBase.RowStyles[12].Height = mostrarAlmacenStock ? 35F : 0F;
 
         layoutAlmacenStock.Visible = mostrarAlmacenStock;
         layoutBase.RowStyles[13].Height = mostrarAlmacenStock ? 45F : 0F;
 
-        // Ajustar el separador según si el campo de almacén y stock está visible
+        // Ajustar el separador según si el campo de almacén y cantidad está visible
         separador1.Visible = mostrarAlmacenStock;
         layoutBase.RowStyles[11].Height = mostrarAlmacenStock ? 20F : 0F;
 

@@ -68,11 +68,12 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
                 Entidad.IdDetalleProducto = datos.Insertar(detalleProducto);
 
                 // Stock inicial del producto
-                UtilesMovimiento.ModificarStockProductoAlmacen(
-                    Entidad.Id,
+                UtilesMovimiento.ModificarInventario(
+                    Objeto.Id,
                     0,
                     UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
-                    Vista.StockInicial
+                    Vista.StockInicial,
+                    UtilesProducto.ObtenerCostoUnitario(Objeto.Id).Result
                 );
             }
 

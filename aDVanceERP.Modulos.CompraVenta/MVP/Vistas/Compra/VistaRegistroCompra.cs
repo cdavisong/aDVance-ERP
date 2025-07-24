@@ -74,11 +74,11 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
     public List<string[]>? Productos { get; private set; }
 
-    public float Cantidad {
-        get => float.TryParse(fieldCantidad.Text, CultureInfo.InvariantCulture, out var cantidad) 
+    public decimal Cantidad {
+        get => decimal.TryParse(fieldCantidad.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) 
             ? cantidad 
             : 0;
-        set => fieldCantidad.Text = value > 0 ? value.ToString("0.00", CultureInfo.InvariantCulture) : "0.00";
+        set => fieldCantidad.Text = value > 0 ? value.ToString("N2", CultureInfo.InvariantCulture) : "N2";
         
     }
 
@@ -193,7 +193,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         var idAlmacen = await UtilesAlmacen.ObtenerIdAlmacen(adNombreAlmacen);
         var adNombreProducto = string.IsNullOrEmpty(nombreProducto) ? NombreProducto : nombreProducto;
         var idProducto = await UtilesProducto.ObtenerIdProducto(adNombreProducto);
-        var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString("0.00", CultureInfo.InvariantCulture) : cantidad;
+        var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString("N2", CultureInfo.InvariantCulture) : cantidad;
 
         if (!ModoEdicionDatos) {
             // Verificar ID del producto
@@ -228,7 +228,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
                 Productos[indiceProducto][3] =
                     (decimal.Parse(Productos[indiceProducto][3], NumberStyles.Any, CultureInfo.InvariantCulture) + 
                      decimal.Parse(adCantidad, NumberStyles.Any, CultureInfo.InvariantCulture))
-                     .ToString("0.00", CultureInfo.InvariantCulture);
+                     .ToString("N2", CultureInfo.InvariantCulture);
             }
             else {
                 Productos.Add(tuplaProducto);

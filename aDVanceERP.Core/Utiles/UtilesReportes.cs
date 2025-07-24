@@ -274,7 +274,7 @@ public static class UtilesReportes {
         xPos += anchoUM;
 
         // Stock
-        gfx.DrawString(producto["stock"], fontContenido, XBrushes.Black,
+        gfx.DrawString(producto["cantidad"], fontContenido, XBrushes.Black,
             new XRect(xPos, yPoint, anchoStock, alturaFila), XStringFormats.TopRight);
         xPos += anchoStock;
 
@@ -304,7 +304,7 @@ public static class UtilesReportes {
                                       int margenIzquierdo, int margenDerecho, ref double yPoint, int alturaFila) {
         // Calcular totales
         int totalProductos = productos.Count;
-        decimal valorTotalCosto = productos.Sum(p => decimal.Parse(p["stock"], NumberStyles.Any, CultureInfo.InvariantCulture) * decimal.Parse(p["precio_costo"], NumberStyles.Any, CultureInfo.InvariantCulture));
+        decimal valorTotalCosto = productos.Sum(p => decimal.Parse(p["cantidad"], NumberStyles.Any, CultureInfo.InvariantCulture) * decimal.Parse(p["precio_costo"], NumberStyles.Any, CultureInfo.InvariantCulture));
 
         // Dibujar línea divisoria
         gfx.DrawLine(XPens.Black, margenIzquierdo, yPoint, gfx.PageSize.Width - margenDerecho, yPoint);
@@ -396,13 +396,13 @@ public static class UtilesReportes {
                     ELSE p.precio_compra
                 END as precio_costo,
                 p.precio_venta_base as precio_venta,
-                pa.stock,
+                pa.cantidad,
                 um.abreviatura as unidad_medida
-            FROM adv__producto_almacen pa
+            FROM adv__inventario pa
             JOIN adv__producto p ON pa.id_producto = p.id_producto
             JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
             JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
-            WHERE pa.stock > 0
+            WHERE pa.cantidad > 0
             ORDER BY pa.id_almacen, p.nombre
             """;
 
@@ -421,7 +421,7 @@ public static class UtilesReportes {
                             ["categoria"] = reader["categoria"].ToString(),
                             ["precio_costo"] = reader.GetDecimal("precio_costo").ToString("N2", CultureInfo.InvariantCulture),
                             ["precio_venta"] = reader.GetDecimal("precio_venta").ToString("N2", CultureInfo.InvariantCulture),
-                            ["stock"] = reader.GetDecimal("stock").ToString("N2", CultureInfo.InvariantCulture),
+                            ["cantidad"] = reader.GetDecimal("cantidad").ToString("N2", CultureInfo.InvariantCulture),
                             ["unidad_medida"] = reader["unidad_medida"].ToString()
                         };
 
@@ -1087,11 +1087,11 @@ public static class UtilesReportes {
                     m.cantidad_movida,
                     tm.nombre as tipo_movimiento,
                     tm.efecto,
-                    pa.stock as saldo_actual
+                    pa.cantidad as saldo_actual
                 FROM adv__movimiento m
                 JOIN adv__producto p ON m.id_producto = p.id_producto
                 JOIN adv__tipo_movimiento tm ON m.id_tipo_movimiento = tm.id_tipo_movimiento
-                JOIN adv__producto_almacen pa ON m.id_producto = pa.id_producto 
+                JOIN adv__inventario pa ON m.id_producto = pa.id_producto 
                     AND (m.id_almacen_origen = pa.id_almacen OR m.id_almacen_destino = pa.id_almacen)
                 WHERE m.fecha BETWEEN @fechaInicio AND @fechaFin
             ";
@@ -1204,7 +1204,7 @@ public static class UtilesReportes {
                     ELSE p.precio_compra
                 END as costo_unitario
                 FROM adv__producto p
-                JOIN adv__producto_almacen pa ON p.id_producto = pa.id_producto
+                JOIN adv__inventario pa ON p.id_producto = pa.id_producto
                 JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
                 JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
                 """;

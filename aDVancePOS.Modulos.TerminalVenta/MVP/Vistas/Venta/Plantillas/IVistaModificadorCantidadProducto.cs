@@ -3,5 +3,5 @@
 namespace aDVancePOS.Modulos.TerminalVenta.MVP.Vistas.Venta.Plantillas; 
 
 public interface IVistaModificadorCantidadProducto : IVista {
-    float CantidadProducto { get; set; }
+    decimal CantidadProducto { get; set; }
 }

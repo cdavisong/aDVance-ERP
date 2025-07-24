@@ -6,7 +6,7 @@ namespace aDVancePOS.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorModificadorCantidadProducto? _modificadorCantidadProductos;
 
-        private float Cantidad { get; set; } = 1;
+        private decimal Cantidad { get; set; } = 1;
 
         private void InicializarVistaModificadorCantidadProducto() {
             _modificadorCantidadProductos = new PresentadorModificadorCantidadProducto(new VistaModificadorCantidadProducto());
