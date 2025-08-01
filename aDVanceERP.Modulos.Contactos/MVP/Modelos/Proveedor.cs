@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos;
 
-public class Proveedor : IObjetoUnico {
+public class Proveedor : IEntidadBd {
     public Proveedor() { }
 
     public Proveedor(long idProveedor, string razonSocial, string numeroIdentificacionTributaria,

@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos; 
 
@@ -8,7 +8,7 @@ public enum CategoriaTelefonoContacto {
     Movil
 }
 
-public class TelefonoContacto : IObjetoUnico {
+public class TelefonoContacto : IEntidadBd {
     public TelefonoContacto() { }
 
     public TelefonoContacto(long idTelefonoContacto, string prefijo, string numero, CategoriaTelefonoContacto categoria,

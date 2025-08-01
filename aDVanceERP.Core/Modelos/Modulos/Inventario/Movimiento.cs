@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario; 
 
-public class Movimiento : IObjetoUnico {
+public class Movimiento : IEntidadBd {
     public Movimiento() { }
 
     public Movimiento(long id, long idProducto, long idAlmacenOrigen, long idAlmacenDestino, DateTime fecha,
@@ -16,13 +16,14 @@ public class Movimiento : IObjetoUnico {
         IdTipoMovimiento = idTipoMovimiento;
     }
 
-    public long Id { get; set; }
     public long IdProducto { get; set; }
     public long IdAlmacenOrigen { get; set; }
     public long IdAlmacenDestino { get; set; }
     public DateTime Fecha { get; set; }
     public decimal CantidadMovida { get; set; }
     public long IdTipoMovimiento { get; set; }
+
+    public long Id { get; set; }
 }
 
 public enum CriterioBusquedaMovimiento {

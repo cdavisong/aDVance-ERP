@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario; 
 
-public class Almacen : IObjetoUnico {
+public class Almacen : IEntidadBd {
     public Almacen() { }
 
     public Almacen(long idAlmacen, string nombre, string direccion, bool autorizoVenta, string notas) {

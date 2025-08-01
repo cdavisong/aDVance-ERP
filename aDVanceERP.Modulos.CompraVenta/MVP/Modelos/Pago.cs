@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
@@ -8,7 +8,7 @@ public enum TipoMoneda {
     USD
 }
 
-public class Pago : IObjetoUnico {
+public class Pago : IEntidadBd {
     public Pago() { }
 
     public Pago(long id, long idVenta, string metodoPago, decimal monto) {

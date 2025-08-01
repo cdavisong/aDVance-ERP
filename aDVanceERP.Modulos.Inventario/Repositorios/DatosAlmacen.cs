@@ -1,6 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;

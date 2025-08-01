@@ -1,9 +1,9 @@
 ﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 using aDVanceERP.Modulos.Inventario.Repositorios;

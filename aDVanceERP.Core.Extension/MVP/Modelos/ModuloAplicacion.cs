@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Core.Extension.MVP.Modelos; 
 
-public class ModuloAplicacion : IObjetoUnico {
+public class ModuloAplicacion : IEntidadBd {
     public ModuloAplicacion() { }
 
     public ModuloAplicacion(long id, string? nombre, string? version) {

@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Core.MVP.Modelos;
 
-public class UnidadMedida : IObjetoUnico {
+public class UnidadMedida : IEntidadBd {
     public UnidadMedida() {
         Id = 0;
         Nombre = string.Empty;

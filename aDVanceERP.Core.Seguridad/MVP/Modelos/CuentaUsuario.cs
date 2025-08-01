@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-public class CuentaUsuario : IObjetoUnico {
+public class CuentaUsuario : IEntidadBd {
     public CuentaUsuario() { }
 
     public CuentaUsuario(long id, string nombre, string passwordHash, string passwordSalt, long idRolUsuario) {

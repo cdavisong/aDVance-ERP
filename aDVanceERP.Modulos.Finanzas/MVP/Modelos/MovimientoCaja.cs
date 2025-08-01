@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
     public enum TipoMovimientoCaja {
@@ -6,7 +6,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         Egreso
     }
 
-    public class MovimientoCaja : IObjetoUnico {
+    public class MovimientoCaja : IEntidadBd {
         public MovimientoCaja() { }
 
         public MovimientoCaja(long id, long idCaja, DateTime fecha, decimal monto, TipoMovimientoCaja tipo, string? concepto, long idPago, long idUsuario, string? observaciones) {

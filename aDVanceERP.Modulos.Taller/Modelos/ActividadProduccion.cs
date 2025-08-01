@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
     public enum TipoCostoActividad {
@@ -6,7 +6,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         Fijo
     }
 
-    public class ActividadProduccion : IObjetoUnico {
+    public class ActividadProduccion : IEntidadBd {
         public ActividadProduccion() {
             Nombre = "Genérica";
             TipoCosto = TipoCostoActividad.PorHora;

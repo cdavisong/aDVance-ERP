@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario; 
 
-public class Inventario : IObjetoUnico {
+public class Inventario : IEntidadBd {
     public Inventario() { }
 
     public Inventario(long idInventario, long idProducto, long idAlmacen, decimal cantidad, decimal costoPromedio, decimal valorTotal, DateTime ultimaActualizacion) {

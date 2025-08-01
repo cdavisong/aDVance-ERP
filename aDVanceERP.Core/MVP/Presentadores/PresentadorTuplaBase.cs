@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Utiles;
@@ -7,7 +7,7 @@ namespace aDVanceERP.Core.MVP.Presentadores;
 
 public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresentadorTupla<Vt, O>
     where Vt : class, IVistaTupla
-    where O : class, IObjetoUnico, new() {
+    where O : class, IEntidadBd, new() {
     private bool disposedValue;
 
     protected PresentadorTuplaBase(Vt vista, O objeto) : base(vista) {

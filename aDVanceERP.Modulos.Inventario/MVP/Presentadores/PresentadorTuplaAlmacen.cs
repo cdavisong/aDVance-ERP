@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 

@@ -61,11 +61,11 @@ namespace aDVanceERP.Core.Utiles.Datos {
         public static List<string> ObtenerConceptosGastosIndirectosUtilizados() {
             var conceptos = new List<string>();
             var query = """
-            SELECT DISTINCT concepto
-            FROM adv__orden_gasto_indirecto
-            WHERE concepto IS NOT NULL AND concepto != ''
-            ORDER BY concepto;
-            """;
+                SELECT DISTINCT concepto
+                FROM adv__orden_gasto_indirecto
+                WHERE concepto IS NOT NULL AND concepto != ''
+                ORDER BY concepto;
+                """;
 
             using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
                 conexion.Open();

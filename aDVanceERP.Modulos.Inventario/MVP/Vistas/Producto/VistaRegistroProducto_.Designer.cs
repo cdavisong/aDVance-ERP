@@ -815,7 +815,6 @@
             // 
             // fieldImagen
             // 
-            fieldImagen.BackgroundImage = Inventario.Properties.Resources.picture_170px;
             fieldImagen.BackgroundImageLayout = ImageLayout.Center;
             fieldImagen.Cursor = Cursors.Hand;
             fieldImagen.Dock = DockStyle.Fill;

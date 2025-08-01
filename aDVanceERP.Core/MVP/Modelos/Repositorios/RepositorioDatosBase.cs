@@ -1,13 +1,14 @@
 ﻿using aDVanceERP.Core.Datos;
 using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.MVP.Modelos.Plantillas;
+using aDVanceERP.Core.Modelos.Comun;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios; 
 
 public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDisposable
-    where O : class, IObjetoUnico, new()
+    where O : class, IEntidadBd, new()
     where C : Enum {
     protected RepositorioDatosBase() {
         Objetos = new List<O>();

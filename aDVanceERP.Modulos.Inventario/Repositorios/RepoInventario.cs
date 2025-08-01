@@ -1,16 +1,18 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
+
 using MySql.Data.MySqlClient;
+
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class RepoInventario : RepositorioDatosBase<MVP.Modelos.Inventario, CriterioBusquedaInventario> {
+public class RepoInventario : RepositorioDatosBase<Core.Modelos.Modulos.Inventario.Inventario, CriterioBusquedaInventario> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_inventario) FROM adv__inventario;";
     }
 
-    public override string ComandoAdicionar(MVP.Modelos.Inventario objeto) {
+    public override string ComandoAdicionar(Core.Modelos.Modulos.Inventario.Inventario objeto) {
         return $"""
             INSERT INTO adv__inventario (
                 id_producto, 
@@ -24,7 +26,7 @@ public class RepoInventario : RepositorioDatosBase<MVP.Modelos.Inventario, Crite
             """;
     }
 
-    public override string ComandoEditar(MVP.Modelos.Inventario objeto) {
+    public override string ComandoEditar(Core.Modelos.Modulos.Inventario.Inventario objeto) {
         return $"""
             UPDATE adv__inventario 
             SET 
@@ -66,8 +68,8 @@ public class RepoInventario : RepositorioDatosBase<MVP.Modelos.Inventario, Crite
         return comando;
     }
 
-    public override MVP.Modelos.Inventario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
-        return new MVP.Modelos.Inventario(
+    public override Core.Modelos.Modulos.Inventario.Inventario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        return new Core.Modelos.Modulos.Inventario.Inventario(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_inventario")),
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_producto")),
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_almacen")),

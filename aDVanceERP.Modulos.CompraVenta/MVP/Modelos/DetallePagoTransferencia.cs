@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
 
-public class DetallePagoTransferencia : IObjetoUnico {
+public class DetallePagoTransferencia : IEntidadBd {
     public DetallePagoTransferencia() { }
 
     public DetallePagoTransferencia(long id, long idVenta, long idTarjeta, string numeroConfirmacion,

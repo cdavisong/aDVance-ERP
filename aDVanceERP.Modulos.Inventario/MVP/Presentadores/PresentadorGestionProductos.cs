@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 using aDVanceERP.Modulos.Inventario.Repositorios;

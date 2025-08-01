@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
 
-public class Compra : IObjetoUnico {
+public class Compra : IEntidadBd {
     public Compra() { }
 
     public Compra(long id, DateTime fecha, long idAlmacen, long idProveedor, decimal total) {

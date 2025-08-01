@@ -1,7 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
-    public class OrdenActividadProduccion : IObjetoUnico {
+    public class OrdenActividadProduccion : IEntidadBd {
         public OrdenActividadProduccion() {
             IdOrdenProduccion = 0;
             Nombre = string.Empty;

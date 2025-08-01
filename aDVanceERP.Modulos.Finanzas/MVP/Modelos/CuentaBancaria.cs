@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos; 
 
@@ -8,7 +8,7 @@ public enum TipoMoneda {
     USD
 }
 
-public class CuentaBancaria : IObjetoUnico {
+public class CuentaBancaria : IEntidadBd {
     public CuentaBancaria() { }
 
     public CuentaBancaria(long id, string alias, string numeroTarjeta, TipoMoneda moneda, long idContacto) {

@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 

@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-public class SesionUsuario : IObjetoUnico {
+public class SesionUsuario : IEntidadBd {
     public SesionUsuario() { }
 
     public SesionUsuario(long id, int idCuentaUsuario, string? token, DateTime fechaInicio) {

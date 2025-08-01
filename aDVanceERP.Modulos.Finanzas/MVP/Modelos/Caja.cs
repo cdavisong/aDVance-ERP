@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
     public enum EstadoCaja {
@@ -7,7 +7,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         Cerrada
     }
 
-    public class Caja : IObjetoUnico {
+    public class Caja : IEntidadBd {
         public Caja() { }
 
         public Caja(long id, DateTime fechaApertura, decimal saldoInicial, decimal saldoActual, DateTime fechaCierre, long idCuentaUsuario) {

@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
     public partial class VistaRegistroProductoP1_1 : Form {

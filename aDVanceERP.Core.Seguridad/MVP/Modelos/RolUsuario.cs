@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-public class RolUsuario : IObjetoUnico {
+public class RolUsuario : IEntidadBd {
     public RolUsuario() { }
 
     public RolUsuario(long id, string nombre) {
