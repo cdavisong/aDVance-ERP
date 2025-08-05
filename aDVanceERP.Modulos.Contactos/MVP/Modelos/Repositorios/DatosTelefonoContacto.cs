@@ -1,11 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, CriterioBusquedaTelefonoContacto>,
-    IRepositorioTelefonoContacto {
+public class DatosTelefonoContacto : RepoBase<TelefonoContacto, CriterioBusquedaTelefonoContacto> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_telefono_contacto) FROM adv__telefono_contacto;";
     }
@@ -24,7 +23,7 @@ public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, Crit
         return $"DELETE FROM adv__telefono_contacto WHERE id_telefono_contacto={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaTelefonoContacto criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaTelefonoContacto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -45,7 +44,7 @@ public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, Crit
         return comando;
     }
 
-    public override TelefonoContacto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override TelefonoContacto MapearEntidad(MySqlDataReader lectorDatos) {
         return new TelefonoContacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_telefono_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("prefijo")),

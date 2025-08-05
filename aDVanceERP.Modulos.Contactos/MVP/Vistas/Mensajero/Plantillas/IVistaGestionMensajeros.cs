@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 

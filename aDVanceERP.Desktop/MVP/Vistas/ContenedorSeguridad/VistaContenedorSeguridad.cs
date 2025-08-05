@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad; 
+namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad;
 
 public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad {
     public VistaContenedorSeguridad() {
@@ -41,7 +41,7 @@ public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad 
 
     public void Inicializar() {
         // Propiedades locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
     }
 
     public void Mostrar() {

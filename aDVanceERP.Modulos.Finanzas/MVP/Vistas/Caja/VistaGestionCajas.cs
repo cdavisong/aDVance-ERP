@@ -1,10 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
+{
     public partial class VistaGestionCajas : Form, IVistaGestionCajas {
         private int _paginaActual = 1;
         private int _paginasTotales = 1;
@@ -92,7 +93,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
 
         public void Inicializar() {
             // Variables locales
-            Vistas = new RepositorioVistaBase(contenedorVistas);
+            Vistas = new PanelContenedorVistas(contenedorVistas);
 
             // Eventos
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {

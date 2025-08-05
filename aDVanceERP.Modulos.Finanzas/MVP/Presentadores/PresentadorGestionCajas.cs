@@ -50,7 +50,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
                     tupla.Objeto.Estado = EstadoCaja.Cerrada;
 
                     // Editar la venta del producto
-                    DatosObjeto.Editar(tupla.Objeto);
+                    DatosObjeto.Actualizar(tupla.Objeto);
 
                     break;
                 }

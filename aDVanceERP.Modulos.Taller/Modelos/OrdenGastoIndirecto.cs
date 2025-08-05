@@ -1,7 +1,4 @@
-﻿using aDVanceERP.Core.Datos.Interfaces;
-using aDVanceERP.Core.Modelos.Comun;
-
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
     public class OrdenGastoIndirecto : IEntidadBd {
@@ -32,6 +29,18 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public decimal Monto { get; set; }
         public decimal Total { get; set; }
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+            throw new NotImplementedException();
+        }
     }
 
     public enum CriterioBusquedaOrdenGastoIndirecto {

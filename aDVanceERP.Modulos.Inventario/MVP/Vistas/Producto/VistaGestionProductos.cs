@@ -1,11 +1,10 @@
 ﻿using System.Globalization;
-
-using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.Interfaces.Comun;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
@@ -105,7 +104,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         fieldNombreAlmacen.SelectedIndexChanged += delegate (object? sender, EventArgs e) {

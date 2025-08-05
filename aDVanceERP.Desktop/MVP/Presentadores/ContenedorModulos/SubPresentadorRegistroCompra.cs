@@ -3,13 +3,13 @@
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
@@ -99,7 +99,7 @@ public partial class PresentadorContenedorModulos {
             );
 
             using (var datosProducto = new DatosDetalleCompraProducto())
-                datosProducto.Adicionar(detalleCompraProducto);
+                datosProducto.Insertar(detalleCompraProducto);
 
             RegistrarMovimientoCompraProducto(detalleCompraProducto, producto);
             ModificarStockCompraProducto(detalleCompraProducto, producto);

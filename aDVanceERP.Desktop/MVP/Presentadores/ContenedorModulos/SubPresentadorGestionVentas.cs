@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Modelos;
+﻿using aDVanceERP.Core.Controladores.Comun;
+using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
@@ -14,14 +14,14 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
     private PresentadorGestionVentas? _gestionVentas;
-    private ControladorArchivosAndroid _androidFileManager;
+    private ControladorArchivosDispositivoAndroid _androidFileManager;
 
     private async void InicializarVistaGestionVentas() {
         _gestionVentas = new PresentadorGestionVentas(new VistaGestionVentas());
         _gestionVentas.EditarObjeto += OnMostrarVistaEdicionVentaProducto;
         _gestionVentas.Vista.RegistrarDatos += OnMostrarVistaRegistroVentaProducto;
         _gestionVentas.Vista.ImportarVentasArchivo += OnImportarVentasArchivo;
-        _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
+        _androidFileManager = new ControladorArchivosDispositivoAndroid(Application.StartupPath);
 
         if (Vista.Vistas != null)
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionVentas", _gestionVentas.Vista));
@@ -45,7 +45,7 @@ public partial class PresentadorContenedorModulos {
             return;
 
         //TODO: Mejorar la velocidad de la operación con una conexion unica 
-        //var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
+        //var conexion = new MySqlConnection(ConexionServidorMySQL.ConfServidorMySQL.ToString());
 
         foreach (var ventaJson in ventasJson) {
             var idAlmacen = 0L;
@@ -71,7 +71,7 @@ public partial class PresentadorContenedorModulos {
             }
 
             using (var repoVentas = new DatosVenta()) {
-                ventaJson.IdVenta = repoVentas.Adicionar(new Venta(0,
+                ventaJson.IdVenta = repoVentas.Insertar(new Venta(0,
                     ventaJson.Fecha,
                     idAlmacen,
                     0,
@@ -89,7 +89,7 @@ public partial class PresentadorContenedorModulos {
 
 
             using (var repoPagos = new DatosPago()) {
-                pago.Id = repoPagos.Adicionar(pago);
+                pago.Id = repoPagos.Insertar(pago);
             }
 
             RegistrarDetallesVentaProducto();

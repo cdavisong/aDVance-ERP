@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
@@ -90,7 +90,7 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {

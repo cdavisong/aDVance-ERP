@@ -78,7 +78,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
                     );
 
                 // 3. Actualizar el mensajero 1 vez por tupla
-                datosMensajero.Editar(mensajero);
+                datosMensajero.Actualizar(mensajero);
             }
         }
 

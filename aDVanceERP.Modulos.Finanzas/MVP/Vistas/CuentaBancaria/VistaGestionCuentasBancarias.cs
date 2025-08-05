@@ -1,11 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria; 
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria;
 
 public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBancarias {
     private int _paginaActual = 1;
@@ -83,7 +83,7 @@ public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBa
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {

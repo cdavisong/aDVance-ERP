@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos; 
 
@@ -15,7 +15,19 @@ public class Mensajero : IEntidadBd {
     public long Id { get; set; }
     public string Nombre { get; set; }
     public bool Activo { get; set; }
-    public long IdContacto { get; set; }    
+    public long IdContacto { get; set; }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+        throw new NotImplementedException();
+    }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+        throw new NotImplementedException();
+    }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+        throw new NotImplementedException();
+    }
 }
 
 public enum CriterioBusquedaMensajero {

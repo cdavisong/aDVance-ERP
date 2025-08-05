@@ -1,11 +1,12 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Modulos.Taller.Modelos;
 
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Repositorios {
-    public class RepoOrdenMateriaPrima : RepositorioDatosBase<OrdenMateriaPrima, CriterioBusquedaOrdenMateriaPrima> {
+namespace aDVanceERP.Modulos.Taller.Repositorios
+{
+    public class RepoOrdenMateriaPrima : RepoBase<OrdenMateriaPrima, CriterioBusquedaOrdenMateriaPrima> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_material) 
@@ -58,7 +59,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 """;
         }
 
-        public override string ComandoObtener(CriterioBusquedaOrdenMateriaPrima criterio, string dato) {
+        public override string GenerarQueryObtener(CriterioBusquedaOrdenMateriaPrima criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
@@ -78,7 +79,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
             };
         }
 
-        public override OrdenMateriaPrima ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override OrdenMateriaPrima MapearEntidad(MySqlDataReader lectorDatos) {
             return new OrdenMateriaPrima {
                 Id = lectorDatos.GetInt64("id_orden_material"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

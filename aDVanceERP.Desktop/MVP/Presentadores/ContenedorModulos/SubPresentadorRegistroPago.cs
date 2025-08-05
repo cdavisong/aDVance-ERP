@@ -79,7 +79,7 @@ public partial class PresentadorContenedorModulos {
                 return;
 
             objetoSeguimiento.FechaPago = DateTime.Now;
-            datosSeguimiento.Editar(objetoSeguimiento);
+            datosSeguimiento.Actualizar(objetoSeguimiento);
         }
     }
 
@@ -105,11 +105,11 @@ public partial class PresentadorContenedorModulos {
                         $"Pago de venta #{(pago.IdVenta > 0 ? pago.IdVenta : _registroPago?.Vista.IdVenta)} realizado por {UtilesCuentaUsuario.UsuarioAutenticado?.Nombre}"
                     );
 
-                    datos.Adicionar(movimientoCaja);
+                    datos.Insertar(movimientoCaja);
                 } else {
                     movimientoCaja.Monto = pago.Monto;
 
-                    datos.Editar(movimientoCaja);
+                    datos.Actualizar(movimientoCaja);
                 }
             }
 

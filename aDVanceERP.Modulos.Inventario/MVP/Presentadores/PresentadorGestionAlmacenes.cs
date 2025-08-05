@@ -1,7 +1,7 @@
-﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+﻿using aDVanceERP.Core.Controladores.Comun;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
@@ -12,11 +12,11 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTuplaAlmacen, IVistaGestionAlmacenes,
     IVistaTuplaAlmacen, Almacen, DatosAlmacen, CriterioBusquedaAlmacen> {
-    private ControladorArchivosAndroid _androidFileManager;
+    private ControladorArchivosDispositivoAndroid _androidFileManager;
     private bool _dispositivoConectado;
 
     public PresentadorGestionAlmacenes(IVistaGestionAlmacenes vista) : base(vista) {
-        _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
+        _androidFileManager = new ControladorArchivosDispositivoAndroid(Application.StartupPath);
     }
 
     protected override PresentadorTuplaAlmacen ObtenerValoresTupla(Almacen objeto) {

@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.Modelos.Modulos.Seguridad;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
-using aDVanceERP.Core.Seguridad.MVP.Modelos;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 
 public interface IVistaGestionCuentasUsuarios : IVistaContenedor, IGestorDatos,
     IBuscadorDatos<CriterioBusquedaCuentaUsuario>, IGestorTablaDatos {

@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 using System.Drawing.Imaging;
 
@@ -73,6 +73,18 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
             } catch {
                 _logotipo = null;
             }
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+            throw new NotImplementedException();
         }
     }
 

@@ -1,12 +1,12 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, CriterioBusquedaDetalleProducto>, IRepositorioDetalleProducto
+public class DatosDetalleProducto : RepoBase<DetalleProducto, CriterioBusquedaDetalleProducto>
 {
     public override string ComandoCantidad()
     {
@@ -49,7 +49,7 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
                     """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaDetalleProducto criterio, string dato)
+    public override string GenerarQueryObtener(CriterioBusquedaDetalleProducto criterio, string dato)
     {
         var comando = criterio switch
         {
@@ -72,7 +72,7 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
         return comando;
     }
 
-    public override DetalleProducto ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    public override DetalleProducto MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new DetalleProducto(
             id: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_detalle_producto")),

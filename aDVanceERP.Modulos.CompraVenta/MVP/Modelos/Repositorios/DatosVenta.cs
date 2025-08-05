@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Comun;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IRepositorioVenta {
+public class DatosVenta : RepoBase<Venta, CriterioBusquedaVenta> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_venta) FROM adv__venta;";
     }
@@ -81,7 +81,7 @@ public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IR
                 """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaVenta criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaVenta criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -107,7 +107,7 @@ public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IR
         return comando;
     }
 
-    public override Venta ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Venta MapearEntidad(MySqlDataReader lectorDatos) {
         return new Venta(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

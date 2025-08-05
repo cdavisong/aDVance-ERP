@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
     public class OrdenMateriaPrima : IEntidadBd {
@@ -31,6 +31,18 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public decimal CostoUnitario { get; set; }
         public decimal Total { get; set; }
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+            throw new NotImplementedException();
+        }
     }
 
     public enum CriterioBusquedaOrdenMateriaPrima {

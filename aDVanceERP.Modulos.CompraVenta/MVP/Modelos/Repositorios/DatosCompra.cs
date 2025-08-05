@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>, IRepositorioCompra {
+public class DatosCompra : RepoBase<Compra, CriterioBusquedaCompra> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_compra) FROM adv__compra;";
     }
@@ -63,7 +63,7 @@ public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>,
                 """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaCompra criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaCompra criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -106,7 +106,7 @@ public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>,
         return comando;
     }
 
-    public override Compra ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Compra MapearEntidad(MySqlDataReader lectorDatos) {
         return new Compra(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

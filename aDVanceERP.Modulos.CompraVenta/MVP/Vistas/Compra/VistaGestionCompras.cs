@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
+using aDVanceERP.Core.Interfaces.Comun;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
 
 public partial class VistaGestionCompras : Form, IVistaGestionCompras {
     private int _paginaActual = 1;
@@ -102,7 +102,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
 
     public void Inicializar() {
         // Vistas
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         btnDescargar.Click += delegate {

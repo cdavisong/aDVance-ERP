@@ -1,13 +1,13 @@
 ﻿using System.Globalization;
+using aDVanceERP.Core.Interfaces.Comun;
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Modelos;
+using aDVanceERP.Core.Modelos.Modulos.Finanzas;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
 
 public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestionPagos {
     private bool _modoEdicion;
@@ -112,7 +112,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
     public void Inicializar() {
         Pagos = new List<string[]>();
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         CargarTiposMoneda(Enum.GetNames(typeof(TipoMoneda)));
         CargarMetodosPago();

@@ -1,12 +1,11 @@
-﻿using aDVanceERP.Core.Datos;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.Utiles;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Controladores.Comun;
+using aDVanceERP.Core.Repositorios.Comun;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
-    public class DatosEmpresa : RepositorioDatosBase<Empresa, CriterioBusquedaEmpresa>, IRepositorioEmpresa {
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
+{
+    public class DatosEmpresa : RepoBase<Empresa, CriterioBusquedaEmpresa> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_empresa) 
@@ -27,10 +26,10 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
                 """;
         }
 
-        public override long Adicionar(Empresa objeto) {
+        public override long Insertar(Empresa objeto) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConexionServidorMySQL.ConfServidorMySQL.ToString())) {
                 conexion.Open();
 
                 using (var comando = new MySqlCommand(ComandoAdicionar(objeto), conexion)) {
@@ -48,7 +47,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
         public override async Task<long> AdicionarAsync(Empresa objeto) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConexionServidorMySQL.ConfServidorMySQL.ToString())) {
                 await conexion.OpenAsync().ConfigureAwait(false);
 
                 using (var comando = new MySqlCommand(ComandoAdicionar(objeto), conexion)) {
@@ -74,10 +73,10 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
                 """;
         }
 
-        public override bool Editar(Empresa objeto, long nuevoId = 0) {
+        public override bool Actualizar(Empresa objeto, long nuevoId = 0) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConexionServidorMySQL.ConfServidorMySQL.ToString())) {
                 conexion.Open();
 
                 using (var comando = new MySqlCommand(ComandoEditar(objeto), conexion)) {
@@ -95,7 +94,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
         public override async Task<bool> EditarAsync(Empresa objeto, long nuevoId = 0) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConexionServidorMySQL.ConfServidorMySQL.ToString())) {
                 await conexion.OpenAsync().ConfigureAwait(false);
 
                 using (var comando = new MySqlCommand(ComandoEditar(objeto), conexion)) {
@@ -117,7 +116,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
                 """;
         }
 
-        public override string ComandoObtener(CriterioBusquedaEmpresa criterio, string dato) {
+        public override string GenerarQueryObtener(CriterioBusquedaEmpresa criterio, string dato) {
             string? comando;
 
             switch (criterio) {
@@ -135,7 +134,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
             return comando;
         }
 
-        public override Empresa ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override Empresa MapearEntidad(MySqlDataReader lectorDatos) {
             var empresa = new Empresa(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_empresa")),
                 null,

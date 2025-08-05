@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
 public interface IVistaGestionVentas : IVistaContenedor, IGestorDatos, IBuscadorDatos<CriterioBusquedaVenta>,
     IGestorTablaDatos {

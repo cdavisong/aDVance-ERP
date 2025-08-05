@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.Mensajes.Utiles;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
@@ -10,7 +10,8 @@ using aDVanceERP.Modulos.Taller.Repositorios;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
+namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
+{
     public partial class VistaRegistroOrdenProduccion : Form, IVistaRegistroOrdenProduccion {
         private bool _habilitada;
         private bool _modoEdicion;
@@ -148,9 +149,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
         public void Inicializar() {
             // Vistas
-            VistasMateriaPrima = new RepositorioVistaBase(contenedorVistasMateriaPrima);
-            VistasActividadProduccion = new RepositorioVistaBase(contenedorVistasActividadesProduccion);
-            VistasGastosIndirectos = new RepositorioVistaBase(contenedorVistasGastosIndirectos);
+            VistasMateriaPrima = new PanelContenedorVistas(contenedorVistasMateriaPrima);
+            VistasActividadProduccion = new PanelContenedorVistas(contenedorVistasActividadesProduccion);
+            VistasGastosIndirectos = new PanelContenedorVistas(contenedorVistasGastosIndirectos);
 
             // Datos
             FechaApertura = DateTime.Now;

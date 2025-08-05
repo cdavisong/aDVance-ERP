@@ -1,13 +1,12 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-
+using aDVanceERP.Core.Repositorios.Comun;
 using MySql.Data.MySqlClient;
 
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class RepoInventario : RepositorioDatosBase<Core.Modelos.Modulos.Inventario.Inventario, CriterioBusquedaInventario> {
+public class RepoInventario : RepoBase<Core.Modelos.Modulos.Inventario.Inventario, CriterioBusquedaInventario> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_inventario) FROM adv__inventario;";
     }
@@ -47,7 +46,7 @@ public class RepoInventario : RepositorioDatosBase<Core.Modelos.Modulos.Inventar
         return $"SELECT * FROM adv__inventario WHERE id_inventario='{dato}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaInventario criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaInventario criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -68,7 +67,7 @@ public class RepoInventario : RepositorioDatosBase<Core.Modelos.Modulos.Inventar
         return comando;
     }
 
-    public override Core.Modelos.Modulos.Inventario.Inventario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Core.Modelos.Modulos.Inventario.Inventario MapearEntidad(MySqlDataReader lectorDatos) {
         return new Core.Modelos.Modulos.Inventario.Inventario(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_inventario")),
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_producto")),

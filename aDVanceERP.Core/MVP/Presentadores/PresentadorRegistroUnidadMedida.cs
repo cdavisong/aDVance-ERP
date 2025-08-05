@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Vistas.UnidadMedida.Plantillas;
+using aDVanceERP.Core.Repositorios.Modulos.Finanzas;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
 
-public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaRegistroUnidadMedida, UnidadMedida, DatosUnidadMedida, CriterioBusquedaUnidadMedida> {
+public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaRegistroUnidadMedida, UnidadMedida, RepoUnidadMedida, FiltroBusquedaUnidadMedida> {
     public PresentadorRegistroUnidadMedida(IVistaRegistroUnidadMedida vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(UnidadMedida objeto) {

@@ -1,16 +1,14 @@
-﻿using aDVanceERP.Core.Datos;
+﻿using aDVanceERP.Core.Controladores.Comun;
 using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas;
-using aDVanceERP.Core.Utiles;
+using aDVanceERP.Core.Modelos.Modulos.Seguridad;
+using aDVanceERP.Core.Repositorios.Comun;
 
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
-public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, CriterioBusquedaPermisoRolUsuario>,
-    IRepositorioPermisoRolUsuario {
-    public override string ComandoAdicionar(PermisoRolUsuario objeto) {
+public class DatosPermisoRolUsuario : RepoBase<RolPermisoUsuario, CriterioBusquedaPermisoRolUsuario> {
+    public override string ComandoAdicionar(RolPermisoUsuario objeto) {
         return $"INSERT INTO adv__rol_permiso (id_rol_usuario, id_permiso) VALUES ('{objeto.IdRolUsuario}', '{objeto.IdPermiso}');";
     }
 
@@ -18,7 +16,7 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
         return "SELECT COUNT(id_rol_permiso) FROM adv__rol_permiso;";
     }
 
-    public override string ComandoEditar(PermisoRolUsuario objeto) {
+    public override string ComandoEditar(RolPermisoUsuario objeto) {
         return $"UPDATE adv__rol_permiso SET id_rol_usuario = '{objeto.IdRolUsuario}', id_permiso = '{objeto.IdPermiso}' WHERE id_rol_permiso = {objeto.Id};";
     }
 
@@ -30,7 +28,7 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
         return $"SELECT COUNT(1) FROM adv__rol_permiso WHERE id_rol_permiso = '{dato}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaPermisoRolUsuario criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaPermisoRolUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
             case CriterioBusquedaPermisoRolUsuario.Id:
@@ -44,8 +42,8 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
         return comando;
     }
 
-    public override PermisoRolUsuario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
-        return new PermisoRolUsuario(
+    public override RolPermisoUsuario MapearEntidad(MySqlDataReader lectorDatos) {
+        return new RolPermisoUsuario(
             lectorDatos.GetInt64("id_rol_permiso"),
             lectorDatos.GetInt64("id_rol_usuario"),
             lectorDatos.GetInt64("id_permiso")
@@ -53,10 +51,11 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
     }
 
     public void EliminarPorRol(long idRolUsuario) {
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConexionServidorMySQL.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
-            } catch (Exception) {
+            }
+            catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
 

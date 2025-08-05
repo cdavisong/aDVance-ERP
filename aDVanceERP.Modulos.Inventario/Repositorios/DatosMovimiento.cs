@@ -1,6 +1,5 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Comun;
 
 using MySql.Data.MySqlClient;
 
@@ -8,15 +7,12 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusquedaMovimiento>, IRepositorioMovimiento
-{
-    public override string ComandoCantidad()
-    {
+public class DatosMovimiento : RepoBase<Movimiento, CriterioBusquedaMovimiento> {
+    public override string ComandoCantidad() {
         return "SELECT COUNT(id_movimiento) FROM adv__movimiento;";
     }
 
-    public override string ComandoAdicionar(Movimiento objeto)
-    {
+    public override string ComandoAdicionar(Movimiento objeto) {
         return $"""
                 INSERT INTO adv__movimiento (
                     id_producto,
@@ -37,8 +33,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
                 """;
     }
 
-    public override string ComandoEditar(Movimiento objeto)
-    {
+    public override string ComandoEditar(Movimiento objeto) {
         return $"""
                 UPDATE adv__movimiento
                 SET
@@ -52,17 +47,14 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
                 """;
     }
 
-    public override string ComandoEliminar(long id)
-    {
+    public override string ComandoEliminar(long id) {
         return $"DELETE FROM adv__movimiento WHERE id_movimiento='{id}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaMovimiento criterio, string dato)
-    {
+    public override string GenerarQueryObtener(CriterioBusquedaMovimiento criterio, string dato) {
         string? comando;
 
-        switch (criterio)
-        {
+        switch (criterio) {
             case CriterioBusquedaMovimiento.Id:
                 comando = $"SELECT * FROM adv__movimiento WHERE id_movimiento = '{dato}';";
                 break;
@@ -96,8 +88,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
         return comando;
     }
 
-    public override Movimiento ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
-    {
+    public override Movimiento MapearEntidad(MySqlDataReader lectorDatos) {
         return new Movimiento(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
@@ -109,8 +100,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
         );
     }
 
-    public override string ComandoExiste(string dato)
-    {
+    public override string ComandoExiste(string dato) {
         return $"SELECT COUNT(1) FROM adv__movimiento WHERE id_movimiento='{dato}';";
     }
 }

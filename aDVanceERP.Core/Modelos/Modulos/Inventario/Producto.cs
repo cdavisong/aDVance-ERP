@@ -1,17 +1,15 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
-namespace aDVanceERP.Core.Modelos.Modulos.Inventario; 
+using MySql.Data.MySqlClient;
+using System.Globalization;
 
-public enum CategoriaProducto {
-    Mercancia,
-    ProductoTerminado,
-    MateriaPrima
-}
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario;
 
 public class Producto : IEntidadBd {
     public Producto() {
         Categoria = CategoriaProducto.Mercancia;
         Nombre = "Producto genérico";
+        Codigo = string.Empty;
     }
 
     public Producto(long id, CategoriaProducto categoria, string nombre, string codigo, long idDetalleProducto, long idProveedor,
@@ -29,10 +27,24 @@ public class Producto : IEntidadBd {
         PrecioVentaBase = precioVentaBase;
     }
 
+    public Producto(MySqlDataReader reader) {
+        Id = reader.GetInt32("id_producto");
+        Categoria = Enum.TryParse(reader.GetString("categoria"), true, out CategoriaProducto categoria) ? categoria : CategoriaProducto.Mercancia;
+        Codigo = reader.GetString("codigo");
+        Nombre = reader.GetString("nombre");
+        IdDetalleProducto = reader.GetInt32("id_detalle_producto");
+        IdProveedor = reader.GetInt32("id_proveedor");
+        IdTipoMateriaPrima = reader.GetInt32("id_tipo_materia_prima");
+        EsVendible = reader.GetBoolean("es_vendible");
+        PrecioCompra = reader.GetDecimal("precio_compra");
+        CostoProduccionUnitario = reader.GetDecimal("costo_produccion_unitario");
+        PrecioVentaBase = reader.GetDecimal("precio_venta_base");
+    }
+
     public long Id { get; set; }
     public CategoriaProducto Categoria { get; set; }
     public string Nombre { get; set; }
-    public string? Codigo { get; }
+    public string Codigo { get; }
     public long IdDetalleProducto { get; set; }
     public long IdProveedor { get; set; }
     public long IdTipoMateriaPrima { get; set; } = 0; // Solo para materias primas
@@ -40,6 +52,89 @@ public class Producto : IEntidadBd {
     public decimal PrecioCompra { get; }
     public decimal CostoProduccionUnitario { get; } = 0.0m; // Solo para productos terminados
     public decimal PrecioVentaBase { get; }
+
+    #region CRUD querys :
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+        const string query = """
+            UPDATE `adv__producto` 
+            SET 
+                id_producto = @Id, 
+                categoria = @Categoria, 
+                codigo = @Codigo, 
+                nombre = @Nombre, 
+                id_detalle_producto = @IdDetalleProducto, 
+                id_proveedor = @IdProveedor, 
+                id_tipo_materia_prima = @IdTipoMateriaPrima, 
+                es_vendible = @EsVendible, 
+                precio_compra = @PrecioCompra, 
+                costo_produccion_unitario = @CostoProduccionUnitario, 
+                precio_venta_base = @PrecioVentaBase 
+            WHERE id_producto = @Id;
+            """;
+        var parametros = new Dictionary<string, object>() {
+            { "@Id", Id },
+            { "@Categoria", Categoria.ToString() },
+            { "@Codigo", Codigo },
+            { "@Nombre", Nombre },
+            { "@IdDetalleProducto", IdDetalleProducto },
+            { "@IdProveedor", IdProveedor },
+            { "@IdTipoMateriaPrima", IdTipoMateriaPrima },
+            { "@EsVendible", EsVendible ? 1 : 0 },
+            { "@PrecioCompra", PrecioCompra.ToString("N2", CultureInfo.InvariantCulture) },
+            { "@CostoProduccionUnitario", CostoProduccionUnitario.ToString("N2", CultureInfo.InvariantCulture) },
+            { "@PrecioVentaBase", PrecioVentaBase.ToString("N2", CultureInfo.InvariantCulture) }
+        };
+
+        return (query, parametros);
+    }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+        const string query = """
+            INSERT INTO `adv__producto` 
+            VALUES ( 
+                '',
+                @Categoria, 
+                @Codigo, 
+                @Nombre, 
+                @IdDetalleProducto, 
+                @IdProveedor, 
+                @IdTipoMateriaPrima, 
+                @EsVendible, 
+                @PrecioCompra, 
+                @CostoProduccionUnitario, 
+                @PrecioVentaBase
+            );
+            """;
+        var parametros = new Dictionary<string, object>() {
+            { "@Categoria", Categoria.ToString() },
+            { "@Codigo", Codigo },
+            { "@Nombre", Nombre },
+            { "@IdDetalleProducto", IdDetalleProducto },
+            { "@IdProveedor", IdProveedor },
+            { "@IdTipoMateriaPrima", IdTipoMateriaPrima },
+            { "@EsVendible", EsVendible ? 1 : 0 },
+            { "@PrecioCompra", PrecioCompra.ToString("N2", CultureInfo.InvariantCulture) },
+            { "@CostoProduccionUnitario", CostoProduccionUnitario.ToString("N2", CultureInfo.InvariantCulture) },
+            { "@PrecioVentaBase", PrecioVentaBase.ToString("N2", CultureInfo.InvariantCulture) }
+        };
+
+        return (query, parametros);
+    }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+        const string query = """
+            DELETE FROM `adv__producto` 
+            WHERE id_producto = @Id;
+            """;
+        var parametros = new Dictionary<string, object>() {
+            { "@Id", Id }
+        };
+
+        return (query, parametros);
+    }
+
+    #endregion
 }
 
 public enum CriterioBusquedaProducto {
@@ -60,16 +155,3 @@ public static class UtilesBusquedaProducto {
     };
 }
 
-public static class UtilesCategoriaProducto {
-    public static object[] CategoriaProducto = {
-        "Mercancía (Producto revendido)",
-        "Producto terminado",
-        "Materia prima"
-    };
-
-    public static string[] DescripcionesProducto = {
-        "Artículos comprados a proveedores para ser vendidos directamente sin modificaciones. No requieren proceso de fabricación",
-        "Artículos elaborados por la empresa a partir de materias primas y mano de obra. Su costo incluye materiales, actividades de producción y costos asociados",
-        "Insumos o materiales utilizados para fabricar productos terminados. Pueden venderse directamente si están configurados para ello"
-    };
-}

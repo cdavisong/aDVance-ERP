@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaCliente>, IRepositorioCliente {
+public class DatosCliente : RepoBase<Cliente, CriterioBusquedaCliente> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_cliente) FROM adv__cliente;";
     }
@@ -21,7 +21,7 @@ public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaClient
         return $"DELETE FROM adv__cliente WHERE id_cliente={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaCliente criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaCliente criterio, string dato) {
         string? comando;
 
         switch (criterio) {
@@ -42,7 +42,7 @@ public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaClient
         return comando;
     }
 
-    public override Cliente ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Cliente MapearEntidad(MySqlDataReader lectorDatos) {
         return new Cliente(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("numero")),

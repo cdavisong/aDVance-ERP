@@ -1,11 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosSeguimientoEntrega : RepositorioDatosBase<SeguimientoEntrega, CriterioBusquedaSeguimientoEntrega>,
-    IRepositorioSeguimientoEntrega {
+public class DatosSeguimientoEntrega : RepoBase<SeguimientoEntrega, CriterioBusquedaSeguimientoEntrega> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(*) FROM adv__seguimiento_entrega";
     }
@@ -24,7 +23,7 @@ public class DatosSeguimientoEntrega : RepositorioDatosBase<SeguimientoEntrega, 
         return $"DELETE FROM adv__seguimiento_entrega WHERE id_seguimiento_entrega = {id}";
     }
 
-    public override string ComandoObtener(CriterioBusquedaSeguimientoEntrega criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaSeguimientoEntrega criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -58,7 +57,7 @@ public class DatosSeguimientoEntrega : RepositorioDatosBase<SeguimientoEntrega, 
         return comando;
     }
 
-    public override SeguimientoEntrega ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override SeguimientoEntrega MapearEntidad(MySqlDataReader lectorDatos) {
         return new SeguimientoEntrega(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_seguimiento_entrega")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

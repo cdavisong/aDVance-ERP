@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Controladores.Comun;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Presentadores.Principal;
 
@@ -32,7 +32,7 @@ internal static class Program {
     private static bool VerificarEjecutarParcheBD() {
         try {
             // Verificar si el patch ya fue aplicado
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConexionServidorMySQL.ConfServidorMySQL.ToString())) {
                 conexion.Open();
 
                 // Crear tabla de control de versiones si no existe
@@ -86,7 +86,7 @@ internal static class Program {
             patchProcess.Start();
             patchProcess.WaitForExit();
 
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConexionServidorMySQL.ConfServidorMySQL.ToString())) {
                 conexion.Open();
 
                 // Registrar la versión aplicada

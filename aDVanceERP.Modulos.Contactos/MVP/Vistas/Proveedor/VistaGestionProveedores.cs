@@ -1,11 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor;
 
 public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
     private int _paginaActual = 1;
@@ -84,7 +84,7 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {

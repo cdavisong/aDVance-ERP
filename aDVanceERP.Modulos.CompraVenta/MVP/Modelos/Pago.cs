@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
@@ -27,6 +27,18 @@ public class Pago : IEntidadBd {
     public string? Estado { get; set; }
 
     public long Id { get; set; }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+        throw new NotImplementedException();
+    }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+        throw new NotImplementedException();
+    }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+        throw new NotImplementedException();
+    }
 }
 
 public enum CriterioBusquedaPago {

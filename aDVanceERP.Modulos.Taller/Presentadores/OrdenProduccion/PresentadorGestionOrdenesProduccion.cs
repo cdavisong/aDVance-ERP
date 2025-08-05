@@ -46,7 +46,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                         tupla.Objeto.FechaCierre = DateTime.Now;
 
                         // Editar la orden de producción
-                        DatosObjeto.Editar(tupla.Objeto);
+                        DatosObjeto.Actualizar(tupla.Objeto);
 
                         // Actualizar el costo unitario de producción en el producto correspondiente
                         UtilesProducto.ActualizarCostoProduccionUnitario(tupla.Objeto.IdProducto, tupla.Objeto.PrecioUnitario);

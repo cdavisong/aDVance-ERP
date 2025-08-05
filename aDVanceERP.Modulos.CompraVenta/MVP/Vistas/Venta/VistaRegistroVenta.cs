@@ -1,16 +1,16 @@
 ﻿using System.Globalization;
+using aDVanceERP.Core.Interfaces.Comun;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
 public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGestionDetallesCompraventaProductos {
     private bool _modoEdicion;
@@ -161,7 +161,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
     public void Inicializar() {
         Productos = new List<string[]>();
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos            
         btnCerrar.Click += delegate(object? sender, EventArgs args) {

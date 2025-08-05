@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
     public enum TipoCostoActividad {
@@ -31,6 +31,18 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public decimal Costo { get; set; } // Costo por hora o costo fijo
         public string? Descripcion { get; set; }
         public bool Activo { get; set; } = true;
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+            throw new NotImplementedException();
+        }
     }
 
     public enum CriterioBusquedaActividadProduccion {

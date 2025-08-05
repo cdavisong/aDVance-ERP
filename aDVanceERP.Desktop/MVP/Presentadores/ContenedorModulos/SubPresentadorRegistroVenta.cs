@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
-using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
@@ -143,7 +143,7 @@ public partial class PresentadorContenedorModulos {
             );
 
             using (var datosProducto = new DatosDetalleVentaProducto()) {
-                datosProducto.Adicionar(detalleVentaProducto);
+                datosProducto.Insertar(detalleVentaProducto);
             }
 
             RegistrarMovimientoVentaProducto(detalleVentaProducto, producto);

@@ -1,11 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
 using Guna.UI2.WinForms;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.Principal; 
+namespace aDVanceERP.Desktop.MVP.Vistas.Principal;
 
 public partial class VistaPrincipal : Form, IVistaPrincipal {
     public VistaPrincipal() {
@@ -73,8 +73,8 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         };
 
         // Repositorios
-        Vistas = new RepositorioVistaBase(contenedorVistas);
-        Menus = new RepositorioVistaBase(contenedorMenus);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
+        Menus = new PanelContenedorVistas(contenedorMenus);
 
         // Eventos        
         btnNotificaciones.Click += delegate(object? sender, EventArgs args) {

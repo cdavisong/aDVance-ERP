@@ -1,11 +1,12 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Modulos.Taller.Modelos;
 
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Repositorios {
-    public class RepoOrdenProduccion : RepositorioDatosBase<OrdenProduccion, CriterioBusquedaOrdenProduccion> {
+namespace aDVanceERP.Modulos.Taller.Repositorios
+{
+    public class RepoOrdenProduccion : RepoBase<OrdenProduccion, CriterioBusquedaOrdenProduccion> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_produccion) 
@@ -73,7 +74,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 """;
         }
 
-        public override string ComandoObtener(CriterioBusquedaOrdenProduccion criterio, string dato) {
+        public override string GenerarQueryObtener(CriterioBusquedaOrdenProduccion criterio, string dato) {
             return criterio switch {
                 CriterioBusquedaOrdenProduccion.Todas =>
                     "SELECT * FROM adv__orden_produccion;",
@@ -91,7 +92,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
             };
         }
 
-        public override OrdenProduccion ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override OrdenProduccion MapearEntidad(MySqlDataReader lectorDatos) {
             return new OrdenProduccion {
                 Id = lectorDatos.GetInt64("id_orden_produccion"),
                 NumeroOrden = lectorDatos.GetString("numero_orden"),

@@ -1,10 +1,9 @@
 ﻿using System.Globalization;
-
+using aDVanceERP.Core.Controladores.Comun;
+using aDVanceERP.Core.Interfaces.Comun;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
@@ -15,7 +14,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
 public partial class VistaGestionVentas : Form, IVistaGestionVentas {
-    private ControladorArchivosAndroid _androidFileManager;
+    private ControladorArchivosDispositivoAndroid _androidFileManager;
 
     private int _paginaActual = 1;
     private int _paginasTotales = 1;
@@ -24,7 +23,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         InitializeComponent();
         Inicializar();
 
-        _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
+        _androidFileManager = new ControladorArchivosDispositivoAndroid(Application.StartupPath);
     }
 
     public bool Habilitada {
@@ -123,7 +122,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
 
     public void Inicializar() {
         // Vistas
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         btnDescargar.Click += delegate {

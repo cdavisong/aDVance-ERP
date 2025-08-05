@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
-namespace aDVanceERP.Core.MVP.Vistas.Plantillas; 
+namespace aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 public interface IVistaContenedor : IVista {
     int AlturaContenedorVistas { get; }

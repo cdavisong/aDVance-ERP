@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
     public enum EstadoOrdenProduccion {
@@ -45,6 +45,18 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public decimal CostoTotal { get; set; }
         public decimal PrecioUnitario { get; set; }
         public decimal MargenGanancia { get; set; }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+            throw new NotImplementedException();
+        }
     }
 
     public enum CriterioBusquedaOrdenProduccion {

@@ -1,11 +1,12 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Modulos.Taller.Modelos;
 
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Repositorios {
-    public class RepoOrdenGastoIndirecto : RepositorioDatosBase<OrdenGastoIndirecto, CriterioBusquedaOrdenGastoIndirecto> {
+namespace aDVanceERP.Modulos.Taller.Repositorios
+{
+    public class RepoOrdenGastoIndirecto : RepoBase<OrdenGastoIndirecto, CriterioBusquedaOrdenGastoIndirecto> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_gasto_indirecto) 
@@ -55,7 +56,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 """;
         }
 
-        public override string ComandoObtener(CriterioBusquedaOrdenGastoIndirecto criterio, string dato) {
+        public override string GenerarQueryObtener(CriterioBusquedaOrdenGastoIndirecto criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
@@ -75,7 +76,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
             };
         }
 
-        public override OrdenGastoIndirecto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override OrdenGastoIndirecto MapearEntidad(MySqlDataReader lectorDatos) {
             return new OrdenGastoIndirecto {
                 Id = lectorDatos.GetInt64("id_orden_gasto_indirecto"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

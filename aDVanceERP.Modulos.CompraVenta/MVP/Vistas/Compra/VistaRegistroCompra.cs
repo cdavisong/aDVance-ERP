@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
+using aDVanceERP.Core.Interfaces.Comun;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
@@ -98,7 +98,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
     public void Inicializar() {
         Productos = new List<string[]>();
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) {

@@ -1,12 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
 public class DatosDetallePagoTransferencia :
-    RepositorioDatosBase<DetallePagoTransferencia, CriterioBusquedaDetallePagoTransferencia>,
-    IRepositorioDetallePagoTransferencia {
+    RepoBase<DetallePagoTransferencia, CriterioBusquedaDetallePagoTransferencia> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_detalle_pago_transferencia) FROM adv__detalle_pago_transferencia;";
     }
@@ -28,7 +27,7 @@ public class DatosDetallePagoTransferencia :
         return $"DELETE FROM adv__detalle_pago_transferencia WHERE id_detalle_pago_transferencia = {id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaDetallePagoTransferencia criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaDetallePagoTransferencia criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -54,7 +53,7 @@ public class DatosDetallePagoTransferencia :
         return $"SELECT COUNT(1) FROM adv__detalle_pago_transferencia WHERE id_detalle_pago_transferencia = {dato};";
     }
 
-    public override DetallePagoTransferencia ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override DetallePagoTransferencia MapearEntidad(MySqlDataReader lectorDatos) {
         return new DetallePagoTransferencia(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_pago_transferencia")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

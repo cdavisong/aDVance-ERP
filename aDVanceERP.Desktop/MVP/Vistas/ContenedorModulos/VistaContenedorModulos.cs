@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
@@ -60,7 +60,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
 
     public void Inicializar() {
         // Propiedades locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
         btnInicio.Checked = true;
 
         // Eventos

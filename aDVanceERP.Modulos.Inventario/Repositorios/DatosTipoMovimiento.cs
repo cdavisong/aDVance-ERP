@@ -1,41 +1,31 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
-
+using aDVanceERP.Core.Repositorios.Comun;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosTipoMovimiento : RepositorioDatosBase<TipoMovimiento, CriterioBusquedaTipoMovimiento>,
-    IRepositorioTipoMovimiento
-{
-    public override string ComandoCantidad()
-    {
+public class DatosTipoMovimiento : RepoBase<TipoMovimiento, CriterioBusquedaTipoMovimiento> {
+    public override string ComandoCantidad() {
         return "SELECT COUNT(id_tipo_movimiento) FROM adv__tipo_movimiento;";
     }
 
-    public override string ComandoAdicionar(TipoMovimiento objeto)
-    {
+    public override string ComandoAdicionar(TipoMovimiento objeto) {
         return $"INSERT INTO adv__tipo_movimiento (nombre, efecto) VALUES ('{objeto.Nombre}', '{(int)objeto.Efecto}');";
     }
 
-    public override string ComandoEditar(TipoMovimiento objeto)
-    {
+    public override string ComandoEditar(TipoMovimiento objeto) {
         return
             $"UPDATE adv__tipo_movimiento SET nombre='{objeto.Nombre}', efecto='{(int)objeto.Efecto}' WHERE id_tipo_movimiento='{objeto.Id}';";
     }
 
-    public override string ComandoEliminar(long id)
-    {
+    public override string ComandoEliminar(long id) {
         return $"DELETE FROM adv__tipo_movimiento WHERE id_tipo_movimiento='{id}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaTipoMovimiento criterio, string dato)
-    {
+    public override string GenerarQueryObtener(CriterioBusquedaTipoMovimiento criterio, string dato) {
         string comando;
 
-        switch (criterio)
-        {
+        switch (criterio) {
             case CriterioBusquedaTipoMovimiento.Id:
                 comando = $"SELECT * FROM adv__tipo_movimiento WHERE id_tipo_movimiento='{dato}';";
                 break;
@@ -50,8 +40,7 @@ public class DatosTipoMovimiento : RepositorioDatosBase<TipoMovimiento, Criterio
         return comando;
     }
 
-    public override TipoMovimiento ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
-    {
+    public override TipoMovimiento MapearEntidad(MySqlDataReader lectorDatos) {
         return new TipoMovimiento(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_tipo_movimiento")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
@@ -59,8 +48,7 @@ public class DatosTipoMovimiento : RepositorioDatosBase<TipoMovimiento, Criterio
         );
     }
 
-    public override string ComandoExiste(string dato)
-    {
+    public override string ComandoExiste(string dato) {
         return $"SELECT COUNT(1) FROM adv__tipo_movimiento WHERE id_tipo_movimiento='{dato}';";
     }
 }

@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
-using aDVanceERP.Core.Seguridad.MVP.Modelos;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.Modelos.Modulos.Seguridad;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 using aDVanceERP.Core.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
 
 public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsuarios {
     private int _paginaActual = 1;
@@ -90,7 +90,7 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {

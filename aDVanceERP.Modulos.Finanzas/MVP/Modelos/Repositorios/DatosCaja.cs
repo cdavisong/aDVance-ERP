@@ -1,12 +1,12 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 
 using MySql.Data.MySqlClient;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
-    public class DatosCaja : RepositorioDatosBase<Caja, CriterioBusquedaCaja>, IRepositorioCaja {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios
+{
+    public class DatosCaja : RepoBase<Caja, CriterioBusquedaCaja> {
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_caja) FROM adv__caja;";
         }
@@ -26,7 +26,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
             ";
         }
 
-        public override string ComandoObtener(CriterioBusquedaCaja criterio, string dato) {
+        public override string GenerarQueryObtener(CriterioBusquedaCaja criterio, string dato) {
             switch (criterio) {
                 case CriterioBusquedaCaja.Id:
                     return $"SELECT * FROM adv__caja WHERE id_caja={dato};";
@@ -41,7 +41,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
             }
         }
 
-        public override Caja ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override Caja MapearEntidad(MySqlDataReader lectorDatos) {
             return new Caja(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_caja")),
                 lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha_apertura")),

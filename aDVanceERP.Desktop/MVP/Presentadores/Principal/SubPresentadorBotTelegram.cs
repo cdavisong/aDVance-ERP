@@ -1,6 +1,5 @@
 ﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Utiles.Datos;
@@ -9,6 +8,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using System.Globalization;
 using Telegram.Bot.Types;
+using aDVanceERP.Core.Modelos.Modulos.Seguridad;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
     public partial class PresentadorPrincipal {
@@ -629,7 +629,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                         Aprobado = false
                     };
 
-                    datosUsuario.Adicionar(nuevoUsuario);
+                    datosUsuario.Insertar(nuevoUsuario);
 
                     await ResponderMensaje(mensaje.IdChat,
                         $"✅ Registro exitoso\n\n" +

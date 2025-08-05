@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
     public enum TipoMovimientoCaja {
@@ -30,6 +30,18 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         public long IdPago { get; set; }
         public long IdUsuario { get; set; }
         public string? Observaciones { get; set; }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+            throw new NotImplementedException();
+        }
     }
 
     public enum CriterioBusquedaMovimientoCaja {

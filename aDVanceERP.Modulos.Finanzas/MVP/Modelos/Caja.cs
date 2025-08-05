@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
     public enum EstadoCaja {
@@ -26,6 +26,18 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         public decimal SaldoActual { get; set; }
         public DateTime FechaCierre { get; set; }
         public long IdCuentaUsuario { get; set; }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+            throw new NotImplementedException();
+        }
+
+        public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+            throw new NotImplementedException();
+        }
     }
 
     public enum CriterioBusquedaCaja {

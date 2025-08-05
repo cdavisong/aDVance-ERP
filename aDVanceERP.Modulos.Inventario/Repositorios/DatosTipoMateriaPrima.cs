@@ -1,12 +1,12 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosTipoMateriaPrima : RepositorioDatosBase<TipoMateriaPrima, CriterioBusquedaTipoMateriaPrima>, IRepositorioTipoMateriaPrima
+public class DatosTipoMateriaPrima : RepoBase<TipoMateriaPrima, CriterioBusquedaTipoMateriaPrima>
 {
     public override string ComandoCantidad()
     {
@@ -53,7 +53,7 @@ public class DatosTipoMateriaPrima : RepositorioDatosBase<TipoMateriaPrima, Crit
             """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaTipoMateriaPrima criterio, string dato)
+    public override string GenerarQueryObtener(CriterioBusquedaTipoMateriaPrima criterio, string dato)
     {
         return criterio switch
         {
@@ -67,7 +67,7 @@ public class DatosTipoMateriaPrima : RepositorioDatosBase<TipoMateriaPrima, Crit
         };
     }
 
-    public override TipoMateriaPrima ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    public override TipoMateriaPrima MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new TipoMateriaPrima(
             lectorDatos.GetInt64("id_tipo_materia_prima"),

@@ -6,7 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\aDVanceERP.Core.Datos\aDVanceERP.Core.Datos.csproj" />
     <ProjectReference Include="..\aDVanceERP.Core.Mensajes\aDVanceERP.Core.Mensajes.csproj" />
     <ProjectReference Include="..\aDVanceERP.Core\aDVanceERP.Core.csproj" />
   </ItemGroup>

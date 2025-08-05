@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
@@ -7,7 +7,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
 
 public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, IVistaGestionPermisos {
     private bool _modoEdicion;
@@ -78,7 +78,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
 
     public void Inicializar() {
         Permisos = new List<string[]>();
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         btnCerrar.Click += delegate(object? sender, EventArgs args) { 

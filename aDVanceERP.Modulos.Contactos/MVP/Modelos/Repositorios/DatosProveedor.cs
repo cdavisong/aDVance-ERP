@@ -1,13 +1,12 @@
-﻿using aDVanceERP.Core.Datos;
+﻿using aDVanceERP.Core.Controladores.Comun;
 using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.Utiles;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Comun;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaProveedor>, IRepositorioProveedor {
+public class DatosProveedor : RepoBase<Proveedor, CriterioBusquedaProveedor> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_proveedor) FROM adv__proveedor;";
     }
@@ -26,7 +25,7 @@ public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaPr
         return $"DELETE FROM adv__proveedor WHERE id_proveedor={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaProveedor criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaProveedor criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -47,7 +46,7 @@ public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaPr
         return comando;
     }
 
-    public override Proveedor ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Proveedor MapearEntidad(MySqlDataReader lectorDatos) {
         return new Proveedor(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("razon_social")),
@@ -66,7 +65,7 @@ public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaPr
     public static string[] ObtenerRazonesSocialesProveedores() {
         var nombresProveedores = new List<string>();
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConexionServidorMySQL.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }

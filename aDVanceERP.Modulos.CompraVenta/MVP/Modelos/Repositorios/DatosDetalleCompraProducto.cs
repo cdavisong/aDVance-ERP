@@ -1,12 +1,11 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Comun;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosDetalleCompraProducto : RepositorioDatosBase<DetalleCompraProducto, CriterioDetalleCompraProducto>,
-    IRepositorioDetalleCompraProducto {
+public class DatosDetalleCompraProducto : RepoBase<DetalleCompraProducto, CriterioDetalleCompraProducto> {
     public override string ComandoCantidad() {
         return """
                SELECT COUNT(id_detalle_compra_producto)
@@ -51,7 +50,7 @@ public class DatosDetalleCompraProducto : RepositorioDatosBase<DetalleCompraProd
                 """;
     }
 
-    public override string ComandoObtener(CriterioDetalleCompraProducto criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioDetalleCompraProducto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -93,7 +92,7 @@ public class DatosDetalleCompraProducto : RepositorioDatosBase<DetalleCompraProd
         return comando;
     }
 
-    public override DetalleCompraProducto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override DetalleCompraProducto MapearEntidad(MySqlDataReader lectorDatos) {
         return new DetalleCompraProducto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_compra_producto")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),

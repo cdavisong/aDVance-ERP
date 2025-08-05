@@ -1,12 +1,12 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen
+public class DatosAlmacen : RepoBase<Almacen, CriterioBusquedaAlmacen>
 {
     public override string ComandoCantidad()
     {
@@ -34,7 +34,7 @@ public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmace
         return $"DELETE FROM adv__almacen WHERE id_almacen={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaAlmacen criterio, string dato)
+    public override string GenerarQueryObtener(CriterioBusquedaAlmacen criterio, string dato)
     {
         var comando = string.Empty;
 
@@ -54,7 +54,7 @@ public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmace
         return comando;
     }
 
-    public override Almacen ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    public override Almacen MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new Almacen(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),

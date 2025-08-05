@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 
 namespace aDVanceERP.Core.Extension.MVP.Modelos; 
 
@@ -15,6 +15,18 @@ public class ModuloAplicacion : IEntidadBd {
     public string? Version { get; }
 
     public long Id { get; set; }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryDelete() {
+        throw new NotImplementedException();
+    }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryInsert() {
+        throw new NotImplementedException();
+    }
+
+    public (string query, Dictionary<string, object> parametros) GenerarQueryUpdate() {
+        throw new NotImplementedException();
+    }
 }
 
 public enum CriterioBusquedaModuloAplicacion {

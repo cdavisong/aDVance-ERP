@@ -1,11 +1,11 @@
-﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+﻿using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
+using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
@@ -89,7 +89,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new PanelContenedorVistas(contenedorVistas);
 
         // Eventos
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {

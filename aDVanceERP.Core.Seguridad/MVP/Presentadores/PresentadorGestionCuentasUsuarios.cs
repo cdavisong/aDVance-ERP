@@ -1,13 +1,13 @@
 ﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Modelos.Modulos.Seguridad;
 using aDVanceERP.Core.MVP.Presentadores;
-using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
 public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<PresentadorTuplaCuentaUsuario,
     IVistaGestionCuentasUsuarios, IVistaTuplaCuentaUsuario, CuentaUsuario, DatosCuentaUsuario,
@@ -39,7 +39,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
                     tupla.Objeto.Aprobado = true;
 
                     // Editar la cuenta de usuario
-                    DatosObjeto.Editar(tupla.Objeto);
+                    DatosObjeto.Actualizar(tupla.Objeto);
                 }
                 else {
                     usuariosRol0++;

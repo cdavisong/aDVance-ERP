@@ -1,10 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Modulos.Seguridad;
+using aDVanceERP.Core.Repositorios.Comun;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
-public class DatosRolUsuario : RepositorioDatosBase<RolUsuario, CriterioBusquedaRolUsuario>, IRepositorioRolUsuario {
+public class DatosRolUsuario : RepoBase<RolUsuario, CriterioBusquedaRolUsuario> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_rol_usuario) FROM adv__rol_usuario;";
     }
@@ -21,7 +22,7 @@ public class DatosRolUsuario : RepositorioDatosBase<RolUsuario, CriterioBusqueda
         return $"DELETE FROM adv__rol_usuario WHERE id_rol_usuario = {id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaRolUsuario criterio, string dato) {
+    public override string GenerarQueryObtener(CriterioBusquedaRolUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
             case CriterioBusquedaRolUsuario.Id:
@@ -38,7 +39,7 @@ public class DatosRolUsuario : RepositorioDatosBase<RolUsuario, CriterioBusqueda
         return comando;
     }
 
-    public override RolUsuario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override RolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new RolUsuario(
             lectorDatos.GetInt64("id_rol_usuario"),
             lectorDatos.GetString("nombre")

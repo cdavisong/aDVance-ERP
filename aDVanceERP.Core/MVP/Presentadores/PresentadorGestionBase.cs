@@ -1,18 +1,16 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
-using aDVanceERP.Core.MVP.Modelos.Plantillas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Interfaces.Comun;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Utiles;
 
-namespace aDVanceERP.Core.MVP.Presentadores; 
+namespace aDVanceERP.Core.MVP.Presentadores;
 
 public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : PresentadorBase<Vg>,
     IPresentadorGestion<Vg, Do, O, C>
     where Pt : IPresentadorTupla<Vt, O>
     where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
     where Vt : IVistaTupla
-    where Do : class, IRepositorioDatos<O, C>, new()
+    where Do : class, new()
     where O : class, IEntidadBd, new()
     where C : Enum {
     private readonly SemaphoreSlim _semaphore = new(1, 1); // Para controlar la concurrencia
@@ -63,7 +61,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
             var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
-            var objetos = (await DatosObjeto.ObtenerAsync(CriterioBusquedaObjeto, DatoBusquedaObjeto,
+            var objetos = (await DatosObjeto.(CriterioBusquedaObjeto, DatoBusquedaObjeto,
                 out var totalFilas, Vista.TuplasMaximasContenedor, incremento)).ToList();
             var calculoPaginas = totalFilas / Vista.TuplasMaximasContenedor;
             var entero = totalFilas % Vista.TuplasMaximasContenedor == 0;
@@ -123,7 +121,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
     protected virtual async void OnEliminarObjeto(object? sender, EventArgs e) {
         if (sender is O objeto)
             try {
-                await DatosObjeto.EliminarAsync(objeto.Id);
+                //DatosObjeto.Eliminar(objeto.Id);
                 Vista.PaginaActual = 1;
 
                 await RefrescarListaObjetos();
