@@ -1,7 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas {
-    public interface IVistaRegistroAperturaCaja : IVistaRegistro {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas
+{
+    public interface IVistaRegistroAperturaCaja : IVistaRegistroEdicion {
         DateTime Fecha { get; set; }
         decimal SaldoInicial { get; set; }
     }

@@ -10,7 +10,7 @@ public partial class VistaTuplaCuentaBancaria : Form, IVistaTuplaCuentaBancaria 
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -50,15 +50,15 @@ public partial class VistaTuplaCuentaBancaria : Form, IVistaTuplaCuentaBancaria 
         set => fieldNombrePropietario.Text = value;
     }
 
-    public Color ColorFondoTupla {
+    public Color ColorFondo {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;
     }
 
     public event EventHandler? TuplaSeleccionada;
     public event EventHandler? MostrarQR;
-    public event EventHandler? EditarDatosTupla;
-    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? EditarTuplaDatos;
+    public event EventHandler? EliminarTuplaDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
@@ -75,8 +75,8 @@ public partial class VistaTuplaCuentaBancaria : Form, IVistaTuplaCuentaBancaria 
 
             MostrarQR?.Invoke($"{Alias},{numeroTarjeta},{telefonoMovil}", e);
         };
-        btnEditar.Click += delegate(object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
-        btnEliminar.Click += delegate(object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
+        btnEditar.Click += delegate(object? sender, EventArgs e) { EditarTuplaDatos?.Invoke(this, e); };
+        btnEliminar.Click += delegate(object? sender, EventArgs e) { EliminarTuplaDatos?.Invoke(this, e); };
     }
 
     public void Mostrar() {
@@ -86,15 +86,15 @@ public partial class VistaTuplaCuentaBancaria : Form, IVistaTuplaCuentaBancaria 
     }
 
     public void Restaurar() {
-        ColorFondoTupla = BackColor;
+        ColorFondo = BackColor;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void VerificarPermisos() {

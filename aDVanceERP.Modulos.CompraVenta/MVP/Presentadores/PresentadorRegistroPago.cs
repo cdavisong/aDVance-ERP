@@ -1,20 +1,20 @@
 ﻿using System.Globalization;
 
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class
-    PresentadorRegistroPago : PresentadorRegistroBase<IVistaRegistroPago, Pago, DatosPago, CriterioBusquedaPago> {
+    PresentadorRegistroPago : PresentadorVistaRegistroEdicionBase<IVistaRegistroPago, Pago, DatosPago, CriterioBusquedaPago> {
     public PresentadorRegistroPago(IVistaRegistroPago vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Pago objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.IdVenta = objeto.IdVenta;
         Vista.Total = objeto.Monto;
 
@@ -63,7 +63,7 @@ public class
             return;
         
         foreach (var objeto in objetosVista) {
-            if (Vista.ModoEdicionDatos && objeto.Id != 0)
+            if (Vista.ModoEdicion && objeto.Id != 0)
                 _ = DatosObjeto.EditarAsync(Objeto);
             else if (objeto.Id != 0)
                 _ = DatosObjeto.EditarAsync(Objeto);
@@ -73,7 +73,7 @@ public class
 
         InvokeDatosRegistradosActualizados(objetosVista, e);
         Dispose();
-        Vista.Cerrar();
+        Vista.Dispose();
     }
 
     private List<Pago> ObtenerObjetosDesdeVista() {

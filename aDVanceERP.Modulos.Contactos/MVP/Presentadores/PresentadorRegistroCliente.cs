@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
@@ -7,12 +7,12 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistroCliente, Cliente, DatosCliente,
+public class PresentadorRegistroCliente : PresentadorVistaRegistroEdicionBase<IVistaRegistroCliente, Cliente, DatosCliente,
     CriterioBusquedaCliente> {
     public PresentadorRegistroCliente(IVistaRegistroCliente vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Cliente objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.RazonSocial = objeto.RazonSocial;
         Vista.Numero = objeto.Numero;
 
@@ -29,7 +29,7 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
-        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result > 0 && !Vista.ModoEdicionDatos;
+        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result > 0 && !Vista.ModoEdicion;
         var nombreOk = !string.IsNullOrEmpty(Vista.RazonSocial) && !nombreEncontrado;
         var telefonoOk = !string.IsNullOrEmpty(Vista.TelefonoMovil);
         var direccionOk = !string.IsNullOrEmpty(Vista.Direccion);
@@ -65,7 +65,7 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
             contacto.Direccion = Vista.Direccion;
             contacto.Notas = "Cliente";
 
-            if (Vista.ModoEdicionDatos && contacto.Id != 0)
+            if (Vista.ModoEdicion && contacto.Id != 0)
                 datosContacto.Actualizar(contacto);
             else if (contacto.Id != 0)
                 datosContacto.Actualizar(contacto);
@@ -97,14 +97,14 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
                         telefonos.Add(telefonoMovil);
                     }
                 } else {
-                    if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                    if (Vista.ModoEdicion && indiceTelefonoMovil != -1) {
                         datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
                         telefonos.RemoveAt(indiceTelefonoMovil);
                     }
                 }
 
                 foreach (var telefono in telefonos)
-                    if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                    if (Vista.ModoEdicion && telefono.Id != 0)
                         datosTelefonoContacto.Actualizar(telefono);
                     else if (telefono.Id != 0)
                         datosTelefonoContacto.Actualizar(telefono);

@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 
-public interface IVistaRegistroPago : IVistaRegistro {
+public interface IVistaRegistroPago : IVistaRegistroEdicion {
     long IdVenta { get; set; }
     string MetodoPago { get; set; }
     decimal Monto { get; set; }

@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 
 using aDVanceERP.Core.Mensajes.Utiles;
@@ -24,7 +24,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -49,7 +49,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
     public IRepositorioVista? Vistas { get; private set; }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -98,7 +98,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
             var idTipoEntregaPresencial = UtilesEntrega.ObtenerIdTipoEntrega("Presencial").Result;
 
-            if (ModoEdicionDatos && value.Equals(idTipoEntregaPresencial))
+            if (ModoEdicion && value.Equals(idTipoEntregaPresencial))
                 btnAsignarMensajeria.Enabled = false;
         }
     }
@@ -110,7 +110,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         set {
             _pagoEfectuado = value;
 
-            if (!ModoEdicionDatos) {
+            if (!ModoEdicion) {
                 fieldNombreProducto.ReadOnly = value;
                 fieldCantidad.ReadOnly = value;
                 btnEfectuarPago.Enabled = !value;
@@ -125,7 +125,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         set {
             _mensajeriaConfigurada = value;
 
-            if (!ModoEdicionDatos) {
+            if (!ModoEdicion) {
                 if (TipoEntrega == "Mensajería (sin fondo)") {
                     fieldNombreProducto.ReadOnly = true;
                     fieldCantidad.ReadOnly = true;
@@ -154,8 +154,8 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     public event EventHandler? ProductoEliminado;
     public event EventHandler? EfectuarPago;
     public event EventHandler? AsignarMensajeria;
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
@@ -207,10 +207,10 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             AsignarMensajeria?.Invoke(sender, args);
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) {
             Salir?.Invoke("exit", args);
@@ -259,7 +259,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString("N2", CultureInfo.InvariantCulture) : cantidad;
             var stockProducto = await UtilesProducto.ObtenerStockProducto(adNombreProducto, adNombreAlmacen);
 
-            if (!ModoEdicionDatos) {
+            if (!ModoEdicion) {
                 // Verificar ID y cantidad del producto
                 if (idProducto == 0 || stockProducto == 0) {
                     CentroNotificaciones.Mostrar($"El producto {adNombreProducto} no existe o no tiene cantidad disponible en el almacén {adNombreAlmacen}. Rectifique los datos.", TipoNotificacion.Advertencia);
@@ -337,7 +337,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     private void ActualizarTuplasProductos() {
         foreach (var tupla in contenedorVistas.Controls)
             if (tupla is IVistaTuplaDetalleCompraventaProducto vistaTupla)
-                vistaTupla.Cerrar();
+                vistaTupla.Dispose();
         contenedorVistas.Controls.Clear();
 
         // Restablecer útima coordenada Y de la tupla
@@ -351,7 +351,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             tuplaDetallesVentaProducto.NombreProducto = producto[1];
             tuplaDetallesVentaProducto.PrecioCompraventaFinal = producto[3];
             tuplaDetallesVentaProducto.Cantidad = producto[4];
-            tuplaDetallesVentaProducto.Habilitada = !ModoEdicionDatos;
+            tuplaDetallesVentaProducto.Habilitar = !ModoEdicion;
             tuplaDetallesVentaProducto.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
                 if (sender is not IVistaTuplaDetalleCompraventaProducto vista)
                     return;
@@ -365,7 +365,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
                 ActualizarTotal();
             };
-            tuplaDetallesVentaProducto.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+            tuplaDetallesVentaProducto.EliminarTuplaDatos += delegate (object? sender, EventArgs args) {
                 producto = sender as string[];
 
                 Productos.RemoveAt(Productos.FindIndex(p => p[0].Equals(producto?[0])));
@@ -418,7 +418,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         NombreProducto = string.Empty;
         fieldNombreProducto.AutoCompleteCustomSource.Clear();
         Total = 0;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
 
         fieldNombreProducto.Focus();
     }
@@ -427,9 +427,9 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
 
-        Dispose();
+        base.Dispose();
     }
 }

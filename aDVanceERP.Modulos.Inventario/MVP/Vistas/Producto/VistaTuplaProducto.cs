@@ -17,7 +17,7 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -94,7 +94,7 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
         }
     }
 
-    public Color ColorFondoTupla {
+    public Color ColorFondo {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;
     }
@@ -102,8 +102,8 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
     public event EventHandler? TuplaSeleccionada;
     public event EventHandler? MovimientoPositivoStock;
     public event EventHandler? MovimientoNegativoStock;
-    public event EventHandler? EditarDatosTupla;
-    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? EditarTuplaDatos;
+    public event EventHandler? EliminarTuplaDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
@@ -121,11 +121,11 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
             MovimientoNegativoStock?.Invoke(NombreAlmacen, e);
         };
         btnEditar.Click += delegate (object? sender, EventArgs e) {
-            EditarDatosTupla?.Invoke(this, e);
+            EditarTuplaDatos?.Invoke(this, e);
         };
         btnEliminar.Click += async delegate (object? sender, EventArgs e) {
             if (await UtilesProducto.PuedeEliminarProducto(long.Parse(Id)))
-                EliminarDatosTupla?.Invoke(this, e);
+                EliminarTuplaDatos?.Invoke(this, e);
             else
                 CentroNotificaciones.Mostrar(
                     $"No se puede eliminar el producto {Nombre}, existen registros de movimientos asociados al mismo y podría dañar la integridad y trazabilidad de los datos.",
@@ -144,15 +144,15 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
     }
 
     public void Restaurar() {
-        ColorFondoTupla = BackColor;
+        ColorFondo = BackColor;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void VerificarPermisos() {

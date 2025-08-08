@@ -45,7 +45,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         }
 
         presentadorTupla.Vista.Activo = objeto.Activo;
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnHabilitacionMensajero;
+        presentadorTupla.EntidadBdSeleccionada += CambiarVisibilidadBtnHabilitacionMensajero;
         presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnHabilitacionMensajero;
 
         return presentadorTupla;
@@ -74,7 +74,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
                         long.Parse(tupla.Vista.Id),
                         tupla.Vista.Nombre,
                         !tupla.Vista.Activo,
-                        tupla.Objeto.IdContacto
+                        tupla.EntidadBd.IdContacto
                     );
 
                 // 3. Actualizar el mensajero 1 vez por tupla

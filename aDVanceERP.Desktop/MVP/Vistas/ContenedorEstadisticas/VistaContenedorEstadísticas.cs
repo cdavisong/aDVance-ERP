@@ -14,7 +14,7 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -207,7 +207,7 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         Hide();
     }
 
-    public void Cerrar() { }
+    public void Dispose() { }
 
     private void RenderizarGraficoVentas(object? sender, PaintEventArgs e) {
         // Validar que se haya seleccionado un criterio de búsqueda

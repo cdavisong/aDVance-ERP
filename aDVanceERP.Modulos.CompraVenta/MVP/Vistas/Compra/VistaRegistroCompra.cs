@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
@@ -32,7 +32,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
     public IRepositorioVista? Vistas { get; private set; }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -47,7 +47,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         set => Size = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -91,8 +91,8 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? ProductoAgregado;
     public event EventHandler? ProductoEliminado;
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
@@ -138,10 +138,10 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             ActualizarTotal();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSalir.Click += delegate (object? sender, EventArgs args) {
             Salir?.Invoke("exit", args);
@@ -194,7 +194,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         var idProducto = await UtilesProducto.ObtenerIdProducto(adNombreProducto);
         var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString("N2", CultureInfo.InvariantCulture) : cantidad;
 
-        if (!ModoEdicionDatos) {
+        if (!ModoEdicion) {
             // Verificar ID del producto
             if (idProducto == 0) {
                 NombreProducto = string.Empty;
@@ -247,7 +247,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     private void ActualizarTuplasProductos() {
         foreach (var tupla in contenedorVistas.Controls)
             if (tupla is IVistaTuplaDetalleCompraventaProducto vistaTupla)
-                vistaTupla.Cerrar();
+                vistaTupla.Dispose();
         contenedorVistas.Controls.Clear();
 
         // Restablecer útima coordenada Y de la tupla
@@ -261,7 +261,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             tuplaDetallesVentaProducto.NombreProducto = producto[1];
             tuplaDetallesVentaProducto.PrecioCompraventaFinal = producto[2];
             tuplaDetallesVentaProducto.Cantidad = producto[3];
-            tuplaDetallesVentaProducto.Habilitada = !ModoEdicionDatos;
+            tuplaDetallesVentaProducto.Habilitar = !ModoEdicion;
             tuplaDetallesVentaProducto.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
                 if (sender is not IVistaTuplaDetalleCompraventaProducto vista)
                     return;
@@ -275,7 +275,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
                 ActualizarTotal();
             };
-            tuplaDetallesVentaProducto.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+            tuplaDetallesVentaProducto.EliminarTuplaDatos += delegate (object? sender, EventArgs args) {
                 producto = sender as string[];
 
                 Productos.RemoveAt(Productos.FindIndex(p => p[0].Equals(producto?[0])));
@@ -327,16 +327,16 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         fieldNombreAlmacen.SelectedIndex = 0;
         fieldNombreProducto.AutoCompleteCustomSource.Clear();
         Total = 0;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
 
-        Dispose();
+        base.Dispose();
     }
 }

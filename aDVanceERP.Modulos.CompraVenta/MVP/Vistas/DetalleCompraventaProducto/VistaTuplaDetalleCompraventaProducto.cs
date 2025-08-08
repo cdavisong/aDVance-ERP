@@ -11,7 +11,7 @@ public partial class VistaTuplaDetalleCompraventaProducto : Form, IVistaTuplaDet
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => _enabled;
         set {
             _enabled = value;
@@ -50,15 +50,15 @@ public partial class VistaTuplaDetalleCompraventaProducto : Form, IVistaTuplaDet
         set => fieldCantidad.Text = value;
     }
 
-    public Color ColorFondoTupla {
+    public Color ColorFondo {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;
     }
 
     public event EventHandler? PrecioCompraventaModificado;
     public event EventHandler? TuplaSeleccionada;
-    public event EventHandler? EditarDatosTupla;
-    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? EditarTuplaDatos;
+    public event EventHandler? EliminarTuplaDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
@@ -77,7 +77,7 @@ public partial class VistaTuplaDetalleCompraventaProducto : Form, IVistaTuplaDet
         fieldCantidad.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
         btnEliminar.Click += delegate(object? sender, EventArgs e) {
-            EliminarDatosTupla?.Invoke(new[] { IdProducto, NombreProducto, PrecioCompraventaFinal, Cantidad }, e);
+            EliminarTuplaDatos?.Invoke(new[] { IdProducto, NombreProducto, PrecioCompraventaFinal, Cantidad }, e);
         };
     }
 
@@ -87,15 +87,15 @@ public partial class VistaTuplaDetalleCompraventaProducto : Form, IVistaTuplaDet
     }
 
     public void Restaurar() {
-        ColorFondoTupla = BackColor;
+        ColorFondo = BackColor;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void FormatearMontoModificado() {

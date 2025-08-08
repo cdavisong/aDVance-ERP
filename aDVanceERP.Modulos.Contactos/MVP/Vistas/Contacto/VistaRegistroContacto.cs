@@ -10,7 +10,7 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -58,7 +58,7 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
         set => fieldNotas.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -67,8 +67,8 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
         }
     }
 
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
@@ -78,10 +78,10 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
             Salir?.Invoke(sender, args); 
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { 
             Salir?.Invoke(sender, args); 
@@ -100,14 +100,14 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
         CorreoElectronico = string.Empty;
         Direccion = string.Empty;
         Notas = string.Empty;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

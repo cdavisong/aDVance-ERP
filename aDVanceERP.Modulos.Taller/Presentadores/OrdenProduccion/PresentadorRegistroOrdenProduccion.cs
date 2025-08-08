@@ -1,17 +1,18 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Repositorios;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
-    public class PresentadorRegistroOrdenProduccion : PresentadorRegistroBase<IVistaRegistroOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, CriterioBusquedaOrdenProduccion> {
+namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion
+{
+    public class PresentadorRegistroOrdenProduccion : PresentadorVistaRegistroEdicionBase<IVistaRegistroOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, CriterioBusquedaOrdenProduccion> {
         public PresentadorRegistroOrdenProduccion(IVistaRegistroOrdenProduccion vista) : base(vista) {
         }
 
         public override void PopularVistaDesdeObjeto(Modelos.OrdenProduccion objeto) {
-            Vista.ModoEdicionDatos = true;
+            Vista.ModoEdicion = true;
             Vista.Id = objeto.Id;
             Vista.NombreProductoTerminado = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
             Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
@@ -22,7 +23,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             Vista.Observaciones = objeto.Observaciones;
 
             if (objeto.Estado == EstadoOrdenProduccion.Cerrada)
-                Vista.Habilitada = false;
+                Vista.Habilitar = false;
 
             // Popular materias primas
             using (var repoMateriaPrima = new RepoOrdenMateriaPrima()) {

@@ -29,7 +29,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             presentadorTupla.Vista.FechaCierre = objeto.FechaCierre != DateTime.MinValue ? objeto.FechaCierre.ToString("yyyy-MM-dd HH:mm") : "-";
             presentadorTupla.Vista.Estado = (int) objeto.Estado;
             presentadorTupla.Vista.NombreUsuario = UtilesCuentaUsuario.ObtenerNombreCuentaUsuario(objeto.IdCuentaUsuario) ?? string.Empty;
-            presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBotones;
+            presentadorTupla.EntidadBdSeleccionada += CambiarVisibilidadBotones;
             presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBotones;
             
             return presentadorTupla;
@@ -46,11 +46,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
         private void CerrarCajaSeleccionada(object? sender, EventArgs e) {
             foreach (var tupla in _tuplasObjetos)
                 if (tupla.TuplaSeleccionada) {
-                    tupla.Objeto.FechaCierre = DateTime.Now;
-                    tupla.Objeto.Estado = EstadoCaja.Cerrada;
+                    tupla.EntidadBd.FechaCierre = DateTime.Now;
+                    tupla.EntidadBd.Estado = EstadoCaja.Cerrada;
 
                     // Editar la venta del producto
-                    DatosObjeto.Actualizar(tupla.Objeto);
+                    DatosObjeto.Actualizar(tupla.EntidadBd);
 
                     break;
                 }
@@ -63,8 +63,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             var tuplaSeleccionada = _tuplasObjetos.Where(t => t.TuplaSeleccionada).FirstOrDefault();
 
             // 2. Actualizar la visibilidad de botones            
-            Vista.HabilitarBtnCierreCaja = tuplaSeleccionada != null && tuplaSeleccionada.Objeto.Estado == EstadoCaja.Abierta;
-            Vista.HabilitarBtnRegistroMovimientoCaja = tuplaSeleccionada != null && tuplaSeleccionada.Objeto.Estado == EstadoCaja.Abierta;
+            Vista.HabilitarBtnCierreCaja = tuplaSeleccionada != null && tuplaSeleccionada.EntidadBd.Estado == EstadoCaja.Abierta;
+            Vista.HabilitarBtnRegistroMovimientoCaja = tuplaSeleccionada != null && tuplaSeleccionada.EntidadBd.Estado == EstadoCaja.Abierta;
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
 public interface IVistaTuplaVenta : IVistaTupla {
     string Id { get; set; }

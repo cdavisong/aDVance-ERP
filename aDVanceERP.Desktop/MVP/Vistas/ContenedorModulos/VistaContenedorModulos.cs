@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
@@ -17,7 +17,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -252,7 +252,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         Vistas.Cerrar();
     }
 }

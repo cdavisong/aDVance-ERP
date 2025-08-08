@@ -1,7 +1,6 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
@@ -23,7 +22,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
             Inicializar();
         }
 
-        public bool Habilitada {
+        public bool Habilitar {
             get => _habilitada;
             set {
                 fieldNombreProductoTerminado.ReadOnly = !value;
@@ -52,7 +51,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
             set => Size = value;
         }
 
-        public bool ModoEdicionDatos {
+        public bool ModoEdicion {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -139,8 +138,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
         public IRepositorioVista? VistasGastosIndirectos { get; private set; }
         public List<string[]> GastosIndirectos { get; private set; } = new List<string[]>();
 
-        public event EventHandler? RegistrarDatos;
-        public event EventHandler? EditarDatos;
+        public event EventHandler? Registrar;
+        public event EventHandler? Editar;
         public event EventHandler? EliminarDatos;
         public event EventHandler? MateriaPrimaEliminada;
         public event EventHandler? ActividadProduccionEliminada;
@@ -310,10 +309,10 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 ActualizarPrecioUnitarioProducto();
             };
             btnAbrirActualizarOrdenProduccion.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
-                    EditarDatos?.Invoke(sender, args);
+                if (ModoEdicion)
+                    Editar?.Invoke(sender, args);
                 else
-                    RegistrarDatos?.Invoke(sender, args);
+                    Registrar?.Invoke(sender, args);
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);
@@ -392,7 +391,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 var adCantidad = cantidad > 0 ? cantidad : decimal.TryParse(fieldCantidadMateriaPrima.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cant) ? cant : 0m;
                 var adCantidadTotal = adCantidad + cantidadAcumulada;
 
-                if (!ModoEdicionDatos && stockProducto < adCantidadTotal) {
+                if (!ModoEdicion && stockProducto < adCantidadTotal) {
                     CentroNotificaciones.Mostrar($"No hay suficiente cantidad de la materia prima '{adNombre}' para satisfacer la demanda de fabricación especificada. Stock actual: {stockProducto}.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
                     return;
                 }
@@ -490,7 +489,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
         }
 
         public void Restaurar() {
-            ModoEdicionDatos = false;
+            ModoEdicion = false;
             fieldNombreProductoTerminado.Text = string.Empty;
             fieldNombreAlmacenDestino.SelectedIndex = -1;
             fieldCantidadProducir.Text = string.Empty;
@@ -521,14 +520,14 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
             Hide();
         }
 
-        public void Cerrar() {
-            Dispose();
+        public void Dispose() {
+            base.Dispose();
         }
 
         private void LimpiarTuplasContenedor(Panel contenedorVistas) {
             foreach (var tupla in contenedorVistas.Controls)
                 if (tupla is IVistaTupla vistaTupla)
-                    vistaTupla.Cerrar();
+                    vistaTupla.Dispose();
             contenedorVistas.Controls.Clear();
 
             // Restablecer útima coordenada Y de la tupla
@@ -542,7 +541,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 var materiaPrima = MateriasPrimas[i];
                 var tuplaOrdenMateriaPrima = new VistaTuplaOrdenMateriaPrima();
 
-                tuplaOrdenMateriaPrima.Habilitada = Habilitada;
+                tuplaOrdenMateriaPrima.Habilitar = Habilitar;
                 tuplaOrdenMateriaPrima.NombreMateriaPrima = materiaPrima[1];
                 tuplaOrdenMateriaPrima.Cantidad = materiaPrima[2];
                 tuplaOrdenMateriaPrima.PrecioUnitario = materiaPrima[3];
@@ -557,7 +556,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
                     ActualizarCostoTotalMateriales();
                 };
-                tuplaOrdenMateriaPrima.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+                tuplaOrdenMateriaPrima.EliminarTuplaDatos += delegate (object? sender, EventArgs args) {
                     materiaPrima = sender as string[];
 
                     using (var datosObjeto = new RepoOrdenMateriaPrima()) {
@@ -605,7 +604,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 var actividadProduccion = ActividadesProduccion[i];
                 var tuplaOrdenActividadProduccion = new VistaTuplaOrdenActividadProduccion();
 
-                tuplaOrdenActividadProduccion.Habilitada = Habilitada;
+                tuplaOrdenActividadProduccion.Habilitar = Habilitar;
                 tuplaOrdenActividadProduccion.NombreActividadProduccion = actividadProduccion[0];
                 tuplaOrdenActividadProduccion.Cantidad = actividadProduccion[1];
                 tuplaOrdenActividadProduccion.CostoActividad = actividadProduccion[2];
@@ -620,7 +619,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
                     ActualizarCostoTotalActividadesProduccion();
                 };
-                tuplaOrdenActividadProduccion.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+                tuplaOrdenActividadProduccion.EliminarTuplaDatos += delegate (object? sender, EventArgs args) {
                     actividadProduccion = sender as string[];
 
                     using (var datosObjeto = new RepoOrdenActividadProduccion()) {
@@ -669,7 +668,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 var gastoIndirecto = GastosIndirectos[i];
                 var tuplaOrdenGastoIndirecto = new VistaTuplaOrdenGastoIndirecto();
 
-                tuplaOrdenGastoIndirecto.Habilitada = Habilitada;
+                tuplaOrdenGastoIndirecto.Habilitar = Habilitar;
                 tuplaOrdenGastoIndirecto.ConceptoGasto = gastoIndirecto[0];
                 tuplaOrdenGastoIndirecto.Cantidad = gastoIndirecto[1];
                 tuplaOrdenGastoIndirecto.Monto = gastoIndirecto[2];
@@ -684,7 +683,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
                     ActualizarCostoTotalGastosIndirectos();
                 };
-                tuplaOrdenGastoIndirecto.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+                tuplaOrdenGastoIndirecto.EliminarTuplaDatos += delegate (object? sender, EventArgs args) {
                     gastoIndirecto = sender as string[];
 
                     using (var datosObjeto = new RepoOrdenGastoIndirecto()) {

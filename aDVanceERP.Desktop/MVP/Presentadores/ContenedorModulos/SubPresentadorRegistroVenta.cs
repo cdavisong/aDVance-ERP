@@ -41,7 +41,7 @@ public partial class PresentadorContenedorModulos {
             };
             _registroVentaProducto.Vista.Salir += delegate {
                 // Verificar cancelación de la venta
-                if (!_registroVentaProducto.Vista.ModoEdicionDatos && !UtilesVenta.ExisteVenta(_proximoIdVenta))
+                if (!_registroVentaProducto.Vista.ModoEdicion && !UtilesVenta.ExisteVenta(_proximoIdVenta))
                     CancelarVenta();
             };
 

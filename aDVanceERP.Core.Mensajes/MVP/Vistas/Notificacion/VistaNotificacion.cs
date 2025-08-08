@@ -28,7 +28,7 @@ public partial class VistaNotificacion : Form, IVistaNotificacion {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -116,7 +116,7 @@ public partial class VistaNotificacion : Form, IVistaNotificacion {
         _timerVisualizacion.Tick += delegate {
             _timerVisualizacion?.Stop();
 
-            Cerrar();
+            Dispose();
         };
 
         // Eventos
@@ -125,7 +125,7 @@ public partial class VistaNotificacion : Form, IVistaNotificacion {
             if (_timerVisualizacion.Enabled)
                 _timerVisualizacion.Stop();
 
-            Cerrar();
+            Dispose();
         };
     }
 
@@ -155,7 +155,7 @@ public partial class VistaNotificacion : Form, IVistaNotificacion {
         throw new NotImplementedException();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         if (!_estaCerrando) {
             _estaCerrando = true;
 

@@ -1,4 +1,4 @@
-﻿namespace aDVanceERP.Core.Interfaces.Comun;
+﻿namespace aDVanceERP.Core.Interfaces;
 
 public interface IEntidadBd {
     long Id { get; set; }

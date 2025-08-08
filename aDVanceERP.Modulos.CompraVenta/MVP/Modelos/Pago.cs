@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 

@@ -8,7 +8,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             Inicializar();
         }
 
-        public bool Habilitada {
+        public bool Habilitar {
             get => Enabled;
             set => Enabled = value;
         }
@@ -88,8 +88,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             Hide();
         }
 
-        public void Cerrar() {
-            Dispose();
+        public void Dispose() {
+            base.Dispose();
         }
 
         private void VerificarPermisos() {

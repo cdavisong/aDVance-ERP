@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 

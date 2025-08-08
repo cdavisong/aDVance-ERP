@@ -10,7 +10,7 @@ public partial class VistaRegistroUsuario : Form, IVistaRegistroUsuario {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -50,10 +50,10 @@ public partial class VistaRegistroUsuario : Form, IVistaRegistroUsuario {
         set => fieldAceptacionTerminosServicio.Checked = value;
     }
 
-    public bool ModoEdicionDatos { get; set; }
+    public bool ModoEdicion { get; set; }
 
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? AutenticarUsuario;
     public event EventHandler? Salir;
@@ -71,7 +71,7 @@ public partial class VistaRegistroUsuario : Form, IVistaRegistroUsuario {
             fieldConfirmarPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
         };
         btnRegistrarCuentaUsuario.Click += delegate(object? sender, EventArgs e) { 
-            RegistrarDatos?.Invoke(sender, e); 
+            Registrar?.Invoke(sender, e); 
         };
         btnRegresarAutenticar.Click += delegate(object? sender, EventArgs e) {
             AutenticarUsuario?.Invoke(sender, e);
@@ -95,7 +95,7 @@ public partial class VistaRegistroUsuario : Form, IVistaRegistroUsuario {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

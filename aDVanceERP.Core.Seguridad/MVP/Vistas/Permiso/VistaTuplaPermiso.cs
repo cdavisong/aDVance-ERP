@@ -10,7 +10,7 @@ public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -35,14 +35,14 @@ public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
         set => fieldNombrePermiso.Text = value;
     }
 
-    public Color ColorFondoTupla {
+    public Color ColorFondo {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;
     }
 
     public event EventHandler? TuplaSeleccionada;
-    public event EventHandler? EditarDatosTupla;
-    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? EditarTuplaDatos;
+    public event EventHandler? EliminarTuplaDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
@@ -50,7 +50,7 @@ public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
         fieldNombrePermiso.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
         btnEliminar.Click += delegate(object? sender, EventArgs e) {
-            EliminarDatosTupla?.Invoke(new[] { IdPermiso ?? string.Empty, NombrePermiso ?? string.Empty }, e);
+            EliminarTuplaDatos?.Invoke(new[] { IdPermiso ?? string.Empty, NombrePermiso ?? string.Empty }, e);
         };
     }
 
@@ -60,14 +60,14 @@ public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
     }
 
     public void Restaurar() {
-        ColorFondoTupla = BackColor;
+        ColorFondo = BackColor;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

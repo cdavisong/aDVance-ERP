@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
 public class DetalleCompraProducto : IEntidadBd {
     public DetalleCompraProducto() { }

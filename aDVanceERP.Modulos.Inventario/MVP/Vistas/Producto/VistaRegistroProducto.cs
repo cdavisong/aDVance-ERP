@@ -17,7 +17,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -107,7 +107,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         set => P2UmPreciosStock.StockInicial = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -121,8 +121,8 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
 
     public event EventHandler? RegistrarUnidadMedida;
     public event EventHandler? RegistrarTipoMateriaPrima;
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarUnidadMedida;
     public event EventHandler? EliminarTipoMateriaPrima;
     public event EventHandler? EliminarDatos;
@@ -172,10 +172,10 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
                 RetrocederPagina();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSiguiente.Click += delegate (object? sender, EventArgs args) {
             if (_paginaActual < 2)
@@ -314,16 +314,16 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         P1DatosGenerales.Restaurar();
         P2UmPreciosStock.Restaurar();
 
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
 
-        Dispose();
+        base.Dispose();
     }
 }

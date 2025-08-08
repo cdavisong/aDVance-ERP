@@ -8,7 +8,7 @@ public partial class VistaAprobacionUsuario : Form, IVistaAprobacionUsuario {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -46,7 +46,7 @@ public partial class VistaAprobacionUsuario : Form, IVistaAprobacionUsuario {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

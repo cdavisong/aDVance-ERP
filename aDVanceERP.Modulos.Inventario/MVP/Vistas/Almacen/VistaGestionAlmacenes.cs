@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos;
@@ -19,7 +19,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -152,14 +152,14 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
     }
 
     public void Mostrar() {
-        Habilitada = true;
+        Habilitar = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
-        Habilitada = true;
+        Habilitar = true;
         PaginaActual = 1;
         PaginasTotales = 1;
 
@@ -168,11 +168,11 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
     }
 
     public void Ocultar() {
-        Habilitada = false;
+        Habilitar = false;
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         // ...
     }
 

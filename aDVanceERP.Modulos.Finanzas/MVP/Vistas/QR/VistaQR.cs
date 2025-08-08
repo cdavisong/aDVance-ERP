@@ -11,7 +11,7 @@ public partial class VistaQR : Form, IVistaQR {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -49,8 +49,8 @@ public partial class VistaQR : Form, IVistaQR {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     public void CargarCodigoQR(string? datos) {

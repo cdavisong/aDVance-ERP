@@ -1,22 +1,22 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistroAlmacen, Almacen, DatosAlmacen,
+public class PresentadorRegistroAlmacen : PresentadorVistaRegistroEdicionBase<IVistaRegistroAlmacen, Almacen, DatosAlmacen,
     CriterioBusquedaAlmacen> {
     public PresentadorRegistroAlmacen(IVistaRegistroAlmacen vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Almacen objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.Nombre = objeto.Nombre ?? string.Empty;
         Vista.Direccion = objeto.Direccion ?? string.Empty;
         Vista.AutorizoVenta = objeto.AutorizoVenta;
         Vista.Notas = objeto.Notas ?? string.Empty;
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
 
         Objeto = objeto;
     }

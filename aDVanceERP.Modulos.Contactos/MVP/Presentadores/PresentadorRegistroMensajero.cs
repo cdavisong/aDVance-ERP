@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
@@ -7,12 +7,12 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegistroMensajero, Mensajero, DatosMensajero,
+public class PresentadorRegistroMensajero : PresentadorVistaRegistroEdicionBase<IVistaRegistroMensajero, Mensajero, DatosMensajero,
     CriterioBusquedaMensajero> {
     public PresentadorRegistroMensajero(IVistaRegistroMensajero vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Mensajero objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.Nombre = objeto.Nombre;
 
         using (var datosContacto = new DatosContacto()) {
@@ -27,7 +27,7 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
-        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicionDatos;
+        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicion;
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
         var telefonoOk = !string.IsNullOrEmpty(Vista.TelefonoMovil);
 
@@ -59,7 +59,7 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
             contacto.Nombre = Vista.Nombre;
             contacto.Notas = "Mensajero";
 
-            if (Vista.ModoEdicionDatos && contacto.Id != 0)
+            if (Vista.ModoEdicion && contacto.Id != 0)
                 datosContacto.Actualizar(contacto);
             else if (contacto.Id != 0)
                 datosContacto.Actualizar(contacto);
@@ -91,14 +91,14 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
                         telefonos.Add(telefonoMovil);
                     }
                 } else {
-                    if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                    if (Vista.ModoEdicion && indiceTelefonoMovil != -1) {
                         datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
                         telefonos.RemoveAt(indiceTelefonoMovil);
                     }
                 }
 
                 foreach (var telefono in telefonos)
-                    if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                    if (Vista.ModoEdicion && telefono.Id != 0)
                         datosTelefonoContacto.Actualizar(telefono);
                     else if (telefono.Id != 0)
                         datosTelefonoContacto.Actualizar(telefono);

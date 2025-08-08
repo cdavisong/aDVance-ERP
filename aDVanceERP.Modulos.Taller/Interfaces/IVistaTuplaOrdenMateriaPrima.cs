@@ -1,6 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.Taller.Interfaces {
+namespace aDVanceERP.Modulos.Taller.Interfaces
+{
     internal interface IVistaTuplaOrdenMateriaPrima : IVistaTupla {
         string IdOrdenMateriaPrima { get; set; }
         string NombreMateriaPrima { get; set; }

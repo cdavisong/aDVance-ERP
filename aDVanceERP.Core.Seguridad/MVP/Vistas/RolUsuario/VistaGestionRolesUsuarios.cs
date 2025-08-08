@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.Modelos.Modulos.Seguridad;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
@@ -15,7 +15,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -143,13 +143,13 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
     }
 
     public void Mostrar() {
-        Habilitada = true;
+        Habilitar = true;
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
-        Habilitada = true;
+        Habilitar = true;
         PaginaActual = 1;
         PaginasTotales = 1;
 
@@ -157,11 +157,11 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
     }
 
     public void Ocultar() {
-        Habilitada = false;
+        Habilitar = false;
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         // ...
     }
 

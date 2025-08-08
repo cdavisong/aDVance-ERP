@@ -8,7 +8,7 @@ public partial class VistaConfServidorFTP : Form, IVistaConfServidorFTP {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -72,7 +72,7 @@ public partial class VistaConfServidorFTP : Form, IVistaConfServidorFTP {
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         // ...
     }
 }

@@ -39,8 +39,8 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
             pagosVenta.Count == 0 || pagosVenta.Any(p => !p.Split('|')[5].Equals("Confirmado"))
                 ? "Pendiente"
                 : "Confirmado";
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnConfirmarEntrega;
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnConfirmarPagos;
+        presentadorTupla.EntidadBdSeleccionada += CambiarVisibilidadBtnConfirmarEntrega;
+        presentadorTupla.EntidadBdSeleccionada += CambiarVisibilidadBtnConfirmarPagos;
         presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnConfirmarEntrega;
         presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnConfirmarPagos;
 
@@ -61,10 +61,10 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
     private void OnConfirmarEntregaAriculos(object? sender, EventArgs e) {
         foreach (var tupla in _tuplasObjetos)
             if (tupla.TuplaSeleccionada) {
-                tupla.Objeto.EstadoEntrega = "Completada";
+                tupla.EntidadBd.EstadoEntrega = "Completada";
 
                 // Editar la venta del producto
-                DatosObjeto.Actualizar(tupla.Objeto);
+                DatosObjeto.Actualizar(tupla.EntidadBd);
 
                 // Actualizar el seguimiento de entrega
                 using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
@@ -154,7 +154,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
             foreach (var tupla in _tuplasObjetos)
                 if (tupla.TuplaSeleccionada) {
-                    if (!tupla.Objeto.EstadoEntrega.Equals("Completada")) {
+                    if (!tupla.EntidadBd.EstadoEntrega.Equals("Completada")) {
                         Vista.HabilitarBtnConfirmarEntrega = true;
                     }
                     else {

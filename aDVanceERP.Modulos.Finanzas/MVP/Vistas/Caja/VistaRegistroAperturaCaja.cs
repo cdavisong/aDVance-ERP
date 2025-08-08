@@ -12,7 +12,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             Inicializar();
         }
 
-        public bool Habilitada {
+        public bool Habilitar {
             get => Enabled;
             set => Enabled = value;
         }
@@ -32,7 +32,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set {
                 _fechaApertura = value;
                 
-                fieldSubtitulo.Text = ModoEdicionDatos ?
+                fieldSubtitulo.Text = ModoEdicion ?
                     $"Detalles de apertura en fecha {value:yyyy-MM-dd}" : 
                     $"Apertura en fecha {value:yyyy-MM-dd}";
             }
@@ -45,7 +45,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => fieldMontoInicial.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }        
 
-        public bool ModoEdicionDatos {
+        public bool ModoEdicion {
             get => _modoEdicion;
             set {
                 btnRegistrar.Text = value ? "Actualizar apertura" : "Abrir caja";
@@ -53,14 +53,14 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             }
         }
 
-        public event EventHandler? RegistrarDatos;
-        public event EventHandler? EditarDatos;
+        public event EventHandler? Registrar;
+        public event EventHandler? Editar;
         public event EventHandler? EliminarDatos;
         public event EventHandler? Salir;
 
         public void Inicializar() {
             // Configuración de la ventana
-            if (!ModoEdicionDatos)
+            if (!ModoEdicion)
                 Fecha = DateTime.Now;
 
             // Eventos
@@ -68,10 +68,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 Salir?.Invoke(sender, args);
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
-                    EditarDatos?.Invoke(sender, args);
+                if (ModoEdicion)
+                    Editar?.Invoke(sender, args);
                 else
-                    RegistrarDatos?.Invoke(sender, args);
+                    Registrar?.Invoke(sender, args);
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);
@@ -84,15 +84,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         }
 
         public void Restaurar() {
-            ModoEdicionDatos = false;
+            ModoEdicion = false;
         }
 
         public void Ocultar() {
             Hide();
         }
 
-        public void Cerrar() {
-            Dispose();
+        public void Dispose() {
+            base.Dispose();
         }
     }
 }

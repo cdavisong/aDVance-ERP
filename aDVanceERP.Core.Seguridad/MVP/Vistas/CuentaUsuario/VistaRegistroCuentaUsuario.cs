@@ -14,7 +14,7 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -56,7 +56,7 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
         set => fieldNombreRolUsuario.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             if (value) {
@@ -71,8 +71,8 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
         }
     }
 
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
@@ -80,7 +80,7 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
         fieldPassword.IconRightClick += delegate {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 return;
 
             // fieldPassword
@@ -93,12 +93,12 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
             fieldConfirmarPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos && fieldPassword.Text.Equals("test-password1"))
+            if (ModoEdicion && fieldPassword.Text.Equals("test-password1"))
                 Salir?.Invoke(sender, args);
-            else if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            else if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSalir.Click += delegate (object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
     }
@@ -120,14 +120,14 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
         NombreUsuario = string.Empty;
         fieldPassword.Text = string.Empty;
         fieldConfirmarPassword.Text = string.Empty;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

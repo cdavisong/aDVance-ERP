@@ -13,7 +13,7 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -58,7 +58,7 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         set => fieldTipoMovimiento.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value
@@ -78,14 +78,14 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
 
     public event EventHandler? RegistrarTipoMovimiento;
     public event EventHandler? EliminarTipoMovimiento;
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
         // Propiedades
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
 
         // Eventos
         fieldTipoMovimiento.SelectedIndexChanged += delegate { 
@@ -101,10 +101,10 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
             EliminarTipoMovimiento?.Invoke(TipoMovimiento, args);
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
 
@@ -168,16 +168,16 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Carga")) {
             fieldNombreAlmacenOrigen.SelectedIndex = 0;
             fieldNombreAlmacenOrigen.Enabled = false;
-            fieldNombreAlmacenDestino.Enabled = !ModoEdicionDatos;
+            fieldNombreAlmacenDestino.Enabled = !ModoEdicion;
         }
         else if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Descarga")) {
             fieldNombreAlmacenDestino.SelectedIndex = 0;
             fieldNombreAlmacenDestino.Enabled = false;
-            fieldNombreAlmacenOrigen.Enabled = !ModoEdicionDatos;
+            fieldNombreAlmacenOrigen.Enabled = !ModoEdicion;
         }
         else {
-            fieldNombreAlmacenOrigen.Enabled = !ModoEdicionDatos;
-            fieldNombreAlmacenDestino.Enabled = !ModoEdicionDatos;
+            fieldNombreAlmacenOrigen.Enabled = !ModoEdicion;
+            fieldNombreAlmacenDestino.Enabled = !ModoEdicion;
         }
     }
 
@@ -196,16 +196,16 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         TipoMovimiento = string.Empty;
         fieldTipoMovimiento.SelectedIndex = 0;
         Fecha = DateTime.Now;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
 
-        Dispose();
+        base.Dispose();
     }
 }

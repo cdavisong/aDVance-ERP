@@ -1,4 +1,4 @@
-﻿namespace aDVanceERP.Core.Interfaces.Comun;
+﻿namespace aDVanceERP.Core.Interfaces;
 
 public interface IBuscadorDatos<C>
     where C : Enum

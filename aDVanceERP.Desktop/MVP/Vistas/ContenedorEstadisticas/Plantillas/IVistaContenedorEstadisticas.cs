@@ -1,7 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.Utiles.Datos;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas; 
+namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas;
 
 public interface IVistaContenedorEstadisticas : IVista {
     decimal CantidadProductosRegistrados { get; set; }

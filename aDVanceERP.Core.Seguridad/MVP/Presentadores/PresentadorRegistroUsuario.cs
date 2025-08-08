@@ -2,17 +2,17 @@
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Seguridad;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
-public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistroUsuario, CuentaUsuario,
+public class PresentadorRegistroUsuario : PresentadorVistaRegistroEdicionBase<IVistaRegistroUsuario, CuentaUsuario,
     DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
     public PresentadorRegistroUsuario(IVistaRegistroUsuario vista) : base(vista) {
-        vista.RegistrarDatos += delegate(object? sender, EventArgs args) {
+        vista.Registrar += delegate(object? sender, EventArgs args) {
             UsuarioRegistrado?.Invoke(sender, args); 
         };
         vista.AutenticarUsuario += delegate(object? sender, EventArgs args) {

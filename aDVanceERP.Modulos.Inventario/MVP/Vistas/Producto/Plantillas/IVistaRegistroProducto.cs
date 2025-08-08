@@ -1,9 +1,9 @@
-﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
+using aDVanceERP.Core.Modelos.Modulos.Inventario;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
-public interface IVistaRegistroProducto : IVistaRegistro {
+public interface IVistaRegistroProducto : IVistaRegistroEdicion {
     // P1 : Datos generales
     CategoriaProducto CategoriaProducto { get; set; }
     string Nombre { get; set; }

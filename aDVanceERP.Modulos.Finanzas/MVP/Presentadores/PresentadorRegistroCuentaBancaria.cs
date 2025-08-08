@@ -1,13 +1,13 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 
-public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaRegistroCuentaBancaria, CuentaBancaria,
+public class PresentadorRegistroCuentaBancaria : PresentadorVistaRegistroEdicionBase<IVistaRegistroCuentaBancaria, CuentaBancaria,
     DatosCuentaBancaria, CriterioBusquedaCuentaBancaria> {
     public PresentadorRegistroCuentaBancaria(IVistaRegistroCuentaBancaria vista) : base(vista) { }
 
@@ -16,7 +16,7 @@ public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaR
         Vista.NumeroTarjeta = objeto.NumeroTarjeta ?? string.Empty;
         Vista.Moneda = objeto.Moneda.ToString();
         Vista.NombrePropietario = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
 
         Objeto = objeto;
     }

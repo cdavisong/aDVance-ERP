@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using aDVanceERP.Core.Controladores.Comun;
-using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
@@ -26,7 +26,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         _androidFileManager = new ControladorArchivosDispositivoAndroid(Application.StartupPath);
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -312,7 +312,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     }
 
     public void Mostrar() {
-        Habilitada = true;
+        Habilitar = true;
         VerificarPermisos();
         VerificarConexionDispositivo();
         BringToFront();
@@ -320,7 +320,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     }
 
     public void Restaurar() {
-        Habilitada = true;
+        Habilitar = true;
         PaginaActual = 1;
         PaginasTotales = 1;
         HabilitarBtnConfirmarEntrega = false;
@@ -330,11 +330,11 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     }
 
     public void Ocultar() {
-        Habilitada = false;
+        Habilitar = false;
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         // ...
     }
 

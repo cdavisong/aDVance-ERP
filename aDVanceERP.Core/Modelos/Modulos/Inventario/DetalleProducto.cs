@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
-
+﻿using aDVanceERP.Core.Interfaces;
 using MySql.Data.MySqlClient;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 

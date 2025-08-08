@@ -1,10 +1,10 @@
 ﻿using aDVanceERP.Core.ClienteMySQL.MVP.Modelos;
 using aDVanceERP.Core.ClienteMySQL.MVP.Vistas.Plantillas;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 
-namespace aDVanceERP.Core.ClienteMySQL.MVP.Presentadores; 
+namespace aDVanceERP.Core.ClienteMySQL.MVP.Presentadores;
 
-public class PresentadorConfServidorMySQL : PresentadorBase<IVistaConfServidorMySQL> {
+public class PresentadorConfServidorMySQL : PresentadorVistaBase<IVistaConfServidorMySQL> {
     public PresentadorConfServidorMySQL(IVistaConfServidorMySQL vista) : base(vista) {
         Vista.AlmacenarConfiguracion += AlmacenarConfServidorMySQL;
     }

@@ -9,7 +9,7 @@ public partial class VistaMenuContacto : Form, IVistaMenuContacto {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -99,8 +99,8 @@ public partial class VistaMenuContacto : Form, IVistaMenuContacto {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void VerificarPermisos() {

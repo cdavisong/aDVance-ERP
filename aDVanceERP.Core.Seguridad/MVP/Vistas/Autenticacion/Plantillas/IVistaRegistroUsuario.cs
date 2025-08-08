@@ -1,9 +1,9 @@
 ﻿using System.Security;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
 
-public interface IVistaRegistroUsuario : IVistaRegistro {
+public interface IVistaRegistroUsuario : IVistaRegistroEdicion {
     string NombreUsuario { get; }
     SecureString? Password { get; }
     bool ConfirmacionTerminosServicio { get; }

@@ -10,7 +10,7 @@ public partial class VistaTuplaPago : Form, IVistaTuplaPago {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => _enabled;
         set {
             _enabled = value;
@@ -38,14 +38,14 @@ public partial class VistaTuplaPago : Form, IVistaTuplaPago {
         set => fieldMonto.Text = value;
     }
 
-    public Color ColorFondoTupla {
+    public Color ColorFondo {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;
     }
 
     public event EventHandler? TuplaSeleccionada;
-    public event EventHandler? EditarDatosTupla;
-    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? EditarTuplaDatos;
+    public event EventHandler? EliminarTuplaDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
@@ -54,7 +54,7 @@ public partial class VistaTuplaPago : Form, IVistaTuplaPago {
         fieldMonto.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
         btnEliminar.Click += delegate(object? sender, EventArgs e) {
-            EliminarDatosTupla?.Invoke(new[] { MetodoPago, Monto }, e);
+            EliminarTuplaDatos?.Invoke(new[] { MetodoPago, Monto }, e);
         };
     }
 
@@ -64,14 +64,14 @@ public partial class VistaTuplaPago : Form, IVistaTuplaPago {
     }
 
     public void Restaurar() {
-        ColorFondoTupla = BackColor;
+        ColorFondo = BackColor;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

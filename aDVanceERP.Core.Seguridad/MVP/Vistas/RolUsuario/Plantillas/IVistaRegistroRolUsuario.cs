@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
 
-public interface IVistaRegistroRolUsuario : IVistaRegistro {
+public interface IVistaRegistroRolUsuario : IVistaRegistroEdicion {
     string? NombreRolUsuario { get; set; }
     string? NombreModulo { get; set; }
     string? NombrePermiso { get; set; }

@@ -15,7 +15,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -68,7 +68,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
         set {
             fieldEstadoEntrega.Text = value;
 
-            ColorFondoTupla = ObtenerColorTupla();
+            ColorFondo = ObtenerColorTupla();
         }
     }
 
@@ -77,24 +77,24 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
         set {
             fieldEstadoPago.Text = value;
 
-            ColorFondoTupla = ObtenerColorTupla();
+            ColorFondo = ObtenerColorTupla();
         }
     }
 
-    public Color ColorFondoTupla {
+    public Color ColorFondo {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;
     }
 
     public event EventHandler? TuplaSeleccionada;
     public event EventHandler? DescargarFactura;
-    public event EventHandler? EditarDatosTupla;
-    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? EditarTuplaDatos;
+    public event EventHandler? EliminarTuplaDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
         // VAriables
-        ColorFondoTupla = ObtenerColorTupla();
+        ColorFondo = ObtenerColorTupla();
 
         // Eventos
         fieldId.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
@@ -163,8 +163,8 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
                 cantidadPagada);
             DescargarFactura?.Invoke(this, e);
         };
-        btnEditar.Click += delegate (object? sender, EventArgs e) { EditarDatosTupla?.Invoke(this, e); };
-        btnEliminar.Click += delegate (object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
+        btnEditar.Click += delegate (object? sender, EventArgs e) { EditarTuplaDatos?.Invoke(this, e); };
+        btnEliminar.Click += delegate (object? sender, EventArgs e) { EliminarTuplaDatos?.Invoke(this, e); };
     }
 
     public void Mostrar() {
@@ -174,15 +174,15 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
     }
 
     public void Restaurar() {
-        ColorFondoTupla = ObtenerColorTupla();
+        ColorFondo = ObtenerColorTupla();
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void VerificarPermisos() {

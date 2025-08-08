@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria.Plantillas;
 
-public interface IVistaRegistroMensajeria : IVistaRegistro {
+public interface IVistaRegistroMensajeria : IVistaRegistroEdicion {
     long IdVenta { get; set; }
     string? RazonSocialCliente { get; set; }
     string? TelefonosCliente { get; }

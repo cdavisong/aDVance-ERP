@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
         _qr.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _qr.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _qr.Salir += delegate { 
-            _qr.Vista.Cerrar(); 
+            _qr.Vista.Dispose(); 
         };
     }
 

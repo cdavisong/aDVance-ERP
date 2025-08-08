@@ -17,7 +17,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             Inicializar();
         }
 
-        public bool Habilitada {
+        public bool Habilitar {
             get => Enabled;
             set => Enabled = value;
         }
@@ -83,14 +83,14 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => fieldNombreUsuario.Text = value;
         }
 
-        public Color ColorFondoTupla {
+        public Color ColorFondo {
             get => layoutVista.BackColor;
             set => layoutVista.BackColor = value;
         }
 
         public event EventHandler? TuplaSeleccionada;
-        public event EventHandler? EditarDatosTupla;
-        public event EventHandler? EliminarDatosTupla;
+        public event EventHandler? EditarTuplaDatos;
+        public event EventHandler? EliminarTuplaDatos;
         public event EventHandler? Salir;
 
         public void Inicializar() {
@@ -152,10 +152,10 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                     CentroNotificaciones.Mostrar("No se puede generar un reporte de una caja cerrada con 0 movimientos.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
             };
             btnEditar.Click += delegate (object? sender, EventArgs e) {
-                EditarDatosTupla?.Invoke(this, e);
+                EditarTuplaDatos?.Invoke(this, e);
             };
             btnEliminar.Click += delegate (object? sender, EventArgs e) {
-                EliminarDatosTupla?.Invoke(this, e);
+                EliminarTuplaDatos?.Invoke(this, e);
             };
         }
 
@@ -166,15 +166,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         }
 
         public void Restaurar() {
-            ColorFondoTupla = BackColor;
+            ColorFondo = BackColor;
         }
 
         public void Ocultar() {
             Hide();
         }
 
-        public void Cerrar() {
-            Dispose();
+        public void Dispose() {
+            base.Dispose();
         }
 
         private void VerificarPermisos() {

@@ -2,14 +2,14 @@
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Seguridad;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
-public class PresentadorAutenticacionUsuario : PresentadorBase<IVistaAutenticacionUsuario> {
+public class PresentadorAutenticacionUsuario : PresentadorVistaBase<IVistaAutenticacionUsuario> {
     public PresentadorAutenticacionUsuario(IVistaAutenticacionUsuario vista) : base(vista) {
         vista.Autenticar += OnAutenticarUsuario;
         vista.RegistrarCuenta += OnRegistrarCuenta; 

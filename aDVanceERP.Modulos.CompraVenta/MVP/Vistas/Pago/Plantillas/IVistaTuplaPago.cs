@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 
 public interface IVistaTuplaPago : IVistaTupla {
     string MetodoPago { get; set; }

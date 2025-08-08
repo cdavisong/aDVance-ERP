@@ -10,7 +10,7 @@ public partial class VistaAutenticacionUsuario : Form, IVistaAutenticacionUsuari
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -83,7 +83,7 @@ public partial class VistaAutenticacionUsuario : Form, IVistaAutenticacionUsuari
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

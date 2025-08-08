@@ -1,18 +1,19 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa.Plantillas;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Contactos.Properties;
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Presentadores;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
-    public class PresentadorRegistroEmpresa : PresentadorRegistroBase<IVistaRegistroEmpresa, Empresa, DatosEmpresa, CriterioBusquedaEmpresa> {
+namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
+{
+    public class PresentadorRegistroEmpresa : PresentadorVistaRegistroEdicionBase<IVistaRegistroEmpresa, Empresa, DatosEmpresa, CriterioBusquedaEmpresa> {
         public PresentadorRegistroEmpresa(IVistaRegistroEmpresa vista) : base(vista) {
         }
 
         public override void PopularVistaDesdeObjeto(Empresa objeto) {
-            Vista.ModoEdicionDatos = true;
+            Vista.ModoEdicion = true;
             Vista.Logotipo = objeto.Logotipo ?? Resources.logoF_96px;
             Vista.Nombre = objeto.Nombre ?? string.Empty;
 
@@ -31,7 +32,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
         }
 
         protected override bool RegistroEdicionDatosAutorizado() {
-            var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicionDatos;
+            var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicion;
             var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
 
             if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
@@ -74,7 +75,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
                 contacto.Direccion = Vista.Direccion;
                 contacto.Notas = "Nuestra empresa";
 
-                if (Vista.ModoEdicionDatos && contacto.Id != 0)
+                if (Vista.ModoEdicion && contacto.Id != 0)
                     datosContacto.Actualizar(contacto);
                 else if (contacto.Id != 0)
                     datosContacto.Actualizar(contacto);
@@ -106,7 +107,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
                             telefonos.Add(telefonoMovil);
                         }
                     } else {
-                        if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                        if (Vista.ModoEdicion && indiceTelefonoMovil != -1) {
                             datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
                             telefonos.RemoveAt(indiceTelefonoMovil);
                         }
@@ -127,14 +128,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
                             telefonos.Add(telefonoFijo);
                         }
                     } else {
-                        if (Vista.ModoEdicionDatos && indiceTelefonoFijo != -1) {
+                        if (Vista.ModoEdicion && indiceTelefonoFijo != -1) {
                             datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoFijo].Id);
                             telefonos.RemoveAt(indiceTelefonoFijo);
                         }
                     }
 
                     foreach (var telefono in telefonos)
-                        if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                        if (Vista.ModoEdicion && telefono.Id != 0)
                             datosTelefonoContacto.Actualizar(telefono);
                         else if (telefono.Id != 0)
                             datosTelefonoContacto.Actualizar(telefono);

@@ -11,7 +11,7 @@ public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateria
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => _habilitada;
         set {            
             fieldPrecioUnitario.ReadOnly = !value;
@@ -51,15 +51,15 @@ public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateria
         set => fieldCantidad.Text = value;
     }
 
-    public Color ColorFondoTupla {
+    public Color ColorFondo {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;
     }
 
     public event EventHandler? PrecioUnitarioModificado;
     public event EventHandler? TuplaSeleccionada;
-    public event EventHandler? EditarDatosTupla;
-    public event EventHandler? EliminarDatosTupla;
+    public event EventHandler? EditarTuplaDatos;
+    public event EventHandler? EliminarTuplaDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
@@ -78,7 +78,7 @@ public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateria
         fieldCantidad.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
         btnEliminar.Click += delegate(object? sender, EventArgs e) {
-            EliminarDatosTupla?.Invoke(new[] { NombreMateriaPrima, Cantidad, PrecioUnitario }, e);
+            EliminarTuplaDatos?.Invoke(new[] { NombreMateriaPrima, Cantidad, PrecioUnitario }, e);
         };
     }
 
@@ -88,15 +88,15 @@ public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateria
     }
 
     public void Restaurar() {
-        ColorFondoTupla = BackColor;
+        ColorFondo = BackColor;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void FormatearMontoModificado() {

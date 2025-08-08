@@ -1,9 +1,9 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorMenuInventario : PresentadorBase<IVistaMenuInventario> {
+public class PresentadorMenuInventario : PresentadorVistaBase<IVistaMenuInventario> {
     public PresentadorMenuInventario(IVistaMenuInventario vista) : base(vista) { }
 
     public override void Dispose() {

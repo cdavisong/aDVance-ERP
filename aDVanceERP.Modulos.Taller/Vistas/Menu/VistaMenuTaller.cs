@@ -9,7 +9,7 @@ public partial class VistaMenuTaller : Form, IVistaMenuTaller {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -69,8 +69,8 @@ public partial class VistaMenuTaller : Form, IVistaMenuTaller {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void VerificarPermisos() {

@@ -15,7 +15,7 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -55,7 +55,7 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
         set => fieldCodigoQr.BackgroundImage = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -64,8 +64,8 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
         }
     }
 
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
@@ -106,8 +106,8 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
                 : NumeroConfirmacion;
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
                 Salir?.Invoke(sender, args);
         };
@@ -154,14 +154,14 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
         RecordarNumeroConfirmacion = false;
         separador1.Visible = false;
         layoutQrDatos.Visible = false;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

@@ -24,7 +24,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
         presentadorTupla.Vista.NombreUsuario = objeto.Nombre;
         presentadorTupla.Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
         presentadorTupla.Vista.EstadoCuentaUsuario = objeto.Aprobado ? "Activa" : "Esperando aprobación";
-        presentadorTupla.ObjetoSeleccionado += OnCambioSeleccionObjeto;
+        presentadorTupla.EntidadBdSeleccionada += OnCambioSeleccionObjeto;
         presentadorTupla.ObjetoDeseleccionado += OnCambioSeleccionObjeto;
 
         return presentadorTupla;
@@ -35,11 +35,11 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
 
         foreach (var tupla in _tuplasObjetos)
             if (tupla.TuplaSeleccionada) {
-                if (tupla.Objeto.IdRolUsuario != 0) {
-                    tupla.Objeto.Aprobado = true;
+                if (tupla.EntidadBd.IdRolUsuario != 0) {
+                    tupla.EntidadBd.Aprobado = true;
 
                     // Editar la cuenta de usuario
-                    DatosObjeto.Actualizar(tupla.Objeto);
+                    DatosObjeto.Actualizar(tupla.EntidadBd);
                 }
                 else {
                     usuariosRol0++;
@@ -68,7 +68,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
         if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
             foreach (var tupla in _tuplasObjetos)
                 if (tupla.TuplaSeleccionada) {
-                    if (!tupla.Objeto.Aprobado) {
+                    if (!tupla.EntidadBd.Aprobado) {
                         Vista.HabilitarBtnAprobacionSolicitudCuenta = true;
                     }
                     else {

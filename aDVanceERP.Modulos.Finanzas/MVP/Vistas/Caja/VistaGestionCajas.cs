@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
@@ -15,7 +15,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
             Inicializar();
         }
 
-        public bool Habilitada {
+        public bool Habilitar {
             get => Enabled;
             set => Enabled = value;
         }
@@ -179,13 +179,13 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
         }
 
         public void Mostrar() {
-            Habilitada = true;
+            Habilitar = true;
             BringToFront();
             Show();
         }
 
         public void Restaurar() {
-            Habilitada = true;
+            Habilitar = true;
             PaginaActual = 1;
             PaginasTotales = 1;
             HabilitarBtnRegistroMovimientoCaja = false;
@@ -195,11 +195,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
         }
 
         public void Ocultar() {
-            Habilitada = false;
+            Habilitar = false;
             Hide();
         }
 
-        public void Cerrar() {
+        public void Dispose() {
             // ...
         }
 

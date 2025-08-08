@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos; 
+namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 
 public enum TipoMoneda {
     CUP,

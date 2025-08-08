@@ -1,7 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.Taller.Interfaces {
-    public interface IVistaRegistroOrdenProduccion : IVistaRegistro {
+namespace aDVanceERP.Modulos.Taller.Interfaces
+{
+    public interface IVistaRegistroOrdenProduccion : IVistaRegistroEdicion {
         long Id { get; set; }
         string NumeroOrden { get; set; }
         DateTime FechaApertura { get; set; }

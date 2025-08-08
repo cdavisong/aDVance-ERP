@@ -1,7 +1,6 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using MySql.Data.MySqlClient;
 using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace aDVanceERP.Core.Modelos.Modulos.Seguridad;
 

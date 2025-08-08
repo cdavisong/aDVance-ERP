@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
@@ -27,7 +27,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
 
     public IRepositorioVista? Vistas { get; private set; }
     
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -42,7 +42,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
         set => Size = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -71,8 +71,8 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? PermisoAgregado;
     public event EventHandler? PermisoEliminado;
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
@@ -97,10 +97,10 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
             ActualizarTuplasPermisosRoles(); 
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
     }
@@ -146,7 +146,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
     private void ActualizarTuplasPermisosRoles() {
         foreach (var tupla in contenedorVistas.Controls)
             if (tupla is IVistaTuplaPermiso vistaTupla)
-                vistaTupla.Cerrar();
+                vistaTupla.Dispose();
         contenedorVistas.Controls.Clear();
 
         // Restablecer útima coordenada Y de la tupla
@@ -158,7 +158,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
 
             tuplaPermisoRol.IdPermiso = permiso[0];
             tuplaPermisoRol.NombrePermiso = permiso[1];
-            tuplaPermisoRol.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
+            tuplaPermisoRol.EliminarTuplaDatos += delegate (object? sender, EventArgs args) {
                 permiso = sender as string[];
 
                 Permisos.RemoveAt(Permisos.FindIndex(p => p[0].Equals(permiso?[0])));
@@ -187,14 +187,14 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
         NombreRolUsuario = string.Empty;
         fieldNombreModulo.SelectedIndex = 0;
         fieldNombrePermiso.SelectedIndex = 0;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

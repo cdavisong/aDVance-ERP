@@ -1,4 +1,6 @@
-﻿namespace aDVanceERP.Core.MVP.Vistas.Plantillas; 
+﻿using aDVanceERP.Core.Interfaces;
+
+namespace aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 public interface IVistaMenu : IVista {
     event EventHandler? CambioMenu;

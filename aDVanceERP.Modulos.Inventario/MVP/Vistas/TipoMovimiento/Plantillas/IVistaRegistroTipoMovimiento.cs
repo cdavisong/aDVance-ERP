@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento.Plantillas; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento.Plantillas;
 
-public interface IVistaRegistroTipoMovimiento : IVistaRegistro {
+public interface IVistaRegistroTipoMovimiento : IVistaRegistroEdicion {
     string Nombre { get; set; }
     string Efecto { get; set; }
 }

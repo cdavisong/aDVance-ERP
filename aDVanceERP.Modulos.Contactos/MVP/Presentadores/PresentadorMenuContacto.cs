@@ -1,9 +1,9 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorMenuContacto : PresentadorBase<IVistaMenuContacto> {
+public class PresentadorMenuContacto : PresentadorVistaBase<IVistaMenuContacto> {
     public PresentadorMenuContacto(IVistaMenuContacto vista) : base(vista) { }
 
     public override void Dispose() {

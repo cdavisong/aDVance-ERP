@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
-
+﻿using aDVanceERP.Core.Interfaces;
 using System.Drawing.Imaging;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos
+{
     public class Empresa : IEntidadBd {
         private Image? _logotipo;
 

@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 
-public interface IVIstaRegistroMovimientoCaja : IVistaRegistro {
+public interface IVIstaRegistroMovimientoCaja : IVistaRegistroEdicion {
     DateTime Fecha { get; set; }
     decimal Monto { get; set; }
     string TipoMovimiento { get; set; }

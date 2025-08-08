@@ -11,7 +11,7 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -46,7 +46,7 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
         set => fieldNombrePropietario.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -55,8 +55,8 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
         }
     }
 
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
@@ -67,10 +67,10 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
         btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
         fieldNumeroCuenta.TextChanged += AgregarEspaciosNumeroCuenta;
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
     }
@@ -99,15 +99,15 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
         fieldTipoMoneda.SelectedIndex = -1;
         NombrePropietario = string.Empty;
         fieldNombrePropietario.SelectedIndex = -1;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void AgregarEspaciosNumeroCuenta(object? sender, EventArgs args) {

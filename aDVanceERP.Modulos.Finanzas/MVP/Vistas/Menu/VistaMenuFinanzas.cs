@@ -9,7 +9,7 @@ public partial class VistaMenuFinanzas : Form, IVistaMenuFinanzas {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -78,8 +78,8 @@ public partial class VistaMenuFinanzas : Form, IVistaMenuFinanzas {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void VerificarPermisos() {

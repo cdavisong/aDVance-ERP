@@ -10,7 +10,7 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -45,7 +45,7 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         set => fieldNotas.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -54,18 +54,18 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         }
     }
 
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;
 
     public void Inicializar() {
         // Eventos
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { 
             Salir?.Invoke(sender, args); 
@@ -82,14 +82,14 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         Direccion = string.Empty;
         AutorizoVenta = false;
         Notas = string.Empty;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

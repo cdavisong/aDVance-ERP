@@ -9,7 +9,7 @@ public partial class VistaConfServidorMySQL : Form, IVistaConfServidorMySQL {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -79,7 +79,7 @@ public partial class VistaConfServidorMySQL : Form, IVistaConfServidorMySQL {
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         // ...
     }
 }

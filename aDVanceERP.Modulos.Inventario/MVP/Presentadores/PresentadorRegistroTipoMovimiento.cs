@@ -1,19 +1,19 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento.Plantillas;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaRegistroTipoMovimiento, TipoMovimiento,
+public class PresentadorRegistroTipoMovimiento : PresentadorVistaRegistroEdicionBase<IVistaRegistroTipoMovimiento, TipoMovimiento,
     DatosTipoMovimiento, CriterioBusquedaTipoMovimiento> {
     public PresentadorRegistroTipoMovimiento(IVistaRegistroTipoMovimiento vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(TipoMovimiento objeto) {
         Vista.Nombre = objeto.Nombre;
         Vista.Efecto = objeto.Efecto.ToString();
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
 
         Objeto = objeto;
     }

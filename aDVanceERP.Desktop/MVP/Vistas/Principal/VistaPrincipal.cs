@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
@@ -17,7 +17,7 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
 
     public IRepositorioVista Menus { get; private set; }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -69,7 +69,7 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
     public void Inicializar() {
         FormClosing += delegate {
             Salir?.Invoke(this, EventArgs.Empty);
-            Cerrar();
+            Dispose();
         };
 
         // Repositorios
@@ -115,7 +115,7 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         throw new NotImplementedException();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         Vistas.Cerrar(true);
     }
 }

@@ -9,7 +9,7 @@ public partial class VistaMenuCompraventas : Form, IVistaMenuVentas {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -79,8 +79,8 @@ public partial class VistaMenuCompraventas : Form, IVistaMenuVentas {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void VerificarPermisos() {

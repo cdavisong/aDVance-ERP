@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia.Plantillas;
 
-public interface IVistaRegistroDetallePagoTransferencia : IVistaRegistro {
+public interface IVistaRegistroDetallePagoTransferencia : IVistaRegistroEdicion {
     string Alias { get; set; }
     string NumeroConfirmacion { get; set; }
     string NumeroTransaccion { get; set; }

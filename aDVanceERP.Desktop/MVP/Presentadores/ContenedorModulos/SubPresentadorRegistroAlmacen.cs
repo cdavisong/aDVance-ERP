@@ -30,7 +30,7 @@ public partial class PresentadorContenedorModulos {
 
         if (formRegistro != null && _gestionAlmacenes != null)
             formRegistro.VisibleChanged += delegate {
-                _gestionAlmacenes.Vista.Habilitada = !formRegistro.Visible;
+                _gestionAlmacenes.Vista.Habilitar = !formRegistro.Visible;
             };
     }
 

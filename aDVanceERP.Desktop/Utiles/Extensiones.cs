@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.Utiles;
 
 namespace aDVanceERP.Desktop.Utiles;

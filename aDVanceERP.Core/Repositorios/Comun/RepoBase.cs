@@ -1,10 +1,11 @@
 ﻿using aDVanceERP.Core.Controladores.Comun;
-using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.Interfaces;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Repositorios.Comun;
 
-public abstract class RepoBase<En, Fb> : IDisposable
+public abstract class RepoBase<En, Fb> : IRepoBase<En, Fb>
     where En : class, IEntidadBd, new()
     where Fb : Enum {
     protected RepoBase(string nombreTabla, string columnaId) {

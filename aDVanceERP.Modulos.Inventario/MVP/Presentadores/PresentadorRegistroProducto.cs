@@ -1,18 +1,18 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistroProducto, Producto, DatosProducto,
+public class PresentadorRegistroProducto : PresentadorVistaRegistroEdicionBase<IVistaRegistroProducto, Producto, DatosProducto,
     CriterioBusquedaProducto> {
     public PresentadorRegistroProducto(IVistaRegistroProducto vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Producto objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.CategoriaProducto = objeto.Categoria;
         Vista.Nombre = objeto.Nombre ?? string.Empty;
         Vista.Codigo = objeto.Codigo ?? string.Empty;
@@ -32,7 +32,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.CostoProduccionUnitario = objeto.CostoProduccionUnitario;
         Vista.PrecioCompra = objeto.PrecioCompra;
         Vista.PrecioVentaBase = objeto.PrecioVentaBase;
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
 
         Objeto = objeto;
     }
@@ -60,7 +60,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
 
         // Registrar detalles del producto
         using (var datos = new DatosDetalleProducto()) {
-            if (Vista.ModoEdicionDatos && Objeto?.IdDetalleProducto != 0)
+            if (Vista.ModoEdicion && Objeto?.IdDetalleProducto != 0)
                 datos.Editar(detalleProducto);
             else if (Objeto?.IdDetalleProducto != 0)
                 datos.Editar(detalleProducto);

@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos;
 
 public class Mensajero : IEntidadBd {
     public Mensajero() { }

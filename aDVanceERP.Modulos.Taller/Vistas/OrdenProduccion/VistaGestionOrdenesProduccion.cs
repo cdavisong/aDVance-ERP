@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Taller.Interfaces;
@@ -15,7 +15,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
             Inicializar();
         }
 
-        public bool Habilitada {
+        public bool Habilitar {
             get => Enabled;
             set => Enabled = value;
         }
@@ -169,13 +169,13 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
         }
 
         public void Mostrar() {
-            Habilitada = true;
+            Habilitar = true;
             BringToFront();
             Show();
         }
 
         public void Restaurar() {
-            Habilitada = true;
+            Habilitar = true;
             PaginaActual = 1;
             PaginasTotales = 1;
             HabilitarBtnCierreOrdenProduccion = false;
@@ -185,11 +185,11 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
         }
 
         public void Ocultar() {
-            Habilitada = false;
+            Habilitar = false;
             Hide();
         }
 
-        public void Cerrar() {
+        public void Dispose() {
             // ...
         }
 

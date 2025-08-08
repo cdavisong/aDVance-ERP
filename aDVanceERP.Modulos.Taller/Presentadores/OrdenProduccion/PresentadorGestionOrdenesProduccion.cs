@@ -32,7 +32,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             presentadorTupla.Vista.PrecioUnitario = objeto.PrecioUnitario.ToString("N2", CultureInfo.InvariantCulture);
             presentadorTupla.Vista.Estado = (int) objeto.Estado;
             presentadorTupla.Vista.FechaCierre = objeto.FechaCierre.HasValue ? !objeto.FechaCierre.Equals(DateTime.MinValue) ? objeto.FechaCierre.Value.ToString("yyyy-MM-dd") : "-" : "-";
-            presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnCierreOrdenProduccion;
+            presentadorTupla.EntidadBdSeleccionada += CambiarVisibilidadBtnCierreOrdenProduccion;
             presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnCierreOrdenProduccion;
 
             return presentadorTupla;
@@ -42,18 +42,18 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
                 foreach (var tupla in _tuplasObjetos) {
                     if (tupla.TuplaSeleccionada) {
-                        tupla.Objeto.Estado = EstadoOrdenProduccion.Cerrada;
-                        tupla.Objeto.FechaCierre = DateTime.Now;
+                        tupla.EntidadBd.Estado = EstadoOrdenProduccion.Cerrada;
+                        tupla.EntidadBd.FechaCierre = DateTime.Now;
 
                         // Editar la orden de producción
-                        DatosObjeto.Actualizar(tupla.Objeto);
+                        DatosObjeto.Actualizar(tupla.EntidadBd);
 
                         // Actualizar el costo unitario de producción en el producto correspondiente
-                        UtilesProducto.ActualizarCostoProduccionUnitario(tupla.Objeto.IdProducto, tupla.Objeto.PrecioUnitario);
+                        UtilesProducto.ActualizarCostoProduccionUnitario(tupla.EntidadBd.IdProducto, tupla.EntidadBd.PrecioUnitario);
 
                         // Disminuir el cantidad de materiales utilizados en la orden de producción
                         using (var datosObjeto = new RepoOrdenMateriaPrima()) {
-                            var materiasPrimas = datosObjeto.Obtener(CriterioBusquedaOrdenMateriaPrima.OrdenProduccion, tupla.Objeto.Id.ToString());
+                            var materiasPrimas = datosObjeto.Obtener(CriterioBusquedaOrdenMateriaPrima.OrdenProduccion, tupla.EntidadBd.Id.ToString());
 
                             if (materiasPrimas != null) {
                                 foreach (var materiaPrima in materiasPrimas) {
@@ -70,15 +70,15 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
 
                         // Aumentar el cantidad del producto terminado en el almacén seleccionado
                         UtilesMovimiento.ModificarInventario(
-                            tupla.Objeto.IdProducto,
+                            tupla.EntidadBd.IdProducto,
                             0,
-                            tupla.Objeto.IdAlmacen,
-                            tupla.Objeto.Cantidad,
-                            UtilesProducto.ObtenerCostoUnitario(tupla.Objeto.IdProducto).Result
+                            tupla.EntidadBd.IdAlmacen,
+                            tupla.EntidadBd.Cantidad,
+                            UtilesProducto.ObtenerCostoUnitario(tupla.EntidadBd.IdProducto).Result
                         );
 
                         // Invocar evento de cierre para la orden de produccion y registrar los movimientos correspondientes
-                        OrdenProduccionCerrada?.Invoke(this, tupla.Objeto);
+                        OrdenProduccionCerrada?.Invoke(this, tupla.EntidadBd);
 
                         break;
                     }
@@ -101,7 +101,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
                 foreach (var tupla in _tuplasObjetos) {
                     if (tupla.TuplaSeleccionada) {
-                        var ordenProduccion = tupla.Objeto;
+                        var ordenProduccion = tupla.EntidadBd;
 
                         if (ordenProduccion != null && ordenProduccion.Estado != EstadoOrdenProduccion.Cerrada) {
                             Vista.HabilitarBtnCierreOrdenProduccion = true;

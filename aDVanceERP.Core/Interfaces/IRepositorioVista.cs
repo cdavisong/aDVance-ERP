@@ -1,9 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿namespace aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Core.Interfaces.Comun;
-
-public interface IRepositorioVista : IDisposable
-{
+public interface IRepositorioVista : IDisposable {
     List<IVista>? Vistas { get; }
     IVista? VistaActual { get; }
 

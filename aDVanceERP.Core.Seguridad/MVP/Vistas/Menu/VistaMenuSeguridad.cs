@@ -8,7 +8,7 @@ public partial class VistaMenuSeguridad : Form, IVistaMenuSeguridad {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -77,7 +77,7 @@ public partial class VistaMenuSeguridad : Form, IVistaMenuSeguridad {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 }

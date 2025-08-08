@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.Interfaces.Comun;
+﻿using aDVanceERP.Core.Interfaces;
 
-namespace aDVanceERP.Core.Extension.MVP.Modelos; 
+namespace aDVanceERP.Core.Extension.MVP.Modelos;
 
 public class ModuloAplicacion : IEntidadBd {
     public ModuloAplicacion() { }

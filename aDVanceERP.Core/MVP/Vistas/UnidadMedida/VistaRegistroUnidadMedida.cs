@@ -9,7 +9,7 @@ namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
             Inicializar();
         }
 
-        public bool Habilitada {
+        public bool Habilitar {
             get => Enabled;
             set => Enabled = value;
         }
@@ -39,7 +39,7 @@ namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
             set => fieldDescripcion.Text = value;
         }
 
-        public bool ModoEdicionDatos {
+        public bool ModoEdicion {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -48,8 +48,8 @@ namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
             }
         }
 
-        public event EventHandler? RegistrarDatos;
-        public event EventHandler? EditarDatos;
+        public event EventHandler? Registrar;
+        public event EventHandler? Editar;
         public event EventHandler? EliminarDatos;
         public event EventHandler? Salir;
 
@@ -59,10 +59,10 @@ namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
                 Salir?.Invoke(sender, args);
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
-                    EditarDatos?.Invoke(sender, args);
+                if (ModoEdicion)
+                    Editar?.Invoke(sender, args);
                 else
-                    RegistrarDatos?.Invoke(sender, args);
+                    Registrar?.Invoke(sender, args);
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
                 Salir?.Invoke(sender, args);
@@ -78,15 +78,15 @@ namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
             Nombre = string.Empty;
             Abreviatura = string.Empty;
             Descripcion = string.Empty;
-            ModoEdicionDatos = false;
+            ModoEdicion = false;
         }
 
         public void Ocultar() {
             Hide();
         }
 
-        public void Cerrar() {
-            Dispose();
+        public void Dispose() {
+            base.Dispose();
         }
     }
 }

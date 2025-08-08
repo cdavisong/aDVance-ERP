@@ -1,10 +1,10 @@
 ﻿using aDVanceERP.Core.ClienteFTP.MVP.Modelos;
 using aDVanceERP.Core.ClienteFTP.MVP.Vistas.Plantillas;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 
-namespace aDVanceERP.Core.ClienteFTP.MVP.Presentadores; 
+namespace aDVanceERP.Core.ClienteFTP.MVP.Presentadores;
 
-public class PresentadorConfServidorFTP : PresentadorBase<IVistaConfServidorFTP> {
+public class PresentadorConfServidorFTP : PresentadorVistaBase<IVistaConfServidorFTP> {
     public PresentadorConfServidorFTP(IVistaConfServidorFTP vista) : base(vista) {
         vista.AlmacenarConfiguracion += AlmacenarConfServidorFTP;
     }

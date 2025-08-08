@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.Interfaces.Comun;
+using aDVanceERP.Core.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
@@ -18,7 +18,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -211,14 +211,14 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     }
 
     public void Mostrar() {
-        Habilitada = true;
+        Habilitar = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
-        Habilitada = true;
+        Habilitar = true;
         PaginaActual = 1;
         PaginasTotales = 1;
 
@@ -227,11 +227,11 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     }
 
     public void Ocultar() {
-        Habilitada = false;
+        Habilitar = false;
         Hide();
     }
 
-    public void Cerrar() {
+    public void Dispose() {
         //...
     }
 

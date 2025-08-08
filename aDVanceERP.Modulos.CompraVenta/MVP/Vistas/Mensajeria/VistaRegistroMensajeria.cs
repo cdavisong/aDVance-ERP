@@ -13,7 +13,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         Inicializar();
     }
 
-    public bool Habilitada {
+    public bool Habilitar {
         get => Enabled;
         set => Enabled = value;
     }
@@ -69,7 +69,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         set => fieldResumenEntrega.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             btnAdicionarMensajero.Enabled = !value;
@@ -87,8 +87,8 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
 
     public event EventHandler? AsignarNuevoMensajero;
     public event EventHandler? AsignarNuevoCliente;
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? Registrar;
+    public event EventHandler? Editar;
     public event EventHandler? EliminarDatos;
     public event EventHandler? Salir;    
 
@@ -122,10 +122,10 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
             ActualizarResumenEntrega();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+            if (ModoEdicion)
+                Editar?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                Registrar?.Invoke(sender, args);
         };
         btnSalir.Click += delegate (object? sender, EventArgs args) {
             Salir?.Invoke(sender, args);
@@ -202,15 +202,15 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         DescripcionTipoEntrega = "...";
         Direccion = string.Empty;
         ResumenEntrega = "...";
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
         Hide();
     }
 
-    public void Cerrar() {
-        Dispose();
+    public void Dispose() {
+        base.Dispose();
     }
 
     private void ActualizarResumenEntrega() {
@@ -244,7 +244,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         // Actualizar el resúmen de entrega
         ResumenEntrega = resumenHtml;
         
-        if (ModoEdicionDatos) 
+        if (ModoEdicion) 
             return;
 
         // Verificar si la entrega es válida

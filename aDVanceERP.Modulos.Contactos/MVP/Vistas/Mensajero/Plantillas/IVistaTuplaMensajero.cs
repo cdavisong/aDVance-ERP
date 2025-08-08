@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Interfaces;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
