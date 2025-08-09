@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
@@ -7,8 +7,9 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
-    public class PresentadorGestionCajas : PresentadorGestionBase<PresentadorTuplaCaja, IVistaGestionCajas, IVistaTuplaCaja, Caja, DatosCaja, CriterioBusquedaCaja> {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores
+{
+    public class PresentadorGestionCajas : PresentadorVistaGestionBase<PresentadorTuplaCaja, IVistaGestionCajas, IVistaTuplaCaja, Caja, DatosCaja, CriterioBusquedaCaja> {
         public PresentadorGestionCajas(IVistaGestionCajas vista) 
             : base(vista) {
             vista.CerrarCajaSeleccionada += CerrarCajaSeleccionada;

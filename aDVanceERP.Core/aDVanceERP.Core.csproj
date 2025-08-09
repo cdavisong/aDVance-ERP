@@ -31,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MVP\Modelos\Repositorios\" />
+    <Folder Include="Componentes\" />
     <Folder Include="Repositorios\Modulos\Inventario\" />
   </ItemGroup>
 </Project>

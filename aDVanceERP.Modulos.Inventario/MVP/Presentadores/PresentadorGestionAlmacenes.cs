@@ -2,7 +2,7 @@
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
@@ -10,7 +10,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTuplaAlmacen, IVistaGestionAlmacenes,
+public class PresentadorGestionAlmacenes : PresentadorVistaGestionBase<PresentadorTuplaAlmacen, IVistaGestionAlmacenes,
     IVistaTuplaAlmacen, Almacen, DatosAlmacen, CriterioBusquedaAlmacen> {
     private ControladorArchivosDispositivoAndroid _androidFileManager;
     private bool _dispositivoConectado;

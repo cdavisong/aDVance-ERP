@@ -6,7 +6,6 @@ public interface IPanelContenedorVistas : IDisposable {
     Size Dimensiones { get; set; }
     bool Habilitar { get; set; }
 
-
     IDictionary<string, IVista> Vistas { get; }
     
     void AdicionarVista(IVista vista);

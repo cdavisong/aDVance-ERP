@@ -4,5 +4,5 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
-public interface IVistaGestionMovimientos : IVistaContenedor, IGestorDatos, IBuscadorDatos<CriterioBusquedaMovimiento>,
-    IGestorTablaDatos { }
+public interface IVistaGestionMovimientos : IVistaContenedor, IGestorDatos, IBarraBusquedaEntidadesBd<CriterioBusquedaMovimiento>,
+    ITablaResultadosBusqueda { }

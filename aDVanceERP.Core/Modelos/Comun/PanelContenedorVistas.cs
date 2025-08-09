@@ -3,7 +3,7 @@ using aDVanceERP.Core.Interfaces;
 
 namespace aDVanceERP.Core.Modelos.Comun;
 
-public abstract class PanelContenedorVistas : IPanelContenedorVistas {
+public class PanelContenedorVistas : IPanelContenedorVistas {
     private Panel _panelContenedor;
 
     public PanelContenedorVistas(Panel panelContenedor) {

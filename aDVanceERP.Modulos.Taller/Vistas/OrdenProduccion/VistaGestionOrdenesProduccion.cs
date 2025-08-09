@@ -30,12 +30,12 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
             set => Size = value;
         }
 
-        public CriterioBusquedaOrdenProduccion CriterioBusqueda {
+        public CriterioBusquedaOrdenProduccion FiltroBusqueda {
             get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaOrdenProduccion) fieldCriterioBusqueda.SelectedIndex : default;
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
-        public string DatoBusqueda {
+        public string CriterioBusqueda {
             get => fieldDatoBusqueda.Text;
             set => fieldDatoBusqueda.Text = value;
         }
@@ -72,7 +72,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
         public IRepositorioVista Vistas { get; private set; }
 
-        public event EventHandler? AlturaContenedorTuplasModificada;
+        public event EventHandler? AlturaPanelResultadosModificada;
         public event EventHandler? MostrarPrimeraPagina;
         public event EventHandler? MostrarPaginaAnterior;
         public event EventHandler? MostrarPaginaSiguiente;
@@ -82,7 +82,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
-        public event EventHandler? BuscarDatos;
+        public event EventHandler? Buscar;
         public event EventHandler? CerrarOrdenProduccionSeleccionada;
 
         public void Inicializar() {
@@ -91,7 +91,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
             // Eventos
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-                if (CriterioBusqueda == CriterioBusquedaOrdenProduccion.FechaApertura || CriterioBusqueda == CriterioBusquedaOrdenProduccion.FechaCierre) {
+                if (FiltroBusqueda == CriterioBusquedaOrdenProduccion.FechaApertura || FiltroBusqueda == CriterioBusquedaOrdenProduccion.FechaCierre) {
                     fieldDatoBusquedaFecha.Value = DateTime.Now;
                     fieldDatoBusquedaFecha.Focus();
                 } else {
@@ -99,28 +99,28 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                     fieldDatoBusqueda.Focus();
                 }
 
-                fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaOrdenProduccion.FechaApertura &&
-                                            CriterioBusqueda != CriterioBusquedaOrdenProduccion.FechaCierre &&
+                fieldDatoBusqueda.Visible = FiltroBusqueda != CriterioBusquedaOrdenProduccion.FechaApertura &&
+                                            FiltroBusqueda != CriterioBusquedaOrdenProduccion.FechaCierre &&
                                             fieldCriterioBusqueda.SelectedIndex != 0;
-                fieldDatoBusquedaFecha.Visible = (CriterioBusqueda == CriterioBusquedaOrdenProduccion.FechaApertura ||
-                                                 CriterioBusqueda == CriterioBusquedaOrdenProduccion.FechaCierre) &&
+                fieldDatoBusquedaFecha.Visible = (FiltroBusqueda == CriterioBusquedaOrdenProduccion.FechaApertura ||
+                                                 FiltroBusqueda == CriterioBusquedaOrdenProduccion.FechaCierre) &&
                                                  fieldCriterioBusqueda.SelectedIndex != 0;
 
-                if (CriterioBusqueda != CriterioBusquedaOrdenProduccion.FechaApertura &&
-                    CriterioBusqueda != CriterioBusquedaOrdenProduccion.FechaCierre)
-                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+                if (FiltroBusqueda != CriterioBusquedaOrdenProduccion.FechaApertura &&
+                    FiltroBusqueda != CriterioBusquedaOrdenProduccion.FechaCierre)
+                    Buscar?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
 
                 // Ir a la primera página al cambiar el criterio de búsqueda
                 PaginaActual = 1;
                 HabilitarBotonesPaginacion();
             };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
-                if (!string.IsNullOrEmpty(DatoBusqueda))
-                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                if (!string.IsNullOrEmpty(CriterioBusqueda))
+                    Buscar?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
             fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+                Buscar?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                     e);
             };
             btnCerrarOrdenProduccion.Click += delegate (object? sender, EventArgs e) {
@@ -157,11 +157,11 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 SincronizarDatos?.Invoke(sender, e);
             };
             contenedorVistas.Resize += delegate {
-                AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
+                AlturaPanelResultadosModificada?.Invoke(this, EventArgs.Empty);
             };
         }
 
-        public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+        public void CargarFiltrosBusqueda(object[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
 

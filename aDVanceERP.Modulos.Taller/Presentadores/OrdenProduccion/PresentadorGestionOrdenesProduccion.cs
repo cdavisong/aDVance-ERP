@@ -1,6 +1,6 @@
 ﻿
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
@@ -9,8 +9,9 @@ using aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
-    public class PresentadorGestionOrdenesProduccion : PresentadorGestionBase<PresentadortuplaOrdenProduccion, IVistaGestionOrdenesProduccion, IVistaTuplaOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, CriterioBusquedaOrdenProduccion> {
+namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion
+{
+    public class PresentadorGestionOrdenesProduccion : PresentadorVistaGestionBase<PresentadortuplaOrdenProduccion, IVistaGestionOrdenesProduccion, IVistaTuplaOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, CriterioBusquedaOrdenProduccion> {
         public PresentadorGestionOrdenesProduccion(IVistaGestionOrdenesProduccion vista) : base(vista) {
             vista.CerrarOrdenProduccionSeleccionada += OnCerrarOrdenProduccionSeleccionada;
             vista.EditarDatos += delegate {

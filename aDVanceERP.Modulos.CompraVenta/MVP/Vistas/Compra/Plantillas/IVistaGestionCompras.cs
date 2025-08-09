@@ -4,8 +4,8 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 
-public interface IVistaGestionCompras : IVistaContenedor, IGestorDatos, IBuscadorDatos<CriterioBusquedaCompra>,
-    IGestorTablaDatos {
+public interface IVistaGestionCompras : IVistaContenedor, IGestorDatos, IBarraBusquedaEntidadesBd<CriterioBusquedaCompra>,
+    ITablaResultadosBusqueda {
     string FormatoReporte { get; }
     string ValorBrutoCompra { get; }
 

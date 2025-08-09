@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero;
@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTuplaMensajero, IVistaGestionMensajeros,
+public class PresentadorGestionMensajeros : PresentadorVistaGestionBase<PresentadorTuplaMensajero, IVistaGestionMensajeros,
     IVistaTuplaMensajero, Mensajero, DatosMensajero, CriterioBusquedaMensajero> {
     public PresentadorGestionMensajeros(IVistaGestionMensajeros vista) : base(vista) {
         vista.HabilitarDeshabilitarMensajero += IntercambiarHabilitacionMensajero;

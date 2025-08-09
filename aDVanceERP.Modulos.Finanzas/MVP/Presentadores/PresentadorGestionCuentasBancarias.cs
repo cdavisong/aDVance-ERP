@@ -1,13 +1,13 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 
-public class PresentadorGestionCuentasBancarias : PresentadorGestionBase<PresentadorTuplaCuentaBancaria,
+public class PresentadorGestionCuentasBancarias : PresentadorVistaGestionBase<PresentadorTuplaCuentaBancaria,
     IVistaGestionCuentasBancarias, IVistaTuplaCuentaBancaria, CuentaBancaria, DatosCuentaBancaria,
     CriterioBusquedaCuentaBancaria> {
     public PresentadorGestionCuentasBancarias(IVistaGestionCuentasBancarias vista) : base(vista) { }

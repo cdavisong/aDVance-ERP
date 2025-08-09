@@ -30,12 +30,12 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
             set => Size = value;
         }
 
-        public CriterioBusquedaCaja CriterioBusqueda {
+        public CriterioBusquedaCaja FiltroBusqueda {
             get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaCaja) fieldCriterioBusqueda.SelectedIndex : default;
             set => fieldCriterioBusqueda.SelectedIndex = (int) value;
         }
 
-        public string DatoBusqueda {
+        public string CriterioBusqueda {
             get => fieldDatoBusqueda.Text;
             set => fieldDatoBusqueda.Text = value;
         }
@@ -77,7 +77,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
 
         public IRepositorioVista Vistas { get; private set; }
 
-        public event EventHandler? AlturaContenedorTuplasModificada;
+        public event EventHandler? AlturaPanelResultadosModificada;
         public event EventHandler? MostrarPrimeraPagina;
         public event EventHandler? MostrarPaginaAnterior;
         public event EventHandler? MostrarPaginaSiguiente;
@@ -87,7 +87,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
-        public event EventHandler? BuscarDatos;
+        public event EventHandler? Buscar;
         public event EventHandler? RegistrarMovimientoCajaSeleccionada;
         public event EventHandler? CerrarCajaSeleccionada;
 
@@ -97,7 +97,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
 
             // Eventos
             fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-                if (CriterioBusqueda == CriterioBusquedaCaja.FechaApertura || CriterioBusqueda == CriterioBusquedaCaja.FechaCierre) {
+                if (FiltroBusqueda == CriterioBusquedaCaja.FechaApertura || FiltroBusqueda == CriterioBusquedaCaja.FechaCierre) {
                     fieldDatoBusquedaFecha.Value = DateTime.Now;
                     fieldDatoBusquedaFecha.Focus();
                 }
@@ -106,28 +106,28 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
                     fieldDatoBusqueda.Focus();
                 }
 
-                fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaCaja.FechaApertura &&
-                                            CriterioBusqueda != CriterioBusquedaCaja.FechaCierre &&
+                fieldDatoBusqueda.Visible = FiltroBusqueda != CriterioBusquedaCaja.FechaApertura &&
+                                            FiltroBusqueda != CriterioBusquedaCaja.FechaCierre &&
                                             fieldCriterioBusqueda.SelectedIndex != 0;
-                fieldDatoBusquedaFecha.Visible = (CriterioBusqueda == CriterioBusquedaCaja.FechaApertura ||
-                                                 CriterioBusqueda == CriterioBusquedaCaja.FechaCierre) &&
+                fieldDatoBusquedaFecha.Visible = (FiltroBusqueda == CriterioBusquedaCaja.FechaApertura ||
+                                                 FiltroBusqueda == CriterioBusquedaCaja.FechaCierre) &&
                                                  fieldCriterioBusqueda.SelectedIndex != 0;
 
-                if (CriterioBusqueda != CriterioBusquedaCaja.FechaApertura &&
-                    CriterioBusqueda != CriterioBusquedaCaja.FechaCierre)
-                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+                if (FiltroBusqueda != CriterioBusquedaCaja.FechaApertura &&
+                    FiltroBusqueda != CriterioBusquedaCaja.FechaCierre)
+                    Buscar?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
 
                 // Ir a la primera página al cambiar el criterio de búsqueda
                 PaginaActual = 1;
                 HabilitarBotonesPaginacion();
             };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
-                if (!string.IsNullOrEmpty(DatoBusqueda))
-                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                if (!string.IsNullOrEmpty(CriterioBusqueda))
+                    Buscar?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
             fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+                Buscar?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                     e);
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
@@ -167,11 +167,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
                 SincronizarDatos?.Invoke(sender, e);
             };
             contenedorVistas.Resize += delegate {
-                AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
+                AlturaPanelResultadosModificada?.Invoke(this, EventArgs.Empty);
             };
         }
 
-        public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+        public void CargarFiltrosBusqueda(object[] criteriosBusqueda) {
             fieldCriterioBusqueda.Items.Clear();
             fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
             

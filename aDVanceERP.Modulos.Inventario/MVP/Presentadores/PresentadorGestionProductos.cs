@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTuplaProducto, IVistaGestionProductos,
+public class PresentadorGestionProductos : PresentadorVistaGestionBase<PresentadorTuplaProducto, IVistaGestionProductos,
     IVistaTuplaProducto, Producto, DatosProducto, CriterioBusquedaProducto> {
     public PresentadorGestionProductos(IVistaGestionProductos vista) : base(vista) { }
 

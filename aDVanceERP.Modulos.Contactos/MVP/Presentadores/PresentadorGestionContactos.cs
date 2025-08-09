@@ -1,12 +1,12 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorGestionContactos : PresentadorGestionBase<PresentadorTuplaContacto, IVistaGestionContactos,
+public class PresentadorGestionContactos : PresentadorVistaGestionBase<PresentadorTuplaContacto, IVistaGestionContactos,
     IVistaTuplaContacto, Contacto, DatosContacto, CriterioBusquedaContacto> {
     public PresentadorGestionContactos(IVistaGestionContactos vista) : base(vista) { }
 

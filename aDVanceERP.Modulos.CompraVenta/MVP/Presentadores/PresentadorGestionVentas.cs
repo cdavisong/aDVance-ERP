@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
@@ -8,9 +8,9 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
 using Newtonsoft.Json;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
-public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaVenta, IVistaGestionVentas,
+public class PresentadorGestionVentas : PresentadorVistaGestionBase<PresentadorTuplaVenta, IVistaGestionVentas,
     IVistaTuplaVenta, Venta, DatosVenta, CriterioBusquedaVenta> {
     public PresentadorGestionVentas(IVistaGestionVentas vista) : base(vista) {
         vista.ConfirmarEntrega += OnConfirmarEntregaAriculos;

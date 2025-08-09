@@ -43,14 +43,14 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         set => fieldCriterioCategoriaProducto.SelectedIndex = value + 1;
     }
 
-    public CriterioBusquedaProducto CriterioBusqueda {
+    public CriterioBusquedaProducto FiltroBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex > 0
             ? (CriterioBusquedaProducto) fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int) value;
     }
 
-    public string? DatoBusqueda {
+    public string? CriterioBusqueda {
         get => fieldDatoBusqueda.Text;
         set => fieldDatoBusqueda.Text = value;
     }
@@ -90,7 +90,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
 
     public IRepositorioVista? Vistas { get; private set; }
 
-    public event EventHandler? AlturaContenedorTuplasModificada;
+    public event EventHandler? AlturaPanelResultadosModificada;
     public event EventHandler? MostrarPrimeraPagina;
     public event EventHandler? MostrarPaginaAnterior;
     public event EventHandler? MostrarPaginaSiguiente;
@@ -100,7 +100,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? BuscarDatos;
+    public event EventHandler? Buscar;
 
     public void Inicializar() {
         // Variables locales
@@ -109,14 +109,14 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         // Eventos
         fieldNombreAlmacen.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(NombreAlmacen))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
+                Buscar?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), CriterioBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
 
             ActualizarMontoInversion();
         };
         fieldCriterioCategoriaProducto.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
             if (Categoria > -1)
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
+                Buscar?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), CriterioBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
 
             ActualizarMontoInversion();
@@ -126,7 +126,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } },
+            Buscar?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), CriterioBusqueda } },
                 EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
@@ -134,8 +134,8 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             HabilitarBotonesPaginacion();
         };
         fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
-            if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
+            if (!string.IsNullOrEmpty(CriterioBusqueda))
+                Buscar?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), CriterioBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
@@ -180,7 +180,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             ActualizarMontoInversion();
         };
         contenedorVistas.Resize += delegate {
-            AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
+            AlturaPanelResultadosModificada?.Invoke(this, EventArgs.Empty);
         };
 
         // Enlace de scanner
@@ -194,7 +194,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         fieldNombreAlmacen.SelectedIndex = fieldNombreAlmacen.Items.Count > 0 ? 0 : -1;
     }
 
-    public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+    public void CargarFiltrosBusqueda(object[] criteriosBusqueda) {
         fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
         fieldCriterioBusqueda.SelectedIndex = 0;

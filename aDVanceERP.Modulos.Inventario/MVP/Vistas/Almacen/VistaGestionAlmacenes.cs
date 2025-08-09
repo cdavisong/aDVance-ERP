@@ -34,14 +34,14 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         set => Size = value;
     }
 
-    public CriterioBusquedaAlmacen CriterioBusqueda {
+    public CriterioBusquedaAlmacen FiltroBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
             ? (CriterioBusquedaAlmacen)fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int)value;
     }
 
-    public string? DatoBusqueda {
+    public string? CriterioBusqueda {
         get => fieldDatoBusqueda.Text;
         set => fieldDatoBusqueda.Text = value;
     }
@@ -75,7 +75,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
 
     public bool DispositivoConectado { get; private set; }
 
-    public event EventHandler? AlturaContenedorTuplasModificada;
+    public event EventHandler? AlturaPanelResultadosModificada;
     public event EventHandler? MostrarPrimeraPagina;
     public event EventHandler? MostrarPaginaAnterior;
     public event EventHandler? MostrarPaginaSiguiente;
@@ -85,7 +85,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? BuscarDatos;
+    public event EventHandler? Buscar;
 
     public void Inicializar() {
         // Variables locales
@@ -97,15 +97,15 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
             fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);            
+            Buscar?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);            
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
         fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
-            if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+            if (!string.IsNullOrEmpty(CriterioBusqueda))
+                Buscar?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
@@ -141,11 +141,11 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
             SincronizarDatos?.Invoke(sender, e);            
         };
         contenedorVistas.Resize += delegate { 
-            AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); 
+            AlturaPanelResultadosModificada?.Invoke(this, EventArgs.Empty); 
         };
     }
 
-    public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+    public void CargarFiltrosBusqueda(object[] criteriosBusqueda) {
         fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
         fieldCriterioBusqueda.SelectedIndex = 0;

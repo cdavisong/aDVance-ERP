@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorTuplaMovimiento, IVistaGestionMovimientos
+public class PresentadorGestionMovimientos : PresentadorVistaGestionBase<PresentadorTuplaMovimiento, IVistaGestionMovimientos
     , IVistaTuplaMovimiento, Movimiento, DatosMovimiento, CriterioBusquedaMovimiento> {
     public PresentadorGestionMovimientos(IVistaGestionMovimientos vista) : base(vista) { }
 

@@ -39,14 +39,14 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
         set => fieldFormatoReporte.Text = value;
     }
 
-    public CriterioBusquedaCompra CriterioBusqueda {
+    public CriterioBusquedaCompra FiltroBusqueda {
         get => fieldCriterioBusqueda.SelectedIndex >= 0
             ? (CriterioBusquedaCompra)fieldCriterioBusqueda.SelectedIndex
             : default;
         set => fieldCriterioBusqueda.SelectedIndex = (int)value;
     }
 
-    public string? DatoBusqueda {
+    public string? CriterioBusqueda {
         get => fieldDatoBusqueda.Text;
         set => fieldDatoBusqueda.Text = value;
     }
@@ -86,7 +86,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
 
     public IRepositorioVista? Vistas { get; private set; }
 
-    public event EventHandler? AlturaContenedorTuplasModificada;
+    public event EventHandler? AlturaPanelResultadosModificada;
     public event EventHandler? MostrarPrimeraPagina;
     public event EventHandler? MostrarPaginaAnterior;
     public event EventHandler? MostrarPaginaSiguiente;
@@ -98,7 +98,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
     public event EventHandler? EliminarDatos;
     public event EventHandler? DescargarReporte;
     public event EventHandler? ImprimirReporte;
-    public event EventHandler? BuscarDatos;
+    public event EventHandler? Buscar;
 
     public void Inicializar() {
         // Vistas
@@ -135,7 +135,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
             UtilesReportes.GenerarEntradaMercancias(fieldDatoBusquedaFecha.Value, filas);
         };
         fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-            if (CriterioBusqueda == CriterioBusquedaCompra.Fecha) {
+            if (FiltroBusqueda == CriterioBusquedaCompra.Fecha) {
                 fieldDatoBusquedaFecha.Value = DateTime.Now;
                 fieldDatoBusquedaFecha.Focus();
 
@@ -148,25 +148,25 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
                 fieldDatoBusqueda.Focus();
             }
 
-            fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaCompra.Fecha &&
+            fieldDatoBusqueda.Visible = FiltroBusqueda != CriterioBusquedaCompra.Fecha &&
                                         fieldCriterioBusqueda.SelectedIndex != 0;
-            fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaCompra.Fecha &&
+            fieldDatoBusquedaFecha.Visible = FiltroBusqueda == CriterioBusquedaCompra.Fecha &&
                                              fieldCriterioBusqueda.SelectedIndex != 0;
 
-            if (CriterioBusqueda != CriterioBusquedaCompra.Fecha)
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+            if (FiltroBusqueda != CriterioBusquedaCompra.Fecha)
+                Buscar?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
-            if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+            if (!string.IsNullOrEmpty(CriterioBusqueda))
+                Buscar?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         fieldDatoBusquedaFecha.ValueChanged += delegate(object? sender, EventArgs e) {
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+            Buscar?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                 e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -199,7 +199,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
             HabilitarBotonesPaginacion();
         };
         btnSincronizarDatos.Click += delegate(object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
-        contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
+        contenedorVistas.Resize += delegate { AlturaPanelResultadosModificada?.Invoke(this, EventArgs.Empty); };
     }
 
     public void ActualizarValorBrutoCompras() {
@@ -208,7 +208,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
         ;
     }
 
-    public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+    public void CargarFiltrosBusqueda(object[] criteriosBusqueda) {
         fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
         

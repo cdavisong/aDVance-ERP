@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Seguridad;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
@@ -9,7 +9,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
-public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<PresentadorTuplaCuentaUsuario,
+public class PresentadorGestionCuentasUsuarios : PresentadorVistaGestionBase<PresentadorTuplaCuentaUsuario,
     IVistaGestionCuentasUsuarios, IVistaTuplaCuentaUsuario, CuentaUsuario, DatosCuentaUsuario,
     CriterioBusquedaCuentaUsuario> {
     public PresentadorGestionCuentasUsuarios(IVistaGestionCuentasUsuarios vista) : base(vista) {
