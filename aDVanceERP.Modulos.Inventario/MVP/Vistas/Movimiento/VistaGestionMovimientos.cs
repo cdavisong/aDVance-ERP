@@ -31,11 +31,11 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         set => Size = value;
     }
 
-    public CriterioBusquedaMovimiento CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaMovimiento)fieldCriterioBusqueda.SelectedIndex
+    public FbMovimiento Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbMovimiento)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -111,11 +111,11 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         };
         fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+            BuscarDatos?.Invoke(new object[] { Fb, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                 e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -170,7 +170,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Ocultar() {

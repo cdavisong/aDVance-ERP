@@ -9,11 +9,11 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegistroMovimiento, Movimiento,
-    DatosMovimiento, CriterioBusquedaMovimiento> {
+    RepoMovimiento, FbMovimiento> {
 
     public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Movimiento objeto) {
+    public override void PopularVistaDesdeEntidad(Movimiento objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
         Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
@@ -22,10 +22,10 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
         Vista.CantidadMovida = objeto.CantidadMovida;
         Vista.TipoMovimiento = UtilesMovimiento.ObtenerNombreTipoMovimiento(objeto.IdTipoMovimiento) ?? string.Empty;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var nombreProductoOk = !string.IsNullOrEmpty(Vista.NombreProducto);
         var tipoMovimientoOk = !string.IsNullOrEmpty(Vista.TipoMovimiento);
         var noCompraventaOk = !(Vista.TipoMovimiento.Equals("Compra") || Vista.TipoMovimiento.Equals("Venta"));
@@ -99,11 +99,11 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
                 UtilesProducto.ObtenerCostoUnitario(idProducto).Result);
     }
 
-    protected override async Task<Movimiento?> ObtenerObjetoDesdeVista() {
-        return new Movimiento(Objeto?.Id ?? 0,
-            await UtilesProducto.ObtenerIdProducto(Vista.NombreProducto),
-            await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen),
-            await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino),
+    protected override Movimiento? ObtenerEntidadDesdeVista() {
+        return new Movimiento(Entidad?.Id ?? 0,
+            UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result,
+            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen).Result,
+            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
             Vista.Fecha,
             Vista.CantidadMovida,
             UtilesMovimiento.ObtenerIdTipoMovimiento(Vista.TipoMovimiento)

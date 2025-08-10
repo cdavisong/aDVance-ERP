@@ -3,8 +3,8 @@ using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
-using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
+using aDVanceERP.Core.Seguridad.Repositorios;
 using aDVanceERP.Core.Seguridad.Utiles;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
@@ -28,10 +28,8 @@ public class PresentadorAutenticacionUsuario : PresentadorBase<IVistaAutenticaci
         }
 
         try {
-            using (var datosUsuario = new DatosCuentaUsuario()) {
-                var usuario =
-                    (await datosUsuario.ObtenerAsync(CriterioBusquedaCuentaUsuario.Nombre, Vista.NombreUsuario, out _)
-                        .ConfigureAwait(false)).FirstOrDefault();
+            using (var datosUsuario = new RepoCuentaUsuario()) {
+                var usuario = datosUsuario.Buscar(FbCuentaUsuario.Nombre, Vista.NombreUsuario).resultados.FirstOrDefault();
 
                 if (usuario == null) {
                     CentroNotificaciones.Mostrar(

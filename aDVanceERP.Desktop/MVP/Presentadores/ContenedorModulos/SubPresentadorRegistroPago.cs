@@ -2,11 +2,11 @@
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
-using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
+using aDVanceERP.Modulos.Finanzas.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
@@ -25,7 +25,7 @@ public partial class PresentadorContenedorModulos {
 
             Transferencia = Array.Empty<string>();
         };
-        _registroPago.DatosRegistradosActualizados += delegate (object? sender, EventArgs args) {
+        _registroPago.DatosEntidadRegistradosActualizados += delegate (object? sender, EventArgs args) {
             if (_registroVentaProducto == null)
                 return;
 
@@ -58,7 +58,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Venta venta) {
             if (_registroPago != null && _registroVentaProducto != null) {
-                _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta.Id, string.Empty, venta.Total));
+                _registroPago.PopularVistaDesdeEntidad(new Pago(0, venta.Id, string.Empty, venta.Total));
                 _registroPago.Vista.EfectuarTransferencia += delegate {
                     MostrarVistaEdicionDetallePagoTransferencia(sender, e);
                 };
@@ -79,18 +79,18 @@ public partial class PresentadorContenedorModulos {
                 return;
 
             objetoSeguimiento.FechaPago = DateTime.Now;
-            datosSeguimiento.Editar(objetoSeguimiento);
+            datosSeguimiento.Actualizar(objetoSeguimiento);
         }
     }
 
     private void ActualizarMovimientoCaja(List<Pago?> pagos) {
-        using (var datos = new DatosMovimientoCaja()) {
+        using (var datos = new RepoMovimientoCaja()) {
             foreach (var pago in pagos) {
                 if (pago?.MetodoPago != "Efectivo")
                     continue;
 
                 var movimientoCaja = datos
-                            .Obtener(FbMovimientoCaja.IdPago, pago.Id.ToString())
+                            .Buscar(FbMovimientoCaja.IdPago, pago.Id.ToString()).resultados
                             .FirstOrDefault();
 
                 if (movimientoCaja == null) {
@@ -105,11 +105,11 @@ public partial class PresentadorContenedorModulos {
                         $"Pago de venta #{(pago.IdVenta > 0 ? pago.IdVenta : _registroPago?.Vista.IdVenta)} realizado por {UtilesCuentaUsuario.UsuarioAutenticado?.Nombre}"
                     );
 
-                    datos.Adicionar(movimientoCaja);
+                    datos.Insertar(movimientoCaja);
                 } else {
                     movimientoCaja.Monto = pago.Monto;
 
-                    datos.Editar(movimientoCaja);
+                    datos.Actualizar(movimientoCaja);
                 }
             }
 

@@ -13,8 +13,8 @@ public interface IPresentadorGestion<Vg, Do, O, C> : IPresentadorBase<Vg>, IDisp
     C? CriterioBusquedaObjeto { get; }
     string? DatoBusquedaObjeto { get; }
 
-    event EventHandler? EditarObjeto;
+    event EventHandler? EditarEntidad;
 
-    Task BusquedaDatos(C criterio, string dato);
-    Task RefrescarListaObjetos();
+    void BuscarDatosEntidad(Fb filtroBusqueda, string datosComplementarios);
+    Task PopularTuplasDatosEntidades();
 }

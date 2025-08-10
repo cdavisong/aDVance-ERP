@@ -120,9 +120,6 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
-      android:divider="#E0E0E0"
-      android:dividerHeight="1dp"
-      android:scrollbars="vertical"/>
 
   <!-- Carrito de compras -->
   <LinearLayout
@@ -193,23 +190,16 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
-      android:divider="#E0E0E0"
-      android:dividerHeight="1dp"
-      android:scrollbars="vertical"/>
 
-  <!-- Total y botones de pago -->
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:background="#F5F5F5"
-      android:padding="8dp"
       android:layout_marginTop="8dp">
 
     <TextView
         android:id="@+id/lblTotal"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+          android:layout_weight="1"
         android:text="Total: $0.00"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -263,7 +253,6 @@
 
       <Button
           android:id="@+id/btnPagarEfectivo"
-          android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:text="Efectivo"
@@ -273,7 +262,6 @@
 
       <Button
           android:id="@+id/btnPagarTransferencia"
-          android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:text="Transferencia"
@@ -292,4 +280,10 @@
           android:layout_marginStart="8dp"/>
     </LinearLayout>
   </LinearLayout>
+    <Button
+      android:id="@+id/btnExportar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Exportar Datos"
+      android:layout_marginTop="8dp" />
 </LinearLayout>

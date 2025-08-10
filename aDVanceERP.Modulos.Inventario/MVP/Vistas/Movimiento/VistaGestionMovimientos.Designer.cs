@@ -55,7 +55,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             panelDatosComplementariosBusqueda = new Panel();
             fieldDatoBusquedaFecha = new Guna2DateTimePicker();
             fieldDatoBusqueda = new Guna2TextBox();
-            fieldCriterioBusqueda = new Guna2ComboBox();
+            fieldFb = new Guna2ComboBox();
             layoutTituloHerramientas = new TableLayoutPanel();
             fieldTituloFiltrosBusqueda = new Label();
             panelBotonesGestion = new Panel();
@@ -148,7 +148,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutHerramientas.Controls.Add(panelDatosComplementariosBusqueda, 0, 0);
-            layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 0, 0);
+            layoutHerramientas.Controls.Add(fieldFb, 0, 0);
             layoutHerramientas.Dock = DockStyle.Fill;
             layoutHerramientas.Location = new Point(50, 145);
             layoutHerramientas.Margin = new Padding(0);
@@ -229,7 +229,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldDatoBusqueda.TextOffset = new Point(5, 0);
             fieldDatoBusqueda.Visible = false;
             // 
-            // fieldCriterioBusqueda
+            // fieldFb
             // 
             fieldCriterioBusqueda.Animated = true;
             fieldCriterioBusqueda.BackColor = Color.Transparent;
@@ -774,7 +774,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         private TableLayoutPanel layoutTituloHerramientas;
         private Label fieldTituloFiltrosBusqueda;
         private TableLayoutPanel layoutHerramientas;
-        private Guna2ComboBox fieldCriterioBusqueda;
+        private Guna2ComboBox fieldFb;
         private Panel panelDatosComplementariosBusqueda;
         private Guna2DateTimePicker fieldDatoBusquedaFecha;
         private Guna2TextBox fieldDatoBusqueda;

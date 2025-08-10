@@ -29,9 +29,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => Size = value;
         }
 
-        public CriterioBusquedaCaja CriterioBusqueda {
-            get => fieldCriterioBusqueda.SelectedIndex >= 0 ? (CriterioBusquedaCaja) fieldCriterioBusqueda.SelectedIndex : default;
-            set => fieldCriterioBusqueda.SelectedIndex = (int) value;
+        public FbCaja Fb {
+            get => fieldFb.SelectedIndex >= 0 ? (FbCaja) fieldFb.SelectedIndex : default;
+            set => fieldFb.SelectedIndex = (int) value;
         }
 
         public string DatoBusqueda {
@@ -122,11 +122,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             };
             fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
                 if (!string.IsNullOrEmpty(DatoBusqueda))
-                    BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                    BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
                 else SincronizarDatos?.Invoke(sender, e);
             };
             fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+                BuscarDatos?.Invoke(new object[] { Fb, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                     e);
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {

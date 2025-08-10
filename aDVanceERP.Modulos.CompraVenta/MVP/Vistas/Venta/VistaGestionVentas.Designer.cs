@@ -68,7 +68,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutCamposReporte = new TableLayoutPanel();
             btnDescargar = new Guna2Button();
             fieldFormatoReporte = new Guna2ComboBox();
-            fieldCriterioBusqueda = new Guna2ComboBox();
+            fieldFb = new Guna2ComboBox();
             panelDatosComplementariosBusqueda = new Panel();
             fieldDatoBusquedaFecha = new Guna2DateTimePicker();
             fieldDatoBusqueda = new Guna2TextBox();
@@ -214,7 +214,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutHerramientas.Controls.Add(layoutCamposReporte, 0, 0);
-            layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 1, 0);
+            layoutHerramientas.Controls.Add(fieldFb, 1, 0);
             layoutHerramientas.Controls.Add(panelDatosComplementariosBusqueda, 2, 0);
             layoutHerramientas.Dock = DockStyle.Fill;
             layoutHerramientas.Location = new Point(50, 145);
@@ -291,7 +291,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldFormatoReporte.TabIndex = 28;
             fieldFormatoReporte.TextOffset = new Point(10, 0);
             // 
-            // fieldCriterioBusqueda
+            // fieldFb
             // 
             fieldCriterioBusqueda.Animated = true;
             fieldCriterioBusqueda.BackColor = Color.Transparent;
@@ -1108,7 +1108,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         private Label fieldTituloFiltrosBusqueda;
         private TableLayoutPanel layoutHerramientas;
         private Guna2TextBox fieldDatoBusqueda;
-        private Guna2ComboBox fieldCriterioBusqueda;
+        private Guna2ComboBox fieldFb;
         private Guna2DateTimePicker fieldDatoBusquedaFecha;
         private Panel panelDatosComplementariosBusqueda;
         private Label fieldTituloReporte;

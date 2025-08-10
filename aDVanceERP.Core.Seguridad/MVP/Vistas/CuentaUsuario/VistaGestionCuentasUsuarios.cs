@@ -35,11 +35,11 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
         set => btnAprobarCuentaUsuario.Visible = value;
     }
 
-    public FbCuentaUsuario CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (FbCuentaUsuario)fieldCriterioBusqueda.SelectedIndex
+    public FbCuentaUsuario Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbCuentaUsuario)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -106,7 +106,7 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -166,7 +166,7 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
         PaginasTotales = 1;
         HabilitarBtnAprobacionSolicitudCuenta = false;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Ocultar() {

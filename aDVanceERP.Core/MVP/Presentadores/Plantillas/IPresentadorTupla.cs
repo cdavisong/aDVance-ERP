@@ -5,13 +5,13 @@ namespace aDVanceERP.Core.MVP.Presentadores.Plantillas;
 
 public interface IPresentadorTupla<Vt, O> : IPresentadorBase<Vt>, IDisposable
     where Vt : IVistaTupla
-    where O : class, IEntidad, new() {
+    where En : class, IEntidad, new() {
     bool TuplaSeleccionada { get; set; }
     Vt Vista { get; }
-    O Objeto { get; }
+    En Entidad { get; }
 
-    event EventHandler? ObjetoSeleccionado;
-    event EventHandler? ObjetoDeseleccionado;
-    event EventHandler? EditarObjeto;
-    event EventHandler? EliminarObjeto;
+    event EventHandler? EntidadSeleccionada;
+    event EventHandler? EntidadDeseleccionada;
+    event EventHandler? EditarDatosEntidad;
+    event EventHandler? EliminarDatosEntidad;
 }

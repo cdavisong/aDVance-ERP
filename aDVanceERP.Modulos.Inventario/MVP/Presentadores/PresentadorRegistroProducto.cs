@@ -7,11 +7,11 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistroProducto, Producto, DatosProducto,
-    CriterioBusquedaProducto> {
+public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistroProducto, Producto, RepoProducto,
+    FbProducto> {
     public PresentadorRegistroProducto(IVistaRegistroProducto vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Producto objeto) {
+    public override void PopularVistaDesdeEntidad(Producto objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.CategoriaProducto = objeto.Categoria;
         Vista.Nombre = objeto.Nombre ?? string.Empty;
@@ -20,8 +20,8 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.EsVendible = objeto.EsVendible;
         Vista.TipoMateriaPrima = UtilesTipoMateriaPrima.ObtenerNombreTipoMateriaPrima(objeto.IdTipoMateriaPrima) ?? string.Empty;
 
-        using (var datos = new DatosDetalleProducto()) {
-            var detalleProducto = datos.Buscar(CriterioBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).FirstOrDefault();
+        using (var datos = new RepoDetalleProducto()) {
+            var detalleProducto = datos.Buscar(FbDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).resultados.FirstOrDefault();
 
             if (detalleProducto != null) {
                 Vista.UnidadMedida = UtilesUnidadMedida.ObtenerNombreUnidadMedida(detalleProducto.IdUnidadMedida) ?? string.Empty;
@@ -34,10 +34,10 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.PrecioVentaBase = objeto.PrecioVentaBase;
         Vista.ModoEdicionDatos = true;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool DatosEntidadCorrectos() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
         var codigoOk = !string.IsNullOrEmpty(Vista.Codigo);
         var unidadMedidaOk = !string.IsNullOrEmpty(Vista.UnidadMedida);
@@ -52,20 +52,20 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         return nombreOk && codigoOk && unidadMedidaOk;
     }
 
-    protected override void RegistroAuxiliar(DatosProducto datosProducto, long id) {
-        var detalleProducto = new DetalleProducto(Objeto?.IdDetalleProducto ?? 0,
+    protected override void RegistroAuxiliar(RepoProducto datosProducto, long id) {
+        var detalleProducto = new DetalleProducto(Entidad?.IdDetalleProducto ?? 0,
             UtilesUnidadMedida.ObtenerIdUnidadMedida(Vista.UnidadMedida).Result,
             Vista.Descripcion ?? "No hay una descripción disponible para el producto actual"
         );
 
         // Registrar detalles del producto
-        using (var datos = new DatosDetalleProducto()) {
-            if (Vista.ModoEdicionDatos && Objeto?.IdDetalleProducto != 0)
+        using (var datos = new RepoDetalleProducto()) {
+            if (Vista.ModoEdicionDatos && Entidad?.IdDetalleProducto != 0)
                 datos.Actualizar(detalleProducto);
-            else if (Objeto?.IdDetalleProducto != 0)
+            else if (Entidad?.IdDetalleProducto != 0)
                 datos.Actualizar(detalleProducto);
             else {
-                Objeto.IdDetalleProducto = datos.Insertar(detalleProducto);
+                Entidad.IdDetalleProducto = datos.Insertar(detalleProducto);
 
                 // Stock inicial del producto
                 UtilesMovimiento.ModificarInventario(
@@ -78,13 +78,13 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             }
 
             // Editar producto para modificar Id de los detalles
-            datosProducto.Actualizar(Objeto);
+            datosProducto.Actualizar(Entidad);
         }
     }
 
-    protected override async Task<Producto?> ObtenerObjetoDesdeVista() {
+    protected override Producto? ObtenerEntidadDesdeVista() {
         return new Producto(
-            Objeto?.Id ?? 0,
+            Entidad?.Id ?? 0,
             Vista.CategoriaProducto,
             Vista.Nombre,
             Vista.Codigo,

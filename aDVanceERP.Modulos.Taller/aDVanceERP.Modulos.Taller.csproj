@@ -31,12 +31,6 @@
     <Compile Update="Vistas\OrdenProduccion\VistaTuplaOrdenMateriaPrima.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Vistas\CostosProduccion\VistaTuplaCostoProduccion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Vistas\Menu\VistaMenuTaller.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

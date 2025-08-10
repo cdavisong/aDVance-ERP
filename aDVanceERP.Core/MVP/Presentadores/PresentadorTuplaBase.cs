@@ -5,7 +5,7 @@ using aDVanceERP.Core.Utiles;
 
 namespace aDVanceERP.Core.MVP.Presentadores; 
 
-public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresentadorTupla<Vt, O>
+public abstract class PresentadorTuplaBase<Vt, En> : PresentadorBase<Vt>, IPresentadorTupla<Vt, En>
     where Vt : class, IVistaTupla
     where O : class, IObjetoUnico, new() {
     private bool disposedValue;
@@ -35,21 +35,40 @@ public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresen
 
     public O Objeto { get; private set; }
 
-    public event EventHandler? ObjetoSeleccionado;
-    public event EventHandler? ObjetoDeseleccionado;
-    public event EventHandler? EditarObjeto;
-    public event EventHandler? EliminarObjeto;
+    public event EventHandler? EntidadSeleccionada;
+    public event EventHandler? EntidadDeseleccionada;
+    public event EventHandler? EditarDatosEntidad;
+    public event EventHandler? EliminarDatosEntidad;
 
     private void OnTuplaSeleccionada(object? sender, EventArgs e) {
         TuplaSeleccionada = !TuplaSeleccionada;
     }
 
     private void OnEditarDatosTupla(object? sender, EventArgs e) {
-        EditarObjeto?.Invoke(Objeto, e);
+        EditarDatosEntidad?.Invoke(Entidad, e);
     }
 
     private void OnEliminarDatosTupla(object? sender, EventArgs e) {
-        EliminarObjeto?.Invoke(Objeto, e);
+        EliminarDatosEntidad?.Invoke(Entidad, e);
+    }
+
+    protected virtual void Dispose(bool disposing) {
+        if (!disposedValue) {
+            if (disposing) {
+                // TODO: eliminar el estado administrado (objetos administrados)
+            }
+
+            Vista.TuplaSeleccionada -= OnTuplaSeleccionada;
+            Vista.EditarDatosTupla -= OnEditarDatosTupla;
+            Vista.EliminarDatosTupla -= OnEliminarDatosTupla;
+
+            disposedValue = true;
+        }
+    }
+
+    public override void Dispose() {
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 
     protected virtual void Dispose(bool disposing) {

@@ -30,11 +30,11 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
         set => Size = value;
     }
 
-    public FbRolCuentaUsuario CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (FbRolCuentaUsuario)fieldCriterioBusqueda.SelectedIndex
+    public FbRolCuentaUsuario Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbRolCuentaUsuario)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -99,7 +99,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -153,7 +153,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Ocultar() {

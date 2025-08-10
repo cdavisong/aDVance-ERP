@@ -5,6 +5,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
@@ -38,8 +39,8 @@ public partial class PresentadorContenedorModulos {
         // Comprobar la existencia de al menos un almacén registrado.
         var existenAlmacenes = false;
 
-        using (var datos = new DatosAlmacen())
-            existenAlmacenes = datos.Cantidad() > 0;
+        using (var datos = new RepoAlmacen())
+            existenAlmacenes = datos.Contar() > 0;
         
         if (!existenAlmacenes) {
             CentroNotificaciones.Mostrar("No es posible registrar nuevos productos. Debe existir al menos un almacén registrado.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);

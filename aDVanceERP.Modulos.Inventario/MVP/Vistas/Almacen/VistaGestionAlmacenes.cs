@@ -11,16 +11,12 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 
 public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
-    private ControladorArchivosAndroid _androidFileManager;
-
     private int _paginaActual = 1;
     private int _paginasTotales = 1;
 
     public VistaGestionAlmacenes() {
         InitializeComponent();
         Inicializar();
-
-        _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
     }
 
     public bool Habilitada {
@@ -38,11 +34,11 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         set => Size = value;
     }
 
-    public CriterioBusquedaAlmacen CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaAlmacen)fieldCriterioBusqueda.SelectedIndex
+    public FbAlmacen Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbAlmacen)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -109,7 +105,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         };
         fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
@@ -149,20 +145,6 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         };
     }
 
-    public bool VerificarConexionDispositivo() {
-        var conexionOk = true;
-
-        try {
-            // Verificar conexión del dispositivo
-            if (!_androidFileManager.CheckDeviceConnection())
-                conexionOk = false;
-        } catch (Exception ex) {
-            CentroNotificaciones.Mostrar($"Error al verificar conexión del dispositivo: {ex.Message}", TipoNotificacion.Error);
-        }
-
-        return conexionOk;
-    }
-
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
         fieldCriterioBusqueda.Items.Clear();
         fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
@@ -171,7 +153,6 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
 
     public void Mostrar() {
         Habilitada = true;
-        DispositivoConectado = VerificarConexionDispositivo();
         VerificarPermisos();
         BringToFront();
         Show();

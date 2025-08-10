@@ -6,6 +6,7 @@ using Android.OS;
 using aDVancePOS.Mobile.Adaptadores;
 using Android.Views;
 
+
 namespace aDVancePOS.Mobile {
     [Activity(
         Label = "@string/app_name",
@@ -108,6 +109,18 @@ namespace aDVancePOS.Mobile {
         }
         
         private void InicializarDatos() {
+            // Configurar rutas de archivos
+            var productosPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "productos.json");
+            var ventasPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ventas.json");
+
+            // Si no existe el archivo de productos, crearlo con los datos iniciales
+            if (!File.Exists(productosPath)) {
+                var initialData = GetInitialProductData();
+                _productosAdapter = new ArrayAdapter<Producto>(this, Android.Resource.Layout.SimpleListItem1, _productosEncontrados);
+                _carritoAdapter = new ArrayAdapter<ProductoVendido>(this, Android.Resource.Layout.SimpleListItem1, _carrito);
+                File.WriteAllText(productosPath, initialData);
+            }
+
             // Inicializar servicios
             _servicioDatos = new ServicioDatos();
 
@@ -129,6 +142,9 @@ namespace aDVancePOS.Mobile {
 
         private void ImportarProductos(string filePath) {
             try {
+                var externalPath = Android.OS.Environment.ExternalStorageDirectory.Path;
+                var filePath = Path.Combine(externalPath, "productos_almacen.json");
+
                 if (File.Exists(filePath)) {
                     var jsonContent = File.ReadAllText(filePath);
 
@@ -284,6 +300,19 @@ namespace aDVancePOS.Mobile {
                 })
                 .SetNegativeButton("Cancelar", (sender, e) => { })
                 .Show();
+        }
+
+        private void ExportarDatos() {
+            var exportPath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.Path, "GestorVentas");
+            Directory.CreateDirectory(exportPath);
+
+            var productosExportPath = Path.Combine(exportPath, "productos_export.json");
+            var ventasExportPath = Path.Combine(exportPath, "ventas_export.json");
+
+            File.Copy(_dataService.ProductosPath, productosExportPath, true);
+            File.Copy(_dataService.VentasPath, ventasExportPath, true);
+
+            Toast.MakeText(this, $"Datos exportados a: {exportPath}", ToastLength.Long).Show();
         }
     }
 }

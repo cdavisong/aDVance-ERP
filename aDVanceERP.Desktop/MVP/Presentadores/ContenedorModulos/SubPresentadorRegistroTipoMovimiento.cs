@@ -3,6 +3,7 @@ using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Inventario.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento;
+using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
@@ -27,15 +28,15 @@ public partial class PresentadorContenedorModulos {
         _registroTipoMovimiento?.Dispose();
     }
 
-    private async void EliminarTipoMovimiento(object? sender, EventArgs e) {
-        using (var tipoMovimiento = new DatosTipoMovimiento()) {
+    private void EliminarTipoMovimiento(object? sender, EventArgs e) {
+        using (var tipoMovimiento = new RepoTipoMovimiento()) {
             if (sender is string nombreTipoMovimiento) {
                 var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(nombreTipoMovimiento);
 
                 if (idTipoMovimiento == 0)
                     return;
 
-                await tipoMovimiento.EliminarAsync(idTipoMovimiento);
+                tipoMovimiento.Eliminar(idTipoMovimiento);
             }
 
             _registroMovimiento?.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos(Signo));

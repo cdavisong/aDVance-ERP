@@ -9,8 +9,8 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
-using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
+using aDVanceERP.Modulos.CompraVenta.Repositorios;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
@@ -57,11 +57,11 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         set => btnConfirmarPagos.Visible = value;
     }
 
-    public CriterioBusquedaVenta CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaVenta) fieldCriterioBusqueda.SelectedIndex
+    public FbVenta Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbVenta) fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int) value;
+        set => fieldFb.SelectedIndex = (int) value;
     }
 
     public string? DatoBusqueda {
@@ -129,14 +129,14 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         btnDescargar.Click += delegate {
             var filas = new List<string[]>();
 
-            using (var datosVentas = new DatosVenta()) {
-                var ventasFecha = datosVentas.Buscar(CriterioBusquedaVenta.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
+            using (var datosVentas = new RepoVenta()) {
+                var ventasFecha = datosVentas.Buscar(FbVenta.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd"));
 
-                foreach (var venta in ventasFecha) {
-                    using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
-                        var detalleVentaProducto = datosVentaProducto.Buscar(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
+                foreach (var venta in ventasFecha.resultados) {
+                    using (var datosVentaProducto = new RepoDetalleVentaProducto()) {
+                        var detalleVentaProducto = datosVentaProducto.Buscar(FbDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
-                        foreach (var ventaProducto in detalleVentaProducto) {
+                        foreach (var ventaProducto in detalleVentaProducto.resultados) {
                             var fila = new string[6];
 
                             fila[0] = ventaProducto.Id.ToString();
@@ -182,11 +182,11 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         };
         fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+            BuscarDatos?.Invoke(new object[] { Fb, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                 e);
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
@@ -327,7 +327,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         HabilitarBtnConfirmarEntrega = false;
         HabilitarBtnConfirmarPagos = false;
 
-        fieldCriterioBusqueda.SelectedIndex = 4;
+        fieldFb.SelectedIndex = 4;
     }
 
     public void Ocultar() {

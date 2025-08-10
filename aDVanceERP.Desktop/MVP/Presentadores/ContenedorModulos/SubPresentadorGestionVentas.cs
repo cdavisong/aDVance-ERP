@@ -35,7 +35,7 @@ public partial class PresentadorContenedorModulos {
         _gestionVentas.Vista.Restaurar();
         _gestionVentas.Vista.Mostrar();
 
-        await _gestionVentas.RefrescarListaObjetos();
+        await _gestionVentas.PopularTuplasDatosEntidades();
     }
 
     private void OnImportarVentasArchivo(object? sender, string ventas) {

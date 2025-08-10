@@ -1,4 +1,6 @@
-﻿namespace aDVanceERP.Core.Datos.Modelos; 
+﻿using aDVanceERP.Core.Datos.Interfaces;
+
+namespace aDVanceERP.Core.Datos.Modelos; 
 
 public class ConfiguracionServidorMySQL {
     public ConfiguracionServidorMySQL() {

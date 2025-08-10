@@ -31,11 +31,11 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         set => Size = value;
     }
 
-    public FbContacto CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (FbContacto)fieldCriterioBusqueda.SelectedIndex
+    public FbContacto Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbContacto)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -100,7 +100,7 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -155,7 +155,7 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Ocultar() {

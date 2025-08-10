@@ -31,11 +31,11 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
         set => Size = value;
     }
 
-    public FbProveedor CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (FbProveedor)fieldCriterioBusqueda.SelectedIndex
+    public FbProveedor Fb {
+        get => fieldFb.SelectedIndex >= 0
+            ? (FbProveedor)fieldFb.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFb.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -100,7 +100,7 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { Fb, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -155,7 +155,7 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFb.SelectedIndex = 0;
     }
 
     public void Ocultar() {
