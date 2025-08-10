@@ -3,12 +3,13 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores; 
 
-public abstract class PresentadorBase<V> : IPresentadorBase<V> where V : class, IVista {
-    protected PresentadorBase(V vista) {
+public abstract class PresentadorBase<Vi> : IPresentadorBase<Vi> 
+    where Vi : class, IVista {
+    protected PresentadorBase(Vi vista) {
         Vista = vista ?? throw new ArgumentNullException(nameof(vista));
     }
 
-    public V Vista { get; }
+    public Vi Vista { get; }
 
     public abstract void Dispose();
 }

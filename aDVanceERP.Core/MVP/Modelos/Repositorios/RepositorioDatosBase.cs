@@ -1,19 +1,19 @@
 ﻿using aDVanceERP.Core.Datos;
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.MVP.Modelos.Plantillas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios; 
 
-public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDisposable
-    where O : class, IObjetoUnico, new()
-    where C : Enum {
+public abstract class RepositorioDatosBase<En, Fb> : IDisposable
+    where En : class, IEntidad, new()
+    where Fb : Enum {
     protected RepositorioDatosBase() {
-        Objetos = new List<O>();
+        Objetos = new List<En>();
     }
 
-    public List<O> Objetos { get; }
+    public List<En> Objetos { get; }
 
     public virtual long Cantidad() {
         return EjecutarConsultaEscalar<long>(ComandoCantidad());
@@ -23,7 +23,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
         return await EjecutarConsultaEscalarAsync<long>(ComandoCantidad());
     }
 
-    public virtual long Adicionar(O objeto) {
+    public virtual long Adicionar(En objeto) {
         using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             conexion.Open();
 
@@ -36,7 +36,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
         }
     }
 
-    public virtual async Task<long> AdicionarAsync(O objeto) {
+    public virtual async Task<long> AdicionarAsync(En objeto) {
         using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             await conexion.OpenAsync().ConfigureAwait(false);
 
@@ -49,12 +49,12 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
         }
     }
 
-    public virtual bool Editar(O objeto, long nuevoId = 0) {
+    public virtual bool Editar(En objeto, long nuevoId = 0) {
         EjecutarComandoNoQuery(ComandoEditar(objeto));
         return true;
     }
 
-    public virtual async Task<bool> EditarAsync(O objeto, long nuevoId = 0) {
+    public virtual async Task<bool> EditarAsync(En objeto, long nuevoId = 0) {
         await EjecutarComandoNoQueryAsync(ComandoEditar(objeto));
         return true;
     }
@@ -69,7 +69,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
         return true;
     }
 
-    public IEnumerable<O> Obtener(string? textoComando = "", int limite = 0, int desplazamiento = 0) {
+    public IEnumerable<En> Obtener(string? textoComando = "", int limite = 0, int desplazamiento = 0) {
         Objetos.Clear();
         var comando = string.IsNullOrEmpty(textoComando) ? ComandoObtener(default, string.Empty) : textoComando;
 
@@ -84,7 +84,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
         return EjecutarConsulta(comando, lectorDatos => Objetos.Add(ObtenerObjetoDataReader(lectorDatos)));
     }
 
-    public IEnumerable<O> Obtener(C? criterio, string? dato, int limite = 0, int desplazamiento = 0) {
+    public IEnumerable<En> Obtener(Fb? criterio, string? dato, int limite = 0, int desplazamiento = 0) {
         var comando = ComandoObtener(criterio, dato);
 
         // Agregar LIMIT y OFFSET si es necesario (antes del ;)
@@ -98,7 +98,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
         return Obtener(comando);
     }
 
-    public Task<IEnumerable<O>> ObtenerAsync(C? criterio, string? dato, out int totalFilas, int limite = 0,
+    public Task<IEnumerable<En>> ObtenerAsync(Fb? criterio, string? dato, out int totalFilas, int limite = 0,
         int desplazamiento = 0) {
         Objetos.Clear();
         var comando = ComandoObtener(criterio, dato);
@@ -134,12 +134,12 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     public abstract string ComandoCantidad();
-    public abstract string ComandoAdicionar(O objeto);
-    public abstract string ComandoEditar(O objeto);
+    public abstract string ComandoAdicionar(En objeto);
+    public abstract string ComandoEditar(En objeto);
     public abstract string ComandoEliminar(long id);
-    public abstract string ComandoObtener(C criterio, string dato);
+    public abstract string ComandoObtener(Fb criterio, string dato);
     public abstract string ComandoExiste(string dato);
-    public abstract O ObtenerObjetoDataReader(MySqlDataReader lectorDatos);
+    public abstract En ObtenerObjetoDataReader(MySqlDataReader lectorDatos);
 
     protected virtual void Dispose(bool disposing) {
         if (disposing) Objetos?.Clear();
@@ -216,7 +216,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
         }
     }
 
-    private IEnumerable<O> EjecutarConsulta(string comandoTexto, Action<MySqlDataReader> procesarLector) {
+    private IEnumerable<En> EjecutarConsulta(string comandoTexto, Action<MySqlDataReader> procesarLector) {
         using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
@@ -238,7 +238,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
         return Objetos;
     }
 
-    private async Task<IEnumerable<O>> EjecutarConsultaAsync(string comandoTexto) {
+    private async Task<IEnumerable<En>> EjecutarConsultaAsync(string comandoTexto) {
         using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);

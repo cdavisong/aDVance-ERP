@@ -6,7 +6,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         Fijo
     }
 
-    public class ActividadProduccion : IObjetoUnico {
+    public class ActividadProduccion : IEntidad {
         public ActividadProduccion() {
             Nombre = "Genérica";
             TipoCosto = TipoCostoActividad.PorHora;

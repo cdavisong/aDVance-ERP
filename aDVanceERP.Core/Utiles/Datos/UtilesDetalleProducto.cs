@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Core.Utiles.Datos {
 
     public static class UtilesDetalleProducto {
-        private static async Task<T?> EjecutarConsultaAsync<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
+        private static T? EjecutarConsulta<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
             using var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
             try {
                 conexion.Open();

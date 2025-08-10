@@ -2,4 +2,5 @@
 
 namespace aDVanceERP.Core.MVP.Presentadores.Plantillas; 
 
-public interface IPresentadorBase<V> : IDisposable where V : IVista { }
+public interface IPresentadorBase<Vi> : IDisposable 
+    where Vi : IVista { }

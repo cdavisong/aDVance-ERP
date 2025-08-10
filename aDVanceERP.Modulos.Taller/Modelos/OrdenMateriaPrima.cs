@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
-    public class OrdenMateriaPrima : IObjetoUnico {
+    public class OrdenMateriaPrima : IEntidad {
         public OrdenMateriaPrima() {
             IdOrdenProduccion = 0;
             IdProducto = 0; // Materia prima consumida

@@ -5,7 +5,7 @@ using aDVanceERP.Core.Repositorios.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores; 
 
-public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>
+public abstract class PresentadorRegistroBase<Vr, En, Rd, Fb> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Rd, En, Fb>
     where Vr : class, IVistaRegistro
     where Rd : class, IRepositorioDatosEntidad<En, Fb>, new()
     where En : class, IEntidad, new()
@@ -24,7 +24,7 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
 
     protected En? Entidad { get; set; } // Entidad que se va a registrar o editar
 
-    public Do DatosObjeto {
+    public Rd RepoDatosEntidad {
         get => new();
     }
 

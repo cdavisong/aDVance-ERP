@@ -16,7 +16,7 @@ namespace aDVanceERP.Core.Datos {
 
         #region Configuración de la conexión con la base de datos
 
-        public static ConfiguracionServidorMySQL ConfServidorMySQL { get; }
+        public static ConfiguracionServidorMySQL ConfServidorMySQL { get; set; }
         public static bool ConfiguracionServidorMySQLCargada = false;
 
         public static ConfiguracionServidorMySQL CargarArchivoConfiguracionServidorMySQL() {

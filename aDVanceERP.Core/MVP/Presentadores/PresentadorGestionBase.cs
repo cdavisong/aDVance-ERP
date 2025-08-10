@@ -6,16 +6,15 @@ using aDVanceERP.Core.Utiles;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
 
-public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : PresentadorBase<Vg>,
-    IPresentadorGestion<Vg, Rd, En, Fb>
+public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : PresentadorBase<Vg>, IPresentadorGestion<Vg, Rd, En, Fb>
     where Pt : IPresentadorTupla<Vt, En>
     where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorDatos<Fb>, IGestorTablaDatos
     where Vt : IVistaTupla
-    where Do : class, IRepositorioDatosEntidad<O, C>, new()
-    where O : class, IEntidad, new()
-    where C : Enum {
+    where Rd : class, IRepositorioDatosEntidad<En, Fb>, new()
+    where En : class, IEntidad, new()
+    where Fb : Enum {
     private readonly SemaphoreSlim _semaphore = new(1, 1); // Para controlar la concurrencia
-    protected readonly List<Pt> _tuplasObjetos;
+    protected readonly List<Pt> _tuplasEntidades;
     private bool disposedValue;
 
     protected PresentadorGestionBase(Vg vista) : base(vista) {
@@ -55,13 +54,13 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : Presentad
             Vista.Vistas?.Cerrar(true);
 
             // Desuscribir eventos del presentador de tuplas
-            foreach (var presentadorTupla in _tuplasObjetos) {
-                presentadorTupla.ObjetoSeleccionado -= OnObjetoSeleccionado;
-                presentadorTupla.EditarObjeto -= OnEditarObjeto;
-                presentadorTupla.EliminarObjeto -= OnEliminarObjeto;
+            foreach (var presentadorTupla in _tuplasEntidades) {
+                presentadorTupla.EntidadSeleccionada -= OnObjetoSeleccionado;
+                presentadorTupla.EditarDatosEntidad -= OnEditarObjeto;
+                presentadorTupla.EliminarDatosEntidad -= OnEliminarObjeto;
                 presentadorTupla.Dispose();
             }
-            _tuplasObjetos.Clear();
+            _tuplasEntidades.Clear();
 
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
@@ -117,9 +116,9 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : Presentad
         if (presentadorTupla == null) 
             return;
 
-        presentadorTupla.ObjetoSeleccionado += OnObjetoSeleccionado;
-        presentadorTupla.EditarObjeto += OnEditarObjeto;
-        presentadorTupla.EliminarObjeto += OnEliminarObjeto;
+        presentadorTupla.EntidadDeseleccionada += OnObjetoSeleccionado;
+        presentadorTupla.EditarDatosEntidad += OnEditarObjeto;
+        presentadorTupla.EliminarDatosEntidad += OnEliminarObjeto;
 
         _tuplasEntidades.Add(presentadorTupla);
 
@@ -135,7 +134,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : Presentad
     }
 
     private void DeseleccionarTuplas(IVistaTupla vista) {
-        _tuplasObjetos.ForEach(tupla => { 
+        _tuplasEntidades.ForEach(tupla => { 
             if (!tupla.Vista.Equals(vista)) 
                 tupla.TuplaSeleccionada = false; 
         });
@@ -148,11 +147,11 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : Presentad
     }
 
     protected virtual void OnEditarObjeto(object? sender, EventArgs e) {
-        EditarObjeto?.Invoke(sender, e);
+        EditarEntidad?.Invoke(sender, e);
     }
 
     protected virtual async void OnEliminarObjeto(object? sender, EventArgs e) {
-        if (sender is O objeto)
+        if (sender is En entidad)
             try {
                 RepoDatosEntidad.Eliminar(entidad.Id);
                 Vista.PaginaActual = 1;
@@ -186,25 +185,6 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Rd, Fb> : Presentad
 
     private async void OnSincronizarDatos(object? sender, EventArgs e) {
         await PopularTuplasDatosEntidades();
-    }
-
-    protected virtual void Dispose(bool disposing) {
-        if (!disposedValue) {
-            if (disposing) {
-                Vista.BuscarDatos -= OnBuscarDatos;
-                Vista.AlturaContenedorTuplasModificada -= OnAlturaContenedorTuplasModificada;
-                Vista.SincronizarDatos -= OnSincronizarDatos;
-            }
-
-            // TODO: liberar los recursos no administrados (objetos no administrados) y reemplazar el finalizador
-            // TODO: establecer los campos grandes como NULL
-            disposedValue = true;
-        }
-    }
-
-    public override void Dispose() {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
     }
 
     protected virtual void Dispose(bool disposing) {

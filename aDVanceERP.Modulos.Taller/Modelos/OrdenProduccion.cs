@@ -8,7 +8,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         Cancelada
     }
 
-    public class OrdenProduccion : IObjetoUnico {
+    public class OrdenProduccion : IEntidad {
         public OrdenProduccion() {
             NumeroOrden = "-";
             FechaApertura = DateTime.Now;

@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using aDVanceERP.Core.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
 
@@ -194,7 +195,7 @@ public abstract class RepositorioDatosEntidadBase<En, Fb> : IRepositorioDatosEnt
     #region Métodos de Ejecución de Consultas
 
     protected string ObtenerCadenaConexion() {
-        return UtilesConfServidores.ObtenerStringConfServidorMySQL();
+        return CoreDatos.ConfServidorMySQL.ToString();
     }
 
     protected IEnumerable<T> EjecutarConsulta<T>(

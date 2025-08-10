@@ -3,7 +3,7 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores.Plantillas; 
 
-public interface IPresentadorTupla<Vt, O> : IPresentadorBase<Vt>, IDisposable
+public interface IPresentadorTupla<Vt, En> : IPresentadorBase<Vt>, IDisposable
     where Vt : IVistaTupla
     where En : class, IEntidad, new() {
     bool TuplaSeleccionada { get; set; }

@@ -3,7 +3,7 @@ using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
-    public class OrdenGastoIndirecto : IObjetoUnico {
+    public class OrdenGastoIndirecto : IEntidad {
         public OrdenGastoIndirecto() {
             IdOrdenProduccion = 0;
             Concepto = string.Empty;
