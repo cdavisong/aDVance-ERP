@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 
-using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Controladores.DB;
 
 using MySql.Data.MySqlClient;
 
@@ -361,7 +361,7 @@ public static class UtilesReportes {
     private static Dictionary<int, string> ObtenerAlmacenes() {
         var almacenes = new Dictionary<int, string>();
 
-        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var connection = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             connection.Open();
 
             var query = "SELECT id_almacen, nombre FROM adv__almacen ORDER BY nombre";
@@ -381,7 +381,7 @@ public static class UtilesReportes {
     private static Dictionary<int, List<Dictionary<string, string>>> ObtenerInventarioPorAlmacenes() {
         var inventario = new Dictionary<int, List<Dictionary<string, string>>>();
 
-        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var connection = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             connection.Open();
 
             var query = """
@@ -1071,7 +1071,7 @@ public static class UtilesReportes {
     private static List<Dictionary<string, object>> ObtenerMovimientosInventario(DateTime fechaInicio, DateTime fechaFin, long idAlmacen, string categoria) {
         var movimientos = new List<Dictionary<string, object>>();
 
-        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var connection = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             connection.Open();
 
             var query = @"
@@ -1136,7 +1136,7 @@ public static class UtilesReportes {
     private static Dictionary<int, decimal> ObtenerSaldosIniciales(DateTime fechaInicio, long idAlmacen, string categoria) {
         var saldos = new Dictionary<int, decimal>();
 
-        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var connection = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             connection.Open();
 
             var query = @"
@@ -1189,7 +1189,7 @@ public static class UtilesReportes {
     private static Dictionary<int, Dictionary<string, string>> ObtenerProductosConUnidadMedida(long idAlmacen, string categoria) {
         var productos = new Dictionary<int, Dictionary<string, string>>();
 
-        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var connection = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             connection.Open();
 
             var query = """
@@ -1245,7 +1245,7 @@ public static class UtilesReportes {
     }
 
     private static string ObtenerNombreAlmacen(long idAlmacen) {
-        using (var connection = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var connection = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             connection.Open();
 
             var query = "SELECT nombre FROM adv__almacen WHERE id_almacen = @idAlmacen";

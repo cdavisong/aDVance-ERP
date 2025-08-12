@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Datos;
+﻿using aDVanceERP.Core.Controladores.DB;
 using aDVanceERP.Core.Excepciones;
 
 using MySql.Data.MySqlClient;
@@ -35,10 +35,10 @@ namespace aDVanceERP.PatchDB {
                 //ExecuteStep(EliminarTablasObsoletas, "Eliminación de tablas obsoletas");
                 //ExecuteStep(CrearTablasProduccion, "Creación de tablas de producción");
                 //ExecuteStep(EliminarProductosDuplicados, "Eliminación de productos duplicados");
-                ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
+                //ExecuteStep(ModificarTablasExistentes, "Actualización de esquema");
                 //ExecuteStep(EliminarInconsistenciasDatos, "Eliminación de inconsistencias de datos");
                 //ExecuteStep(AgregarIndices, "Agregar índices optimizados");
-                //ExecuteStep(PopularDatos, "Popular nuevos datos");
+                //ExecuteStep(MejorarInventario, "Popular nuevos datos");
 
                 RenderStatus("Parche aDVance ERP aplicado correctamente", ConsoleColor.Green);
             }
@@ -54,7 +54,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void EliminarTablasObsoletas() {
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 }
@@ -83,7 +83,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void CrearTablasProduccion() {
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 }
@@ -157,7 +157,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         public static void EliminarProductosDuplicados() {
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 }
@@ -256,7 +256,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void EliminarInconsistenciasDatos() {
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 } catch (Exception) {
@@ -314,7 +314,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void AgregarIndices() {
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 }
@@ -348,7 +348,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void ModificarTablasExistentes() {
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 }
@@ -404,7 +404,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void MejorarInventario() {
-            using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
                 try {
                     conexion.Open();
                 } catch (Exception) {
@@ -413,10 +413,6 @@ namespace aDVanceERP.PatchDB {
 
                 List<string> querys =
                 [
-                    """
-                    RENAME TABLE `advanceerp`.`adv__inventario` 
-                    TO `advanceerp`.`adv__inventario`;
-                    """,
                     """
                     ALTER TABLE `adv__inventario` 
                     CHANGE `id_inventario` `id_inventario` INT(11) NOT NULL 

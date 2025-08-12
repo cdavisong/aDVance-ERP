@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Datos;
+﻿using aDVanceERP.Core.Controladores.DB;
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Utiles;
@@ -66,7 +66,7 @@ public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaPr
     public static string[] ObtenerRazonesSocialesProveedores() {
         var nombresProveedores = new List<string>();
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }

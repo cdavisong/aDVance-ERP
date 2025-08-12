@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Datos;
+﻿using aDVanceERP.Core.Controladores.DB;
 using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
@@ -8,7 +8,7 @@ public static class UtilesBD {
     public static long ObtenerUltimoIdTabla(string nombreEntidad) {
         var ultimoId = 0;
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }

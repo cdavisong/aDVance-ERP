@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Datos;
+﻿using aDVanceERP.Core.Controladores.DB;
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas;
@@ -53,7 +53,7 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
     }
 
     public void EliminarPorRol(long idRolUsuario) {
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             } catch (Exception) {

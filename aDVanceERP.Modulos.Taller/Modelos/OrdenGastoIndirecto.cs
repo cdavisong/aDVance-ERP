@@ -1,6 +1,4 @@
-﻿using aDVanceERP.Core.Datos.Interfaces;
-using aDVanceERP.Core.MVP.Modelos.Plantillas;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
     public class OrdenGastoIndirecto : IObjetoUnico {

@@ -12,9 +12,6 @@
     <PackageReference Include="PDFsharp" Version="6.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\aDVanceERP.Core.Datos\aDVanceERP.Core.Datos.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

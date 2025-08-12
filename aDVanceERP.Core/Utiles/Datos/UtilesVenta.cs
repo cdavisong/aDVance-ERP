@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.Datos;
+using aDVanceERP.Core.Controladores.DB;
 using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
@@ -18,7 +18,7 @@ public static class UtilesVenta {
     private static decimal EjecutarConsultaDecimal(string query, params MySqlParameter[] parameters) {
         decimal resultado = 0;
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
 
@@ -46,7 +46,7 @@ public static class UtilesVenta {
     private static int EjecutarConsultaEntero(string query, params MySqlParameter[] parameters) {
         var resultado = 0;
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
 
@@ -73,7 +73,7 @@ public static class UtilesVenta {
     private static float EjecutarConsultaFlotante(string query, params MySqlParameter[] parameters) {
         var resultado = 0F;
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
 
@@ -100,7 +100,7 @@ public static class UtilesVenta {
     private static List<string> EjecutarConsultaLista(string query, params MySqlParameter[] parameters) {
         var resultado = new List<string>();
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
 
@@ -408,7 +408,7 @@ public static class UtilesVenta {
 
     private static void EjecutarConsultaEstadistica(string query, MySqlParameter[]? parameters,
         Dictionary<DateTime, decimal> datos, DateTime fecha) {
-        using var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
+        using var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString());
 
         try {
             conexion.Open();

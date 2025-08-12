@@ -1,11 +1,11 @@
-﻿using aDVanceERP.Core.Datos;
+﻿using aDVanceERP.Core.Controladores.DB;
 using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
     public static class UtilesUnidadMedida {
         private static async Task<T?> EjecutarConsultaAsync<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
-            using var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
+            using var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString());
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
             } catch (MySqlException) {
@@ -22,7 +22,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         private static T? EjecutarConsulta<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
-            using var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
+            using var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString());
             try {
                 conexion.Open();
             } catch (MySqlException) {

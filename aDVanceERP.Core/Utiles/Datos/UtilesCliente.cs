@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Datos;
+﻿using aDVanceERP.Core.Controladores.DB;
 using aDVanceERP.Core.Excepciones;
 
 using MySql.Data.MySqlClient;
@@ -7,7 +7,7 @@ namespace aDVanceERP.Core.Utiles.Datos;
 
 public static class UtilesCliente {
     private static T? EjecutarConsulta<T>(string query, Func<MySqlDataReader, T> procesarResultado) {
-        using var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
+        using var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString());
 
         try {
             conexion.Open();
@@ -25,7 +25,7 @@ public static class UtilesCliente {
     private static List<T> EjecutarConsultaMultiple<T>(string query, Func<MySqlDataReader, T> procesarFila) {
         var resultados = new List<T>();
 
-        using var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString());
+        using var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString());
 
         try {
             conexion.Open();

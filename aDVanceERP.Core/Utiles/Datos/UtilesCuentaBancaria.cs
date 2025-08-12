@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Datos;
+﻿using aDVanceERP.Core.Controladores.DB;
 using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 
@@ -10,7 +10,7 @@ public static class UtilesCuentaBancaria {
     public static long ObtenerIdCuenta(string aliasCuenta) {
         var idCuenta = 0;
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }
@@ -35,7 +35,7 @@ public static class UtilesCuentaBancaria {
     public static string? ObtenerAliasCuenta(long idCuenta) {
         var aliasCuenta = string.Empty;
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }
@@ -59,7 +59,7 @@ public static class UtilesCuentaBancaria {
     public static string[] ObtenerAliasesCuentas() {
         var aliasesCuentas = new List<string>();
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }
@@ -84,7 +84,7 @@ public static class UtilesCuentaBancaria {
     public static string? ObtenerNumeroTarjeta(long idCuenta) {
         var numeroTarjeta = string.Empty;
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }
@@ -109,7 +109,7 @@ public static class UtilesCuentaBancaria {
     public static long ObtenerIdPropietario(long idCuenta) {
         var idPropietario = 0;
 
-        using (var conexion = new MySqlConnection(CoreDatos.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
             try {
                 conexion.Open();
             }

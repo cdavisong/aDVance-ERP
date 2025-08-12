@@ -1,14 +1,14 @@
-﻿namespace aDVanceERP.Core.Datos.Modelos; 
+﻿namespace aDVanceERP.Core.Modelos.DB; 
 
-public class ConfiguracionServidorMySQL {
-    public ConfiguracionServidorMySQL() {
+public class ConfServidorMySQL {
+    public ConfServidorMySQL() {
         Servidor = "127.0.0.1";
         BaseDatos = "advanceerp";
         Usuario = "admin";
         Password = "admin";
     }
 
-    public ConfiguracionServidorMySQL(string servidor, string baseDatos, string usuario, string password) {
+    public ConfServidorMySQL(string servidor, string baseDatos, string usuario, string password) {
         Servidor = servidor;
         BaseDatos = baseDatos;
         Usuario = usuario;
