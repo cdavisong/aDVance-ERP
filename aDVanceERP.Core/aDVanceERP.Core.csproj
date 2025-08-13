@@ -17,6 +17,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Vistas\BD\VistaConfServidorMySQL.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
@@ -28,5 +31,10 @@
     <None Update="app.ver">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controladores\" />
+    <Folder Include="Servicios\" />
+    <Folder Include="Presentadores\Interfaces\" />
   </ItemGroup>
 </Project>

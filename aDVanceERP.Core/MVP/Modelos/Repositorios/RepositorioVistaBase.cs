@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios; 
 
@@ -18,11 +19,11 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
         Inicializar();
     }
 
-    public List<IVista>? Vistas { get; private set; }
+    public List<IVistaBase>? Vistas { get; private set; }
 
-    public IVista? VistaActual { get; private set; }
+    public IVistaBase? VistaActual { get; private set; }
 
-    public void Registrar(string nombre, IVista vista, Point coordenadas, Size dimensiones,
+    public void Registrar(string nombre, IVistaBase vista, Point coordenadas, Size dimensiones,
         string modoRedimensionado = "HV") {
         SuspendRedraw(); // Suspender el redibujado
 
@@ -62,18 +63,18 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
         }
     }
 
-    public void Registrar(string nombre, IVista vista) {
+    public void Registrar(string nombre, IVistaBase vista) {
         Registrar(nombre, vista, new Point(0, 0), _contenedorVistas.Size);
     }
 
-    public IVista? Obtener(string nombre) {
+    public IVistaBase? Obtener(string nombre) {
         var controles = _contenedorVistas.Controls.Find(nombre, false);
-        return controles.FirstOrDefault() as IVista;
+        return controles.FirstOrDefault() as IVistaBase;
     }
 
     public void Inicializar(string nombre = "") {
         if (string.IsNullOrEmpty(nombre))
-            Vistas = new List<IVista>();
+            Vistas = new List<IVistaBase>();
         else
             Obtener(nombre)?.Inicializar();
 
@@ -129,7 +130,7 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
                     foreach (var vista in Vistas)
                         vista.Cerrar();
 
-                foreach (var control in _contenedorVistas.Controls.OfType<IVista>().ToList())
+                foreach (var control in _contenedorVistas.Controls.OfType<IVistaBase>().ToList())
                     (control as Control)?.Dispose();
 
                 Vistas?.Clear();
@@ -150,7 +151,7 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
         });
     }
 
-    private void AjustarDimensiones(IVista vista, Size dimensiones, string modoRedimensionado) {
+    private void AjustarDimensiones(IVistaBase vista, Size dimensiones, string modoRedimensionado) {
         switch (modoRedimensionado) {
             case "HV":
                 vista.Dimensiones = _contenedorVistas.Size;
@@ -168,7 +169,7 @@ public sealed class RepositorioVistaBase : IRepositorioVista {
     }
 
     private void ActualizarDimensionesVistas(object? sender, EventArgs e) {
-        if (sender is IVista vistaSender) {
+        if (sender is IVistaBase vistaSender) {
             if (vistaSender is Control control && control.Tag is string modoRedimensionado)
                 if (control.InvokeRequired)
                     control.BeginInvoke(() => {

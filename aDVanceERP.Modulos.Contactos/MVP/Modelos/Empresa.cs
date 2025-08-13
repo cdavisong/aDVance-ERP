@@ -1,9 +1,9 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 using System.Drawing.Imaging;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
-    public class Empresa : IObjetoUnico {
+    public class Empresa : IEntidad {
         private Image? _logotipo;
 
         public Empresa() {

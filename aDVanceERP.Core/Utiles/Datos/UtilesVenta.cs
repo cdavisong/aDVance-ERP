@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.Controladores.DB;
+
 using aDVanceERP.Core.Excepciones;
 using MySql.Data.MySqlClient;
 

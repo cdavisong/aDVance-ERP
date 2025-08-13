@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
 
@@ -8,7 +8,7 @@ public enum CategoriaProducto {
     MateriaPrima
 }
 
-public class Producto : IObjetoUnico {
+public class Producto : IEntidad {
     public Producto() {
         Categoria = CategoriaProducto.Mercancia;
         Nombre = "Producto genérico";

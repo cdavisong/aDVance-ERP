@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
 
-public class DetalleVentaProducto : IObjetoUnico {
+public class DetalleVentaProducto : IEntidad {
     public DetalleVentaProducto() { }
 
     public DetalleVentaProducto(long id, long idVenta, long idProducto, decimal precioCompraVigente,

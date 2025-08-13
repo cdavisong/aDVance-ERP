@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
-public class DetalleProducto : IObjetoUnico {
+public class DetalleProducto : IEntidad {
     public DetalleProducto() {
         IdUnidadMedida = 0;
         Descripcion = "No hay descripción disponible";

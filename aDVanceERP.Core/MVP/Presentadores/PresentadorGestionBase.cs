@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
+using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
@@ -12,7 +13,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
     where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
     where Vt : IVistaTupla
     where Do : class, IRepositorioDatos<O, C>, new()
-    where O : class, IObjetoUnico, new()
+    where O : class, IEntidad, new()
     where C : Enum {
     private readonly SemaphoreSlim _semaphore = new(1, 1); // Para controlar la concurrencia
     protected readonly List<Pt> _tuplasObjetos;

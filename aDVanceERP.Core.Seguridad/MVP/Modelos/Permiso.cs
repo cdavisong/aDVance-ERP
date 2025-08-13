@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-public class Permiso : IObjetoUnico {
+public class Permiso : IEntidad {
     public Permiso() { }
 
     public Permiso(long id, long idModuloAplicacion, string? nombre) {

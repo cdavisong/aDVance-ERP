@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-public class PermisoRolUsuario : IObjetoUnico {
+public class PermisoRolUsuario : IEntidad {
     public PermisoRolUsuario() { }
 
     public PermisoRolUsuario(long id, long idRolUsuario, long idPermiso) {

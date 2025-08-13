@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
 
@@ -9,7 +9,7 @@ public enum EfectoMovimiento {
     Transferencia
 }
 
-public class TipoMovimiento : IObjetoUnico {
+public class TipoMovimiento : IEntidad {
     public TipoMovimiento() {
         Id = 0;
         Nombre = string.Empty;

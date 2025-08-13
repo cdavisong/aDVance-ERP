@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 
-using aDVanceERP.Core.Controladores.DB;
+
 
 using MySql.Data.MySqlClient;
 

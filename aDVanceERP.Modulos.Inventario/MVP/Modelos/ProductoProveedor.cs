@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
 
-public class ProductoProveedor : IObjetoUnico {
+public class ProductoProveedor : IEntidad {
     public ProductoProveedor() { }
 
     public ProductoProveedor(long id, long idProveedor, decimal precioAdquisicion, decimal precioVenta) {

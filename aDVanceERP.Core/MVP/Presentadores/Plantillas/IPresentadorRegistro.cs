@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
@@ -7,7 +7,7 @@ namespace aDVanceERP.Core.MVP.Presentadores.Plantillas;
 public interface IPresentadorRegistro<Vr, Do, O, C> : IPresentadorBase<Vr>
     where Vr : IVistaRegistro
     where Do : class, IRepositorioDatos<O, C>, new()
-    where O : class, IObjetoUnico, new()
+    where O : class, IEntidad, new()
     where C : Enum {
     Do DatosObjeto { get; }
 

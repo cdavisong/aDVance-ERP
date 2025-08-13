@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.QR.Plantillas; 
 
-public interface IVistaQR : IVista {
+public interface IVistaQR : IVistaBase {
     Image? QR { get; set; }
 
     void CargarCodigoQR(string? datos);

@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.Controladores.DB;
-using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Excepciones;
 
 using MySql.Data.MySqlClient;
 

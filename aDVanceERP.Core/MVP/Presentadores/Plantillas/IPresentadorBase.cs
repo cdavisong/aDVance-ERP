@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.MVP.Presentadores.Plantillas; 
 
-public interface IPresentadorBase<V> : IDisposable where V : IVista { }
+public interface IPresentadorBase<V> : IDisposable where V : IVistaBase { }

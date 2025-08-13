@@ -1,3 +1,5 @@
-﻿namespace aDVanceERP.Core.MVP.Vistas.Plantillas; 
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-internal interface IVistaSubMenu : IVista { }
+namespace aDVanceERP.Core.MVP.Vistas.Plantillas; 
+
+internal interface IVistaSubMenu : IVistaBase { }

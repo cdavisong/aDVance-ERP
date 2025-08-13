@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
-public class SeguimientoEntrega : IObjetoUnico {
+public class SeguimientoEntrega : IEntidad {
     public SeguimientoEntrega() { }
 
     public SeguimientoEntrega(long id, long idVenta, long idMensajero, DateTime fechaAsignacion, DateTime fechaEntrega,

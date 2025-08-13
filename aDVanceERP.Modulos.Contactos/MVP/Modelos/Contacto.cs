@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos; 
 
-public class Contacto : IObjetoUnico {
+public class Contacto : IEntidad {
     public Contacto() { }
 
     public Contacto(long idContacto, string nombre, string direccionCorreoElectronico, string direccion, string notas) {

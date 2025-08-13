@@ -1,5 +1,5 @@
 ﻿using System.Security.Cryptography;
-using aDVanceERP.Core.Controladores.DB;
+
 using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Utiles;
 using MySql.Data.MySqlClient;
