@@ -33,7 +33,7 @@ internal static class Program {
         try {
             // Verificar si el patch ya fue aplicado
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 // Crear tabla de control de versiones si no existe
                 const string createVersionTable = @"
@@ -86,7 +86,7 @@ internal static class Program {
             patchProcess.WaitForExit();
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 // Registrar la versión aplicada
                 const string registerVersion = @"

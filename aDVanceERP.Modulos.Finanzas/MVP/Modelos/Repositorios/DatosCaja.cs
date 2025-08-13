@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
-    public class DatosCaja : RepositorioDatosBase<Caja, CriterioBusquedaCaja>, IRepositorioCaja {
+    public class DatosCaja : RepositorioDatosBase<Caja, FiltroBusquedaCaja>, IRepositorioCaja {
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_caja) FROM adv__caja;";
         }
@@ -26,22 +26,22 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
             ";
         }
 
-        public override string ComandoObtener(CriterioBusquedaCaja criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaCaja criterio, string dato) {
             switch (criterio) {
-                case CriterioBusquedaCaja.Id:
+                case FiltroBusquedaCaja.Id:
                     return $"SELECT * FROM adv__caja WHERE id_caja={dato};";
-                case CriterioBusquedaCaja.FechaApertura:
+                case FiltroBusquedaCaja.FechaApertura:
                     return $"SELECT * FROM adv__caja WHERE DATE(fecha_apertura) = '{dato}';";
-                case CriterioBusquedaCaja.Estado:
+                case FiltroBusquedaCaja.Estado:
                     return $"SELECT * FROM adv__caja WHERE estado='{dato}';";
-                case CriterioBusquedaCaja.FechaCierre:
+                case FiltroBusquedaCaja.FechaCierre:
                     return $"SELECT * FROM adv__caja WHERE DATE(fecha_cierre) = '{dato}';";
                 default:
                     return "SELECT * FROM adv__caja;";
             }
         }
 
-        public override Caja ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override Caja MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             return new Caja(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_caja")),
                 lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha_apertura")),

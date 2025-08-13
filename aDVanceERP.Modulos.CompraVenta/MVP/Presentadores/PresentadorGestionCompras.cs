@@ -9,7 +9,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class PresentadorGestionCompras : PresentadorGestionBase<PresentadorTuplaCompra, IVistaGestionCompras,
-    IVistaTuplaCompra, Compra, DatosCompra, CriterioBusquedaCompra> {
+    IVistaTuplaCompra, Compra, DatosCompra, FiltroBusquedaCompra> {
     public PresentadorGestionCompras(IVistaGestionCompras vista) : base(vista) { }
 
     protected override PresentadorTuplaCompra ObtenerValoresTupla(Compra objeto) {
@@ -26,10 +26,10 @@ public class PresentadorGestionCompras : PresentadorGestionBase<PresentadorTupla
         return presentadorTupla;
     }
 
-    public override Task RefrescarListaObjetos() {
+    public override void RefrescarListaObjetos() {
         // Actualizar el valor bruto de las compras al refrescar la lista de objetos.
         Vista.ActualizarValorBrutoCompras();
 
-        return base.RefrescarListaObjetos();
+        base.RefrescarListaObjetos();
     }
 }

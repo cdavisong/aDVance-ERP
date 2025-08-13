@@ -13,11 +13,11 @@ public partial class PresentadorContenedorModulos {
         _registroMensajero = new PresentadorRegistroMensajero(new VistaRegistroMensajero());
         _registroMensajero.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMensajero.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroMensajero.DatosRegistradosActualizados += async delegate {
+        _registroMensajero.DatosRegistradosActualizados += delegate {
             if (_gestionMensajeros == null)
                 return;
 
-            await _gestionMensajeros.RefrescarListaObjetos();
+            _gestionMensajeros.RefrescarListaObjetos();
         };
 
         return Task.CompletedTask;

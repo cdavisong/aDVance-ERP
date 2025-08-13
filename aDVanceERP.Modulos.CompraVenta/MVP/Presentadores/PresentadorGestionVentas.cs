@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaVenta, IVistaGestionVentas,
-    IVistaTuplaVenta, Venta, DatosVenta, CriterioBusquedaVenta> {
+    IVistaTuplaVenta, Venta, DatosVenta, FiltroBusquedaVenta> {
     public PresentadorGestionVentas(IVistaGestionVentas vista) : base(vista) {
         vista.ConfirmarEntrega += OnConfirmarEntregaAriculos;
         vista.ConfirmarPagos += OnConfirmarPagos;
@@ -47,7 +47,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         return presentadorTupla;
     }
 
-    public override Task RefrescarListaObjetos() {
+    public override void RefrescarListaObjetos() {
         // Cambiar la visibilidad de los botones de confirmación
         Vista.HabilitarBtnConfirmarEntrega = false;
         Vista.HabilitarBtnConfirmarPagos = false;
@@ -55,7 +55,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         // Actualizar el valor bruto de las ventas al refrescar la lista de objetos.
         Vista.ActualizarValorBrutoVentas();
 
-        return base.RefrescarListaObjetos();
+        base.RefrescarListaObjetos();
     }
 
     private void OnConfirmarEntregaAriculos(object? sender, EventArgs e) {
@@ -69,7 +69,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 // Actualizar el seguimiento de entrega
                 using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
                     var objetoSeguimiento = datosSeguimiento
-                        .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, tupla.Vista.Id).FirstOrDefault();
+                        .Obtener(FiltroBusquedaSeguimientoEntrega.IdVenta, tupla.Vista.Id).resultados.FirstOrDefault();
 
                     if (objetoSeguimiento != null) {
                         objetoSeguimiento.FechaEntrega = DateTime.Now;
@@ -81,7 +81,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 break;
             }
 
-        _ = RefrescarListaObjetos();
+        RefrescarListaObjetos();
     }
 
     private void OnConfirmarPagos(object? sender, EventArgs e) {
@@ -135,8 +135,8 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
 
                 // 4. Actualizar seguimiento de entrega (una sola vez por tupla)
                 var objetoSeguimiento = datosSeguimiento.Obtener(
-                    CriterioBusquedaSeguimientoEntrega.IdVenta,
-                    tupla.Vista.Id).FirstOrDefault();
+                    FiltroBusquedaSeguimientoEntrega.IdVenta,
+                    tupla.Vista.Id).resultados.FirstOrDefault();
 
                 if (objetoSeguimiento != null) {
                     objetoSeguimiento.FechaPago = ahora;
@@ -147,7 +147,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         }
 
         Vista.HabilitarBtnConfirmarPagos = false;
-        _ = RefrescarListaObjetos();
+        RefrescarListaObjetos();
     }
 
     private void CambiarVisibilidadBtnConfirmarEntrega(object? sender, EventArgs e) {

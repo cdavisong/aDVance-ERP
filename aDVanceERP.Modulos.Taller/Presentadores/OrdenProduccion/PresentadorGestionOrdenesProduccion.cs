@@ -10,7 +10,7 @@ using aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
-    public class PresentadorGestionOrdenesProduccion : PresentadorGestionBase<PresentadortuplaOrdenProduccion, IVistaGestionOrdenesProduccion, IVistaTuplaOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, CriterioBusquedaOrdenProduccion> {
+    public class PresentadorGestionOrdenesProduccion : PresentadorGestionBase<PresentadortuplaOrdenProduccion, IVistaGestionOrdenesProduccion, IVistaTuplaOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, FiltroBusquedaOrdenProduccion> {
         public PresentadorGestionOrdenesProduccion(IVistaGestionOrdenesProduccion vista) : base(vista) {
             vista.CerrarOrdenProduccionSeleccionada += OnCerrarOrdenProduccionSeleccionada;
             vista.EditarDatos += delegate {
@@ -53,7 +53,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
 
                         // Disminuir el cantidad de materiales utilizados en la orden de producción
                         using (var datosObjeto = new RepoOrdenMateriaPrima()) {
-                            var materiasPrimas = datosObjeto.Obtener(CriterioBusquedaOrdenMateriaPrima.OrdenProduccion, tupla.Objeto.Id.ToString());
+                            var materiasPrimas = datosObjeto.Obtener(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, tupla.Objeto.Id.ToString()).resultados;
 
                             if (materiasPrimas != null) {
                                 foreach (var materiaPrima in materiasPrimas) {
@@ -84,17 +84,17 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                     }
                 }
 
-                _ = RefrescarListaObjetos();
+                RefrescarListaObjetos();
             } else {
                 CentroNotificaciones.Mostrar("Debe seleccionar una orden de producción para cerrar.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
             }
         }
 
-        public override Task RefrescarListaObjetos() {
+        public override void RefrescarListaObjetos() {
             // Cambiar la visibilidad del botón de cierre de orden de producción al refrescar la lista de objetos.
             Vista.HabilitarBtnCierreOrdenProduccion = false;
 
-            return base.RefrescarListaObjetos();
+            base.RefrescarListaObjetos();
         }
 
         private void CambiarVisibilidadBtnCierreOrdenProduccion(object? sender, EventArgs e) {

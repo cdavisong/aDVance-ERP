@@ -76,14 +76,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
         }
     }
 
-    public enum CriterioBusquedaEmpresa {
+    public enum FiltroBusquedaEmpresa {
         Todos,
         Id,
         Nombre
     }
 
     public static class UtilesBusquedaEmpresa {
-            public static object[] CriterioBusquedaEmpresa = {
+            public static object[] FiltroBusquedaEmpresa = {
             "Todas las empresas",
             "Identificador de BD",
             "Nombre de la empresa"

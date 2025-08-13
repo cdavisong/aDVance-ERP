@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
-    public class PresentadorRegistroAperturaCaja : PresentadorRegistroBase<IVistaRegistroAperturaCaja, Caja, DatosCaja, CriterioBusquedaCaja> {
+    public class PresentadorRegistroAperturaCaja : PresentadorRegistroBase<IVistaRegistroAperturaCaja, Caja, DatosCaja, FiltroBusquedaCaja> {
         public PresentadorRegistroAperturaCaja(IVistaRegistroAperturaCaja vista) 
             : base(vista) { }
 
@@ -14,11 +14,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             Vista.Fecha = objeto.FechaApertura;
             Vista.SaldoInicial = objeto.SaldoInicial;
 
-            Objeto = objeto;
+            Entidad = objeto;
         }
 
-        protected override Task<Caja?> ObtenerObjetoDesdeVista() {
-            return Task.FromResult<Caja?>(new Caja(Objeto?.Id ?? 0,
+        protected override Caja ObtenerEntidadDesdeVista() {
+            return new Caja(Entidad?.Id ?? 0,
                 Vista.Fecha,
                 Vista.SaldoInicial,
                 Vista.SaldoInicial,
@@ -26,7 +26,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
                 UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0
             ) {
                 Estado = EstadoCaja.Abierta
-            });
+            };
         }
     }
 }

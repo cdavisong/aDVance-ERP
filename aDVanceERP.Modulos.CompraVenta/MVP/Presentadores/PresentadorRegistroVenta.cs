@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class
-    PresentadorRegistroVenta : PresentadorRegistroBase<IVistaRegistroVenta, Venta, DatosVenta, CriterioBusquedaVenta> {
+    PresentadorRegistroVenta : PresentadorRegistroBase<IVistaRegistroVenta, Venta, DatosVenta, FiltroBusquedaVenta> {
     public PresentadorRegistroVenta(IVistaRegistroVenta vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Venta objeto) {
@@ -26,13 +26,13 @@ public class
 
         Vista.IdTipoEntrega = objeto.IdTipoEntrega;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override async Task<Venta?> ObtenerObjetoDesdeVista() {
-        return new Venta(Objeto?.Id ?? 0,
+    protected override Venta? ObtenerEntidadDesdeVista() {
+        return new Venta(Entidad?.Id ?? 0,
             DateTime.Now,
-            await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
+            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
             UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),
             Vista.IdTipoEntrega,
             Vista.Direccion,

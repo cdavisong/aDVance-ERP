@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistroAlmacen, Almacen, DatosAlmacen,
-    CriterioBusquedaAlmacen> {
+    FiltroBusquedaAlmacen> {
     public PresentadorRegistroAlmacen(IVistaRegistroAlmacen vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Almacen objeto) {
@@ -18,7 +18,7 @@ public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistro
         Vista.Notas = objeto.Notas ?? string.Empty;
         Vista.ModoEdicionDatos = true;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
@@ -30,9 +30,9 @@ public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistro
         return nombreOk;
     }
 
-    protected override async Task<Almacen?> ObtenerObjetoDesdeVista() {
+    protected override Almacen? ObtenerEntidadDesdeVista() {
         return new Almacen(
-            Objeto?.Id ?? 0,
+            Entidad?.Id ?? 0,
             Vista.Nombre,
             Vista.Direccion,
             Vista.AutorizoVenta,

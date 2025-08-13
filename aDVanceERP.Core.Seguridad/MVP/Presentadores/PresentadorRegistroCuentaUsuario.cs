@@ -7,7 +7,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
 public class PresentadorRegistroCuentaUsuario : PresentadorRegistroBase<IVistaRegistroCuentaUsuario, CuentaUsuario,
-    DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
+    DatosCuentaUsuario, FiltroBusquedaCuentaUsuario> {
     public PresentadorRegistroCuentaUsuario(IVistaRegistroCuentaUsuario vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(CuentaUsuario objeto) {
@@ -15,19 +15,19 @@ public class PresentadorRegistroCuentaUsuario : PresentadorRegistroBase<IVistaRe
         Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
         Vista.ModoEdicionDatos = true;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override async Task<CuentaUsuario?> ObtenerObjetoDesdeVista() {
+    protected override CuentaUsuario? ObtenerEntidadDesdeVista() {
         var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
 
-        return new CuentaUsuario(Objeto?.Id ?? 0,
+        return new CuentaUsuario(Entidad?.Id ?? 0,
             Vista.NombreUsuario,
             passwordSeguro.hash,
             passwordSeguro.salt,
-            await UtilesRolUsuario.ObtenerIdRolUsuario(Vista.NombreRolUsuario)
+            UtilesRolUsuario.ObtenerIdRolUsuario(Vista.NombreRolUsuario).Result
         ) {
-            Aprobado = Objeto?.Aprobado ?? false
+            Aprobado = Entidad?.Aprobado ?? false
         };
     }
 }

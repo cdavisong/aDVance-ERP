@@ -11,7 +11,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
 public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<PresentadorTuplaCuentaUsuario,
     IVistaGestionCuentasUsuarios, IVistaTuplaCuentaUsuario, CuentaUsuario, DatosCuentaUsuario,
-    CriterioBusquedaCuentaUsuario> {
+    FiltroBusquedaCuentaUsuario> {
     public PresentadorGestionCuentasUsuarios(IVistaGestionCuentasUsuarios vista) : base(vista) {
         vista.AprobarSolicitudCuenta += OnAprobarSolicitudCuentaUsuario;
         vista.EditarDatos += OnEditarDatos;
@@ -57,7 +57,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
 
         Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
 
-        _ = RefrescarListaObjetos();
+        RefrescarListaObjetos();
     }
 
     private void OnEditarDatos(object? sender, EventArgs e) {

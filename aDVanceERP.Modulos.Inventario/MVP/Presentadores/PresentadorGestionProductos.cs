@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTuplaProducto, IVistaGestionProductos,
-    IVistaTuplaProducto, Producto, DatosProducto, CriterioBusquedaProducto> {
+    IVistaTuplaProducto, Producto, DatosProducto, FiltroBusquedaProducto> {
     public PresentadorGestionProductos(IVistaGestionProductos vista) : base(vista) { }
 
     public event EventHandler? MovimientoPositivoStock;

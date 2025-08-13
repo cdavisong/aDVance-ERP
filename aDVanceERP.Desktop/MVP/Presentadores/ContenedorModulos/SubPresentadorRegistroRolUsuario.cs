@@ -22,15 +22,15 @@ public partial class PresentadorContenedorModulos {
             _registroRolUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
             _registroRolUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
-            _registroRolUsuario.DatosRegistradosActualizados += async delegate {
+            _registroRolUsuario.DatosRegistradosActualizados += delegate {
                 Permisos = _registroRolUsuario.Vista.Permisos;
 
-                RegistrarEditarPermisosRol(await UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario!));
+                RegistrarEditarPermisosRol(UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario!).Result);
 
                 if (_gestionRolesUsuarios == null)
                     return;
 
-                await _gestionRolesUsuarios.RefrescarListaObjetos();
+                _gestionRolesUsuarios.RefrescarListaObjetos();
             };
 
             Permisos?.Clear();

@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
 public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTuplaMensajero, IVistaGestionMensajeros,
-    IVistaTuplaMensajero, Mensajero, DatosMensajero, CriterioBusquedaMensajero> {
+    IVistaTuplaMensajero, Mensajero, DatosMensajero, FiltroBusquedaMensajero> {
     public PresentadorGestionMensajeros(IVistaGestionMensajeros vista) : base(vista) {
         vista.HabilitarDeshabilitarMensajero += IntercambiarHabilitacionMensajero;
         vista.EditarDatos += delegate {
@@ -22,12 +22,12 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         presentadorTupla.Vista.Nombre = objeto.Nombre;
 
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
+            var contacto = datosContacto.Obtener(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
 
             if (contacto != null) {
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
                     var telefonosContacto =
-                        datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
+                        datosTelefonoContacto.Obtener(FiltroBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString()).resultados;
                     var telefonoString = telefonosContacto.Aggregate(string.Empty,
                         (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
 
@@ -51,11 +51,11 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         return presentadorTupla;
     }
 
-    public override Task RefrescarListaObjetos() {
+    public override void RefrescarListaObjetos() {
         // Cambiar la visibilidad de los botones
         Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
 
-        return base.RefrescarListaObjetos();
+        base.RefrescarListaObjetos();
     }
 
     private void IntercambiarHabilitacionMensajero(object? sender, EventArgs e) {
@@ -83,7 +83,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         }
 
         Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
-        _ = RefrescarListaObjetos();
+        RefrescarListaObjetos();
     }
 
     private void CambiarVisibilidadBtnHabilitacionMensajero(object? sender, EventArgs e) {

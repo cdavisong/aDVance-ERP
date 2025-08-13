@@ -11,7 +11,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTuplaAlmacen, IVistaGestionAlmacenes,
-    IVistaTuplaAlmacen, Almacen, DatosAlmacen, CriterioBusquedaAlmacen> {
+    IVistaTuplaAlmacen, Almacen, DatosAlmacen, FiltroBusquedaAlmacen> {
     private ControladorArchivosAndroid _androidFileManager;
     private bool _dispositivoConectado;
 
@@ -32,10 +32,10 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         return presentadorTupla;
     }
 
-    public override Task RefrescarListaObjetos() {
+    public override void RefrescarListaObjetos() {
         _dispositivoConectado = VerificarConexionDispositivo();
 
-        return base.RefrescarListaObjetos();
+        base.RefrescarListaObjetos();
     }
 
     private void OnDescargarProductos(object? sender, EventArgs e) {

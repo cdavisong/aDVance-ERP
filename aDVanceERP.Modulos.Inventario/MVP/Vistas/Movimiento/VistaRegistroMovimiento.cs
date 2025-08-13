@@ -147,8 +147,8 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
             fieldTipoMovimiento.Items.Add(tipoMovimiento);
         }
 
-        
-        fieldTipoMovimiento.SelectedIndex = tiposMovimientos.Length > 0 ? 0 : -1;
+        if (fieldTipoMovimiento.Items.Count > 0)
+            fieldTipoMovimiento.SelectedIndex = tiposMovimientos.Length > 0 ? 0 : -1;
     }
 
     private void ProcesarDatosScanner(string codigo) {

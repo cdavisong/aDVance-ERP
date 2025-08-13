@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
 
-public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaProveedor>, IRepositorioProveedor {
+public class DatosProveedor : RepositorioDatosBase<Proveedor, FiltroBusquedaProveedor>, IRepositorioProveedor {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_proveedor) FROM adv__proveedor;";
     }
@@ -27,17 +27,17 @@ public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaPr
         return $"DELETE FROM adv__proveedor WHERE id_proveedor={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaProveedor criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaProveedor criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaProveedor.Id:
+            case FiltroBusquedaProveedor.Id:
                 comando = $"SELECT * FROM adv__proveedor WHERE id_proveedor={dato};";
                 break;
-            case CriterioBusquedaProveedor.RazonSocial:
+            case FiltroBusquedaProveedor.RazonSocial:
                 comando = $"SELECT * FROM adv__proveedor WHERE LOWER(razon_social) LIKE LOWER('%{dato}%');";
                 break;
-            case CriterioBusquedaProveedor.NIT:
+            case FiltroBusquedaProveedor.NIT:
                 comando = $"SELECT * FROM adv__proveedor WHERE LOWER(nit) LIKE LOWER('%{dato}%');";
                 break;
             default:
@@ -48,7 +48,7 @@ public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaPr
         return comando;
     }
 
-    public override Proveedor ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Proveedor MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Proveedor(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("razon_social")),
@@ -69,7 +69,7 @@ public class DatosProveedor : RepositorioDatosBase<Proveedor, CriterioBusquedaPr
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();

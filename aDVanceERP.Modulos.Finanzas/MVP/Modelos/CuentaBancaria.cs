@@ -26,14 +26,14 @@ public class CuentaBancaria : IEntidadBaseDatos {
     public long IdContacto { get; set; }    
 }
 
-public enum CriterioBusquedaCuentaBancaria {
+public enum FiltroBusquedaCuentaBancaria {
     Todos,
     Id,
     Alias
 }
 
 public static class UtilesBusquedaCuentaBancaria {
-    public static string[] CriterioBusquedaCuentaBancaria = {
+    public static string[] FiltroBusquedaCuentaBancaria = {
         "Todas las cuentas",
         "Identificador de BD",
         "Alias de la cuenta"

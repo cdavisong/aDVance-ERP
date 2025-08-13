@@ -16,14 +16,14 @@ public partial class PresentadorContenedorModulos {
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionMovimientos", _gestionMovimientos.Vista));
     }
 
-    private async void MostrarVistaGestionMovimientos(object? sender, EventArgs e) {
+    private void MostrarVistaGestionMovimientos(object? sender, EventArgs e) {
         if (_gestionMovimientos?.Vista == null)
             return;
 
-        _gestionMovimientos.Vista.CargarCriteriosBusqueda(UtilesBusquedaMovimiento.CriterioBusquedaMovimiento);
+        _gestionMovimientos.Vista.CargarCriteriosBusqueda(UtilesBusquedaMovimiento.FiltroBusquedaMovimiento);
         _gestionMovimientos.Vista.Restaurar();
         _gestionMovimientos.Vista.Mostrar();
 
-        await _gestionMovimientos.RefrescarListaObjetos();
+        _gestionMovimientos.RefrescarListaObjetos();
     }
 }

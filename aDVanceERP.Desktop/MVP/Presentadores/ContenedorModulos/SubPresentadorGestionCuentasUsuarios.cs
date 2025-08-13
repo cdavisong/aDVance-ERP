@@ -16,14 +16,14 @@ public partial class PresentadorContenedorModulos {
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasUsuarios", _gestionCuentasUsuarios.Vista));
     }
 
-    private async void MostrarVistaGestionCuentasUsuarios(object? sender, EventArgs e) {
+    private  void MostrarVistaGestionCuentasUsuarios(object? sender, EventArgs e) {
         if (_gestionCuentasUsuarios?.Vista == null)
             return;
 
-        _gestionCuentasUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaUsuario.CriterioBusquedaBusquedaCuentaUsuario);
+        _gestionCuentasUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaUsuario.FiltroBusquedaBusquedaCuentaUsuario);
         _gestionCuentasUsuarios.Vista.Restaurar();
         _gestionCuentasUsuarios.Vista.Mostrar();
 
-        await _gestionCuentasUsuarios.RefrescarListaObjetos();
+        _gestionCuentasUsuarios.RefrescarListaObjetos();
     }
 }

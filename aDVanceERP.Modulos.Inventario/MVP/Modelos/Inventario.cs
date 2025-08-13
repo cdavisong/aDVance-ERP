@@ -24,7 +24,7 @@ public class Inventario : IEntidadBaseDatos {
     public DateTime UltimaActualizacion { get; set; }
 }
 
-public enum CriterioBusquedaInventario {
+public enum FiltroBusquedaInventario {
     Todos,
     Id,
     IdProducto,

@@ -23,7 +23,7 @@ public class UnidadMedida : IEntidadBaseDatos {
     public string Descripcion { get; set; }
 }
 
-public enum CriterioBusquedaUnidadMedida {
+public enum FiltroBusquedaUnidadMedida {
     Todos,
     Id,
     Nombre,
@@ -31,7 +31,7 @@ public enum CriterioBusquedaUnidadMedida {
 }
 
 public static class UtilesBusquedaUnidadesMedida {
-    public static object[] CriterioBusquedaUnidadesMedida = {
+    public static object[] FiltroBusquedaUnidadesMedida = {
         "Todas las unidades de medida",
         "Identificador de BD",
         "Nombre de la unidad de medida",

@@ -31,11 +31,11 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         set => Size = value;
     }
 
-    public CriterioBusquedaContacto CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaContacto)fieldCriterioBusqueda.SelectedIndex
+    public FiltroBusquedaContacto FiltroBusqueda {
+        get => fieldFiltroBusqueda.SelectedIndex >= 0
+            ? (FiltroBusquedaContacto)fieldFiltroBusqueda.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFiltroBusqueda.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -87,12 +87,12 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+        fieldFiltroBusqueda.SelectedIndexChanged += delegate {
             fieldDatoBusqueda.Text = string.Empty;
-            fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+            BuscarDatos?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -100,7 +100,7 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -137,10 +137,10 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-        fieldCriterioBusqueda.Items.Clear();
-        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
+        fieldFiltroBusqueda.Items.Clear();
+        fieldFiltroBusqueda.Items.AddRange(criteriosBusqueda);
         
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFiltroBusqueda.SelectedIndex = 0;
     }
 
     public void Mostrar() {
@@ -155,7 +155,7 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFiltroBusqueda.SelectedIndex = 0;
     }
 
     public void Ocultar() {

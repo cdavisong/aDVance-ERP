@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusquedaMovimiento>, IRepositorioMovimiento
+public class DatosMovimiento : RepositorioDatosBase<Movimiento, FiltroBusquedaMovimiento>, IRepositorioMovimiento
 {
     public override string ComandoCantidad()
     {
@@ -55,31 +55,31 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
         return $"DELETE FROM adv__movimiento WHERE id_movimiento='{id}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaMovimiento criterio, string dato)
+    public override string ComandoObtener(FiltroBusquedaMovimiento criterio, string dato)
     {
         string? comando;
 
         switch (criterio)
         {
-            case CriterioBusquedaMovimiento.Id:
+            case FiltroBusquedaMovimiento.Id:
                 comando = $"SELECT * FROM adv__movimiento WHERE id_movimiento = '{dato}';";
                 break;
-            case CriterioBusquedaMovimiento.Producto:
+            case FiltroBusquedaMovimiento.Producto:
                 comando =
                     $"SELECT m.* FROM adv__movimiento m JOIN adv__producto a ON m.id_producto = a.id_producto WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
                 break;
-            case CriterioBusquedaMovimiento.AlmacenOrigen:
+            case FiltroBusquedaMovimiento.AlmacenOrigen:
                 comando =
                     $"SELECT * FROM adv__movimiento m JOIN adv__almacen a ON m.id_almacen_origen = a.id_almacen WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
                 break;
-            case CriterioBusquedaMovimiento.AlmacenDestino:
+            case FiltroBusquedaMovimiento.AlmacenDestino:
                 comando =
                     $"SELECT * FROM adv__movimiento m JOIN adv__almacen a ON m.id_almacen_destino = a.id_almacen WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
                 break;
-            case CriterioBusquedaMovimiento.Fecha:
+            case FiltroBusquedaMovimiento.Fecha:
                 comando = $"SELECT * FROM adv__movimiento WHERE DATE(fecha)='{dato}';";
                 break;
-            case CriterioBusquedaMovimiento.TipoMovimiento:
+            case FiltroBusquedaMovimiento.TipoMovimiento:
                 comando =
                     $"SELECT * " +
                     $"FROM adv__movimiento m " +
@@ -94,7 +94,7 @@ public class DatosMovimiento : RepositorioDatosBase<Movimiento, CriterioBusqueda
         return comando;
     }
 
-    public override Movimiento ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    public override Movimiento MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
     {
         return new Movimiento(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento")),

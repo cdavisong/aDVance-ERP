@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosTipoMovimiento : RepositorioDatosBase<TipoMovimiento, CriterioBusquedaTipoMovimiento>,
+public class DatosTipoMovimiento : RepositorioDatosBase<TipoMovimiento, FiltroBusquedaTipoMovimiento>,
     IRepositorioTipoMovimiento
 {
     public override string ComandoCantidad()
@@ -29,16 +29,16 @@ public class DatosTipoMovimiento : RepositorioDatosBase<TipoMovimiento, Criterio
         return $"DELETE FROM adv__tipo_movimiento WHERE id_tipo_movimiento='{id}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaTipoMovimiento criterio, string dato)
+    public override string ComandoObtener(FiltroBusquedaTipoMovimiento criterio, string dato)
     {
         string comando;
 
         switch (criterio)
         {
-            case CriterioBusquedaTipoMovimiento.Id:
+            case FiltroBusquedaTipoMovimiento.Id:
                 comando = $"SELECT * FROM adv__tipo_movimiento WHERE id_tipo_movimiento='{dato}';";
                 break;
-            case CriterioBusquedaTipoMovimiento.Nombre:
+            case FiltroBusquedaTipoMovimiento.Nombre:
                 comando = $"SELECT * FROM adv__tipo_movimiento WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
                 break;
             default:
@@ -49,7 +49,7 @@ public class DatosTipoMovimiento : RepositorioDatosBase<TipoMovimiento, Criterio
         return comando;
     }
 
-    public override TipoMovimiento ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    public override TipoMovimiento MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
     {
         return new TipoMovimiento(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_tipo_movimiento")),

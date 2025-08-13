@@ -2,7 +2,7 @@
 
 public interface IBuscadorDatos<C>
     where C : Enum {
-    C CriterioBusqueda { get; }
+    C FiltroBusqueda { get; }
     string? DatoBusqueda { get; }
 
 

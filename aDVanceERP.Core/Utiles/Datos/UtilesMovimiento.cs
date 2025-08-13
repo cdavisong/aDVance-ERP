@@ -12,7 +12,7 @@ public static class UtilesMovimiento {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -37,7 +37,7 @@ public static class UtilesMovimiento {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -62,7 +62,7 @@ public static class UtilesMovimiento {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -87,7 +87,7 @@ public static class UtilesMovimiento {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -118,7 +118,7 @@ public static class UtilesMovimiento {
         decimal cantidad, decimal costoUnitario) {
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -178,7 +178,7 @@ public static class UtilesMovimiento {
                                     id_almacen,
                                     cantidad,
                                     valor_total,
-                                    costo_promedio,                                    
+                                    costo_promedio                                
                                   )
                                   VALUES (
                                     @IdProducto,

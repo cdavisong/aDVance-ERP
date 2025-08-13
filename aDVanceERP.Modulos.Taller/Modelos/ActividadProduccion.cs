@@ -33,7 +33,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public bool Activo { get; set; } = true;
     }
 
-    public enum CriterioBusquedaActividadProduccion {
+    public enum FiltroBusquedaActividadProduccion {
         Todas,
         Id,
         Nombre,
@@ -42,7 +42,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
     }
 
     public static class UtilesBusquedaActividadProduccion {
-        public static object[] CriterioBusquedaActividadProduccion =
+        public static object[] FiltroBusquedaActividadProduccion =
         {
             "Todas las actividades",
             "Identificador de BD",

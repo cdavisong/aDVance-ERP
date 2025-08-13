@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
 
-public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>, IRepositorioCompra {
+public class DatosCompra : RepositorioDatosBase<Compra, FiltroBusquedaCompra>, IRepositorioCompra {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_compra) FROM adv__compra;";
     }
@@ -63,32 +63,32 @@ public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>,
                 """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaCompra criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaCompra criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaCompra.Id:
+            case FiltroBusquedaCompra.Id:
                 comando = $"""
                            SELECT *
                            FROM adv__compra
                            WHERE id_compra={dato};
                            """;
                 break;
-            case CriterioBusquedaCompra.NombreAlmacen:
+            case FiltroBusquedaCompra.NombreAlmacen:
                 comando = $"""
                            SELECT c.*
                            FROM adv__compra c JOIN adv__almacen a ON c.id_almacen = a.id_almacen
                            WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');
                            """;
                 break;
-            case CriterioBusquedaCompra.RazonSocialProveedor:
+            case FiltroBusquedaCompra.RazonSocialProveedor:
                 comando = $"""
                            SELECT c.*
                            FROM adv__compra c JOIN adv__proveedor p ON c.id_proveedor = p.id_proveedor
                            WHERE LOWER(p.razon_social) LIKE LOWER('%{dato}%');
                            """;
                 break;
-            case CriterioBusquedaCompra.Fecha:
+            case FiltroBusquedaCompra.Fecha:
                 comando = $"""
                            SELECT *
                            FROM adv__compra
@@ -106,7 +106,7 @@ public class DatosCompra : RepositorioDatosBase<Compra, CriterioBusquedaCompra>,
         return comando;
     }
 
-    public override Compra ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Compra MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Compra(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

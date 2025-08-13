@@ -14,11 +14,11 @@ public partial class PresentadorContenedorModulos {
         _registroCuentaBancaria.Vista.CargarNombresContactos(UtilesContacto.ObtenerNombresContactos());
         _registroCuentaBancaria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCuentaBancaria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCuentaBancaria.DatosRegistradosActualizados += async delegate {
+        _registroCuentaBancaria.DatosRegistradosActualizados += delegate {
             if (_gestionCuentasBancarias == null)
                 return;
 
-            await _gestionCuentasBancarias.RefrescarListaObjetos();
+            _gestionCuentasBancarias.RefrescarListaObjetos();
         };
     }
 

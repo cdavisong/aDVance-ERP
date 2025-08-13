@@ -398,7 +398,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                 var filas = new List<string[]>();
                 using (var datosVentas = new DatosVenta()) {
-                    var ventasFecha = datosVentas.Obtener(CriterioBusquedaVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd"));
+                    var ventasFecha = datosVentas.Obtener(FiltroBusquedaVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd")).resultados;
 
                     if (ventasFecha == null || !ventasFecha.Any()) {
                         await ResponderMensaje(chatId, $"ℹ️ No hay ventas registradas para el {fechaReporte:dd/MM/yyyy}");
@@ -407,7 +407,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                     foreach (var venta in ventasFecha) {
                         using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
-                            var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
+                            var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString()).resultados;
 
                             foreach (var ventaProducto in detalleVentaProducto) {
                                 var fila = new string[6];
@@ -538,10 +538,9 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     var password = partes[1].Trim();
 
                     using (var datosUsuario = new DatosCuentaUsuario()) {
-                        var usuarioEncontrado = (await datosUsuario.ObtenerAsync(
-                            CriterioBusquedaCuentaUsuario.Nombre,
-                            usuario,
-                            out _)).FirstOrDefault();
+                        var usuarioEncontrado = datosUsuario.Obtener(
+                            FiltroBusquedaCuentaUsuario.Nombre,
+                            usuario).resultados.FirstOrDefault();
 
                         if (usuarioEncontrado == null) {
                             await ResponderMensaje(mensaje.IdChat, "🔍 Usuario no encontrado");
@@ -612,10 +611,9 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 }
 
                 using (var datosUsuario = new DatosCuentaUsuario()) {
-                    var usuarioExistente = (await datosUsuario.ObtenerAsync(
-                        CriterioBusquedaCuentaUsuario.Nombre,
-                        usuario,
-                        out _)).FirstOrDefault();
+                    var usuarioExistente = datosUsuario.Obtener(
+                        FiltroBusquedaCuentaUsuario.Nombre,
+                        usuario).resultados.FirstOrDefault();
 
                     if (usuarioExistente != null) {
                         await ResponderMensaje(mensaje.IdChat,

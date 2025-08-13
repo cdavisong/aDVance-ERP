@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
-public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, CriterioBusquedaPermisoRolUsuario>,
+public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, FiltroBusquedaPermisoRolUsuario>,
     IRepositorioPermisoRolUsuario {
     public override string ComandoAdicionar(PermisoRolUsuario objeto) {
         return $"INSERT INTO adv__rol_permiso (id_rol_usuario, id_permiso) VALUES ('{objeto.IdRolUsuario}', '{objeto.IdPermiso}');";
@@ -30,10 +30,10 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
         return $"SELECT COUNT(1) FROM adv__rol_permiso WHERE id_rol_permiso = '{dato}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaPermisoRolUsuario criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaPermisoRolUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
-            case CriterioBusquedaPermisoRolUsuario.Id:
+            case FiltroBusquedaPermisoRolUsuario.Id:
                 comando = $"SELECT * FROM adv__rol_permiso WHERE id_rol_permiso = {dato};";
                 break;
             default:
@@ -44,7 +44,7 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
         return comando;
     }
 
-    public override PermisoRolUsuario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override PermisoRolUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new PermisoRolUsuario(
             lectorDatos.GetInt64("id_rol_permiso"),
             lectorDatos.GetInt64("id_rol_usuario"),
@@ -55,7 +55,7 @@ public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, Cr
     public void EliminarPorRol(long idRolUsuario) {
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }

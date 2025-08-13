@@ -13,11 +13,11 @@ public partial class PresentadorContenedorModulos {
         _registroCliente = new PresentadorRegistroCliente(new VistaRegistroCliente());
         _registroCliente.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCliente.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCliente.DatosRegistradosActualizados += async delegate {
+        _registroCliente.DatosRegistradosActualizados += delegate {
             if (_gestionClientes == null)
                 return;
 
-            await _gestionClientes.RefrescarListaObjetos();
+            _gestionClientes.RefrescarListaObjetos();
         };
     }
 

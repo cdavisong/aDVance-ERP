@@ -36,7 +36,7 @@ namespace aDVanceERP.Core.Repositorios.BD {
             return _configuraciones.FirstOrDefault() ?? new ConfiguracionBaseDatos();
         }
 
-        public IEnumerable<ConfiguracionBaseDatos> ObtenerTodos() {
+        public (int cantidad, IEnumerable<ConfiguracionBaseDatos> resultados) ObtenerTodos() {
             var rutaArchivo = Path.Combine(_directorioRaiz, NombreArchivo);
 
             if (File.Exists(rutaArchivo)) {
@@ -47,7 +47,7 @@ namespace aDVanceERP.Core.Repositorios.BD {
                 _configuraciones = new List<ConfiguracionBaseDatos>();
             }
 
-            return _configuraciones;
+            return (_configuraciones.Count, _configuraciones);
         }
 
         public void Salvar(string directorio, ConfiguracionBaseDatos entidad) {

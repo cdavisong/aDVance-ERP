@@ -4,6 +4,6 @@ namespace aDVanceERP.Core.Repositorios.Interfaces {
     public interface IRepoBase<En>
         where En : class, IEntidad, new() {
         En Obtener();
-        IEnumerable<En> ObtenerTodos();
+        (int cantidad, IEnumerable<En> resultados) ObtenerTodos();
     }
 }

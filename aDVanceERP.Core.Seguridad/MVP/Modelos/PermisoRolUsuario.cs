@@ -17,7 +17,7 @@ public class PermisoRolUsuario : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaPermisoRolUsuario {
+public enum FiltroBusquedaPermisoRolUsuario {
     Todos,
     Id
 }

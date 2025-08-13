@@ -8,7 +8,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
 public class PresentadorGestionRolesUsuarios : PresentadorGestionBase<PresentadorTuplaRolUsuario,
-    IVistaGestionRolesUsuarios, IVistaTuplaRolUsuario, RolUsuario, DatosRolUsuario, CriterioBusquedaRolUsuario> {
+    IVistaGestionRolesUsuarios, IVistaTuplaRolUsuario, RolUsuario, DatosRolUsuario, FiltroBusquedaRolUsuario> {
     public PresentadorGestionRolesUsuarios(IVistaGestionRolesUsuarios vista) : base(vista) { }
 
     protected override PresentadorTuplaRolUsuario ObtenerValoresTupla(RolUsuario objeto) {

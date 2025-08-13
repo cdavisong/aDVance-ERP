@@ -561,8 +561,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
                     using (var datosObjeto = new RepoOrdenMateriaPrima()) {
                         var materiaPrimaExistente = datosObjeto.Obtener(
-                            CriterioBusquedaOrdenMateriaPrima.Producto, 
-                            $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{UtilesProducto.ObtenerIdProducto(materiaPrima?[0]).Result.ToString()}").FirstOrDefault();
+                            FiltroBusquedaOrdenMateriaPrima.Producto, 
+                            $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{UtilesProducto.ObtenerIdProducto(materiaPrima?[0]).Result.ToString()}").resultados.FirstOrDefault();
 
                         if (materiaPrimaExistente != null)
                             datosObjeto.Eliminar(materiaPrimaExistente.Id);
@@ -624,8 +624,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
                     using (var datosObjeto = new RepoOrdenActividadProduccion()) {
                         var actividadProduccionExistente = datosObjeto.Obtener(
-                            CriterioBusquedaOrdenActividadProduccion.Nombre, 
-                            $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{actividadProduccion?[0]}").FirstOrDefault();
+                            FiltroBusquedaOrdenActividadProduccion.Nombre, 
+                            $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{actividadProduccion?[0]}").resultados.FirstOrDefault();
 
                         if (actividadProduccionExistente != null)
                             datosObjeto.Eliminar(actividadProduccionExistente.Id);
@@ -688,8 +688,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
                     using (var datosObjeto = new RepoOrdenGastoIndirecto()) {
                         var gastoIndirectoExistente = datosObjeto.Obtener(
-                            CriterioBusquedaOrdenGastoIndirecto.Concepto, 
-                            $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{gastoIndirecto?[0]}").FirstOrDefault();
+                            FiltroBusquedaOrdenGastoIndirecto.Concepto, 
+                            $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{gastoIndirecto?[0]}").resultados.FirstOrDefault();
 
                         if (gastoIndirectoExistente != null)
                             datosObjeto.Eliminar(gastoIndirectoExistente.Id);

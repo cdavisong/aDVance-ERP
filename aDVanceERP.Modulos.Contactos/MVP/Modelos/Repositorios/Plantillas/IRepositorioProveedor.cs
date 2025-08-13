@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas; 
 
-public interface IRepositorioProveedor : IRepositorioDatos<Proveedor, CriterioBusquedaProveedor> { }
+public interface IRepositorioProveedor : IRepositorioDatos<Proveedor, FiltroBusquedaProveedor> { }

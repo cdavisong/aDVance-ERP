@@ -4,7 +4,7 @@ using aDVanceERP.Core.MVP.Vistas.UnidadMedida.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
 
-public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaRegistroUnidadMedida, UnidadMedida, DatosUnidadMedida, CriterioBusquedaUnidadMedida> {
+public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaRegistroUnidadMedida, UnidadMedida, DatosUnidadMedida, FiltroBusquedaUnidadMedida> {
     public PresentadorRegistroUnidadMedida(IVistaRegistroUnidadMedida vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(UnidadMedida objeto) {
@@ -13,7 +13,7 @@ public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaReg
         Vista.Abreviatura = objeto.Abreviatura;
         Vista.Descripcion = objeto.Descripcion ?? string.Empty; // Asegurar que no sea null
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
@@ -23,11 +23,11 @@ public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaReg
         return nombreOk && abreviaturaOk;
     }
 
-    protected override Task<UnidadMedida?> ObtenerObjetoDesdeVista() {
-        return Task.FromResult<UnidadMedida?>(new UnidadMedida(Objeto?.Id ?? 0,
+    protected override UnidadMedida? ObtenerEntidadDesdeVista() {
+        return new UnidadMedida(Entidad?.Id ?? 0,
             Vista.Nombre,
             Vista.Abreviatura,
             string.IsNullOrEmpty(Vista.Descripcion) ? null : Vista.Descripcion
-        ));
+        );
     }
 }

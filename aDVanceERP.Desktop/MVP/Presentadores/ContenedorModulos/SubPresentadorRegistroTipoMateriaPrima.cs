@@ -27,15 +27,15 @@ public partial class PresentadorContenedorModulos {
         _registroTipoMateriaPrima?.Dispose();
     }
 
-    private async void EliminarTipoMateriaPrima(object? sender, EventArgs e) {
+    private void EliminarTipoMateriaPrima(object? sender, EventArgs e) {
         using (var tipoProducto = new DatosTipoMateriaPrima()) {
             if (sender is string nombreTipoMateriaPrima) {
-                var idTipoMateriaPrima = await UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(nombreTipoMateriaPrima);
+                var idTipoMateriaPrima = UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(nombreTipoMateriaPrima).Result;
 
                 if (idTipoMateriaPrima == 0)
                     return;
 
-                await tipoProducto.EliminarAsync(idTipoMateriaPrima);
+                tipoProducto.Eliminar(idTipoMateriaPrima);
             }
 
             _registroProducto?.Vista.CargarTiposMateriaPrima(UtilesTipoMateriaPrima.ObtenerNombresTiposMateriasPrimas());

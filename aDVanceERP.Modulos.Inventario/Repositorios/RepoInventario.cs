@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class RepoInventario : RepositorioDatosBase<MVP.Modelos.Inventario, CriterioBusquedaInventario> {
+public class RepoInventario : RepositorioDatosBase<MVP.Modelos.Inventario, FiltroBusquedaInventario> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_inventario) FROM adv__inventario;";
     }
@@ -45,17 +45,17 @@ public class RepoInventario : RepositorioDatosBase<MVP.Modelos.Inventario, Crite
         return $"SELECT * FROM adv__inventario WHERE id_inventario='{dato}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaInventario criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaInventario criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaInventario.Id:
+            case FiltroBusquedaInventario.Id:
                 comando = $"SELECT * FROM adv__inventario WHERE id_inventario='{dato}';";
                 break;
-            case CriterioBusquedaInventario.IdProducto:
+            case FiltroBusquedaInventario.IdProducto:
                 comando = $"SELECT * FROM adv__inventario WHERE id_producto='{dato}';";
                 break;
-            case CriterioBusquedaInventario.IdAlmacen:
+            case FiltroBusquedaInventario.IdAlmacen:
                 comando = $"SELECT * FROM adv__inventario WHERE id_almacen='{dato}';";
                 break;
             default:
@@ -66,7 +66,7 @@ public class RepoInventario : RepositorioDatosBase<MVP.Modelos.Inventario, Crite
         return comando;
     }
 
-    public override MVP.Modelos.Inventario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override MVP.Modelos.Inventario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new MVP.Modelos.Inventario(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_inventario")),
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_producto")),

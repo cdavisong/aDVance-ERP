@@ -27,15 +27,15 @@ public partial class PresentadorContenedorModulos {
         _registroUnidadMedida?.Dispose();
     }
 
-    private async void EliminarUnidadMedida(object? sender, EventArgs e) {
+    private void EliminarUnidadMedida(object? sender, EventArgs e) {
         using (var unidadMedida = new DatosUnidadMedida()) {
             if (sender is string nombreUnidadMedida) {
-                var idUnidadMedida = await UtilesUnidadMedida.ObtenerIdUnidadMedida(nombreUnidadMedida);
+                var idUnidadMedida = UtilesUnidadMedida.ObtenerIdUnidadMedida(nombreUnidadMedida).Result;
 
                 if (idUnidadMedida == 0)
                     return;
 
-                await unidadMedida.EliminarAsync(idUnidadMedida);
+                unidadMedida.Eliminar(idUnidadMedida);
             }
 
             _registroProducto?.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerNombresUnidadesMedida());

@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
-    public class PresentadorGestionCajas : PresentadorGestionBase<PresentadorTuplaCaja, IVistaGestionCajas, IVistaTuplaCaja, Caja, DatosCaja, CriterioBusquedaCaja> {
+    public class PresentadorGestionCajas : PresentadorGestionBase<PresentadorTuplaCaja, IVistaGestionCajas, IVistaTuplaCaja, Caja, DatosCaja, FiltroBusquedaCaja> {
         public PresentadorGestionCajas(IVistaGestionCajas vista) 
             : base(vista) {
             vista.CerrarCajaSeleccionada += CerrarCajaSeleccionada;
@@ -35,12 +35,12 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             return presentadorTupla;
         }
 
-        public override Task RefrescarListaObjetos() {
+        public override void RefrescarListaObjetos() {
             // Cambiar la visibilidad de los botones 
             Vista.HabilitarBtnRegistroMovimientoCaja = false;
             Vista.HabilitarBtnCierreCaja = false;            
 
-            return base.RefrescarListaObjetos();
+            base.RefrescarListaObjetos();
         }
 
         private void CerrarCajaSeleccionada(object? sender, EventArgs e) {
@@ -55,7 +55,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
                     break;
                 }
 
-            _ = RefrescarListaObjetos();
+            RefrescarListaObjetos();
         }
 
         private void CambiarVisibilidadBotones(object? sender, EventArgs e) {

@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios; 
 
-public class DatosCuentaBancaria : RepositorioDatosBase<CuentaBancaria, CriterioBusquedaCuentaBancaria>,
+public class DatosCuentaBancaria : RepositorioDatosBase<CuentaBancaria, FiltroBusquedaCuentaBancaria>,
     IRepositorioCuentaBancaria {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_cuenta_bancaria) FROM adv__cuenta_bancaria;";
@@ -24,14 +24,14 @@ public class DatosCuentaBancaria : RepositorioDatosBase<CuentaBancaria, Criterio
         return $"DELETE FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaCuentaBancaria criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaCuentaBancaria criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaCuentaBancaria.Id:
+            case FiltroBusquedaCuentaBancaria.Id:
                 comando = $"SELECT * FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria={dato};";
                 break;
-            case CriterioBusquedaCuentaBancaria.Alias:
+            case FiltroBusquedaCuentaBancaria.Alias:
                 comando = $"SELECT * FROM adv__cuenta_bancaria WHERE alias LIKE '%{dato}%';";
                 break;
             default:
@@ -46,7 +46,7 @@ public class DatosCuentaBancaria : RepositorioDatosBase<CuentaBancaria, Criterio
         return $"SELECT COUNT(1) FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria = {dato};";
     }
 
-    public override CuentaBancaria ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override CuentaBancaria MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new CuentaBancaria(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cuenta_bancaria")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("alias")),

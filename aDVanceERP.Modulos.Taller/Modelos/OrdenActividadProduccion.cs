@@ -31,7 +31,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
     }
 
-    public enum CriterioBusquedaOrdenActividadProduccion {
+    public enum FiltroBusquedaOrdenActividadProduccion {
         Todos,
         Id,
         OrdenProduccion,
@@ -40,7 +40,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
     }
 
     public static class UtilesBusquedaOrdenActividadProduccion {
-        public static object[] CriterioBusquedaOrdenActividadProduccion =
+        public static object[] FiltroBusquedaOrdenActividadProduccion =
         {
             "Todas las actividades registradas",
             "Identificador de BD",

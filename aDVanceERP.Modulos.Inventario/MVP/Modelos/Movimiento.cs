@@ -25,7 +25,7 @@ public class Movimiento : IEntidadBaseDatos {
     public long IdTipoMovimiento { get; set; }
 }
 
-public enum CriterioBusquedaMovimiento {
+public enum FiltroBusquedaMovimiento {
     Todos,
     Id,
     Producto,
@@ -36,7 +36,7 @@ public enum CriterioBusquedaMovimiento {
 }
 
 public static class UtilesBusquedaMovimiento {
-    public static object[] CriterioBusquedaMovimiento = {
+    public static object[] FiltroBusquedaMovimiento = {
         "Todos los movimientos",
         "Identificador de BD",
         "Nombre del producto",

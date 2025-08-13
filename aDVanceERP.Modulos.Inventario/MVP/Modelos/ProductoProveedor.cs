@@ -20,13 +20,13 @@ public class ProductoProveedor : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaProductoProveedor {
+public enum FiltroBusquedaProductoProveedor {
     Todos,
     Id
 }
 
 public static class UtilesBusquedaProductoProveedor {
-    public static string[] CriterioBusquedaProducto = {
+    public static string[] FiltroBusquedaProducto = {
         "Todos los productos",
         "Identificador de BD"
     };

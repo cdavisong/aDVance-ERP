@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
 
-public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaCliente>, IRepositorioCliente {
+public class DatosCliente : RepositorioDatosBase<Cliente, FiltroBusquedaCliente>, IRepositorioCliente {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_cliente) FROM adv__cliente;";
     }
@@ -21,17 +21,17 @@ public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaClient
         return $"DELETE FROM adv__cliente WHERE id_cliente={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaCliente criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaCliente criterio, string dato) {
         string? comando;
 
         switch (criterio) {
-            case CriterioBusquedaCliente.Id:
+            case FiltroBusquedaCliente.Id:
                 comando = $"SELECT * FROM adv__cliente WHERE id_cliente='{dato}';";
                 break;
-            case CriterioBusquedaCliente.RazonSocial:
+            case FiltroBusquedaCliente.RazonSocial:
                 comando = $"SELECT * FROM adv__cliente WHERE LOWER(razon_social) LIKE LOWER('%{dato}%');";
                 break;
-            case CriterioBusquedaCliente.Numero:
+            case FiltroBusquedaCliente.Numero:
                 comando = $"SELECT * FROM adv__cliente WHERE LOWER(numero) LIKE LOWER('%{dato}%');";
                 break;
             default:
@@ -42,7 +42,7 @@ public class DatosCliente : RepositorioDatosBase<Cliente, CriterioBusquedaClient
         return comando;
     }
 
-    public override Cliente ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Cliente MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Cliente(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("numero")),

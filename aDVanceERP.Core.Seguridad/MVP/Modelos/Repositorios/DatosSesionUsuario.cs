@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios; 
 
-public class DatosSesionUsuario : RepositorioDatosBase<SesionUsuario, CriterioBusquedaSesionUsuario>,
+public class DatosSesionUsuario : RepositorioDatosBase<SesionUsuario, FiltroBusquedaSesionUsuario>,
     IRepositorioSesionUsuario {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_sesion_usuario) FROM adv__sesion_usuario;";
@@ -24,14 +24,14 @@ public class DatosSesionUsuario : RepositorioDatosBase<SesionUsuario, CriterioBu
         return $"DELETE FROM adv__sesion_usuario WHERE id_sesion_usuario = {id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaSesionUsuario criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaSesionUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
-            case CriterioBusquedaSesionUsuario.NombreUsuario:
+            case FiltroBusquedaSesionUsuario.NombreUsuario:
                 comando =
                     $"SELECT * FROM adv__sesion_usuario su JOIN adv__cuenta_usuario cu ON su.id_cuenta_usuario = cu.id_cuenta_usuario WHERE LOWER(cu.nombre) LIKE LOWER('%{dato}%');";
                 break;
-            case CriterioBusquedaSesionUsuario.SesionActiva:
+            case FiltroBusquedaSesionUsuario.SesionActiva:
                 comando = "SELECT * FROM adv__sesion_usuario WHERE fecha_fin IS NULL;";
                 break;
             default:
@@ -42,7 +42,7 @@ public class DatosSesionUsuario : RepositorioDatosBase<SesionUsuario, CriterioBu
         return comando;
     }
 
-    public override SesionUsuario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override SesionUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new SesionUsuario(
             lectorDatos.GetInt64("id_sesion_usuario"),
             lectorDatos.GetInt32("id_cuenta_usuario"),

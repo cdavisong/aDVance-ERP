@@ -8,7 +8,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class PresentadorRegistroDetallePagoTransferencia : PresentadorRegistroBase<
     IVistaRegistroDetallePagoTransferencia, DetallePagoTransferencia, DatosDetallePagoTransferencia,
-    CriterioBusquedaDetallePagoTransferencia> {
+    FiltroBusquedaDetallePagoTransferencia> {
     public PresentadorRegistroDetallePagoTransferencia(IVistaRegistroDetallePagoTransferencia vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(DetallePagoTransferencia objeto) {
@@ -30,7 +30,7 @@ public class PresentadorRegistroDetallePagoTransferencia : PresentadorRegistroBa
         return aliasOk && numeroTelefonoOk && numeroTransaccionOk;
     }
 
-    protected override async Task<DetallePagoTransferencia?> ObtenerObjetoDesdeVista() {
+    protected override DetallePagoTransferencia? ObtenerEntidadDesdeVista() {
         throw new NotImplementedException();
     }
 }

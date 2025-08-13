@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
-    public class DatosEmpresa : RepositorioDatosBase<Empresa, CriterioBusquedaEmpresa>, IRepositorioEmpresa {
+    public class DatosEmpresa : RepositorioDatosBase<Empresa, FiltroBusquedaEmpresa>, IRepositorioEmpresa {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_empresa) 
@@ -31,7 +31,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 using (var comando = new MySqlCommand(ComandoAdicionar(objeto), conexion)) {
                     comando.Parameters.AddWithValue("@nombre", objeto.Nombre);
@@ -39,24 +39,6 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
                     comando.Parameters.AddWithValue("@idContacto", objeto.IdContacto);
 
                     comando.ExecuteNonQuery();
-
-                    return comando.LastInsertedId;
-                }
-            }
-        }
-
-        public override async Task<long> AdicionarAsync(Empresa objeto) {
-            var logoBytes = objeto.ObtenerDatosDbLogotipo();
-
-            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                await conexion.OpenAsync().ConfigureAwait(false);
-
-                using (var comando = new MySqlCommand(ComandoAdicionar(objeto), conexion)) {
-                    comando.Parameters.AddWithValue("@nombre", objeto.Nombre);
-                    comando.Parameters.Add("@logotipo", MySqlDbType.LongBlob).Value = logoBytes.Length > 0 ? logoBytes : DBNull.Value;
-                    comando.Parameters.AddWithValue("@idContacto", objeto.IdContacto);
-
-                    await comando.ExecuteNonQueryAsync().ConfigureAwait(false);
 
                     return comando.LastInsertedId;
                 }
@@ -78,7 +60,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 using (var comando = new MySqlCommand(ComandoEditar(objeto), conexion)) {
                     comando.Parameters.AddWithValue("@nombre", objeto.Nombre);
@@ -92,24 +74,6 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
             }
         }
 
-        public override async Task<bool> EditarAsync(Empresa objeto, long nuevoId = 0) {
-            var logoBytes = objeto.ObtenerDatosDbLogotipo();
-
-            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                await conexion.OpenAsync().ConfigureAwait(false);
-
-                using (var comando = new MySqlCommand(ComandoEditar(objeto), conexion)) {
-                    comando.Parameters.AddWithValue("@nombre", objeto.Nombre);
-                    comando.Parameters.Add("@logotipo", MySqlDbType.LongBlob).Value = logoBytes.Length > 0 ? logoBytes : DBNull.Value;
-                    comando.Parameters.AddWithValue("@idContacto", objeto.IdContacto);
-
-                    await comando.ExecuteNonQueryAsync().ConfigureAwait(false);
-                }
-            }
-
-            return true;
-        }
-
         public override string ComandoEliminar(long id) {
             return $"""
                 DELETE FROM adv__empresa 
@@ -117,14 +81,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
                 """;
         }
 
-        public override string ComandoObtener(CriterioBusquedaEmpresa criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaEmpresa criterio, string dato) {
             string? comando;
 
             switch (criterio) {
-                case CriterioBusquedaEmpresa.Id:
+                case FiltroBusquedaEmpresa.Id:
                     comando = $"SELECT * FROM adv__empresa WHERE id_empresa='{dato}';";
                     break;
-                case CriterioBusquedaEmpresa.Nombre:
+                case FiltroBusquedaEmpresa.Nombre:
                     comando = $"SELECT * FROM adv__empresa WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
                     break;
                 default:
@@ -135,7 +99,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
             return comando;
         }
 
-        public override Empresa ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override Empresa MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             var empresa = new Empresa(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_empresa")),
                 null,

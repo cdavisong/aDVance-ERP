@@ -11,11 +11,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private void InicializarVistaRegistroOrdenProduccion() {
             _registroOrdenProduccion = new PresentadorRegistroOrdenProduccion(new VistaRegistroOrdenProduccion());
-            _registroOrdenProduccion.DatosRegistradosActualizados += async delegate {
+            _registroOrdenProduccion.DatosRegistradosActualizados += delegate {
                 if (_gestionOrdenesProduccion == null)
                     return;
 
-                await _gestionOrdenesProduccion.RefrescarListaObjetos();
+                _gestionOrdenesProduccion.RefrescarListaObjetos();
             };
 
             if (Vista.Vistas != null)

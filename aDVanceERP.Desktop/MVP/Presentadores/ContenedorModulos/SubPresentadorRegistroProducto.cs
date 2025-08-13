@@ -26,11 +26,11 @@ public partial class PresentadorContenedorModulos {
         _registroProducto.Vista.RegistrarTipoMateriaPrima += MostrarVistaRegistroTipoMateriaPrima;
         _registroProducto.Vista.EliminarUnidadMedida += EliminarUnidadMedida;
         _registroProducto.Vista.EliminarTipoMateriaPrima += EliminarTipoMateriaPrima;
-        _registroProducto.DatosRegistradosActualizados += async delegate {
+        _registroProducto.DatosRegistradosActualizados += delegate {
             if (_gestionProductos == null)
                 return;
 
-            await _gestionProductos?.RefrescarListaObjetos()!;
+            _gestionProductos?.RefrescarListaObjetos();
         };
     }
 

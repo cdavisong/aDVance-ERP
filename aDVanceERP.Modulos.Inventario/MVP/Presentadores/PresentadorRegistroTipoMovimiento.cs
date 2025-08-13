@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaRegistroTipoMovimiento, TipoMovimiento,
-    DatosTipoMovimiento, CriterioBusquedaTipoMovimiento> {
+    DatosTipoMovimiento, FiltroBusquedaTipoMovimiento> {
     public PresentadorRegistroTipoMovimiento(IVistaRegistroTipoMovimiento vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(TipoMovimiento objeto) {
@@ -15,7 +15,7 @@ public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaR
         Vista.Efecto = objeto.Efecto.ToString();
         Vista.ModoEdicionDatos = true;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
@@ -30,13 +30,13 @@ public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaR
         return nombreOk && efectoOk;
     }
 
-    protected override Task<TipoMovimiento?> ObtenerObjetoDesdeVista() {
-        return Task.FromResult<TipoMovimiento?>(new TipoMovimiento(
-            Objeto?.Id ?? 0,
+    protected override TipoMovimiento? ObtenerEntidadDesdeVista() {
+        return new TipoMovimiento(
+            Entidad?.Id ?? 0,
             Vista.Nombre,
             (EfectoMovimiento)(Enum.TryParse(typeof(EfectoMovimiento), Vista.Efecto, out var efecto)
                 ? efecto
                 : default(EfectoMovimiento))
-        ));
+        );
     }
 }

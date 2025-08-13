@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Repositorios {
-    public class RepoOrdenProduccion : RepositorioDatosBase<OrdenProduccion, CriterioBusquedaOrdenProduccion> {
+    public class RepoOrdenProduccion : RepositorioDatosBase<OrdenProduccion, FiltroBusquedaOrdenProduccion> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_produccion) 
@@ -73,25 +73,25 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 """;
         }
 
-        public override string ComandoObtener(CriterioBusquedaOrdenProduccion criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaOrdenProduccion criterio, string dato) {
             return criterio switch {
-                CriterioBusquedaOrdenProduccion.Todas =>
+                FiltroBusquedaOrdenProduccion.Todas =>
                     "SELECT * FROM adv__orden_produccion;",
-                CriterioBusquedaOrdenProduccion.NumeroOrden =>
+                FiltroBusquedaOrdenProduccion.NumeroOrden =>
                     $"SELECT * FROM adv__orden_produccion WHERE numero_orden LIKE '%{dato}%';",
-                CriterioBusquedaOrdenProduccion.Producto =>
+                FiltroBusquedaOrdenProduccion.Producto =>
                     $"SELECT * FROM adv__orden_produccion WHERE id_producto = {dato};",
-                CriterioBusquedaOrdenProduccion.Estado =>
+                FiltroBusquedaOrdenProduccion.Estado =>
                     $"SELECT * FROM adv__orden_produccion WHERE estado = '{dato}';",
-                CriterioBusquedaOrdenProduccion.FechaApertura =>
+                FiltroBusquedaOrdenProduccion.FechaApertura =>
                     $"SELECT * FROM adv__orden_produccion WHERE DATE(fecha_apertura) = '{dato}';",
-                CriterioBusquedaOrdenProduccion.FechaCierre =>
+                FiltroBusquedaOrdenProduccion.FechaCierre =>
                     $"SELECT * FROM adv__orden_produccion WHERE DATE(fecha_cierre) = '{dato}';",
                 _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
             };
         }
 
-        public override OrdenProduccion ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override OrdenProduccion MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             return new OrdenProduccion {
                 Id = lectorDatos.GetInt64("id_orden_produccion"),
                 NumeroOrden = lectorDatos.GetString("numero_orden"),

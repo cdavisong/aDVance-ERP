@@ -37,7 +37,7 @@ public static class UtilesRolUsuario {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
@@ -60,7 +60,7 @@ public static class UtilesRolUsuario {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
@@ -84,7 +84,7 @@ public static class UtilesRolUsuario {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
@@ -111,7 +111,7 @@ public static class UtilesRolUsuario {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
@@ -134,12 +134,12 @@ public static class UtilesRolUsuario {
         return cantidadPermisos;
     }
 
-    public static async Task<int> VerificarOCrearRolAdministrador() {
+    public static int VerificarOCrearRolAdministrador() {
         var rolId = 0;
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             } catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
             }
@@ -147,7 +147,7 @@ public static class UtilesRolUsuario {
             using (var comando =
                    new MySqlCommand("SELECT id_rol_usuario FROM adv__rol_usuario WHERE nombre = 'Administrador'",
                        conexion)) {
-                rolId = Convert.ToInt32(await comando.ExecuteScalarAsync());
+                rolId = Convert.ToInt32(comando.ExecuteScalar());
             }
 
             if (rolId == 0)
@@ -163,7 +163,7 @@ public static class UtilesRolUsuario {
                     SELECT LAST_INSERT_ID();
                     """, conexion)) {
                     comando.Parameters.AddWithValue("@nombre", "Administrador");
-                    rolId = Convert.ToInt32(await comando.ExecuteScalarAsync());
+                    rolId = Convert.ToInt32(comando.ExecuteScalar());
                 }
         }
 
@@ -183,31 +183,22 @@ public static class UtilesRolUsuario {
     }
 
     private static string[] ObtenerPermisosDesdeBD(long idRolUsuario) {
-        var permisos = new List<string>();
+        var consulta = """
+            SELECT p.nombre
+            FROM adv__rol_permiso rp
+            JOIN adv__permiso p ON rp.id_permiso = p.id_permiso
+            WHERE rp.id_rol_usuario = @idRolUsuario;
+            """;
+        var parametros = new Dictionary<string, object> { 
+            { "@idRolUsuario", idRolUsuario } 
+        };
 
-        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-            try {
-                conexion.Open();
-            } catch (Exception) {
-                throw new ExcepcionConexionServidorMySQL();
-            }
+        var permisos = ContextoBaseDatos.EjecutarConsulta(consulta, parametros, lector => lector.GetString(0)).ToArray();
 
-            using (var comando = conexion.CreateCommand()) {
-                comando.CommandText = @"
-                        SELECT p.nombre
-                        FROM adv__rol_permiso rp
-                        JOIN adv__permiso p ON rp.id_permiso = p.id_permiso
-                        WHERE rp.id_rol_usuario = @idRolUsuario;";
+        if (permisos.Length == 0)
+            permisos = ["NONE"];
 
-                comando.Parameters.AddWithValue("@idRolUsuario", idRolUsuario);
-
-                using (var lector = comando.ExecuteReader()) {
-                    while (lector.Read()) permisos.Add(lector.GetString("nombre"));
-                }
-            }
-        }
-
-        return permisos.ToArray();
+        return permisos;
     }
 
     public static void LimpiarCacheRol(long idRolUsuario = 0) {

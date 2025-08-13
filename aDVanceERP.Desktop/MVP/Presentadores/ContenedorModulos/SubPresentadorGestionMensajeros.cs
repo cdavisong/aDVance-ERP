@@ -16,14 +16,14 @@ public partial class PresentadorContenedorModulos {
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionMensajeros", _gestionMensajeros.Vista));
     }
 
-    private async void MostrarVistaGestionMensajeros(object? sender, EventArgs e) {
+    private  void MostrarVistaGestionMensajeros(object? sender, EventArgs e) {
         if (_gestionMensajeros?.Vista == null)
             return;
 
-        _gestionMensajeros.Vista.CargarCriteriosBusqueda(UtilesBusquedaMensajero.CriterioBusquedaMensajero);
+        _gestionMensajeros.Vista.CargarCriteriosBusqueda(UtilesBusquedaMensajero.FiltroBusquedaMensajero);
         _gestionMensajeros.Vista.Restaurar();
         _gestionMensajeros.Vista.Mostrar();
 
-        await _gestionMensajeros.RefrescarListaObjetos();
+        _gestionMensajeros.RefrescarListaObjetos();
     }
 }

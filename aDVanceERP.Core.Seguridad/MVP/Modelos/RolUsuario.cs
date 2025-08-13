@@ -15,14 +15,14 @@ public class RolUsuario : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaRolUsuario {
+public enum FiltroBusquedaRolUsuario {
     Todos,
     Id,
     Nombre
 }
 
 public static class UtilesBusquedaRolUsuario {
-    public static string[] CriterioBusquedaBusquedaRolUsuario = {
+    public static string[] FiltroBusquedaBusquedaRolUsuario = {
         "Todos los roles",
         "Identificador de BD",
         "Nombre del rol"

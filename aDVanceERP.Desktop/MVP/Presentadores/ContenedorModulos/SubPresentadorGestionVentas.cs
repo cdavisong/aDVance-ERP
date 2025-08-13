@@ -27,15 +27,15 @@ public partial class PresentadorContenedorModulos {
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionVentas", _gestionVentas.Vista));
     }
 
-    private async void MostrarVistaGestionVentas(object? sender, EventArgs e) {
+    private void MostrarVistaGestionVentas(object? sender, EventArgs e) {
         if (_gestionVentas?.Vista == null)
             return;
 
-        _gestionVentas.Vista.CargarCriteriosBusqueda(UtilesBusquedaVenta.CriterioBusquedaVenta);
+        _gestionVentas.Vista.CargarCriteriosBusqueda(UtilesBusquedaVenta.FiltroBusquedaVenta);
         _gestionVentas.Vista.Restaurar();
         _gestionVentas.Vista.Mostrar();
 
-        await _gestionVentas.RefrescarListaObjetos();
+        _gestionVentas.RefrescarListaObjetos();
     }
 
     private void OnImportarVentasArchivo(object? sender, string ventas) {

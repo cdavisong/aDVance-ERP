@@ -72,7 +72,8 @@ public partial class PresentadorContenedorModulos {
     private void ActualizarSeguimientoEntrega(long idVenta = 0) {
         using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
             var objetoSeguimiento = datosSeguimiento
-                .Obtener(CriterioBusquedaSeguimientoEntrega.IdVenta, (idVenta != 0 ? idVenta : _registroPago?.Vista.IdVenta).ToString())
+                .Obtener(FiltroBusquedaSeguimientoEntrega.IdVenta, (idVenta != 0 ? idVenta : _registroPago?.Vista.IdVenta).ToString())
+                .resultados
                 .FirstOrDefault();
 
             if (objetoSeguimiento == null)
@@ -90,7 +91,8 @@ public partial class PresentadorContenedorModulos {
                     continue;
 
                 var movimientoCaja = datos
-                            .Obtener(CriterioBusquedaMovimientoCaja.IdPago, pago.Id.ToString())
+                            .Obtener(FiltroBusquedaMovimientoCaja.IdPago, pago.Id.ToString())
+                            .resultados
                             .FirstOrDefault();
 
                 if (movimientoCaja == null) {

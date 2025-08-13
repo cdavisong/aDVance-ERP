@@ -15,7 +15,6 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
     where Do : class, IRepositorioDatos<O, C>, new()
     where O : class, IEntidadBaseDatos, new()
     where C : Enum {
-    private readonly SemaphoreSlim _semaphore = new(1, 1); // Para controlar la concurrencia
     protected readonly List<Pt> _tuplasObjetos;
     private bool disposedValue;
 
@@ -31,21 +30,21 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
         get => new();
     }
 
-    public C? CriterioBusquedaObjeto { get; protected set; }
+    public C? FiltroBusquedaObjeto { get; protected set; }
     public string? DatoBusquedaObjeto { get; protected set; }
 
     public event EventHandler? EditarObjeto;
 
-    public async Task BusquedaDatos(C criterio, string? dato) {
-        CriterioBusquedaObjeto = criterio;
+    public void BusquedaDatos(C criterio, string? dato) {
+        FiltroBusquedaObjeto = criterio;
         DatoBusquedaObjeto = dato;
 
-        await RefrescarListaObjetos();
+        RefrescarListaObjetos();
+
         Vista.PaginaActual = 1;
     }
 
-    public virtual async Task RefrescarListaObjetos() {
-        await _semaphore.WaitAsync();
+    public virtual void RefrescarListaObjetos() {
         try {
             if (Vista.TuplasMaximasContenedor == 0) return;
 
@@ -63,22 +62,19 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
             var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
-            var objetos = (await DatosObjeto.ObtenerAsync(CriterioBusquedaObjeto, DatoBusquedaObjeto,
-                out var totalFilas, Vista.TuplasMaximasContenedor, incremento)).ToList();
-            var calculoPaginas = totalFilas / Vista.TuplasMaximasContenedor;
-            var entero = totalFilas % Vista.TuplasMaximasContenedor == 0;
+            var datos = DatosObjeto.Obtener(FiltroBusquedaObjeto, DatoBusquedaObjeto, Vista.TuplasMaximasContenedor, incremento);
+            var entidades = datos.resultados.ToList();
+            var calculoPaginas = datos.cantidad / Vista.TuplasMaximasContenedor;
+            var entero = datos.cantidad % Vista.TuplasMaximasContenedor == 0;
 
             Vista.PaginasTotales = calculoPaginas < 1 ? 1 : entero ? calculoPaginas : calculoPaginas + 1;
 
-            for (var i = 0; i < objetos.Count && i < Vista.TuplasMaximasContenedor; i++)
-                AdicionarTuplaObjeto(objetos[i]);
+            for (var i = 0; i < entidades.Count && i < Vista.TuplasMaximasContenedor; i++)
+                AdicionarTuplaObjeto(entidades[i]);
         }
         catch (Exception ex) {
             //TODO: Manejar la excepción (por ejemplo, mostrar un mensaje al usuario)
             Console.WriteLine($"Error al refrescar la lista de objetos: {ex.Message}");
-        }
-        finally {
-            _semaphore.Release();
         }
     }
 
@@ -120,20 +116,20 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
         EditarObjeto?.Invoke(sender, e);
     }
 
-    protected virtual async void OnEliminarObjeto(object? sender, EventArgs e) {
+    protected virtual void OnEliminarObjeto(object? sender, EventArgs e) {
         if (sender is O objeto)
             try {
-                await DatosObjeto.EliminarAsync(objeto.Id);
+                DatosObjeto.Eliminar(objeto.Id);
                 Vista.PaginaActual = 1;
 
-                await RefrescarListaObjetos();
+                RefrescarListaObjetos();
             }
             catch (Exception ex) {
                 throw new Exception($"Error al eliminar el objeto: {ex.Message}");
             }
     }
 
-    private async void OnBuscarDatos(object? sender, EventArgs e) {
+    private void OnBuscarDatos(object? sender, EventArgs e) {
         if (sender is not object[] objetoSplit || objetoSplit.Length < 2)
             return;
 
@@ -142,19 +138,19 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
             ? string.Join(";", datosBusquedaMultiple)
             : objetoSplit[1].ToString();
 
-        await BusquedaDatos(criterioBusqueda, datoBusqueda);
+        BusquedaDatos(criterioBusqueda, datoBusqueda);
     }
 
-    private async void OnAlturaContenedorTuplasModificada(object? sender, EventArgs e) {
+    private void OnAlturaContenedorTuplasModificada(object? sender, EventArgs e) {
         if (Vista is Form vistaForm)
             if (!vistaForm.Visible)
                 return;
 
-        await RefrescarListaObjetos();
+        RefrescarListaObjetos();
     }
 
-    private async void OnSincronizarDatos(object? sender, EventArgs e) {
-        await RefrescarListaObjetos();
+    private void OnSincronizarDatos(object? sender, EventArgs e) {
+        RefrescarListaObjetos();
     }
 
     protected virtual void Dispose(bool disposing) {

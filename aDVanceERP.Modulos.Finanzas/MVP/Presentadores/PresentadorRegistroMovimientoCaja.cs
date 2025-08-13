@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 
-public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaRegistroMovimientoCaja, MovimientoCaja, DatosMovimientoCaja, CriterioBusquedaMovimientoCaja> {
+public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaRegistroMovimientoCaja, MovimientoCaja, DatosMovimientoCaja, FiltroBusquedaMovimientoCaja> {
     public PresentadorRegistroMovimientoCaja(IVIstaRegistroMovimientoCaja vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(MovimientoCaja objeto) {
@@ -18,12 +18,12 @@ public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaR
         Vista.Concepto = objeto.Concepto ?? string.Empty;
         Vista.Observaciones = objeto.Observaciones;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override Task<MovimientoCaja?> ObtenerObjetoDesdeVista() {
-        return Task.FromResult<MovimientoCaja?>(new MovimientoCaja(
-            Objeto?.Id ?? 0,
+    protected override MovimientoCaja? ObtenerEntidadDesdeVista() {
+        return new MovimientoCaja(
+            Entidad?.Id ?? 0,
             UtilesCaja.ObtenerIdCajaActiva(),
             Vista.Fecha,
             Vista.Monto,
@@ -32,6 +32,6 @@ public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaR
             0,
             UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0,
             Vista.Observaciones
-        ));
+        );
     }
 }

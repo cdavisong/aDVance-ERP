@@ -80,9 +80,15 @@ public partial class VistaRegistroProductoP2 : Form {
 
         // Eventos
         fieldUnidadMedida.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
+            if (DescripcionesUnidadMedida.Length == 0)
+                return;
+
             fieldDescripcionUnidadMedida.Text = DescripcionesUnidadMedida[fieldUnidadMedida.SelectedIndex];
         };
         fieldTipoMateriaPrima.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
+            if (DescripcionesTiposMateriaPrima.Length == 0)
+                return;
+
             fieldDescripcionTipoMateriaPrima.Text = DescripcionesTiposMateriaPrima[fieldTipoMateriaPrima.SelectedIndex];
         };
         btnAdicionarUnidadMedida.Click += delegate (object? sender, EventArgs args) {

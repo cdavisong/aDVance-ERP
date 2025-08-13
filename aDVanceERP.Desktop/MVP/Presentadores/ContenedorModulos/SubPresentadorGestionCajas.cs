@@ -16,15 +16,15 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCajas", _gestionCajas.Vista));
         }
 
-        private async void MostrarVistaGestionCajas(object? sender, EventArgs e) {
+        private void MostrarVistaGestionCajas(object? sender, EventArgs e) {
             if (_gestionCajas?.Vista == null)
                 return;
 
-            _gestionCajas.Vista.CargarCriteriosBusqueda(UtilesBusquedaCaja.CriterioBusquedaCaja);
+            _gestionCajas.Vista.CargarCriteriosBusqueda(UtilesBusquedaCaja.FiltroBusquedaCaja);
             _gestionCajas.Vista.Restaurar();
             _gestionCajas.Vista.Mostrar();
 
-            await _gestionCajas.RefrescarListaObjetos();
+            _gestionCajas.RefrescarListaObjetos();
         }
     }
 }

@@ -10,7 +10,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
 public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistroUsuario, CuentaUsuario,
-    DatosCuentaUsuario, CriterioBusquedaCuentaUsuario> {
+    DatosCuentaUsuario, FiltroBusquedaCuentaUsuario> {
     public PresentadorRegistroUsuario(IVistaRegistroUsuario vista) : base(vista) {
         vista.RegistrarDatos += delegate(object? sender, EventArgs args) {
             UsuarioRegistrado?.Invoke(sender, args); 
@@ -31,11 +31,11 @@ public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistro
         UsuarioRegistrado?.Invoke("register-user", EventArgs.Empty);
     }
 
-    protected override async Task<CuentaUsuario?> ObtenerObjetoDesdeVista() {
+    protected override CuentaUsuario? ObtenerEntidadDesdeVista() {
         try {
-            if (await UtilesCuentaUsuario.EsTablaCuentasUsuarioVacia()) {
+            if (UtilesCuentaUsuario.EsTablaCuentasUsuarioVacia().Result) {
                 if (Vista.Password != null)
-                    await UtilesCuentaUsuario.CrearUsuarioAdministrador(Vista.NombreUsuario, Vista.Password);
+                    UtilesCuentaUsuario.CrearUsuarioAdministrador(Vista.NombreUsuario, Vista.Password);
 
                 UsuarioRegistrado?.Invoke("register-admin", EventArgs.Empty);
 
@@ -48,7 +48,7 @@ public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistro
 
         var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
 
-        return new CuentaUsuario(Objeto?.Id ?? 0,
+        return new CuentaUsuario(Entidad?.Id ?? 0,
             Vista.NombreUsuario,
             passwordSeguro.hash,
             passwordSeguro.salt,

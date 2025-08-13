@@ -45,7 +45,7 @@ public partial class PresentadorPrincipal {
 
     private void ActualizarDatosEmpresa() {
         using (var datosEmpresa = new DatosEmpresa()) {
-            _empresa = datosEmpresa.Obtener().FirstOrDefault();
+            _empresa = datosEmpresa.Obtener().resultados.FirstOrDefault();
 
             if (_menuUsuario != null && _empresa != null) {
                 _menuUsuario.Vista.LogotipoEmpresa = _empresa.Logotipo;

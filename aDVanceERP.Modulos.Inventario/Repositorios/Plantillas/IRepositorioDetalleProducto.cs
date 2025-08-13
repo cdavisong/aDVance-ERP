@@ -3,5 +3,5 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios.Plantillas
 {
-    public interface IRepositorioDetalleProducto : IRepositorioDatos<DetalleProducto, CriterioBusquedaDetalleProducto> { }
+    public interface IRepositorioDetalleProducto : IRepositorioDatos<DetalleProducto, FiltroBusquedaDetalleProducto> { }
 }

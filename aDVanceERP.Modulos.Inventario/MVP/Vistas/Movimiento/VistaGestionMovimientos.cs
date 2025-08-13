@@ -31,11 +31,11 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         set => Size = value;
     }
 
-    public CriterioBusquedaMovimiento CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaMovimiento)fieldCriterioBusqueda.SelectedIndex
+    public FiltroBusquedaMovimiento FiltroBusqueda {
+        get => fieldFiltroBusqueda.SelectedIndex >= 0
+            ? (FiltroBusquedaMovimiento)fieldFiltroBusqueda.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int)value;
+        set => fieldFiltroBusqueda.SelectedIndex = (int)value;
     }
 
     public string? DatoBusqueda {
@@ -87,8 +87,8 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
-            if (CriterioBusqueda == CriterioBusquedaMovimiento.Fecha) {
+        fieldFiltroBusqueda.SelectedIndexChanged += delegate {
+            if (FiltroBusqueda == FiltroBusquedaMovimiento.Fecha) {
                 fieldDatoBusquedaFecha.Value = DateTime.Now;
                 fieldDatoBusquedaFecha.Focus();
             }
@@ -97,13 +97,13 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
                 fieldDatoBusqueda.Focus();
             }
 
-            fieldDatoBusqueda.Visible = CriterioBusqueda != CriterioBusquedaMovimiento.Fecha &&
-                                        fieldCriterioBusqueda.SelectedIndex != 0;
-            fieldDatoBusquedaFecha.Visible = CriterioBusqueda == CriterioBusquedaMovimiento.Fecha &&
-                                             fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Visible = FiltroBusqueda != FiltroBusquedaMovimiento.Fecha &&
+                                        fieldFiltroBusqueda.SelectedIndex != 0;
+            fieldDatoBusquedaFecha.Visible = FiltroBusqueda == FiltroBusquedaMovimiento.Fecha &&
+                                             fieldFiltroBusqueda.SelectedIndex != 0;
 
-            if (CriterioBusqueda != CriterioBusquedaMovimiento.Fecha)
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+            if (FiltroBusqueda != FiltroBusquedaMovimiento.Fecha)
+                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -111,11 +111,11 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         };
         fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+            BuscarDatos?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                 e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -152,10 +152,10 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-        fieldCriterioBusqueda.Items.Clear();
-        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
+        fieldFiltroBusqueda.Items.Clear();
+        fieldFiltroBusqueda.Items.AddRange(criteriosBusqueda);
         
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFiltroBusqueda.SelectedIndex = 0;
     }
 
     public void Mostrar() {
@@ -170,7 +170,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         PaginaActual = 1;
         PaginasTotales = 1;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFiltroBusqueda.SelectedIndex = 0;
     }
 
     public void Ocultar() {

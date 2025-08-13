@@ -16,14 +16,14 @@ public partial class PresentadorContenedorModulos {
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCompras", _gestionCompras.Vista));
     }
 
-    private async void MostrarVistaGestionCompras(object? sender, EventArgs e) {
+    private void MostrarVistaGestionCompras(object? sender, EventArgs e) {
         if (_gestionCompras?.Vista == null)
             return;
 
-        _gestionCompras.Vista.CargarCriteriosBusqueda(UtilesBusquedaCompra.CriterioBusquedaCompra);
+        _gestionCompras.Vista.CargarCriteriosBusqueda(UtilesBusquedaCompra.FiltroBusquedaCompra);
         _gestionCompras.Vista.Restaurar();
         _gestionCompras.Vista.Mostrar();
 
-        await _gestionCompras.RefrescarListaObjetos();
+        _gestionCompras.RefrescarListaObjetos();
     }
 }

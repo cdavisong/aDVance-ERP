@@ -3,4 +3,4 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 
-public interface IRepositorioProducto : IRepositorioDatos<Producto, CriterioBusquedaProducto> { }
+public interface IRepositorioProducto : IRepositorioDatos<Producto, FiltroBusquedaProducto> { }

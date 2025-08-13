@@ -19,7 +19,7 @@ public class Proveedor : IEntidadBaseDatos {
     public long IdContacto { get; set; }
 }
 
-public enum CriterioBusquedaProveedor {
+public enum FiltroBusquedaProveedor {
     Todos,
     Id,
     RazonSocial,
@@ -27,7 +27,7 @@ public enum CriterioBusquedaProveedor {
 }
 
 public static class UtilesBusquedaProveedor {
-    public static object[] CriterioBusquedaProveedor = {
+    public static object[] FiltroBusquedaProveedor = {
         "Todos los proveedores",
         "Identificador de BD",
         "Razón Social del proveedor",

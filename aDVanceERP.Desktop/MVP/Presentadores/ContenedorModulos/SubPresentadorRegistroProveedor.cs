@@ -12,11 +12,11 @@ public partial class PresentadorContenedorModulos {
         _registroProveedor = new PresentadorRegistroProveedor(new VistaRegistroProveedor());
         _registroProveedor.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroProveedor.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroProveedor.DatosRegistradosActualizados += async delegate {
+        _registroProveedor.DatosRegistradosActualizados += delegate {
             if (_gestionProveedores == null)
                 return;
 
-            await _gestionProveedores.RefrescarListaObjetos();
+            _gestionProveedores.RefrescarListaObjetos();
         };
     }
 

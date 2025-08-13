@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosSeguimientoEntrega : RepositorioDatosBase<SeguimientoEntrega, CriterioBusquedaSeguimientoEntrega>,
+public class DatosSeguimientoEntrega : RepositorioDatosBase<SeguimientoEntrega, FiltroBusquedaSeguimientoEntrega>,
     IRepositorioSeguimientoEntrega {
     public override string ComandoCantidad() {
         return "SELECT COUNT(*) FROM adv__seguimiento_entrega";
@@ -24,30 +24,30 @@ public class DatosSeguimientoEntrega : RepositorioDatosBase<SeguimientoEntrega, 
         return $"DELETE FROM adv__seguimiento_entrega WHERE id_seguimiento_entrega = {id}";
     }
 
-    public override string ComandoObtener(CriterioBusquedaSeguimientoEntrega criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaSeguimientoEntrega criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaSeguimientoEntrega.Id:
+            case FiltroBusquedaSeguimientoEntrega.Id:
                 comando = $"SELECT * FROM adv__seguimiento_entrega WHERE id_seguimiento_entrega = {dato}";
                 break;
-            case CriterioBusquedaSeguimientoEntrega.IdVenta:
+            case FiltroBusquedaSeguimientoEntrega.IdVenta:
                 comando = $"SELECT * FROM adv__seguimiento_entrega WHERE id_venta = {dato}";
                 break;
-            case CriterioBusquedaSeguimientoEntrega.NombreMensajero:
+            case FiltroBusquedaSeguimientoEntrega.NombreMensajero:
                 comando =
                     $"SELECT se.* FROM adv__seguimiento_entrega se JOIN adv__mensajero m ON se.id_mensajero = m.id_mensajero WHERE m.nombre = {dato}";
                 break;
-            case CriterioBusquedaSeguimientoEntrega.FechaAsignacion:
+            case FiltroBusquedaSeguimientoEntrega.FechaAsignacion:
                 comando = $"SELECT * FROM adv__seguimiento_entrega WHERE DATE(fecha_asignacion) = {dato}";
                 break;
-            case CriterioBusquedaSeguimientoEntrega.FechaEntrega:
+            case FiltroBusquedaSeguimientoEntrega.FechaEntrega:
                 comando = $"SELECT * FROM adv__seguimiento_entrega WHERE DATE(fecha_entrega) = {dato}";
                 break;
-            case CriterioBusquedaSeguimientoEntrega.FechaConfirmacion:
+            case FiltroBusquedaSeguimientoEntrega.FechaConfirmacion:
                 comando = $"SELECT * FROM adv__seguimiento_entrega WHERE DATE(fecha_confirmacion) = {dato}";
                 break;
-            case CriterioBusquedaSeguimientoEntrega.FechaPago:
+            case FiltroBusquedaSeguimientoEntrega.FechaPago:
                 comando = $"SELECT * FROM adv__seguimiento_entrega WHERE DATE(fecha_pago) = {dato}";
                 break;
             default:
@@ -58,7 +58,7 @@ public class DatosSeguimientoEntrega : RepositorioDatosBase<SeguimientoEntrega, 
         return comando;
     }
 
-    public override SeguimientoEntrega ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override SeguimientoEntrega MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new SeguimientoEntrega(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_seguimiento_entrega")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

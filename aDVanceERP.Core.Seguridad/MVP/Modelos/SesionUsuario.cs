@@ -20,14 +20,14 @@ public class SesionUsuario : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaSesionUsuario {
+public enum FiltroBusquedaSesionUsuario {
     Todos,
     NombreUsuario,
     SesionActiva
 }
 
 public static class UtilesBusquedaSesionUsuario {
-    public static string[] CriterioBusquedaBusquedaSesionUsuario = {
+    public static string[] FiltroBusquedaBusquedaSesionUsuario = {
         "Todas las sesiones",
         "Identificador de BD",
         "Nombre del usuario",

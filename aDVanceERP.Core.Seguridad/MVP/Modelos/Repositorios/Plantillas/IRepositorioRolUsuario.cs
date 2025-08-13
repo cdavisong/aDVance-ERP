@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas; 
 
-public interface IRepositorioRolUsuario : IRepositorioDatos<RolUsuario, CriterioBusquedaRolUsuario> { }
+public interface IRepositorioRolUsuario : IRepositorioDatos<RolUsuario, FiltroBusquedaRolUsuario> { }

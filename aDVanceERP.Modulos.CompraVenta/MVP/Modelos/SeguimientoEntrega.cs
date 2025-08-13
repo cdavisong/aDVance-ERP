@@ -26,7 +26,7 @@ public class SeguimientoEntrega : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaSeguimientoEntrega {
+public enum FiltroBusquedaSeguimientoEntrega {
     Todos,
     Id,
     IdVenta,

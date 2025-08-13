@@ -18,14 +18,14 @@ public class Mensajero : IEntidadBaseDatos {
     public long IdContacto { get; set; }    
 }
 
-public enum CriterioBusquedaMensajero {
+public enum FiltroBusquedaMensajero {
     Todos,
     Id,
     Nombre
 }
 
 public static class UtilesBusquedaMensajero {
-    public static object[] CriterioBusquedaMensajero = {
+    public static object[] FiltroBusquedaMensajero = {
         "Todos los mensajeros",
         "Identificador de BD",
         "Nombre del mensajero"

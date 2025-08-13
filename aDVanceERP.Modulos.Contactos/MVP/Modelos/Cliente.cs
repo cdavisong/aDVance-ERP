@@ -19,7 +19,7 @@ public class Cliente : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaCliente {
+public enum FiltroBusquedaCliente {
     Todos,
     Id,
     Numero,
@@ -27,7 +27,7 @@ public enum CriterioBusquedaCliente {
 }
 
 public static class UtilesBusquedaCliente {
-    public static readonly object[] CriterioBusquedaCliente = {
+    public static readonly object[] FiltroBusquedaCliente = {
         "Todos los clientes",
         "Identificador de BD",
         "Número del cliente",

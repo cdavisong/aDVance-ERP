@@ -25,14 +25,14 @@ public class CuentaUsuario : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaCuentaUsuario {
+public enum FiltroBusquedaCuentaUsuario {
     Todos,
     Nombre,
     Rol
 }
 
 public static class UtilesBusquedaCuentaUsuario {
-    public static string[] CriterioBusquedaBusquedaCuentaUsuario = {
+    public static string[] FiltroBusquedaBusquedaCuentaUsuario = {
         "Todos los usuarios",
         "Identificador de BD",
         "Nombre del usuario",

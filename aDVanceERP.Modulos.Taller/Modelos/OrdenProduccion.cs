@@ -47,7 +47,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public decimal MargenGanancia { get; set; }
     }
 
-    public enum CriterioBusquedaOrdenProduccion {
+    public enum FiltroBusquedaOrdenProduccion {
         Todas,
         NumeroOrden,
         Producto,
@@ -57,7 +57,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
     }
 
     public static class UtilesBusquedaOrdenProduccion {
-        public static object[] CriterioBusquedaOrdenProduccion =
+        public static object[] FiltroBusquedaOrdenProduccion =
         {
             "Todas las órdenes",
             "Número de orden",

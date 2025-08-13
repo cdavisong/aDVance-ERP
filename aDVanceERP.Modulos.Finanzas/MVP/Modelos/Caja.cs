@@ -28,7 +28,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         public long IdCuentaUsuario { get; set; }
     }
 
-    public enum CriterioBusquedaCaja {
+    public enum FiltroBusquedaCaja {
         Todos,
         Id,
         FechaApertura,
@@ -37,7 +37,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
     }
 
     public static class UtilesBusquedaCaja {
-        public static string[] CriterioBusquedaCaja = {
+        public static string[] FiltroBusquedaCaja = {
             "Todas las cajas",
             "Identificador de BD",
             "Fecha de apertura",

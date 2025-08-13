@@ -17,7 +17,7 @@ public class ModuloAplicacion : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaModuloAplicacion {
+public enum FiltroBusquedaModuloAplicacion {
     Todos,
     Id,
     Nombre

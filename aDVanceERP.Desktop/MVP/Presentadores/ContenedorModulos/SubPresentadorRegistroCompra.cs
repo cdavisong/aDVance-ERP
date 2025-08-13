@@ -28,7 +28,7 @@ public partial class PresentadorContenedorModulos {
             _registroCompraProducto.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
             _registroCompraProducto.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
             _registroCompraProducto.Vista.CargarNombresProductos(await UtilesProducto.ObtenerNombresProductos());
-            _registroCompraProducto.DatosRegistradosActualizados += async delegate {
+            _registroCompraProducto.DatosRegistradosActualizados += delegate {
                 ProductosCompra = _registroCompraProducto.Vista.Productos;
 
                 RegistrarDetallesCompraProducto();
@@ -36,7 +36,7 @@ public partial class PresentadorContenedorModulos {
                 if (_gestionCompras == null)
                     return;
 
-                await _gestionCompras.RefrescarListaObjetos();
+                _gestionCompras.RefrescarListaObjetos();
             };
 
             ProductosCompra?.Clear();

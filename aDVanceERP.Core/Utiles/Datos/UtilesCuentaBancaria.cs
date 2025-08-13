@@ -14,7 +14,7 @@ public static class UtilesCuentaBancaria {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -39,7 +39,7 @@ public static class UtilesCuentaBancaria {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -63,7 +63,7 @@ public static class UtilesCuentaBancaria {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -88,7 +88,7 @@ public static class UtilesCuentaBancaria {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -113,7 +113,7 @@ public static class UtilesCuentaBancaria {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();

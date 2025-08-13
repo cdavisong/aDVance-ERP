@@ -26,7 +26,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
         private static T? EjecutarConsulta<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
             using var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion());
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             } catch (MySqlException) {
                 throw new ExcepcionConexionServidorMySQL();
             }

@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {    
-    public class DatosMovimientoCaja : RepositorioDatosBase<MovimientoCaja, CriterioBusquedaMovimientoCaja>, IRepositorioMovimientoCaja {
+    public class DatosMovimientoCaja : RepositorioDatosBase<MovimientoCaja, FiltroBusquedaMovimientoCaja>, IRepositorioMovimientoCaja {
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_movimiento_caja) FROM adv__movimiento_caja;";
         }
@@ -44,19 +44,19 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
             return $"DELETE FROM adv__movimiento_caja WHERE id_movimiento_caja={id};";
         }
 
-        public override string ComandoObtener(CriterioBusquedaMovimientoCaja criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaMovimientoCaja criterio, string dato) {
             return criterio switch {
-                CriterioBusquedaMovimientoCaja.Id => $"SELECT * FROM adv__movimiento_caja WHERE id_movimiento_caja={dato};",
-                CriterioBusquedaMovimientoCaja.IdPago => $"SELECT * FROM adv__movimiento_caja WHERE id_pago={dato};",
-                CriterioBusquedaMovimientoCaja.IdCaja => $"SELECT * FROM adv__movimiento_caja WHERE id_caja={dato};",
-                CriterioBusquedaMovimientoCaja.Fecha => $"SELECT * FROM adv__movimiento_caja WHERE DATE(fecha) = '{dato}';",
-                CriterioBusquedaMovimientoCaja.Tipo => $"SELECT * FROM adv__movimiento_caja WHERE tipo='{dato}';",
-                CriterioBusquedaMovimientoCaja.Concepto => $"SELECT * FROM adv__movimiento_caja WHERE concepto LIKE '%{dato}%';",
+                FiltroBusquedaMovimientoCaja.Id => $"SELECT * FROM adv__movimiento_caja WHERE id_movimiento_caja={dato};",
+                FiltroBusquedaMovimientoCaja.IdPago => $"SELECT * FROM adv__movimiento_caja WHERE id_pago={dato};",
+                FiltroBusquedaMovimientoCaja.IdCaja => $"SELECT * FROM adv__movimiento_caja WHERE id_caja={dato};",
+                FiltroBusquedaMovimientoCaja.Fecha => $"SELECT * FROM adv__movimiento_caja WHERE DATE(fecha) = '{dato}';",
+                FiltroBusquedaMovimientoCaja.Tipo => $"SELECT * FROM adv__movimiento_caja WHERE tipo='{dato}';",
+                FiltroBusquedaMovimientoCaja.Concepto => $"SELECT * FROM adv__movimiento_caja WHERE concepto LIKE '%{dato}%';",
                 _ => "SELECT * FROM adv__movimiento_caja;"
             };
         }
 
-        public override MovimientoCaja ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override MovimientoCaja MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             return new MovimientoCaja(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento_caja")),
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_caja")),

@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
 
-public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, CriterioBusquedaTelefonoContacto>,
+public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, FiltroBusquedaTelefonoContacto>,
     IRepositorioTelefonoContacto {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_telefono_contacto) FROM adv__telefono_contacto;";
@@ -24,17 +24,17 @@ public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, Crit
         return $"DELETE FROM adv__telefono_contacto WHERE id_telefono_contacto={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaTelefonoContacto criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaTelefonoContacto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaTelefonoContacto.Id:
+            case FiltroBusquedaTelefonoContacto.Id:
                 comando = $"SELECT * FROM adv__telefono_contacto WHERE id_telefono_contacto={dato};";
                 break;
-            case CriterioBusquedaTelefonoContacto.Numero:
+            case FiltroBusquedaTelefonoContacto.Numero:
                 comando = $"SELECT * FROM adv__telefono_contacto WHERE numero='{dato}';";
                 break;
-            case CriterioBusquedaTelefonoContacto.IdContacto:
+            case FiltroBusquedaTelefonoContacto.IdContacto:
                 comando = $"SELECT * FROM adv__telefono_contacto WHERE id_contacto={dato};";
                 break;
             default:
@@ -45,7 +45,7 @@ public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, Crit
         return comando;
     }
 
-    public override TelefonoContacto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override TelefonoContacto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new TelefonoContacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_telefono_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("prefijo")),

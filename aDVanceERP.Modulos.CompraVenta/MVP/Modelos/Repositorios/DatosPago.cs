@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
 
-public class DatosPago : RepositorioDatosBase<Pago, CriterioBusquedaPago>, IRepositorioPago {
+public class DatosPago : RepositorioDatosBase<Pago, FiltroBusquedaPago>, IRepositorioPago {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_pago) FROM adv__pago;";
     }
@@ -22,14 +22,14 @@ public class DatosPago : RepositorioDatosBase<Pago, CriterioBusquedaPago>, IRepo
         return $"DELETE FROM adv__pago WHERE id_pago={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaPago criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaPago criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaPago.Id:
+            case FiltroBusquedaPago.Id:
                 comando = $"SELECT * FROM adv__pago WHERE id_pago={dato};";
                 break;
-            case CriterioBusquedaPago.IdVenta:
+            case FiltroBusquedaPago.IdVenta:
                 comando = $"SELECT * FROM adv__pago WHERE id_venta={dato};";
                 break;
             default:
@@ -44,7 +44,7 @@ public class DatosPago : RepositorioDatosBase<Pago, CriterioBusquedaPago>, IRepo
         return $"SELECT COUNT(1) FROM adv__pago WHERE id_pago = {dato};";
     }
 
-    public override Pago ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Pago MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Pago(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_pago")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

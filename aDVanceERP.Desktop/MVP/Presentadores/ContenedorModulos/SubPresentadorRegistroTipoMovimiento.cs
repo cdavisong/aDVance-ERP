@@ -27,7 +27,7 @@ public partial class PresentadorContenedorModulos {
         _registroTipoMovimiento?.Dispose();
     }
 
-    private async void EliminarTipoMovimiento(object? sender, EventArgs e) {
+    private void EliminarTipoMovimiento(object? sender, EventArgs e) {
         using (var tipoMovimiento = new DatosTipoMovimiento()) {
             if (sender is string nombreTipoMovimiento) {
                 var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(nombreTipoMovimiento);
@@ -35,7 +35,7 @@ public partial class PresentadorContenedorModulos {
                 if (idTipoMovimiento == 0)
                     return;
 
-                await tipoMovimiento.EliminarAsync(idTipoMovimiento);
+                tipoMovimiento.Eliminar(idTipoMovimiento);
             }
 
             _registroMovimiento?.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos(Signo));

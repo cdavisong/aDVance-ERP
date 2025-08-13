@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas; 
 
-public interface IVistaGestionProductos : IVistaContenedor, IGestorDatos, IBuscadorDatos<CriterioBusquedaProducto>,
+public interface IVistaGestionProductos : IVistaContenedor, IGestorDatos, IBuscadorDatos<FiltroBusquedaProducto>,
     IGestorTablaDatos {
     string? NombreAlmacen { get; }
     string ValorBrutoInversion { get; }

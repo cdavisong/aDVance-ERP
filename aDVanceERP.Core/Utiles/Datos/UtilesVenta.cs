@@ -23,7 +23,7 @@ public static class UtilesVenta {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 using (var comando = new MySqlCommand(query, conexion)) {
                     if (parameters != null) comando.Parameters.AddRange(parameters);
@@ -51,7 +51,7 @@ public static class UtilesVenta {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 using (var comando = new MySqlCommand(query, conexion)) {
                     if (parameters != null) comando.Parameters.AddRange(parameters);
@@ -78,7 +78,7 @@ public static class UtilesVenta {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 using (var comando = new MySqlCommand(query, conexion)) {
                     if (parameters != null) comando.Parameters.AddRange(parameters);
@@ -105,7 +105,7 @@ public static class UtilesVenta {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 using (var comando = new MySqlCommand(query, conexion)) {
                     if (parameters != null) comando.Parameters.AddRange(parameters);
@@ -414,7 +414,7 @@ public static class UtilesVenta {
         using var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion());
 
         try {
-            conexion.Open();
+            if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
             using var comando = new MySqlCommand(query, conexion);
 

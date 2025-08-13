@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios; 
 
-public class DatosCuentaUsuario : RepositorioDatosBase<CuentaUsuario, CriterioBusquedaCuentaUsuario>,
+public class DatosCuentaUsuario : RepositorioDatosBase<CuentaUsuario, FiltroBusquedaCuentaUsuario>,
     IRepositorioCuentaUsuario {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_cuenta_usuario) FROM adv__cuenta_usuario;";
@@ -22,13 +22,13 @@ public class DatosCuentaUsuario : RepositorioDatosBase<CuentaUsuario, CriterioBu
         return $"DELETE FROM adv__cuenta_usuario WHERE id_cuenta_usuario = {id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaCuentaUsuario criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaCuentaUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
-            case CriterioBusquedaCuentaUsuario.Nombre:
+            case FiltroBusquedaCuentaUsuario.Nombre:
                 comando = $"SELECT * FROM adv__cuenta_usuario WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
                 break;
-            case CriterioBusquedaCuentaUsuario.Rol:
+            case FiltroBusquedaCuentaUsuario.Rol:
                 comando = $"SELECT * FROM adv__cuenta_usuario WHERE id_rol_usuario = {dato};";
                 break;
             default:
@@ -39,7 +39,7 @@ public class DatosCuentaUsuario : RepositorioDatosBase<CuentaUsuario, CriterioBu
         return comando;
     }
 
-    public override CuentaUsuario ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override CuentaUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new CuentaUsuario(
             lectorDatos.GetInt64("id_cuenta_usuario"),
             lectorDatos.GetString("nombre"),

@@ -20,14 +20,14 @@ public class Contacto : IEntidadBaseDatos {
     public string? Notas { get; set; }    
 }
 
-public enum CriterioBusquedaContacto {
+public enum FiltroBusquedaContacto {
     Todos,
     Id,
     Nombre
 }
 
 public static class UtilesBusquedaContacto {
-    public static string[] CriterioBusquedaContacto = {
+    public static string[] FiltroBusquedaContacto = {
         "Todos los contactos",
         "Identificador de BD",
         "Nombre del contacto"

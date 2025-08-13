@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
 
-public class DatosContacto : RepositorioDatosBase<Contacto, CriterioBusquedaContacto>, IRepositorioContacto {
+public class DatosContacto : RepositorioDatosBase<Contacto, FiltroBusquedaContacto>, IRepositorioContacto {
     public override string ComandoCantidad() {
         return """
                SELECT
@@ -72,14 +72,14 @@ public class DatosContacto : RepositorioDatosBase<Contacto, CriterioBusquedaCont
                 """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaContacto criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaContacto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaContacto.Id:
+            case FiltroBusquedaContacto.Id:
                 comando = $"SELECT * FROM adv__contacto WHERE id_contacto='{dato}';";
                 break;
-            case CriterioBusquedaContacto.Nombre:
+            case FiltroBusquedaContacto.Nombre:
                 comando = $"SELECT * FROM adv__contacto WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
                 break;
             default:
@@ -90,7 +90,7 @@ public class DatosContacto : RepositorioDatosBase<Contacto, CriterioBusquedaCont
         return comando;
     }
 
-    public override Contacto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Contacto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Contacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),

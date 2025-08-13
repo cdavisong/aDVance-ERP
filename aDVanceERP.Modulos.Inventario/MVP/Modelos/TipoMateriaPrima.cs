@@ -20,14 +20,14 @@ public class TipoMateriaPrima : IEntidadBaseDatos {
     public string Descripcion { get; set; }
 }
 
-public enum CriterioBusquedaTipoMateriaPrima {
+public enum FiltroBusquedaTipoMateriaPrima {
     Todos,
     Id,
     Nombre
 }
 
 public static class UtilesBusquedaTiposMateriasPrimas {
-    public static object[] CriterioBusquedaTiposProducto = {
+    public static object[] FiltroBusquedaTiposProducto = {
         "Todos los tipos de materias primas",
         "Identificador de BD",
         "Nombre del tipo de materia prima"

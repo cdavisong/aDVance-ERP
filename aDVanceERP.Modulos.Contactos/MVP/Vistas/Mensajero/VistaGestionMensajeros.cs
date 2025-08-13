@@ -31,11 +31,11 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
         set => Size = value;
     }
 
-    public CriterioBusquedaMensajero CriterioBusqueda {
-        get => fieldCriterioBusqueda.SelectedIndex >= 0
-            ? (CriterioBusquedaMensajero) fieldCriterioBusqueda.SelectedIndex
+    public FiltroBusquedaMensajero FiltroBusqueda {
+        get => fieldFiltroBusqueda.SelectedIndex >= 0
+            ? (FiltroBusquedaMensajero) fieldFiltroBusqueda.SelectedIndex
             : default;
-        set => fieldCriterioBusqueda.SelectedIndex = (int) value;
+        set => fieldFiltroBusqueda.SelectedIndex = (int) value;
     }
 
     public string DatoBusqueda {
@@ -93,12 +93,12 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        fieldCriterioBusqueda.SelectedIndexChanged += delegate {
+        fieldFiltroBusqueda.SelectedIndexChanged += delegate {
             fieldDatoBusqueda.Text = string.Empty;
-            fieldDatoBusqueda.Visible = fieldCriterioBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { CriterioBusqueda, string.Empty }, EventArgs.Empty);
+            BuscarDatos?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -106,7 +106,7 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
         };
         fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { CriterioBusqueda, DatoBusqueda }, e);
+                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
@@ -148,10 +148,10 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
     }
 
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
-        fieldCriterioBusqueda.Items.Clear();
-        fieldCriterioBusqueda.Items.AddRange(criteriosBusqueda);
+        fieldFiltroBusqueda.Items.Clear();
+        fieldFiltroBusqueda.Items.AddRange(criteriosBusqueda);
         
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFiltroBusqueda.SelectedIndex = 0;
     }
 
     public void Mostrar() {
@@ -167,7 +167,7 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
         PaginasTotales = 1;
         MostrarBtnHabilitarDeshabilitarMensajero = false;
 
-        fieldCriterioBusqueda.SelectedIndex = 0;
+        fieldFiltroBusqueda.SelectedIndex = 0;
     }
 
     public void Ocultar() {

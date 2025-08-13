@@ -68,7 +68,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutCamposReporte = new TableLayoutPanel();
             btnDescargar = new Guna2Button();
             fieldFormatoReporte = new Guna2ComboBox();
-            fieldCriterioBusqueda = new Guna2ComboBox();
+            fieldFiltroBusqueda = new Guna2ComboBox();
             panelDatosComplementariosBusqueda = new Panel();
             fieldDatoBusquedaFecha = new Guna2DateTimePicker();
             fieldDatoBusqueda = new Guna2TextBox();
@@ -214,7 +214,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 330F));
             layoutHerramientas.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutHerramientas.Controls.Add(layoutCamposReporte, 0, 0);
-            layoutHerramientas.Controls.Add(fieldCriterioBusqueda, 1, 0);
+            layoutHerramientas.Controls.Add(fieldFiltroBusqueda, 1, 0);
             layoutHerramientas.Controls.Add(panelDatosComplementariosBusqueda, 2, 0);
             layoutHerramientas.Dock = DockStyle.Fill;
             layoutHerramientas.Location = new Point(50, 145);
@@ -291,28 +291,28 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldFormatoReporte.TabIndex = 28;
             fieldFormatoReporte.TextOffset = new Point(10, 0);
             // 
-            // fieldCriterioBusqueda
+            // fieldFiltroBusqueda
             // 
-            fieldCriterioBusqueda.Animated = true;
-            fieldCriterioBusqueda.BackColor = Color.Transparent;
-            fieldCriterioBusqueda.BorderColor = Color.Gainsboro;
-            fieldCriterioBusqueda.BorderRadius = 16;
-            fieldCriterioBusqueda.CustomizableEdges = customizableEdges5;
-            fieldCriterioBusqueda.Dock = DockStyle.Fill;
-            fieldCriterioBusqueda.DrawMode = DrawMode.OwnerDrawFixed;
-            fieldCriterioBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
-            fieldCriterioBusqueda.FocusedColor = Color.Gainsboro;
-            fieldCriterioBusqueda.FocusedState.BorderColor = Color.Gainsboro;
-            fieldCriterioBusqueda.Font = new Font("Segoe UI", 11.25F);
-            fieldCriterioBusqueda.ForeColor = Color.Black;
-            fieldCriterioBusqueda.ItemHeight = 29;
-            fieldCriterioBusqueda.Location = new Point(225, 5);
-            fieldCriterioBusqueda.Margin = new Padding(5);
-            fieldCriterioBusqueda.Name = "fieldCriterioBusqueda";
-            fieldCriterioBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            fieldCriterioBusqueda.Size = new Size(290, 35);
-            fieldCriterioBusqueda.TabIndex = 27;
-            fieldCriterioBusqueda.TextOffset = new Point(10, 0);
+            fieldFiltroBusqueda.Animated = true;
+            fieldFiltroBusqueda.BackColor = Color.Transparent;
+            fieldFiltroBusqueda.BorderColor = Color.Gainsboro;
+            fieldFiltroBusqueda.BorderRadius = 16;
+            fieldFiltroBusqueda.CustomizableEdges = customizableEdges5;
+            fieldFiltroBusqueda.Dock = DockStyle.Fill;
+            fieldFiltroBusqueda.DrawMode = DrawMode.OwnerDrawFixed;
+            fieldFiltroBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+            fieldFiltroBusqueda.FocusedColor = Color.Gainsboro;
+            fieldFiltroBusqueda.FocusedState.BorderColor = Color.Gainsboro;
+            fieldFiltroBusqueda.Font = new Font("Segoe UI", 11.25F);
+            fieldFiltroBusqueda.ForeColor = Color.Black;
+            fieldFiltroBusqueda.ItemHeight = 29;
+            fieldFiltroBusqueda.Location = new Point(225, 5);
+            fieldFiltroBusqueda.Margin = new Padding(5);
+            fieldFiltroBusqueda.Name = "fieldFiltroBusqueda";
+            fieldFiltroBusqueda.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            fieldFiltroBusqueda.Size = new Size(290, 35);
+            fieldFiltroBusqueda.TabIndex = 27;
+            fieldFiltroBusqueda.TextOffset = new Point(10, 0);
             // 
             // panelDatosComplementariosBusqueda
             // 
@@ -1108,7 +1108,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
         private Label fieldTituloFiltrosBusqueda;
         private TableLayoutPanel layoutHerramientas;
         private Guna2TextBox fieldDatoBusqueda;
-        private Guna2ComboBox fieldCriterioBusqueda;
+        private Guna2ComboBox fieldFiltroBusqueda;
         private Guna2DateTimePicker fieldDatoBusquedaFecha;
         private Panel panelDatosComplementariosBusqueda;
         private Label fieldTituloReporte;

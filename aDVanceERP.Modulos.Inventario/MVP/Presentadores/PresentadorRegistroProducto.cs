@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistroProducto, Producto, DatosProducto,
-    CriterioBusquedaProducto> {
+    FiltroBusquedaProducto> {
     public PresentadorRegistroProducto(IVistaRegistroProducto vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Producto objeto) {
@@ -21,7 +21,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.TipoMateriaPrima = UtilesTipoMateriaPrima.ObtenerNombreTipoMateriaPrima(objeto.IdTipoMateriaPrima) ?? string.Empty;
 
         using (var datos = new DatosDetalleProducto()) {
-            var detalleProducto = datos.Obtener(CriterioBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).FirstOrDefault();
+            var detalleProducto = datos.Obtener(FiltroBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).resultados.FirstOrDefault();
 
             if (detalleProducto != null) {
                 Vista.UnidadMedida = UtilesUnidadMedida.ObtenerNombreUnidadMedida(detalleProducto.IdUnidadMedida) ?? string.Empty;
@@ -34,7 +34,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.PrecioVentaBase = objeto.PrecioVentaBase;
         Vista.ModoEdicionDatos = true;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
@@ -53,44 +53,44 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
     }
 
     protected override void RegistroAuxiliar(DatosProducto datosProducto, long id) {
-        var detalleProducto = new DetalleProducto(Objeto?.IdDetalleProducto ?? 0,
+        var detalleProducto = new DetalleProducto(Entidad?.IdDetalleProducto ?? 0,
             UtilesUnidadMedida.ObtenerIdUnidadMedida(Vista.UnidadMedida).Result,
             Vista.Descripcion ?? "No hay una descripción disponible para el producto actual"
         );
 
         // Registrar detalles del producto
         using (var datos = new DatosDetalleProducto()) {
-            if (Vista.ModoEdicionDatos && Objeto?.IdDetalleProducto != 0)
+            if (Vista.ModoEdicionDatos && Entidad?.IdDetalleProducto != 0)
                 datos.Editar(detalleProducto);
-            else if (Objeto?.IdDetalleProducto != 0)
+            else if (Entidad?.IdDetalleProducto != 0)
                 datos.Editar(detalleProducto);
             else {
-                Objeto.IdDetalleProducto = datos.Adicionar(detalleProducto);
+                Entidad.IdDetalleProducto = datos.Adicionar(detalleProducto);
 
                 // Stock inicial del producto
                 UtilesMovimiento.ModificarInventario(
-                    Objeto.Id,
+                    Entidad.Id,
                     0,
                     UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
                     Vista.StockInicial,
-                    UtilesProducto.ObtenerCostoUnitario(Objeto.Id).Result
+                    UtilesProducto.ObtenerCostoUnitario(Entidad.Id).Result
                 );
             }
 
             // Editar producto para modificar Id de los detalles
-            datosProducto.Editar(Objeto);
+            datosProducto.Editar(Entidad);
         }
     }
 
-    protected override async Task<Producto?> ObtenerObjetoDesdeVista() {
+    protected override Producto? ObtenerEntidadDesdeVista() {
         return new Producto(
-            Objeto?.Id ?? 0,
+            Entidad?.Id ?? 0,
             Vista.CategoriaProducto,
             Vista.Nombre,
             Vista.Codigo,
-            Objeto?.IdDetalleProducto ?? 0,
-            await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
-            await UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(Vista.TipoMateriaPrima),
+            Entidad?.IdDetalleProducto ?? 0,
+            UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor).Result,
+            UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(Vista.TipoMateriaPrima).Result,
             Vista.EsVendible,
             Vista.PrecioCompra,
             Vista.CostoProduccionUnitario,

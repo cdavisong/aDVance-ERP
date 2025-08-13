@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosTipoMateriaPrima : RepositorioDatosBase<TipoMateriaPrima, CriterioBusquedaTipoMateriaPrima>, IRepositorioTipoMateriaPrima
+public class DatosTipoMateriaPrima : RepositorioDatosBase<TipoMateriaPrima, FiltroBusquedaTipoMateriaPrima>, IRepositorioTipoMateriaPrima
 {
     public override string ComandoCantidad()
     {
@@ -52,13 +52,13 @@ public class DatosTipoMateriaPrima : RepositorioDatosBase<TipoMateriaPrima, Crit
             """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaTipoMateriaPrima criterio, string dato)
+    public override string ComandoObtener(FiltroBusquedaTipoMateriaPrima criterio, string dato)
     {
         return criterio switch
         {
-            CriterioBusquedaTipoMateriaPrima.Todos => "SELECT * FROM adv__tipo_materia_prima;",
-            CriterioBusquedaTipoMateriaPrima.Id => $"SELECT * FROM adv__tipo_materia_prima WHERE id_tipo_materia_prima = {dato};",
-            CriterioBusquedaTipoMateriaPrima.Nombre => $"""
+            FiltroBusquedaTipoMateriaPrima.Todos => "SELECT * FROM adv__tipo_materia_prima;",
+            FiltroBusquedaTipoMateriaPrima.Id => $"SELECT * FROM adv__tipo_materia_prima WHERE id_tipo_materia_prima = {dato};",
+            FiltroBusquedaTipoMateriaPrima.Nombre => $"""
                 SELECT * FROM adv__tipo_materia_prima 
                 WHERE nombre LIKE '%{dato}%';
                 """,
@@ -66,7 +66,7 @@ public class DatosTipoMateriaPrima : RepositorioDatosBase<TipoMateriaPrima, Crit
         };
     }
 
-    public override TipoMateriaPrima ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    public override TipoMateriaPrima MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
     {
         return new TipoMateriaPrima(
             lectorDatos.GetInt64("id_tipo_materia_prima"),

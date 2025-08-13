@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios; 
 
-internal class DatosModuloAplicacion : RepositorioDatosBase<ModuloAplicacion, CriterioBusquedaModuloAplicacion>,
+internal class DatosModuloAplicacion : RepositorioDatosBase<ModuloAplicacion, FiltroBusquedaModuloAplicacion>,
     IRepositorioModuloAplicacion {
     public override string ComandoAdicionar(ModuloAplicacion objeto) {
         return $"INSERT INTO adv__modulo_aplicacion (nombre, version) VALUES ('{objeto.Nombre}', '{objeto.Version}');";
@@ -27,13 +27,13 @@ internal class DatosModuloAplicacion : RepositorioDatosBase<ModuloAplicacion, Cr
         return $"SELECT COUNT(1) FROM adv__modulo_aplicacion WHERE nombre = '{dato}';";
     }
 
-    public override string ComandoObtener(CriterioBusquedaModuloAplicacion criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaModuloAplicacion criterio, string dato) {
         string comando;
         switch (criterio) {
-            case CriterioBusquedaModuloAplicacion.Id:
+            case FiltroBusquedaModuloAplicacion.Id:
                 comando = $"SELECT * FROM adv__modulo_aplicacion WHERE id_modulo_aplicacion = {dato};";
                 break;
-            case CriterioBusquedaModuloAplicacion.Nombre:
+            case FiltroBusquedaModuloAplicacion.Nombre:
                 comando = $"SELECT * FROM adv__modulo_aplicacion WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
                 break;
             default:
@@ -44,7 +44,7 @@ internal class DatosModuloAplicacion : RepositorioDatosBase<ModuloAplicacion, Cr
         return comando;
     }
 
-    public override ModuloAplicacion ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override ModuloAplicacion MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new ModuloAplicacion(
             lectorDatos.GetInt64("id_modulo_aplicacion"),
             lectorDatos.GetString("nombre"),

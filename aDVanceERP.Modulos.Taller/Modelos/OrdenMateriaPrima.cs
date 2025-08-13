@@ -33,7 +33,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
     }
 
-    public enum CriterioBusquedaOrdenMateriaPrima {
+    public enum FiltroBusquedaOrdenMateriaPrima {
         Todos,
         Id,
         OrdenProduccion,
@@ -42,7 +42,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
     }
 
     public static class UtilesBusquedaOrdenMateriaPrima {
-        public static object[] CriterioBusquedaOrdenMateriaPrima =
+        public static object[] FiltroBusquedaOrdenMateriaPrima =
         {
             "Todos los materiales consumidos",
             "Identificador de BD",

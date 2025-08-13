@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
 
-public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IRepositorioVenta {
+public class DatosVenta : RepositorioDatosBase<Venta, FiltroBusquedaVenta>, IRepositorioVenta {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_venta) FROM adv__venta;";
     }
@@ -81,22 +81,22 @@ public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IR
                 """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaVenta criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaVenta criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaVenta.Id:
+            case FiltroBusquedaVenta.Id:
                 comando = $"SELECT * FROM adv__venta WHERE id_venta={dato};";
                 break;
-            case CriterioBusquedaVenta.NombreAlmacen:
+            case FiltroBusquedaVenta.NombreAlmacen:
                 comando =
                     $"SELECT v.* FROM adv__venta v JOIN adv__almacen a ON v.id_almacen = a.id_almacen WHERE LOWER(a.nombre) LIKE LOWER('%{dato}%');";
                 break;
-            case CriterioBusquedaVenta.RazonSocialCliente:
+            case FiltroBusquedaVenta.RazonSocialCliente:
                 comando =
                     $"SELECT v.* FROM adv__venta v JOIN adv__cliente c ON v.id_cliente = c.id_cliente WHERE LOWER(c.razon_social) LIKE LOWER('%{dato}%');";
                 break;
-            case CriterioBusquedaVenta.Fecha:
+            case FiltroBusquedaVenta.Fecha:
                 comando = $"SELECT * FROM adv__venta WHERE DATE(fecha) = '{dato}';";
                 break;
             default:
@@ -107,7 +107,7 @@ public class DatosVenta : RepositorioDatosBase<Venta, CriterioBusquedaVenta>, IR
         return comando;
     }
 
-    public override Venta ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Venta MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Venta(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

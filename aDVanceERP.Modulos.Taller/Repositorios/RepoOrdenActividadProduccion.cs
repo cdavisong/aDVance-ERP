@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Repositorios {
-    public class RepoOrdenActividadProduccion : RepositorioDatosBase<OrdenActividadProduccion, CriterioBusquedaOrdenActividadProduccion> {
+    public class RepoOrdenActividadProduccion : RepositorioDatosBase<OrdenActividadProduccion, FiltroBusquedaOrdenActividadProduccion> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_actividad) 
@@ -55,27 +55,27 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 """;
         }
 
-        public override string ComandoObtener(CriterioBusquedaOrdenActividadProduccion criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaOrdenActividadProduccion criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
-                CriterioBusquedaOrdenActividadProduccion.Todos =>
+                FiltroBusquedaOrdenActividadProduccion.Todos =>
                     "SELECT * FROM adv__orden_actividad;",
-                CriterioBusquedaOrdenActividadProduccion.Id =>
+                FiltroBusquedaOrdenActividadProduccion.Id =>
                     $"SELECT * FROM adv__orden_actividad WHERE id_orden_actividad = {dato};",
-                CriterioBusquedaOrdenActividadProduccion.OrdenProduccion =>
+                FiltroBusquedaOrdenActividadProduccion.OrdenProduccion =>
                     $"SELECT * FROM adv__orden_actividad WHERE id_orden_produccion = {dato};",
-                CriterioBusquedaOrdenActividadProduccion.Nombre =>
+                FiltroBusquedaOrdenActividadProduccion.Nombre =>
                     datoSplit.Length > 1
                         ? $"SELECT * FROM adv__orden_actividad WHERE id_orden_produccion = {datoSplit[0]} AND nombre = '{datoSplit[1]}';"
                         : $"SELECT * FROM adv__orden_actividad WHERE nombre LIKE '%{dato}%';",
-                CriterioBusquedaOrdenActividadProduccion.FechaRegistro =>
+                FiltroBusquedaOrdenActividadProduccion.FechaRegistro =>
                     $"SELECT * FROM adv__orden_actividad WHERE DATE(fecha_registro) = '{dato}';",
                 _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
             };
         }
 
-        public override OrdenActividadProduccion ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override OrdenActividadProduccion MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             return new OrdenActividadProduccion {
                 Id = lectorDatos.GetInt64("id_orden_actividad"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

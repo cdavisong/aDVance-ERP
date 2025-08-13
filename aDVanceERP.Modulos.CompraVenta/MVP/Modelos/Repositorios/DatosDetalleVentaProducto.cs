@@ -90,7 +90,7 @@ public class DatosDetalleVentaProducto : RepositorioDatosBase<DetalleVentaProduc
         return comando;
     }
 
-    public override DetalleVentaProducto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override DetalleVentaProducto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new DetalleVentaProducto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_venta_producto")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

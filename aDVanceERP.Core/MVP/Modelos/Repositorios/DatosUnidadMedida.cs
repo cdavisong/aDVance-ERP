@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
 
-public class DatosUnidadMedida : RepositorioDatosBase<UnidadMedida, CriterioBusquedaUnidadMedida>, IRepositorioUnidadMedida {
+public class DatosUnidadMedida : RepositorioDatosBase<UnidadMedida, FiltroBusquedaUnidadMedida>, IRepositorioUnidadMedida {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_unidad_medida) FROM adv__unidad_medida;";
     }
@@ -46,19 +46,19 @@ public class DatosUnidadMedida : RepositorioDatosBase<UnidadMedida, CriterioBusq
                 """;
     }
     
-    public override string ComandoObtener(CriterioBusquedaUnidadMedida criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaUnidadMedida criterio, string dato) {
         var comando = criterio switch {
-            CriterioBusquedaUnidadMedida.Todos => "SELECT * FROM adv__unidad_medida;",
-            CriterioBusquedaUnidadMedida.Id => $"SELECT * FROM adv__unidad_medida WHERE id_unidad_medida = {dato};",
-            CriterioBusquedaUnidadMedida.Nombre => $"SELECT * FROM adv__unidad_medida WHERE nombre LIKE '%{dato}%';",
-            CriterioBusquedaUnidadMedida.Abreviatura => $"SELECT * FROM adv__unidad_medida WHERE abreviatura LIKE '%{dato}%';",
+            FiltroBusquedaUnidadMedida.Todos => "SELECT * FROM adv__unidad_medida;",
+            FiltroBusquedaUnidadMedida.Id => $"SELECT * FROM adv__unidad_medida WHERE id_unidad_medida = {dato};",
+            FiltroBusquedaUnidadMedida.Nombre => $"SELECT * FROM adv__unidad_medida WHERE nombre LIKE '%{dato}%';",
+            FiltroBusquedaUnidadMedida.Abreviatura => $"SELECT * FROM adv__unidad_medida WHERE abreviatura LIKE '%{dato}%';",
             _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
         };
 
         return comando;
     }
 
-    public override UnidadMedida ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override UnidadMedida MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new UnidadMedida(
             lectorDatos.GetInt64("id_unidad_medida"),
             lectorDatos.GetString("nombre"),

@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, CriterioBusquedaDetalleProducto>, IRepositorioDetalleProducto
+public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, FiltroBusquedaDetalleProducto>, IRepositorioDetalleProducto
 {
     public override string ComandoCantidad()
     {
@@ -48,19 +48,19 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
                     """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaDetalleProducto criterio, string dato)
+    public override string ComandoObtener(FiltroBusquedaDetalleProducto criterio, string dato)
     {
         var comando = criterio switch
         {
-            CriterioBusquedaDetalleProducto.Todos => "SELECT * FROM adv__detalle_producto;",
-            CriterioBusquedaDetalleProducto.Id => $"SELECT * FROM adv__detalle_producto WHERE id_detalle_producto = {dato};",
-            CriterioBusquedaDetalleProducto.UnidadMedida => $@"
+            FiltroBusquedaDetalleProducto.Todos => "SELECT * FROM adv__detalle_producto;",
+            FiltroBusquedaDetalleProducto.Id => $"SELECT * FROM adv__detalle_producto WHERE id_detalle_producto = {dato};",
+            FiltroBusquedaDetalleProducto.UnidadMedida => $@"
                             SELECT dp.*
                             FROM adv__detalle_producto dp
                             JOIN adv__unidad_medida um ON dp.id_unidad_medida = um.id_unidad_medida
                             WHERE um.nombre = '{dato}';
                         ",
-            CriterioBusquedaDetalleProducto.Descripcion => $@"
+            FiltroBusquedaDetalleProducto.Descripcion => $@"
                             SELECT dp.* 
                             FROM adv__detalle_producto dp
                             WHERE LOWER(dp.descripcion) LIKE LOWER('%{dato}%');
@@ -71,7 +71,7 @@ public class DatosDetalleProducto : RepositorioDatosBase<DetalleProducto, Criter
         return comando;
     }
 
-    public override DetalleProducto ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    public override DetalleProducto MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
     {
         return new DetalleProducto(
             id: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_detalle_producto")),

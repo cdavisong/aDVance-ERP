@@ -28,7 +28,7 @@ public class TelefonoContacto : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaTelefonoContacto {
+public enum FiltroBusquedaTelefonoContacto {
     Todos,
     Id,
     Numero,

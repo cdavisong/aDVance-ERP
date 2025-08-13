@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Repositorios {
-    public class RepoOrdenMateriaPrima : RepositorioDatosBase<OrdenMateriaPrima, CriterioBusquedaOrdenMateriaPrima> {
+    public class RepoOrdenMateriaPrima : RepositorioDatosBase<OrdenMateriaPrima, FiltroBusquedaOrdenMateriaPrima> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_material) 
@@ -58,27 +58,27 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 """;
         }
 
-        public override string ComandoObtener(CriterioBusquedaOrdenMateriaPrima criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaOrdenMateriaPrima criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
-                CriterioBusquedaOrdenMateriaPrima.Todos =>
+                FiltroBusquedaOrdenMateriaPrima.Todos =>
                     "SELECT * FROM adv__orden_material;",
-                CriterioBusquedaOrdenMateriaPrima.Id =>
+                FiltroBusquedaOrdenMateriaPrima.Id =>
                     $"SELECT * FROM adv__orden_material WHERE id_orden_material = {dato};",
-                CriterioBusquedaOrdenMateriaPrima.OrdenProduccion =>
+                FiltroBusquedaOrdenMateriaPrima.OrdenProduccion =>
                     $"SELECT * FROM adv__orden_material WHERE id_orden_produccion = {dato};",
-                CriterioBusquedaOrdenMateriaPrima.Producto =>
+                FiltroBusquedaOrdenMateriaPrima.Producto =>
                     datoSplit.Length > 1
                         ? $"SELECT * FROM adv__orden_material WHERE id_orden_produccion = {datoSplit[0]} AND id_producto = {datoSplit[1]}"
                         : $"SELECT * FROM adv__orden_material WHERE id_producto = {dato};",
-                CriterioBusquedaOrdenMateriaPrima.FechaRegistro =>
+                FiltroBusquedaOrdenMateriaPrima.FechaRegistro =>
                     $"SELECT * FROM adv__orden_material WHERE DATE(fecha_registro) = '{dato}';",
                 _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
             };
         }
 
-        public override OrdenMateriaPrima ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override OrdenMateriaPrima MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             return new OrdenMateriaPrima {
                 Id = lectorDatos.GetInt64("id_orden_material"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

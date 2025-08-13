@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioMensajero : IRepositorioDatos<Mensajero, CriterioBusquedaMensajero> { }
+public interface IRepositorioMensajero : IRepositorioDatos<Mensajero, FiltroBusquedaMensajero> { }

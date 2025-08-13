@@ -13,13 +13,13 @@ public partial class PresentadorContenedorModulos {
         _registroMovimientoCaja = new PresentadorRegistroMovimientoCaja(new VistaRegistroMovimientoCaja());
         _registroMovimientoCaja.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMovimientoCaja.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroMovimientoCaja.DatosRegistradosActualizados += async delegate {
+        _registroMovimientoCaja.DatosRegistradosActualizados += delegate {
             if (_gestionCajas == null)
                 return;
 
             ActualizarMontoCaja(UtilesCaja.ObtenerIdCajaActiva());
 
-            await _gestionCajas.RefrescarListaObjetos();
+            _gestionCajas.RefrescarListaObjetos();
         };
     }
 

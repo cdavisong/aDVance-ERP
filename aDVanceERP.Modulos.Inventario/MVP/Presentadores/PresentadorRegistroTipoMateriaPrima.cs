@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroTipoMateriaPrima : PresentadorRegistroBase<IVistaRegistroTipoMateriaPrima, TipoMateriaPrima, DatosTipoMateriaPrima, CriterioBusquedaTipoMateriaPrima> {
+public class PresentadorRegistroTipoMateriaPrima : PresentadorRegistroBase<IVistaRegistroTipoMateriaPrima, TipoMateriaPrima, DatosTipoMateriaPrima, FiltroBusquedaTipoMateriaPrima> {
     public PresentadorRegistroTipoMateriaPrima(IVistaRegistroTipoMateriaPrima vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(TipoMateriaPrima objeto) {
@@ -14,7 +14,7 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorRegistroBase<IVist
         Vista.Nombre = objeto.Nombre;
         Vista.Descripcion = objeto.Descripcion ?? string.Empty;
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
@@ -26,11 +26,11 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorRegistroBase<IVist
         return nombreOk;
     }
 
-    protected override Task<TipoMateriaPrima?> ObtenerObjetoDesdeVista() {
-        return Task.FromResult<TipoMateriaPrima?>(new TipoMateriaPrima(
-            Objeto?.Id ?? 0,
+    protected override TipoMateriaPrima? ObtenerEntidadDesdeVista() {
+        return new TipoMateriaPrima(
+            Entidad?.Id ?? 0,
             Vista.Nombre,
             string.IsNullOrEmpty(Vista.Descripcion) ? null : Vista.Descripcion
-        ));
+        );
     }
 }

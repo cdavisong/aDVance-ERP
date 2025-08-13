@@ -22,7 +22,7 @@ public class DetallePagoTransferencia : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaDetallePagoTransferencia {
+public enum FiltroBusquedaDetallePagoTransferencia {
     Todos,
     Id,
     IdVenta,

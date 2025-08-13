@@ -21,7 +21,7 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
         Vista.EditarDatos += EditarDatosObjeto;
     }
 
-    protected O? Objeto { get; set; } // Objeto que se va a registrar o editar
+    protected O? Entidad { get; set; } // Objeto que se va a registrar o editar
 
     public Do DatosObjeto {
         get => new();
@@ -32,7 +32,7 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
 
     public abstract void PopularVistaDesdeObjeto(O objeto);
 
-    protected abstract Task<O?> ObtenerObjetoDesdeVista();
+    protected abstract O? ObtenerEntidadDesdeVista();
 
     protected virtual bool RegistroEdicionDatosAutorizado() {
         return true;
@@ -41,30 +41,30 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
     protected virtual void RegistroAuxiliar(Do datosObjeto, long id) { }
 
     protected virtual void RegistrarDatosObjeto(object? sender, EventArgs e) {
-        _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
+        RegistrarEditarObjeto(sender, e);
     }
 
     protected virtual void EditarDatosObjeto(object? sender, EventArgs e) {
-        _ = RegistrarEditarObjetoAsync(sender, e); // Llamar asincrónicamente sin esperar
+        RegistrarEditarObjeto(sender, e);
     }
 
-    private async Task RegistrarEditarObjetoAsync(object? sender, EventArgs e) {
+    private void RegistrarEditarObjeto(object? sender, EventArgs e) {
         if (!RegistroEdicionDatosAutorizado())
             return;
 
-        Objeto = await ObtenerObjetoDesdeVista();
+        Entidad = ObtenerEntidadDesdeVista();
 
-        if (Objeto == null)
+        if (Entidad == null)
             return;
 
-        if (Vista.ModoEdicionDatos && Objeto.Id != 0)
-            await DatosObjeto.EditarAsync(Objeto);
-        else if (Objeto.Id != 0)
-            await DatosObjeto.EditarAsync(Objeto);
+        if (Vista.ModoEdicionDatos && Entidad.Id != 0)
+            DatosObjeto.Editar(Entidad);
+        else if (Entidad.Id != 0)
+            DatosObjeto.Editar(Entidad);
         else
-            Objeto.Id = await DatosObjeto.AdicionarAsync(Objeto);
+            Entidad.Id = DatosObjeto.Adicionar(Entidad);
 
-        RegistroAuxiliar(DatosObjeto, Objeto.Id);
+        RegistroAuxiliar(DatosObjeto, Entidad.Id);
 
         DatosRegistradosActualizados?.Invoke(sender, e);
         Salir?.Invoke(sender, e);

@@ -29,7 +29,7 @@ public class Pago : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaPago {
+public enum FiltroBusquedaPago {
     Todos,
     Id,
     IdVenta

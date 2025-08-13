@@ -10,7 +10,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class
-    PresentadorRegistroPago : PresentadorRegistroBase<IVistaRegistroPago, Pago, DatosPago, CriterioBusquedaPago> {
+    PresentadorRegistroPago : PresentadorRegistroBase<IVistaRegistroPago, Pago, DatosPago, FiltroBusquedaPago> {
     public PresentadorRegistroPago(IVistaRegistroPago vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Pago objeto) {
@@ -28,7 +28,7 @@ public class
                 decimal.TryParse(pagoSplit[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0.00m);
         }
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
@@ -64,11 +64,11 @@ public class
         
         foreach (var objeto in objetosVista) {
             if (Vista.ModoEdicionDatos && objeto.Id != 0)
-                _ = DatosObjeto.EditarAsync(Objeto);
+                DatosObjeto.Editar(Entidad);
             else if (objeto.Id != 0)
-                _ = DatosObjeto.EditarAsync(Objeto);
+                DatosObjeto.Editar(Entidad);
             else
-                objeto.Id = DatosObjeto.AdicionarAsync(objeto).Result;            
+                objeto.Id = DatosObjeto.Adicionar(objeto);            
         };
 
         InvokeDatosRegistradosActualizados(objetosVista, e);
@@ -96,7 +96,7 @@ public class
         return pagos;
     }
 
-    protected override Task<Pago?> ObtenerObjetoDesdeVista() {
+    protected override Pago? ObtenerEntidadDesdeVista() {
         throw new NotImplementedException();
     }    
 }

@@ -27,7 +27,7 @@ public static class UtilesCaja {
     private static T? EjecutarConsulta<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
         using var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion());
         try {
-            conexion.Open();
+            if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
         } catch (MySqlException) {
             throw new ExcepcionConexionServidorMySQL();
         }
@@ -75,7 +75,7 @@ public static class UtilesCaja {
     public static void ActualizarMontoCaja(long idCaja, decimal monto) {
         using var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion());
         try {
-            conexion.Open();
+            if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
         } catch (MySqlException) {
             throw new ExcepcionConexionServidorMySQL();
         }

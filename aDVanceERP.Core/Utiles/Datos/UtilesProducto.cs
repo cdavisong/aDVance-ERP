@@ -283,7 +283,7 @@ public static class UtilesProducto {
 
         try {
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 // Primero verificar el precio actual
                 decimal precioActual;
@@ -372,7 +372,7 @@ public static class UtilesProducto {
 
         try {
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 // Verificar el precio actual
                 decimal precioActual;
@@ -414,7 +414,7 @@ public static class UtilesProducto {
 
         try {
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
                 // Verificar el costo actual
                 decimal costoActual;

@@ -31,7 +31,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
     }
 
-    public enum CriterioBusquedaOrdenGastoIndirecto {
+    public enum FiltroBusquedaOrdenGastoIndirecto {
         Todos,
         Id,
         OrdenProduccion,
@@ -40,7 +40,7 @@ namespace aDVanceERP.Modulos.Taller.Modelos {
     }
 
     public static class UtilesBusquedaOrdenGastoIndirecto {
-        public static object[] CriterioBusquedaOrdenGastoIndirecto =
+        public static object[] FiltroBusquedaOrdenGastoIndirecto =
         {
             "Todos los gastos indirectos",
             "Identificador de BD",

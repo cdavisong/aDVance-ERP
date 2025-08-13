@@ -23,7 +23,7 @@ public static class UtilesSesionUsuario {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -58,7 +58,7 @@ public static class UtilesSesionUsuario {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -77,7 +77,7 @@ public static class UtilesSesionUsuario {
     public static bool ValidarToken(string token) {
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();
@@ -99,7 +99,7 @@ public static class UtilesSesionUsuario {
 
         using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
             }
             catch (Exception) {
                 throw new ExcepcionConexionServidorMySQL();

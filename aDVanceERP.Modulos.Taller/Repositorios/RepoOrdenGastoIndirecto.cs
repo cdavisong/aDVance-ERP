@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Repositorios {
-    public class RepoOrdenGastoIndirecto : RepositorioDatosBase<OrdenGastoIndirecto, CriterioBusquedaOrdenGastoIndirecto> {
+    public class RepoOrdenGastoIndirecto : RepositorioDatosBase<OrdenGastoIndirecto, FiltroBusquedaOrdenGastoIndirecto> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_gasto_indirecto) 
@@ -55,27 +55,27 @@ namespace aDVanceERP.Modulos.Taller.Repositorios {
                 """;
         }
 
-        public override string ComandoObtener(CriterioBusquedaOrdenGastoIndirecto criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaOrdenGastoIndirecto criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
-                CriterioBusquedaOrdenGastoIndirecto.Todos =>
+                FiltroBusquedaOrdenGastoIndirecto.Todos =>
                     "SELECT * FROM adv__orden_gasto_indirecto;",
-                CriterioBusquedaOrdenGastoIndirecto.Id =>
+                FiltroBusquedaOrdenGastoIndirecto.Id =>
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE id_orden_gasto_indirecto = {dato};",
-                CriterioBusquedaOrdenGastoIndirecto.OrdenProduccion =>
+                FiltroBusquedaOrdenGastoIndirecto.OrdenProduccion =>
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE id_orden_produccion = {dato};",
-                CriterioBusquedaOrdenGastoIndirecto.Concepto =>
+                FiltroBusquedaOrdenGastoIndirecto.Concepto =>
                     datoSplit.Length > 1
                         ? $"SELECT * FROM adv__orden_gasto_indirecto WHERE id_orden_produccion = {datoSplit[0]} AND concepto = '{datoSplit[1]}'"
                         : $"SELECT * FROM adv__orden_gasto_indirecto WHERE concepto LIKE '%{dato}%';",
-                CriterioBusquedaOrdenGastoIndirecto.FechaRegistro =>
+                FiltroBusquedaOrdenGastoIndirecto.FechaRegistro =>
                     $"SELECT * FROM adv__orden_gasto_indirecto WHERE DATE(fecha_registro) = '{dato}';",
                 _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
             };
         }
 
-        public override OrdenGastoIndirecto ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+        public override OrdenGastoIndirecto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             return new OrdenGastoIndirecto {
                 Id = lectorDatos.GetInt64("id_orden_gasto_indirecto"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

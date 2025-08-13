@@ -12,11 +12,11 @@ public partial class PresentadorContenedorModulos {
         _registroContacto = new PresentadorRegistroContacto(new VistaRegistroContacto());
         _registroContacto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroContacto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroContacto.DatosRegistradosActualizados += async delegate {
+        _registroContacto.DatosRegistradosActualizados += delegate {
             if (_gestionContactos == null)
                 return;
 
-            await _gestionContactos.RefrescarListaObjetos();
+            _gestionContactos.RefrescarListaObjetos();
         };
 
         return Task.CompletedTask;

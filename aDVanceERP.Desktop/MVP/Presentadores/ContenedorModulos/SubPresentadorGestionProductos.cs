@@ -19,15 +19,15 @@ public partial class PresentadorContenedorModulos {
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionProductos", _gestionProductos.Vista));
     }
 
-    private async void MostrarVistaGestionProductos(object? sender, EventArgs e) {
+    private void MostrarVistaGestionProductos(object? sender, EventArgs e) {
         if (_gestionProductos?.Vista == null)
             return;
 
         _gestionProductos.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
-        _gestionProductos.Vista.CargarCriteriosBusqueda(UtilesBusquedaProducto.CriterioBusquedaProducto);
+        _gestionProductos.Vista.CargarCriteriosBusqueda(UtilesBusquedaProducto.FiltroBusquedaProducto);
         _gestionProductos.Vista.Restaurar();
         _gestionProductos.Vista.Mostrar();
 
-        await _gestionProductos.RefrescarListaObjetos()!;
+        _gestionProductos.RefrescarListaObjetos();
     }
 }

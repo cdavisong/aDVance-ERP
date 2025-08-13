@@ -4,10 +4,10 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores.Plantillas; 
 
-public interface IPresentadorRegistro<Vr, Do, O, C> : IPresentadorBase<Vr>
+public interface IPresentadorRegistro<Vr, Do, En, C> : IPresentadorBase<Vr>
     where Vr : IVistaRegistro
-    where Do : class, IRepositorioDatos<O, C>, new()
-    where O : class, IEntidad, new()
+    where Do : class, IRepositorioDatos<En, C>, new()
+    where En : class, IEntidadBaseDatos, new()
     where C : Enum {
     Do DatosObjeto { get; }
 

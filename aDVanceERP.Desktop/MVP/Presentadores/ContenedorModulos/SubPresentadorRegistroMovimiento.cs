@@ -19,16 +19,16 @@ public partial class PresentadorContenedorModulos {
         _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMovimiento.Vista.RegistrarTipoMovimiento += MostrarVistaRegistroTipoMovimiento;
         _registroMovimiento.Vista.EliminarTipoMovimiento += EliminarTipoMovimiento;
-        _registroMovimiento.DatosRegistradosActualizados += async delegate {
+        _registroMovimiento.DatosRegistradosActualizados += delegate {
             if (_gestionMovimientos == null)
                 return;
 
-            await _gestionMovimientos.RefrescarListaObjetos(); 
+            _gestionMovimientos.RefrescarListaObjetos(); 
 
             if (_gestionProductos == null) 
                 return;
 
-            await _gestionProductos.RefrescarListaObjetos();
+            _gestionProductos.RefrescarListaObjetos();
         };
     }
 

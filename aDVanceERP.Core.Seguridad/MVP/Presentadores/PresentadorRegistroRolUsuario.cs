@@ -8,7 +8,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
 public class PresentadorRegistroRolUsuario : PresentadorRegistroBase<IVistaRegistroRolUsuario, RolUsuario,
-    DatosRolUsuario, CriterioBusquedaRolUsuario> {
+    DatosRolUsuario, FiltroBusquedaRolUsuario> {
     public PresentadorRegistroRolUsuario(IVistaRegistroRolUsuario vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(RolUsuario objeto) {
@@ -20,11 +20,11 @@ public class PresentadorRegistroRolUsuario : PresentadorRegistroBase<IVistaRegis
         foreach (var permisoRol in permisosRoles) 
             ((IVistaGestionPermisos)Vista).AdicionarPermisoRol(permisoRol);
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override async Task<RolUsuario?> ObtenerObjetoDesdeVista() {
-        return new RolUsuario(Objeto?.Id ?? 0,
+    protected override RolUsuario? ObtenerEntidadDesdeVista() {
+        return new RolUsuario(Entidad?.Id ?? 0,
             Vista.NombreRolUsuario
         );
     }

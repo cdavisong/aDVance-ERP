@@ -9,7 +9,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class
     PresentadorRegistroCompra : PresentadorRegistroBase<IVistaRegistroCompra, Compra, DatosCompra,
-        CriterioBusquedaCompra> {
+        FiltroBusquedaCompra> {
     public PresentadorRegistroCompra(IVistaRegistroCompra vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Compra objeto) {
@@ -23,14 +23,14 @@ public class
             ((IVistaGestionDetallesCompraventaProductos)Vista).AdicionarProducto(Vista.NombreAlmacen, productoSplit[0],
                 productoSplit[1]);
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
-    protected override async Task<Compra?> ObtenerObjetoDesdeVista() {
-        return new Compra(Objeto?.Id ?? 0,
+    protected override Compra? ObtenerEntidadDesdeVista() {
+        return new Compra(Entidad?.Id ?? 0,
             DateTime.Now,
-            await UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen),
-            await UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor),
+            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
+            UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor).Result,
             Vista.Total
         );
     }

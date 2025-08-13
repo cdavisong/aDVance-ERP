@@ -21,7 +21,7 @@ public class Compra : IEntidadBaseDatos {
     public long Id { get; set; }
 }
 
-public enum CriterioBusquedaCompra {
+public enum FiltroBusquedaCompra {
     Todos,
     Id,
     NombreAlmacen,
@@ -30,7 +30,7 @@ public enum CriterioBusquedaCompra {
 }
 
 public static class UtilesBusquedaCompra {
-    public static readonly object[] CriterioBusquedaCompra = {
+    public static readonly object[] FiltroBusquedaCompra = {
         "Todas las compras",
         "Identificador de BD",
         "Nombre del almacén",

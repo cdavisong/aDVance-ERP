@@ -20,21 +20,21 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 Vista.Vistas?.Registrar("vistaGestionOrdenesProduccion", _gestionOrdenesProduccion.Vista);
         }
 
-        private async void MostrarVistaGestionOrdenesProduccion(object? sender, EventArgs e) {
+        private void MostrarVistaGestionOrdenesProduccion(object? sender, EventArgs e) {
             if (_gestionOrdenesProduccion?.Vista == null)
                 return;
 
-            _gestionOrdenesProduccion.Vista.CargarCriteriosBusqueda(UtilesBusquedaOrdenProduccion.CriterioBusquedaOrdenProduccion);
+            _gestionOrdenesProduccion.Vista.CargarCriteriosBusqueda(UtilesBusquedaOrdenProduccion.FiltroBusquedaOrdenProduccion);
             _gestionOrdenesProduccion.Vista.Restaurar();
             _gestionOrdenesProduccion.Vista.Mostrar();
 
-            await _gestionOrdenesProduccion.RefrescarListaObjetos()!;
+            _gestionOrdenesProduccion.RefrescarListaObjetos();
         }
 
         private void RegistrarMovimientosOrdenProduccionCerrada(object? sender, OrdenProduccion e) {
             // Movimiento de materiales utilizados en la orden de producción
             using (var datosObjeto = new RepoOrdenMateriaPrima()) {
-                var materiasPrimas = datosObjeto.Obtener(CriterioBusquedaOrdenMateriaPrima.OrdenProduccion, e.Id.ToString());
+                var materiasPrimas = datosObjeto.Obtener(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, e.Id.ToString()).resultados;
 
                 if (materiasPrimas != null && materiasPrimas.Count() > 0) {
                     using (var datosMovimiento = new DatosMovimiento()) {

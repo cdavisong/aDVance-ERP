@@ -42,7 +42,7 @@ public class Producto : IEntidadBaseDatos {
     public decimal PrecioVentaBase { get; }
 }
 
-public enum CriterioBusquedaProducto {
+public enum FiltroBusquedaProducto {
     Todos,
     Id,
     Codigo,
@@ -51,7 +51,7 @@ public enum CriterioBusquedaProducto {
 }
 
 public static class UtilesBusquedaProducto {
-    public static object[] CriterioBusquedaProducto = {
+    public static object[] FiltroBusquedaProducto = {
         "Todos los productos",
         "Identificador de BD",
         "Código del producto",

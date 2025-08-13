@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores; 
 
 public class PresentadorGestionProveedores : PresentadorGestionBase<PresentadorTuplaProveedor, IVistaGestionProveedores,
-    IVistaTuplaProveedor, Proveedor, DatosProveedor, CriterioBusquedaProveedor> {
+    IVistaTuplaProveedor, Proveedor, DatosProveedor, FiltroBusquedaProveedor> {
     public PresentadorGestionProveedores(IVistaGestionProveedores vista) : base(vista) { }
 
     protected override PresentadorTuplaProveedor ObtenerValoresTupla(Proveedor objeto) {
@@ -18,12 +18,12 @@ public class PresentadorGestionProveedores : PresentadorGestionBase<PresentadorT
         presentadorTupla.Vista.RazonSocial = objeto.RazonSocial ?? string.Empty;
         
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(CriterioBusquedaContacto.Id, objeto.IdContacto.ToString()).FirstOrDefault();
+            var contacto = datosContacto.Obtener(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
 
             if (contacto != null) {
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
                     var telefonosContacto =
-                        datosTelefonoContacto.Obtener(CriterioBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString());
+                        datosTelefonoContacto.Obtener(FiltroBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString()).resultados;
                     var telefonoString = telefonosContacto.Aggregate(string.Empty,
                         (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
 

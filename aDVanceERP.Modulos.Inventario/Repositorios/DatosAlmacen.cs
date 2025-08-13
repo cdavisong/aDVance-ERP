@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmacen>, IRepositorioAlmacen
+public class DatosAlmacen : RepositorioDatosBase<Almacen, FiltroBusquedaAlmacen>, IRepositorioAlmacen
 {
     public override string ComandoCantidad()
     {
@@ -33,16 +33,16 @@ public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmace
         return $"DELETE FROM adv__almacen WHERE id_almacen={id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaAlmacen criterio, string dato)
+    public override string ComandoObtener(FiltroBusquedaAlmacen criterio, string dato)
     {
         var comando = string.Empty;
 
         switch (criterio)
         {
-            case CriterioBusquedaAlmacen.Id:
+            case FiltroBusquedaAlmacen.Id:
                 comando = $"SELECT * FROM adv__almacen WHERE id_almacen={dato};";
                 break;
-            case CriterioBusquedaAlmacen.Nombre:
+            case FiltroBusquedaAlmacen.Nombre:
                 comando = $"SELECT * FROM adv__almacen WHERE LOWER(nombre) LIKE LOWER('%{dato}%');";
                 break;
             default:
@@ -53,7 +53,7 @@ public class DatosAlmacen : RepositorioDatosBase<Almacen, CriterioBusquedaAlmace
         return comando;
     }
 
-    public override Almacen ObtenerObjetoDataReader(MySqlDataReader lectorDatos)
+    public override Almacen MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
     {
         return new Almacen(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),

@@ -17,14 +17,14 @@ public partial class PresentadorContenedorModulos {
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasBancarias", _gestionCuentasBancarias.Vista));
     }
 
-    private async void MostrarVistaGestionCuentasBancarias(object? sender, EventArgs e) {
+    private void MostrarVistaGestionCuentasBancarias(object? sender, EventArgs e) {
         if (_gestionCuentasBancarias?.Vista == null)
             return;
 
-        _gestionCuentasBancarias.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaBancaria.CriterioBusquedaCuentaBancaria);
+        _gestionCuentasBancarias.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaBancaria.FiltroBusquedaCuentaBancaria);
         _gestionCuentasBancarias.Vista.Restaurar();
         _gestionCuentasBancarias.Vista.Mostrar();
 
-        await _gestionCuentasBancarias.RefrescarListaObjetos();
+        _gestionCuentasBancarias.RefrescarListaObjetos();
     }
 }

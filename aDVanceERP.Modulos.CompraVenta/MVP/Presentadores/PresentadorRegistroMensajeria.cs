@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria.Plantillas;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegistroMensajeria, SeguimientoEntrega,
-    DatosSeguimientoEntrega, CriterioBusquedaSeguimientoEntrega> {
+    DatosSeguimientoEntrega, FiltroBusquedaSeguimientoEntrega> {
     public PresentadorRegistroMensajeria(IVistaRegistroMensajeria vista) : base(vista) {
     }
 
@@ -17,7 +17,7 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
         Vista.NombreMensajero = await UtilesMensajero.ObtenerNombreMensajero(objeto.IdMensajero);
 
         using (var datosVenta = new DatosVenta()) {
-            var venta = datosVenta.Obtener(CriterioBusquedaVenta.Id, objeto.IdVenta.ToString()).FirstOrDefault();
+            var venta = datosVenta.Obtener(FiltroBusquedaVenta.Id, objeto.IdVenta.ToString()).resultados.FirstOrDefault();
 
             if (venta == null)
                 return;
@@ -27,7 +27,7 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
             Vista.Observaciones = objeto.Observaciones;
         }
 
-        Objeto = objeto;
+        Entidad = objeto;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
@@ -49,10 +49,10 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
         return nombreMensajeroOk && tipoEntregaOk && direccionOk;
     }
 
-    protected override async Task<SeguimientoEntrega?> ObtenerObjetoDesdeVista() {
-        return new SeguimientoEntrega(Objeto?.Id ?? 0,
+    protected override SeguimientoEntrega? ObtenerEntidadDesdeVista() {
+        return new SeguimientoEntrega(Entidad?.Id ?? 0,
             Vista.IdVenta,
-            await UtilesMensajero.ObtenerIdMensajero(Vista.NombreMensajero),
+            UtilesMensajero.ObtenerIdMensajero(Vista.NombreMensajero).Result,
             DateTime.Now,
             DateTime.MinValue,
             DateTime.MinValue,

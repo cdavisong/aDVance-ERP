@@ -5,7 +5,7 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
 
 public class DatosDetallePagoTransferencia :
-    RepositorioDatosBase<DetallePagoTransferencia, CriterioBusquedaDetallePagoTransferencia>,
+    RepositorioDatosBase<DetallePagoTransferencia, FiltroBusquedaDetallePagoTransferencia>,
     IRepositorioDetallePagoTransferencia {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_detalle_pago_transferencia) FROM adv__detalle_pago_transferencia;";
@@ -28,18 +28,18 @@ public class DatosDetallePagoTransferencia :
         return $"DELETE FROM adv__detalle_pago_transferencia WHERE id_detalle_pago_transferencia = {id};";
     }
 
-    public override string ComandoObtener(CriterioBusquedaDetallePagoTransferencia criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaDetallePagoTransferencia criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaDetallePagoTransferencia.Id:
+            case FiltroBusquedaDetallePagoTransferencia.Id:
                 comando =
                     $"SELECT * FROM adv__detalle_pago_transferencia WHERE id_detalle_pago_transferencia = {dato};";
                 break;
-            case CriterioBusquedaDetallePagoTransferencia.IdVenta:
+            case FiltroBusquedaDetallePagoTransferencia.IdVenta:
                 comando = $"SELECT * FROM adv__detalle_pago_transferencia WHERE id_venta = {dato};";
                 break;
-            case CriterioBusquedaDetallePagoTransferencia.IdTarjeta:
+            case FiltroBusquedaDetallePagoTransferencia.IdTarjeta:
                 comando = $"SELECT * FROM adv__detalle_pago_transferencia WHERE id_tarjeta = {dato};";
                 break;
             default:
@@ -54,7 +54,7 @@ public class DatosDetallePagoTransferencia :
         return $"SELECT COUNT(1) FROM adv__detalle_pago_transferencia WHERE id_detalle_pago_transferencia = {dato};";
     }
 
-    public override DetallePagoTransferencia ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override DetallePagoTransferencia MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new DetallePagoTransferencia(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_pago_transferencia")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

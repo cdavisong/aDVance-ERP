@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMensajero>, IRepositorioMensajero {
+public class DatosMensajero : RepositorioDatosBase<Mensajero, FiltroBusquedaMensajero>, IRepositorioMensajero {
     public override string ComandoCantidad() {
         return """
                SELECT
@@ -46,18 +46,18 @@ public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMe
                 """;
     }
 
-    public override string ComandoObtener(CriterioBusquedaMensajero criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaMensajero criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
-            case CriterioBusquedaMensajero.Id:
+            case FiltroBusquedaMensajero.Id:
                 comando = $"""
                            SELECT *
                            FROM adv__mensajero
                            WHERE id_mensajero={dato};
                            """;
                 break;
-            case CriterioBusquedaMensajero.Nombre:
+            case FiltroBusquedaMensajero.Nombre:
                 comando = $"""
                             SELECT *
                             FROM adv__mensajero
@@ -75,7 +75,7 @@ public class DatosMensajero : RepositorioDatosBase<Mensajero, CriterioBusquedaMe
         return comando;
     }
 
-    public override Mensajero ObtenerObjetoDataReader(MySqlDataReader lectorDatos) {
+    public override Mensajero MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Mensajero(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_mensajero")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),

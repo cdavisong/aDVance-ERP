@@ -19,7 +19,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             """;
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion))
                 using (var reader = cmd.ExecuteReader()) {
                     while (reader.Read()) {
@@ -44,7 +44,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             """;
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion))
                 using (var reader = cmd.ExecuteReader()) {
                     while (reader.Read()) {
@@ -69,7 +69,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             """;
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion))
                 using (var reader = cmd.ExecuteReader()) {
                     while (reader.Read()) {
@@ -98,7 +98,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             """;
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion)) {
                     var result = cmd.ExecuteScalar();
                     return result?.ToString() ?? "OP00001"; // Valor por defecto si no hay resultados
@@ -120,7 +120,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 """;
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion)) {
                     cmd.Parameters.AddWithValue("@idOrdenProduccion", idOrdenProduccion);
                     cmd.Parameters.AddWithValue("@nombre", nombre);
@@ -145,7 +145,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 """;
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
-                conexion.Open();
+                if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion)) {
                     cmd.Parameters.AddWithValue("@idOrdenProduccion", idOrdenProduccion);
                     cmd.Parameters.AddWithValue("@concepto", concepto);
