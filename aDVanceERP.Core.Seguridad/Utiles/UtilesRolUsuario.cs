@@ -1,6 +1,6 @@
-﻿
-using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.Utiles;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
 
 using MySql.Data.MySqlClient;
 
@@ -12,7 +12,7 @@ public static class UtilesRolUsuario {
     public static async Task<long> ObtenerIdRolUsuario(string nombreRolUsuario) {
         var idRolUsuario = 0;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
             } catch (Exception) {
@@ -35,7 +35,7 @@ public static class UtilesRolUsuario {
     public static string? ObtenerNombreRolUsuario(long idRolUsuario) {
         var nombreRolUsuario = string.Empty;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             } catch (Exception) {
@@ -58,7 +58,7 @@ public static class UtilesRolUsuario {
     public static string[] ObtenerNombresRolesUsuarios() {
         var nombresRolesUsuarios = new List<string>();
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             } catch (Exception) {
@@ -82,7 +82,7 @@ public static class UtilesRolUsuario {
     public static uint CantidadUsuariosNombreRol(string nombreRol) {
         uint longitud = 0;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             } catch (Exception) {
@@ -109,7 +109,7 @@ public static class UtilesRolUsuario {
     public static uint CantidadPermisosRol(long idRolUsuario) {
         uint cantidadPermisos = 0;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             } catch (Exception) {
@@ -137,7 +137,7 @@ public static class UtilesRolUsuario {
     public static async Task<int> VerificarOCrearRolAdministrador() {
         var rolId = 0;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             } catch (Exception) {
@@ -185,7 +185,7 @@ public static class UtilesRolUsuario {
     private static string[] ObtenerPermisosDesdeBD(long idRolUsuario) {
         var permisos = new List<string>();
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             } catch (Exception) {

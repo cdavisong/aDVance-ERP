@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
 
-public class DetallePagoTransferencia : IEntidad {
+public class DetallePagoTransferencia : IEntidadBaseDatos {
     public DetallePagoTransferencia() { }
 
     public DetallePagoTransferencia(long id, long idVenta, long idTarjeta, string numeroConfirmacion,

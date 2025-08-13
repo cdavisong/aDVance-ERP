@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
-public class SeguimientoEntrega : IEntidad {
+public class SeguimientoEntrega : IEntidadBaseDatos {
     public SeguimientoEntrega() { }
 
     public SeguimientoEntrega(long id, long idVenta, long idMensajero, DateTime fechaAsignacion, DateTime fechaEntrega,

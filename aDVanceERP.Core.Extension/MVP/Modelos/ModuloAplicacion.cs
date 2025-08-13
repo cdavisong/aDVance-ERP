@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Extension.MVP.Modelos; 
 
-public class ModuloAplicacion : IEntidad {
+public class ModuloAplicacion : IEntidadBaseDatos {
     public ModuloAplicacion() { }
 
     public ModuloAplicacion(long id, string? nombre, string? version) {

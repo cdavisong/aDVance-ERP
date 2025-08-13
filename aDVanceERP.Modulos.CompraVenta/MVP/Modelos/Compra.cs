@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos; 
 
-public class Compra : IEntidad {
+public class Compra : IEntidadBaseDatos {
     public Compra() { }
 
     public Compra(long id, DateTime fecha, long idAlmacen, long idProveedor, decimal total) {

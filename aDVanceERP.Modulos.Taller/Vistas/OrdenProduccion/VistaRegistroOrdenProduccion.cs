@@ -152,10 +152,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             VistasActividadProduccion = new RepositorioVistaBase(contenedorVistasActividadesProduccion);
             VistasGastosIndirectos = new RepositorioVistaBase(contenedorVistasGastosIndirectos);
 
-            // Datos
-            FechaApertura = DateTime.Now;
-            NumeroOrden = UtilesOrdenProduccion.ObtenerProximoNumeroOrden();
-
             // Eventos
             #region Materias primas
 
@@ -483,7 +479,11 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 CentroNotificaciones.Mostrar("Debe ingresar un concepto válido para el gasto indirecto.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
         }
 
-        public void Mostrar() {            
+        public void Mostrar() {
+            // Datos
+            FechaApertura = DateTime.Now;
+            NumeroOrden = UtilesOrdenProduccion.ObtenerProximoNumeroOrden();
+
             BringToFront();
             Show();
         }

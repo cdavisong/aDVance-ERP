@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
 
-public class Inventario : IEntidad {
+public class Inventario : IEntidadBaseDatos {
     public Inventario() { }
 
     public Inventario(long idInventario, long idProducto, long idAlmacen, decimal cantidad, decimal costoPromedio, decimal valorTotal, DateTime ultimaActualizacion) {

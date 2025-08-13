@@ -1,4 +1,5 @@
-﻿
+﻿using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
 
 using MySql.Data.MySqlClient;
 
@@ -17,7 +18,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             ORDER BY p.nombre;
             """;
 
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion))
                 using (var reader = cmd.ExecuteReader()) {
@@ -42,7 +43,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             ORDER BY nombre;
             """;
 
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion))
                 using (var reader = cmd.ExecuteReader()) {
@@ -67,7 +68,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
             ORDER BY concepto;
             """;
 
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion))
                 using (var reader = cmd.ExecuteReader()) {
@@ -96,7 +97,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 WHERE numero_orden REGEXP '^OP[0-9]{5}$';
             """;
 
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion)) {
                     var result = cmd.ExecuteScalar();
@@ -118,7 +119,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 LIMIT 1;
                 """;
 
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion)) {
                     cmd.Parameters.AddWithValue("@idOrdenProduccion", idOrdenProduccion);
@@ -143,7 +144,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 LIMIT 1;
                 """;
 
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
                 using (var cmd = new MySqlCommand(query, conexion)) {
                     cmd.Parameters.AddWithValue("@idOrdenProduccion", idOrdenProduccion);

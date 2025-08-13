@@ -9,7 +9,7 @@ public enum EfectoMovimiento {
     Transferencia
 }
 
-public class TipoMovimiento : IEntidad {
+public class TipoMovimiento : IEntidadBaseDatos {
     public TipoMovimiento() {
         Id = 0;
         Nombre = string.Empty;

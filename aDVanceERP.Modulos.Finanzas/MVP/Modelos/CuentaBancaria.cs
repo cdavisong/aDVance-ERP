@@ -8,7 +8,7 @@ public enum TipoMoneda {
     USD
 }
 
-public class CuentaBancaria : IEntidad {
+public class CuentaBancaria : IEntidadBaseDatos {
     public CuentaBancaria() { }
 
     public CuentaBancaria(long id, string alias, string numeroTarjeta, TipoMoneda moneda, long idContacto) {

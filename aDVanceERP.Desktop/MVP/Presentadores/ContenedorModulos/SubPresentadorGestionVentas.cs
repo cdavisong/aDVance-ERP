@@ -45,7 +45,7 @@ public partial class PresentadorContenedorModulos {
             return;
 
         //TODO: Mejorar la velocidad de la operación con una conexion unica 
-        //var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString());
+        //var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion());
 
         foreach (var ventaJson in ventasJson) {
             var idAlmacen = 0L;

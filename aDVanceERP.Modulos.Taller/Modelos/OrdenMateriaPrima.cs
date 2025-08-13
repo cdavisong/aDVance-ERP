@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
-    public class OrdenMateriaPrima : IEntidad {
+    public class OrdenMateriaPrima : IEntidadBaseDatos {
         public OrdenMateriaPrima() {
             IdOrdenProduccion = 0;
             IdProducto = 0; // Materia prima consumida

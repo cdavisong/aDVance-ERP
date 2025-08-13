@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
-    public class OrdenActividadProduccion : IEntidad {
+    public class OrdenActividadProduccion : IEntidadBaseDatos {
         public OrdenActividadProduccion() {
             IdOrdenProduccion = 0;
             Nombre = string.Empty;

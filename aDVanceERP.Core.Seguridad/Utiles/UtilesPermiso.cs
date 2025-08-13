@@ -1,6 +1,7 @@
-﻿
-using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.Utiles;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.Utiles; 
@@ -9,7 +10,7 @@ public static class UtilesPermiso {
     public static long ObtenerTotalPermisos() {
         var totalPermisos = 0;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -33,7 +34,7 @@ public static class UtilesPermiso {
     public static long ObtenerIdPermiso(string nombrePermiso) {
         var idPermiso = 0;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -58,7 +59,7 @@ public static class UtilesPermiso {
     public static string? ObtenerNombrePermiso(long idPermiso) {
         var nombrePermiso = string.Empty;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -82,7 +83,7 @@ public static class UtilesPermiso {
     public static string[] ObtenerNombresPermisos(long idModulo = 0) {
         var nombresPermisos = new List<string>();
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }

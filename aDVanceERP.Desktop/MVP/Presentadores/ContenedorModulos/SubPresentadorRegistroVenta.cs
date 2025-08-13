@@ -39,11 +39,11 @@ public partial class PresentadorContenedorModulos {
                 _gestionVentas.Vista.HabilitarBtnConfirmarPagos = false;
                 _gestionVentas.RefrescarListaObjetos();
             };
-            _registroVentaProducto.Vista.Salir += delegate {
-                // Verificar cancelación de la venta
+            //TODO: Verificar cancelación de la venta
+            /*_registroVentaProducto.Vista. += delegate {
                 if (!_registroVentaProducto.Vista.ModoEdicionDatos && !UtilesVenta.ExisteVenta(_proximoIdVenta))
                     CancelarVenta();
-            };
+            };*/
 
             ProductosVenta?.Clear();
         }

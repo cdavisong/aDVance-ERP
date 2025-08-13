@@ -1,6 +1,9 @@
 ﻿using System.Globalization;
 
 using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos;
@@ -18,7 +21,7 @@ public static class UtilesVenta {
     private static decimal EjecutarConsultaDecimal(string query, params MySqlParameter[] parameters) {
         decimal resultado = 0;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
 
@@ -46,7 +49,7 @@ public static class UtilesVenta {
     private static int EjecutarConsultaEntero(string query, params MySqlParameter[] parameters) {
         var resultado = 0;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
 
@@ -73,7 +76,7 @@ public static class UtilesVenta {
     private static float EjecutarConsultaFlotante(string query, params MySqlParameter[] parameters) {
         var resultado = 0F;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
 
@@ -100,7 +103,7 @@ public static class UtilesVenta {
     private static List<string> EjecutarConsultaLista(string query, params MySqlParameter[] parameters) {
         var resultado = new List<string>();
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
 
@@ -408,7 +411,7 @@ public static class UtilesVenta {
 
     private static void EjecutarConsultaEstadistica(string query, MySqlParameter[]? parameters,
         Dictionary<DateTime, decimal> datos, DateTime fecha) {
-        using var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString());
+        using var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion());
 
         try {
             conexion.Open();

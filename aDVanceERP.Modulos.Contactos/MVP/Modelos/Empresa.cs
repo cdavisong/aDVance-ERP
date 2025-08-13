@@ -3,7 +3,7 @@
 using System.Drawing.Imaging;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos {
-    public class Empresa : IEntidad {
+    public class Empresa : IEntidadBaseDatos {
         private Image? _logotipo;
 
         public Empresa() {

@@ -1,5 +1,7 @@
-﻿
-using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos; 
@@ -8,7 +10,7 @@ public static class UtilesProducto {
     // Método auxiliar para ejecutar consultas y devolver un valor escalar
     private static async Task<T?> EjecutarConsultaEscalar<T>(string query, Func<MySqlDataReader, T> mapper,
         params MySqlParameter[]? parameters) {
-        await using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        await using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
 
@@ -37,7 +39,7 @@ public static class UtilesProducto {
         params MySqlParameter[]? parameters) {
         var resultados = new List<T>();
 
-        await using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        await using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
 
@@ -280,7 +282,7 @@ public static class UtilesProducto {
         };
 
         try {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
 
                 // Primero verificar el precio actual
@@ -369,7 +371,7 @@ public static class UtilesProducto {
         };
 
         try {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
 
                 // Verificar el precio actual
@@ -411,7 +413,7 @@ public static class UtilesProducto {
         };
 
         try {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
 
                 // Verificar el costo actual

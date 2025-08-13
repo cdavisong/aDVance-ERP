@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
-public class DetalleProducto : IEntidad {
+public class DetalleProducto : IEntidadBaseDatos {
     public DetalleProducto() {
         IdUnidadMedida = 0;
         Descripcion = "No hay descripción disponible";

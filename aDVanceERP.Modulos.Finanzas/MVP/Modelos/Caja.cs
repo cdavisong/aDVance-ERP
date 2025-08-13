@@ -7,7 +7,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         Cerrada
     }
 
-    public class Caja : IEntidad {
+    public class Caja : IEntidadBaseDatos {
         public Caja() { }
 
         public Caja(long id, DateTime fechaApertura, decimal saldoInicial, decimal saldoActual, DateTime fechaCierre, long idCuentaUsuario) {

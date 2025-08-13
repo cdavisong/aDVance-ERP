@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.MVP.Modelos;
 
-public class UnidadMedida : IEntidad {
+public class UnidadMedida : IEntidadBaseDatos {
     public UnidadMedida() {
         Id = 0;
         Nombre = string.Empty;

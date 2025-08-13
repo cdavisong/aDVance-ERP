@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
 
-public class Movimiento : IEntidad {
+public class Movimiento : IEntidadBaseDatos {
     public Movimiento() { }
 
     public Movimiento(long id, long idProducto, long idAlmacenOrigen, long idAlmacenDestino, DateTime fecha,

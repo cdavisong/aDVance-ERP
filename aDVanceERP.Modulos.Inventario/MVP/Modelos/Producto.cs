@@ -8,7 +8,7 @@ public enum CategoriaProducto {
     MateriaPrima
 }
 
-public class Producto : IEntidad {
+public class Producto : IEntidadBaseDatos {
     public Producto() {
         Categoria = CategoriaProducto.Mercancia;
         Nombre = "Producto genérico";

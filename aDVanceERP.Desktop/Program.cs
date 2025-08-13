@@ -1,11 +1,14 @@
 using System.Diagnostics;
 
+using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Presentadores.Principal;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Desktop; 
+namespace aDVanceERP.Desktop;
 
 internal static class Program {
     private static string CurrentDbVersion = "";
@@ -15,24 +18,21 @@ internal static class Program {
     /// </summary>
     [STAThread]
     private static void Main() {
-        // Verificar y ejecutar el patch si es necesario
-        if (VerificarEjecutarParcheBD()) {
-            // Configuración de la aplicación
-            ApplicationConfiguration.Initialize();
-            Application.Run((Form) new PresentadorPrincipal().Vista);
+        // Ejecutar el patch si es necesario
+        EjecutarParcheBD();
 
-            // Detener el servidor TCP
-            UtilesServidorScanner.Servidor.Detener();
-        } else {
-            MessageBox.Show(@"Error al actualizar la base de datos. La aplicación no puede continuar.",
-                @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        // Configuración de la aplicación
+        ApplicationConfiguration.Initialize();
+        Application.Run((Form) new PresentadorPrincipal().Vista);
+
+        // Detener el servidor TCP
+        UtilesServidorScanner.Servidor.Detener();
     }
 
-    private static bool VerificarEjecutarParcheBD() {
+    private static void EjecutarParcheBD() {
         try {
             // Verificar si el patch ya fue aplicado
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
 
                 // Crear tabla de control de versiones si no existe
@@ -60,20 +60,19 @@ internal static class Program {
                     cmd.Parameters.AddWithValue("@version", CurrentDbVersion);
                     var exists = Convert.ToInt32(cmd.ExecuteScalar()) > 0;
 
-                    if (exists) return true; // El patch ya fue aplicado
+                    if (exists) return; // El patch ya fue aplicado
                 }
             }
 
             // Si llegamos aquí, necesitamos ejecutar el patch
-            return EjecutarParche();
-        } catch (Exception ex) {
-            MessageBox.Show($@"Error al verificar la versión de la base de datos: {ex.Message}",
+            EjecutarParche();
+        } catch (MySqlException ex) {
+            MessageBox.Show($"No se pudo aplicar el parche de la Base de datos. {ex.Message}",
                 @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
         }
     }
 
-    private static bool EjecutarParche() {
+    private static void EjecutarParche() {
         try {
             var patchProcess = new Process {
                 StartInfo = new ProcessStartInfo {
@@ -86,7 +85,7 @@ internal static class Program {
             patchProcess.Start();
             patchProcess.WaitForExit();
 
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 conexion.Open();
 
                 // Registrar la versión aplicada
@@ -99,13 +98,9 @@ internal static class Program {
                     cmd.ExecuteNonQuery();
                 }
             }
-
-            // Verificar si el patch se aplicó correctamente
-            return patchProcess.ExitCode == 0;
         } catch (Exception ex) {
             MessageBox.Show($@"Error al ejecutar el patch: {ex.Message}",
                 @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
         }
     }
 }

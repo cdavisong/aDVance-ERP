@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-public class PermisoRolUsuario : IEntidad {
+public class PermisoRolUsuario : IEntidadBaseDatos {
     public PermisoRolUsuario() { }
 
     public PermisoRolUsuario(long id, long idRolUsuario, long idPermiso) {

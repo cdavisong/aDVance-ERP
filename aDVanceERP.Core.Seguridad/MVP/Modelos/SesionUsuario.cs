@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-public class SesionUsuario : IEntidad {
+public class SesionUsuario : IEntidadBaseDatos {
     public SesionUsuario() { }
 
     public SesionUsuario(long id, int idCuentaUsuario, string? token, DateTime fechaInicio) {

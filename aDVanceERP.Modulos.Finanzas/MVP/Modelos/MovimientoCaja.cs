@@ -6,7 +6,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos {
         Egreso
     }
 
-    public class MovimientoCaja : IEntidad {
+    public class MovimientoCaja : IEntidadBaseDatos {
         public MovimientoCaja() { }
 
         public MovimientoCaja(long id, long idCaja, DateTime fecha, decimal monto, TipoMovimientoCaja tipo, string? concepto, long idPago, long idUsuario, string? observaciones) {

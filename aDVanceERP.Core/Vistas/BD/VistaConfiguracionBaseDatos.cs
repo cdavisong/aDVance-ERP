@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Modelos.BD;
+﻿using aDVanceERP.Core.Infraestructura.Globales;
+using aDVanceERP.Core.Modelos.BD;
 using aDVanceERP.Core.Presentadores.BD;
 using aDVanceERP.Core.Properties;
 using aDVanceERP.Core.Repositorios.BD;
@@ -6,13 +7,14 @@ using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.Vistas.BD;
 
-public partial class VistaConfBd : Form, IVistaConfServidorMySQL {
-    private PresentadorConfBd? _presentador;
+public partial class VistaConfiguracionBaseDatos : Form, IVistaConfServidorMySQL {
+    private PresentadorConfiguracionBaseDatos? _presentador;
 
-    public VistaConfBd() {
+    public VistaConfiguracionBaseDatos() {
         InitializeComponent();
 
-        _presentador = new PresentadorConfBd(this, new RepoConfBd());
+        _presentador = new PresentadorConfiguracionBaseDatos(this, new RepoConfiguracionBaseDatos());
+        _presentador.ConfiguracionCargada += (s, e) => ConfiguracionCargada?.Invoke(s, e);
     }
 
     public bool Habilitada {
@@ -55,7 +57,8 @@ public partial class VistaConfBd : Form, IVistaConfServidorMySQL {
         set => fieldRecordarConfiguracionBd.Checked = value;
     }
 
-    public event EventHandler<ConfBd>? AlmacenarConfiguracion;
+    public event EventHandler<ConfiguracionBaseDatos>? AlmacenarConfiguracion;
+    public event EventHandler? ConfiguracionCargada;
 
     public void Inicializar() {
         // Conectar eventos
@@ -66,7 +69,7 @@ public partial class VistaConfBd : Form, IVistaConfServidorMySQL {
         };
         btnValidarConexion.Click += delegate(object? sender, EventArgs e) {
             AlmacenarConfiguracion?.Invoke(sender,
-                new ConfBd {
+                new ConfiguracionBaseDatos {
                     Servidor = NombreDireccionServidor ?? "localhost",
                     BaseDatos = NombreBaseDatos ?? "advanceerp",
                     Usuario = NombreUsuario ?? "admin",
@@ -77,8 +80,12 @@ public partial class VistaConfBd : Form, IVistaConfServidorMySQL {
     }
 
     public void Mostrar() {
-        BringToFront();
-        Show();
+        _presentador?.CargarConfiguracion();
+
+        if (!ContextoBaseDatos.EsConfiguracionCargada) {
+            BringToFront();
+            Show();
+        }
     }
 
     public void Restaurar() {

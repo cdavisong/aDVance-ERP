@@ -1,13 +1,14 @@
-﻿
-using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.Utiles;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.Utiles; 
 
 public static class UtilesSeguridadModulosAplicacion {
     public static void InicializarPermisosModulo(string nombreModulo, string[] nombresPermisos) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }

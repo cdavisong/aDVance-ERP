@@ -1,5 +1,7 @@
-﻿
-using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos; 
@@ -8,7 +10,7 @@ public static class UtilesMovimiento {
     public static long ObtenerIdTipoMovimiento(string nombreTipoMovimiento) {
         var idModulo = 0;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -33,7 +35,7 @@ public static class UtilesMovimiento {
     public static string? ObtenerNombreTipoMovimiento(long idTipoMovimiento) {
         var nombreTipoMovimiento = string.Empty;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -58,7 +60,7 @@ public static class UtilesMovimiento {
     public static string ObtenerEfectoTipoMovimiento(long idTipoMovimiento) {
         var efectoTipoMovimiento = string.Empty;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -83,7 +85,7 @@ public static class UtilesMovimiento {
     public static object[] ObtenerNombresTiposMovimientos(string? signo = "") {
         var nombresTiposMovimientos = new List<string>();
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -114,7 +116,7 @@ public static class UtilesMovimiento {
 
     public static void ModificarInventario(long idProducto, long idAlmacenOrigen, long idAlmacenDestino,
         decimal cantidad, decimal costoUnitario) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }

@@ -1,5 +1,8 @@
 ﻿
 using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos;
@@ -8,7 +11,7 @@ public static class UtilesMensajero {
     // Método auxiliar para ejecutar consultas y devolver un valor escalar
     private static async Task<T?> EjecutarConsultaEscalar<T>(string query, Func<MySqlDataReader, T> mapper,
         params MySqlParameter[]? parameters) {
-        await using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        await using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
 
@@ -36,7 +39,7 @@ public static class UtilesMensajero {
         params MySqlParameter[]? parameters) {
         var resultados = new List<T>();
 
-        await using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        await using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
 

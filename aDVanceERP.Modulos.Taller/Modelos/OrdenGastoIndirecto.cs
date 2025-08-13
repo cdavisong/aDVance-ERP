@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Taller.Modelos {
-    public class OrdenGastoIndirecto : IEntidad {
+    public class OrdenGastoIndirecto : IEntidadBaseDatos {
         public OrdenGastoIndirecto() {
             IdOrdenProduccion = 0;
             Concepto = string.Empty;

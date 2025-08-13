@@ -1,5 +1,6 @@
-﻿
-using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
 
 using MySql.Data.MySqlClient;
 
@@ -54,7 +55,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void EliminarTablasObsoletas() {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 try {
                     conexion.Open();
                 }
@@ -83,7 +84,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void CrearTablasProduccion() {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 try {
                     conexion.Open();
                 }
@@ -157,7 +158,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         public static void EliminarProductosDuplicados() {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 try {
                     conexion.Open();
                 }
@@ -256,7 +257,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void EliminarInconsistenciasDatos() {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 try {
                     conexion.Open();
                 } catch (Exception) {
@@ -314,7 +315,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void AgregarIndices() {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 try {
                     conexion.Open();
                 }
@@ -348,7 +349,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void ModificarTablasExistentes() {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 try {
                     conexion.Open();
                 }
@@ -404,7 +405,7 @@ namespace aDVanceERP.PatchDB {
         }
 
         private static void MejorarInventario() {
-            using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+            using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 try {
                     conexion.Open();
                 } catch (Exception) {

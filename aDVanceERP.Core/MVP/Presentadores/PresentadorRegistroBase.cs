@@ -8,7 +8,7 @@ namespace aDVanceERP.Core.MVP.Presentadores;
 public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>
     where Vr : class, IVistaRegistro
     where Do : class, IRepositorioDatos<O, C>, new()
-    where O : class, IEntidad, new()
+    where O : class, IEntidadBaseDatos, new()
     where C : Enum {
     private bool _disposed; // Para evitar llamadas redundantes a Dispose
 
@@ -19,7 +19,6 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
 
         Vista.RegistrarDatos += RegistrarDatosObjeto;
         Vista.EditarDatos += EditarDatosObjeto;
-        Vista.Salir += OnSalir;
     }
 
     protected O? Objeto { get; set; } // Objeto que se va a registrar o editar
@@ -92,7 +91,6 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
 
         Vista.RegistrarDatos -= RegistrarDatosObjeto;
         Vista.EditarDatos -= EditarDatosObjeto;
-        Vista.Salir -= OnSalir;
 
         _disposed = true;
     }

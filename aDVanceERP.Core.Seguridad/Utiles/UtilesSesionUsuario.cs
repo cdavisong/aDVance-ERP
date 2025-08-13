@@ -1,7 +1,9 @@
 ﻿using System.Security.Cryptography;
 
 using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.Utiles;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.Utiles; 
@@ -19,7 +21,7 @@ public static class UtilesSesionUsuario {
         var token = GenerarToken();
         var fechaInicio = DateTime.Now;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -54,7 +56,7 @@ public static class UtilesSesionUsuario {
     public static void CerrarSesion(string token) {
         var fechaFin = DateTime.Now;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -73,7 +75,7 @@ public static class UtilesSesionUsuario {
     }
 
     public static bool ValidarToken(string token) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -95,7 +97,7 @@ public static class UtilesSesionUsuario {
     public static TimeSpan ObtenerTiempoDeTrabajo(string token) {
         var tiempoDeTrabajo = TimeSpan.Zero;
 
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }

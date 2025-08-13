@@ -2,54 +2,55 @@
 using aDVanceERP.Core.Repositorios.Interfaces;
 
 namespace aDVanceERP.Core.Repositorios.BD {
-    public class RepoConfBd : IRepoConfBd<ConfBd> {
+    public class RepoConfiguracionBaseDatos : IRepoConfiguracionBaseDatos<ConfiguracionBaseDatos> {
         private const string NombreArchivo = "confServidorMySQL.json";
 
-        private List<ConfBd> _configuraciones;
+        private List<ConfiguracionBaseDatos> _configuraciones;
         private readonly string _directorioRaiz;
 
-        public RepoConfBd() {
-            _configuraciones = new List<ConfBd>();
+        public RepoConfiguracionBaseDatos() {
+            _configuraciones = new List<ConfiguracionBaseDatos>();
             _directorioRaiz = ".\\settings";
         }
 
-        public ConfBd Obtener() {
+        public ConfiguracionBaseDatos Obtener() {
             var rutaArchivo = Path.Combine(_directorioRaiz, NombreArchivo);
 
             if (File.Exists(rutaArchivo)) {
                 var contenido = File.ReadAllText(rutaArchivo);
-                _configuraciones = System.Text.Json.JsonSerializer.Deserialize<List<ConfBd>>(contenido) ?? new List<ConfBd>();
+
+                _configuraciones = System.Text.Json.JsonSerializer.Deserialize<List<ConfiguracionBaseDatos>>(contenido) ?? new List<ConfiguracionBaseDatos>();
             } else {
                 // Si el archivo no existe, retornar una configuración por defecto
-                _configuraciones = new List<ConfBd> {
-                    new ConfBd {
+                _configuraciones = new List<ConfiguracionBaseDatos> {
+                    new ConfiguracionBaseDatos {
                         Servidor = "localhost",
                         BaseDatos = "advanceerp",
                         Usuario = "admin",
                         Password = "admin",
-                        RecordarConfiguracion = true
+                        RecordarConfiguracion = false
                     }
                 };
             }
 
-            return _configuraciones.FirstOrDefault() ?? new ConfBd();
+            return _configuraciones.FirstOrDefault() ?? new ConfiguracionBaseDatos();
         }
 
-        public IEnumerable<ConfBd> ObtenerTodos() {
+        public IEnumerable<ConfiguracionBaseDatos> ObtenerTodos() {
             var rutaArchivo = Path.Combine(_directorioRaiz, NombreArchivo);
 
             if (File.Exists(rutaArchivo)) {
                 var contenido = File.ReadAllText(rutaArchivo);
-                _configuraciones = System.Text.Json.JsonSerializer.Deserialize<List<ConfBd>>(contenido) ?? new List<ConfBd>();
+                _configuraciones = System.Text.Json.JsonSerializer.Deserialize<List<ConfiguracionBaseDatos>>(contenido) ?? new List<ConfiguracionBaseDatos>();
             } else {
                 // Si el archivo no existe, retornar una lista vacía
-                _configuraciones = new List<ConfBd>();
+                _configuraciones = new List<ConfiguracionBaseDatos>();
             }
 
             return _configuraciones;
         }
 
-        public void Salvar(string directorio, ConfBd entidad) {
+        public void Salvar(string directorio, ConfiguracionBaseDatos entidad) {
             if (string.IsNullOrWhiteSpace(directorio)) {
                 directorio = _directorioRaiz;
             }

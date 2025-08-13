@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-public class RolUsuario : IEntidad {
+public class RolUsuario : IEntidadBaseDatos {
     public RolUsuario() { }
 
     public RolUsuario(long id, string nombre) {

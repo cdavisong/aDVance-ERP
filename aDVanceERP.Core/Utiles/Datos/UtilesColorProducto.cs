@@ -1,11 +1,13 @@
-﻿
-using aDVanceERP.Core.Excepciones;
+﻿using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos {
     public static class UtilesColorProducto {
         private static async Task<T?> EjecutarConsultaAsync<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
-            using var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString());
+            using var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion());
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
             } catch (MySqlException) {
@@ -22,7 +24,7 @@ namespace aDVanceERP.Core.Utiles.Datos {
         }
 
         private static T? EjecutarConsulta<T>(string query, Func<MySqlDataReader, T> procesarResultado, params MySqlParameter[] parametros) {
-            using var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString());
+            using var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion());
             try {
                 conexion.Open();
             } catch (MySqlException) {

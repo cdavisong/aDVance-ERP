@@ -1,6 +1,5 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Desktop.Utiles;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa;
 
@@ -13,7 +12,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
             _registroEmpresa = new PresentadorRegistroEmpresa(new VistaRegistroEmpresa());
             _registroEmpresa.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones, true);
             _registroEmpresa.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height, true);
-            _registroEmpresa.Vista.Salir += delegate {
+            ((Form)_registroEmpresa.Vista).FormClosing += delegate {
                 if (!_isRegistroEmpresa) {
                     _isRegistroEmpresa = false;
 

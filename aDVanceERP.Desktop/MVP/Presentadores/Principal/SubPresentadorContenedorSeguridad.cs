@@ -1,6 +1,8 @@
 ﻿using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad;
+using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal; 
 
@@ -10,10 +12,21 @@ public partial class PresentadorPrincipal {
     private void InicializarVistaContenedorSeguridad() {
         _contenedorSeguridad = new PresentadorContenedorSeguridad(Vista, new VistaContenedorSeguridad());
         _contenedorSeguridad.UsuarioAutenticado += delegate (object? sender, EventArgs e) {
-            MostrarVistaContenedorModulos(sender, e);
+            // Verificar el registro de la empresa y mostrar la vista de Login
+            using (var datosEmpresa = new DatosEmpresa()) {
+                if (datosEmpresa.Cantidad() == 0)
+                    MostrarVistaRegistroEmpresa(this, EventArgs.Empty);
+                else _isRegistroEmpresa = true;
+            }
 
-            if (_menuUsuario != null)
-                _menuUsuario.Vista.NombreUsuario = UtilesCuentaUsuario.UsuarioAutenticado?.Nombre;
+            if (_isRegistroEmpresa) {
+                MostrarVistaContenedorModulos(sender, e);
+
+                if (_menuUsuario != null)
+                    _menuUsuario.Vista.NombreUsuario = UtilesCuentaUsuario.UsuarioAutenticado?.Nombre;
+
+                ActualizarDatosEmpresa();
+            } else return;
         };
 
         Vista.Vistas?.Registrar("vistaContenedorSeguridad", _contenedorSeguridad.Vista);
@@ -28,5 +41,20 @@ public partial class PresentadorPrincipal {
 
         // Mostrar el botón de sub-menu para usuarios
         Vista.BtnSubmenuUsuarioDisponible = false;
+    }
+
+    private void ActualizarDatosEmpresa() {
+        using (var datosEmpresa = new DatosEmpresa()) {
+            _empresa = datosEmpresa.Obtener().FirstOrDefault();
+
+            if (_menuUsuario != null && _empresa != null) {
+                _menuUsuario.Vista.LogotipoEmpresa = _empresa.Logotipo;
+                _menuUsuario.Vista.NombreEmpresa = _empresa.Nombre;
+                _menuUsuario.Vista.CorreoElectronico = UtilesContacto.ObtenerCorreoElectronicoContacto(_empresa.IdContacto);
+
+                // Actualizar el id de la empresa
+                IdEmpresa = _menuUsuario.Vista.IdEmpresa;
+            }
+        }
     }
 }

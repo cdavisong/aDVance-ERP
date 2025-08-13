@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
 
-public class Almacen : IEntidad {
+public class Almacen : IEntidadBaseDatos {
     public Almacen() { }
 
     public Almacen(long idAlmacen, string nombre, string direccion, bool autorizoVenta, string notas) {

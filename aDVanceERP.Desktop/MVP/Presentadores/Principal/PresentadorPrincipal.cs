@@ -4,13 +4,11 @@ using aDVanceERP.Core.Mensajes.Servicios.Telegram;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
-using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.MVP.Vistas.Principal;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 using aDVanceERP.Modulos.CompraVenta;
 using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas;
 using aDVanceERP.Modulos.Inventario;
 using aDVanceERP.Modulos.Taller;
@@ -26,7 +24,6 @@ public partial class PresentadorPrincipal {
 
         // Eventos
         Vista.SubMenuUsuario += MostrarVistaMenuUsuario;
-        Vista.Salir += DisponerModulos;
 
         #region Menu de usuario
 
@@ -47,18 +44,6 @@ public partial class PresentadorPrincipal {
 
         #endregion
 
-        // Verificar el registro de la empresa y mostrar la vista de Login
-        using (var datosEmpresa = new DatosEmpresa()) {
-            if (datosEmpresa.Cantidad() == 0)
-                MostrarVistaRegistroEmpresa(this, EventArgs.Empty);
-            else _isRegistroEmpresa = true;
-        }
-
-        if (_isRegistroEmpresa) {            
-            MostrarVistaContenedorSeguridad(this, EventArgs.Empty);
-            ActualizarDatosEmpresa();
-        } else return;
-
         #region Característica : Servicio de Bot para administración de la aplicación en Telegram
         //TODO: Implementar configuración del servicio Telegram
         ServicioBotTelegram = new ServicioBotAdvanceErpTelegram("7527001809:AAEs_sjefuSInx_dqFX9C8jr-9ckiRJQlkw");
@@ -73,21 +58,9 @@ public partial class PresentadorPrincipal {
         UtilesServidorScanner.Servidor.IniciarAsync(9002);
 
         #endregion
-    }
 
-    private void ActualizarDatosEmpresa() {
-        using (var datosEmpresa = new DatosEmpresa()) {
-            _empresa = datosEmpresa.Obtener().FirstOrDefault();
-
-            if (_menuUsuario != null && _empresa != null) {
-                _menuUsuario.Vista.LogotipoEmpresa = _empresa.Logotipo;
-                _menuUsuario.Vista.NombreEmpresa = _empresa.Nombre;
-                _menuUsuario.Vista.CorreoElectronico = UtilesContacto.ObtenerCorreoElectronicoContacto(_empresa.IdContacto);
-
-                // Actualizar el id de la empresa
-                IdEmpresa = _menuUsuario.Vista.IdEmpresa;
-            }
-        }
+        // Otros
+        MostrarVistaContenedorSeguridad(this, EventArgs.Empty);
     }
 
     public IVistaPrincipal Vista { get; }

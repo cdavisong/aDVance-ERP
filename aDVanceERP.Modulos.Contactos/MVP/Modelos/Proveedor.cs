@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos;
 
-public class Proveedor : IEntidad {
+public class Proveedor : IEntidadBaseDatos {
     public Proveedor() { }
 
     public Proveedor(long idProveedor, string razonSocial, string numeroIdentificacionTributaria,

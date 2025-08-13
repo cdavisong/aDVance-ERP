@@ -1,5 +1,7 @@
 ﻿
 using aDVanceERP.Core.Excepciones;
+using aDVanceERP.Core.Infraestructura.Extensiones;
+using aDVanceERP.Core.Infraestructura.Globales;
 using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 
@@ -25,7 +27,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     public virtual long Adicionar(O objeto) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             conexion.Open();
 
             using (var comando = conexion.CreateCommand()) {
@@ -38,7 +40,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     public virtual async Task<long> AdicionarAsync(O objeto) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             await conexion.OpenAsync().ConfigureAwait(false);
 
             using (var comando = conexion.CreateCommand()) {
@@ -151,7 +153,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     private T EjecutarConsultaEscalar<T>(string comandoTexto) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -167,7 +169,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     private async Task<T> EjecutarConsultaEscalarAsync<T>(string comandoTexto) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
             }
@@ -186,7 +188,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     private void EjecutarComandoNoQuery(string comandoTexto) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -202,7 +204,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     private async Task EjecutarComandoNoQueryAsync(string comandoTexto) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
             }
@@ -218,7 +220,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     private IEnumerable<O> EjecutarConsulta(string comandoTexto, Action<MySqlDataReader> procesarLector) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 conexion.Open();
             }
@@ -240,7 +242,7 @@ public abstract class RepositorioDatosBase<O, C> : IRepositorioDatos<O, C>, IDis
     }
 
     private async Task<IEnumerable<O>> EjecutarConsultaAsync(string comandoTexto) {
-        using (var conexion = new MySqlConnection(ConectorDB.ConfServidorMySQL.ToString())) {
+        using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
             try {
                 await conexion.OpenAsync().ConfigureAwait(false);
             }

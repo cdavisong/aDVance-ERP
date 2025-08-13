@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos; 
 
-public class CuentaUsuario : IEntidad {
+public class CuentaUsuario : IEntidadBaseDatos {
     public CuentaUsuario() { }
 
     public CuentaUsuario(long id, string nombre, string passwordHash, string passwordSalt, long idRolUsuario) {

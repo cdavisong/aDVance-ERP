@@ -17,7 +17,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Vistas\BD\VistaConfBd.cs">
+    <Compile Update="Vistas\BD\VistaConfiguracionBaseDatos.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -34,8 +34,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controladores\" />
-    <Folder Include="Infraestructura\Globales\" />
-    <Folder Include="Servicios\" />
+    <Folder Include="Modelos\Interfaces\" />
     <Folder Include="Presentadores\Interfaces\" />
+    <Folder Include="Servicios\Interfaces\" />
   </ItemGroup>
 </Project>

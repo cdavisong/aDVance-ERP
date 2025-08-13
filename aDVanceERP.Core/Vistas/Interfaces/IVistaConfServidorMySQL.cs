@@ -8,6 +8,7 @@ namespace aDVanceERP.Core.Vistas.Interfaces {
         string? Password { get; }
         bool RecordarConfiguracion { get; set; }
 
-        event EventHandler<ConfBd>? AlmacenarConfiguracion;
+        event EventHandler<ConfiguracionBaseDatos>? AlmacenarConfiguracion;
+        event EventHandler? ConfiguracionCargada;
     }
 }
