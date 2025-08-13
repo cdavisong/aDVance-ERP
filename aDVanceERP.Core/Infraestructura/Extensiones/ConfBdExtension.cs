@@ -1,8 +1,8 @@
 ﻿using aDVanceERP.Core.Modelos.BD;
 
 namespace aDVanceERP.Core.Infraestructura.Extensiones {
-    public static class ConfServidorMySQLExtension {
-        public static string ToStringConexion(this ConfServidorMySQL conf) {
+    public static class ConfBdExtension {
+        public static string ToStringConexion(this ConfBd conf) {
             if (conf == null) {
                 throw new ArgumentNullException(nameof(conf), "La configuración del servidor MySQL no puede ser nula.");
             }

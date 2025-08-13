@@ -17,7 +17,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Vistas\BD\VistaConfServidorMySQL.cs">
+    <Compile Update="Vistas\BD\VistaConfBd.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -34,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controladores\" />
+    <Folder Include="Infraestructura\Globales\" />
     <Folder Include="Servicios\" />
     <Folder Include="Presentadores\Interfaces\" />
   </ItemGroup>

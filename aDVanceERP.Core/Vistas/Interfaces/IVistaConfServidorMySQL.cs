@@ -8,6 +8,6 @@ namespace aDVanceERP.Core.Vistas.Interfaces {
         string? Password { get; }
         bool RecordarConfiguracion { get; set; }
 
-        event EventHandler<ConfServidorMySQL>? AlmacenarConfiguracion;
+        event EventHandler<ConfBd>? AlmacenarConfiguracion;
     }
 }

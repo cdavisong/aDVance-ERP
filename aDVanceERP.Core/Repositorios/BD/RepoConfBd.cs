@@ -2,27 +2,27 @@
 using aDVanceERP.Core.Repositorios.Interfaces;
 
 namespace aDVanceERP.Core.Repositorios.BD {
-    public class RepoConfServidorMySQL : IRepoConfServidorMySQL<ConfServidorMySQL> {
+    public class RepoConfBd : IRepoConfBd<ConfBd> {
         private const string NombreArchivo = "confServidorMySQL.json";
 
-        private List<ConfServidorMySQL> _configuraciones;
+        private List<ConfBd> _configuraciones;
         private readonly string _directorioRaiz;
 
-        public RepoConfServidorMySQL() {
-            _configuraciones = new List<ConfServidorMySQL>();
+        public RepoConfBd() {
+            _configuraciones = new List<ConfBd>();
             _directorioRaiz = ".\\settings";
         }
 
-        public ConfServidorMySQL Obtener() {
+        public ConfBd Obtener() {
             var rutaArchivo = Path.Combine(_directorioRaiz, NombreArchivo);
 
             if (File.Exists(rutaArchivo)) {
                 var contenido = File.ReadAllText(rutaArchivo);
-                _configuraciones = System.Text.Json.JsonSerializer.Deserialize<List<ConfServidorMySQL>>(contenido) ?? new List<ConfServidorMySQL>();
+                _configuraciones = System.Text.Json.JsonSerializer.Deserialize<List<ConfBd>>(contenido) ?? new List<ConfBd>();
             } else {
                 // Si el archivo no existe, retornar una configuración por defecto
-                _configuraciones = new List<ConfServidorMySQL> {
-                    new ConfServidorMySQL {
+                _configuraciones = new List<ConfBd> {
+                    new ConfBd {
                         Servidor = "localhost",
                         BaseDatos = "advanceerp",
                         Usuario = "admin",
@@ -32,24 +32,24 @@ namespace aDVanceERP.Core.Repositorios.BD {
                 };
             }
 
-            return _configuraciones.FirstOrDefault() ?? new ConfServidorMySQL();
+            return _configuraciones.FirstOrDefault() ?? new ConfBd();
         }
 
-        public IEnumerable<ConfServidorMySQL> ObtenerTodos() {
+        public IEnumerable<ConfBd> ObtenerTodos() {
             var rutaArchivo = Path.Combine(_directorioRaiz, NombreArchivo);
 
             if (File.Exists(rutaArchivo)) {
                 var contenido = File.ReadAllText(rutaArchivo);
-                _configuraciones = System.Text.Json.JsonSerializer.Deserialize<List<ConfServidorMySQL>>(contenido) ?? new List<ConfServidorMySQL>();
+                _configuraciones = System.Text.Json.JsonSerializer.Deserialize<List<ConfBd>>(contenido) ?? new List<ConfBd>();
             } else {
                 // Si el archivo no existe, retornar una lista vacía
-                _configuraciones = new List<ConfServidorMySQL>();
+                _configuraciones = new List<ConfBd>();
             }
 
             return _configuraciones;
         }
 
-        public void Salvar(string directorio, ConfServidorMySQL entidad) {
+        public void Salvar(string directorio, ConfBd entidad) {
             if (string.IsNullOrWhiteSpace(directorio)) {
                 directorio = _directorioRaiz;
             }

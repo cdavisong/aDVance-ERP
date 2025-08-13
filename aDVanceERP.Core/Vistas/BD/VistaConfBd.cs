@@ -6,13 +6,13 @@ using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.Vistas.BD;
 
-public partial class VistaConfServidorMySQL : Form, IVistaConfServidorMySQL {
-    private PresentadorConfServidorMySQL? _presentador;
+public partial class VistaConfBd : Form, IVistaConfServidorMySQL {
+    private PresentadorConfBd? _presentador;
 
-    public VistaConfServidorMySQL() {
+    public VistaConfBd() {
         InitializeComponent();
 
-        _presentador = new PresentadorConfServidorMySQL(this, new RepoConfServidorMySQL());
+        _presentador = new PresentadorConfBd(this, new RepoConfBd());
     }
 
     public bool Habilitada {
@@ -55,7 +55,7 @@ public partial class VistaConfServidorMySQL : Form, IVistaConfServidorMySQL {
         set => fieldRecordarConfiguracionBd.Checked = value;
     }
 
-    public event EventHandler<ConfServidorMySQL>? AlmacenarConfiguracion;
+    public event EventHandler<ConfBd>? AlmacenarConfiguracion;
 
     public void Inicializar() {
         // Conectar eventos
@@ -66,7 +66,7 @@ public partial class VistaConfServidorMySQL : Form, IVistaConfServidorMySQL {
         };
         btnValidarConexion.Click += delegate(object? sender, EventArgs e) {
             AlmacenarConfiguracion?.Invoke(sender,
-                new ConfServidorMySQL {
+                new ConfBd {
                     Servidor = NombreDireccionServidor ?? "localhost",
                     BaseDatos = NombreBaseDatos ?? "advanceerp",
                     Usuario = NombreUsuario ?? "admin",

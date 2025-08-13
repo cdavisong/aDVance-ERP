@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Modelos.BD; 
 
-public class ConfServidorMySQL : IEntidad {
+public class ConfBd : IEntidad {
     public string? Servidor { get; set; }
     public string? BaseDatos { get; set; }
     public string? Usuario { get; set; }

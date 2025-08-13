@@ -4,12 +4,12 @@ using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Core.Vistas.BD;
 
 namespace aDVanceERP.Core.Presentadores.BD {
-    public class PresentadorConfServidorMySQL : PresentadorBase<VistaConfServidorMySQL, RepoConfServidorMySQL, ConfServidorMySQL> {
-        public PresentadorConfServidorMySQL(VistaConfServidorMySQL vista, RepoConfServidorMySQL repositorio) : base(vista, repositorio) {
+    public class PresentadorConfBd : PresentadorBase<VistaConfBd, RepoConfBd, ConfBd> {
+        public PresentadorConfBd(VistaConfBd vista, RepoConfBd repositorio) : base(vista, repositorio) {
             Vista.AlmacenarConfiguracion += OnAlmacenarConfiguracion;            
         }
 
-        private void OnAlmacenarConfiguracion(object? sender, ConfServidorMySQL e) {
+        private void OnAlmacenarConfiguracion(object? sender, ConfBd e) {
             if (e == null) {
                 throw new ArgumentNullException(nameof(e), "La configuración del servidor MySQL no puede ser nula.");
             }
