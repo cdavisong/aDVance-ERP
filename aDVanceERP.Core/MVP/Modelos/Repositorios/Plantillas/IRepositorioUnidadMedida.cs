@@ -1,4 +1,6 @@
-﻿namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Interfaces;
 
-internal interface IRepositorioUnidadMedida : IRepositorioDatos<UnidadMedida, FiltroBusquedaUnidadMedida> { }
+namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+
+internal interface IRepositorioUnidadMedida : IRepoEntidadBaseDatos<UnidadMedida, FiltroBusquedaUnidadMedida> { }
 

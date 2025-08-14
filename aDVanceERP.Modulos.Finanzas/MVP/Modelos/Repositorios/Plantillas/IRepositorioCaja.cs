@@ -1,5 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Interfaces;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas {
-    public interface IRepositorioCaja : IRepositorioDatos<Caja, FiltroBusquedaCaja> { }
+namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas
+{
+    public interface IRepositorioCaja : IRepoEntidadBaseDatos<Caja, FiltroBusquedaCaja> { }
 }

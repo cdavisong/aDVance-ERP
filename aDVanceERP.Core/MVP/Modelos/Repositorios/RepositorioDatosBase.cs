@@ -1,12 +1,11 @@
 ﻿using aDVanceERP.Core.Infraestructura.Globales;
 using aDVanceERP.Core.Modelos.Comun.Interfaces;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
-
+using aDVanceERP.Core.Repositorios.Interfaces;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
 
-public abstract class RepositorioDatosBase<En, Fb> : IRepositorioDatos<En, Fb>
+public abstract class RepositorioDatosBase<En, Fb> : IRepoEntidadBaseDatos<En, Fb>
     where En : class, IEntidadBaseDatos, new()
     where Fb : Enum {
     protected RepositorioDatosBase() {

@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Interfaces;
 
-namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios.Plantillas; 
+namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios.Plantillas;
 
 public interface
-    IRepositorioModuloAplicacion : IRepositorioDatos<ModuloAplicacion, FiltroBusquedaModuloAplicacion> { }
+    IRepositorioModuloAplicacion : IRepoEntidadBaseDatos<ModuloAplicacion, FiltroBusquedaModuloAplicacion> { }

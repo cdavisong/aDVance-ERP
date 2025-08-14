@@ -1,13 +1,13 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Repositorios.Interfaces;
 
-namespace aDVanceERP.Core.MVP.Presentadores; 
+namespace aDVanceERP.Core.MVP.Presentadores;
 
 public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>
     where Vr : class, IVistaRegistro
-    where Do : class, IRepositorioDatos<O, C>, new()
+    where Do : class, IRepoEntidadBaseDatos<O, C>, new()
     where O : class, IEntidadBaseDatos, new()
     where C : Enum {
     private bool _disposed; // Para evitar llamadas redundantes a Dispose

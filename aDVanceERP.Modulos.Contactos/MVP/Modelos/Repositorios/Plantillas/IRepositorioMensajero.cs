@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Interfaces;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioMensajero : IRepositorioDatos<Mensajero, FiltroBusquedaMensajero> { }
+public interface IRepositorioMensajero : IRepoEntidadBaseDatos<Mensajero, FiltroBusquedaMensajero> { }

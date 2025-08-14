@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Interfaces;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas; 
+namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioCuentaUsuario : IRepositorioDatos<CuentaUsuario, FiltroBusquedaCuentaUsuario> { }
+public interface IRepositorioCuentaUsuario : IRepoEntidadBaseDatos<CuentaUsuario, FiltroBusquedaCuentaUsuario> { }

@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Interfaces;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioContacto : IRepositorioDatos<Contacto, FiltroBusquedaContacto> { }
+public interface IRepositorioContacto : IRepoEntidadBaseDatos<Contacto, FiltroBusquedaContacto> { }

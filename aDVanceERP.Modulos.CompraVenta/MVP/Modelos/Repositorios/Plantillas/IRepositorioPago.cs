@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Interfaces;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioPago : IRepositorioDatos<Pago, FiltroBusquedaPago> { }
+public interface IRepositorioPago : IRepoEntidadBaseDatos<Pago, FiltroBusquedaPago> { }

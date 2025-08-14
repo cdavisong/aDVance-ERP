@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Interfaces;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 
 public interface
-    IRepositorioDetalleVentaProducto : IRepositorioDatos<DetalleVentaProducto, CriterioDetalleVentaProducto> { }
+    IRepositorioDetalleVentaProducto : IRepoEntidadBaseDatos<DetalleVentaProducto, CriterioDetalleVentaProducto> { }

@@ -1,18 +1,18 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Plantillas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Repositorios.Interfaces;
 using aDVanceERP.Core.Utiles;
 
-namespace aDVanceERP.Core.MVP.Presentadores; 
+namespace aDVanceERP.Core.MVP.Presentadores;
 
 public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : PresentadorBase<Vg>,
     IPresentadorGestion<Vg, Do, O, C>
     where Pt : IPresentadorTupla<Vt, O>
     where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorDatos<C>, IGestorTablaDatos
     where Vt : IVistaTupla
-    where Do : class, IRepositorioDatos<O, C>, new()
+    where Do : class, IRepoEntidadBaseDatos<O, C>, new()
     where O : class, IEntidadBaseDatos, new()
     where C : Enum {
     protected readonly List<Pt> _tuplasObjetos;

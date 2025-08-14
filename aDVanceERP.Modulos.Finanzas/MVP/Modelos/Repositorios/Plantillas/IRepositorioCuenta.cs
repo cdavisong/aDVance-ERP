@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Interfaces;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas; 
+namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioCuentaBancaria : IRepositorioDatos<CuentaBancaria, FiltroBusquedaCuentaBancaria> { }
+public interface IRepositorioCuentaBancaria : IRepoEntidadBaseDatos<CuentaBancaria, FiltroBusquedaCuentaBancaria> { }
