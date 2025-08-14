@@ -1,11 +1,12 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Taller.Modelos;
 
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Repositorios {
-    public class RepoOrdenProduccion : RepositorioDatosBase<OrdenProduccion, FiltroBusquedaOrdenProduccion> {
+namespace aDVanceERP.Modulos.Taller.Repositorios
+{
+    public class RepoOrdenProduccion : RepoEntidadBaseDatos<OrdenProduccion, FiltroBusquedaOrdenProduccion> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_produccion) 

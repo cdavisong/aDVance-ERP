@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosProducto : RepositorioDatosBase<Producto, FiltroBusquedaProducto>, IRepositorioProducto
+public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProducto>, IRepositorioProducto
 {
     public override string ComandoCantidad()
     {

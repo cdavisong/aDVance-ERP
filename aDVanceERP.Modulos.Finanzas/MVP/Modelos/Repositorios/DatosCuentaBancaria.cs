@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 
-public class DatosCuentaBancaria : RepositorioDatosBase<CuentaBancaria, FiltroBusquedaCuentaBancaria>,
+public class DatosCuentaBancaria : RepoEntidadBaseDatos<CuentaBancaria, FiltroBusquedaCuentaBancaria>,
     IRepositorioCuentaBancaria {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_cuenta_bancaria) FROM adv__cuenta_bancaria;";

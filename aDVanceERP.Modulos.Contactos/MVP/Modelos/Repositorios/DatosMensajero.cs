@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosMensajero : RepositorioDatosBase<Mensajero, FiltroBusquedaMensajero>, IRepositorioMensajero {
+public class DatosMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMensajero>, IRepositorioMensajero {
     public override string ComandoCantidad() {
         return """
                SELECT

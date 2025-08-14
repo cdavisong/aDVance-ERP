@@ -1,11 +1,12 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Taller.Modelos;
 
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Repositorios {
-    public class RepoOrdenGastoIndirecto : RepositorioDatosBase<OrdenGastoIndirecto, FiltroBusquedaOrdenGastoIndirecto> {
+namespace aDVanceERP.Modulos.Taller.Repositorios
+{
+    public class RepoOrdenGastoIndirecto : RepoEntidadBaseDatos<OrdenGastoIndirecto, FiltroBusquedaOrdenGastoIndirecto> {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_gasto_indirecto) 

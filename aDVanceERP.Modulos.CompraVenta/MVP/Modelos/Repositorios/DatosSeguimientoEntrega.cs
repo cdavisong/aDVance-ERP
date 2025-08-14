@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosSeguimientoEntrega : RepositorioDatosBase<SeguimientoEntrega, FiltroBusquedaSeguimientoEntrega>,
+public class DatosSeguimientoEntrega : RepoEntidadBaseDatos<SeguimientoEntrega, FiltroBusquedaSeguimientoEntrega>,
     IRepositorioSeguimientoEntrega {
     public override string ComandoCantidad() {
         return "SELECT COUNT(*) FROM adv__seguimiento_entrega";

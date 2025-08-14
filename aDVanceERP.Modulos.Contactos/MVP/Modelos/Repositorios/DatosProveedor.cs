@@ -1,14 +1,14 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Infraestructura.Extensiones;
 using aDVanceERP.Core.Infraestructura.Globales;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosProveedor : RepositorioDatosBase<Proveedor, FiltroBusquedaProveedor>, IRepositorioProveedor {
+public class DatosProveedor : RepoEntidadBaseDatos<Proveedor, FiltroBusquedaProveedor>, IRepositorioProveedor {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_proveedor) FROM adv__proveedor;";
     }

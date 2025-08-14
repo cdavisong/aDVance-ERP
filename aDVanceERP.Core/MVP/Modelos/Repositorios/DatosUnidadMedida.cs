@@ -1,10 +1,10 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
-
+using aDVanceERP.Core.Repositorios.BD;
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
 
-public class DatosUnidadMedida : RepositorioDatosBase<UnidadMedida, FiltroBusquedaUnidadMedida>, IRepositorioUnidadMedida {
+public class DatosUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusquedaUnidadMedida>, IRepositorioUnidadMedida {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_unidad_medida) FROM adv__unidad_medida;";
     }

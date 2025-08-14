@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosDetalleVentaProducto : RepositorioDatosBase<DetalleVentaProducto, CriterioDetalleVentaProducto>,
+public class DatosDetalleVentaProducto : RepoEntidadBaseDatos<DetalleVentaProducto, CriterioDetalleVentaProducto>,
     IRepositorioDetalleVentaProducto {
     public override string ComandoCantidad() {
         return """

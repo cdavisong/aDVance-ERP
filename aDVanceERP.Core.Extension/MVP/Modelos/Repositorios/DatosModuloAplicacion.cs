@@ -1,10 +1,10 @@
 ﻿using aDVanceERP.Core.Extension.MVP.Modelos.Repositorios.Plantillas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.BD;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios;
 
-internal class DatosModuloAplicacion : RepositorioDatosBase<ModuloAplicacion, FiltroBusquedaModuloAplicacion>,
+internal class DatosModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, FiltroBusquedaModuloAplicacion>,
     IRepositorioModuloAplicacion {
     public override string ComandoAdicionar(ModuloAplicacion objeto) {
         return $"INSERT INTO adv__modulo_aplicacion (nombre, version) VALUES ('{objeto.Nombre}', '{objeto.Version}');";

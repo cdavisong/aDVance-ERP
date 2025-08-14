@@ -1,14 +1,14 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Infraestructura.Extensiones;
 using aDVanceERP.Core.Infraestructura.Globales;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
-public class DatosPermisoRolUsuario : RepositorioDatosBase<PermisoRolUsuario, FiltroBusquedaPermisoRolUsuario>,
+public class DatosPermisoRolUsuario : RepoEntidadBaseDatos<PermisoRolUsuario, FiltroBusquedaPermisoRolUsuario>,
     IRepositorioPermisoRolUsuario {
     public override string ComandoAdicionar(PermisoRolUsuario objeto) {
         return $"INSERT INTO adv__rol_permiso (id_rol_usuario, id_permiso) VALUES ('{objeto.IdRolUsuario}', '{objeto.IdPermiso}');";

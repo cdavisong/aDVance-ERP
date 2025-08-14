@@ -3,12 +3,12 @@ using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.Repositorios.Interfaces;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Core.Repositorios.BD;
 
-public abstract class RepositorioDatosBase<En, Fb> : IRepoEntidadBaseDatos<En, Fb>
+public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, Fb>
     where En : class, IEntidadBaseDatos, new()
     where Fb : Enum {
-    protected RepositorioDatosBase() {
+    protected RepoEntidadBaseDatos() {
         CacheEntidades = new List<En>();
     }
 
@@ -42,7 +42,7 @@ public abstract class RepositorioDatosBase<En, Fb> : IRepoEntidadBaseDatos<En, F
             consulta = consulta.TrimEnd(';'); // Eliminar el ; si existe
             consulta += $" LIMIT {limite}";
 
-            if (desplazamiento > 0) 
+            if (desplazamiento > 0)
                 consulta += $" OFFSET {desplazamiento}";
 
             consulta += ";"; // Agregar el ; al final
@@ -81,7 +81,7 @@ public abstract class RepositorioDatosBase<En, Fb> : IRepoEntidadBaseDatos<En, F
         if (disposing) CacheEntidades?.Clear();
     }
 
-    ~RepositorioDatosBase() {
+    ~RepoEntidadBaseDatos() {
         Dispose(false);
     }
 }

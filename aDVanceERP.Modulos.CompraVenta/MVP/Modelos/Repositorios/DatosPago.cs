@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosPago : RepositorioDatosBase<Pago, FiltroBusquedaPago>, IRepositorioPago {
+public class DatosPago : RepoEntidadBaseDatos<Pago, FiltroBusquedaPago>, IRepositorioPago {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_pago) FROM adv__pago;";
     }

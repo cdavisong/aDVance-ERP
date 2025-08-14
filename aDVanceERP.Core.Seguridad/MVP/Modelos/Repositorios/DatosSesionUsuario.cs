@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
-public class DatosSesionUsuario : RepositorioDatosBase<SesionUsuario, FiltroBusquedaSesionUsuario>,
+public class DatosSesionUsuario : RepoEntidadBaseDatos<SesionUsuario, FiltroBusquedaSesionUsuario>,
     IRepositorioSesionUsuario {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_sesion_usuario) FROM adv__sesion_usuario;";

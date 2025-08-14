@@ -1,11 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using MySql.Data.MySqlClient;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class RepoInventario : RepositorioDatosBase<MVP.Modelos.Inventario, FiltroBusquedaInventario> {
+public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, FiltroBusquedaInventario> {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_inventario) FROM adv__inventario;";
     }

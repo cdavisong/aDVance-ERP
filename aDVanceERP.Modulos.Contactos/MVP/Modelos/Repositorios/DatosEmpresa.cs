@@ -1,12 +1,13 @@
 ﻿using aDVanceERP.Core.Infraestructura.Extensiones;
 using aDVanceERP.Core.Infraestructura.Globales;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
+using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios {
-    public class DatosEmpresa : RepositorioDatosBase<Empresa, FiltroBusquedaEmpresa>, IRepositorioEmpresa {
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
+{
+    public class DatosEmpresa : RepoEntidadBaseDatos<Empresa, FiltroBusquedaEmpresa>, IRepositorioEmpresa {
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_empresa) 

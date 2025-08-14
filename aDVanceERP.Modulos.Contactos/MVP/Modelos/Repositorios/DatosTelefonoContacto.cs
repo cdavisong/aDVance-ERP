@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosTelefonoContacto : RepositorioDatosBase<TelefonoContacto, FiltroBusquedaTelefonoContacto>,
+public class DatosTelefonoContacto : RepoEntidadBaseDatos<TelefonoContacto, FiltroBusquedaTelefonoContacto>,
     IRepositorioTelefonoContacto {
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_telefono_contacto) FROM adv__telefono_contacto;";

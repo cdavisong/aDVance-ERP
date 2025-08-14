@@ -1,12 +1,13 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios {
-    public class DatosCaja : RepositorioDatosBase<Caja, FiltroBusquedaCaja>, IRepositorioCaja {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios
+{
+    public class DatosCaja : RepoEntidadBaseDatos<Caja, FiltroBusquedaCaja>, IRepositorioCaja {
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_caja) FROM adv__caja;";
         }
