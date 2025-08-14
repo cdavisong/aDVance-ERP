@@ -9,7 +9,7 @@ public class DatosUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusque
         return "SELECT COUNT(id_unidad_medida) FROM adv__unidad_medida;";
     }
 
-    public override string ComandoAdicionar(UnidadMedida objeto) {
+    public override string GenerarComandoInsertar(UnidadMedida objeto) {
         return $"""
                 INSERT INTO adv__unidad_medida (
                     nombre,
@@ -24,7 +24,7 @@ public class DatosUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusque
                 """;
     }
 
-    public override string ComandoEditar(UnidadMedida objeto) {
+    public override string GenerarComandoActualizar(UnidadMedida objeto) {
         return $"""
                 UPDATE adv__unidad_medida
                 SET
@@ -46,7 +46,7 @@ public class DatosUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusque
                 """;
     }
     
-    public override string ComandoObtener(FiltroBusquedaUnidadMedida criterio, string dato) {
+    public override string GenerarClausulaWhere(FiltroBusquedaUnidadMedida criterio, string dato) {
         var comando = criterio switch {
             FiltroBusquedaUnidadMedida.Todos => "SELECT * FROM adv__unidad_medida;",
             FiltroBusquedaUnidadMedida.Id => $"SELECT * FROM adv__unidad_medida WHERE id_unidad_medida = {dato};",
@@ -58,7 +58,7 @@ public class DatosUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusque
         return comando;
     }
 
-    public override UnidadMedida MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override UnidadMedida MapearEntidad(MySqlDataReader lectorDatos) {
         return new UnidadMedida(
             lectorDatos.GetInt64("id_unidad_medida"),
             lectorDatos.GetString("nombre"),

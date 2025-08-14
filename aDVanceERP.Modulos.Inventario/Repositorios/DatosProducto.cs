@@ -13,7 +13,7 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
         return "SELECT COUNT(id_producto) FROM adv__producto;";
     }
 
-    public override string ComandoAdicionar(Producto objeto)
+    public override string GenerarComandoInsertar(Producto objeto)
     {
         return $"""
                 INSERT INTO adv__producto (
@@ -43,7 +43,7 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
                 """;
     }
 
-    public override string ComandoEditar(Producto objeto)
+    public override string GenerarComandoActualizar(Producto objeto)
     {
         return $"""
                 UPDATE adv__producto
@@ -77,7 +77,7 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
             """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaProducto criterio, string dato)
+    public override string GenerarClausulaWhere(FiltroBusquedaProducto criterio, string dato)
     {
         if (string.IsNullOrEmpty(dato))
             dato = "Todos";
@@ -148,7 +148,7 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
         return comando;
     }
 
-    public override Producto MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
+    public override Producto MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new Producto(
             id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),

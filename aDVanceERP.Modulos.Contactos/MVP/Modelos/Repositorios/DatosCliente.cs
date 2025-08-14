@@ -9,11 +9,11 @@ public class DatosCliente : RepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente>
         return "SELECT COUNT(id_cliente) FROM adv__cliente;";
     }
 
-    public override string ComandoAdicionar(Cliente objeto) {
+    public override string GenerarComandoInsertar(Cliente objeto) {
         return $"INSERT INTO adv__cliente (numero, razon_social, id_contacto) VALUES ('{objeto.Numero}', '{objeto.RazonSocial}', '{objeto.IdContacto}');";
     }
 
-    public override string ComandoEditar(Cliente objeto) {
+    public override string GenerarComandoActualizar(Cliente objeto) {
         return $"UPDATE adv__cliente SET numero='{objeto.Numero}', razon_social='{objeto.RazonSocial}', id_contacto='{objeto.IdContacto}' WHERE id_cliente='{objeto.Id}';";
     }
 
@@ -21,7 +21,7 @@ public class DatosCliente : RepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente>
         return $"DELETE FROM adv__cliente WHERE id_cliente={id};";
     }
 
-    public override string ComandoObtener(FiltroBusquedaCliente criterio, string dato) {
+    public override string GenerarClausulaWhere(FiltroBusquedaCliente criterio, string dato) {
         string? comando;
 
         switch (criterio) {
@@ -42,7 +42,7 @@ public class DatosCliente : RepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente>
         return comando;
     }
 
-    public override Cliente MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Cliente MapearEntidad(MySqlDataReader lectorDatos) {
         return new Cliente(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("numero")),

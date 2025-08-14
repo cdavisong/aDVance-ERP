@@ -13,7 +13,7 @@ public class DatosMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMens
                """;
     }
 
-    public override string ComandoAdicionar(Mensajero objeto) {
+    public override string GenerarComandoInsertar(Mensajero objeto) {
         return $"""
                 INSERT INTO adv__mensajero (
                     nombre,
@@ -28,7 +28,7 @@ public class DatosMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMens
                 """;
     }
 
-    public override string ComandoEditar(Mensajero objeto) {
+    public override string GenerarComandoActualizar(Mensajero objeto) {
         return $"""
                 UPDATE adv__mensajero
                 SET
@@ -46,7 +46,7 @@ public class DatosMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMens
                 """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaMensajero criterio, string dato) {
+    public override string GenerarClausulaWhere(FiltroBusquedaMensajero criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -75,7 +75,7 @@ public class DatosMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMens
         return comando;
     }
 
-    public override Mensajero MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Mensajero MapearEntidad(MySqlDataReader lectorDatos) {
         return new Mensajero(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_mensajero")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),

@@ -15,7 +15,7 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
             """;
     }
 
-    public override string ComandoAdicionar(TipoMateriaPrima objeto)
+    public override string GenerarComandoInsertar(TipoMateriaPrima objeto)
     {
         return $"""
             INSERT INTO adv__tipo_materia_prima (
@@ -29,7 +29,7 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
             """;
     }
 
-    public override string ComandoEditar(TipoMateriaPrima objeto)
+    public override string GenerarComandoActualizar(TipoMateriaPrima objeto)
     {
         return $"""
             UPDATE adv__tipo_materia_prima
@@ -52,7 +52,7 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
             """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaTipoMateriaPrima criterio, string dato)
+    public override string GenerarClausulaWhere(FiltroBusquedaTipoMateriaPrima criterio, string dato)
     {
         return criterio switch
         {
@@ -66,7 +66,7 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
         };
     }
 
-    public override TipoMateriaPrima MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
+    public override TipoMateriaPrima MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new TipoMateriaPrima(
             lectorDatos.GetInt64("id_tipo_materia_prima"),

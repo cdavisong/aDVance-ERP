@@ -14,7 +14,7 @@ public partial class PresentadorPrincipal {
         _contenedorSeguridad.UsuarioAutenticado += delegate (object? sender, EventArgs e) {
             // Verificar el registro de la empresa y mostrar la vista de Login
             using (var datosEmpresa = new DatosEmpresa()) {
-                if (datosEmpresa.Cantidad() == 0)
+                if (datosEmpresa.Contar() == 0)
                     MostrarVistaRegistroEmpresa(this, EventArgs.Empty);
                 else _isRegistroEmpresa = true;
             }

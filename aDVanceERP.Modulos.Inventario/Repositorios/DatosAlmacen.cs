@@ -16,13 +16,13 @@ public class DatosAlmacen : RepoEntidadBaseDatos<Almacen, FiltroBusquedaAlmacen>
                """;
     }
 
-    public override string ComandoAdicionar(Almacen objeto)
+    public override string GenerarComandoInsertar(Almacen objeto)
     {
         return
             $"INSERT INTO adv__almacen (nombre, direccion, autorizo_venta, notas) VALUES ('{objeto.Nombre}', '{objeto.Direccion}', '{(objeto.AutorizoVenta ? 1 : 0)}', '{objeto.Notas}');";
     }
 
-    public override string ComandoEditar(Almacen objeto)
+    public override string GenerarComandoActualizar(Almacen objeto)
     {
         return
             $"UPDATE adv__almacen SET nombre='{objeto.Nombre}', direccion='{objeto.Direccion}', autorizo_venta='{(objeto.AutorizoVenta ? 1 : 0)}', notas='{objeto.Notas}' WHERE id_almacen={objeto.Id};";
@@ -33,7 +33,7 @@ public class DatosAlmacen : RepoEntidadBaseDatos<Almacen, FiltroBusquedaAlmacen>
         return $"DELETE FROM adv__almacen WHERE id_almacen={id};";
     }
 
-    public override string ComandoObtener(FiltroBusquedaAlmacen criterio, string dato)
+    public override string GenerarClausulaWhere(FiltroBusquedaAlmacen criterio, string dato)
     {
         var comando = string.Empty;
 
@@ -53,7 +53,7 @@ public class DatosAlmacen : RepoEntidadBaseDatos<Almacen, FiltroBusquedaAlmacen>
         return comando;
     }
 
-    public override Almacen MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
+    public override Almacen MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new Almacen(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),

@@ -10,7 +10,7 @@ public class DatosVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRep
         return "SELECT COUNT(id_venta) FROM adv__venta;";
     }
 
-    public override string ComandoAdicionar(Venta objeto) {
+    public override string GenerarComandoInsertar(Venta objeto) {
         return $"""
                 INSERT INTO adv__venta (
                     fecha,
@@ -32,7 +32,7 @@ public class DatosVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRep
                 """;
     }
 
-    public override string ComandoEditar(Venta objeto) {
+    public override string GenerarComandoActualizar(Venta objeto) {
         return $"""
                 UPDATE adv__venta
                 SET
@@ -81,7 +81,7 @@ public class DatosVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRep
                 """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaVenta criterio, string dato) {
+    public override string GenerarClausulaWhere(FiltroBusquedaVenta criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -107,7 +107,7 @@ public class DatosVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRep
         return comando;
     }
 
-    public override Venta MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Venta MapearEntidad(MySqlDataReader lectorDatos) {
         return new Venta(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

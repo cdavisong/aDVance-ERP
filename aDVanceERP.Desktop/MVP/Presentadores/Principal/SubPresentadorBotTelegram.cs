@@ -627,7 +627,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                         Aprobado = false
                     };
 
-                    datosUsuario.Adicionar(nuevoUsuario);
+                    datosUsuario.Insertar(nuevoUsuario);
 
                     await ResponderMensaje(mensaje.IdChat,
                         $"✅ Registro exitoso\n\n" +

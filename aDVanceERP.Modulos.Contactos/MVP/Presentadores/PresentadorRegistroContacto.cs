@@ -119,11 +119,11 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
 
             foreach (var telefono in telefonos)
                 if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                    datosTelefonoContacto.Editar(telefono);
+                    datosTelefonoContacto.Actualizar(telefono);
                 else if (telefono.Id != 0)
-                    datosTelefonoContacto.Editar(telefono);
+                    datosTelefonoContacto.Actualizar(telefono);
                 else
-                    datosTelefonoContacto.Adicionar(telefono);
+                    datosTelefonoContacto.Insertar(telefono);
         }
     }
 }

@@ -71,7 +71,7 @@ public partial class PresentadorContenedorModulos {
             }
 
             using (var repoVentas = new DatosVenta()) {
-                ventaJson.IdVenta = repoVentas.Adicionar(new Venta(0,
+                ventaJson.IdVenta = repoVentas.Insertar(new Venta(0,
                     ventaJson.Fecha,
                     idAlmacen,
                     0,
@@ -89,7 +89,7 @@ public partial class PresentadorContenedorModulos {
 
 
             using (var repoPagos = new DatosPago()) {
-                pago.Id = repoPagos.Adicionar(pago);
+                pago.Id = repoPagos.Insertar(pago);
             }
 
             RegistrarDetallesVentaProducto();

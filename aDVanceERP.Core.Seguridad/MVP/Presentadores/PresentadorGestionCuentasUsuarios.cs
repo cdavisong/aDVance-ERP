@@ -39,7 +39,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
                     tupla.Objeto.Aprobado = true;
 
                     // Editar la cuenta de usuario
-                    DatosObjeto.Editar(tupla.Objeto);
+                    DatosObjeto.Actualizar(tupla.Objeto);
                 }
                 else {
                     usuariosRol0++;

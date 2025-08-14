@@ -14,7 +14,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoAdicionar(OrdenActividadProduccion objeto) {
+        public override string GenerarComandoInsertar(OrdenActividadProduccion objeto) {
             return $"""
                 INSERT INTO adv__orden_actividad (
                     id_orden_produccion,
@@ -35,7 +35,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoEditar(OrdenActividadProduccion objeto) {
+        public override string GenerarComandoActualizar(OrdenActividadProduccion objeto) {
             return $"""
                 UPDATE adv__orden_actividad
                 SET
@@ -56,7 +56,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoObtener(FiltroBusquedaOrdenActividadProduccion criterio, string dato) {
+        public override string GenerarClausulaWhere(FiltroBusquedaOrdenActividadProduccion criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
@@ -76,7 +76,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
             };
         }
 
-        public override OrdenActividadProduccion MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+        public override OrdenActividadProduccion MapearEntidad(MySqlDataReader lectorDatos) {
             return new OrdenActividadProduccion {
                 Id = lectorDatos.GetInt64("id_orden_actividad"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

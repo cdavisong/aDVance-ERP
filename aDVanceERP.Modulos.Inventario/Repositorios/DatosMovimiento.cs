@@ -13,7 +13,7 @@ public class DatosMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMo
         return "SELECT COUNT(id_movimiento) FROM adv__movimiento;";
     }
 
-    public override string ComandoAdicionar(Movimiento objeto)
+    public override string GenerarComandoInsertar(Movimiento objeto)
     {
         return $"""
                 INSERT INTO adv__movimiento (
@@ -35,7 +35,7 @@ public class DatosMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMo
                 """;
     }
 
-    public override string ComandoEditar(Movimiento objeto)
+    public override string GenerarComandoActualizar(Movimiento objeto)
     {
         return $"""
                 UPDATE adv__movimiento
@@ -55,7 +55,7 @@ public class DatosMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMo
         return $"DELETE FROM adv__movimiento WHERE id_movimiento='{id}';";
     }
 
-    public override string ComandoObtener(FiltroBusquedaMovimiento criterio, string dato)
+    public override string GenerarClausulaWhere(FiltroBusquedaMovimiento criterio, string dato)
     {
         string? comando;
 
@@ -94,7 +94,7 @@ public class DatosMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMo
         return comando;
     }
 
-    public override Movimiento MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
+    public override Movimiento MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new Movimiento(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento")),
