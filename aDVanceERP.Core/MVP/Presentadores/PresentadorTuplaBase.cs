@@ -7,7 +7,7 @@ namespace aDVanceERP.Core.MVP.Presentadores;
 
 public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresentadorTupla<Vt, O>
     where Vt : class, IVistaTupla
-    where O : class, IEntidad, new() {
+    where O : class, IEntidadBase, new() {
     private bool disposedValue;
 
     protected PresentadorTuplaBase(Vt vista, O objeto) : base(vista) {

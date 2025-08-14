@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Modelos.BD; 
 
-public class ConfiguracionBaseDatos : IEntidad {
+public class ConfiguracionBaseDatos : IEntidadBase {
     public static ConfiguracionBaseDatos Default => new() {
         Servidor = "localhost",
         BaseDatos = "advanceerp",

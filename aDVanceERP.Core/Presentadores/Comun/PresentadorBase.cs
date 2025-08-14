@@ -4,10 +4,10 @@ using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.Presentadores.Comun;
 
-public abstract class PresentadorBase<Vb, Rb, En> : IDisposable
+public abstract class PresentadorBase<Vb, Rb, Eb> : IDisposable
     where Vb : IVistaBase
-    where Rb : class, IRepoBase<En>, new()
-    where En : class, IEntidad, new() {
+    where Rb : class, IRepoBase<Eb>, new()
+    where Eb : class, IEntidadBase, new() {
     private readonly Vb _vista;
     private readonly Rb _repositorio;
 

@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.Eventos {
     public class EventoEntidadActualizada<En> : EventoBase
-        where En : class, IEntidad, new() {
+        where En : class, IEntidadBase, new() {
         public EventoEntidadActualizada(En entidadActualizada) {
             EntidadActualizada = entidadActualizada;
         }

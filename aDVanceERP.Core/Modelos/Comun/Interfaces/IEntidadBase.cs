@@ -1,5 +1,5 @@
 ﻿namespace aDVanceERP.Core.Modelos.Comun.Interfaces; 
 
-public interface IEntidad {
+public interface IEntidadBase {
     
 }

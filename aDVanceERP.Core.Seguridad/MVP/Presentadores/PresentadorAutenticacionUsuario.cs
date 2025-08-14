@@ -18,7 +18,7 @@ public class PresentadorAutenticacionUsuario : PresentadorBase<IVistaAutenticaci
     public event EventHandler? UsuarioAutenticado;
     public event EventHandler? MostrarVistaRegistroCuentaUsuario;
 
-   private async void OnAutenticarUsuario(object? sender, EventArgs args) {
+   private void OnAutenticarUsuario(object? sender, EventArgs args) {
         if (string.IsNullOrEmpty(Vista.NombreUsuario) || Vista.Password.Length == 0) {
             CentroNotificaciones.Mostrar(
                 "Debe especificar un usuario y contraseña para autenticarse en el sistema. Por favor, rellene los campos correctamente.",
