@@ -34,7 +34,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void RegistrarMovimientosOrdenProduccionCerrada(object? sender, OrdenProduccion e) {
             // Movimiento de materiales utilizados en la orden de producción
             using (var datosObjeto = new RepoOrdenMateriaPrima()) {
-                var materiasPrimas = datosObjeto.Obtener(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, e.Id.ToString()).resultados;
+                var materiasPrimas = datosObjeto.Buscar(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, e.Id.ToString()).resultados;
 
                 if (materiasPrimas != null && materiasPrimas.Count() > 0) {
                     using (var datosMovimiento = new DatosMovimiento()) {

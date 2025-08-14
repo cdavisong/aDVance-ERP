@@ -560,7 +560,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     materiaPrima = sender as string[];
 
                     using (var datosObjeto = new RepoOrdenMateriaPrima()) {
-                        var materiaPrimaExistente = datosObjeto.Obtener(
+                        var materiaPrimaExistente = datosObjeto.Buscar(
                             FiltroBusquedaOrdenMateriaPrima.Producto, 
                             $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{UtilesProducto.ObtenerIdProducto(materiaPrima?[0]).Result.ToString()}").resultados.FirstOrDefault();
 
@@ -623,7 +623,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     actividadProduccion = sender as string[];
 
                     using (var datosObjeto = new RepoOrdenActividadProduccion()) {
-                        var actividadProduccionExistente = datosObjeto.Obtener(
+                        var actividadProduccionExistente = datosObjeto.Buscar(
                             FiltroBusquedaOrdenActividadProduccion.Nombre, 
                             $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{actividadProduccion?[0]}").resultados.FirstOrDefault();
 
@@ -687,7 +687,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     gastoIndirecto = sender as string[];
 
                     using (var datosObjeto = new RepoOrdenGastoIndirecto()) {
-                        var gastoIndirectoExistente = datosObjeto.Obtener(
+                        var gastoIndirectoExistente = datosObjeto.Buscar(
                             FiltroBusquedaOrdenGastoIndirecto.Concepto, 
                             $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{gastoIndirecto?[0]}").resultados.FirstOrDefault();
 

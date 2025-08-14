@@ -1,9 +1,9 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
 namespace aDVanceERP.Core.Repositorios.Interfaces {
-    public interface IRepoBase<En>
+    public interface IRepoBase<En> : IDisposable
         where En : class, IEntidadBase, new() {
-        En Obtener();
-        (int cantidad, IEnumerable<En> resultados) ObtenerTodos();
+        En? ObtenerPorId(object? id);
+        IEnumerable<En> ObtenerTodos();
     }
 }

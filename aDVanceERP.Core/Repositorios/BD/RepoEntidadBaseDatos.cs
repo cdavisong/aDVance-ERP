@@ -8,32 +8,47 @@ namespace aDVanceERP.Core.Repositorios.BD;
 public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, Fb>
     where En : class, IEntidadBaseDatos, new()
     where Fb : Enum {
+    private List<En> _cacheEntidades;
+
     protected RepoEntidadBaseDatos() {
-        CacheEntidades = new List<En>();
+        _cacheEntidades = new List<En>();
+
+        NombreTabla = string.Empty;
+        ColumnaId = string.Empty;
     }
 
-    public List<En> CacheEntidades { get; }
-
-    public virtual long Cantidad() {
-        return ContextoBaseDatos.EjecutarConsultaEscalar<long>(ComandoCantidad(), new Dictionary<string, object>());
+    protected RepoEntidadBaseDatos(string nombreTabla, string columnaId) : this() {
+        NombreTabla = nombreTabla;
+        ColumnaId = columnaId;
     }
 
-    public virtual long Adicionar(En objeto) {
-        return ContextoBaseDatos.EjecutarComandoInsert(ComandoAdicionar(objeto), new Dictionary<string, object>());
+    protected string NombreTabla { get; }
+
+    protected string ColumnaId { get; }
+
+    #region Obtención de datos y búsqueda de entidades
+
+    public En? ObtenerPorId(object? id) {
+        var consulta = $"SELECT * FROM {NombreTabla} WHERE {ColumnaId} = @id LIMIT 1";
+        var parametros = new Dictionary<string, object> {
+            { "@id", id }
+        };
+
+        return ContextoBaseDatos.EjecutarConsultaEscalar(consulta, parametros, MapearEntidadBaseDatos);
     }
 
-    public virtual bool Editar(En objeto, long nuevoId = 0) {
-        ContextoBaseDatos.EjecutarComandoNoQuery(ComandoEditar(objeto), new Dictionary<string, object>());
-        return true;
+    public IEnumerable<En> ObtenerTodos() {
+        var consulta = $"SELECT * FROM {NombreTabla}";
+        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, null, MapearEntidadBaseDatos);
+
+        _cacheEntidades.Clear();
+        _cacheEntidades.AddRange(resultados);
+
+        return resultados;
     }
 
-    public virtual bool Eliminar(long id) {
-        ContextoBaseDatos.EjecutarComandoNoQuery(ComandoEliminar(id), new Dictionary<string, object>());
-        return true;
-    }
-
-    public (int cantidad, IEnumerable<En> resultados) Obtener(string? consulta = "", int limite = 0, int desplazamiento = 0) {
-        CacheEntidades.Clear();
+    public (int cantidad, IEnumerable<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0) {
+        _cacheEntidades.Clear();
 
         consulta = string.IsNullOrEmpty(consulta) ? ComandoObtener(default, string.Empty) : consulta;
 
@@ -54,11 +69,34 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
         return (cantidad, resultados);
     }
 
-    public (int cantidad, IEnumerable<En> resultados) Obtener(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0) {
+    public (int cantidad, IEnumerable<En> resultados) Buscar(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0) {
         var comando = ComandoObtener(filtroBusqueda, criterio);
 
-        return Obtener(comando, limite, desplazamiento);
+        return Buscar(comando, limite, desplazamiento);
     }
+
+    #endregion
+
+    public virtual long Cantidad() {
+        return ContextoBaseDatos.EjecutarConsultaEscalar<long>(ComandoCantidad(), new Dictionary<string, object>());
+    }
+
+    public virtual long Adicionar(En objeto) {
+        return ContextoBaseDatos.EjecutarComandoInsert(ComandoAdicionar(objeto), new Dictionary<string, object>());
+    }
+
+    public virtual bool Editar(En objeto, long nuevoId = 0) {
+        ContextoBaseDatos.EjecutarComandoNoQuery(ComandoEditar(objeto), new Dictionary<string, object>());
+        return true;
+    }
+
+    public virtual bool Eliminar(long id) {
+        ContextoBaseDatos.EjecutarComandoNoQuery(ComandoEliminar(id), new Dictionary<string, object>());
+        return true;
+    }
+
+    
+
 
     public bool Existe(string dato) {
         return ContextoBaseDatos.EjecutarConsultaEscalar<bool>(ComandoExiste(dato), new Dictionary<string, object>());
@@ -78,7 +116,7 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
     public abstract En MapearEntidadBaseDatos(MySqlDataReader lectorDatos);
 
     protected virtual void Dispose(bool disposing) {
-        if (disposing) CacheEntidades?.Clear();
+        if (disposing) _cacheEntidades?.Clear();
     }
 
     ~RepoEntidadBaseDatos() {

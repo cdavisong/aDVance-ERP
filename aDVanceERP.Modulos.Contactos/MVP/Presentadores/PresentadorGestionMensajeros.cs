@@ -22,12 +22,12 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         presentadorTupla.Vista.Nombre = objeto.Nombre;
 
         using (var datosContacto = new DatosContacto()) {
-            var contacto = datosContacto.Obtener(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
+            var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
 
             if (contacto != null) {
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
                     var telefonosContacto =
-                        datosTelefonoContacto.Obtener(FiltroBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString()).resultados;
+                        datosTelefonoContacto.Buscar(FiltroBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString()).resultados;
                     var telefonoString = telefonosContacto.Aggregate(string.Empty,
                         (current, telefono) => current + $"{telefono.Prefijo} {telefono.Numero}, ");
 

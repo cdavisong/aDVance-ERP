@@ -2,16 +2,20 @@
 
 namespace aDVanceERP.Core.Repositorios.Interfaces;
 
-public interface IRepoEntidadBaseDatos<En, Fb> : IDisposable
+public interface IRepoEntidadBaseDatos<En, Fb> : IRepoBase<En>
     where En : class, IEntidadBaseDatos, new()
     where Fb : Enum {
-    List<En> CacheEntidades { get; }
+    #region Obtención de datos y búsqueda de entidades
+
+    (int cantidad, IEnumerable<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0);
+    (int cantidad, IEnumerable<En> resultados) Buscar(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0);
+
+    #endregion
 
     long Cantidad();
     long Adicionar(En objeto);
     bool Editar(En objeto, long nuevoId = 0);
     bool Eliminar(long id);
-    (int cantidad, IEnumerable<En> resultados) Obtener(string? consulta = "", int limite = 0, int desplazamiento = 0);
-    (int cantidad, IEnumerable<En> resultados) Obtener(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0);
+    
     bool Existe(string dato);
 }

@@ -398,7 +398,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                 var filas = new List<string[]>();
                 using (var datosVentas = new DatosVenta()) {
-                    var ventasFecha = datosVentas.Obtener(FiltroBusquedaVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd")).resultados;
+                    var ventasFecha = datosVentas.Buscar(FiltroBusquedaVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd")).resultados;
 
                     if (ventasFecha == null || !ventasFecha.Any()) {
                         await ResponderMensaje(chatId, $"ℹ️ No hay ventas registradas para el {fechaReporte:dd/MM/yyyy}");
@@ -407,7 +407,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
                     foreach (var venta in ventasFecha) {
                         using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
-                            var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString()).resultados;
+                            var detalleVentaProducto = datosVentaProducto.Buscar(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString()).resultados;
 
                             foreach (var ventaProducto in detalleVentaProducto) {
                                 var fila = new string[6];
@@ -538,7 +538,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     var password = partes[1].Trim();
 
                     using (var datosUsuario = new DatosCuentaUsuario()) {
-                        var usuarioEncontrado = datosUsuario.Obtener(
+                        var usuarioEncontrado = datosUsuario.Buscar(
                             FiltroBusquedaCuentaUsuario.Nombre,
                             usuario).resultados.FirstOrDefault();
 
@@ -611,7 +611,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 }
 
                 using (var datosUsuario = new DatosCuentaUsuario()) {
-                    var usuarioExistente = datosUsuario.Obtener(
+                    var usuarioExistente = datosUsuario.Buscar(
                         FiltroBusquedaCuentaUsuario.Nombre,
                         usuario).resultados.FirstOrDefault();
 

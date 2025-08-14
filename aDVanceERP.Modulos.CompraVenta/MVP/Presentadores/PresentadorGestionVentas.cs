@@ -69,7 +69,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 // Actualizar el seguimiento de entrega
                 using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
                     var objetoSeguimiento = datosSeguimiento
-                        .Obtener(FiltroBusquedaSeguimientoEntrega.IdVenta, tupla.Vista.Id).resultados.FirstOrDefault();
+                        .Buscar(FiltroBusquedaSeguimientoEntrega.IdVenta, tupla.Vista.Id).resultados.FirstOrDefault();
 
                     if (objetoSeguimiento != null) {
                         objetoSeguimiento.FechaEntrega = DateTime.Now;
@@ -134,7 +134,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 }
 
                 // 4. Actualizar seguimiento de entrega (una sola vez por tupla)
-                var objetoSeguimiento = datosSeguimiento.Obtener(
+                var objetoSeguimiento = datosSeguimiento.Buscar(
                     FiltroBusquedaSeguimientoEntrega.IdVenta,
                     tupla.Vista.Id).resultados.FirstOrDefault();
 

@@ -4,8 +4,6 @@ using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Core.Vistas.BD;
 
-using static Org.BouncyCastle.Math.EC.ECCurve;
-
 namespace aDVanceERP.Core.Presentadores.BD {
     public class PresentadorConfiguracionBaseDatos : PresentadorBase<VistaConfiguracionBaseDatos, RepoConfiguracionBaseDatos, ConfiguracionBaseDatos> {
         public PresentadorConfiguracionBaseDatos(VistaConfiguracionBaseDatos vista, RepoConfiguracionBaseDatos repositorio) : base(vista, repositorio) {
@@ -15,7 +13,7 @@ namespace aDVanceERP.Core.Presentadores.BD {
         public event EventHandler? ConfiguracionCargada;
 
         public void CargarConfiguracion() {
-            var config = Repositorio.Obtener();
+            var config = Repositorio.ObtenerPorId(null);
 
             if (config != null) {
                 Vista.NombreDireccionServidor = config.Servidor;
@@ -57,6 +55,10 @@ namespace aDVanceERP.Core.Presentadores.BD {
                 // Manejo de excepciones, por ejemplo, registrar el error o mostrar un mensaje al usuario
                 throw new InvalidOperationException("Error al guardar la configuración del servidor MySQL.", ex);
             }
+        }
+
+        public override void Dispose() {
+            Vista.AlmacenarConfiguracion -= OnAlmacenarConfiguracion;
         }
     }
 }

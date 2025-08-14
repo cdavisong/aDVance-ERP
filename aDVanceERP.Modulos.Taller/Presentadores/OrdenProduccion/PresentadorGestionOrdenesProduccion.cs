@@ -53,7 +53,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
 
                         // Disminuir el cantidad de materiales utilizados en la orden de producción
                         using (var datosObjeto = new RepoOrdenMateriaPrima()) {
-                            var materiasPrimas = datosObjeto.Obtener(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, tupla.Objeto.Id.ToString()).resultados;
+                            var materiasPrimas = datosObjeto.Buscar(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, tupla.Objeto.Id.ToString()).resultados;
 
                             if (materiasPrimas != null) {
                                 foreach (var materiaPrima in materiasPrimas) {

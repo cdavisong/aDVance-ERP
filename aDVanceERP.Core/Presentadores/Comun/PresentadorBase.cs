@@ -21,7 +21,5 @@ public abstract class PresentadorBase<Vb, Rb, Eb> : IDisposable
 
     public Rb Repositorio => _repositorio;
 
-    public void Dispose() {
-        _vista.Cerrar();
-    }
+    public abstract void Dispose();
 }

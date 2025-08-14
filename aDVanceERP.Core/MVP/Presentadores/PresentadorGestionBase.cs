@@ -62,7 +62,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, O, Do, C> : Presentador
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
             var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
-            var datos = DatosObjeto.Obtener(FiltroBusquedaObjeto, DatoBusquedaObjeto, Vista.TuplasMaximasContenedor, incremento);
+            var datos = DatosObjeto.Buscar(FiltroBusquedaObjeto, DatoBusquedaObjeto, Vista.TuplasMaximasContenedor, incremento);
             var entidades = datos.resultados.ToList();
             var calculoPaginas = datos.cantidad / Vista.TuplasMaximasContenedor;
             var entero = datos.cantidad % Vista.TuplasMaximasContenedor == 0;

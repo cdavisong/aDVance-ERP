@@ -115,7 +115,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
             var cantidadPagada = 0m;
 
             using (var datosVentas = new DatosVenta()) {
-                var venta = datosVentas.Obtener(FiltroBusquedaVenta.Id, Id).resultados.FirstOrDefault();
+                var venta = datosVentas.Buscar(FiltroBusquedaVenta.Id, Id).resultados.FirstOrDefault();
 
                 if (venta == null)
                     return;
@@ -125,7 +125,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
                 datosCliente[2] = UtilesCliente.ObtenerNumeroCliente(venta.IdCliente) ?? string.Empty;
 
                 using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
-                    var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString()).resultados;
+                    var detalleVentaProducto = datosVentaProducto.Buscar(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString()).resultados;
 
                     foreach (var ventaProducto in detalleVentaProducto) {
                         var fila = new string[7];
