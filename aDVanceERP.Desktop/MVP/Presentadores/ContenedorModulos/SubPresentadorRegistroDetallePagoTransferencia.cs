@@ -50,7 +50,7 @@ public partial class PresentadorContenedorModulos {
             return;
 
         using (var transferencia = new DatosDetallePagoTransferencia()) {
-            transferencia.Insertar(new DetallePagoTransferencia(
+            transferencia.Adicionar(new DetallePagoTransferencia(
                 0,
                 UtilesBD.ObtenerUltimoIdTabla("venta"),
                 UtilesCuentaBancaria.ObtenerIdCuenta(Transferencia[0]),

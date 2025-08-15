@@ -10,12 +10,12 @@ public class DatosCuentaBancaria : RepoEntidadBaseDatos<CuentaBancaria, FiltroBu
         return "SELECT COUNT(id_cuenta_bancaria) FROM adv__cuenta_bancaria;";
     }
 
-    public override string GenerarComandoInsertar(CuentaBancaria objeto) {
+    public override string ComandoAdicionar(CuentaBancaria objeto) {
         return
             $"INSERT INTO adv__cuenta_bancaria (alias, numero_tarjeta, moneda, id_contacto) VALUES ('{objeto.Alias}', '{objeto.NumeroTarjeta}', {(int)objeto.Moneda}, {objeto.IdContacto});";
     }
 
-    public override string GenerarComandoActualizar(CuentaBancaria objeto) {
+    public override string ComandoEditar(CuentaBancaria objeto) {
         return
             $"UPDATE adv__cuenta_bancaria SET alias='{objeto.Alias}', numero_tarjeta='{objeto.NumeroTarjeta}', moneda={(int)objeto.Moneda}, id_contacto={objeto.IdContacto} WHERE id_cuenta_bancaria={objeto.Id};";
     }
@@ -24,7 +24,7 @@ public class DatosCuentaBancaria : RepoEntidadBaseDatos<CuentaBancaria, FiltroBu
         return $"DELETE FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria={id};";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaCuentaBancaria criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaCuentaBancaria criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -46,7 +46,7 @@ public class DatosCuentaBancaria : RepoEntidadBaseDatos<CuentaBancaria, FiltroBu
         return $"SELECT COUNT(1) FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria = {dato};";
     }
 
-    public override CuentaBancaria MapearEntidad(MySqlDataReader lectorDatos) {
+    public override CuentaBancaria MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new CuentaBancaria(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cuenta_bancaria")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("alias")),

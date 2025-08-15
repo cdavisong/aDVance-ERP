@@ -14,7 +14,7 @@ public class DatosDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProd
                """;
     }
 
-    public override string GenerarComandoInsertar(DetalleCompraProducto objeto) {
+    public override string ComandoAdicionar(DetalleCompraProducto objeto) {
         return $"""
                 INSERT INTO adv__detalle_compra_producto (
                     id_compra,
@@ -31,7 +31,7 @@ public class DatosDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProd
                 """;
     }
 
-    public override string GenerarComandoActualizar(DetalleCompraProducto objeto) {
+    public override string ComandoEditar(DetalleCompraProducto objeto) {
         return $"""
                 UPDATE adv__detalle_compra_producto
                 SET
@@ -51,7 +51,7 @@ public class DatosDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProd
                 """;
     }
 
-    public override string GenerarClausulaWhere(CriterioDetalleCompraProducto criterio, string dato) {
+    public override string ComandoObtener(CriterioDetalleCompraProducto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -93,7 +93,7 @@ public class DatosDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProd
         return comando;
     }
 
-    public override DetalleCompraProducto MapearEntidad(MySqlDataReader lectorDatos) {
+    public override DetalleCompraProducto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new DetalleCompraProducto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_compra_producto")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),

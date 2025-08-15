@@ -64,11 +64,11 @@ public class
         
         foreach (var objeto in objetosVista) {
             if (Vista.ModoEdicionDatos && objeto.Id != 0)
-                DatosObjeto.Actualizar(Entidad);
+                DatosObjeto.Editar(Entidad);
             else if (objeto.Id != 0)
-                DatosObjeto.Actualizar(Entidad);
+                DatosObjeto.Editar(Entidad);
             else
-                objeto.Id = DatosObjeto.Insertar(objeto);            
+                objeto.Id = DatosObjeto.Adicionar(objeto);            
         };
 
         InvokeDatosRegistradosActualizados(objetosVista, e);

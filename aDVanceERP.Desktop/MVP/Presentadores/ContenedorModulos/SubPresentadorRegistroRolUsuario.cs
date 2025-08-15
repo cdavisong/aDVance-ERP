@@ -83,7 +83,7 @@ public partial class PresentadorContenedorModulos {
             );
 
             using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario())
-                datosPermisoRolUsuario.Insertar(permisoRolUsuario);
+                datosPermisoRolUsuario.Adicionar(permisoRolUsuario);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios
             return "SELECT COUNT(id_movimiento_caja) FROM adv__movimiento_caja;";
         }
 
-        public override string GenerarComandoInsertar(MovimientoCaja objeto) {
+        public override string ComandoAdicionar(MovimientoCaja objeto) {
             return $"""
                     INSERT INTO adv__movimiento_caja (id_caja, fecha, monto, tipo, concepto, id_pago, id_usuario, observaciones)
                     VALUES (
@@ -28,7 +28,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios
                     """;
         }
 
-        public override string GenerarComandoActualizar(MovimientoCaja objeto) {
+        public override string ComandoEditar(MovimientoCaja objeto) {
             return $"""
                     UPDATE adv__movimiento_caja
                     SET
@@ -45,7 +45,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios
             return $"DELETE FROM adv__movimiento_caja WHERE id_movimiento_caja={id};";
         }
 
-        public override string GenerarClausulaWhere(FiltroBusquedaMovimientoCaja criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaMovimientoCaja criterio, string dato) {
             return criterio switch {
                 FiltroBusquedaMovimientoCaja.Id => $"SELECT * FROM adv__movimiento_caja WHERE id_movimiento_caja={dato};",
                 FiltroBusquedaMovimientoCaja.IdPago => $"SELECT * FROM adv__movimiento_caja WHERE id_pago={dato};",
@@ -57,7 +57,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios
             };
         }
 
-        public override MovimientoCaja MapearEntidad(MySqlDataReader lectorDatos) {
+        public override MovimientoCaja MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             return new MovimientoCaja(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento_caja")),
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_caja")),

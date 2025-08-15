@@ -10,7 +10,7 @@ public class DatosCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, I
         return "SELECT COUNT(id_compra) FROM adv__compra;";
     }
 
-    public override string GenerarComandoInsertar(Compra objeto) {
+    public override string ComandoAdicionar(Compra objeto) {
         return $"""
                 INSERT INTO adv__compra (fecha, id_almacen, id_proveedor, total)
                 VALUES (
@@ -22,7 +22,7 @@ public class DatosCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, I
                 """;
     }
 
-    public override string GenerarComandoActualizar(Compra objeto) {
+    public override string ComandoEditar(Compra objeto) {
         return $"""
                 UPDATE adv__compra
                 SET
@@ -63,7 +63,7 @@ public class DatosCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, I
                 """;
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaCompra criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaCompra criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -106,7 +106,7 @@ public class DatosCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, I
         return comando;
     }
 
-    public override Compra MapearEntidad(MySqlDataReader lectorDatos) {
+    public override Compra MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Compra(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

@@ -13,7 +13,7 @@ public class DatosContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContac
                """;
     }
 
-    public override string GenerarComandoInsertar(Contacto objeto) {
+    public override string ComandoAdicionar(Contacto objeto) {
         return $"""
                 INSERT INTO adv__contacto (
                     nombre,
@@ -30,7 +30,7 @@ public class DatosContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContac
                 """;
     }
 
-    public override string GenerarComandoActualizar(Contacto objeto) {
+    public override string ComandoEditar(Contacto objeto) {
         return $"""
                 UPDATE adv__contacto
                 SET
@@ -72,7 +72,7 @@ public class DatosContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContac
                 """;
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaContacto criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaContacto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -90,7 +90,7 @@ public class DatosContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContac
         return comando;
     }
 
-    public override Contacto MapearEntidad(MySqlDataReader lectorDatos) {
+    public override Contacto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Contacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),

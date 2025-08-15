@@ -10,12 +10,12 @@ public class DatosTelefonoContacto : RepoEntidadBaseDatos<TelefonoContacto, Filt
         return "SELECT COUNT(id_telefono_contacto) FROM adv__telefono_contacto;";
     }
 
-    public override string GenerarComandoInsertar(TelefonoContacto objeto) {
+    public override string ComandoAdicionar(TelefonoContacto objeto) {
         return
             $"INSERT INTO adv__telefono_contacto (prefijo, numero, categoria, id_contacto) VALUES ('{objeto.Prefijo}', '{objeto.Numero}', '{objeto.Categoria}', '{objeto.IdContacto}');";
     }
 
-    public override string GenerarComandoActualizar(TelefonoContacto objeto) {
+    public override string ComandoEditar(TelefonoContacto objeto) {
         return
             $"UPDATE adv__telefono_contacto SET prefijo='{objeto.Prefijo}', numero='{objeto.Numero}', categoria='{objeto.Categoria}', id_contacto='{objeto.IdContacto}' WHERE id_telefono_contacto='{objeto.Id}';";
     }
@@ -24,7 +24,7 @@ public class DatosTelefonoContacto : RepoEntidadBaseDatos<TelefonoContacto, Filt
         return $"DELETE FROM adv__telefono_contacto WHERE id_telefono_contacto={id};";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaTelefonoContacto criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaTelefonoContacto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -45,7 +45,7 @@ public class DatosTelefonoContacto : RepoEntidadBaseDatos<TelefonoContacto, Filt
         return comando;
     }
 
-    public override TelefonoContacto MapearEntidad(MySqlDataReader lectorDatos) {
+    public override TelefonoContacto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new TelefonoContacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_telefono_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("prefijo")),

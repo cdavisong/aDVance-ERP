@@ -14,7 +14,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string GenerarComandoInsertar(OrdenGastoIndirecto objeto) {
+        public override string ComandoAdicionar(OrdenGastoIndirecto objeto) {
             return $"""
                 INSERT INTO adv__orden_gasto_indirecto (
                     id_orden_produccion,
@@ -35,7 +35,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string GenerarComandoActualizar(OrdenGastoIndirecto objeto) {
+        public override string ComandoEditar(OrdenGastoIndirecto objeto) {
             return $"""
                 UPDATE adv__orden_gasto_indirecto
                 SET
@@ -56,7 +56,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string GenerarClausulaWhere(FiltroBusquedaOrdenGastoIndirecto criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaOrdenGastoIndirecto criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
@@ -76,7 +76,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
             };
         }
 
-        public override OrdenGastoIndirecto MapearEntidad(MySqlDataReader lectorDatos) {
+        public override OrdenGastoIndirecto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             return new OrdenGastoIndirecto {
                 Id = lectorDatos.GetInt64("id_orden_gasto_indirecto"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

@@ -39,7 +39,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 if (materiasPrimas != null && materiasPrimas.Count() > 0) {
                     using (var datosMovimiento = new DatosMovimiento()) {
                         foreach (var materiaPrima in materiasPrimas) {
-                            datosMovimiento.Insertar(new Movimiento(
+                            datosMovimiento.Adicionar(new Movimiento(
                                 0,
                                 materiaPrima.IdProducto,
                                 materiaPrima.IdAlmacen,
@@ -55,7 +55,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             // Movimiento generado por la orden de producción
             using (var datosMovimiento = new DatosMovimiento()) {
-                datosMovimiento.Insertar(new Movimiento(
+                datosMovimiento.Adicionar(new Movimiento(
                     0,
                     e.IdProducto,
                     0,

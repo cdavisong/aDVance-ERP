@@ -64,7 +64,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 tupla.Objeto.EstadoEntrega = "Completada";
 
                 // Editar la venta del producto
-                DatosObjeto.Actualizar(tupla.Objeto);
+                DatosObjeto.Editar(tupla.Objeto);
 
                 // Actualizar el seguimiento de entrega
                 using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
@@ -74,7 +74,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                     if (objetoSeguimiento != null) {
                         objetoSeguimiento.FechaEntrega = DateTime.Now;
 
-                        datosSeguimiento.Actualizar(objetoSeguimiento);
+                        datosSeguimiento.Editar(objetoSeguimiento);
                     }
                 }
 
@@ -114,7 +114,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                         FechaConfirmacion = ahora
                     };
 
-                    datosPago.Insertar(nuevoPago);
+                    datosPago.Adicionar(nuevoPago);
                 }
                 else {
                     // Actualizar pagos existentes
@@ -129,7 +129,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                             FechaConfirmacion = ahora
                         };
 
-                        datosPago.Actualizar(pagoActualizado);
+                        datosPago.Editar(pagoActualizado);
                     }
                 }
 
@@ -141,7 +141,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 if (objetoSeguimiento != null) {
                     objetoSeguimiento.FechaPago = ahora;
                     // Nota: Corregí FechaEntrega a FechaPago para consistencia con el caso de pagos.Count == 0
-                    datosSeguimiento.Actualizar(objetoSeguimiento);
+                    datosSeguimiento.Editar(objetoSeguimiento);
                 }
             }
         }

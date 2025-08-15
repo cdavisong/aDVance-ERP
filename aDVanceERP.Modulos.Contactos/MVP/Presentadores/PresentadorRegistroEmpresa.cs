@@ -75,14 +75,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
                 contacto.Notas = "Nuestra empresa";
 
                 if (Vista.ModoEdicionDatos && contacto.Id != 0)
-                    datosContacto.Actualizar(contacto);
+                    datosContacto.Editar(contacto);
                 else if (contacto.Id != 0)
-                    datosContacto.Actualizar(contacto);
+                    datosContacto.Editar(contacto);
                 else if (Entidad != null) {
-                    Entidad.IdContacto = datosContacto.Insertar(contacto);
+                    Entidad.IdContacto = datosContacto.Adicionar(contacto);
 
                     // Editar empresa para modificar Id del contacto
-                    datosEmpresa.Actualizar(Entidad);
+                    datosEmpresa.Editar(Entidad);
                 }
 
                 using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
@@ -135,11 +135,11 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
 
                     foreach (var telefono in telefonos)
                         if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                            datosTelefonoContacto.Actualizar(telefono);
+                            datosTelefonoContacto.Editar(telefono);
                         else if (telefono.Id != 0)
-                            datosTelefonoContacto.Actualizar(telefono);
+                            datosTelefonoContacto.Editar(telefono);
                         else
-                            datosTelefonoContacto.Insertar(telefono);
+                            datosTelefonoContacto.Adicionar(telefono);
                 }
             }
         }

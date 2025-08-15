@@ -78,7 +78,7 @@ public partial class PresentadorContenedorModulos {
         var existenAlmacenes = false;
 
         using (var datos = new DatosAlmacen())
-            existenAlmacenes = datos.Contar() > 0;
+            existenAlmacenes = datos.Cantidad() > 0;
 
         if (!existenAlmacenes) {
             CentroNotificaciones.Mostrar("No es posible registrar nuevas ventas. Debe existir al menos un almacén registrado.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
@@ -143,7 +143,7 @@ public partial class PresentadorContenedorModulos {
             );
 
             using (var datosProducto = new DatosDetalleVentaProducto()) {
-                datosProducto.Insertar(detalleVentaProducto);
+                datosProducto.Adicionar(detalleVentaProducto);
             }
 
             RegistrarMovimientoVentaProducto(detalleVentaProducto, producto);
@@ -160,7 +160,7 @@ public partial class PresentadorContenedorModulos {
     private static void RegistrarMovimientoVentaProducto(DetalleVentaProducto detalleVentaProducto,
         IReadOnlyList<string> producto) {
         using (var datosMovimiento = new DatosMovimiento()) {
-            datosMovimiento.Insertar(new Movimiento(
+            datosMovimiento.Adicionar(new Movimiento(
                 0,
                 detalleVentaProducto.IdProducto,
                 long.Parse(producto[5]),

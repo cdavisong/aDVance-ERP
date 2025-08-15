@@ -66,14 +66,14 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
             contacto.Notas = "Cliente";
 
             if (Vista.ModoEdicionDatos && contacto.Id != 0)
-                datosContacto.Actualizar(contacto);
+                datosContacto.Editar(contacto);
             else if (contacto.Id != 0)
-                datosContacto.Actualizar(contacto);
+                datosContacto.Editar(contacto);
             else if (Entidad != null) {
-                Entidad.IdContacto = datosContacto.Insertar(contacto);
+                Entidad.IdContacto = datosContacto.Adicionar(contacto);
 
                 // Editar cliente para modificar Id del contacto
-                datosCliente.Actualizar(Entidad);
+                datosCliente.Editar(Entidad);
             }
 
             using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
@@ -105,11 +105,11 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
 
                 foreach (var telefono in telefonos)
                     if (Vista.ModoEdicionDatos && telefono.Id != 0)
-                        datosTelefonoContacto.Actualizar(telefono);
+                        datosTelefonoContacto.Editar(telefono);
                     else if (telefono.Id != 0)
-                        datosTelefonoContacto.Actualizar(telefono);
+                        datosTelefonoContacto.Editar(telefono);
                     else
-                        datosTelefonoContacto.Insertar(telefono);
+                        datosTelefonoContacto.Adicionar(telefono);
             }
         }
     }

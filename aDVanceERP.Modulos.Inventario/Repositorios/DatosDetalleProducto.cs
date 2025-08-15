@@ -15,7 +15,7 @@ public class DatosDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, Filtro
                     """;
     }
 
-    public override string GenerarComandoInsertar(DetalleProducto objeto)
+    public override string ComandoAdicionar(DetalleProducto objeto)
     {
         return $"""
                     INSERT INTO adv__detalle_producto (
@@ -29,7 +29,7 @@ public class DatosDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, Filtro
                     """;
     }
 
-    public override string GenerarComandoActualizar(DetalleProducto objeto)
+    public override string ComandoEditar(DetalleProducto objeto)
     {
         return $"""
                     UPDATE adv__detalle_producto
@@ -48,7 +48,7 @@ public class DatosDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, Filtro
                     """;
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaDetalleProducto criterio, string dato)
+    public override string ComandoObtener(FiltroBusquedaDetalleProducto criterio, string dato)
     {
         var comando = criterio switch
         {
@@ -71,7 +71,7 @@ public class DatosDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, Filtro
         return comando;
     }
 
-    public override DetalleProducto MapearEntidad(MySqlDataReader lectorDatos)
+    public override DetalleProducto MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
     {
         return new DetalleProducto(
             id: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_detalle_producto")),

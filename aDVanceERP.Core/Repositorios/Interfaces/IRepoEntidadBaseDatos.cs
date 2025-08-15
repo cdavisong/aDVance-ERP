@@ -12,19 +12,10 @@ public interface IRepoEntidadBaseDatos<En, Fb> : IRepoBase<En>
 
     #endregion
 
-    #region CRUD
-
-    long Insertar(En entidad);
-    void Actualizar(En entidad);
-    void Eliminar(long id);
-
-    #endregion
-
-    #region Utilidades
-
-    bool Existe(object id);
-    int Contar(Fb? filtroBusqueda = default, string? criterio = "");
-
-    #endregion
-
+    long Cantidad();
+    long Adicionar(En objeto);
+    bool Editar(En objeto, long nuevoId = 0);
+    bool Eliminar(long id);
+    
+    bool Existe(string dato);
 }

@@ -58,11 +58,11 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
             return;
 
         if (Vista.ModoEdicionDatos && Entidad.Id != 0)
-            DatosObjeto.Actualizar(Entidad);
+            DatosObjeto.Editar(Entidad);
         else if (Entidad.Id != 0)
-            DatosObjeto.Actualizar(Entidad);
+            DatosObjeto.Editar(Entidad);
         else
-            Entidad.Id = DatosObjeto.Insertar(Entidad);
+            Entidad.Id = DatosObjeto.Adicionar(Entidad);
 
         RegistroAuxiliar(DatosObjeto, Entidad.Id);
 

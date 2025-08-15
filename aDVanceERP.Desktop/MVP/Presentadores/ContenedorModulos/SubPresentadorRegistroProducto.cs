@@ -39,7 +39,7 @@ public partial class PresentadorContenedorModulos {
         var existenAlmacenes = false;
 
         using (var datos = new DatosAlmacen())
-            existenAlmacenes = datos.Contar() > 0;
+            existenAlmacenes = datos.Cantidad() > 0;
         
         if (!existenAlmacenes) {
             CentroNotificaciones.Mostrar("No es posible registrar nuevos productos. Debe existir al menos un almacén registrado.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);

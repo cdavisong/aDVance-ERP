@@ -10,11 +10,11 @@ public class DatosCuentaUsuario : RepoEntidadBaseDatos<CuentaUsuario, FiltroBusq
         return "SELECT COUNT(id_cuenta_usuario) FROM adv__cuenta_usuario;";
     }
 
-    public override string GenerarComandoInsertar(CuentaUsuario objeto) {
+    public override string ComandoAdicionar(CuentaUsuario objeto) {
         return $"INSERT INTO adv__cuenta_usuario (nombre, password_hash, password_salt, id_rol_usuario, administrador, aprobado) VALUES ('{objeto.Nombre}', '{objeto.PasswordHash}', '{objeto.PasswordSalt}', {objeto.IdRolUsuario}, {Convert.ToInt32(objeto.Administrador)}, {Convert.ToInt32(objeto.Aprobado)});";
     }
 
-    public override string GenerarComandoActualizar(CuentaUsuario objeto) {
+    public override string ComandoEditar(CuentaUsuario objeto) {
         return $"UPDATE adv__cuenta_usuario SET nombre = '{objeto.Nombre}', password_hash = '{objeto.PasswordHash}', password_salt = '{objeto.PasswordSalt}', id_rol_usuario = {objeto.IdRolUsuario}, administrador = {Convert.ToInt32(objeto.Administrador)}, aprobado = {Convert.ToInt32(objeto.Aprobado)} WHERE id_cuenta_usuario = {objeto.Id};";
     }
 
@@ -22,7 +22,7 @@ public class DatosCuentaUsuario : RepoEntidadBaseDatos<CuentaUsuario, FiltroBusq
         return $"DELETE FROM adv__cuenta_usuario WHERE id_cuenta_usuario = {id};";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaCuentaUsuario criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaCuentaUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
             case FiltroBusquedaCuentaUsuario.Nombre:
@@ -39,7 +39,7 @@ public class DatosCuentaUsuario : RepoEntidadBaseDatos<CuentaUsuario, FiltroBusq
         return comando;
     }
 
-    public override CuentaUsuario MapearEntidad(MySqlDataReader lectorDatos) {
+    public override CuentaUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new CuentaUsuario(
             lectorDatos.GetInt64("id_cuenta_usuario"),
             lectorDatos.GetString("nombre"),

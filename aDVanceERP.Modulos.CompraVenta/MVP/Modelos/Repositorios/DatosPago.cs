@@ -10,11 +10,11 @@ public class DatosPago : RepoEntidadBaseDatos<Pago, FiltroBusquedaPago>, IReposi
         return "SELECT COUNT(id_pago) FROM adv__pago;";
     }
 
-    public override string GenerarComandoInsertar(Pago objeto) {
+    public override string ComandoAdicionar(Pago objeto) {
         return $"INSERT INTO adv__pago (id_venta, metodo_pago, monto, fecha_confirmacion, estado) VALUES ({objeto.IdVenta}, '{objeto.MetodoPago}', {objeto.Monto.ToString(CultureInfo.InvariantCulture)}, '{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', '{objeto.Estado}');";
     }
 
-    public override string GenerarComandoActualizar(Pago objeto) {
+    public override string ComandoEditar(Pago objeto) {
         return $"UPDATE adv__pago SET id_venta={objeto.IdVenta}, metodo_pago='{objeto.MetodoPago}', monto={objeto.Monto.ToString(CultureInfo.InvariantCulture)}, fecha_confirmacion='{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', estado='{objeto.Estado}' WHERE id_pago={objeto.Id};";
     }
 
@@ -22,7 +22,7 @@ public class DatosPago : RepoEntidadBaseDatos<Pago, FiltroBusquedaPago>, IReposi
         return $"DELETE FROM adv__pago WHERE id_pago={id};";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaPago criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaPago criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -44,7 +44,7 @@ public class DatosPago : RepoEntidadBaseDatos<Pago, FiltroBusquedaPago>, IReposi
         return $"SELECT COUNT(1) FROM adv__pago WHERE id_pago = {dato};";
     }
 
-    public override Pago MapearEntidad(MySqlDataReader lectorDatos) {
+    public override Pago MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Pago(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_pago")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

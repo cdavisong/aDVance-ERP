@@ -13,12 +13,12 @@ public class DatosTipoMovimiento : RepoEntidadBaseDatos<TipoMovimiento, FiltroBu
         return "SELECT COUNT(id_tipo_movimiento) FROM adv__tipo_movimiento;";
     }
 
-    public override string GenerarComandoInsertar(TipoMovimiento objeto)
+    public override string ComandoAdicionar(TipoMovimiento objeto)
     {
         return $"INSERT INTO adv__tipo_movimiento (nombre, efecto) VALUES ('{objeto.Nombre}', '{(int)objeto.Efecto}');";
     }
 
-    public override string GenerarComandoActualizar(TipoMovimiento objeto)
+    public override string ComandoEditar(TipoMovimiento objeto)
     {
         return
             $"UPDATE adv__tipo_movimiento SET nombre='{objeto.Nombre}', efecto='{(int)objeto.Efecto}' WHERE id_tipo_movimiento='{objeto.Id}';";
@@ -29,7 +29,7 @@ public class DatosTipoMovimiento : RepoEntidadBaseDatos<TipoMovimiento, FiltroBu
         return $"DELETE FROM adv__tipo_movimiento WHERE id_tipo_movimiento='{id}';";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaTipoMovimiento criterio, string dato)
+    public override string ComandoObtener(FiltroBusquedaTipoMovimiento criterio, string dato)
     {
         string comando;
 
@@ -49,7 +49,7 @@ public class DatosTipoMovimiento : RepoEntidadBaseDatos<TipoMovimiento, FiltroBu
         return comando;
     }
 
-    public override TipoMovimiento MapearEntidad(MySqlDataReader lectorDatos)
+    public override TipoMovimiento MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
     {
         return new TipoMovimiento(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_tipo_movimiento")),

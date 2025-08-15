@@ -10,7 +10,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
 public class DatosPermisoRolUsuario : RepoEntidadBaseDatos<PermisoRolUsuario, FiltroBusquedaPermisoRolUsuario>,
     IRepositorioPermisoRolUsuario {
-    public override string GenerarComandoInsertar(PermisoRolUsuario objeto) {
+    public override string ComandoAdicionar(PermisoRolUsuario objeto) {
         return $"INSERT INTO adv__rol_permiso (id_rol_usuario, id_permiso) VALUES ('{objeto.IdRolUsuario}', '{objeto.IdPermiso}');";
     }
 
@@ -18,7 +18,7 @@ public class DatosPermisoRolUsuario : RepoEntidadBaseDatos<PermisoRolUsuario, Fi
         return "SELECT COUNT(id_rol_permiso) FROM adv__rol_permiso;";
     }
 
-    public override string GenerarComandoActualizar(PermisoRolUsuario objeto) {
+    public override string ComandoEditar(PermisoRolUsuario objeto) {
         return $"UPDATE adv__rol_permiso SET id_rol_usuario = '{objeto.IdRolUsuario}', id_permiso = '{objeto.IdPermiso}' WHERE id_rol_permiso = {objeto.Id};";
     }
 
@@ -30,7 +30,7 @@ public class DatosPermisoRolUsuario : RepoEntidadBaseDatos<PermisoRolUsuario, Fi
         return $"SELECT COUNT(1) FROM adv__rol_permiso WHERE id_rol_permiso = '{dato}';";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaPermisoRolUsuario criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaPermisoRolUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
             case FiltroBusquedaPermisoRolUsuario.Id:
@@ -44,7 +44,7 @@ public class DatosPermisoRolUsuario : RepoEntidadBaseDatos<PermisoRolUsuario, Fi
         return comando;
     }
 
-    public override PermisoRolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
+    public override PermisoRolUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new PermisoRolUsuario(
             lectorDatos.GetInt64("id_rol_permiso"),
             lectorDatos.GetInt64("id_rol_usuario"),

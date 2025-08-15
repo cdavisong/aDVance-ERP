@@ -14,7 +14,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string GenerarComandoInsertar(OrdenMateriaPrima objeto) {
+        public override string ComandoAdicionar(OrdenMateriaPrima objeto) {
             return $"""
                 INSERT INTO adv__orden_material (
                     id_orden_produccion,
@@ -37,7 +37,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string GenerarComandoActualizar(OrdenMateriaPrima objeto) {
+        public override string ComandoEditar(OrdenMateriaPrima objeto) {
             return $"""
                 UPDATE adv__orden_material
                 SET
@@ -59,7 +59,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string GenerarClausulaWhere(FiltroBusquedaOrdenMateriaPrima criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaOrdenMateriaPrima criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
@@ -79,7 +79,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
             };
         }
 
-        public override OrdenMateriaPrima MapearEntidad(MySqlDataReader lectorDatos) {
+        public override OrdenMateriaPrima MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             return new OrdenMateriaPrima {
                 Id = lectorDatos.GetInt64("id_orden_material"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

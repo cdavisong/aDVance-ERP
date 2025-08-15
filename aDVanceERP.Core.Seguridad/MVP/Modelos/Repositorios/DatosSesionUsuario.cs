@@ -10,12 +10,12 @@ public class DatosSesionUsuario : RepoEntidadBaseDatos<SesionUsuario, FiltroBusq
         return "SELECT COUNT(id_sesion_usuario) FROM adv__sesion_usuario;";
     }
 
-    public override string GenerarComandoInsertar(SesionUsuario objeto) {
+    public override string ComandoAdicionar(SesionUsuario objeto) {
         return
             $"INSERT INTO adv__sesion_usuario (id_cuenta_usuario, token, fecha_inicio, fecha_fin) VALUES ({objeto.IdCuentaUsuario}, '{objeto.Token}', '{objeto.FechaInicio:yyyy-MM-dd HH:mm:ss}', {(objeto.FechaFin.HasValue ? $"'{objeto.FechaFin:yyyy-MM-dd HH:mm:ss}'" : "NULL")});";
     }
 
-    public override string GenerarComandoActualizar(SesionUsuario objeto) {
+    public override string ComandoEditar(SesionUsuario objeto) {
         return
             $"UPDATE adv__sesion_usuario SET id_cuenta_usuario = {objeto.IdCuentaUsuario}, token = '{objeto.Token}', fecha_inicio = '{objeto.FechaInicio:yyyy-MM-dd HH:mm:ss}', fecha_fin = {(objeto.FechaFin.HasValue ? $"'{objeto.FechaFin:yyyy-MM-dd HH:mm:ss}'" : "NULL")} WHERE id_sesion_usuario = {objeto.Id};";
     }
@@ -24,7 +24,7 @@ public class DatosSesionUsuario : RepoEntidadBaseDatos<SesionUsuario, FiltroBusq
         return $"DELETE FROM adv__sesion_usuario WHERE id_sesion_usuario = {id};";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaSesionUsuario criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaSesionUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
             case FiltroBusquedaSesionUsuario.NombreUsuario:
@@ -42,7 +42,7 @@ public class DatosSesionUsuario : RepoEntidadBaseDatos<SesionUsuario, FiltroBusq
         return comando;
     }
 
-    public override SesionUsuario MapearEntidad(MySqlDataReader lectorDatos) {
+    public override SesionUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new SesionUsuario(
             lectorDatos.GetInt64("id_sesion_usuario"),
             lectorDatos.GetInt32("id_cuenta_usuario"),

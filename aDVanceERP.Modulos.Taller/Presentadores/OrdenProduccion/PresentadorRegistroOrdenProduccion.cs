@@ -78,9 +78,9 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                         materiaPrima.Cantidad = decimal.TryParse(tuplaMateriaPrima[2], NumberStyles.Any, CultureInfo.InvariantCulture, out cantidad) ? cantidad : 0m;
                         materiaPrima.CostoUnitario = decimal.TryParse(tuplaMateriaPrima[3], NumberStyles.Any, CultureInfo.InvariantCulture, out costoUnitario) ? costoUnitario : 0m;
                         materiaPrima.Total = costoUnitario * cantidad;
-                        datosObjeto.Actualizar(materiaPrima);
+                        datosObjeto.Editar(materiaPrima);
                     } else 
-                        datosObjeto.Insertar(materiaPrima);
+                        datosObjeto.Adicionar(materiaPrima);
                 }
             }
         }
@@ -102,9 +102,9 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                         actividadProduccion.Cantidad = decimal.TryParse(tuplaActividadProduccion[1], NumberStyles.Any, CultureInfo.InvariantCulture, out cantidad) ? cantidad : 0m;
                         actividadProduccion.Costo = decimal.TryParse(tuplaActividadProduccion[2], NumberStyles.Any, CultureInfo.InvariantCulture, out costo) ? costo : 0m;
                         actividadProduccion.Total = costo * cantidad;
-                        datosObjeto.Actualizar(actividadProduccion);
+                        datosObjeto.Editar(actividadProduccion);
                     } else
-                        datosObjeto.Insertar(actividadProduccion);
+                        datosObjeto.Adicionar(actividadProduccion);
                 }
             }
         }
@@ -126,9 +126,9 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                         gastoIndirecto.Cantidad = decimal.TryParse(tuplaGastoIndirecto[1], NumberStyles.Any, CultureInfo.InvariantCulture, out cantidad) ? cantidad : 0m;
                         gastoIndirecto.Monto = decimal.TryParse(tuplaGastoIndirecto[2], NumberStyles.Any, CultureInfo.InvariantCulture, out monto) ? monto : 0m;
                         gastoIndirecto.Total = monto * cantidad;
-                        datosObjeto.Actualizar(gastoIndirecto);
+                        datosObjeto.Editar(gastoIndirecto);
                     } else 
-                        datosObjeto.Insertar(gastoIndirecto);
+                        datosObjeto.Adicionar(gastoIndirecto);
                 }
             }
         }

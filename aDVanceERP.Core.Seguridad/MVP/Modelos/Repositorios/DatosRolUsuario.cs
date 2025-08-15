@@ -9,11 +9,11 @@ public class DatosRolUsuario : RepoEntidadBaseDatos<RolUsuario, FiltroBusquedaRo
         return "SELECT COUNT(id_rol_usuario) FROM adv__rol_usuario;";
     }
 
-    public override string GenerarComandoInsertar(RolUsuario objeto) {
+    public override string ComandoAdicionar(RolUsuario objeto) {
         return $"INSERT INTO adv__rol_usuario (nombre) VALUES ('{objeto.Nombre}');";
     }
 
-    public override string GenerarComandoActualizar(RolUsuario objeto) {
+    public override string ComandoEditar(RolUsuario objeto) {
         return $"UPDATE adv__rol_usuario SET nombre = '{objeto.Nombre}' WHERE id_rol_usuario = {objeto.Id};";
     }
 
@@ -21,7 +21,7 @@ public class DatosRolUsuario : RepoEntidadBaseDatos<RolUsuario, FiltroBusquedaRo
         return $"DELETE FROM adv__rol_usuario WHERE id_rol_usuario = {id};";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaRolUsuario criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaRolUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
             case FiltroBusquedaRolUsuario.Id:
@@ -38,7 +38,7 @@ public class DatosRolUsuario : RepoEntidadBaseDatos<RolUsuario, FiltroBusquedaRo
         return comando;
     }
 
-    public override RolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
+    public override RolUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new RolUsuario(
             lectorDatos.GetInt64("id_rol_usuario"),
             lectorDatos.GetString("nombre")

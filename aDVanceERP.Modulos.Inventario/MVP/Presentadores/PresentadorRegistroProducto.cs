@@ -61,11 +61,11 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         // Registrar detalles del producto
         using (var datos = new DatosDetalleProducto()) {
             if (Vista.ModoEdicionDatos && Entidad?.IdDetalleProducto != 0)
-                datos.Actualizar(detalleProducto);
+                datos.Editar(detalleProducto);
             else if (Entidad?.IdDetalleProducto != 0)
-                datos.Actualizar(detalleProducto);
+                datos.Editar(detalleProducto);
             else {
-                Entidad.IdDetalleProducto = datos.Insertar(detalleProducto);
+                Entidad.IdDetalleProducto = datos.Adicionar(detalleProducto);
 
                 // Stock inicial del producto
                 UtilesMovimiento.ModificarInventario(
@@ -78,7 +78,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             }
 
             // Editar producto para modificar Id de los detalles
-            datosProducto.Actualizar(Entidad);
+            datosProducto.Editar(Entidad);
         }
     }
 

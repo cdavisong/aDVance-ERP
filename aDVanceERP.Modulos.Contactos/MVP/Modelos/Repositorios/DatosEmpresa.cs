@@ -15,7 +15,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
                 """;
         }
 
-        public override string GenerarComandoInsertar(Empresa objeto) {
+        public override string ComandoAdicionar(Empresa objeto) {
             return $"""
                 INSERT INTO adv__empresa (
                     nombre,
@@ -28,13 +28,13 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
                 """;
         }
 
-        public override long Insertar(Empresa objeto) {
+        public override long Adicionar(Empresa objeto) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
-                using (var comando = new MySqlCommand(GenerarComandoInsertar(objeto), conexion)) {
+                using (var comando = new MySqlCommand(ComandoAdicionar(objeto), conexion)) {
                     comando.Parameters.AddWithValue("@nombre", objeto.Nombre);
                     comando.Parameters.Add("@logotipo", MySqlDbType.LongBlob).Value = logoBytes.Length > 0 ? logoBytes : DBNull.Value;
                     comando.Parameters.AddWithValue("@idContacto", objeto.IdContacto);
@@ -46,7 +46,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
             }
         }
 
-        public override string GenerarComandoActualizar(Empresa objeto) {
+        public override string ComandoEditar(Empresa objeto) {
             return $"""
                 UPDATE adv__empresa
                 SET
@@ -57,13 +57,13 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
                 """;
         }
 
-        public override bool Actualizar(Empresa objeto, long nuevoId = 0) {
+        public override bool Editar(Empresa objeto, long nuevoId = 0) {
             var logoBytes = objeto.ObtenerDatosDbLogotipo();
 
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
-                using (var comando = new MySqlCommand(GenerarComandoActualizar(objeto), conexion)) {
+                using (var comando = new MySqlCommand(ComandoEditar(objeto), conexion)) {
                     comando.Parameters.AddWithValue("@nombre", objeto.Nombre);
                     comando.Parameters.Add("@logotipo", MySqlDbType.LongBlob).Value = logoBytes.Length > 0 ? logoBytes : DBNull.Value;
                     comando.Parameters.AddWithValue("@idContacto", objeto.IdContacto);
@@ -82,7 +82,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
                 """;
         }
 
-        public override string GenerarClausulaWhere(FiltroBusquedaEmpresa criterio, string dato) {
+        public override string ComandoObtener(FiltroBusquedaEmpresa criterio, string dato) {
             string? comando;
 
             switch (criterio) {
@@ -100,7 +100,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
             return comando;
         }
 
-        public override Empresa MapearEntidad(MySqlDataReader lectorDatos) {
+        public override Empresa MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
             var empresa = new Empresa(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_empresa")),
                 null,

@@ -6,7 +6,7 @@ namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios;
 
 internal class DatosModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, FiltroBusquedaModuloAplicacion>,
     IRepositorioModuloAplicacion {
-    public override string GenerarComandoInsertar(ModuloAplicacion objeto) {
+    public override string ComandoAdicionar(ModuloAplicacion objeto) {
         return $"INSERT INTO adv__modulo_aplicacion (nombre, version) VALUES ('{objeto.Nombre}', '{objeto.Version}');";
     }
 
@@ -14,7 +14,7 @@ internal class DatosModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, Fi
         return "SELECT COUNT(id_modulo_aplicacion) FROM adv__modulo_aplicacion;";
     }
 
-    public override string GenerarComandoActualizar(ModuloAplicacion objeto) {
+    public override string ComandoEditar(ModuloAplicacion objeto) {
         return
             $"UPDATE adv__modulo_aplicacion SET nombre = '{objeto.Nombre}', version = {objeto.Version} WHERE id_modulo_aplicacion = {objeto.Id};";
     }
@@ -27,7 +27,7 @@ internal class DatosModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, Fi
         return $"SELECT COUNT(1) FROM adv__modulo_aplicacion WHERE nombre = '{dato}';";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaModuloAplicacion criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaModuloAplicacion criterio, string dato) {
         string comando;
         switch (criterio) {
             case FiltroBusquedaModuloAplicacion.Id:
@@ -44,7 +44,7 @@ internal class DatosModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, Fi
         return comando;
     }
 
-    public override ModuloAplicacion MapearEntidad(MySqlDataReader lectorDatos) {
+    public override ModuloAplicacion MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new ModuloAplicacion(
             lectorDatos.GetInt64("id_modulo_aplicacion"),
             lectorDatos.GetString("nombre"),

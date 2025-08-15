@@ -10,7 +10,7 @@ public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, Filtr
         return "SELECT COUNT(id_inventario) FROM adv__inventario;";
     }
 
-    public override string GenerarComandoInsertar(MVP.Modelos.Inventario objeto) {
+    public override string ComandoAdicionar(MVP.Modelos.Inventario objeto) {
         return $"""
             INSERT INTO adv__inventario (
                 id_producto, 
@@ -24,7 +24,7 @@ public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, Filtr
             """;
     }
 
-    public override string GenerarComandoActualizar(MVP.Modelos.Inventario objeto) {
+    public override string ComandoEditar(MVP.Modelos.Inventario objeto) {
         return $"""
             UPDATE adv__inventario 
             SET 
@@ -45,7 +45,7 @@ public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, Filtr
         return $"SELECT * FROM adv__inventario WHERE id_inventario='{dato}';";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaInventario criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaInventario criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -66,7 +66,7 @@ public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, Filtr
         return comando;
     }
 
-    public override MVP.Modelos.Inventario MapearEntidad(MySqlDataReader lectorDatos) {
+    public override MVP.Modelos.Inventario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new MVP.Modelos.Inventario(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_inventario")),
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_producto")),

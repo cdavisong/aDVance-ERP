@@ -13,12 +13,12 @@ public class DatosProveedor : RepoEntidadBaseDatos<Proveedor, FiltroBusquedaProv
         return "SELECT COUNT(id_proveedor) FROM adv__proveedor;";
     }
 
-    public override string GenerarComandoInsertar(Proveedor objeto) {
+    public override string ComandoAdicionar(Proveedor objeto) {
         return
             $"INSERT INTO adv__proveedor (razon_social, nit, id_contacto) VALUES ('{objeto.RazonSocial}', '{objeto.NumeroIdentificacionTributaria}', '{objeto.IdContacto}');";
     }
 
-    public override string GenerarComandoActualizar(Proveedor objeto) {
+    public override string ComandoEditar(Proveedor objeto) {
         return
             $"UPDATE adv__proveedor SET razon_social='{objeto.RazonSocial}', nit='{objeto.NumeroIdentificacionTributaria}', id_contacto='{objeto.IdContacto}' WHERE id_proveedor={objeto.Id};";
     }
@@ -27,7 +27,7 @@ public class DatosProveedor : RepoEntidadBaseDatos<Proveedor, FiltroBusquedaProv
         return $"DELETE FROM adv__proveedor WHERE id_proveedor={id};";
     }
 
-    public override string GenerarClausulaWhere(FiltroBusquedaProveedor criterio, string dato) {
+    public override string ComandoObtener(FiltroBusquedaProveedor criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -48,7 +48,7 @@ public class DatosProveedor : RepoEntidadBaseDatos<Proveedor, FiltroBusquedaProv
         return comando;
     }
 
-    public override Proveedor MapearEntidad(MySqlDataReader lectorDatos) {
+    public override Proveedor MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
         return new Proveedor(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("razon_social")),
