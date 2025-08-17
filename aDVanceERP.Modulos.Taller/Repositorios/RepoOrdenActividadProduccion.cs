@@ -76,7 +76,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
             };
         }
 
-        public override OrdenActividadProduccion MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+        public override OrdenActividadProduccion MapearEntidad(MySqlDataReader lectorDatos) {
             return new OrdenActividadProduccion {
                 Id = lectorDatos.GetInt64("id_orden_actividad"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

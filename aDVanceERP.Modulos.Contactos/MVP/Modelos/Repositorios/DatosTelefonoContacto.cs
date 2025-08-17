@@ -45,7 +45,7 @@ public class DatosTelefonoContacto : RepoEntidadBaseDatos<TelefonoContacto, Filt
         return comando;
     }
 
-    public override TelefonoContacto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override TelefonoContacto MapearEntidad(MySqlDataReader lectorDatos) {
         return new TelefonoContacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_telefono_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("prefijo")),

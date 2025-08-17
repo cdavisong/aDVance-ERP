@@ -42,7 +42,7 @@ public class DatosSesionUsuario : RepoEntidadBaseDatos<SesionUsuario, FiltroBusq
         return comando;
     }
 
-    public override SesionUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override SesionUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new SesionUsuario(
             lectorDatos.GetInt64("id_sesion_usuario"),
             lectorDatos.GetInt32("id_cuenta_usuario"),

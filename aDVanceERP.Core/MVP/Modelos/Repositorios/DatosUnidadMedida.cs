@@ -58,7 +58,7 @@ public class DatosUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusque
         return comando;
     }
 
-    public override UnidadMedida MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override UnidadMedida MapearEntidad(MySqlDataReader lectorDatos) {
         return new UnidadMedida(
             lectorDatos.GetInt64("id_unidad_medida"),
             lectorDatos.GetString("nombre"),

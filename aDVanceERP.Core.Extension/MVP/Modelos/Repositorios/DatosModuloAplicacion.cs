@@ -44,7 +44,7 @@ internal class DatosModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, Fi
         return comando;
     }
 
-    public override ModuloAplicacion MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override ModuloAplicacion MapearEntidad(MySqlDataReader lectorDatos) {
         return new ModuloAplicacion(
             lectorDatos.GetInt64("id_modulo_aplicacion"),
             lectorDatos.GetString("nombre"),

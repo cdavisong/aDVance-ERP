@@ -39,7 +39,7 @@ public class DatosCuentaUsuario : RepoEntidadBaseDatos<CuentaUsuario, FiltroBusq
         return comando;
     }
 
-    public override CuentaUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override CuentaUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new CuentaUsuario(
             lectorDatos.GetInt64("id_cuenta_usuario"),
             lectorDatos.GetString("nombre"),

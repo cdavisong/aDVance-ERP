@@ -71,7 +71,7 @@ public class DatosDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, Filtro
         return comando;
     }
 
-    public override DetalleProducto MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
+    public override DetalleProducto MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new DetalleProducto(
             id: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_detalle_producto")),

@@ -58,7 +58,7 @@ public class DatosSeguimientoEntrega : RepoEntidadBaseDatos<SeguimientoEntrega, 
         return comando;
     }
 
-    public override SeguimientoEntrega MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override SeguimientoEntrega MapearEntidad(MySqlDataReader lectorDatos) {
         return new SeguimientoEntrega(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_seguimiento_entrega")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

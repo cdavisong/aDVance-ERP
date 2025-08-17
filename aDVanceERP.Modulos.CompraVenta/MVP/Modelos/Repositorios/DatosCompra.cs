@@ -106,7 +106,7 @@ public class DatosCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, I
         return comando;
     }
 
-    public override Compra MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Compra MapearEntidad(MySqlDataReader lectorDatos) {
         return new Compra(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

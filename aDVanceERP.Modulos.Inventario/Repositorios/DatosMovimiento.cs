@@ -94,7 +94,7 @@ public class DatosMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMo
         return comando;
     }
 
-    public override Movimiento MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
+    public override Movimiento MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new Movimiento(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento")),

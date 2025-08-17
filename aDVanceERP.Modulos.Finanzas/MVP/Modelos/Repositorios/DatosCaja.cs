@@ -42,7 +42,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios
             }
         }
 
-        public override Caja MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+        public override Caja MapearEntidad(MySqlDataReader lectorDatos) {
             return new Caja(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_caja")),
                 lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha_apertura")),

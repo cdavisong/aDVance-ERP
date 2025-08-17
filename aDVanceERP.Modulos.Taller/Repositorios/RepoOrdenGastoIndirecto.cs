@@ -76,7 +76,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
             };
         }
 
-        public override OrdenGastoIndirecto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+        public override OrdenGastoIndirecto MapearEntidad(MySqlDataReader lectorDatos) {
             return new OrdenGastoIndirecto {
                 Id = lectorDatos.GetInt64("id_orden_gasto_indirecto"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),

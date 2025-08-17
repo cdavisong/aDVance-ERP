@@ -148,7 +148,7 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
         return comando;
     }
 
-    public override Producto MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
+    public override Producto MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new Producto(
             id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),

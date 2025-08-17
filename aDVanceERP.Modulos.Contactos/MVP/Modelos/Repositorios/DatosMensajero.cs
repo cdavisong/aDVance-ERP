@@ -75,7 +75,7 @@ public class DatosMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMens
         return comando;
     }
 
-    public override Mensajero MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Mensajero MapearEntidad(MySqlDataReader lectorDatos) {
         return new Mensajero(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_mensajero")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),

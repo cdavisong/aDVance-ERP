@@ -46,7 +46,7 @@ public class DatosCuentaBancaria : RepoEntidadBaseDatos<CuentaBancaria, FiltroBu
         return $"SELECT COUNT(1) FROM adv__cuenta_bancaria WHERE id_cuenta_bancaria = {dato};";
     }
 
-    public override CuentaBancaria MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override CuentaBancaria MapearEntidad(MySqlDataReader lectorDatos) {
         return new CuentaBancaria(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cuenta_bancaria")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("alias")),

@@ -90,7 +90,7 @@ public class DatosContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContac
         return comando;
     }
 
-    public override Contacto MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Contacto MapearEntidad(MySqlDataReader lectorDatos) {
         return new Contacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),

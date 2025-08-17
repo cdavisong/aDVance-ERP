@@ -100,7 +100,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
             return comando;
         }
 
-        public override Empresa MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+        public override Empresa MapearEntidad(MySqlDataReader lectorDatos) {
             var empresa = new Empresa(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_empresa")),
                 null,

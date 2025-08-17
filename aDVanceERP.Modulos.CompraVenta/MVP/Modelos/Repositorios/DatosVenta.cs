@@ -107,7 +107,7 @@ public class DatosVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRep
         return comando;
     }
 
-    public override Venta MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Venta MapearEntidad(MySqlDataReader lectorDatos) {
         return new Venta(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),

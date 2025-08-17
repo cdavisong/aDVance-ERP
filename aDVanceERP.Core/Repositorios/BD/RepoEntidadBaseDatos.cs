@@ -10,14 +10,9 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
     where Fb : Enum {
     private List<En> _cacheEntidades;
 
-    protected RepoEntidadBaseDatos() {
+    protected RepoEntidadBaseDatos(string nombreTabla, string columnaId) {
         _cacheEntidades = new List<En>();
 
-        NombreTabla = string.Empty;
-        ColumnaId = string.Empty;
-    }
-
-    protected RepoEntidadBaseDatos(string nombreTabla, string columnaId) : this() {
         NombreTabla = nombreTabla;
         ColumnaId = columnaId;
     }
@@ -34,12 +29,12 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
             { "@id", id }
         };
 
-        return ContextoBaseDatos.EjecutarConsultaEscalar(consulta, parametros, MapearEntidadBaseDatos);
+        return ContextoBaseDatos.EjecutarConsultaEscalar(consulta, parametros, MapearEntidad);
     }
 
     public IEnumerable<En> ObtenerTodos() {
         var consulta = $"SELECT * FROM {NombreTabla}";
-        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, null, MapearEntidadBaseDatos);
+        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, null, MapearEntidad);
 
         _cacheEntidades.Clear();
         _cacheEntidades.AddRange(resultados);
@@ -64,7 +59,7 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
         }
 
         var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consulta.Replace("*", $"COUNT(*)"));
-        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, new Dictionary<string, object>(), MapearEntidadBaseDatos);
+        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, new Dictionary<string, object>(), MapearEntidad);
 
         return (cantidad, resultados);
     }
@@ -95,9 +90,6 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
         return true;
     }
 
-    
-
-
     public bool Existe(string dato) {
         return ContextoBaseDatos.EjecutarConsultaEscalar<bool>(ComandoExiste(dato), new Dictionary<string, object>());
     }
@@ -113,7 +105,7 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
     public abstract string ComandoEliminar(long id);
     public abstract string ComandoObtener(Fb criterio, string dato);
     public abstract string ComandoExiste(string dato);
-    public abstract En MapearEntidadBaseDatos(MySqlDataReader lectorDatos);
+    public abstract En MapearEntidad(MySqlDataReader lectorDatos);
 
     protected virtual void Dispose(bool disposing) {
         if (disposing) _cacheEntidades?.Clear();

@@ -3,4 +3,4 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 
-public interface IRepositorioAlmacen : IRepoEntidadBaseDatos<Almacen, FiltroBusquedaAlmacen> { }
+public interface IRepoAlmacen : IRepoEntidadBaseDatos<Almacen, FiltroBusquedaAlmacen> { }

@@ -48,7 +48,7 @@ public class DatosProveedor : RepoEntidadBaseDatos<Proveedor, FiltroBusquedaProv
         return comando;
     }
 
-    public override Proveedor MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Proveedor MapearEntidad(MySqlDataReader lectorDatos) {
         return new Proveedor(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("razon_social")),

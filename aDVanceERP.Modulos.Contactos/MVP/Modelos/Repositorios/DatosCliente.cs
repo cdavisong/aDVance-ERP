@@ -42,7 +42,7 @@ public class DatosCliente : RepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente>
         return comando;
     }
 
-    public override Cliente MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Cliente MapearEntidad(MySqlDataReader lectorDatos) {
         return new Cliente(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("numero")),

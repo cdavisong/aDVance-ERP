@@ -38,7 +38,7 @@ public class DatosRolUsuario : RepoEntidadBaseDatos<RolUsuario, FiltroBusquedaRo
         return comando;
     }
 
-    public override RolUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override RolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new RolUsuario(
             lectorDatos.GetInt64("id_rol_usuario"),
             lectorDatos.GetString("nombre")

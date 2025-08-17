@@ -66,7 +66,7 @@ public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, Filtr
         return comando;
     }
 
-    public override MVP.Modelos.Inventario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override MVP.Modelos.Inventario MapearEntidad(MySqlDataReader lectorDatos) {
         return new MVP.Modelos.Inventario(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_inventario")),
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_producto")),

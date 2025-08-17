@@ -11,7 +11,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTuplaAlmacen, IVistaGestionAlmacenes,
-    IVistaTuplaAlmacen, Almacen, DatosAlmacen, FiltroBusquedaAlmacen> {
+    IVistaTuplaAlmacen, Almacen, RepoAlmacen, FiltroBusquedaAlmacen> {
     private ControladorArchivosAndroid _androidFileManager;
     private bool _dispositivoConectado;
 

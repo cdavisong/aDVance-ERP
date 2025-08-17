@@ -44,7 +44,7 @@ public class DatosPago : RepoEntidadBaseDatos<Pago, FiltroBusquedaPago>, IReposi
         return $"SELECT COUNT(1) FROM adv__pago WHERE id_pago = {dato};";
     }
 
-    public override Pago MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override Pago MapearEntidad(MySqlDataReader lectorDatos) {
         return new Pago(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_pago")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

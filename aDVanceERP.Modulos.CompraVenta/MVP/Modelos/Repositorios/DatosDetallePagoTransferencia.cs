@@ -54,7 +54,7 @@ public class DatosDetallePagoTransferencia :
         return $"SELECT COUNT(1) FROM adv__detalle_pago_transferencia WHERE id_detalle_pago_transferencia = {dato};";
     }
 
-    public override DetallePagoTransferencia MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override DetallePagoTransferencia MapearEntidad(MySqlDataReader lectorDatos) {
         return new DetallePagoTransferencia(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_pago_transferencia")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

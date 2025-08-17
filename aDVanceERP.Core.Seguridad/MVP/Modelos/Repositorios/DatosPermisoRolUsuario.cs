@@ -44,7 +44,7 @@ public class DatosPermisoRolUsuario : RepoEntidadBaseDatos<PermisoRolUsuario, Fi
         return comando;
     }
 
-    public override PermisoRolUsuario MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+    public override PermisoRolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new PermisoRolUsuario(
             lectorDatos.GetInt64("id_rol_permiso"),
             lectorDatos.GetInt64("id_rol_usuario"),

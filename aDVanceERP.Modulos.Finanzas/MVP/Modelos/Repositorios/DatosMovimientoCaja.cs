@@ -57,7 +57,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios
             };
         }
 
-        public override MovimientoCaja MapearEntidadBaseDatos(MySqlDataReader lectorDatos) {
+        public override MovimientoCaja MapearEntidad(MySqlDataReader lectorDatos) {
             return new MovimientoCaja(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento_caja")),
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_caja")),

@@ -66,7 +66,7 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
         };
     }
 
-    public override TipoMateriaPrima MapearEntidadBaseDatos(MySqlDataReader lectorDatos)
+    public override TipoMateriaPrima MapearEntidad(MySqlDataReader lectorDatos)
     {
         return new TipoMateriaPrima(
             lectorDatos.GetInt64("id_tipo_materia_prima"),

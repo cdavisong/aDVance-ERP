@@ -49,7 +49,7 @@ public partial class PresentadorContenedorModulos {
         // Comprobar la existencia de al menos un almacén registrado.
         var existenAlmacenes = false;
 
-        using (var datos = new DatosAlmacen())
+        using (var datos = new RepoAlmacen())
             existenAlmacenes = datos.Cantidad() > 0;
 
         if (!existenAlmacenes) {
