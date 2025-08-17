@@ -4,8 +4,10 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios;
 
-internal class DatosModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, FiltroBusquedaModuloAplicacion>,
-    IRepositorioModuloAplicacion {
+internal class RepoModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, FiltroBusquedaModuloAplicacion>, IRepoModuloAplicacion {
+    public RepoModuloAplicacion() : base("adv__modulo_aplicacion", "id_modulo_aplicacion") {
+    }
+
     public override string ComandoAdicionar(ModuloAplicacion objeto) {
         return $"INSERT INTO adv__modulo_aplicacion (nombre, version) VALUES ('{objeto.Nombre}', '{objeto.Version}');";
     }

@@ -1,22 +1,23 @@
 ﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, FiltroBusquedaTipoMateriaPrima>, IRepositorioTipoMateriaPrima
-{
-    public override string ComandoCantidad()
-    {
+public class RepoTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, FiltroBusquedaTipoMateriaPrima>, IRepoTipoMateriaPrima {
+    public RepoTipoMateriaPrima() : base("adv__tipo_materia_prima", "id_tipo_materia_prima") {
+    }
+
+    public override string ComandoCantidad() {
         return """
             SELECT COUNT(id_tipo_materia_prima) 
             FROM adv__tipo_materia_prima;
             """;
     }
 
-    public override string ComandoAdicionar(TipoMateriaPrima objeto)
-    {
+    public override string ComandoAdicionar(TipoMateriaPrima objeto) {
         return $"""
             INSERT INTO adv__tipo_materia_prima (
                 nombre,
@@ -29,8 +30,7 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
             """;
     }
 
-    public override string ComandoEditar(TipoMateriaPrima objeto)
-    {
+    public override string ComandoEditar(TipoMateriaPrima objeto) {
         return $"""
             UPDATE adv__tipo_materia_prima
             SET
@@ -40,8 +40,7 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
             """;
     }
 
-    public override string ComandoEliminar(long id)
-    {
+    public override string ComandoEliminar(long id) {
         return $"""
             UPDATE adv__producto
             SET id_tipo_materia_prima = 0
@@ -52,10 +51,8 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
             """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaTipoMateriaPrima criterio, string dato)
-    {
-        return criterio switch
-        {
+    public override string ComandoObtener(FiltroBusquedaTipoMateriaPrima criterio, string dato) {
+        return criterio switch {
             FiltroBusquedaTipoMateriaPrima.Todos => "SELECT * FROM adv__tipo_materia_prima;",
             FiltroBusquedaTipoMateriaPrima.Id => $"SELECT * FROM adv__tipo_materia_prima WHERE id_tipo_materia_prima = {dato};",
             FiltroBusquedaTipoMateriaPrima.Nombre => $"""
@@ -66,8 +63,7 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
         };
     }
 
-    public override TipoMateriaPrima MapearEntidad(MySqlDataReader lectorDatos)
-    {
+    public override TipoMateriaPrima MapearEntidad(MySqlDataReader lectorDatos) {
         return new TipoMateriaPrima(
             lectorDatos.GetInt64("id_tipo_materia_prima"),
             lectorDatos.GetString("nombre"),
@@ -75,8 +71,7 @@ public class DatosTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filt
         );
     }
 
-    public override string ComandoExiste(string dato)
-    {
+    public override string ComandoExiste(string dato) {
         return $"""
             SELECT COUNT(1) 
             FROM adv__tipo_materia_prima 

@@ -7,8 +7,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistroCliente, Cliente, DatosCliente,
-    FiltroBusquedaCliente> {
+public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistroCliente, Cliente, RepoCliente, FiltroBusquedaCliente> {
     public PresentadorRegistroCliente(IVistaRegistroCliente vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Cliente objeto) {
@@ -16,7 +15,7 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
         Vista.RazonSocial = objeto.RazonSocial;
         Vista.Numero = objeto.Numero;
 
-        using (var datosContacto = new DatosContacto()) {
+        using (var datosContacto = new RepoContacto()) {
             var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
 
             if (contacto != null) {
@@ -55,8 +54,8 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
         return nombreOk && telefonoOk && direccionOk;
     }
 
-    protected override void RegistroAuxiliar(DatosCliente datosCliente, long id) {
-        using (var datosContacto = new DatosContacto()) {
+    protected override void RegistroAuxiliar(RepoCliente datosCliente, long id) {
+        using (var datosContacto = new RepoContacto()) {
             // Contacto
             var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, (Entidad?.IdContacto ?? 0).ToString()).resultados.FirstOrDefault() ??
                 new Contacto();
@@ -76,7 +75,7 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
                 datosCliente.Editar(Entidad);
             }
 
-            using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+            using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
                 var telefonos = datosTelefonoContacto.Buscar(FiltroBusquedaTelefonoContacto.IdContacto, (Entidad?.IdContacto ?? 0).ToString()).resultados.ToList() ??
                     new List<TelefonoContacto>();
                 var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);

@@ -2,7 +2,7 @@
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas; 
 
-public interface IRepositorioVista : IDisposable {
+public interface IRepoVista : IDisposable {
     List<IVistaBase>? Vistas { get; }
     IVistaBase? VistaActual { get; }
 

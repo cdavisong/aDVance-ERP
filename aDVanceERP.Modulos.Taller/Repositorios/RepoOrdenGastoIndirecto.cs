@@ -7,6 +7,9 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Taller.Repositorios
 {
     public class RepoOrdenGastoIndirecto : RepoEntidadBaseDatos<OrdenGastoIndirecto, FiltroBusquedaOrdenGastoIndirecto> {
+        public RepoOrdenGastoIndirecto() : base("adv__orden_gasto_indirecto", "id_orden_gasto_indirecto") {
+        }
+
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_gasto_indirecto) 

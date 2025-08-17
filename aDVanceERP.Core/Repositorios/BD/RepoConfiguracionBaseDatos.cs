@@ -14,7 +14,7 @@ namespace aDVanceERP.Core.Repositorios.BD {
         }
 
         public ConfiguracionBaseDatos? ObtenerPorId(object? id) {
-            var rutaArchivo = Path.Combine(_directorioRaiz, id != null ? NombreArchivo : id?.ToString());
+            var rutaArchivo = Path.Combine(_directorioRaiz, id == null ? NombreArchivo : id?.ToString());
 
             if (File.Exists(rutaArchivo)) {
                 var contenido = File.ReadAllText(rutaArchivo);

@@ -37,7 +37,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 var materiasPrimas = datosObjeto.Buscar(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, e.Id.ToString()).resultados;
 
                 if (materiasPrimas != null && materiasPrimas.Count() > 0) {
-                    using (var datosMovimiento = new DatosMovimiento()) {
+                    using (var datosMovimiento = new RepoMovimiento()) {
                         foreach (var materiaPrima in materiasPrimas) {
                             datosMovimiento.Adicionar(new Movimiento(
                                 0,
@@ -54,7 +54,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             }
 
             // Movimiento generado por la orden de producción
-            using (var datosMovimiento = new DatosMovimiento()) {
+            using (var datosMovimiento = new RepoMovimiento()) {
                 datosMovimiento.Adicionar(new Movimiento(
                     0,
                     e.IdProducto,

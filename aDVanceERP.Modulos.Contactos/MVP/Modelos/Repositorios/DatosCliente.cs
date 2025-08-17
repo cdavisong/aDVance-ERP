@@ -4,7 +4,10 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosCliente : RepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente>, IRepositorioCliente {
+public class RepoCliente : RepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente>, IRepoCliente {
+    public RepoCliente() : base("adv__cliente", "id_cliente") {
+    }
+
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_cliente) FROM adv__cliente;";
     }

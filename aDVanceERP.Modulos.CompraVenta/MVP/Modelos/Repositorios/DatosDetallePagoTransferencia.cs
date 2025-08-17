@@ -4,9 +4,10 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosDetallePagoTransferencia :
-    RepoEntidadBaseDatos<DetallePagoTransferencia, FiltroBusquedaDetallePagoTransferencia>,
-    IRepositorioDetallePagoTransferencia {
+public class RepoDetallePagoTransferencia : RepoEntidadBaseDatos<DetallePagoTransferencia, FiltroBusquedaDetallePagoTransferencia>, IRepoDetallePagoTransferencia {
+    public RepoDetallePagoTransferencia() : base("adv__detalle_pago_transferencia", "id_detalle_pago_transferencia") {
+    }
+
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_detalle_pago_transferencia) FROM adv__detalle_pago_transferencia;";
     }

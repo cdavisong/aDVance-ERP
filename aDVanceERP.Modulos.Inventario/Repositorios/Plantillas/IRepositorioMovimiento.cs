@@ -3,4 +3,4 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
 
-public interface IRepositorioMovimiento : IRepoEntidadBaseDatos<Movimiento, FiltroBusquedaMovimiento> { }
+public interface IRepoMovimiento : IRepoEntidadBaseDatos<Movimiento, FiltroBusquedaMovimiento> { }

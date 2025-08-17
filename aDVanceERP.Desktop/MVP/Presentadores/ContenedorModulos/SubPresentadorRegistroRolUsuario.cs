@@ -69,7 +69,7 @@ public partial class PresentadorContenedorModulos {
         if (idRolUsuario == 0)
             idRolUsuario = UtilesBD.ObtenerUltimoIdTabla("rol_usuario");
         else {
-            using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario())
+            using (var datosPermisoRolUsuario = new RepoPermisoRolUsuario())
                 datosPermisoRolUsuario.EliminarPorRol(idRolUsuario);
 
             UtilesRolUsuario.LimpiarCacheRol(idRolUsuario);
@@ -82,7 +82,7 @@ public partial class PresentadorContenedorModulos {
                 long.Parse(permiso[0])
             );
 
-            using (var datosPermisoRolUsuario = new DatosPermisoRolUsuario())
+            using (var datosPermisoRolUsuario = new RepoPermisoRolUsuario())
                 datosPermisoRolUsuario.Adicionar(permisoRolUsuario);
         }
     }

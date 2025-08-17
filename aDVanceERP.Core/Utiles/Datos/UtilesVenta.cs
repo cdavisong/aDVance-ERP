@@ -8,14 +8,14 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Utiles.Datos;
 
-public class DatosEstadisticosVentas {
+public class RepoEstadisticosVentas {
     public Dictionary<DateTime, decimal> VentasPorHora { get; set; } = new();
     public Dictionary<DateTime, decimal> VentasPorDia { get; set; } = new();
     public Dictionary<DateTime, decimal> VentasPorMes { get; set; } = new();
 }
 
 public static class UtilesVenta {
-    private static DatosEstadisticosVentas _datos = new();
+    private static RepoEstadisticosVentas _datos = new();
 
     // Método auxiliar para ejecutar consultas y devolver un valor decimal
     private static decimal EjecutarConsultaDecimal(string query, params MySqlParameter[] parameters) {
@@ -322,8 +322,8 @@ public static class UtilesVenta {
         return EjecutarConsultaDecimal(query, parametros);
     }
 
-    public static DatosEstadisticosVentas ObtenerDatosEstadisticosVentas(DateTime fecha) {
-        _datos = new DatosEstadisticosVentas();
+    public static RepoEstadisticosVentas ObtenerDatosEstadisticosVentas(DateTime fecha) {
+        _datos = new RepoEstadisticosVentas();
 
         ObtenerVentasPorHora(fecha);
         ObtenerVentasPorDia(fecha);
@@ -440,7 +440,7 @@ public static class UtilesVenta {
         }
     }
 
-    private static void RellenarPeriodosVacios(DatosEstadisticosVentas datos, DateTime fecha) {
+    private static void RellenarPeriodosVacios(RepoEstadisticosVentas datos, DateTime fecha) {
         // Rellenar horas (0-23)
         for (var hora = 0; hora < 24; hora++) {
             var horaFecha = fecha.Date.AddHours(hora);

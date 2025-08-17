@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioSesionUsuario : IRepoEntidadBaseDatos<SesionUsuario, FiltroBusquedaSesionUsuario> { }
+public interface IRepoSesionUsuario : IRepoEntidadBaseDatos<SesionUsuario, FiltroBusquedaSesionUsuario> { }

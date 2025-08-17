@@ -4,7 +4,10 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMensajero>, IRepositorioMensajero {
+public class RepoMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMensajero>, IRepoMensajero {
+    public RepoMensajero() : base("adv__mensajero", "id_mensajero") {
+    }
+
     public override string ComandoCantidad() {
         return """
                SELECT

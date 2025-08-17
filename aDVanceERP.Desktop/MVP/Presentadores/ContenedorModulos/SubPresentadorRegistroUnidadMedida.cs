@@ -28,7 +28,7 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void EliminarUnidadMedida(object? sender, EventArgs e) {
-        using (var unidadMedida = new DatosUnidadMedida()) {
+        using (var unidadMedida = new RepoUnidadMedida()) {
             if (sender is string nombreUnidadMedida) {
                 var idUnidadMedida = UtilesUnidadMedida.ObtenerIdUnidadMedida(nombreUnidadMedida).Result;
 

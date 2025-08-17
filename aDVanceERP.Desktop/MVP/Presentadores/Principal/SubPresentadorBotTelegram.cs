@@ -397,7 +397,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 await ResponderMensaje(chatId, $"🔄 Generando reporte para el {fechaReporte:dd/MM/yyyy}...");
 
                 var filas = new List<string[]>();
-                using (var datosVentas = new DatosVenta()) {
+                using (var datosVentas = new RepoVenta()) {
                     var ventasFecha = datosVentas.Buscar(FiltroBusquedaVenta.Fecha, fechaReporte.ToString("yyyy-MM-dd")).resultados;
 
                     if (ventasFecha == null || !ventasFecha.Any()) {
@@ -406,7 +406,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     }
 
                     foreach (var venta in ventasFecha) {
-                        using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
+                        using (var datosVentaProducto = new RepoDetalleVentaProducto()) {
                             var detalleVentaProducto = datosVentaProducto.Buscar(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString()).resultados;
 
                             foreach (var ventaProducto in detalleVentaProducto) {
@@ -537,7 +537,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     var usuario = partes[0].Trim();
                     var password = partes[1].Trim();
 
-                    using (var datosUsuario = new DatosCuentaUsuario()) {
+                    using (var datosUsuario = new RepoCuentaUsuario()) {
                         var usuarioEncontrado = datosUsuario.Buscar(
                             FiltroBusquedaCuentaUsuario.Nombre,
                             usuario).resultados.FirstOrDefault();
@@ -610,7 +610,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     return;
                 }
 
-                using (var datosUsuario = new DatosCuentaUsuario()) {
+                using (var datosUsuario = new RepoCuentaUsuario()) {
                     var usuarioExistente = datosUsuario.Buscar(
                         FiltroBusquedaCuentaUsuario.Nombre,
                         usuario).resultados.FirstOrDefault();

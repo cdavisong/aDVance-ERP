@@ -4,7 +4,9 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContacto>, IRepositorioContacto {
+public class RepoContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContacto>, IRepoContacto {
+    public RepoContacto() : base("adv__contacto", "id_contacto") { }
+
     public override string ComandoCantidad() {
         return """
                SELECT

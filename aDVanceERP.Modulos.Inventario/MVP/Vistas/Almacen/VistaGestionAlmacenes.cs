@@ -71,7 +71,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         }
     }
 
-    public IRepositorioVista? Vistas { get; private set; }
+    public IRepoVista? Vistas { get; private set; }
 
     public bool DispositivoConectado { get; private set; }
 

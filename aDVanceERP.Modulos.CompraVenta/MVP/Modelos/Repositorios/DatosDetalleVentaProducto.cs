@@ -5,8 +5,10 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
-public class DatosDetalleVentaProducto : RepoEntidadBaseDatos<DetalleVentaProducto, CriterioDetalleVentaProducto>,
-    IRepositorioDetalleVentaProducto {
+public class RepoDetalleVentaProducto : RepoEntidadBaseDatos<DetalleVentaProducto, CriterioDetalleVentaProducto>, IRepoDetalleVentaProducto {
+    public RepoDetalleVentaProducto() : base("adv__detalle_venta_producto", "id_detalle_venta_producto") {
+    }
+
     public override string ComandoCantidad() {
         return """
                SELECT COUNT(id_detalle_venta_producto)

@@ -35,7 +35,7 @@ public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad 
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public IRepositorioVista? Vistas { get; private set; }
+    public IRepoVista? Vistas { get; private set; }
 
     public event EventHandler? Salir;
 

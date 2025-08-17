@@ -7,6 +7,9 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Taller.Repositorios
 {
     public class RepoOrdenActividadProduccion : RepoEntidadBaseDatos<OrdenActividadProduccion, FiltroBusquedaOrdenActividadProduccion> {
+        public RepoOrdenActividadProduccion() : base("adv__orden_actividad", "id_orden_actividad") {
+        }
+
         public override string ComandoCantidad() {
             return """
                 SELECT COUNT(id_orden_actividad) 

@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plant
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class
-    PresentadorRegistroCompra : PresentadorRegistroBase<IVistaRegistroCompra, Compra, DatosCompra,
+    PresentadorRegistroCompra : PresentadorRegistroBase<IVistaRegistroCompra, Compra, RepoCompra,
         FiltroBusquedaCompra> {
     public PresentadorRegistroCompra(IVistaRegistroCompra vista) : base(vista) { }
 

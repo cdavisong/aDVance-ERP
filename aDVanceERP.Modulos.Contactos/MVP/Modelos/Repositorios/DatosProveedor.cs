@@ -8,7 +8,9 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
-public class DatosProveedor : RepoEntidadBaseDatos<Proveedor, FiltroBusquedaProveedor>, IRepositorioProveedor {
+public class RepoProveedor : RepoEntidadBaseDatos<Proveedor, FiltroBusquedaProveedor>, IRepoProveedor {
+    public RepoProveedor() : base("adv__proveedor", "id_proveedor") {
+    }
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_proveedor) FROM adv__proveedor;";
     }

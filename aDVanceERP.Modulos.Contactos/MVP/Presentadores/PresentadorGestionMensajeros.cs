@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
 public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTuplaMensajero, IVistaGestionMensajeros,
-    IVistaTuplaMensajero, Mensajero, DatosMensajero, FiltroBusquedaMensajero> {
+    IVistaTuplaMensajero, Mensajero, RepoMensajero, FiltroBusquedaMensajero> {
     public PresentadorGestionMensajeros(IVistaGestionMensajeros vista) : base(vista) {
         vista.HabilitarDeshabilitarMensajero += IntercambiarHabilitacionMensajero;
         vista.EditarDatos += delegate {
@@ -21,11 +21,11 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         presentadorTupla.Vista.Id = objeto.Id.ToString();
         presentadorTupla.Vista.Nombre = objeto.Nombre;
 
-        using (var datosContacto = new DatosContacto()) {
+        using (var datosContacto = new RepoContacto()) {
             var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
 
             if (contacto != null) {
-                using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+                using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
                     var telefonosContacto =
                         datosTelefonoContacto.Buscar(FiltroBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString()).resultados;
                     var telefonoString = telefonosContacto.Aggregate(string.Empty,
@@ -67,8 +67,8 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
             return;
         }
 
-        // 2. Mover la instancia de DatosMensajero fuera del bucle
-        using (var datosMensajero = new DatosMensajero()) {
+        // 2. Mover la instancia de RepoMensajero fuera del bucle
+        using (var datosMensajero = new RepoMensajero()) {
             foreach (var tupla in tuplasSeleccionadas) {
                 var mensajero = new Mensajero(
                         long.Parse(tupla.Vista.Id),

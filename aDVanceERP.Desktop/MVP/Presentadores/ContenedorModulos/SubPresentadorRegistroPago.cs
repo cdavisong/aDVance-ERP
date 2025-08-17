@@ -70,7 +70,7 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void ActualizarSeguimientoEntrega(long idVenta = 0) {
-        using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
+        using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
             var objetoSeguimiento = datosSeguimiento
                 .Buscar(FiltroBusquedaSeguimientoEntrega.IdVenta, (idVenta != 0 ? idVenta : _registroPago?.Vista.IdVenta).ToString())
                 .resultados
@@ -85,7 +85,7 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void ActualizarMovimientoCaja(List<Pago?> pagos) {
-        using (var datos = new DatosMovimientoCaja()) {
+        using (var datos = new RepoMovimientoCaja()) {
             foreach (var pago in pagos) {
                 if (pago?.MetodoPago != "Efectivo")
                     continue;

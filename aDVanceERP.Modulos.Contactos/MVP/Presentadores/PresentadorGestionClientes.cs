@@ -6,8 +6,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores; 
 
-public class PresentadorGestionClientes : PresentadorGestionBase<PresentadorTuplaCliente, IVistaGestionClientes,
-    IVistaTuplaCliente, Cliente, DatosCliente, FiltroBusquedaCliente> {
+public class PresentadorGestionClientes : PresentadorGestionBase<PresentadorTuplaCliente, IVistaGestionClientes, IVistaTuplaCliente, Cliente, RepoCliente, FiltroBusquedaCliente> {
     public PresentadorGestionClientes(IVistaGestionClientes vista) : base(vista) { }
 
     protected override PresentadorTuplaCliente ObtenerValoresTupla(Cliente objeto) {
@@ -17,11 +16,11 @@ public class PresentadorGestionClientes : PresentadorGestionBase<PresentadorTupl
         presentadorTupla.Vista.Numero = objeto.Numero ?? string.Empty;
         presentadorTupla.Vista.RazonSocial = objeto.RazonSocial ?? string.Empty;
 
-        using (var datosContacto = new DatosContacto()) {
+        using (var datosContacto = new RepoContacto()) {
             var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
 
             if (contacto != null) {
-                using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+                using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
                     var telefonosContacto =
                         datosTelefonoContacto.Buscar(FiltroBusquedaTelefonoContacto.IdContacto, contacto.Id.ToString()).resultados;
                     var telefonoString = telefonosContacto.Aggregate(string.Empty,

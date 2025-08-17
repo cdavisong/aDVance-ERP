@@ -3,4 +3,4 @@
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 
 public interface
-    IRepositorioSeguimientoEntrega : IRepoEntidadBaseDatos<SeguimientoEntrega, FiltroBusquedaSeguimientoEntrega> { }
+    IRepoSeguimientoEntrega : IRepoEntidadBaseDatos<SeguimientoEntrega, FiltroBusquedaSeguimientoEntrega> { }

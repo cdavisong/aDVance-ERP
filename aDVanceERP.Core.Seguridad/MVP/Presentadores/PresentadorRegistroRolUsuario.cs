@@ -8,7 +8,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
 public class PresentadorRegistroRolUsuario : PresentadorRegistroBase<IVistaRegistroRolUsuario, RolUsuario,
-    DatosRolUsuario, FiltroBusquedaRolUsuario> {
+    RepoRolUsuario, FiltroBusquedaRolUsuario> {
     public PresentadorRegistroRolUsuario(IVistaRegistroRolUsuario vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(RolUsuario objeto) {

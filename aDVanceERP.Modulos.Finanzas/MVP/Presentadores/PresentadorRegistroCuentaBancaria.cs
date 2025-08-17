@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores; 
 
 public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaRegistroCuentaBancaria, CuentaBancaria,
-    DatosCuentaBancaria, FiltroBusquedaCuentaBancaria> {
+    RepoCuentaBancaria, FiltroBusquedaCuentaBancaria> {
     public PresentadorRegistroCuentaBancaria(IVistaRegistroCuentaBancaria vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(CuentaBancaria objeto) {

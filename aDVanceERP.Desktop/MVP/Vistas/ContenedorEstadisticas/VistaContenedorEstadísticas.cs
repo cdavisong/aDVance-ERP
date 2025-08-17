@@ -7,7 +7,7 @@ using aDVanceERP.Desktop.Properties;
 namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas; 
 
 public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadisticas {
-    private DatosEstadisticosVentas _datosEstadisticosVentas = new();
+    private RepoEstadisticosVentas _datosEstadisticosVentas = new();
 
     public VistaContenedorEstadísticas() {
         InitializeComponent();
@@ -71,7 +71,7 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         set => fieldGananciaAcumuladaDia.Text = $"$ {value.ToString("N2", CultureInfo.InvariantCulture)}";
     }
 
-    public DatosEstadisticosVentas DatosEstadisticosVentas {
+    public RepoEstadisticosVentas DatosEstadisticosVentas {
         get => _datosEstadisticosVentas;
         set {
             _datosEstadisticosVentas = value;
@@ -100,11 +100,11 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
         btnDescargarAnálisisVentas.Click += delegate {
             /*var filas = new List<string[]>();
 
-            using (var datosVentas = new DatosVenta()) {
+            using (var datosVentas = new RepoVenta()) {
                 var ventasFecha = UtilesVenta.ObtenerVentas;
 
                 foreach (var venta in ventasFecha) {
-                    using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
+                    using (var datosVentaProducto = new RepoDetalleVentaProducto()) {
                         var detalleVentaProducto = datosVentaProducto.Obtener(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString());
 
                         foreach (var ventaProducto in detalleVentaProducto) {

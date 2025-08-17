@@ -124,7 +124,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 var saldoFinal = decimal.Parse(fieldSaldoActual.Text, CultureInfo.InvariantCulture);
                 var datosMovimientosCaja = new List<string[]>();
 
-                using (var datos = new DatosMovimientoCaja()) {
+                using (var datos = new RepoMovimientoCaja()) {
                     var movimientosCaja = datos.Buscar(FiltroBusquedaMovimientoCaja.IdCaja, Id).resultados;
 
                     foreach (var movimiento in movimientosCaja) {

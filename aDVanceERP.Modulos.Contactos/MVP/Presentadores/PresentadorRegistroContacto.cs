@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistroContacto, Contacto, DatosContacto,
+public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistroContacto, Contacto, RepoContacto,
     FiltroBusquedaContacto> {
     public PresentadorRegistroContacto(IVistaRegistroContacto vista) : base(vista) { }
 
@@ -68,8 +68,8 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
     /// <summary>
     ///     Registro o actualización de teléfonos para el contacto.
     /// </summary>
-    protected override void RegistroAuxiliar(DatosContacto datosContacto, long id) {
-        using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+    protected override void RegistroAuxiliar(RepoContacto datosContacto, long id) {
+        using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
             var telefonos = datosTelefonoContacto.Buscar(FiltroBusquedaTelefonoContacto.IdContacto, (Entidad?.Id ?? 0).ToString()).resultados.ToList() ??
                 new List<TelefonoContacto>();
             var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);

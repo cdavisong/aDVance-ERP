@@ -6,6 +6,9 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
 public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, FiltroBusquedaInventario> {
+    public RepoInventario() : base("adv__inventario", "id_inventario") {
+    }
+
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_inventario) FROM adv__inventario;";
     }

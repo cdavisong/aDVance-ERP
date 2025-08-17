@@ -2,5 +2,5 @@
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas
 {
-    public interface IRepositorioCaja : IRepoEntidadBaseDatos<Caja, FiltroBusquedaCaja> { }
+    public interface IRepoCaja : IRepoEntidadBaseDatos<Caja, FiltroBusquedaCaja> { }
 }

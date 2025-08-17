@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
-    public class PresentadorGestionCajas : PresentadorGestionBase<PresentadorTuplaCaja, IVistaGestionCajas, IVistaTuplaCaja, Caja, DatosCaja, FiltroBusquedaCaja> {
+    public class PresentadorGestionCajas : PresentadorGestionBase<PresentadorTuplaCaja, IVistaGestionCajas, IVistaTuplaCaja, Caja, RepoCaja, FiltroBusquedaCaja> {
         public PresentadorGestionCajas(IVistaGestionCajas vista) 
             : base(vista) {
             vista.CerrarCajaSeleccionada += CerrarCajaSeleccionada;

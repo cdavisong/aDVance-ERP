@@ -68,7 +68,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         }
     }
 
-    public IRepositorioVista? Vistas { get; private set; }
+    public IRepoVista? Vistas { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;

@@ -27,7 +27,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public IRepositorioVista? Vistas { get; private set; }
+    public IRepoVista? Vistas { get; private set; }
 
     public bool Habilitada {
         get => Enabled;

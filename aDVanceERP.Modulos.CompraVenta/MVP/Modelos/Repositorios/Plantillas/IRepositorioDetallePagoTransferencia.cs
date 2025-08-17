@@ -3,5 +3,5 @@
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios.Plantillas;
 
 public interface
-    IRepositorioDetallePagoTransferencia : IRepoEntidadBaseDatos<DetallePagoTransferencia,
+    IRepoDetallePagoTransferencia : IRepoEntidadBaseDatos<DetallePagoTransferencia,
         FiltroBusquedaDetallePagoTransferencia> { }

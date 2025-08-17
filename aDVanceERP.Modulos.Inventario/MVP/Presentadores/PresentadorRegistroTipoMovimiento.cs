@@ -6,8 +6,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaRegistroTipoMovimiento, TipoMovimiento,
-    DatosTipoMovimiento, FiltroBusquedaTipoMovimiento> {
+public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaRegistroTipoMovimiento, TipoMovimiento, RepoTipoMovimiento, FiltroBusquedaTipoMovimiento> {
     public PresentadorRegistroTipoMovimiento(IVistaRegistroTipoMovimiento vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(TipoMovimiento objeto) {

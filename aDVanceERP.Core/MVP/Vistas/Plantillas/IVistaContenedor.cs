@@ -7,5 +7,5 @@ public interface IVistaContenedor : IVistaBase {
     int AlturaContenedorVistas { get; }
     int TuplasMaximasContenedor { get; }
 
-    IRepositorioVista? Vistas { get; }
+    IRepoVista? Vistas { get; }
 }

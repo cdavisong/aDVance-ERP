@@ -9,7 +9,7 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorTuplaMovimiento, IVistaGestionMovimientos
-    , IVistaTuplaMovimiento, Movimiento, DatosMovimiento, FiltroBusquedaMovimiento> {
+    , IVistaTuplaMovimiento, Movimiento, RepoMovimiento, FiltroBusquedaMovimiento> {
     public PresentadorGestionMovimientos(IVistaGestionMovimientos vista) : base(vista) { }
 
     protected override PresentadorTuplaMovimiento ObtenerValoresTupla(Movimiento objeto) {

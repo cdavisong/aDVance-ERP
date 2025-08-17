@@ -10,7 +10,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
 
 public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistroUsuario, CuentaUsuario,
-    DatosCuentaUsuario, FiltroBusquedaCuentaUsuario> {
+    RepoCuentaUsuario, FiltroBusquedaCuentaUsuario> {
     public PresentadorRegistroUsuario(IVistaRegistroUsuario vista) : base(vista) {
         vista.RegistrarDatos += delegate(object? sender, EventArgs args) {
             UsuarioRegistrado?.Invoke(sender, args); 
@@ -27,7 +27,7 @@ public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistro
         throw new NotImplementedException();
     }
 
-    protected override void RegistroAuxiliar(DatosCuentaUsuario datosCuentaUsuario, long id) {
+    protected override void RegistroAuxiliar(RepoCuentaUsuario datosCuentaUsuario, long id) {
         UsuarioRegistrado?.Invoke("register-user", EventArgs.Empty);
     }
 

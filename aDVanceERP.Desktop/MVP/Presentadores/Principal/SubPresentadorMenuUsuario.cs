@@ -10,7 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
             _menuUsuario.Vista.ConfigurarEmpresa += delegate (object? sender, EventArgs e) {
                 MostrarVistaEdicionEmpresa(sender, e);
-                ActualizarDatosEmpresa();
+                ActualizarRepoEmpresa();
             };
             _menuUsuario.Vista.CerrarSesion += MostrarVistaContenedorSeguridad;
             _menuUsuario.Vista.CerrarSesion += delegate {

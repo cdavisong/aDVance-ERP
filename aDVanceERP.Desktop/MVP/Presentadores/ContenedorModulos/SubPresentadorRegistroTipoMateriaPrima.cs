@@ -28,7 +28,7 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void EliminarTipoMateriaPrima(object? sender, EventArgs e) {
-        using (var tipoProducto = new DatosTipoMateriaPrima()) {
+        using (var tipoProducto = new RepoTipoMateriaPrima()) {
             if (sender is string nombreTipoMateriaPrima) {
                 var idTipoMateriaPrima = UtilesTipoMateriaPrima.ObtenerIdTipoMateriaPrima(nombreTipoMateriaPrima).Result;
 

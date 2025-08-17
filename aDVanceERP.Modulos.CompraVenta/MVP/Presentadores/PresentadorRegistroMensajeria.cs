@@ -7,8 +7,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
-public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegistroMensajeria, SeguimientoEntrega,
-    DatosSeguimientoEntrega, FiltroBusquedaSeguimientoEntrega> {
+public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegistroMensajeria, SeguimientoEntrega, RepoSeguimientoEntrega, FiltroBusquedaSeguimientoEntrega> {
     public PresentadorRegistroMensajeria(IVistaRegistroMensajeria vista) : base(vista) {
     }
 
@@ -16,7 +15,7 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
         Vista.ModoEdicionDatos = true;
         Vista.NombreMensajero = await UtilesMensajero.ObtenerNombreMensajero(objeto.IdMensajero);
 
-        using (var datosVenta = new DatosVenta()) {
+        using (var datosVenta = new RepoVenta()) {
             var venta = datosVenta.Buscar(FiltroBusquedaVenta.Id, objeto.IdVenta.ToString()).resultados.FirstOrDefault();
 
             if (venta == null)

@@ -57,7 +57,7 @@ public partial class PresentadorContenedorModulos {
         var pagosVenta = UtilesVenta.ObtenerPagosPorVenta(_proximoIdVenta);
 
         if (pagosVenta.Count > 0) {
-            using (var datosPago = new DatosPago())
+            using (var datosPago = new RepoPago())
                 foreach (var pago in pagosVenta) {
                     var pagoSplit = pago.Split("|");
 
@@ -69,7 +69,7 @@ public partial class PresentadorContenedorModulos {
         var idSeguimientoEntrega = UtilesEntrega.ObtenerIdSeguimientoEntrega(_proximoIdVenta).Result;
 
         if (idSeguimientoEntrega != 0)
-            using (var datosSeguimientoEntrega = new DatosSeguimientoEntrega())
+            using (var datosSeguimientoEntrega = new RepoSeguimientoEntrega())
                 datosSeguimientoEntrega.Eliminar(idSeguimientoEntrega);
     }
 
@@ -142,7 +142,7 @@ public partial class PresentadorContenedorModulos {
                     : 0.00m
             );
 
-            using (var datosProducto = new DatosDetalleVentaProducto()) {
+            using (var datosProducto = new RepoDetalleVentaProducto()) {
                 datosProducto.Adicionar(detalleVentaProducto);
             }
 
@@ -159,7 +159,7 @@ public partial class PresentadorContenedorModulos {
 
     private static void RegistrarMovimientoVentaProducto(DetalleVentaProducto detalleVentaProducto,
         IReadOnlyList<string> producto) {
-        using (var datosMovimiento = new DatosMovimiento()) {
+        using (var datosMovimiento = new RepoMovimiento()) {
             datosMovimiento.Adicionar(new Movimiento(
                 0,
                 detalleVentaProducto.IdProducto,

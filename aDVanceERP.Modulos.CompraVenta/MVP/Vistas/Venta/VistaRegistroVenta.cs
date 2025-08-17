@@ -47,7 +47,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public IRepositorioVista? Vistas { get; private set; }
+    public IRepoVista? Vistas { get; private set; }
 
     public bool ModoEdicionDatos {
         get => _modoEdicion;

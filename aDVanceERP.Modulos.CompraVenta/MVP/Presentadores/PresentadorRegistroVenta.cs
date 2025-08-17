@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class
-    PresentadorRegistroVenta : PresentadorRegistroBase<IVistaRegistroVenta, Venta, DatosVenta, FiltroBusquedaVenta> {
+    PresentadorRegistroVenta : PresentadorRegistroBase<IVistaRegistroVenta, Venta, RepoVenta, FiltroBusquedaVenta> {
     public PresentadorRegistroVenta(IVistaRegistroVenta vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Venta objeto) {

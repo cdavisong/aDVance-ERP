@@ -4,7 +4,10 @@ using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
-public class DatosRolUsuario : RepoEntidadBaseDatos<RolUsuario, FiltroBusquedaRolUsuario>, IRepositorioRolUsuario {
+public class RepoRolUsuario : RepoEntidadBaseDatos<RolUsuario, FiltroBusquedaRolUsuario>, IRepoRolUsuario {
+    public RepoRolUsuario() : base("adv__rol_usuario", "id_rol_usuario") {
+    }
+
     public override string ComandoCantidad() {
         return "SELECT COUNT(id_rol_usuario) FROM adv__rol_usuario;";
     }

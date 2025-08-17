@@ -35,7 +35,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         set { 
             fieldRazonSocialCliente.Text = value;
 
-            PopularDatosCliente(value);
+            PopularRepoCliente(value);
         }
     }
 
@@ -112,7 +112,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
             ActualizarResumenEntrega();
         };
         fieldRazonSocialCliente.TextChanged += delegate { 
-            PopularDatosCliente(RazonSocialCliente);
+            PopularRepoCliente(RazonSocialCliente);
             ActualizarResumenEntrega();
         };
         fieldDireccion.TextChanged += delegate {
@@ -171,7 +171,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         fieldRazonSocialCliente.AutoCompleteSource = AutoCompleteSource.CustomSource;
     }
 
-    private void PopularDatosCliente(string? nombreCliente) {
+    private void PopularRepoCliente(string? nombreCliente) {
         if (nombreCliente != null) {
             var idCliente = UtilesCliente.ObtenerIdCliente(nombreCliente);
 

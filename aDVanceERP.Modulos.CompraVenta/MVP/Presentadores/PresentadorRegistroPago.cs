@@ -10,7 +10,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class
-    PresentadorRegistroPago : PresentadorRegistroBase<IVistaRegistroPago, Pago, DatosPago, FiltroBusquedaPago> {
+    PresentadorRegistroPago : PresentadorRegistroBase<IVistaRegistroPago, Pago, RepoPago, FiltroBusquedaPago> {
     public PresentadorRegistroPago(IVistaRegistroPago vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Pago objeto) {
@@ -49,14 +49,14 @@ public class
     }
 
     protected override void RegistrarDatosObjeto(object? sender, EventArgs e) {
-        RegistrarEditarDatosPagos(sender, e);
+        RegistrarEditarRepoPagos(sender, e);
     }
 
     protected override void EditarDatosObjeto(object? sender, EventArgs e) {
-        RegistrarEditarDatosPagos(sender, e);
+        RegistrarEditarRepoPagos(sender, e);
     }
 
-    private void RegistrarEditarDatosPagos(object? sender, EventArgs e) {
+    private void RegistrarEditarRepoPagos(object? sender, EventArgs e) {
         var objetosVista = ObtenerObjetosDesdeVista();
         
         if (!RegistroEdicionDatosAutorizado())

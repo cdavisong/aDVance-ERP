@@ -9,7 +9,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegistroMovimiento, Movimiento,
-    DatosMovimiento, FiltroBusquedaMovimiento> {
+    RepoMovimiento, FiltroBusquedaMovimiento> {
 
     public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) { }
 
@@ -87,7 +87,7 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
         return nombreProductoOk && tipoMovimientoOk && noCompraventaOk && fechaOk && cantidadOk;
     }
 
-    protected override void RegistroAuxiliar(DatosMovimiento datosMovimiento, long id) {
+    protected override void RegistroAuxiliar(RepoMovimiento datosMovimiento, long id) {
         var idProducto = UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result;
 
         if (Entidad != null)

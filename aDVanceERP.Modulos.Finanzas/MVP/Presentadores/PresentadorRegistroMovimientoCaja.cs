@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 
-public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaRegistroMovimientoCaja, MovimientoCaja, DatosMovimientoCaja, FiltroBusquedaMovimientoCaja> {
+public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaRegistroMovimientoCaja, MovimientoCaja, RepoMovimientoCaja, FiltroBusquedaMovimientoCaja> {
     public PresentadorRegistroMovimientoCaja(IVIstaRegistroMovimientoCaja vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(MovimientoCaja objeto) {

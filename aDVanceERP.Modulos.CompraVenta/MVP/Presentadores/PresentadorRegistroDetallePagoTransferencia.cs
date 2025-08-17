@@ -6,9 +6,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia.Plantil
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
-public class PresentadorRegistroDetallePagoTransferencia : PresentadorRegistroBase<
-    IVistaRegistroDetallePagoTransferencia, DetallePagoTransferencia, DatosDetallePagoTransferencia,
-    FiltroBusquedaDetallePagoTransferencia> {
+public class PresentadorRegistroDetallePagoTransferencia : PresentadorRegistroBase<IVistaRegistroDetallePagoTransferencia, DetallePagoTransferencia, RepoDetallePagoTransferencia, FiltroBusquedaDetallePagoTransferencia> {
     public PresentadorRegistroDetallePagoTransferencia(IVistaRegistroDetallePagoTransferencia vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(DetallePagoTransferencia objeto) {

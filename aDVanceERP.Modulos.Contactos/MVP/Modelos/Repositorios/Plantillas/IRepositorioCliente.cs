@@ -2,4 +2,4 @@
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 
-public interface IRepositorioCliente : IRepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente> { }
+public interface IRepoCliente : IRepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente> { }

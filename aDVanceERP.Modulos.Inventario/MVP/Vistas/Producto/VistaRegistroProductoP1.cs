@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
     public partial class VistaRegistroProductoP1 : Form {
-        private VistaRegistroProductoP1_1 P1DatosProveedorVentaDirecta = new VistaRegistroProductoP1_1();
+        private VistaRegistroProductoP1_1 P1RepoProveedorVentaDirecta = new VistaRegistroProductoP1_1();
 
         public VistaRegistroProductoP1() {
             InitializeComponent();
@@ -41,22 +41,22 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         }
 
         public string RazonSocialProveedor {
-            get => P1DatosProveedorVentaDirecta.RazonSocialProveedor;
-            set => P1DatosProveedorVentaDirecta.RazonSocialProveedor = value;
+            get => P1RepoProveedorVentaDirecta.RazonSocialProveedor;
+            set => P1RepoProveedorVentaDirecta.RazonSocialProveedor = value;
         }
 
         public bool EsVendible {
-            get => P1DatosProveedorVentaDirecta.EsVendible;
-            set => P1DatosProveedorVentaDirecta.EsVendible = value;
+            get => P1RepoProveedorVentaDirecta.EsVendible;
+            set => P1RepoProveedorVentaDirecta.EsVendible = value;
         }
 
         private void InicializarVistas() {
             // 1. Datos del proveedor y venta directa de materia prima
-            P1DatosProveedorVentaDirecta.Dock = DockStyle.Fill;
-            P1DatosProveedorVentaDirecta.TopLevel = false;
+            P1RepoProveedorVentaDirecta.Dock = DockStyle.Fill;
+            P1RepoProveedorVentaDirecta.TopLevel = false;
 
             contenedorVistas.Controls.Clear();
-            contenedorVistas.Controls.Add(P1DatosProveedorVentaDirecta);
+            contenedorVistas.Controls.Add(P1RepoProveedorVentaDirecta);
         }
 
         private void Inicializar() {
@@ -65,10 +65,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
                 fieldDescripcionCategoriaProducto.Text = UtilesCategoriaProducto.DescripcionesProducto[fieldCategoriaProducto.SelectedIndex];
 
                 // Actualizar visibilidad de campos según la categoría seleccionada
-                P1DatosProveedorVentaDirecta.Visible =
+                P1RepoProveedorVentaDirecta.Visible =
                     CategoriaProducto == CategoriaProducto.Mercancia ||
                     CategoriaProducto == CategoriaProducto.MateriaPrima;
-                P1DatosProveedorVentaDirecta.CategoriaProducto = CategoriaProducto;
+                P1RepoProveedorVentaDirecta.CategoriaProducto = CategoriaProducto;
 
                 CategoriaProductoCambiada?.Invoke(this, EventArgs.Empty);
 
@@ -86,7 +86,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
                 else
                     Codigo = UtilesCodigoBarras.GenerarEan13(Nombre);
             };
-            P1DatosProveedorVentaDirecta.EsVendibleActualizado += delegate (object? sender, EventArgs args) {
+            P1RepoProveedorVentaDirecta.EsVendibleActualizado += delegate (object? sender, EventArgs args) {
                 EsVendibleActualizado?.Invoke(this, EventArgs.Empty);
             };
         }
@@ -106,7 +106,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
         }
 
         public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
-            P1DatosProveedorVentaDirecta.CargarRazonesSocialesProveedores(nombresProveedores);
+            P1RepoProveedorVentaDirecta.CargarRazonesSocialesProveedores(nombresProveedores);
         }
 
         public void Restaurar() {
@@ -115,7 +115,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
             Codigo = string.Empty;
             Descripcion = string.Empty;
 
-            P1DatosProveedorVentaDirecta.Restaurar();
+            P1RepoProveedorVentaDirecta.Restaurar();
         }
     }
 }

@@ -129,13 +129,13 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             }
         }
 
-        public IRepositorioVista? VistasMateriaPrima { get; private set; }
+        public IRepoVista? VistasMateriaPrima { get; private set; }
         public List<string[]> MateriasPrimas { get; private set; } = new List<string[]>();
 
-        public IRepositorioVista? VistasActividadProduccion { get; private set; }
+        public IRepoVista? VistasActividadProduccion { get; private set; }
         public List<string[]> ActividadesProduccion { get; private set; } = new List<string[]>();
 
-        public IRepositorioVista? VistasGastosIndirectos { get; private set; }
+        public IRepoVista? VistasGastosIndirectos { get; private set; }
         public List<string[]> GastosIndirectos { get; private set; } = new List<string[]>();
 
         public event EventHandler? RegistrarDatos;

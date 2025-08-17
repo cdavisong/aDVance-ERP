@@ -13,9 +13,9 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         Inicializar();
     }
 
-    public IRepositorioVista? Vistas { get; private set; }
+    public IRepoVista? Vistas { get; private set; }
 
-    public IRepositorioVista Menus { get; private set; }
+    public IRepoVista Menus { get; private set; }
 
     public bool Habilitada {
         get => Enabled;

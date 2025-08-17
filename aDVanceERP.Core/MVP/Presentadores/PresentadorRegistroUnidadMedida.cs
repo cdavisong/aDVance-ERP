@@ -4,7 +4,7 @@ using aDVanceERP.Core.MVP.Vistas.UnidadMedida.Plantillas;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
 
-public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaRegistroUnidadMedida, UnidadMedida, DatosUnidadMedida, FiltroBusquedaUnidadMedida> {
+public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaRegistroUnidadMedida, UnidadMedida, RepoUnidadMedida, FiltroBusquedaUnidadMedida> {
     public PresentadorRegistroUnidadMedida(IVistaRegistroUnidadMedida vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(UnidadMedida objeto) {

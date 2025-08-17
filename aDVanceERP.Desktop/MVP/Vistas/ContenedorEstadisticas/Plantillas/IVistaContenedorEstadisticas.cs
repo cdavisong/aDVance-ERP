@@ -10,7 +10,7 @@ public interface IVistaContenedorEstadisticas : IVistaBase {
     decimal MontoVentaProductosVendidos { get; set; }
     decimal MontoGananciaTotalNegocio { get; set; }
     decimal MontoGananciaAcumuladaDia { get; set; }
-    DatosEstadisticosVentas DatosEstadisticosVentas { get; set; }
+    RepoEstadisticosVentas DatosEstadisticosVentas { get; set; }
     DateTime FechaEstadisticasVentas { get; }
 
     event EventHandler? MostrarVistaGestionProductos;

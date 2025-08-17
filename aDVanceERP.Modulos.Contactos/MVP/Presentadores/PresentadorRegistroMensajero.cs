@@ -7,15 +7,14 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegistroMensajero, Mensajero, DatosMensajero,
-    FiltroBusquedaMensajero> {
+public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegistroMensajero, Mensajero, RepoMensajero, FiltroBusquedaMensajero> {
     public PresentadorRegistroMensajero(IVistaRegistroMensajero vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Mensajero objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.Nombre = objeto.Nombre;
 
-        using (var datosContacto = new DatosContacto()) {
+        using (var datosContacto = new RepoContacto()) {
             var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
 
             if (contacto != null) {
@@ -50,8 +49,8 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
         return nombreOk && telefonoOk;
     }
 
-    protected override void RegistroAuxiliar(DatosMensajero datosMensajero, long id) {
-        using (var datosContacto = new DatosContacto()) {
+    protected override void RegistroAuxiliar(RepoMensajero datosMensajero, long id) {
+        using (var datosContacto = new RepoContacto()) {
             // Contacto
             var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, (Entidad?.IdContacto ?? 0).ToString()).resultados.FirstOrDefault() ??
                 new Contacto();
@@ -70,7 +69,7 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
                 datosMensajero.Editar(Entidad);
             }
 
-            using (var datosTelefonoContacto = new DatosTelefonoContacto()) {
+            using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
                 var telefonos = datosTelefonoContacto.Buscar(FiltroBusquedaTelefonoContacto.IdContacto, (Entidad?.IdContacto ?? 0).ToString()).resultados.ToList() ??
                     new List<TelefonoContacto>();
                 var indiceTelefonoMovil = telefonos.FindIndex(t => t.Categoria == CategoriaTelefonoContacto.Movil);

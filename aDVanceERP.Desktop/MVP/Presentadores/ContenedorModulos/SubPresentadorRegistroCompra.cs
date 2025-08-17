@@ -98,7 +98,7 @@ public partial class PresentadorContenedorModulos {
                     : 0.00m
             );
 
-            using (var datosProducto = new DatosDetalleCompraProducto())
+            using (var datosProducto = new RepoDetalleCompraProducto())
                 datosProducto.Adicionar(detalleCompraProducto);
 
             RegistrarMovimientoCompraProducto(detalleCompraProducto, producto);
@@ -114,7 +114,7 @@ public partial class PresentadorContenedorModulos {
 
     private static void RegistrarMovimientoCompraProducto(DetalleCompraProducto detalleCompraProducto,
         IReadOnlyList<string> producto) {
-        using (var datosMovimiento = new DatosMovimiento()) {
+        using (var datosMovimiento = new RepoMovimiento()) {
             datosMovimiento.Adicionar(new Movimiento(
                 0,
                 detalleCompraProducto.IdProducto,

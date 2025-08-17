@@ -7,9 +7,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores; 
 
-public class PresentadorGestionCuentasBancarias : PresentadorGestionBase<PresentadorTuplaCuentaBancaria,
-    IVistaGestionCuentasBancarias, IVistaTuplaCuentaBancaria, CuentaBancaria, DatosCuentaBancaria,
-    FiltroBusquedaCuentaBancaria> {
+public class PresentadorGestionCuentasBancarias : PresentadorGestionBase<PresentadorTuplaCuentaBancaria, IVistaGestionCuentasBancarias, IVistaTuplaCuentaBancaria, CuentaBancaria, RepoCuentaBancaria, FiltroBusquedaCuentaBancaria> {
     public PresentadorGestionCuentasBancarias(IVistaGestionCuentasBancarias vista) : base(vista) { }
 
     public event EventHandler? MostrarQrTupla;

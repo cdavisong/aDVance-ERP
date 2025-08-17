@@ -70,7 +70,7 @@ public partial class PresentadorContenedorModulos {
                 ProductosVenta?.Add(tuplaProducto);
             }
 
-            using (var repoVentas = new DatosVenta()) {
+            using (var repoVentas = new RepoVenta()) {
                 ventaJson.IdVenta = repoVentas.Adicionar(new Venta(0,
                     ventaJson.Fecha,
                     idAlmacen,
@@ -88,7 +88,7 @@ public partial class PresentadorContenedorModulos {
                (decimal)ventaJson.Total);
 
 
-            using (var repoPagos = new DatosPago()) {
+            using (var repoPagos = new RepoPago()) {
                 pago.Id = repoPagos.Adicionar(pago);
             }
 

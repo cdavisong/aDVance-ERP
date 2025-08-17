@@ -28,7 +28,7 @@ public partial class PresentadorContenedorModulos {
     }
 
     private void EliminarTipoMovimiento(object? sender, EventArgs e) {
-        using (var tipoMovimiento = new DatosTipoMovimiento()) {
+        using (var tipoMovimiento = new RepoTipoMovimiento()) {
             if (sender is string nombreTipoMovimiento) {
                 var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(nombreTipoMovimiento);
 

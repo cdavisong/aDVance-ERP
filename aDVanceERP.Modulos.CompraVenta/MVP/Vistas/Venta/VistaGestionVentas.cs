@@ -102,7 +102,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         }
     }
 
-    public IRepositorioVista? Vistas { get; private set; }
+    public IRepoVista? Vistas { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -129,11 +129,11 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         btnDescargar.Click += delegate {
             var filas = new List<string[]>();
 
-            using (var datosVentas = new DatosVenta()) {
+            using (var datosVentas = new RepoVenta()) {
                 var ventasFecha = datosVentas.Buscar(FiltroBusquedaVenta.Fecha, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd")).resultados;
 
                 foreach (var venta in ventasFecha) {
-                    using (var datosVentaProducto = new DatosDetalleVentaProducto()) {
+                    using (var datosVentaProducto = new RepoDetalleVentaProducto()) {
                         var detalleVentaProducto = datosVentaProducto.Buscar(CriterioDetalleVentaProducto.IdVenta, venta.Id.ToString()).resultados;
 
                         foreach (var ventaProducto in detalleVentaProducto) {

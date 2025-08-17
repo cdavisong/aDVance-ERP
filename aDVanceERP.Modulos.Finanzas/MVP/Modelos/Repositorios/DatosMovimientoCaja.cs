@@ -7,7 +7,10 @@ using System.Globalization;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios
 {
-    public class DatosMovimientoCaja : RepoEntidadBaseDatos<MovimientoCaja, FiltroBusquedaMovimientoCaja>, IRepositorioMovimientoCaja {
+    public class RepoMovimientoCaja : RepoEntidadBaseDatos<MovimientoCaja, FiltroBusquedaMovimientoCaja>, IRepoMovimientoCaja {
+        public RepoMovimientoCaja() : base("adv__movimiento_caja", "id_movimiento_caja") {
+        }
+
         public override string ComandoCantidad() {
             return "SELECT COUNT(id_movimiento_caja) FROM adv__movimiento_caja;";
         }

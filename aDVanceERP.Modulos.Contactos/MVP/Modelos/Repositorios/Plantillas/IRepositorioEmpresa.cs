@@ -2,5 +2,5 @@
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas
 {
-    public interface IRepositorioEmpresa : IRepoEntidadBaseDatos<Empresa, FiltroBusquedaEmpresa> { }
+    public interface IRepoEmpresa : IRepoEntidadBaseDatos<Empresa, FiltroBusquedaEmpresa> { }
 }

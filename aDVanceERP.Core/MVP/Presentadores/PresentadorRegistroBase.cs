@@ -5,11 +5,11 @@ using aDVanceERP.Core.Repositorios.Interfaces;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
 
-public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Do, O, C>
+public abstract class PresentadorRegistroBase<Vr, En, Re, Fb> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Re, En, Fb>
     where Vr : class, IVistaRegistro
-    where Do : class, IRepoEntidadBaseDatos<O, C>, new()
-    where O : class, IEntidadBaseDatos, new()
-    where C : Enum {
+    where Re : class, IRepoEntidadBaseDatos<En, Fb>, new()
+    where En : class, IEntidadBaseDatos, new()
+    where Fb : Enum {
     private bool _disposed; // Para evitar llamadas redundantes a Dispose
 
     protected PresentadorRegistroBase(Vr vista) : base(vista) {
@@ -21,24 +21,24 @@ public abstract class PresentadorRegistroBase<Vr, O, Do, C> : PresentadorBase<Vr
         Vista.EditarDatos += EditarDatosObjeto;
     }
 
-    protected O? Entidad { get; set; } // Objeto que se va a registrar o editar
+    protected En? Entidad { get; set; } // Objeto que se va a registrar o editar
 
-    public Do DatosObjeto {
+    public Re DatosObjeto {
         get => new();
     }
 
     public event EventHandler? DatosRegistradosActualizados;
     public event EventHandler? Salir;
 
-    public abstract void PopularVistaDesdeObjeto(O objeto);
+    public abstract void PopularVistaDesdeObjeto(En objeto);
 
-    protected abstract O? ObtenerEntidadDesdeVista();
+    protected abstract En? ObtenerEntidadDesdeVista();
 
     protected virtual bool RegistroEdicionDatosAutorizado() {
         return true;
     }
 
-    protected virtual void RegistroAuxiliar(Do datosObjeto, long id) { }
+    protected virtual void RegistroAuxiliar(Re datosObjeto, long id) { }
 
     protected virtual void RegistrarDatosObjeto(object? sender, EventArgs e) {
         RegistrarEditarObjeto(sender, e);

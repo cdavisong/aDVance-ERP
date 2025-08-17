@@ -53,9 +53,9 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroAperturaCaja?.Dispose();
         }
 
-        private void ActualizarMontoCaja(long idCaja, DatosMovimientoCaja? datosMovimientoCaja = null) {
+        private void ActualizarMontoCaja(long idCaja, RepoMovimientoCaja? datosMovimientoCaja = null) {
             if (datosMovimientoCaja == null) {
-                using (var datos = new DatosMovimientoCaja())
+                using (var datos = new RepoMovimientoCaja())
                     ActualizarMontoCaja(idCaja, datos);
 
                 return;

@@ -49,7 +49,7 @@ public partial class PresentadorContenedorModulos {
         if (Transferencia == null || Transferencia.Length == 0)
             return;
 
-        using (var transferencia = new DatosDetallePagoTransferencia()) {
+        using (var transferencia = new RepoDetallePagoTransferencia()) {
             transferencia.Adicionar(new DetallePagoTransferencia(
                 0,
                 UtilesBD.ObtenerUltimoIdTabla("venta"),

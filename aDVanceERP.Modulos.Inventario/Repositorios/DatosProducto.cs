@@ -1,20 +1,22 @@
 ﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
+
 using MySql.Data.MySqlClient;
+
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
-public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProducto>, IRepositorioProducto
-{
-    public override string ComandoCantidad()
-    {
+public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProducto>, IRepoProducto {
+    public RepoProducto() : base("adv__producto", "id_producto") {
+    }
+
+    public override string ComandoCantidad() {
         return "SELECT COUNT(id_producto) FROM adv__producto;";
     }
 
-    public override string ComandoAdicionar(Producto objeto)
-    {
+    public override string ComandoAdicionar(Producto objeto) {
         return $"""
                 INSERT INTO adv__producto (
                     codigo,
@@ -43,8 +45,7 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
                 """;
     }
 
-    public override string ComandoEditar(Producto objeto)
-    {
+    public override string ComandoEditar(Producto objeto) {
         return $"""
                 UPDATE adv__producto
                 SET
@@ -62,8 +63,7 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
                 """;
     }
 
-    public override string ComandoEliminar(long id)
-    {
+    public override string ComandoEliminar(long id) {
         return $"""
             DELETE FROM adv__detalle_producto
             WHERE id_detalle_producto = (
@@ -77,8 +77,7 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
             """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaProducto criterio, string dato)
-    {
+    public override string ComandoObtener(FiltroBusquedaProducto criterio, string dato) {
         if (string.IsNullOrEmpty(dato))
             dato = "Todos";
 
@@ -102,12 +101,11 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
             condiciones.Add($"a.nombre = '{datoMultiple[0]}'");
 
         if (aplicarFiltroCategoria)
-            condiciones.Add($"t.categoria = '{(CategoriaProducto)int.Parse(datoMultiple[1])}'");
+            condiciones.Add($"t.categoria = '{(CategoriaProducto) int.Parse(datoMultiple[1])}'");
 
         string whereClause = condiciones.Count > 0 ? $"WHERE {string.Join(" AND ", condiciones)}" : "";
 
-        switch (criterio)
-        {
+        switch (criterio) {
             case FiltroBusquedaProducto.Id:
                 comando = $"SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
                          $"FROM adv__producto t " +
@@ -148,11 +146,10 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
         return comando;
     }
 
-    public override Producto MapearEntidad(MySqlDataReader lectorDatos)
-    {
+    public override Producto MapearEntidad(MySqlDataReader lectorDatos) {
         return new Producto(
             id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
-            categoria: (CategoriaProducto)Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
+            categoria: (CategoriaProducto) Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
             nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
             codigo: lectorDatos.GetString(lectorDatos.GetOrdinal("codigo")),
             idDetalleProducto: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_producto")),
@@ -165,8 +162,7 @@ public class DatosProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduc
         );
     }
 
-    public override string ComandoExiste(string dato)
-    {
+    public override string ComandoExiste(string dato) {
         return $"""
             SELECT COUNT(1) 
             FROM adv__producto 

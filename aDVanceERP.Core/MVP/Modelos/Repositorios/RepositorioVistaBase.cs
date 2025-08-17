@@ -5,7 +5,7 @@ using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios; 
 
-public sealed class RepositorioVistaBase : IRepositorioVista {
+public sealed class RepositorioVistaBase : IRepoVista {
     private readonly Panel _contenedorVistas;
     private bool disposedValue;
 

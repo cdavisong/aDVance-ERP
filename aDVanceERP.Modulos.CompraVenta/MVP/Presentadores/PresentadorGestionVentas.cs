@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaVenta, IVistaGestionVentas,
-    IVistaTuplaVenta, Venta, DatosVenta, FiltroBusquedaVenta> {
+    IVistaTuplaVenta, Venta, RepoVenta, FiltroBusquedaVenta> {
     public PresentadorGestionVentas(IVistaGestionVentas vista) : base(vista) {
         vista.ConfirmarEntrega += OnConfirmarEntregaAriculos;
         vista.ConfirmarPagos += OnConfirmarPagos;
@@ -67,7 +67,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 DatosObjeto.Editar(tupla.Objeto);
 
                 // Actualizar el seguimiento de entrega
-                using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
+                using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
                     var objetoSeguimiento = datosSeguimiento
                         .Buscar(FiltroBusquedaSeguimientoEntrega.IdVenta, tupla.Vista.Id).resultados.FirstOrDefault();
 
@@ -93,9 +93,9 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
             return;
         }
 
-        // 2. Mover las instancias de DatosPago y DatosSeguimiento fuera del bucle
-        using (var datosPago = new DatosPago())
-        using (var datosSeguimiento = new DatosSeguimientoEntrega()) {
+        // 2. Mover las instancias de RepoPago y RepoSeguimientoEntrega fuera del bucle
+        using (var datosPago = new RepoPago())
+        using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
             foreach (var tupla in tuplasSeleccionadas) {
                 var ventaId = long.Parse(tupla.Vista.Id);
                 var montoTotal = decimal.Parse(tupla.Vista.MontoTotal, CultureInfo.InvariantCulture);

@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistroProducto, Producto, DatosProducto,
+public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistroProducto, Producto, RepoProducto,
     FiltroBusquedaProducto> {
     public PresentadorRegistroProducto(IVistaRegistroProducto vista) : base(vista) { }
 
@@ -20,7 +20,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Vista.EsVendible = objeto.EsVendible;
         Vista.TipoMateriaPrima = UtilesTipoMateriaPrima.ObtenerNombreTipoMateriaPrima(objeto.IdTipoMateriaPrima) ?? string.Empty;
 
-        using (var datos = new DatosDetalleProducto()) {
+        using (var datos = new RepoDetalleProducto()) {
             var detalleProducto = datos.Buscar(FiltroBusquedaDetalleProducto.Id, objeto.IdDetalleProducto.ToString()).resultados.FirstOrDefault();
 
             if (detalleProducto != null) {
@@ -52,14 +52,14 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         return nombreOk && codigoOk && unidadMedidaOk;
     }
 
-    protected override void RegistroAuxiliar(DatosProducto datosProducto, long id) {
+    protected override void RegistroAuxiliar(RepoProducto datosProducto, long id) {
         var detalleProducto = new DetalleProducto(Entidad?.IdDetalleProducto ?? 0,
             UtilesUnidadMedida.ObtenerIdUnidadMedida(Vista.UnidadMedida).Result,
             Vista.Descripcion ?? "No hay una descripción disponible para el producto actual"
         );
 
         // Registrar detalles del producto
-        using (var datos = new DatosDetalleProducto()) {
+        using (var datos = new RepoDetalleProducto()) {
             if (Vista.ModoEdicionDatos && Entidad?.IdDetalleProducto != 0)
                 datos.Editar(detalleProducto);
             else if (Entidad?.IdDetalleProducto != 0)
