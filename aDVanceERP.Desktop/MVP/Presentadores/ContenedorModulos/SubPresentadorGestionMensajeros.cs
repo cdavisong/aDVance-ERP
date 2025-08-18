@@ -24,6 +24,6 @@ public partial class PresentadorContenedorModulos {
         _gestionMensajeros.Vista.Restaurar();
         _gestionMensajeros.Vista.Mostrar();
 
-        _gestionMensajeros.RefrescarListaObjetos();
+        _gestionMensajeros.ActualizarResultadosBusqueda();
     }
 }

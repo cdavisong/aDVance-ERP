@@ -25,6 +25,6 @@ public partial class PresentadorContenedorModulos {
         _gestionCuentasBancarias.Vista.Restaurar();
         _gestionCuentasBancarias.Vista.Mostrar();
 
-        _gestionCuentasBancarias.RefrescarListaObjetos();
+        _gestionCuentasBancarias.ActualizarResultadosBusqueda();
     }
 }

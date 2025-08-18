@@ -15,7 +15,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 if (_gestionOrdenesProduccion == null)
                     return;
 
-                _gestionOrdenesProduccion.RefrescarListaObjetos();
+                _gestionOrdenesProduccion.ActualizarResultadosBusqueda();
             };
 
             if (Vista.Vistas != null)

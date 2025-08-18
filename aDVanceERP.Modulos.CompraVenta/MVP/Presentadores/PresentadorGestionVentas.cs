@@ -6,15 +6,12 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-using Newtonsoft.Json;
-
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
 
 public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaVenta, IVistaGestionVentas,
     IVistaTuplaVenta, Venta, RepoVenta, FiltroBusquedaVenta> {
     public PresentadorGestionVentas(IVistaGestionVentas vista) : base(vista) {
         vista.ConfirmarEntrega += OnConfirmarEntregaAriculos;
-        vista.ConfirmarPagos += OnConfirmarPagos;
         vista.EditarDatos += delegate {
             Vista.HabilitarBtnConfirmarEntrega = false;
             Vista.HabilitarBtnConfirmarPagos = false;
@@ -47,7 +44,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         return presentadorTupla;
     }
 
-    public override void RefrescarListaObjetos() {
+    public override void ActualizarResultadosBusqueda() {
         // Cambiar la visibilidad de los botones de confirmación
         Vista.HabilitarBtnConfirmarEntrega = false;
         Vista.HabilitarBtnConfirmarPagos = false;
@@ -55,16 +52,16 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         // Actualizar el valor bruto de las ventas al refrescar la lista de objetos.
         Vista.ActualizarValorBrutoVentas();
 
-        base.RefrescarListaObjetos();
+        base.ActualizarResultadosBusqueda();
     }
 
     private void OnConfirmarEntregaAriculos(object? sender, EventArgs e) {
-        foreach (var tupla in _tuplasObjetos)
+        foreach (var tupla in _tuplasEntidades)
             if (tupla.TuplaSeleccionada) {
                 tupla.Objeto.EstadoEntrega = "Completada";
 
                 // Editar la venta del producto
-                DatosObjeto.Editar(tupla.Objeto);
+                RepositorioEntidad.Editar(tupla.Objeto);
 
                 // Actualizar el seguimiento de entrega
                 using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
@@ -81,78 +78,12 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 break;
             }
 
-        RefrescarListaObjetos();
-    }
-
-    private void OnConfirmarPagos(object? sender, EventArgs e) {
-        // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
-        var tuplasSeleccionadas = _tuplasObjetos.Where(t => t.TuplaSeleccionada).ToList();
-
-        if (!tuplasSeleccionadas.Any()) {
-            Vista.HabilitarBtnConfirmarPagos = false;
-            return;
-        }
-
-        // 2. Mover las instancias de RepoPago y RepoSeguimientoEntrega fuera del bucle
-        using (var datosPago = new RepoPago())
-        using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
-            foreach (var tupla in tuplasSeleccionadas) {
-                var ventaId = long.Parse(tupla.Vista.Id);
-                var montoTotal = decimal.Parse(tupla.Vista.MontoTotal, CultureInfo.InvariantCulture);
-                var pagos = UtilesVenta.ObtenerPagosPorVenta(ventaId);
-                var ahora = DateTime.Now;
-
-                // 3. Procesar pagos
-                if (pagos.Count == 0) {
-                    // Crear nuevo pago
-                    var nuevoPago = new Pago(
-                        0,
-                        ventaId,
-                        "Efectivo",
-                        montoTotal) {
-                        Estado = "Confirmado",
-                        FechaConfirmacion = ahora
-                    };
-
-                    datosPago.Adicionar(nuevoPago);
-                }
-                else {
-                    // Actualizar pagos existentes
-                    foreach (var pago in pagos) {
-                        var pagoSplit = pago.Split('|');
-                        var pagoActualizado = new Pago(
-                            long.Parse(pagoSplit[0]),
-                            ventaId,
-                            pagoSplit[2],
-                            decimal.Parse(pagoSplit[3], CultureInfo.InvariantCulture)) {
-                            Estado = "Confirmado",
-                            FechaConfirmacion = ahora
-                        };
-
-                        datosPago.Editar(pagoActualizado);
-                    }
-                }
-
-                // 4. Actualizar seguimiento de entrega (una sola vez por tupla)
-                var objetoSeguimiento = datosSeguimiento.Buscar(
-                    FiltroBusquedaSeguimientoEntrega.IdVenta,
-                    tupla.Vista.Id).resultados.FirstOrDefault();
-
-                if (objetoSeguimiento != null) {
-                    objetoSeguimiento.FechaPago = ahora;
-                    // Nota: Corregí FechaEntrega a FechaPago para consistencia con el caso de pagos.Count == 0
-                    datosSeguimiento.Editar(objetoSeguimiento);
-                }
-            }
-        }
-
-        Vista.HabilitarBtnConfirmarPagos = false;
-        RefrescarListaObjetos();
+        ActualizarResultadosBusqueda();
     }
 
     private void CambiarVisibilidadBtnConfirmarEntrega(object? sender, EventArgs e) {
-        if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
-            foreach (var tupla in _tuplasObjetos)
+        if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+            foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
                     if (!tupla.Objeto.EstadoEntrega.Equals("Completada")) {
                         Vista.HabilitarBtnConfirmarEntrega = true;
@@ -169,8 +100,8 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
     }
 
     private void CambiarVisibilidadBtnConfirmarPagos(object? sender, EventArgs e) {
-        if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
-            foreach (var tupla in _tuplasObjetos)
+        if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+            foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
                     if (!tupla.Vista.EstadoPago.Equals("Confirmado")) {
                         Vista.HabilitarBtnConfirmarPagos = true;

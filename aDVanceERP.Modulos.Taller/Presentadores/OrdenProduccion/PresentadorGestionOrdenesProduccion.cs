@@ -39,14 +39,14 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
         }
 
         private void OnCerrarOrdenProduccionSeleccionada(object? sender, EventArgs e) {
-            if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
-                foreach (var tupla in _tuplasObjetos) {
+            if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+                foreach (var tupla in _tuplasEntidades) {
                     if (tupla.TuplaSeleccionada) {
                         tupla.Objeto.Estado = EstadoOrdenProduccion.Cerrada;
                         tupla.Objeto.FechaCierre = DateTime.Now;
 
                         // Editar la orden de producción
-                        DatosObjeto.Editar(tupla.Objeto);
+                        RepositorioEntidad.Editar(tupla.Objeto);
 
                         // Actualizar el costo unitario de producción en el producto correspondiente
                         UtilesProducto.ActualizarCostoProduccionUnitario(tupla.Objeto.IdProducto, tupla.Objeto.PrecioUnitario);
@@ -84,22 +84,22 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                     }
                 }
 
-                RefrescarListaObjetos();
+                ActualizarResultadosBusqueda();
             } else {
                 CentroNotificaciones.Mostrar("Debe seleccionar una orden de producción para cerrar.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
             }
         }
 
-        public override void RefrescarListaObjetos() {
+        public override void ActualizarResultadosBusqueda() {
             // Cambiar la visibilidad del botón de cierre de orden de producción al refrescar la lista de objetos.
             Vista.HabilitarBtnCierreOrdenProduccion = false;
 
-            base.RefrescarListaObjetos();
+            base.ActualizarResultadosBusqueda();
         }
 
         private void CambiarVisibilidadBtnCierreOrdenProduccion(object? sender, EventArgs e) {
-            if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
-                foreach (var tupla in _tuplasObjetos) {
+            if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+                foreach (var tupla in _tuplasEntidades) {
                     if (tupla.TuplaSeleccionada) {
                         var ordenProduccion = tupla.Objeto;
 

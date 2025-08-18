@@ -24,6 +24,6 @@ public partial class PresentadorContenedorModulos {
         _gestionRolesUsuarios.Vista.Restaurar();
         _gestionRolesUsuarios.Vista.Mostrar();
 
-        _gestionRolesUsuarios.RefrescarListaObjetos();
+        _gestionRolesUsuarios.ActualizarResultadosBusqueda();
     }
 }

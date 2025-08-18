@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 
 using System.Globalization;
 
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
@@ -21,6 +23,7 @@ public partial class PresentadorContenedorModulos {
         _gestionVentas.EditarObjeto += OnMostrarVistaEdicionVentaProducto;
         _gestionVentas.Vista.RegistrarDatos += OnMostrarVistaRegistroVentaProducto;
         _gestionVentas.Vista.ImportarVentasArchivo += OnImportarVentasArchivo;
+        _gestionVentas.Vista.ConfirmarPagos += OnConfirmarPagosVenta;
         _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
 
         if (Vista.Vistas != null)
@@ -35,7 +38,7 @@ public partial class PresentadorContenedorModulos {
         _gestionVentas.Vista.Restaurar();
         _gestionVentas.Vista.Mostrar();
 
-        _gestionVentas.RefrescarListaObjetos();
+        _gestionVentas.ActualizarResultadosBusqueda();
     }
 
     private void OnImportarVentasArchivo(object? sender, string ventas) {
@@ -78,14 +81,14 @@ public partial class PresentadorContenedorModulos {
                     UtilesEntrega.ObtenerIdTipoEntrega("Presencial").Result,
                     "",
                     "Completada",
-                    (decimal) ventaJson.Total
+                    ventaJson.Total
                     ));
             }
 
             var pago = new Pago(0,
                ventaJson.IdVenta,
                ventaJson.MetodoPago,
-               (decimal)ventaJson.Total);
+               ventaJson.Total);
 
 
             using (var repoPagos = new RepoPago()) {
@@ -99,9 +102,78 @@ public partial class PresentadorContenedorModulos {
             ProductosVenta?.Clear();
         }
 
-        _gestionVentas?.RefrescarListaObjetos();
+        _gestionVentas?.ActualizarResultadosBusqueda();
 
         CentroNotificaciones.Mostrar("Importación de ventas finalizada, las ventas han sido importadas correctamente desde el dispositivo.");
+    }
+
+    private void OnConfirmarPagosVenta(object? sender, EventArgs e) {
+        if (_gestionVentas?.Vista == null)
+            return;
+
+        if (!_gestionVentas.TuplasSeleccionadas.Any()) {
+            _gestionVentas.Vista.HabilitarBtnConfirmarPagos = false;
+            return;
+        }
+
+        // 2. Mover las instancias de RepoPago y RepoSeguimientoEntrega fuera del bucle
+        using (var datosPago = new RepoPago())
+        using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
+            foreach (var tupla in _gestionVentas.TuplasSeleccionadas) {
+                var ventaId = long.Parse(tupla.Vista.Id);
+                var montoTotal = decimal.Parse(tupla.Vista.MontoTotal, CultureInfo.InvariantCulture);
+                var pagos = UtilesVenta.ObtenerPagosPorVenta(ventaId);
+                var ahora = DateTime.Now;
+
+                // 3. Procesar pagos
+                if (pagos.Count == 0) {
+                    // Crear nuevo pago
+                    var nuevoPago = new Pago(
+                        0,
+                        ventaId,
+                        "Efectivo",
+                        montoTotal) {
+                        Estado = "Confirmado",
+                        FechaConfirmacion = ahora
+                    };
+
+                    datosPago.Adicionar(nuevoPago);
+
+                    ActualizarMovimientoCaja([nuevoPago]);
+                } else {
+                    // Actualizar pagos existentes
+                    foreach (var pago in pagos) {
+                        var pagoSplit = pago.Split('|');
+                        var pagoActualizado = new Pago(
+                            long.Parse(pagoSplit[0]),
+                            ventaId,
+                            pagoSplit[2],
+                            decimal.Parse(pagoSplit[3], CultureInfo.InvariantCulture)) {
+                            Estado = "Confirmado",
+                            FechaConfirmacion = ahora
+                        };
+
+                        datosPago.Editar(pagoActualizado);
+
+                        ActualizarMovimientoCaja([pagoActualizado]);
+                    }
+                }
+
+                // 4. Actualizar seguimiento de entrega (una sola vez por tupla)
+                var objetoSeguimiento = datosSeguimiento.Buscar(
+                    FiltroBusquedaSeguimientoEntrega.IdVenta,
+                    tupla.Vista.Id).resultados.FirstOrDefault();
+
+                if (objetoSeguimiento != null) {
+                    objetoSeguimiento.FechaPago = ahora;
+                    // Nota: Corregí FechaEntrega a FechaPago para consistencia con el caso de pagos.Count == 0
+                    datosSeguimiento.Editar(objetoSeguimiento);
+                }
+            }
+        }
+
+        _gestionVentas.Vista.HabilitarBtnConfirmarPagos = false;
+        _gestionVentas.ActualizarResultadosBusqueda();
     }
 }
 
@@ -113,7 +185,7 @@ internal class ProductoJson {
     public decimal precio_compra { get; set; }
     public decimal costo_produccion_unitario { get; set; }
     public decimal precio_venta_base { get; set; }
-    public int cantidad { get; set; }
+    public decimal cantidad { get; set; }
     public string nombre_almacen { get; set; }
     public string unidad_medida { get; set; }
     public string abreviatura_medida { get; set; }
@@ -121,13 +193,13 @@ internal class ProductoJson {
 
 internal class ProductoVendidoJson {
     public ProductoJson Producto { get; set; }
-    public int Cantidad { get; set; }
+    public decimal Cantidad { get; set; }
 }
 
 internal class VentaJson {
     public long IdVenta { get; set; }
     public DateTime Fecha { get; set; }
     public List<ProductoVendidoJson> Productos { get; set; }
-    public double Total { get; set; }
+    public decimal Total { get; set; }
     public string MetodoPago { get; set; } // "Efectivo" o "Transferencia"
 }

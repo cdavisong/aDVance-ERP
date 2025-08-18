@@ -32,10 +32,10 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         return presentadorTupla;
     }
 
-    public override void RefrescarListaObjetos() {
+    public override void ActualizarResultadosBusqueda() {
         _dispositivoConectado = VerificarConexionDispositivo();
 
-        base.RefrescarListaObjetos();
+        base.ActualizarResultadosBusqueda();
     }
 
     private void OnDescargarProductos(object? sender, EventArgs e) {

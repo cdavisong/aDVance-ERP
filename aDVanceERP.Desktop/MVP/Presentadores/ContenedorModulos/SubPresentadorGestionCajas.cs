@@ -24,7 +24,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionCajas.Vista.Restaurar();
             _gestionCajas.Vista.Mostrar();
 
-            _gestionCajas.RefrescarListaObjetos();
+            _gestionCajas.ActualizarResultadosBusqueda();
         }
     }
 }

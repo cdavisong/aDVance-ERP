@@ -36,7 +36,7 @@ public partial class PresentadorContenedorModulos {
                 if (_gestionCompras == null)
                     return;
 
-                _gestionCompras.RefrescarListaObjetos();
+                _gestionCompras.ActualizarResultadosBusqueda();
             };
 
             ProductosCompra?.Clear();

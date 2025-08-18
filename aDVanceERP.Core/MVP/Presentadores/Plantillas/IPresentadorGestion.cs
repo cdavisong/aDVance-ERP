@@ -10,12 +10,12 @@ public interface IPresentadorGestion<Vg, Do, En, C> : IPresentadorBase<Vg>, IDis
     where Do : class, IRepoEntidadBaseDatos<En, C>, new()
     where En : class, IEntidadBaseDatos, new()
     where C : Enum {
-    Do DatosObjeto { get; }
-    C? FiltroBusquedaObjeto { get; }
-    string? DatoBusquedaObjeto { get; }
+    Do RepositorioEntidad { get; }
+    C? FiltroBusqueda { get; }
+    string? CriterioBusqueda { get; }
 
     event EventHandler? EditarObjeto;
 
-    void BusquedaDatos(C criterio, string dato);
-    void RefrescarListaObjetos();
+    void BusquedaEntidades(C criterio, string dato);
+    void ActualizarResultadosBusqueda();
 }

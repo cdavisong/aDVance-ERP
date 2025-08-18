@@ -16,7 +16,7 @@ public partial class PresentadorContenedorModulos {
             if (_gestionAlmacenes == null)
                 return;
 
-            _gestionAlmacenes.RefrescarListaObjetos();
+            _gestionAlmacenes.ActualizarResultadosBusqueda();
         };
 
         Vista.Vistas?.Registrar("vistaRegistroAlmacen", 

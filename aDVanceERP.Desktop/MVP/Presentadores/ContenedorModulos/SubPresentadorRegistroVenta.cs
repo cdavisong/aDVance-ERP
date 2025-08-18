@@ -37,7 +37,7 @@ public partial class PresentadorContenedorModulos {
 
                 _gestionVentas.Vista.HabilitarBtnConfirmarEntrega = false;
                 _gestionVentas.Vista.HabilitarBtnConfirmarPagos = false;
-                _gestionVentas.RefrescarListaObjetos();
+                _gestionVentas.ActualizarResultadosBusqueda();
             };
             //TODO: Verificar cancelación de la venta
             /*_registroVentaProducto.Vista. += delegate {

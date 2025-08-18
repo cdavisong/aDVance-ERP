@@ -18,7 +18,7 @@ public partial class PresentadorContenedorModulos {
             if (_gestionCuentasBancarias == null)
                 return;
 
-            _gestionCuentasBancarias.RefrescarListaObjetos();
+            _gestionCuentasBancarias.ActualizarResultadosBusqueda();
         };
     }
 

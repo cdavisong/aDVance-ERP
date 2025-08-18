@@ -25,10 +25,10 @@ public class PresentadorGestionCompras : PresentadorGestionBase<PresentadorTupla
         return presentadorTupla;
     }
 
-    public override void RefrescarListaObjetos() {
+    public override void ActualizarResultadosBusqueda() {
         // Actualizar el valor bruto de las compras al refrescar la lista de objetos.
         Vista.ActualizarValorBrutoCompras();
 
-        base.RefrescarListaObjetos();
+        base.ActualizarResultadosBusqueda();
     }
 }

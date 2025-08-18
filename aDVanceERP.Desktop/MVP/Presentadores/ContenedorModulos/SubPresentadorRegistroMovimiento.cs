@@ -23,12 +23,12 @@ public partial class PresentadorContenedorModulos {
             if (_gestionMovimientos == null)
                 return;
 
-            _gestionMovimientos.RefrescarListaObjetos(); 
+            _gestionMovimientos.ActualizarResultadosBusqueda(); 
 
             if (_gestionProductos == null) 
                 return;
 
-            _gestionProductos.RefrescarListaObjetos();
+            _gestionProductos.ActualizarResultadosBusqueda();
         };
     }
 

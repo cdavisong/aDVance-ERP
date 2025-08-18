@@ -19,7 +19,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 if (_gestionCajas == null)
                     return;
 
-                _gestionCajas.RefrescarListaObjetos();
+                _gestionCajas.ActualizarResultadosBusqueda();
             };
         }
 

@@ -33,13 +33,13 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
     private void OnAprobarSolicitudCuentaUsuario(object? sender, EventArgs e) {
         var usuariosRol0 = 0;
 
-        foreach (var tupla in _tuplasObjetos)
+        foreach (var tupla in _tuplasEntidades)
             if (tupla.TuplaSeleccionada) {
                 if (tupla.Objeto.IdRolUsuario != 0) {
                     tupla.Objeto.Aprobado = true;
 
                     // Editar la cuenta de usuario
-                    DatosObjeto.Editar(tupla.Objeto);
+                    RepositorioEntidad.Editar(tupla.Objeto);
                 }
                 else {
                     usuariosRol0++;
@@ -57,7 +57,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
 
         Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
 
-        RefrescarListaObjetos();
+        ActualizarResultadosBusqueda();
     }
 
     private void OnEditarDatos(object? sender, EventArgs e) {
@@ -65,8 +65,8 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
     }
 
     private void OnCambioSeleccionObjeto(object? sender, EventArgs e) {
-        if (_tuplasObjetos.Any(t => t.TuplaSeleccionada)) {
-            foreach (var tupla in _tuplasObjetos)
+        if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+            foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
                     if (!tupla.Objeto.Aprobado) {
                         Vista.HabilitarBtnAprobacionSolicitudCuenta = true;

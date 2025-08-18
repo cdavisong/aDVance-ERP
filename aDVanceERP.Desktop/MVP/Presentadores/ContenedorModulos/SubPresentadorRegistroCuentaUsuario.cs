@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
 
             _gestionCuentasUsuarios.Vista.HabilitarBtnAprobacionSolicitudCuenta = false;
             
-            _gestionCuentasUsuarios.RefrescarListaObjetos();
+            _gestionCuentasUsuarios.ActualizarResultadosBusqueda();
         };
 
         return Task.CompletedTask;

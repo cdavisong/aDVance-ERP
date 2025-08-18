@@ -17,7 +17,7 @@ public partial class PresentadorContenedorModulos {
             if (_gestionMensajeros == null)
                 return;
 
-            _gestionMensajeros.RefrescarListaObjetos();
+            _gestionMensajeros.ActualizarResultadosBusqueda();
         };
 
         return Task.CompletedTask;

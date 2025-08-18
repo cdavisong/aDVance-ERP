@@ -17,7 +17,7 @@ public partial class PresentadorContenedorModulos {
             if (_gestionClientes == null)
                 return;
 
-            _gestionClientes.RefrescarListaObjetos();
+            _gestionClientes.ActualizarResultadosBusqueda();
         };
     }
 

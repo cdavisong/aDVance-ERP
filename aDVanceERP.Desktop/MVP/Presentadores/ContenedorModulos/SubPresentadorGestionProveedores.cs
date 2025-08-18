@@ -24,6 +24,6 @@ public partial class PresentadorContenedorModulos {
         _gestionProveedores.Vista.Restaurar();
         _gestionProveedores.Vista.Mostrar();
 
-        _gestionProveedores.RefrescarListaObjetos();
+        _gestionProveedores.ActualizarResultadosBusqueda();
     }
 }

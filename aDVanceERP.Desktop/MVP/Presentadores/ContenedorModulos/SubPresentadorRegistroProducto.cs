@@ -30,7 +30,7 @@ public partial class PresentadorContenedorModulos {
             if (_gestionProductos == null)
                 return;
 
-            _gestionProductos?.RefrescarListaObjetos();
+            _gestionProductos?.ActualizarResultadosBusqueda();
         };
     }
 

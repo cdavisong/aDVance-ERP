@@ -110,7 +110,6 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     public event EventHandler? MostrarPaginaSiguiente;
     public event EventHandler? MostrarUltimaPagina;
     public event EventHandler? SincronizarDatos;
-
     public event EventHandler? RegistrarDatos;
     public event EventHandler<string>? ImportarVentasArchivo;
     public event EventHandler? ConfirmarEntrega;

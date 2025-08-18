@@ -19,7 +19,7 @@ public partial class PresentadorContenedorModulos {
 
             ActualizarMontoCaja(UtilesCaja.ObtenerIdCajaActiva());
 
-            _gestionCajas.RefrescarListaObjetos();
+            _gestionCajas.ActualizarResultadosBusqueda();
         };
     }
 

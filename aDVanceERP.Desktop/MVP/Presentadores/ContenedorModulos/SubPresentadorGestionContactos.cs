@@ -24,6 +24,6 @@ public partial class PresentadorContenedorModulos {
         _gestionContactos.Vista.Restaurar();
         _gestionContactos.Vista.Mostrar();
 
-        _gestionContactos.RefrescarListaObjetos();
+        _gestionContactos.ActualizarResultadosBusqueda();
     }
 }

@@ -28,7 +28,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionOrdenesProduccion.Vista.Restaurar();
             _gestionOrdenesProduccion.Vista.Mostrar();
 
-            _gestionOrdenesProduccion.RefrescarListaObjetos();
+            _gestionOrdenesProduccion.ActualizarResultadosBusqueda();
         }
 
         private void RegistrarMovimientosOrdenProduccionCerrada(object? sender, OrdenProduccion e) {

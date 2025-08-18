@@ -35,32 +35,32 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             return presentadorTupla;
         }
 
-        public override void RefrescarListaObjetos() {
+        public override void ActualizarResultadosBusqueda() {
             // Cambiar la visibilidad de los botones 
             Vista.HabilitarBtnRegistroMovimientoCaja = false;
             Vista.HabilitarBtnCierreCaja = false;            
 
-            base.RefrescarListaObjetos();
+            base.ActualizarResultadosBusqueda();
         }
 
         private void CerrarCajaSeleccionada(object? sender, EventArgs e) {
-            foreach (var tupla in _tuplasObjetos)
+            foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
                     tupla.Objeto.FechaCierre = DateTime.Now;
                     tupla.Objeto.Estado = EstadoCaja.Cerrada;
 
                     // Editar la venta del producto
-                    DatosObjeto.Editar(tupla.Objeto);
+                    RepositorioEntidad.Editar(tupla.Objeto);
 
                     break;
                 }
 
-            RefrescarListaObjetos();
+            ActualizarResultadosBusqueda();
         }
 
         private void CambiarVisibilidadBotones(object? sender, EventArgs e) {
             // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
-            var tuplaSeleccionada = _tuplasObjetos.Where(t => t.TuplaSeleccionada).FirstOrDefault();
+            var tuplaSeleccionada = _tuplasEntidades.Where(t => t.TuplaSeleccionada).FirstOrDefault();
 
             // 2. Actualizar la visibilidad de botones            
             Vista.HabilitarBtnCierreCaja = tuplaSeleccionada != null && tuplaSeleccionada.Objeto.Estado == EstadoCaja.Abierta;

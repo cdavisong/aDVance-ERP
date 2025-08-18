@@ -30,7 +30,7 @@ public partial class PresentadorContenedorModulos {
                 if (_gestionRolesUsuarios == null)
                     return;
 
-                _gestionRolesUsuarios.RefrescarListaObjetos();
+                _gestionRolesUsuarios.ActualizarResultadosBusqueda();
             };
 
             Permisos?.Clear();

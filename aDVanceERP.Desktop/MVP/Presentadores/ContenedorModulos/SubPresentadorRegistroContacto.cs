@@ -16,7 +16,7 @@ public partial class PresentadorContenedorModulos {
             if (_gestionContactos == null)
                 return;
 
-            _gestionContactos.RefrescarListaObjetos();
+            _gestionContactos.ActualizarResultadosBusqueda();
         };
 
         return Task.CompletedTask;
