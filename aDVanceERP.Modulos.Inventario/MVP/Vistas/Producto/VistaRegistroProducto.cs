@@ -209,12 +209,8 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         P1DatosGenerales.CargarRazonesSocialesProveedores(nombresProveedores);
     }
 
-    public void CargarUnidadesMedida(object[] unidadesMedida) {
+    public void CargarUnidadesMedida((string[] nombres, string[] abreviaturas, string[] descripciones) unidadesMedida) {
         P2UmPreciosStock.CargarUnidadesMedida(unidadesMedida);
-    }
-
-    public void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida) {
-        P2UmPreciosStock.CargarDescripcionesUnidadesMedida(descripcionesUnidadesMedida);
     }
 
     public void CargarTiposMateriaPrima(object[] nombresTiposMateriaPrima) {

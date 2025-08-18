@@ -14,7 +14,7 @@ public partial class PresentadorContenedorModulos {
         _registroUnidadMedida.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroUnidadMedida.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroUnidadMedida.DatosRegistradosActualizados += delegate {
-            _registroProducto?.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerNombresUnidadesMedida());
+            _registroProducto?.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerUnidadesMedida());
         };
 
         return Task.CompletedTask;
@@ -38,7 +38,7 @@ public partial class PresentadorContenedorModulos {
                 unidadMedida.Eliminar(idUnidadMedida);
             }
 
-            _registroProducto?.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerNombresUnidadesMedida());
+            _registroProducto?.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerUnidadesMedida());
         }
     }
 }

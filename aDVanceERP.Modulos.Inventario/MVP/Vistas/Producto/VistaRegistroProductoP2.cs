@@ -15,6 +15,8 @@ public partial class VistaRegistroProductoP2 : Form {
         set => fieldUnidadMedida.Text = value;
     }
 
+    public string[] AbreviaturasUnidadesMedida { get; private set; } = Array.Empty<string>();
+
     public string[] DescripcionesUnidadMedida { get; private set; } = Array.Empty<string>();
 
     public string TipoMateriaPrima {
@@ -80,9 +82,10 @@ public partial class VistaRegistroProductoP2 : Form {
 
         // Eventos
         fieldUnidadMedida.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
-            if (DescripcionesUnidadMedida.Length == 0)
+            if (AbreviaturasUnidadesMedida.Length == 0 || DescripcionesUnidadMedida.Length == 0)
                 return;
 
+            fieldAbreviaturaUnidadMedida.Text = AbreviaturasUnidadesMedida[fieldUnidadMedida.SelectedIndex];
             fieldDescripcionUnidadMedida.Text = DescripcionesUnidadMedida[fieldUnidadMedida.SelectedIndex];
         };
         fieldTipoMateriaPrima.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
@@ -110,15 +113,14 @@ public partial class VistaRegistroProductoP2 : Form {
         };
     }
 
-    public void CargarUnidadesMedida(object[] unidadesMedida) {
+    public void CargarUnidadesMedida((string[] nombres, string[] abreviaturas, string[] descripciones) unidadesMedida) {
         fieldUnidadMedida.Items.Clear();
-        fieldUnidadMedida.Items.AddRange(unidadesMedida);
-        fieldUnidadMedida.SelectedIndex = unidadesMedida.Length > 0 ? 0 : -1;
-    }
+        fieldUnidadMedida.Items.AddRange(unidadesMedida.nombres);
+        fieldUnidadMedida.SelectedIndex = unidadesMedida.nombres.Length > 0 ? 0 : -1;
 
-    public void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida) {
-        Array.Clear(DescripcionesUnidadMedida);
-        DescripcionesUnidadMedida = descripcionesUnidadesMedida;
+        // Limpiar descripciones y abreviaturas
+        AbreviaturasUnidadesMedida = unidadesMedida.abreviaturas;
+        DescripcionesUnidadMedida = unidadesMedida.descripciones;
     }
 
     public void CargarTiposMateriaPrima(object[] nombresTiposMateriaPrima) {
@@ -195,6 +197,7 @@ public partial class VistaRegistroProductoP2 : Form {
         UnidadMedida = string.Empty;
         fieldUnidadMedida.SelectedIndex = 0;
         fieldDescripcionUnidadMedida.Text = "Seleccione o registre una unidad de medida";
+        fieldAbreviaturaUnidadMedida.Text = "u";
         fieldTipoMateriaPrima.SelectedIndex = 0;
         fieldDescripcionTipoMateriaPrima.Text = "Seleccione o registre un tipo de materia prima";
         PrecioCompra = 0;

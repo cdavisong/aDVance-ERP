@@ -53,26 +53,22 @@ namespace aDVanceERP.Core.Utiles.Datos {
                 new MySqlParameter("@IdUnidadMedida", idUnidadMedida));
         }
 
-        public static object[] ObtenerNombresUnidadesMedida() {
-            var query = "SELECT nombre FROM adv__unidad_medida;";
+        public static (string[] nombres, string[] abreviaturas, string[] descripciones) ObtenerUnidadesMedida() {
+            var query = "SELECT nombre, abreviatura, descripcion FROM adv__unidad_medida;";
+
             return EjecutarConsulta(query, lector => {
                 var nombres = new List<string>();
+                var abreviaturas = new List<string>();
+                var descripciones = new List<string>();
+
                 do {
                     nombres.Add(lector.GetString("nombre"));
+                    abreviaturas.Add(lector.GetString("abreviatura"));
+                    descripciones.Add(lector.GetString("descripcion"));
                 } while (lector.Read());
-                return nombres.ToArray();
-            }) ?? Array.Empty<object>();
-        }
 
-        public static string[] ObtenerDescripcionesUnidadesMedida() {
-            var query = "SELECT descripcion FROM adv__unidad_medida;";
-            return EjecutarConsulta(query, lector => {
-                var nombres = new List<string>();
-                do {
-                    nombres.Add(lector.GetString("descripcion"));
-                } while (lector.Read());
-                return nombres.ToArray();
-            }) ?? Array.Empty<string>();
+                return (nombres.ToArray(), abreviaturas.ToArray(), descripciones.ToArray());
+            });
         }
     }
 }

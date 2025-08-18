@@ -30,8 +30,7 @@ public interface IVistaRegistroProducto : IVistaRegistro {
 
     void CargarNombresProductos(string[] nombresProductos);
     void CargarRazonesSocialesProveedores(object[] nombresProveedores);
-    void CargarUnidadesMedida(object[] unidadesMedida);
-    void CargarDescripcionesUnidadesMedida(string[] descripcionesUnidadesMedida);
+    void CargarUnidadesMedida((string[] nombres, string[] abreviaturas, string[] descripciones) unidadesMedida);
     void CargarTiposMateriaPrima(object[] nombresTiposMateriaPrima);
     void CargarDescripcionesTiposMateriaPrima(string[] descripcionesTiposMateriaPrima);
     void CargarNombresAlmacenes(object[] nombresAlmacenes);
