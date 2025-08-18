@@ -100,7 +100,8 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
     }
 
     protected override Movimiento? ObtenerEntidadDesdeVista() {
-        return new Movimiento(Entidad?.Id ?? 0,
+        return new Movimiento(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result,
             UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen).Result,
             UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,

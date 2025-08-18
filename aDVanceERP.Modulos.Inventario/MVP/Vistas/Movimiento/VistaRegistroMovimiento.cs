@@ -107,9 +107,6 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { Close(); };
-
-        // Enlace de scanner
-        UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
 
     public void CargarNombresProductos(string[] nombresProductos) {
@@ -149,17 +146,6 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
 
         if (fieldTipoMovimiento.Items.Count > 0)
             fieldTipoMovimiento.SelectedIndex = tiposMovimientos.Length > 0 ? 0 : -1;
-    }
-
-    private void ProcesarDatosScanner(string codigo) {
-        var nombreProducto = UtilesProducto.ObtenerNombreProducto(codigo.Replace("\0", "")).Result;
-
-        if (string.IsNullOrEmpty(nombreProducto))
-            return;
-
-        Invoke((MethodInvoker) delegate {
-            NombreProducto = nombreProducto;
-        });
     }
 
     public void ActualizarCamposAlmacenes() {
@@ -204,8 +190,6 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
     }
 
     public void Cerrar() {
-        UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
-
         Dispose();
     }
 }

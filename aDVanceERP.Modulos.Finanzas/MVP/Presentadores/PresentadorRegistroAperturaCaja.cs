@@ -18,7 +18,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
         }
 
         protected override Caja ObtenerEntidadDesdeVista() {
-            return new Caja(Entidad?.Id ?? 0,
+            return new Caja(
+                Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
                 Vista.Fecha,
                 Vista.SaldoInicial,
                 Vista.SaldoInicial,

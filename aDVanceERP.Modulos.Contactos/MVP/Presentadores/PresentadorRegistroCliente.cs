@@ -114,7 +114,8 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
     }
 
     protected override Cliente? ObtenerEntidadDesdeVista() {
-        return new Cliente(Entidad?.Id ?? 0,
+        return new Cliente(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.Numero,
             Vista.RazonSocial,
             UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result

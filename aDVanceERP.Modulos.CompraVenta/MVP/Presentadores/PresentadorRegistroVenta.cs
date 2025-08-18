@@ -30,7 +30,8 @@ public class
     }
 
     protected override Venta? ObtenerEntidadDesdeVista() {
-        return new Venta(Entidad?.Id ?? 0,
+        return new Venta(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             DateTime.Now,
             UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
             UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),

@@ -27,7 +27,8 @@ public class
     }
 
     protected override Compra? ObtenerEntidadDesdeVista() {
-        return new Compra(Entidad?.Id ?? 0,
+        return new Compra(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             DateTime.Now,
             UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
             UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor).Result,

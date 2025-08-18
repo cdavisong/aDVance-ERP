@@ -135,7 +135,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
 
         protected override Modelos.OrdenProduccion? ObtenerEntidadDesdeVista() {
             return new Modelos.OrdenProduccion(
-                Entidad?.Id ?? 0,
+                Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
                 Vista.NumeroOrden,
                 Vista.FechaApertura,
                 DateTime.MinValue,

@@ -6,8 +6,7 @@ using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistroAlmacen, Almacen, RepoAlmacen,
-    FiltroBusquedaAlmacen> {
+public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistroAlmacen, Almacen, RepoAlmacen, FiltroBusquedaAlmacen> {
     public PresentadorRegistroAlmacen(IVistaRegistroAlmacen vista) : base(vista) { }
 
     public override void PopularVistaDesdeObjeto(Almacen objeto) {
@@ -31,12 +30,17 @@ public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistro
     }
 
     protected override Almacen? ObtenerEntidadDesdeVista() {
+        if (Vista == null) {
+            CentroNotificaciones.Mostrar("La vista no está inicializada.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
+            return null;
+        }
+
         return new Almacen(
-            Entidad?.Id ?? 0,
-            Vista.Nombre,
-            Vista.Direccion,
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.Nombre ?? string.Empty,
+            Vista.Direccion ?? string.Empty,
             Vista.AutorizoVenta,
-            Vista.Notas
+            Vista.Notas ?? string.Empty
         );
     }
 }

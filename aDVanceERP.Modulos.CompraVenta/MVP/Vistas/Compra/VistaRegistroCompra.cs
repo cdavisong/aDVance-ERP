@@ -150,9 +150,6 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         contenedorVistas.Resize += delegate {
             AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
         };
-
-        // Enlace de scanner
-        UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
 
     public void CargarRazonesSocialesProveedores(object[] nombresProveedores) {
@@ -173,19 +170,6 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         fieldNombreProducto.AutoCompleteCustomSource.AddRange(nombresProductos);
         fieldNombreProducto.AutoCompleteMode = AutoCompleteMode.Suggest;
         fieldNombreProducto.AutoCompleteSource = AutoCompleteSource.CustomSource;
-    }
-
-    private void ProcesarDatosScanner(string codigo) {
-        var nombreProducto = UtilesProducto.ObtenerNombreProducto(codigo.Replace("\0", "")).Result;
-
-        if (string.IsNullOrEmpty(nombreProducto))
-            return;
-
-        Invoke((MethodInvoker) delegate {
-            NombreProducto = nombreProducto;
-
-            fieldCantidad.Focus();
-        });
     }
 
     public async void AdicionarProducto(string nombreAlmacen = "", string nombreProducto = "", string cantidad = "") {
@@ -334,8 +318,6 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     }
 
     public void Cerrar() {
-        UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
-
         Dispose();
     }
 }

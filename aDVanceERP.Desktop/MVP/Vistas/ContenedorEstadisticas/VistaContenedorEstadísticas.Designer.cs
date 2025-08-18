@@ -158,7 +158,7 @@
             // fieldTitulo
             // 
             fieldTitulo.Dock = DockStyle.Fill;
-            fieldTitulo.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTitulo.Font = new Font("Segoe UI", 20.25F);
             fieldTitulo.ForeColor = Color.Black;
             fieldTitulo.ImeMode = ImeMode.NoControl;
             fieldTitulo.Location = new Point(3, 0);
@@ -183,7 +183,7 @@
             // fieldSubtitulo
             // 
             fieldSubtitulo.Dock = DockStyle.Fill;
-            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldSubtitulo.Font = new Font("Segoe UI", 11.25F);
             fieldSubtitulo.ForeColor = Color.Gray;
             fieldSubtitulo.ImeMode = ImeMode.NoControl;
             fieldSubtitulo.Location = new Point(55, 50);
@@ -232,7 +232,7 @@
             btnDescargarAnálisisVentas.CustomizableEdges = customizableEdges1;
             btnDescargarAnálisisVentas.Dock = DockStyle.Fill;
             btnDescargarAnálisisVentas.FillColor = Color.Gainsboro;
-            btnDescargarAnálisisVentas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnDescargarAnálisisVentas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnDescargarAnálisisVentas.ForeColor = Color.Black;
             btnDescargarAnálisisVentas.Image = (Image) resources.GetObject("btnDescargarAnálisisVentas.Image");
             btnDescargarAnálisisVentas.ImageAlign = HorizontalAlignment.Left;
@@ -293,7 +293,7 @@
             // 
             fieldTituloAnalisisVentas.AutoSize = true;
             fieldTituloAnalisisVentas.BackColor = Color.Transparent;
-            fieldTituloAnalisisVentas.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloAnalisisVentas.Font = new Font("Segoe UI", 20.25F);
             fieldTituloAnalisisVentas.Image = (Image) resources.GetObject("fieldTituloAnalisisVentas.Image");
             fieldTituloAnalisisVentas.ImageAlign = ContentAlignment.BottomLeft;
             fieldTituloAnalisisVentas.Location = new Point(3, 0);
@@ -318,7 +318,7 @@
             // fieldTituloFiltrosBusqueda
             // 
             fieldTituloFiltrosBusqueda.Dock = DockStyle.Fill;
-            fieldTituloFiltrosBusqueda.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldTituloFiltrosBusqueda.Font = new Font("Segoe UI", 11.25F);
             fieldTituloFiltrosBusqueda.ForeColor = Color.DimGray;
             fieldTituloFiltrosBusqueda.Image = (Image) resources.GetObject("fieldTituloFiltrosBusqueda.Image");
             fieldTituloFiltrosBusqueda.ImageAlign = ContentAlignment.MiddleLeft;
@@ -343,7 +343,7 @@
             fieldCriterioEstadisticasVenta.DropDownStyle = ComboBoxStyle.DropDownList;
             fieldCriterioEstadisticasVenta.FocusedColor = Color.Gainsboro;
             fieldCriterioEstadisticasVenta.FocusedState.BorderColor = Color.Gainsboro;
-            fieldCriterioEstadisticasVenta.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldCriterioEstadisticasVenta.Font = new Font("Segoe UI", 11.25F);
             fieldCriterioEstadisticasVenta.ForeColor = Color.Black;
             fieldCriterioEstadisticasVenta.ItemHeight = 29;
             fieldCriterioEstadisticasVenta.Location = new Point(5, 140);
@@ -367,7 +367,7 @@
             fieldDatoFecha.CustomizableEdges = customizableEdges5;
             fieldDatoFecha.Dock = DockStyle.Fill;
             fieldDatoFecha.FillColor = Color.White;
-            fieldDatoFecha.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            fieldDatoFecha.Font = new Font("Segoe UI", 11.25F);
             fieldDatoFecha.ForeColor = Color.Black;
             fieldDatoFecha.Format = DateTimePickerFormat.Custom;
             fieldDatoFecha.Location = new Point(5, 190);
@@ -464,7 +464,7 @@
             // 
             fieldGananciaTotalNegocio.AutoSize = true;
             fieldGananciaTotalNegocio.BackColor = Color.Transparent;
-            fieldGananciaTotalNegocio.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldGananciaTotalNegocio.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
             fieldGananciaTotalNegocio.Location = new Point(3, 0);
             fieldGananciaTotalNegocio.Name = "fieldGananciaTotalNegocio";
             fieldGananciaTotalNegocio.Size = new Size(56, 61);
@@ -513,7 +513,7 @@
             // 
             fieldGananciaAcumuladaDia.AutoSize = true;
             fieldGananciaAcumuladaDia.Dock = DockStyle.Left;
-            fieldGananciaAcumuladaDia.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldGananciaAcumuladaDia.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             fieldGananciaAcumuladaDia.Location = new Point(0, 0);
             fieldGananciaAcumuladaDia.Margin = new Padding(10, 0, 3, 0);
             fieldGananciaAcumuladaDia.Name = "fieldGananciaAcumuladaDia";
@@ -544,7 +544,7 @@
             btnGestionarVentas.CustomizableEdges = customizableEdges7;
             btnGestionarVentas.Dock = DockStyle.Fill;
             btnGestionarVentas.FillColor = Color.PaleGoldenrod;
-            btnGestionarVentas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnGestionarVentas.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnGestionarVentas.ForeColor = Color.Black;
             btnGestionarVentas.Image = (Image) resources.GetObject("btnGestionarVentas.Image");
             btnGestionarVentas.ImageAlign = HorizontalAlignment.Left;
@@ -605,7 +605,7 @@
             // 
             fieldMontoVentaProductosVendidos.AutoSize = true;
             fieldMontoVentaProductosVendidos.Dock = DockStyle.Left;
-            fieldMontoVentaProductosVendidos.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldMontoVentaProductosVendidos.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             fieldMontoVentaProductosVendidos.Location = new Point(0, 0);
             fieldMontoVentaProductosVendidos.Margin = new Padding(0);
             fieldMontoVentaProductosVendidos.Name = "fieldMontoVentaProductosVendidos";
@@ -635,7 +635,7 @@
             // 
             fieldCantProductosVendidos.AutoSize = true;
             fieldCantProductosVendidos.BackColor = Color.Transparent;
-            fieldCantProductosVendidos.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldCantProductosVendidos.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
             fieldCantProductosVendidos.Location = new Point(3, 0);
             fieldCantProductosVendidos.Name = "fieldCantProductosVendidos";
             fieldCantProductosVendidos.Size = new Size(56, 61);
@@ -650,7 +650,7 @@
             fieldTituloProductosVendidos.Location = new Point(11, 61);
             fieldTituloProductosVendidos.Margin = new Padding(11, 0, 0, 0);
             fieldTituloProductosVendidos.Name = "fieldTituloProductosVendidos";
-            fieldTituloProductosVendidos.Size = new Size(159, 20);
+            fieldTituloProductosVendidos.Size = new Size(167, 20);
             fieldTituloProductosVendidos.TabIndex = 1;
             fieldTituloProductosVendidos.Text = "Productos vendidos hoy";
             // 
@@ -677,7 +677,7 @@
             btnGestionarProductos.CustomizableEdges = customizableEdges9;
             btnGestionarProductos.Dock = DockStyle.Fill;
             btnGestionarProductos.FillColor = Color.PeachPuff;
-            btnGestionarProductos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnGestionarProductos.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnGestionarProductos.ForeColor = Color.Black;
             btnGestionarProductos.Image = (Image) resources.GetObject("btnGestionarProductos.Image");
             btnGestionarProductos.ImageAlign = HorizontalAlignment.Left;
@@ -711,7 +711,7 @@
             // fieldMontoInversionProductoss
             // 
             fieldMontoInversionProductoss.AutoSize = true;
-            fieldMontoInversionProductoss.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldMontoInversionProductoss.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             fieldMontoInversionProductoss.Location = new Point(10, 116);
             fieldMontoInversionProductoss.Margin = new Padding(10, 0, 3, 0);
             fieldMontoInversionProductoss.Name = "fieldMontoInversionProductoss";
@@ -741,7 +741,7 @@
             // 
             fieldCantProductosRegistrados.AutoSize = true;
             fieldCantProductosRegistrados.BackColor = Color.Transparent;
-            fieldCantProductosRegistrados.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            fieldCantProductosRegistrados.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
             fieldCantProductosRegistrados.Location = new Point(3, 0);
             fieldCantProductosRegistrados.Name = "fieldCantProductosRegistrados";
             fieldCantProductosRegistrados.Size = new Size(56, 61);
@@ -756,7 +756,7 @@
             fieldTituloProductos.Location = new Point(11, 61);
             fieldTituloProductos.Margin = new Padding(11, 0, 0, 0);
             fieldTituloProductos.Name = "fieldTituloProductos";
-            fieldTituloProductos.Size = new Size(161, 20);
+            fieldTituloProductos.Size = new Size(169, 20);
             fieldTituloProductos.TabIndex = 1;
             fieldTituloProductos.Text = "Productos en almacenes";
             // 
@@ -767,7 +767,7 @@
             BackColor = Color.White;
             ClientSize = new Size(1386, 654);
             Controls.Add(layoutVista);
-            Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 11.25F);
             ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);

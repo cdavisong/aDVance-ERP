@@ -70,7 +70,7 @@ namespace aDVancePOS.Mobile.Servicios {
             return _productos.Where(p =>
                 p.nombre.Contains(termino, StringComparison.OrdinalIgnoreCase) ||
                 p.codigo.Contains(termino, StringComparison.OrdinalIgnoreCase) &&
-                p.stock > 0).ToList();
+                p.cantidad > 0).ToList();
         }
 
         public Producto ObtenerProductoPorId(int id) {
@@ -82,8 +82,8 @@ namespace aDVancePOS.Mobile.Servicios {
             foreach (var item in venta.Productos) {
                 var producto = _productos.FirstOrDefault(p => p.id_producto == item.Producto.id_producto);
                 if (producto != null) {
-                    producto.stock -= item.Cantidad;
-                    if (producto.stock < 0) producto.stock = 0; // Prevenir stock negativo
+                    producto.cantidad -= item.Cantidad;
+                    if (producto.cantidad < 0) producto.cantidad = 0; // Prevenir stock negativo
                 }
             }
 
@@ -96,14 +96,14 @@ namespace aDVancePOS.Mobile.Servicios {
             GuardarDatos();
         }
 
-        public double ObtenerTotalVentasAcumuladas() {
+        public decimal ObtenerTotalVentasAcumuladas() {
             return _ventas.Sum(v => v.Total);
         }
 
-        public (double Efectivo, double Transferencia, double Total) ObtenerEstadisticasVentas() {
-            double efectivo = _ventas.Where(v => v.MetodoPago == "Efectivo").Sum(v => v.Total);
-            double transferencia = _ventas.Where(v => v.MetodoPago == "Transferencia").Sum(v => v.Total);
-            double total = efectivo + transferencia;
+        public (decimal Efectivo, decimal Transferencia, decimal Total) ObtenerEstadisticasVentas() {
+            decimal efectivo = _ventas.Where(v => v.MetodoPago == "Efectivo").Sum(v => v.Total);
+            decimal transferencia = _ventas.Where(v => v.MetodoPago == "Transferencia").Sum(v => v.Total);
+            decimal total = efectivo + transferencia;
 
             return (efectivo, transferencia, total);
         }
@@ -134,7 +134,7 @@ namespace aDVancePOS.Mobile.Servicios {
                         producto.id_producto > 0 &&
                         !string.IsNullOrEmpty(producto.nombre) &&
                         producto.precio_venta_base > 0 &&
-                        producto.stock > 0) {
+                        producto.cantidad > 0) {
                         productosValidados.Add(producto);
                     }
                 }

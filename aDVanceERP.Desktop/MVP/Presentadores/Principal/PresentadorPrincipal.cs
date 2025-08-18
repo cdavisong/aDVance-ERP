@@ -1,9 +1,7 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
-using aDVanceERP.Core.Mensajes.Servicios.Telegram;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Seguridad.Utiles;
-using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.Principal;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 using aDVanceERP.Modulos.CompraVenta;
@@ -44,30 +42,19 @@ public partial class PresentadorPrincipal {
 
         #endregion
 
-        #region Característica : Servicio de Bot para administración de la aplicación en Telegram
-        //TODO: Implementar configuración del servicio Telegram
-        ServicioBotTelegram = new ServicioBotAdvanceErpTelegram("7527001809:AAEs_sjefuSInx_dqFX9C8jr-9ckiRJQlkw");
-        ServicioBotTelegram.MensajeRecibido += ProcesarMensajeBotTelegram;
-        BotTelegramConectado = ServicioBotTelegram.ConectarAsync().Result;
-        Vista.ServicioTelegramActivo = BotTelegramConectado;
-
-        #endregion
-
-        #region Característica : Servicio Scanner de códigos de barra y QR
-
-        UtilesServidorScanner.Servidor.IniciarAsync(9002);
-
-        #endregion
-
         // Otros
         MostrarVistaContenedorSeguridad(this, EventArgs.Empty);
     }
 
     public IVistaPrincipal Vista { get; }
 
-    public ServicioBotAdvanceErpTelegram? ServicioBotTelegram { get; }
-
-    public bool BotTelegramConectado { get; }
+    public long IdEmpresa {
+        get => _empresa?.Id ?? 0;
+        set {
+            if (_empresa != null)
+                _empresa.Id = value;
+        }
+    }
 
     private void InicializarPermisosModulos() {
         try {

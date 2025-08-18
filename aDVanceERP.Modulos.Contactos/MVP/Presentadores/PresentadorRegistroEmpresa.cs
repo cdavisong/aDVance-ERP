@@ -145,7 +145,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
         }
 
         protected override Empresa? ObtenerEntidadDesdeVista() {
-            return new Empresa(Entidad?.Id ?? 0,
+            return new Empresa(
+                Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
                 Vista.Logotipo,
                 Vista.Nombre,
                 UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result

@@ -21,7 +21,8 @@ public class PresentadorRegistroCuentaUsuario : PresentadorRegistroBase<IVistaRe
     protected override CuentaUsuario? ObtenerEntidadDesdeVista() {
         var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
 
-        return new CuentaUsuario(Entidad?.Id ?? 0,
+        return new CuentaUsuario(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.NombreUsuario,
             passwordSeguro.hash,
             passwordSeguro.salt,

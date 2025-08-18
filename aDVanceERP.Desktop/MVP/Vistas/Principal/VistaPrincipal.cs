@@ -53,14 +53,6 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         }
     }
 
-    public bool ServicioTelegramActivo {
-        get => fieldServicioTelegram.Visible;
-        set {
-            fieldServicioTelegram.Visible = value;
-            fieldServicioTelegram.Text = $"     Servicio de Telegram {(value ? "activo" : "inactivo")}";
-        }
-    }
-
     public event EventHandler? VerNotificaciones;
     public event EventHandler? VerMensajes;
     public event EventHandler? SubMenuUsuario;
@@ -86,14 +78,7 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         };
         Resize += delegate { };
         FormClosing += delegate(object? sender, FormClosingEventArgs args) {
-            UtilesServidorScanner.Servidor.Detener();
-        };
-
-        // Eventos del Servidor SCANNER
-        UtilesServidorScanner.Servidor.CambioEstado += delegate (string mensaje) {
-            if (InvokeRequired)
-                Invoke(new Action(() => { fieldServidorScanner.Text = $"     {mensaje}"; }));
-            else fieldServidorScanner.Text = $"     {mensaje}";
+            
         };
     }
 

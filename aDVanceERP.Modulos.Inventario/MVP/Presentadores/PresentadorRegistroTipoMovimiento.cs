@@ -31,7 +31,7 @@ public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaR
 
     protected override TipoMovimiento? ObtenerEntidadDesdeVista() {
         return new TipoMovimiento(
-            Entidad?.Id ?? 0,
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre,
             (EfectoMovimiento)(Enum.TryParse(typeof(EfectoMovimiento), Vista.Efecto, out var efecto)
                 ? efecto

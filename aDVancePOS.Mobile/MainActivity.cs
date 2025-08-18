@@ -1,10 +1,11 @@
 using aDVancePOS.Mobile.Modelos;
 using aDVancePOS.Mobile.Servicios;
+using aDVancePOS.Mobile.Adaptadores;
 
 using Android.Content.PM;
-using Android.OS;
-using aDVancePOS.Mobile.Adaptadores;
 using Android.Views;
+
+using System.Globalization;
 
 namespace aDVancePOS.Mobile {
     [Activity(
@@ -177,14 +178,14 @@ namespace aDVancePOS.Mobile {
         private void AgregarAlCarrito(int position) {
             var producto = _productosEncontrados[position];
 
-            if (producto.stock <= 0) {
+            if (producto.cantidad <= 0) {
                 Toast.MakeText(this, "Producto sin stock disponible", ToastLength.Short).Show();
                 return;
             }
 
             // Mostrar diálogo para cantidad
             var input = new EditText(this);
-            input.InputType = Android.Text.InputTypes.ClassNumber;
+            input.InputType = Android.Text.InputTypes.NumberFlagDecimal;
             input.Text = "1";
 
             new AlertDialog.Builder(this)
@@ -192,10 +193,10 @@ namespace aDVancePOS.Mobile {
                 .SetMessage("Ingrese la cantidad:")
                 .SetView(input)
                 .SetPositiveButton("Agregar", (sender, e) => {
-                    if (int.TryParse(input.Text, out int cantidad) && cantidad > 0) {
+                    if (decimal.TryParse(input.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal cantidad) && cantidad > 0) {
                         // Validar cantidad contra stock
-                        if (cantidad > producto.stock) {
-                            Toast.MakeText(this, $"Cantidad excede stock disponible ({producto.stock})", ToastLength.Short).Show();
+                        if (cantidad > producto.cantidad) {
+                            Toast.MakeText(this, $"Cantidad excede stock disponible ({producto.cantidad:N2})", ToastLength.Short).Show();
                             return;
                         }
 
@@ -240,7 +241,7 @@ namespace aDVancePOS.Mobile {
                 .SetPositiveButton("Confirmar", (sender, e) => {
                     var venta = new Venta {
                         Productos = [.. _carrito],
-                        Total = (double) total,
+                        Total = total,
                         MetodoPago = metodoPago
                     };
 

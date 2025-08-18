@@ -24,7 +24,8 @@ public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaReg
     }
 
     protected override UnidadMedida? ObtenerEntidadDesdeVista() {
-        return new UnidadMedida(Entidad?.Id ?? 0,
+        return new UnidadMedida(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre,
             Vista.Abreviatura,
             string.IsNullOrEmpty(Vista.Descripcion) ? null : Vista.Descripcion

@@ -28,7 +28,7 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorRegistroBase<IVist
 
     protected override TipoMateriaPrima? ObtenerEntidadDesdeVista() {
         return new TipoMateriaPrima(
-            Entidad?.Id ?? 0,
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre,
             string.IsNullOrEmpty(Vista.Descripcion) ? null : Vista.Descripcion
         );

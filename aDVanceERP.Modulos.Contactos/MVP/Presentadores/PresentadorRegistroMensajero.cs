@@ -108,7 +108,8 @@ public class PresentadorRegistroMensajero : PresentadorRegistroBase<IVistaRegist
     }
 
     protected override Mensajero? ObtenerEntidadDesdeVista() {
-        return new Mensajero(Entidad?.Id ?? 0,
+        return new Mensajero(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre,
             true,
             UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result

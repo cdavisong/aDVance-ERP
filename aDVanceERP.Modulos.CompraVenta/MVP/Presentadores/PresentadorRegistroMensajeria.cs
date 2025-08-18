@@ -49,7 +49,8 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
     }
 
     protected override SeguimientoEntrega? ObtenerEntidadDesdeVista() {
-        return new SeguimientoEntrega(Entidad?.Id ?? 0,
+        return new SeguimientoEntrega(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.IdVenta,
             UtilesMensajero.ObtenerIdMensajero(Vista.NombreMensajero).Result,
             DateTime.Now,

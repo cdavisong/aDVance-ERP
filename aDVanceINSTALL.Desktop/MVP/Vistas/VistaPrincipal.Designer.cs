@@ -122,7 +122,7 @@
             btnSalir.CustomizableEdges = customizableEdges1;
             btnSalir.Dock = DockStyle.Fill;
             btnSalir.FillColor = Color.White;
-            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSalir.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnSalir.ForeColor = Color.Gainsboro;
             btnSalir.HoverState.BorderColor = Color.PeachPuff;
             btnSalir.HoverState.FillColor = Color.PeachPuff;
@@ -141,7 +141,7 @@
             btnSiguiente.CustomizableEdges = customizableEdges3;
             btnSiguiente.Dock = DockStyle.Fill;
             btnSiguiente.FillColor = Color.PeachPuff;
-            btnSiguiente.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            btnSiguiente.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             btnSiguiente.ForeColor = Color.Black;
             btnSiguiente.Location = new Point(253, 3);
             btnSiguiente.Name = "btnSiguiente";

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -123,16 +123,16 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="fieldIcono.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAgJJREFUWEft
-        lr1Kw1AUxyOIroLiEsn9SOlgxVFQlw4u6uIq+gLOih8gddTBwU3wCbSgNokKKugzKPgCgoOIH4jgItRz
-        wmm4xIu3N42D0D/8aLi553dP0ps2Tju/pe44HUeu23vougORlJ4NWIO16CCdXY457wkZmww5n22FgLFp
-        dJG2uZwVCt0R5zM6YRbQVS2VukhvTuh5JZ1IJRBiHghCIWpwlXO6OSo1zxskvTk1xsZ0EpWalFuhlPUY
-        zjfT59NEjI2S3pzA88Z1EpWA851GA/GxZo4KOklvTruB3xqAxTZowdNGA3iMY3hOnauS3x2Q8iVZOI0Q
-        z9oaIL8GOF+Bxd5/LI5jeE5fk+8egB+WVbjaj2RxOI7HNHMb5NpAjJQV4JOoaOco5N8AAJtuAdGdS/Mn
-        DdjwPxvAP5xIiPXI97fpOW8arMFadGRqACTLsLnugfTjZofvP+ATYtUA/BtOQfHrD1l2XvHlhvTmwG3b
-        00haAl7TdklvDjRwoZM0jRBf8HkHi74pY+ekNwcKr5LCDMAGrMa7n7GlZAycpDcHJl+qQmuEOIh3PmOL
-        jTF0kt6cAK9AFdqi+QrgruyT3pxAyrVElhNwUcukN+fI9/uh6CktaYHHqFjsI31zgSdhGG7hrUZmy82J
-        7w+R1i7X5XIn/JyOwCv4RBawFh2ka0cTx/kGWBqePsrr9gQAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAfxJREFUWEft
+        lj9rVEEUxVcQbQXFZmVm7pmQwhVLQdOksFEb26BfwFqJChJLLSzsBD+BBoxvZoygQvIZFPwCgoWIRiRg
+        I0TucxPW894sO/unEPbAD5Y7d865j53Zt53OXEO01+kc2uh2j7/odk8lwJSge3SverDvSHrp3LFo7aXo
+        3MokBGuvqBf7D9XrhYWjybmrbDYu6rXe6x3hnKyiMT02YYLI9SASokgVrL3G60xlzGnOyaqy9gIbMBXw
+        MAJ7Nc494HUmWXuec7IKxiyxAROce7w/QP25peeffmOWOCer+QDDBgjO3e8Hbg6cgU2t6Rr3T32ACHw/
+        CGZEvjX6pz6Ac7cj8LMRrjVda/ZPfQD9YbkTRXYHnny3rrX0zmSAGmAtAr/6rDXWZz7A3wN5Q+F6GzMZ
+        oIT/cwB94SSRe8n7R/17PjK6R/eqx1gDBOdWI/Cp5bqV4f1nvSFFA1TWXo7ATsNsfHb0zw3nZBVEnraY
+        TEQCnnBOVkHkLRsUIfI7Ah8T8GOg9oZzskrAVsO0gOT9en36rb11UAO2OCerBLxj0yJEntcn39qb+zX1
+        5Jysgj4Bm5bQ8hUk759xTlYBuNswnZDg/SrnZLXh/ckIfGWTCfiSFhdPcM5QBZGzCfjQYlbK+1fen2H/
+        kbS9vHw4iZyrgIvjoHvVg33nGtQfWBqePqL59vgAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="fieldTitulo.Text" xml:space="preserve">

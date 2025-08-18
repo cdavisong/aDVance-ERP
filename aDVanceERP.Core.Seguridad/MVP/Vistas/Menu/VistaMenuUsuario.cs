@@ -1,6 +1,8 @@
 ﻿using aDVanceERP.Core.Seguridad.MVP.Vistas.Menu.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
+using System.Globalization;
+
 namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
     public partial class VistaMenuUsuario : Form, IVistaMenuUsuario {
         public VistaMenuUsuario() {
@@ -46,8 +48,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
             set => fieldCorreoElectronico.Text = value;
         }
 
-        public string? IdEmpresa {
-            get => fieldIdEmpresa.Text;
+        public long IdEmpresa {
+            get => long.TryParse(fieldIdEmpresa.Text, CultureInfo.InvariantCulture, out var id) ? id : 0;
         }
 
         public event EventHandler? VerProveedores;

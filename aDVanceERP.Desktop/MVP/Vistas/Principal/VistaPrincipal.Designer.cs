@@ -53,8 +53,6 @@
             btnMaximizarRestaurar = new Guna.UI2.WinForms.Guna2ControlBox();
             layoutBarraEstado = new TableLayoutPanel();
             panelPiePagina = new Panel();
-            fieldServidorScanner = new Label();
-            fieldServicioTelegram = new Label();
             contenedorVistas = new Panel();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
@@ -63,7 +61,6 @@
             contenedorMenus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) btnSubMenuUsuario).BeginInit();
             layoutBarraEstado.SuspendLayout();
-            panelPiePagina.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -317,42 +314,12 @@
             // 
             // panelPiePagina
             // 
-            panelPiePagina.Controls.Add(fieldServidorScanner);
-            panelPiePagina.Controls.Add(fieldServicioTelegram);
             panelPiePagina.Dock = DockStyle.Fill;
             panelPiePagina.Location = new Point(10, 0);
             panelPiePagina.Margin = new Padding(10, 0, 0, 0);
             panelPiePagina.Name = "panelPiePagina";
             panelPiePagina.Size = new Size(1346, 24);
             panelPiePagina.TabIndex = 0;
-            // 
-            // fieldServidorScanner
-            // 
-            fieldServidorScanner.Dock = DockStyle.Left;
-            fieldServidorScanner.ForeColor = Color.DimGray;
-            fieldServidorScanner.Image = (Image) resources.GetObject("fieldServidorScanner.Image");
-            fieldServidorScanner.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldServidorScanner.Location = new Point(211, 0);
-            fieldServidorScanner.Margin = new Padding(0);
-            fieldServidorScanner.Name = "fieldServidorScanner";
-            fieldServidorScanner.Size = new Size(642, 24);
-            fieldServidorScanner.TabIndex = 3;
-            fieldServidorScanner.Text = "     Servidor de scanner inactivo";
-            fieldServidorScanner.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // fieldServicioTelegram
-            // 
-            fieldServicioTelegram.Dock = DockStyle.Left;
-            fieldServicioTelegram.ForeColor = Color.DimGray;
-            fieldServicioTelegram.Image = (Image) resources.GetObject("fieldServicioTelegram.Image");
-            fieldServicioTelegram.ImageAlign = ContentAlignment.MiddleLeft;
-            fieldServicioTelegram.Location = new Point(0, 0);
-            fieldServicioTelegram.Margin = new Padding(10, 0, 3, 0);
-            fieldServicioTelegram.Name = "fieldServicioTelegram";
-            fieldServicioTelegram.Size = new Size(211, 24);
-            fieldServicioTelegram.TabIndex = 2;
-            fieldServicioTelegram.Text = "     Servicio de Telegram inactivo";
-            fieldServicioTelegram.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // contenedorVistas
             // 
@@ -387,7 +354,6 @@
             contenedorMenus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) btnSubMenuUsuario).EndInit();
             layoutBarraEstado.ResumeLayout(false);
-            panelPiePagina.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -411,7 +377,5 @@
         private Guna.UI2.WinForms.Guna2CirclePictureBox btnSubMenuUsuario;
         private Guna.UI2.WinForms.Guna2HtmlLabel fieldTitulo;
         private Panel panelPiePagina;
-        private Label fieldServidorScanner;
-        private Label fieldServicioTelegram;
     }
 }

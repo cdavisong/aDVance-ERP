@@ -24,9 +24,6 @@ internal static class Program {
         // Configuración de la aplicación
         ApplicationConfiguration.Initialize();
         Application.Run((Form) new PresentadorPrincipal().Vista);
-
-        // Detener el servidor TCP
-        UtilesServidorScanner.Servidor.Detener();
     }
 
     private static void EjecutarParcheBD() {

@@ -23,7 +23,7 @@ public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaR
 
     protected override MovimientoCaja? ObtenerEntidadDesdeVista() {
         return new MovimientoCaja(
-            Entidad?.Id ?? 0,
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             UtilesCaja.ObtenerIdCajaActiva(),
             Vista.Fecha,
             Vista.Monto,

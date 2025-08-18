@@ -84,7 +84,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
 
     protected override Producto? ObtenerEntidadDesdeVista() {
         return new Producto(
-            Entidad?.Id ?? 0,
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.CategoriaProducto,
             Vista.Nombre,
             Vista.Codigo,

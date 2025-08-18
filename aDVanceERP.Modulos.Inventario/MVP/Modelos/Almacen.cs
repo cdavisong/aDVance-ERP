@@ -13,12 +13,11 @@ public class Almacen : IEntidadBaseDatos {
         Notas = notas;
     }
 
+    public long Id { get; set; }
     public string? Nombre { get; }
     public string? Direccion { get; }
     public bool AutorizoVenta { get; }
     public string? Notas { get; set; }
-
-    public long Id { get; set; }
 }
 
 public enum FiltroBusquedaAlmacen {

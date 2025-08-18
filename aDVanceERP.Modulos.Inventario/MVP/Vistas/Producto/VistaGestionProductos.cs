@@ -182,9 +182,6 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         contenedorVistas.Resize += delegate {
             AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
         };
-
-        // Enlace de scanner
-        UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
     }
 
     public void CargarNombresAlmacenes(object[] nombresAlmacenes) {
@@ -198,16 +195,6 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         fieldFiltroBusqueda.Items.Clear();
         fieldFiltroBusqueda.Items.AddRange(criteriosBusqueda);
         fieldFiltroBusqueda.SelectedIndex = 0;
-    }
-
-    private void ProcesarDatosScanner(string codigo) {
-        if (string.IsNullOrEmpty(codigo))
-            return;
-
-        Invoke((MethodInvoker) delegate {
-            fieldFiltroBusqueda.SelectedIndex = 2;
-            fieldDatoBusqueda.Text = codigo.Replace("\0", "");
-        });
     }
 
     public void Mostrar() {

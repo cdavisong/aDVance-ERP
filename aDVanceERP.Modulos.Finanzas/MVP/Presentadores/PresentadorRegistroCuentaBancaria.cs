@@ -37,7 +37,8 @@ public class PresentadorRegistroCuentaBancaria : PresentadorRegistroBase<IVistaR
     }
 
     protected override CuentaBancaria? ObtenerEntidadDesdeVista() {
-        return new CuentaBancaria(Entidad?.Id ?? 0,
+        return new CuentaBancaria(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.Alias,
             Vista.NumeroTarjeta,
             (TipoMoneda)Enum.Parse(typeof(TipoMoneda), Vista.Moneda),

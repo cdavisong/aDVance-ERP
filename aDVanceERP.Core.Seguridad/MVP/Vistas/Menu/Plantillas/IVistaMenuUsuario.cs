@@ -6,7 +6,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu.Plantillas {
         Image? LogotipoEmpresa { get; set; }
         string? NombreEmpresa { get; set; }
         string? CorreoElectronico { get; set; }
-        string? IdEmpresa { get; }
+        long IdEmpresa { get; }
 
         event EventHandler? CerrarSesion;
         event EventHandler? ConfigurarEmpresa;

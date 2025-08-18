@@ -57,7 +57,8 @@ public class PresentadorRegistroContacto : PresentadorRegistroBase<IVistaRegistr
     }
 
     protected override Contacto? ObtenerEntidadDesdeVista() {
-        return new Contacto(Entidad?.Id ?? 0,
+        return new Contacto(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre,
             Vista.CorreoElectronico,
             Vista.Direccion,

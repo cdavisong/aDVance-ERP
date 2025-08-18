@@ -22,7 +22,7 @@ namespace aDVancePOS.Mobile.Adaptadores {
 
             txtNombre.Text = producto.nombre;
             txtPrecio.Text = $"${producto.precio_venta_base:N2}";
-            txtStock.Text = $"Stock: {producto.stock}";
+            txtStock.Text = $"Cantidad: {producto.cantidad:N2}";
 
             return convertView;
         }

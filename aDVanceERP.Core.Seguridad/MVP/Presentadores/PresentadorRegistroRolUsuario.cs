@@ -24,7 +24,8 @@ public class PresentadorRegistroRolUsuario : PresentadorRegistroBase<IVistaRegis
     }
 
     protected override RolUsuario? ObtenerEntidadDesdeVista() {
-        return new RolUsuario(Entidad?.Id ?? 0,
+        return new RolUsuario(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.NombreRolUsuario
         );
     }

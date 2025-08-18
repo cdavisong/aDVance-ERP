@@ -144,7 +144,8 @@ public class PresentadorRegistroProveedor : PresentadorRegistroBase<IVistaRegist
     }
 
     protected override Proveedor? ObtenerEntidadDesdeVista() {
-        return new Proveedor(Entidad?.Id ?? 0,
+        return new Proveedor(
+            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.RazonSocial,
             Vista.NumeroIdentificacionTributaria,
             UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result

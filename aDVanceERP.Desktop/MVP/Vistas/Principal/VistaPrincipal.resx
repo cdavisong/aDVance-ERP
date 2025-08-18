@@ -209,24 +209,6 @@
         6FKmoqL/70f2qfwDRi1zTs1XFnEAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="fieldServidorScanner.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAIlJREFUOE/V
-        kr0OwjAMhL+NJ+FtWBEdeLmubPA8nTvRjqxFJ8XoUlL1Z6GcdHKSs8+RbNgbGuCUWAMD8DLNYxEqOCfe
-        0l0MzWMRmw0qoLWCOSr34ga9OauzqF8Ext0Vn6Z/nIWlBnH+evhzgyNwBx7ANWkH0zxmBjGFNcymoD3o
-        CklTVHG2B7/DG7PTZ1joE4rCAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="fieldServicioTelegram.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAQVJREFUOE/V
-        0zErx1EUxvEPiiixoExWZGKSklgNpMQbUMwWRSmkDAZGo0GSvABWZVEGSQZlIGXAYjHo6l7dbn9SJt/t
-        ec7T+Z1z7/3xn6jCCLawgZYy8B2NmMMlLrCKA2yWwZJObOMJexjIajPYyfQXNRjHMe6xjPZYa85yK1jK
-        9OeYC7jDKaZQG2v1WI+NE4eYTKIVt9hFbxYK9Me9Rwv/Cj1JDOIm7pwIXw0n/YLhzA+Eyd5Ql4yw9yIe
-        cI79ONF7bF7ShevSDFSjDxMYwmuFlQKhflSalZjGI+bjlIkw7Vqmf6QDJzhDd/SCHityPxKe8CyeY6Nw
-        Aw1l6De0xX+hqSz8iQ/tYis0kmVZ+wAAAABJRU5ErkJggg==
-</value>
-  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAIAEBAAAAEAIABoBAAAJgAAACAgAAABACAAqBAAAI4EAAAoAAAAEAAAACAAAAABACAAAAAAADAE

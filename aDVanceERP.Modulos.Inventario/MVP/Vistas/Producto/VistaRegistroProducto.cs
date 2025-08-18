@@ -185,9 +185,6 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
             Close();
         };
 
-        // Enlace de scanner
-        UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;
-
         // Navegación
         ConfigurarParametrosBotonesNavegacion(false, true);
     }
@@ -230,15 +227,6 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
 
     public void CargarNombresAlmacenes(object[] almacenes) {
         P2UmPreciosStock.CargarNombresAlmacenes(almacenes);
-    }
-
-    private void ProcesarDatosScanner(string codigo) {
-        if (string.IsNullOrEmpty(codigo))
-            return;
-
-        Invoke((MethodInvoker) delegate {
-            Codigo = codigo.Replace("\0", "");
-        });
     }
 
     private void AvanzarPagina() {
@@ -322,8 +310,6 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     }
 
     public void Cerrar() {
-        UtilesServidorScanner.Servidor.DatosRecibidos -= ProcesarDatosScanner;
-
         Dispose();
     }
 }
