@@ -7,26 +7,19 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 public class RepoTelefonoContacto : RepoEntidadBaseDatos<TelefonoContacto, FiltroBusquedaTelefonoContacto>, IRepoTelefonoContacto {
     public RepoTelefonoContacto() : base("adv__telefono_contacto", "id_telefono_contacto") { }
 
-
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_telefono_contacto) FROM adv__telefono_contacto;";
+    protected override string GenerarComandoAdicionar(TelefonoContacto objeto) {
+        return $"INSERT INTO adv__telefono_contacto (prefijo, numero, categoria, id_contacto) VALUES ('{objeto.Prefijo}', '{objeto.Numero}', '{objeto.Categoria}', '{objeto.IdContacto}');";
     }
 
-    public override string ComandoAdicionar(TelefonoContacto objeto) {
-        return
-            $"INSERT INTO adv__telefono_contacto (prefijo, numero, categoria, id_contacto) VALUES ('{objeto.Prefijo}', '{objeto.Numero}', '{objeto.Categoria}', '{objeto.IdContacto}');";
+    protected override string GenerarComandoEditar(TelefonoContacto objeto) {
+        return $"UPDATE adv__telefono_contacto SET prefijo='{objeto.Prefijo}', numero='{objeto.Numero}', categoria='{objeto.Categoria}', id_contacto='{objeto.IdContacto}' WHERE id_telefono_contacto='{objeto.Id}';";
     }
 
-    public override string ComandoEditar(TelefonoContacto objeto) {
-        return
-            $"UPDATE adv__telefono_contacto SET prefijo='{objeto.Prefijo}', numero='{objeto.Numero}', categoria='{objeto.Categoria}', id_contacto='{objeto.IdContacto}' WHERE id_telefono_contacto='{objeto.Id}';";
-    }
-
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__telefono_contacto WHERE id_telefono_contacto={id};";
     }
 
-    public override string ComandoObtener(FiltroBusquedaTelefonoContacto criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaTelefonoContacto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -47,7 +40,7 @@ public class RepoTelefonoContacto : RepoEntidadBaseDatos<TelefonoContacto, Filtr
         return comando;
     }
 
-    public override TelefonoContacto MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override TelefonoContacto MapearEntidad(MySqlDataReader lectorDatos) {
         return new TelefonoContacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_telefono_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("prefijo")),
@@ -56,9 +49,5 @@ public class RepoTelefonoContacto : RepoEntidadBaseDatos<TelefonoContacto, Filtr
                 lectorDatos.GetString(lectorDatos.GetOrdinal("categoria"))),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_contacto"))
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"SELECT * FROM adv__telefono_contacto WHERE numero='{dato}';";
     }
 }

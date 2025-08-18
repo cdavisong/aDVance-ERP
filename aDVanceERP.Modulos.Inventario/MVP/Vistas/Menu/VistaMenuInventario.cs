@@ -28,7 +28,7 @@ public partial class VistaMenuInventario : Form, IVistaMenuInventario {
     public event EventHandler? VerMovimientos;
     public event EventHandler? VerAlmacenes;
     public event EventHandler? CambioMenu;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

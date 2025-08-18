@@ -27,7 +27,7 @@ public partial class VistaMenuCompraventas : Form, IVistaMenuVentas {
     public event EventHandler? VerCompras;
     public event EventHandler? VerVentas;
     public event EventHandler? CambioMenu;
-    public event EventHandler? Salir;
+    
 
 
     public void Inicializar() {

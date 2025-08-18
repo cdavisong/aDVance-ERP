@@ -58,7 +58,7 @@ public partial class VistaTuplaCuentaUsuario : Form, IVistaTuplaCuentaUsuario {
     public event EventHandler? TuplaSeleccionada;
     public event EventHandler? EditarDatosTupla;
     public event EventHandler? EliminarDatosTupla;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

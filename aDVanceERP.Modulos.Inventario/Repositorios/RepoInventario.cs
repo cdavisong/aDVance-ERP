@@ -6,14 +6,9 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
 public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, FiltroBusquedaInventario> {
-    public RepoInventario() : base("adv__inventario", "id_inventario") {
-    }
+    public RepoInventario() : base("adv__inventario", "id_inventario") { }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_inventario) FROM adv__inventario;";
-    }
-
-    public override string ComandoAdicionar(MVP.Modelos.Inventario objeto) {
+    protected override string GenerarComandoAdicionar(MVP.Modelos.Inventario objeto) {
         return $"""
             INSERT INTO adv__inventario (
                 id_producto, 
@@ -27,7 +22,7 @@ public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, Filtr
             """;
     }
 
-    public override string ComandoEditar(MVP.Modelos.Inventario objeto) {
+    protected override string GenerarComandoEditar(MVP.Modelos.Inventario objeto) {
         return $"""
             UPDATE adv__inventario 
             SET 
@@ -40,15 +35,11 @@ public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, Filtr
             """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__inventario WHERE id_inventario={id};";
     }
 
-    public override string ComandoExiste(string dato) {
-        return $"SELECT * FROM adv__inventario WHERE id_inventario='{dato}';";
-    }
-
-    public override string ComandoObtener(FiltroBusquedaInventario criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaInventario criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -69,7 +60,7 @@ public class RepoInventario : RepoEntidadBaseDatos<MVP.Modelos.Inventario, Filtr
         return comando;
     }
 
-    public override MVP.Modelos.Inventario MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override MVP.Modelos.Inventario MapearEntidad(MySqlDataReader lectorDatos) {
         return new MVP.Modelos.Inventario(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_inventario")),
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_producto")),

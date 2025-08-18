@@ -4,12 +4,12 @@ using aDVanceERP.Core.Repositorios.Interfaces;
 
 namespace aDVanceERP.Core.MVP.Presentadores.Plantillas;
 
-public interface IPresentadorRegistro<Vr, Do, En, C> : IPresentadorBase<Vr>
+public interface IPresentadorRegistro<Vr, Re, En, Fb> : IPresentadorBase<Vr>
     where Vr : IVistaRegistro
-    where Do : class, IRepoEntidadBaseDatos<En, C>, new()
+    where Re : class, IRepoEntidadBaseDatos<En, Fb>, new()
     where En : class, IEntidadBaseDatos, new()
-    where C : Enum {
-    Do DatosObjeto { get; }
+    where Fb : Enum {
+    Re DatosObjeto { get; }
 
     event EventHandler? DatosRegistradosActualizados;
     event EventHandler? Salir;

@@ -2,9 +2,10 @@
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.Properties;
+
 using QRCoder;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia;
 
 public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistroDetallePagoTransferencia {
     private bool _modoEdicion;
@@ -67,14 +68,14 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+
 
     public void Inicializar() {
         separador1.Visible = false;
         layoutQrDatos.Visible = false;
 
         // Eventos            
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate (object? sender, EventArgs args) { Close(); };
         fieldAlias.SelectedIndexChanged += delegate {
             var idCuenta = UtilesCuentaBancaria.ObtenerIdCuenta(Alias);
             var idPropietario = UtilesCuentaBancaria.ObtenerIdPropietario(idCuenta);
@@ -92,8 +93,7 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
         fieldNumeroMovilConfirmacion.TextChanged += delegate {
             if (NumeroConfirmacion.Length == 8 && !string.IsNullOrEmpty(Alias)) {
                 CargarCodigoQR($"{Alias},{_numeroTarjeta.Replace(" ", "")},{NumeroConfirmacion}");
-            }
-            else {
+            } else {
                 separador1.Visible = false;
                 layoutQrDatos.Visible = false;
                 fieldRecordarNumeroConfirmacion.Checked = false;
@@ -105,13 +105,13 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
                 ? string.Empty
                 : NumeroConfirmacion;
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs args) {
+        btnRegistrar.Click += delegate (object? sender, EventArgs args) {
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
-                Salir?.Invoke(sender, args);
+                Close();
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnSalir.Click += delegate (object? sender, EventArgs args) { Close(); };
     }
 
     public void CargarAliasTarjetas(string[] aliasTarjetas) {

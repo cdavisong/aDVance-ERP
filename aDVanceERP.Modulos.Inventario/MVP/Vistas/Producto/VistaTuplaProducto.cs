@@ -104,7 +104,7 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
     public event EventHandler? MovimientoNegativoStock;
     public event EventHandler? EditarDatosTupla;
     public event EventHandler? EliminarDatosTupla;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

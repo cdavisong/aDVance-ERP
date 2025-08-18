@@ -37,7 +37,7 @@ public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad 
 
     public IRepoVista? Vistas { get; private set; }
 
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Propiedades locales

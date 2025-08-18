@@ -31,11 +31,11 @@ public partial class VistaQR : Form, IVistaQR {
         set => fieldCodigoQr.BackgroundImage = value;
     }
 
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate(object? sender, EventArgs args) { Close(); };
     }
 
     public void Mostrar() {

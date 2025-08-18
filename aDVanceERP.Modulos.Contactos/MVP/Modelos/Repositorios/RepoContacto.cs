@@ -7,15 +7,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 public class RepoContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContacto>, IRepoContacto {
     public RepoContacto() : base("adv__contacto", "id_contacto") { }
 
-    public override string ComandoCantidad() {
-        return """
-               SELECT
-                COUNT(id_contacto)
-               FROM adv__contacto;
-               """;
-    }
-
-    public override string ComandoAdicionar(Contacto objeto) {
+    protected override string GenerarComandoAdicionar(Contacto objeto) {
         return $"""
                 INSERT INTO adv__contacto (
                     nombre,
@@ -32,7 +24,7 @@ public class RepoContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContact
                 """;
     }
 
-    public override string ComandoEditar(Contacto objeto) {
+    protected override string GenerarComandoEditar(Contacto objeto) {
         return $"""
                 UPDATE adv__contacto
                 SET
@@ -44,7 +36,7 @@ public class RepoContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContact
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"""
                 DELETE FROM adv__contacto
                 WHERE id_contacto='{id}';
@@ -74,7 +66,7 @@ public class RepoContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContact
                 """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaContacto criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaContacto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -92,7 +84,7 @@ public class RepoContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContact
         return comando;
     }
 
-    public override Contacto MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override Contacto MapearEntidad(MySqlDataReader lectorDatos) {
         return new Contacto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_contacto")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
@@ -100,9 +92,5 @@ public class RepoContacto : RepoEntidadBaseDatos<Contacto, FiltroBusquedaContact
             lectorDatos.GetString(lectorDatos.GetOrdinal("direccion")),
             lectorDatos.GetValue(lectorDatos.GetOrdinal("notas")).ToString()
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"SELECT * FROM adv__contacto WHERE nombre='{dato}';";
     }
 }

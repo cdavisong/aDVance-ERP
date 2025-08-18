@@ -7,11 +7,8 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
 public class RepoVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRepoVenta {
     public RepoVenta() : base("adv__venta", "id_venta") { }
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_venta) FROM adv__venta;";
-    }
 
-    public override string ComandoAdicionar(Venta objeto) {
+    protected override string GenerarComandoAdicionar(Venta objeto) {
         return $"""
                 INSERT INTO adv__venta (
                     fecha,
@@ -33,7 +30,7 @@ public class RepoVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRepo
                 """;
     }
 
-    public override string ComandoEditar(Venta objeto) {
+    protected override string GenerarComandoEditar(Venta objeto) {
         return $"""
                 UPDATE adv__venta
                 SET
@@ -48,7 +45,7 @@ public class RepoVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRepo
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"""
                 START TRANSACTION;
 
@@ -82,7 +79,7 @@ public class RepoVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRepo
                 """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaVenta criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaVenta criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -108,7 +105,7 @@ public class RepoVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRepo
         return comando;
     }
 
-    public override Venta MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override Venta MapearEntidad(MySqlDataReader lectorDatos) {
         return new Venta(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
@@ -119,9 +116,5 @@ public class RepoVenta : RepoEntidadBaseDatos<Venta, FiltroBusquedaVenta>, IRepo
             lectorDatos.GetString(lectorDatos.GetOrdinal("estado_entrega")),
             lectorDatos.GetDecimal(lectorDatos.GetOrdinal("total"))
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"SELECT COUNT(1) FROM adv__venta WHERE id_venta = {dato};";
     }
 }

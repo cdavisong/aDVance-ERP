@@ -9,30 +9,21 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
 public class RepoPermisoRolUsuario : RepoEntidadBaseDatos<PermisoRolUsuario, FiltroBusquedaPermisoRolUsuario>, IRepoPermisoRolUsuario {
-    public RepoPermisoRolUsuario() : base("adv__rol_permiso", "id_rol_permiso") {
-    }
+    public RepoPermisoRolUsuario() : base("adv__rol_permiso", "id_rol_permiso") { }
 
-    public override string ComandoAdicionar(PermisoRolUsuario objeto) {
+    protected override string GenerarComandoAdicionar(PermisoRolUsuario objeto) {
         return $"INSERT INTO adv__rol_permiso (id_rol_usuario, id_permiso) VALUES ('{objeto.IdRolUsuario}', '{objeto.IdPermiso}');";
     }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_rol_permiso) FROM adv__rol_permiso;";
-    }
-
-    public override string ComandoEditar(PermisoRolUsuario objeto) {
+    protected override string GenerarComandoEditar(PermisoRolUsuario objeto) {
         return $"UPDATE adv__rol_permiso SET id_rol_usuario = '{objeto.IdRolUsuario}', id_permiso = '{objeto.IdPermiso}' WHERE id_rol_permiso = {objeto.Id};";
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__rol_permiso WHERE id_rol_permiso = {id};";
     }
 
-    public override string ComandoExiste(string dato) {
-        return $"SELECT COUNT(1) FROM adv__rol_permiso WHERE id_rol_permiso = '{dato}';";
-    }
-
-    public override string ComandoObtener(FiltroBusquedaPermisoRolUsuario criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaPermisoRolUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
             case FiltroBusquedaPermisoRolUsuario.Id:
@@ -46,7 +37,7 @@ public class RepoPermisoRolUsuario : RepoEntidadBaseDatos<PermisoRolUsuario, Fil
         return comando;
     }
 
-    public override PermisoRolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override PermisoRolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new PermisoRolUsuario(
             lectorDatos.GetInt64("id_rol_permiso"),
             lectorDatos.GetInt64("id_rol_usuario"),

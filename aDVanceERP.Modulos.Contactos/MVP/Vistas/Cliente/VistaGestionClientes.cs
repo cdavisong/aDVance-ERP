@@ -33,9 +33,9 @@ public partial class VistaGestionClientes : Form, IVistaGestionClientes {
 
     public FiltroBusquedaCliente FiltroBusqueda {
         get => fieldFiltroBusqueda.SelectedIndex >= 0
-            ? (FiltroBusquedaCliente)fieldFiltroBusqueda.SelectedIndex
+            ? (FiltroBusquedaCliente) fieldFiltroBusqueda.SelectedIndex
             : default;
-        set => fieldFiltroBusqueda.SelectedIndex = (int)value;
+        set => fieldFiltroBusqueda.SelectedIndex = (int) value;
     }
 
     public string? DatoBusqueda {
@@ -76,7 +76,7 @@ public partial class VistaGestionClientes : Form, IVistaGestionClientes {
     public event EventHandler? MostrarPaginaSiguiente;
     public event EventHandler? MostrarUltimaPagina;
     public event EventHandler? SincronizarDatos;
-    public event EventHandler? Salir;
+
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
@@ -104,7 +104,6 @@ public partial class VistaGestionClientes : Form, IVistaGestionClientes {
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
-            Salir?.Invoke(sender, e);
             Ocultar();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };

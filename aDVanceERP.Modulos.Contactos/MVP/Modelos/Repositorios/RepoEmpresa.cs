@@ -8,17 +8,9 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
 {
     public class RepoEmpresa : RepoEntidadBaseDatos<Empresa, FiltroBusquedaEmpresa>, IRepoEmpresa {
-        public RepoEmpresa() : base("adv__empresa", "id_empresa") {
-        }
+        public RepoEmpresa() : base("adv__empresa", "id_empresa") { }
 
-        public override string ComandoCantidad() {
-            return """
-                SELECT COUNT(id_empresa) 
-                FROM adv__empresa;
-                """;
-        }
-
-        public override string ComandoAdicionar(Empresa objeto) {
+        protected override string GenerarComandoAdicionar(Empresa objeto) {
             return $"""
                 INSERT INTO adv__empresa (
                     nombre,
@@ -37,7 +29,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
-                using (var comando = new MySqlCommand(ComandoAdicionar(objeto), conexion)) {
+                using (var comando = new MySqlCommand(GenerarComandoAdicionar(objeto), conexion)) {
                     comando.Parameters.AddWithValue("@nombre", objeto.Nombre);
                     comando.Parameters.Add("@logotipo", MySqlDbType.LongBlob).Value = logoBytes.Length > 0 ? logoBytes : DBNull.Value;
                     comando.Parameters.AddWithValue("@idContacto", objeto.IdContacto);
@@ -49,7 +41,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
             }
         }
 
-        public override string ComandoEditar(Empresa objeto) {
+        protected override string GenerarComandoEditar(Empresa objeto) {
             return $"""
                 UPDATE adv__empresa
                 SET
@@ -66,7 +58,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
             using (var conexion = new MySqlConnection(ContextoBaseDatos.Configuracion.ToStringConexion())) {
                 if (conexion.State != System.Data.ConnectionState.Open) conexion.Open();
 
-                using (var comando = new MySqlCommand(ComandoEditar(objeto), conexion)) {
+                using (var comando = new MySqlCommand(GenerarComandoEditar(objeto), conexion)) {
                     comando.Parameters.AddWithValue("@nombre", objeto.Nombre);
                     comando.Parameters.Add("@logotipo", MySqlDbType.LongBlob).Value = logoBytes.Length > 0 ? logoBytes : DBNull.Value;
                     comando.Parameters.AddWithValue("@idContacto", objeto.IdContacto);
@@ -78,14 +70,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
             }
         }
 
-        public override string ComandoEliminar(long id) {
+        protected override string GenerarComandoEliminar(long id) {
             return $"""
                 DELETE FROM adv__empresa 
                 WHERE id_empresa = {id};
                 """;
         }
 
-        public override string ComandoObtener(FiltroBusquedaEmpresa criterio, string dato) {
+        protected override string GenerarComandoObtener(FiltroBusquedaEmpresa criterio, string dato) {
             string? comando;
 
             switch (criterio) {
@@ -103,7 +95,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
             return comando;
         }
 
-        public override Empresa MapearEntidad(MySqlDataReader lectorDatos) {
+        protected override Empresa MapearEntidad(MySqlDataReader lectorDatos) {
             var empresa = new Empresa(
                 lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_empresa")),
                 null,
@@ -144,10 +136,6 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios
             } catch {
                 return false;
             }
-        }
-
-        public override string ComandoExiste(string dato) {
-            return $"SELECT * FROM adv__empresa WHERE nombre='{dato}';";
         }
     }
 }

@@ -8,11 +8,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 public class RepoCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, IRepoCompra {
     public RepoCompra() : base("adv__compra", "id_compra") { }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_compra) FROM adv__compra;";
-    }
-
-    public override string ComandoAdicionar(Compra objeto) {
+    protected override string GenerarComandoAdicionar(Compra objeto) {
         return $"""
                 INSERT INTO adv__compra (fecha, id_almacen, id_proveedor, total)
                 VALUES (
@@ -24,7 +20,7 @@ public class RepoCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, IR
                 """;
     }
 
-    public override string ComandoEditar(Compra objeto) {
+    protected override string GenerarComandoEditar(Compra objeto) {
         return $"""
                 UPDATE adv__compra
                 SET
@@ -36,7 +32,7 @@ public class RepoCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, IR
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"""
                 START TRANSACTION;
 
@@ -65,7 +61,7 @@ public class RepoCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, IR
                 """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaCompra criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaCompra criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -108,7 +104,7 @@ public class RepoCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, IR
         return comando;
     }
 
-    public override Compra MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override Compra MapearEntidad(MySqlDataReader lectorDatos) {
         return new Compra(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
             lectorDatos.GetDateTime(lectorDatos.GetOrdinal("fecha")),
@@ -116,9 +112,5 @@ public class RepoCompra : RepoEntidadBaseDatos<Compra, FiltroBusquedaCompra>, IR
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_proveedor")),
             lectorDatos.GetDecimal(lectorDatos.GetOrdinal("total"))
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"SELECT COUNT(1) FROM adv__compra WHERE id_compra = {dato};";
     }
 }

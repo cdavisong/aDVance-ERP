@@ -7,17 +7,9 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Taller.Repositorios
 {
     public class RepoOrdenMateriaPrima : RepoEntidadBaseDatos<OrdenMateriaPrima, FiltroBusquedaOrdenMateriaPrima> {
-        public RepoOrdenMateriaPrima() : base("adv__orden_material", "id_orden_material") {
-        }
+        public RepoOrdenMateriaPrima() : base("adv__orden_material", "id_orden_material") { }
 
-        public override string ComandoCantidad() {
-            return """
-                SELECT COUNT(id_orden_material) 
-                FROM adv__orden_material;
-                """;
-        }
-
-        public override string ComandoAdicionar(OrdenMateriaPrima objeto) {
+        protected override string GenerarComandoAdicionar(OrdenMateriaPrima objeto) {
             return $"""
                 INSERT INTO adv__orden_material (
                     id_orden_produccion,
@@ -40,7 +32,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoEditar(OrdenMateriaPrima objeto) {
+        protected override string GenerarComandoEditar(OrdenMateriaPrima objeto) {
             return $"""
                 UPDATE adv__orden_material
                 SET
@@ -55,14 +47,14 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoEliminar(long id) {
+        protected override string GenerarComandoEliminar(long id) {
             return $"""
                 DELETE FROM adv__orden_material 
                 WHERE id_orden_material = {id};
                 """;
         }
 
-        public override string ComandoObtener(FiltroBusquedaOrdenMateriaPrima criterio, string dato) {
+        protected override string GenerarComandoObtener(FiltroBusquedaOrdenMateriaPrima criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
@@ -82,7 +74,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
             };
         }
 
-        public override OrdenMateriaPrima MapearEntidad(MySqlDataReader lectorDatos) {
+        protected override OrdenMateriaPrima MapearEntidad(MySqlDataReader lectorDatos) {
             return new OrdenMateriaPrima {
                 Id = lectorDatos.GetInt64("id_orden_material"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),
@@ -93,14 +85,6 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 Total = lectorDatos.GetDecimal("total"),
                 FechaRegistro = lectorDatos.GetDateTime("fecha_registro")
             };
-        }
-
-        public override string ComandoExiste(string dato) {
-            return $"""
-                SELECT COUNT(1) 
-                FROM adv__orden_material 
-                WHERE id_orden_material = {dato};
-                """;
         }
     }
 }

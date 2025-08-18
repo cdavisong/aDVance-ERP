@@ -6,17 +6,9 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 
 public class RepoDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProducto, CriterioDetalleCompraProducto>, IRepoDetalleCompraProducto {
-    public RepoDetalleCompraProducto() : base("adv__detalle_compra_producto", "id_detalle_compra_producto") {
-    }
+    public RepoDetalleCompraProducto() : base("adv__detalle_compra_producto", "id_detalle_compra_producto") { }
 
-    public override string ComandoCantidad() {
-        return """
-               SELECT COUNT(id_detalle_compra_producto)
-               FROM adv__detalle_compra_producto;
-               """;
-    }
-
-    public override string ComandoAdicionar(DetalleCompraProducto objeto) {
+    protected override string GenerarComandoAdicionar(DetalleCompraProducto objeto) {
         return $"""
                 INSERT INTO adv__detalle_compra_producto (
                     id_compra,
@@ -33,7 +25,7 @@ public class RepoDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProdu
                 """;
     }
 
-    public override string ComandoEditar(DetalleCompraProducto objeto) {
+    protected override string GenerarComandoEditar(DetalleCompraProducto objeto) {
         return $"""
                 UPDATE adv__detalle_compra_producto
                 SET
@@ -45,7 +37,7 @@ public class RepoDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProdu
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"""
                 DELETE
                 FROM adv__detalle_compra_producto
@@ -53,7 +45,7 @@ public class RepoDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProdu
                 """;
     }
 
-    public override string ComandoObtener(CriterioDetalleCompraProducto criterio, string dato) {
+    protected override string GenerarComandoObtener(CriterioDetalleCompraProducto criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -95,7 +87,7 @@ public class RepoDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProdu
         return comando;
     }
 
-    public override DetalleCompraProducto MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override DetalleCompraProducto MapearEntidad(MySqlDataReader lectorDatos) {
         return new DetalleCompraProducto(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_compra_producto")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_compra")),
@@ -103,13 +95,5 @@ public class RepoDetalleCompraProducto : RepoEntidadBaseDatos<DetalleCompraProdu
             lectorDatos.GetDecimal(lectorDatos.GetOrdinal("cantidad")),
             lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_compra"))
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"""
-                SELECT COUNT(1)
-                FROM adv__detalle_compra_producto
-                WHERE id_detalle_compra_producto = {dato};
-                """;
     }
 }

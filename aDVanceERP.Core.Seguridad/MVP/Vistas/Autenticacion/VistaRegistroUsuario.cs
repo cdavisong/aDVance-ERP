@@ -56,7 +56,7 @@ public partial class VistaRegistroUsuario : Form, IVistaRegistroUsuario {
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
     public event EventHandler? AutenticarUsuario;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

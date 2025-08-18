@@ -7,7 +7,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
 
 public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, IVistaGestionPermisos {
     private bool _modoEdicion;
@@ -26,7 +26,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
     }
 
     public IRepoVista? Vistas { get; private set; }
-    
+
     public bool Habilitada {
         get => Enabled;
         set => Enabled = value;
@@ -74,15 +74,15 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+
 
     public void Inicializar() {
         Permisos = new List<string[]>();
         Vistas = new RepositorioVistaBase(contenedorVistas);
 
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { 
-            Salir?.Invoke("exit", args); 
+        btnCerrar.Click += delegate (object? sender, EventArgs args) {
+            Close();
         };
         fieldNombreModulo.SelectedIndexChanged += delegate {
             var idModulo = UtilesModulo.ObtenerIdModulo(NombreModulo);
@@ -90,19 +90,19 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
             if (idModulo != 0)
                 CargarNombresPermisos(UtilesPermiso.ObtenerNombresPermisos(idModulo));
         };
-        btnAdicionarPermiso.Click += delegate { 
-            AdicionarPermisoRol(); 
+        btnAdicionarPermiso.Click += delegate {
+            AdicionarPermisoRol();
         };
-        PermisoEliminado += delegate { 
-            ActualizarTuplasPermisosRoles(); 
+        PermisoEliminado += delegate {
+            ActualizarTuplasPermisosRoles();
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs args) {
+        btnRegistrar.Click += delegate (object? sender, EventArgs args) {
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnSalir.Click += delegate (object? sender, EventArgs args) { Close(); };
     }
 
     public void CargarNombresModulos(string[] nombresModulos) {
@@ -138,7 +138,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
         }
 
         fieldNombreModulo.SelectedIndex = -1;
-        fieldNombrePermiso.SelectedIndex = -1;        
+        fieldNombrePermiso.SelectedIndex = -1;
 
         ActualizarTuplasPermisosRoles();
     }

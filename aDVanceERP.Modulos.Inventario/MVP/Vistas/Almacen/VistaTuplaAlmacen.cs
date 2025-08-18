@@ -64,7 +64,7 @@ public partial class VistaTuplaAlmacen : Form, IVistaTuplaAlmacen {
     public event EventHandler? DescargarProductos;
     public event EventHandler? EditarDatosTupla;
     public event EventHandler? EliminarDatosTupla;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

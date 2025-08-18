@@ -87,7 +87,7 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
     public event EventHandler? MostrarVistaGestionProductos;
     public event EventHandler? MostrarVistaGestionVentas;
     public event EventHandler? FechaEstadsticasModificada;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         fieldCriterioEstadisticasVenta.Items.AddRange(new object[] {

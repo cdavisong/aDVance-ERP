@@ -1,22 +1,14 @@
 ﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
 public class RepoMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMensajero>, IRepoMensajero {
-    public RepoMensajero() : base("adv__mensajero", "id_mensajero") {
-    }
+    public RepoMensajero() : base("adv__mensajero", "id_mensajero") { }
 
-    public override string ComandoCantidad() {
-        return """
-               SELECT
-                COUNT(id_mensajero)
-               FROM adv__mensajero;
-               """;
-    }
-
-    public override string ComandoAdicionar(Mensajero objeto) {
+    protected override string GenerarComandoAdicionar(Mensajero objeto) {
         return $"""
                 INSERT INTO adv__mensajero (
                     nombre,
@@ -31,7 +23,7 @@ public class RepoMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMensa
                 """;
     }
 
-    public override string ComandoEditar(Mensajero objeto) {
+    protected override string GenerarComandoEditar(Mensajero objeto) {
         return $"""
                 UPDATE adv__mensajero
                 SET
@@ -42,14 +34,14 @@ public class RepoMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMensa
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"""
                 DELETE FROM adv__mensajero
                 WHERE id_mensajero={id};
                 """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaMensajero criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaMensajero criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -78,7 +70,7 @@ public class RepoMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMensa
         return comando;
     }
 
-    public override Mensajero MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override Mensajero MapearEntidad(MySqlDataReader lectorDatos) {
         return new Mensajero(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_mensajero")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
@@ -87,13 +79,5 @@ public class RepoMensajero : RepoEntidadBaseDatos<Mensajero, FiltroBusquedaMensa
                 ? idContacto
                 : 0
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"""
-                SELECT *
-                FROM adv__mensajero
-                WHERE nombre='{dato}';
-                """;
     }
 }

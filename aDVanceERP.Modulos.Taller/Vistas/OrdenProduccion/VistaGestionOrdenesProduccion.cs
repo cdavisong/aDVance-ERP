@@ -77,7 +77,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         public event EventHandler? MostrarPaginaSiguiente;
         public event EventHandler? MostrarUltimaPagina;
         public event EventHandler? SincronizarDatos;
-        public event EventHandler? Salir;
+        
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;

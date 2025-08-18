@@ -29,7 +29,7 @@ public partial class VistaMenuContacto : Form, IVistaMenuContacto {
     public event EventHandler? VerClientes;
     public event EventHandler? VerContactos;
     public event EventHandler? CambioMenu;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

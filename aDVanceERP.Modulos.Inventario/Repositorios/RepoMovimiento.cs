@@ -9,14 +9,9 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
 public class RepoMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMovimiento>, IRepoMovimiento {
-    public RepoMovimiento() : base("adv__movimiento", "id_movimiento") {
-    }
+    public RepoMovimiento() : base("adv__movimiento", "id_movimiento") { }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_movimiento) FROM adv__movimiento;";
-    }
-
-    public override string ComandoAdicionar(Movimiento objeto) {
+    protected override string GenerarComandoAdicionar(Movimiento objeto) {
         return $"""
                 INSERT INTO adv__movimiento (
                     id_producto,
@@ -37,7 +32,7 @@ public class RepoMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMov
                 """;
     }
 
-    public override string ComandoEditar(Movimiento objeto) {
+    protected override string GenerarComandoEditar(Movimiento objeto) {
         return $"""
                 UPDATE adv__movimiento
                 SET
@@ -51,11 +46,11 @@ public class RepoMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMov
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__movimiento WHERE id_movimiento='{id}';";
     }
 
-    public override string ComandoObtener(FiltroBusquedaMovimiento criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaMovimiento criterio, string dato) {
         string? comando;
 
         switch (criterio) {
@@ -92,7 +87,7 @@ public class RepoMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMov
         return comando;
     }
 
-    public override Movimiento MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override Movimiento MapearEntidad(MySqlDataReader lectorDatos) {
         return new Movimiento(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_movimiento")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
@@ -102,9 +97,5 @@ public class RepoMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMov
             lectorDatos.GetDecimal(lectorDatos.GetOrdinal("cantidad_movida")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_tipo_movimiento"))
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"SELECT COUNT(1) FROM adv__movimiento WHERE id_movimiento='{dato}';";
     }
 }

@@ -157,7 +157,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         Productos = new List<string[]>();
@@ -165,7 +165,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
         // Eventos            
         btnCerrar.Click += delegate(object? sender, EventArgs args) {
-            Salir?.Invoke(sender, args);
+            Close();
         };
         fieldNombreAlmacen.SelectedIndexChanged += async delegate {
             var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
@@ -213,7 +213,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) {
-            Salir?.Invoke("exit", args);
+            Close();
         };
         contenedorVistas.Resize += delegate {
             AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);

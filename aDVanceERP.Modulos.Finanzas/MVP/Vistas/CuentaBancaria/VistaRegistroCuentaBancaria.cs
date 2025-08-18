@@ -58,13 +58,13 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         CargarTiposMoneda(Enum.GetNames(typeof(TipoMoneda)));
 
         // Eventos            
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate(object? sender, EventArgs args) { Close(); };
         fieldNumeroCuenta.TextChanged += AgregarEspaciosNumeroCuenta;
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
             if (ModoEdicionDatos)
@@ -72,7 +72,7 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnSalir.Click += delegate(object? sender, EventArgs args) { Close(); };
     }
 
     public void CargarTiposMoneda(string[] tiposMoneda) {

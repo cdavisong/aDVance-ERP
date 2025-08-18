@@ -7,17 +7,9 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Taller.Repositorios
 {
     public class RepoOrdenGastoIndirecto : RepoEntidadBaseDatos<OrdenGastoIndirecto, FiltroBusquedaOrdenGastoIndirecto> {
-        public RepoOrdenGastoIndirecto() : base("adv__orden_gasto_indirecto", "id_orden_gasto_indirecto") {
-        }
+        public RepoOrdenGastoIndirecto() : base("adv__orden_gasto_indirecto", "id_orden_gasto_indirecto") { }
 
-        public override string ComandoCantidad() {
-            return """
-                SELECT COUNT(id_orden_gasto_indirecto) 
-                FROM adv__orden_gasto_indirecto;
-                """;
-        }
-
-        public override string ComandoAdicionar(OrdenGastoIndirecto objeto) {
+        protected override string GenerarComandoAdicionar(OrdenGastoIndirecto objeto) {
             return $"""
                 INSERT INTO adv__orden_gasto_indirecto (
                     id_orden_produccion,
@@ -38,7 +30,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoEditar(OrdenGastoIndirecto objeto) {
+        protected override string GenerarComandoEditar(OrdenGastoIndirecto objeto) {
             return $"""
                 UPDATE adv__orden_gasto_indirecto
                 SET
@@ -52,14 +44,14 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoEliminar(long id) {
+        protected override string GenerarComandoEliminar(long id) {
             return $"""
                 DELETE FROM adv__orden_gasto_indirecto 
                 WHERE id_orden_gasto_indirecto = {id};
                 """;
         }
 
-        public override string ComandoObtener(FiltroBusquedaOrdenGastoIndirecto criterio, string dato) {
+        protected override string GenerarComandoObtener(FiltroBusquedaOrdenGastoIndirecto criterio, string dato) {
             var datoSplit = dato.Split(';');
 
             return criterio switch {
@@ -79,7 +71,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
             };
         }
 
-        public override OrdenGastoIndirecto MapearEntidad(MySqlDataReader lectorDatos) {
+        protected override OrdenGastoIndirecto MapearEntidad(MySqlDataReader lectorDatos) {
             return new OrdenGastoIndirecto {
                 Id = lectorDatos.GetInt64("id_orden_gasto_indirecto"),
                 IdOrdenProduccion = lectorDatos.GetInt64("id_orden_produccion"),
@@ -89,14 +81,6 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 Total = lectorDatos.GetDecimal("total"),
                 FechaRegistro = lectorDatos.GetDateTime("fecha_registro")
             };
-        }
-
-        public override string ComandoExiste(string dato) {
-            return $"""
-                SELECT COUNT(1) 
-                FROM adv__orden_gasto_indirecto 
-                WHERE id_orden_gasto_indirecto = {dato};
-                """;
         }
     }
 }

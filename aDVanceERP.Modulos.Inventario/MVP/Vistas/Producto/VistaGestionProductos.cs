@@ -97,7 +97,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     public event EventHandler? MostrarPaginaSiguiente;
     public event EventHandler? MostrarUltimaPagina;
     public event EventHandler? SincronizarDatos;
-    public event EventHandler? Salir;
+    
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
@@ -140,7 +140,6 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
-            Salir?.Invoke(sender, e);
             Ocultar();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs e) {

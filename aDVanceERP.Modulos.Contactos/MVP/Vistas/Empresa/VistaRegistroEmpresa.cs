@@ -82,12 +82,12 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
-        public event EventHandler? Salir;
+        
 
         public void Inicializar() {
             // Eventos
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
+                Close();
             };
             fieldLogotipo.Click += delegate {
                 buscadorImagen.ShowDialog();
@@ -102,7 +102,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
                     RegistrarDatos?.Invoke(sender, args);
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
+                Close();
             };
         }
 

@@ -62,12 +62,11 @@ public partial class VistaRegistroCliente : Form, IVistaRegistroCliente {
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
-
+    
     public void Inicializar() {
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { 
-            Salir?.Invoke(sender, args); 
+        btnCerrar.Click += delegate(object? sender, EventArgs args) {
+            Close();
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
             if (ModoEdicionDatos)
@@ -76,7 +75,7 @@ public partial class VistaRegistroCliente : Form, IVistaRegistroCliente {
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { 
-            Salir?.Invoke(sender, args); 
+            Close(); 
         };
     }
 

@@ -7,17 +7,9 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Taller.Repositorios
 {
     public class RepoOrdenProduccion : RepoEntidadBaseDatos<OrdenProduccion, FiltroBusquedaOrdenProduccion> {
-        public RepoOrdenProduccion() : base("adv__orden_produccion", "id_orden_produccion") {
-        }
+        public RepoOrdenProduccion() : base("adv__orden_produccion", "id_orden_produccion") { }
 
-        public override string ComandoCantidad() {
-            return """
-                SELECT COUNT(id_orden_produccion) 
-                FROM adv__orden_produccion;
-                """;
-        }
-
-        public override string ComandoAdicionar(OrdenProduccion objeto) {
+        protected override string GenerarComandoAdicionar(OrdenProduccion objeto) {
             return $"""
                 INSERT INTO adv__orden_produccion (
                     numero_orden,
@@ -46,7 +38,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoEditar(OrdenProduccion objeto) {
+        protected override string GenerarComandoEditar(OrdenProduccion objeto) {
             return $"""
                 UPDATE adv__orden_produccion
                 SET
@@ -65,7 +57,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoEliminar(long id) {
+        protected override string GenerarComandoEliminar(long id) {
             return $"""
                 -- Primero eliminamos los registros relacionados
                 DELETE FROM adv__orden_actividad WHERE id_orden_produccion = {id};
@@ -77,7 +69,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 """;
         }
 
-        public override string ComandoObtener(FiltroBusquedaOrdenProduccion criterio, string dato) {
+        protected override string GenerarComandoObtener(FiltroBusquedaOrdenProduccion criterio, string dato) {
             return criterio switch {
                 FiltroBusquedaOrdenProduccion.Todas =>
                     "SELECT * FROM adv__orden_produccion;",
@@ -95,7 +87,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
             };
         }
 
-        public override OrdenProduccion MapearEntidad(MySqlDataReader lectorDatos) {
+        protected override OrdenProduccion MapearEntidad(MySqlDataReader lectorDatos) {
             return new OrdenProduccion {
                 Id = lectorDatos.GetInt64("id_orden_produccion"),
                 NumeroOrden = lectorDatos.GetString("numero_orden"),
@@ -114,14 +106,6 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 PrecioUnitario = lectorDatos.GetDecimal("precio_unitario"),
                 MargenGanancia = lectorDatos.GetDecimal("margen_ganancia")
             };
-        }
-
-        public override string ComandoExiste(string dato) {
-            return $"""
-                SELECT COUNT(1) 
-                FROM adv__orden_produccion 
-                WHERE numero_orden = '{dato}';
-                """;
         }
     }
 }

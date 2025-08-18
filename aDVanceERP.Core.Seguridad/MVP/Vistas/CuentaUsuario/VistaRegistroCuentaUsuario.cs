@@ -74,11 +74,10 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
-
+    
     public void Inicializar() {
         // Eventos
-        btnCerrar.Click += delegate (object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnCerrar.Click += delegate (object? sender, EventArgs args) { Close(); };
         fieldPassword.IconRightClick += delegate {
             if (ModoEdicionDatos)
                 return;
@@ -94,13 +93,13 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
             if (ModoEdicionDatos && fieldPassword.Text.Equals("test-password1"))
-                Salir?.Invoke(sender, args);
+                Close();
             else if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate (object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnSalir.Click += delegate (object? sender, EventArgs args) { Close(); };
     }
 
     public void CargarRolesUsuarios(string[] rolesUsuarios) {

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
@@ -74,11 +75,11 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     public List<string[]>? Productos { get; private set; }
 
     public decimal Cantidad {
-        get => decimal.TryParse(fieldCantidad.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) 
-            ? cantidad 
+        get => decimal.TryParse(fieldCantidad.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad)
+            ? cantidad
             : 0;
         set => fieldCantidad.Text = value > 0 ? value.ToString("N2", CultureInfo.InvariantCulture) : "N2";
-        
+
     }
 
     public decimal Total {
@@ -94,7 +95,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+
 
     public void Inicializar() {
         Productos = new List<string[]>();
@@ -102,7 +103,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) {
-            Salir?.Invoke("exit", args);
+            Close();
         };
         fieldNombreAlmacen.SelectedIndexChanged += async delegate {
             var idAlmacen = UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen).Result;
@@ -144,7 +145,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSalir.Click += delegate (object? sender, EventArgs args) {
-            Salir?.Invoke("exit", args);
+            Close();
         };
         contenedorVistas.Resize += delegate {
             AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
@@ -180,7 +181,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         if (string.IsNullOrEmpty(nombreProducto))
             return;
 
-        Invoke((MethodInvoker)delegate {
+        Invoke((MethodInvoker) delegate {
             NombreProducto = nombreProducto;
 
             fieldCantidad.Focus();
@@ -204,8 +205,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
                 return;
             }
-        }
-        else {
+        } else {
             fieldNombreProducto.ReadOnly = true;
             fieldCantidad.ReadOnly = true;
         }
@@ -225,11 +225,10 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
                 Productos.FindIndex(a => a[0].Equals(idProducto.ToString()) && a[4].Equals(idAlmacen.ToString()));
             if (indiceProducto != -1) {
                 Productos[indiceProducto][3] =
-                    (decimal.Parse(Productos[indiceProducto][3], NumberStyles.Any, CultureInfo.InvariantCulture) + 
+                    (decimal.Parse(Productos[indiceProducto][3], NumberStyles.Any, CultureInfo.InvariantCulture) +
                      decimal.Parse(adCantidad, NumberStyles.Any, CultureInfo.InvariantCulture))
                      .ToString("N2", CultureInfo.InvariantCulture);
-            }
-            else {
+            } else {
                 Productos.Add(tuplaProducto);
                 ProductoAgregado?.Invoke(tuplaProducto, EventArgs.Empty);
             }

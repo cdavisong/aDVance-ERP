@@ -1,35 +1,27 @@
 ﻿using aDVanceERP.Core.Extension.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Repositorios.BD;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Extension.MVP.Modelos.Repositorios;
 
 internal class RepoModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, FiltroBusquedaModuloAplicacion>, IRepoModuloAplicacion {
-    public RepoModuloAplicacion() : base("adv__modulo_aplicacion", "id_modulo_aplicacion") {
-    }
+    public RepoModuloAplicacion() : base("adv__modulo_aplicacion", "id_modulo_aplicacion") { }
 
-    public override string ComandoAdicionar(ModuloAplicacion objeto) {
+    protected override string GenerarComandoAdicionar(ModuloAplicacion objeto) {
         return $"INSERT INTO adv__modulo_aplicacion (nombre, version) VALUES ('{objeto.Nombre}', '{objeto.Version}');";
     }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_modulo_aplicacion) FROM adv__modulo_aplicacion;";
-    }
-
-    public override string ComandoEditar(ModuloAplicacion objeto) {
+    protected override string GenerarComandoEditar(ModuloAplicacion objeto) {
         return
             $"UPDATE adv__modulo_aplicacion SET nombre = '{objeto.Nombre}', version = {objeto.Version} WHERE id_modulo_aplicacion = {objeto.Id};";
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__modulo_aplicacion WHERE id_modulo_aplicacion = {id};";
     }
 
-    public override string ComandoExiste(string dato) {
-        return $"SELECT COUNT(1) FROM adv__modulo_aplicacion WHERE nombre = '{dato}';";
-    }
-
-    public override string ComandoObtener(FiltroBusquedaModuloAplicacion criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaModuloAplicacion criterio, string dato) {
         string comando;
         switch (criterio) {
             case FiltroBusquedaModuloAplicacion.Id:
@@ -46,7 +38,7 @@ internal class RepoModuloAplicacion : RepoEntidadBaseDatos<ModuloAplicacion, Fil
         return comando;
     }
 
-    public override ModuloAplicacion MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override ModuloAplicacion MapearEntidad(MySqlDataReader lectorDatos) {
         return new ModuloAplicacion(
             lectorDatos.GetInt64("id_modulo_aplicacion"),
             lectorDatos.GetString("nombre"),

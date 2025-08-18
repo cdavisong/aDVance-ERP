@@ -32,7 +32,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
 
     public string? RazonSocialCliente {
         get => fieldRazonSocialCliente.Text;
-        set { 
+        set {
             fieldRazonSocialCliente.Text = value;
 
             PopularRepoCliente(value);
@@ -90,12 +90,12 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;    
+
 
     public void Inicializar() {
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) {
-            Salir?.Invoke(sender, args);
+            Close();
         };
         btnAdicionarMensajero.Click += delegate (object? sender, EventArgs args) {
             AsignarNuevoMensajero?.Invoke(sender, args);
@@ -111,7 +111,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
 
             ActualizarResumenEntrega();
         };
-        fieldRazonSocialCliente.TextChanged += delegate { 
+        fieldRazonSocialCliente.TextChanged += delegate {
             PopularRepoCliente(RazonSocialCliente);
             ActualizarResumenEntrega();
         };
@@ -128,7 +128,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSalir.Click += delegate (object? sender, EventArgs args) {
-            Salir?.Invoke(sender, args);
+            Close();
         };
     }
 
@@ -243,8 +243,8 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
 
         // Actualizar el resúmen de entrega
         ResumenEntrega = resumenHtml;
-        
-        if (ModoEdicionDatos) 
+
+        if (ModoEdicionDatos)
             return;
 
         // Verificar si la entrega es válida

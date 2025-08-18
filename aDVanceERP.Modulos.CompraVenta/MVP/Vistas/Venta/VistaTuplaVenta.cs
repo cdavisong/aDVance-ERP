@@ -90,7 +90,7 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
     public event EventHandler? DescargarFactura;
     public event EventHandler? EditarDatosTupla;
     public event EventHandler? EliminarDatosTupla;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // VAriables

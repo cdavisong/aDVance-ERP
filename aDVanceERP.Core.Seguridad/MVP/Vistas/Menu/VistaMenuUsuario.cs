@@ -35,8 +35,8 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
 
         public string? NombreEmpresa {
             get => fieldNombreEmpresa.Text;
-            set { 
-                fieldNombreEmpresa.Text = value; 
+            set {
+                fieldNombreEmpresa.Text = value;
                 fieldIdEmpresa.Text = Math.Abs(value?.GetHashCode() ?? 0).ToString("0000000000").ToUpper();
             }
         }
@@ -54,14 +54,13 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         public event EventHandler? VerClientes;
         public event EventHandler? VerContactos;
         public event EventHandler? CambioMenu;
-        public event EventHandler? Salir;
+
         public event EventHandler? CerrarSesion;
         public event EventHandler? ConfigurarEmpresa;
 
         public void Inicializar() {
             // Eventos
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
                 Ocultar();
             };
             btnCerrarSesion.Click += delegate (object? sender, EventArgs args) {
@@ -81,7 +80,7 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu {
         }
 
         public void Restaurar() {
-            
+
         }
 
         public void Ocultar() {

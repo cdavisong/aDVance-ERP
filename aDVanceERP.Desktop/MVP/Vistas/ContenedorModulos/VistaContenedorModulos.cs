@@ -56,7 +56,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     public event EventHandler? MostrarMenuVentas;
     public event EventHandler? MostrarMenuSeguridad;
     public event EventHandler? CambioModulo;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Propiedades locales

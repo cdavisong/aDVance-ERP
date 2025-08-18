@@ -45,7 +45,7 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
     public (int cantidad, IEnumerable<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0) {
         _cacheEntidades.Clear();
 
-        consulta = string.IsNullOrEmpty(consulta) ? ComandoObtener(default, string.Empty) : consulta;
+        consulta = string.IsNullOrEmpty(consulta) ? GenerarComandoObtener(default, string.Empty) : consulta;
 
         // Agregar LIMIT y OFFSET si es necesario (antes del ;)
         if (limite > 0) {
@@ -65,47 +65,65 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
     }
 
     public (int cantidad, IEnumerable<En> resultados) Buscar(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0) {
-        var comando = ComandoObtener(filtroBusqueda, criterio);
+        var comando = GenerarComandoObtener(filtroBusqueda, criterio);
 
         return Buscar(comando, limite, desplazamiento);
     }
 
     #endregion
 
-    public virtual long Cantidad() {
-        return ContextoBaseDatos.EjecutarConsultaEscalar<long>(ComandoCantidad(), new Dictionary<string, object>());
-    }
+    #region CRUD
 
     public virtual long Adicionar(En objeto) {
-        return ContextoBaseDatos.EjecutarComandoInsert(ComandoAdicionar(objeto), new Dictionary<string, object>());
+        return ContextoBaseDatos.EjecutarComandoInsert(GenerarComandoAdicionar(objeto), new Dictionary<string, object>());
     }
 
     public virtual bool Editar(En objeto, long nuevoId = 0) {
-        ContextoBaseDatos.EjecutarComandoNoQuery(ComandoEditar(objeto), new Dictionary<string, object>());
+        ContextoBaseDatos.EjecutarComandoNoQuery(GenerarComandoEditar(objeto), new Dictionary<string, object>());
         return true;
     }
 
     public virtual bool Eliminar(long id) {
-        ContextoBaseDatos.EjecutarComandoNoQuery(ComandoEliminar(id), new Dictionary<string, object>());
+        ContextoBaseDatos.EjecutarComandoNoQuery(GenerarComandoEliminar(id), new Dictionary<string, object>());
         return true;
     }
 
-    public bool Existe(string dato) {
-        return ContextoBaseDatos.EjecutarConsultaEscalar<bool>(ComandoExiste(dato), new Dictionary<string, object>());
+    #endregion
+
+    #region Utilidades
+
+    public long Cantidad() {
+        var consulta = $"SELECT COUNT(*) FROM {NombreTabla}";
+
+        return ContextoBaseDatos.EjecutarConsultaEscalar<long>(consulta, new Dictionary<string, object>());
     }
+
+    public bool Existe(long id) {
+        var consulta = $"SELECT COUNT(*) FROM {NombreTabla} WHERE {ColumnaId} = @id";
+        var parametros = new Dictionary<string, object> {
+            { "@id", id }
+        };
+        var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consulta, parametros);
+
+        return cantidad > 0;
+    }
+
+    #endregion
+
+    #region Métodos abstractos para heredar
+
+    protected abstract string GenerarComandoAdicionar(En objeto);
+    protected abstract string GenerarComandoEditar(En objeto);
+    protected abstract string GenerarComandoEliminar(long id);
+    protected abstract string GenerarComandoObtener(Fb filtroBusqueda, string criterio);
+    protected abstract En MapearEntidad(MySqlDataReader lectorDatos);
+
+    #endregion
 
     public void Dispose() {
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-
-    public abstract string ComandoCantidad();
-    public abstract string ComandoAdicionar(En objeto);
-    public abstract string ComandoEditar(En objeto);
-    public abstract string ComandoEliminar(long id);
-    public abstract string ComandoObtener(Fb criterio, string dato);
-    public abstract string ComandoExiste(string dato);
-    public abstract En MapearEntidad(MySqlDataReader lectorDatos);
 
     protected virtual void Dispose(bool disposing) {
         if (disposing) _cacheEntidades?.Clear();

@@ -126,7 +126,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
     public event EventHandler? EliminarUnidadMedida;
     public event EventHandler? EliminarTipoMateriaPrima;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+    
 
     private void InicializarVistas() {
         // 1. Datos generales del producto
@@ -182,7 +182,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
                 AvanzarPagina();
         };
         btnSalir.Click += delegate (object? sender, EventArgs args) {
-            Salir?.Invoke(sender, args);
+            Close();
         };
 
         // Enlace de scanner

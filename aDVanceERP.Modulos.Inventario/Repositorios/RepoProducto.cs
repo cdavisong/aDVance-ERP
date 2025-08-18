@@ -9,14 +9,9 @@ using System.Globalization;
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
 public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProducto>, IRepoProducto {
-    public RepoProducto() : base("adv__producto", "id_producto") {
-    }
+    public RepoProducto() : base("adv__producto", "id_producto") { }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_producto) FROM adv__producto;";
-    }
-
-    public override string ComandoAdicionar(Producto objeto) {
+    protected override string GenerarComandoAdicionar(Producto objeto) {
         return $"""
                 INSERT INTO adv__producto (
                     codigo,
@@ -45,7 +40,7 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
                 """;
     }
 
-    public override string ComandoEditar(Producto objeto) {
+    protected override string GenerarComandoEditar(Producto objeto) {
         return $"""
                 UPDATE adv__producto
                 SET
@@ -63,7 +58,7 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"""
             DELETE FROM adv__detalle_producto
             WHERE id_detalle_producto = (
@@ -77,7 +72,7 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
             """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaProducto criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaProducto criterio, string dato) {
         if (string.IsNullOrEmpty(dato))
             dato = "Todos";
 
@@ -146,7 +141,7 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
         return comando;
     }
 
-    public override Producto MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override Producto MapearEntidad(MySqlDataReader lectorDatos) {
         return new Producto(
             id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
             categoria: (CategoriaProducto) Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
@@ -160,13 +155,5 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
             costoProduccionUnitario: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("costo_produccion_unitario")),
             precioVentaBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_base"))
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"""
-            SELECT COUNT(1) 
-            FROM adv__producto 
-            WHERE codigo='{dato}';
-            """;
     }
 }

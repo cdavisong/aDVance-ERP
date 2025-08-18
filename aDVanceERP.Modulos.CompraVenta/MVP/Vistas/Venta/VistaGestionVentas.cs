@@ -110,7 +110,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     public event EventHandler? MostrarPaginaSiguiente;
     public event EventHandler? MostrarUltimaPagina;
     public event EventHandler? SincronizarDatos;
-    public event EventHandler? Salir;
+
     public event EventHandler? RegistrarDatos;
     public event EventHandler<string>? ImportarVentasArchivo;
     public event EventHandler? ConfirmarEntrega;
@@ -190,7 +190,6 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                 e);
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
-            Salir?.Invoke(sender, e);
             Ocultar();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs e) {
@@ -226,7 +225,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
 
             if (!ventasFiles.Any()) {
                 CentroNotificaciones.Mostrar("No se encontraron archivos de ventas en el dispositivo", TipoNotificacion.Advertencia);
-                
+
                 return;
             }
 

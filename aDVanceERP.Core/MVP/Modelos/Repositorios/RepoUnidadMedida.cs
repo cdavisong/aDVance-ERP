@@ -5,14 +5,9 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
 
 public class RepoUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusquedaUnidadMedida>, IRepoUnidadMedida {
-    public RepoUnidadMedida() : base("adv__unidad_medida", "id_unidad_medida") {
-    }
+    public RepoUnidadMedida() : base("adv__unidad_medida", "id_unidad_medida") { }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_unidad_medida) FROM adv__unidad_medida;";
-    }
-
-    public override string ComandoAdicionar(UnidadMedida objeto) {
+    protected override string GenerarComandoAdicionar(UnidadMedida objeto) {
         return $"""
                 INSERT INTO adv__unidad_medida (
                     nombre,
@@ -27,7 +22,7 @@ public class RepoUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusqued
                 """;
     }
 
-    public override string ComandoEditar(UnidadMedida objeto) {
+    protected override string GenerarComandoEditar(UnidadMedida objeto) {
         return $"""
                 UPDATE adv__unidad_medida
                 SET
@@ -38,7 +33,7 @@ public class RepoUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusqued
                 """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"""
                 UPDATE adv__detalle_producto
                 SET id_unidad_medida = 0
@@ -49,7 +44,7 @@ public class RepoUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusqued
                 """;
     }
     
-    public override string ComandoObtener(FiltroBusquedaUnidadMedida criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaUnidadMedida criterio, string dato) {
         var comando = criterio switch {
             FiltroBusquedaUnidadMedida.Todos => "SELECT * FROM adv__unidad_medida;",
             FiltroBusquedaUnidadMedida.Id => $"SELECT * FROM adv__unidad_medida WHERE id_unidad_medida = {dato};",
@@ -61,21 +56,13 @@ public class RepoUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusqued
         return comando;
     }
 
-    public override UnidadMedida MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override UnidadMedida MapearEntidad(MySqlDataReader lectorDatos) {
         return new UnidadMedida(
             lectorDatos.GetInt64("id_unidad_medida"),
             lectorDatos.GetString("nombre"),
             lectorDatos.GetString("abreviatura"),
             lectorDatos.GetString("descripcion")
         );
-    } 
-
-    public override string ComandoExiste(string dato) {
-        return $"""
-                SELECT COUNT(1) 
-                FROM adv__unidad_medida 
-                WHERE nombre = '{dato}' OR abreviatura = '{dato}';
-                """;
     }
 }
 

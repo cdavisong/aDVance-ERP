@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
@@ -7,7 +8,7 @@ using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago;
 
 public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestionPagos {
     private bool _modoEdicion;
@@ -100,7 +101,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             ? total
             : 0;
         set => fieldDevolucion.Text = value.ToString("N2", CultureInfo.InvariantCulture);
-    }    
+    }
 
     public event EventHandler? EfectuarTransferencia;
     public event EventHandler? PagoAgregado;
@@ -108,7 +109,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+
 
     public void Inicializar() {
         Pagos = new List<string[]>();
@@ -118,18 +119,18 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         CargarMetodosPago();
 
         // Eventos
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
-        fieldMetodoPago.SelectedIndexChanged += delegate(object? sender, EventArgs args) {
+        btnCerrar.Click += delegate (object? sender, EventArgs args) { Close(); };
+        fieldMetodoPago.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
             if (fieldMetodoPago.SelectedIndex == 1) {
                 EfectuarTransferencia?.Invoke(sender, args);
 
                 fieldMonto.Focus();
             }
         };
-        fieldMonto.TextChanged += delegate { 
-            btnAdicionarPago.Enabled = Monto > 0; 
+        fieldMonto.TextChanged += delegate {
+            btnAdicionarPago.Enabled = Monto > 0;
         };
-        fieldMonto.KeyDown += delegate(object? sender, KeyEventArgs args) {
+        fieldMonto.KeyDown += delegate (object? sender, KeyEventArgs args) {
             if (args.KeyCode == Keys.Enter) {
                 AdicionarPago(0, IdVenta, MetodoPago, Monto);
 
@@ -142,8 +143,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
             try {
                 _tasaCambio = await UtilesCambioMoneda.ObtenerTasaPorDivisa(fieldTipoMoneda.Text);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 CentroNotificaciones.Mostrar($"ERROR al consultar las tasas de cambio vigentes. {ex.Message}", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
                 fieldTipoMoneda.SelectedIndex = 0;
                 return;
@@ -151,21 +151,21 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
             CentroNotificaciones.Mostrar($"La tasa de cambio del mercado informal para la moneda {fieldTipoMoneda.Text} fue actualizada con éxito.");
         };
-        btnAdicionarPago.Click += delegate { 
-            AdicionarPago(0, IdVenta, MetodoPago, Monto); 
+        btnAdicionarPago.Click += delegate {
+            AdicionarPago(0, IdVenta, MetodoPago, Monto);
         };
         PagoEliminado += delegate {
             ActualizarTuplasPagos();
             ActualizarSuma();
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs args) {
+        btnRegistrar.Click += delegate (object? sender, EventArgs args) {
             if (ModoEdicionDatos)
                 EditarDatos?.Invoke(sender, args);
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { 
-            Salir?.Invoke(sender, args); 
+        btnSalir.Click += delegate (object? sender, EventArgs args) {
+            Close();
         };
     }
 
@@ -226,7 +226,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
     public void Cerrar() {
         Dispose();
-    }    
+    }
 
     private void ActualizarTuplasPagos() {
         foreach (var tupla in contenedorVistas.Controls)
@@ -244,7 +244,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             tuplaPago.MetodoPago = pago[2];
             tuplaPago.Monto = pago[3];
             tuplaPago.Habilitada = !ModoEdicionDatos;
-            tuplaPago.EliminarDatosTupla += delegate(object? sender, EventArgs args) {
+            tuplaPago.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                 pago = sender as string[];
 
                 if (pago != null) {

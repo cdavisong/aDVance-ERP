@@ -5,26 +5,21 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
 public class RepoRolUsuario : RepoEntidadBaseDatos<RolUsuario, FiltroBusquedaRolUsuario>, IRepoRolUsuario {
-    public RepoRolUsuario() : base("adv__rol_usuario", "id_rol_usuario") {
-    }
+    public RepoRolUsuario() : base("adv__rol_usuario", "id_rol_usuario") { }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_rol_usuario) FROM adv__rol_usuario;";
-    }
-
-    public override string ComandoAdicionar(RolUsuario objeto) {
+    protected override string GenerarComandoAdicionar(RolUsuario objeto) {
         return $"INSERT INTO adv__rol_usuario (nombre) VALUES ('{objeto.Nombre}');";
     }
 
-    public override string ComandoEditar(RolUsuario objeto) {
+    protected override string GenerarComandoEditar(RolUsuario objeto) {
         return $"UPDATE adv__rol_usuario SET nombre = '{objeto.Nombre}' WHERE id_rol_usuario = {objeto.Id};";
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__rol_usuario WHERE id_rol_usuario = {id};";
     }
 
-    public override string ComandoObtener(FiltroBusquedaRolUsuario criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaRolUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
             case FiltroBusquedaRolUsuario.Id:
@@ -41,14 +36,10 @@ public class RepoRolUsuario : RepoEntidadBaseDatos<RolUsuario, FiltroBusquedaRol
         return comando;
     }
 
-    public override RolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override RolUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new RolUsuario(
             lectorDatos.GetInt64("id_rol_usuario"),
             lectorDatos.GetString("nombre")
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"SELECT COUNT(*) FROM adv__rol_usuario WHERE nombre = '{dato}';";
     }
 }

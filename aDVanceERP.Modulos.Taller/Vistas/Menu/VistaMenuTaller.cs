@@ -26,7 +26,7 @@ public partial class VistaMenuTaller : Form, IVistaMenuTaller {
 
     public event EventHandler? VerOrdenesProduccion;
     public event EventHandler? CambioMenu;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

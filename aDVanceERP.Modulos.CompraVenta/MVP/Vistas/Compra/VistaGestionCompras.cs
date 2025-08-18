@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
@@ -8,7 +9,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
 
 public partial class VistaGestionCompras : Form, IVistaGestionCompras {
     private int _paginaActual = 1;
@@ -41,9 +42,9 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
 
     public FiltroBusquedaCompra FiltroBusqueda {
         get => fieldFiltroBusqueda.SelectedIndex >= 0
-            ? (FiltroBusquedaCompra)fieldFiltroBusqueda.SelectedIndex
+            ? (FiltroBusquedaCompra) fieldFiltroBusqueda.SelectedIndex
             : default;
-        set => fieldFiltroBusqueda.SelectedIndex = (int)value;
+        set => fieldFiltroBusqueda.SelectedIndex = (int) value;
     }
 
     public string? DatoBusqueda {
@@ -92,7 +93,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
     public event EventHandler? MostrarPaginaSiguiente;
     public event EventHandler? MostrarUltimaPagina;
     public event EventHandler? SincronizarDatos;
-    public event EventHandler? Salir;
+
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
@@ -124,7 +125,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
                             fila[3] = ventaProducto.PrecioCompra.ToString("N", CultureInfo.InvariantCulture);
                             fila[4] = "0";
                             fila[5] = "0.00%";
-                            fila[6] = (ventaProducto.PrecioCompra * (decimal)ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
+                            fila[6] = (ventaProducto.PrecioCompra * (decimal) ventaProducto.Cantidad).ToString("N", CultureInfo.InvariantCulture);
 
                             filas.Add(fila);
                         }
@@ -140,8 +141,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
                 fieldDatoBusquedaFecha.Focus();
 
                 ActualizarValorBrutoCompras();
-            }
-            else {
+            } else {
                 layoutValorBrutoCompra.Visible = false;
 
                 fieldDatoBusqueda.Text = string.Empty;
@@ -160,45 +160,43 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
-        fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
+        fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(DatoBusqueda))
                 BuscarDatos?.Invoke(new object[] { FiltroBusqueda, DatoBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
-        fieldDatoBusquedaFecha.ValueChanged += delegate(object? sender, EventArgs e) {
-            BuscarDatos?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
-                e);
+        fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
+            BuscarDatos?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") }, e);
         };
-        btnCerrar.Click += delegate(object? sender, EventArgs e) {
-            Salir?.Invoke(sender, e);
+        btnCerrar.Click += delegate (object? sender, EventArgs e) {
             Ocultar();
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
-        btnPrimeraPagina.Click += delegate(object? sender, EventArgs e) {
+        btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
+        btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = 1;
             MostrarPrimeraPagina?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnPaginaAnterior.Click += delegate(object? sender, EventArgs e) {
+        btnPaginaAnterior.Click += delegate (object? sender, EventArgs e) {
             PaginaActual--;
             MostrarPaginaAnterior?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnPaginaSiguiente.Click += delegate(object? sender, EventArgs e) {
+        btnPaginaSiguiente.Click += delegate (object? sender, EventArgs e) {
             PaginaActual++;
             MostrarPaginaSiguiente?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnUltimaPagina.Click += delegate(object? sender, EventArgs e) {
+        btnUltimaPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = PaginasTotales;
             MostrarUltimaPagina?.Invoke(sender, e);
             SincronizarDatos?.Invoke(sender, e);
             HabilitarBotonesPaginacion();
         };
-        btnSincronizarDatos.Click += delegate(object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
+        btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) { SincronizarDatos?.Invoke(sender, e); };
         contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
     }
 
@@ -211,7 +209,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
         fieldFiltroBusqueda.Items.Clear();
         fieldFiltroBusqueda.Items.AddRange(criteriosBusqueda);
-        
+
         fieldFiltroBusqueda.SelectedIndex = 4;
     }
 

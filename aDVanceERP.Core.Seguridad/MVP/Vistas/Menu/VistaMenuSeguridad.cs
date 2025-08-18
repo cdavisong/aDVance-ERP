@@ -26,7 +26,7 @@ public partial class VistaMenuSeguridad : Form, IVistaMenuSeguridad {
     public event EventHandler? VerCuentasUsuarios;
     public event EventHandler? VerRolesUsuarios;
     public event EventHandler? CambioMenu;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

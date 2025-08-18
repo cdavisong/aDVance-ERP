@@ -27,7 +27,7 @@ public partial class VistaMenuFinanzas : Form, IVistaMenuFinanzas {
     public event EventHandler? VerCuentas;
     public event EventHandler? VerCajas;
     public event EventHandler? CambioMenu;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

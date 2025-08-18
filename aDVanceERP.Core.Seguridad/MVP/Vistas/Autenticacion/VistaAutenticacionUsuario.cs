@@ -44,7 +44,7 @@ public partial class VistaAutenticacionUsuario : Form, IVistaAutenticacionUsuari
 
     public event EventHandler? Autenticar;
     public event EventHandler? RegistrarCuenta;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

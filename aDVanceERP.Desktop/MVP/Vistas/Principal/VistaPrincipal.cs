@@ -64,11 +64,10 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
     public event EventHandler? VerNotificaciones;
     public event EventHandler? VerMensajes;
     public event EventHandler? SubMenuUsuario;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         FormClosing += delegate {
-            Salir?.Invoke(this, EventArgs.Empty);
             Cerrar();
         };
 
@@ -88,8 +87,6 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         Resize += delegate { };
         FormClosing += delegate(object? sender, FormClosingEventArgs args) {
             UtilesServidorScanner.Servidor.Detener();
-
-            Salir?.Invoke(sender, args); 
         };
 
         // Eventos del Servidor SCANNER

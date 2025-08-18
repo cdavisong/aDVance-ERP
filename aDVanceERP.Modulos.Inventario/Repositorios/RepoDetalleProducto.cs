@@ -7,17 +7,9 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Modulos.Inventario.Repositorios;
 
 public class RepoDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, FiltroBusquedaDetalleProducto>, IRepoDetalleProducto {
-    public RepoDetalleProducto() : base("adv__detalle_producto", "id_detalle_producto") {
-    }
+    public RepoDetalleProducto() : base("adv__detalle_producto", "id_detalle_producto") { }
 
-    public override string ComandoCantidad() {
-        return """
-                    SELECT COUNT(id_detalle_producto) 
-                    FROM adv__detalle_producto;
-                    """;
-    }
-
-    public override string ComandoAdicionar(DetalleProducto objeto) {
+    protected override string GenerarComandoAdicionar(DetalleProducto objeto) {
         return $"""
                     INSERT INTO adv__detalle_producto (
                         id_unidad_medida,
@@ -30,7 +22,7 @@ public class RepoDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, FiltroB
                     """;
     }
 
-    public override string ComandoEditar(DetalleProducto objeto) {
+    protected override string GenerarComandoEditar(DetalleProducto objeto) {
         return $"""
                     UPDATE adv__detalle_producto
                     SET
@@ -40,14 +32,14 @@ public class RepoDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, FiltroB
                     """;
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"""
                     DELETE FROM adv__detalle_producto 
                     WHERE id_detalle_producto = {id};
                     """;
     }
 
-    public override string ComandoObtener(FiltroBusquedaDetalleProducto criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaDetalleProducto criterio, string dato) {
         var comando = criterio switch {
             FiltroBusquedaDetalleProducto.Todos => "SELECT * FROM adv__detalle_producto;",
             FiltroBusquedaDetalleProducto.Id => $"SELECT * FROM adv__detalle_producto WHERE id_detalle_producto = {dato};",
@@ -68,19 +60,11 @@ public class RepoDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, FiltroB
         return comando;
     }
 
-    public override DetalleProducto MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override DetalleProducto MapearEntidad(MySqlDataReader lectorDatos) {
         return new DetalleProducto(
             id: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_detalle_producto")),
             idUnidadMedida: lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_unidad_medida")),
             descripcion: lectorDatos.GetString(lectorDatos.GetOrdinal("descripcion")) ?? "No hay descripción disponible"
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"""
-                SELECT COUNT(1) 
-                FROM adv__detalle_producto 
-                WHERE id_detalle_producto={dato};
-                """;
     }
 }

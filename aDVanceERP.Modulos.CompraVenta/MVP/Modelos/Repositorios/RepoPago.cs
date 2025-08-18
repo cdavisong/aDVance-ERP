@@ -8,23 +8,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 public class RepoPago : RepoEntidadBaseDatos<Pago, FiltroBusquedaPago>, IRepoPago {
     public RepoPago() : base("adv__pago", "id_pago") { }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_pago) FROM adv__pago;";
-    }
-
-    public override string ComandoAdicionar(Pago objeto) {
+    protected override string GenerarComandoAdicionar(Pago objeto) {
         return $"INSERT INTO adv__pago (id_venta, metodo_pago, monto, fecha_confirmacion, estado) VALUES ({objeto.IdVenta}, '{objeto.MetodoPago}', {objeto.Monto.ToString(CultureInfo.InvariantCulture)}, '{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', '{objeto.Estado}');";
     }
 
-    public override string ComandoEditar(Pago objeto) {
+    protected override string GenerarComandoEditar(Pago objeto) {
         return $"UPDATE adv__pago SET id_venta={objeto.IdVenta}, metodo_pago='{objeto.MetodoPago}', monto={objeto.Monto.ToString(CultureInfo.InvariantCulture)}, fecha_confirmacion='{objeto.FechaConfirmacion:yyyy-MM-dd HH:mm:ss}', estado='{objeto.Estado}' WHERE id_pago={objeto.Id};";
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__pago WHERE id_pago={id};";
     }
 
-    public override string ComandoObtener(FiltroBusquedaPago criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaPago criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -42,11 +38,7 @@ public class RepoPago : RepoEntidadBaseDatos<Pago, FiltroBusquedaPago>, IRepoPag
         return comando;
     }
 
-    public override string ComandoExiste(string dato) {
-        return $"SELECT COUNT(1) FROM adv__pago WHERE id_pago = {dato};";
-    }
-
-    public override Pago MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override Pago MapearEntidad(MySqlDataReader lectorDatos) {
         return new Pago(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_pago")),
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_venta")),

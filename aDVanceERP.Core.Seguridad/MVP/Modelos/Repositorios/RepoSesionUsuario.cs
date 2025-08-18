@@ -5,28 +5,21 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 
 public class RepoSesionUsuario : RepoEntidadBaseDatos<SesionUsuario, FiltroBusquedaSesionUsuario>, IRepoSesionUsuario {
-    public RepoSesionUsuario() : base("adv__sesion_usuario", "id_sesion_usuario") {
+    public RepoSesionUsuario() : base("adv__sesion_usuario", "id_sesion_usuario") { }
+
+    protected override string GenerarComandoAdicionar(SesionUsuario objeto) {
+        return $"INSERT INTO adv__sesion_usuario (id_cuenta_usuario, token, fecha_inicio, fecha_fin) VALUES ({objeto.IdCuentaUsuario}, '{objeto.Token}', '{objeto.FechaInicio:yyyy-MM-dd HH:mm:ss}', {(objeto.FechaFin.HasValue ? $"'{objeto.FechaFin:yyyy-MM-dd HH:mm:ss}'" : "NULL")});";
     }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_sesion_usuario) FROM adv__sesion_usuario;";
+    protected override string GenerarComandoEditar(SesionUsuario objeto) {
+        return $"UPDATE adv__sesion_usuario SET id_cuenta_usuario = {objeto.IdCuentaUsuario}, token = '{objeto.Token}', fecha_inicio = '{objeto.FechaInicio:yyyy-MM-dd HH:mm:ss}', fecha_fin = {(objeto.FechaFin.HasValue ? $"'{objeto.FechaFin:yyyy-MM-dd HH:mm:ss}'" : "NULL")} WHERE id_sesion_usuario = {objeto.Id};";
     }
 
-    public override string ComandoAdicionar(SesionUsuario objeto) {
-        return
-            $"INSERT INTO adv__sesion_usuario (id_cuenta_usuario, token, fecha_inicio, fecha_fin) VALUES ({objeto.IdCuentaUsuario}, '{objeto.Token}', '{objeto.FechaInicio:yyyy-MM-dd HH:mm:ss}', {(objeto.FechaFin.HasValue ? $"'{objeto.FechaFin:yyyy-MM-dd HH:mm:ss}'" : "NULL")});";
-    }
-
-    public override string ComandoEditar(SesionUsuario objeto) {
-        return
-            $"UPDATE adv__sesion_usuario SET id_cuenta_usuario = {objeto.IdCuentaUsuario}, token = '{objeto.Token}', fecha_inicio = '{objeto.FechaInicio:yyyy-MM-dd HH:mm:ss}', fecha_fin = {(objeto.FechaFin.HasValue ? $"'{objeto.FechaFin:yyyy-MM-dd HH:mm:ss}'" : "NULL")} WHERE id_sesion_usuario = {objeto.Id};";
-    }
-
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__sesion_usuario WHERE id_sesion_usuario = {id};";
     }
 
-    public override string ComandoObtener(FiltroBusquedaSesionUsuario criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaSesionUsuario criterio, string dato) {
         string comando;
         switch (criterio) {
             case FiltroBusquedaSesionUsuario.NombreUsuario:
@@ -44,7 +37,7 @@ public class RepoSesionUsuario : RepoEntidadBaseDatos<SesionUsuario, FiltroBusqu
         return comando;
     }
 
-    public override SesionUsuario MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override SesionUsuario MapearEntidad(MySqlDataReader lectorDatos) {
         return new SesionUsuario(
             lectorDatos.GetInt64("id_sesion_usuario"),
             lectorDatos.GetInt32("id_cuenta_usuario"),
@@ -54,9 +47,5 @@ public class RepoSesionUsuario : RepoEntidadBaseDatos<SesionUsuario, FiltroBusqu
                 ? null
                 : lectorDatos.GetDateTime("fecha_fin")
         };
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"SELECT COUNT(1) FROM adv__sesion_usuario WHERE token = '{dato}';";
     }
 }

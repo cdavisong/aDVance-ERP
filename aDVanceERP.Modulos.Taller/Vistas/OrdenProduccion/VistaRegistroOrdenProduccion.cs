@@ -144,7 +144,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         public event EventHandler? MateriaPrimaEliminada;
         public event EventHandler? ActividadProduccionEliminada;
         public event EventHandler? GastoIndirectoEliminado;
-        public event EventHandler? Salir;
+        
 
         public void Inicializar() {
             // Vistas
@@ -311,7 +311,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     RegistrarDatos?.Invoke(sender, args);
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
+                Ocultar();
             };
             //contenedorVistasMateriaPrima.Resize += delegate {
             //    VistasMateriaPrima?.Vistas?.ForEach(vista => {

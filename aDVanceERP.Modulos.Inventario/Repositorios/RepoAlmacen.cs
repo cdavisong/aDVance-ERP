@@ -8,27 +8,19 @@ namespace aDVanceERP.Modulos.Inventario.Repositorios;
 public class RepoAlmacen : RepoEntidadBaseDatos<Almacen, FiltroBusquedaAlmacen>, IRepoAlmacen {
     public RepoAlmacen() : base("adv__almacen", "id_almacen") { }
 
-    public override string ComandoCantidad() {
-        return """
-               SELECT 
-                   COUNT(id_almacen) 
-               FROM adv__almacen;
-               """;
-    }
-
-    public override string ComandoAdicionar(Almacen objeto) {
+    protected override string GenerarComandoAdicionar(Almacen objeto) {
         return $"INSERT INTO adv__almacen (nombre, direccion, autorizo_venta, notas) VALUES ('{objeto.Nombre}', '{objeto.Direccion}', '{(objeto.AutorizoVenta ? 1 : 0)}', '{objeto.Notas}');";
     }
 
-    public override string ComandoEditar(Almacen objeto) {
+    protected override string GenerarComandoEditar(Almacen objeto) {
         return $"UPDATE adv__almacen SET nombre='{objeto.Nombre}', direccion='{objeto.Direccion}', autorizo_venta='{(objeto.AutorizoVenta ? 1 : 0)}', notas='{objeto.Notas}' WHERE id_almacen={objeto.Id};";
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__almacen WHERE id_almacen={id};";
     }
 
-    public override string ComandoObtener(FiltroBusquedaAlmacen criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaAlmacen criterio, string dato) {
         var comando = string.Empty;
 
         switch (criterio) {
@@ -46,7 +38,7 @@ public class RepoAlmacen : RepoEntidadBaseDatos<Almacen, FiltroBusquedaAlmacen>,
         return comando;
     }
 
-    public override Almacen MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override Almacen MapearEntidad(MySqlDataReader lectorDatos) {
         return new Almacen(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_almacen")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
@@ -54,9 +46,5 @@ public class RepoAlmacen : RepoEntidadBaseDatos<Almacen, FiltroBusquedaAlmacen>,
             lectorDatos.GetBoolean(lectorDatos.GetOrdinal("autorizo_venta")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("notas"))
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"SELECT * FROM adv__almacen WHERE nombre='{dato}';";
     }
 }

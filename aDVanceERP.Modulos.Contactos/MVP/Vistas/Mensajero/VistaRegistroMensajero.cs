@@ -50,12 +50,12 @@ public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos
         btnCerrar.Click += delegate(object? sender, EventArgs args) { 
-            Salir?.Invoke(sender, args); 
+            Close(); 
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
             if (ModoEdicionDatos)
@@ -64,7 +64,7 @@ public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
                 RegistrarDatos?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { 
-            Salir?.Invoke(sender, args); 
+            Close(); 
         };
     }
 

@@ -59,7 +59,7 @@ public partial class VistaTuplaCuentaBancaria : Form, IVistaTuplaCuentaBancaria 
     public event EventHandler? MostrarQR;
     public event EventHandler? EditarDatosTupla;
     public event EventHandler? EliminarDatosTupla;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Eventos

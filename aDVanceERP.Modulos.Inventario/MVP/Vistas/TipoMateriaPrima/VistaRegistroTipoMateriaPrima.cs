@@ -46,12 +46,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima {
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
-        public event EventHandler? Salir;
+        
 
         public void Inicializar() {
             // Eventos
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
+                Close();
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
@@ -60,7 +60,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima {
                     RegistrarDatos?.Invoke(sender, args);
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
+                Close();
             };
         }
 

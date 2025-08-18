@@ -5,26 +5,21 @@ using MySql.Data.MySqlClient;
 namespace aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 
 public class RepoCliente : RepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente>, IRepoCliente {
-    public RepoCliente() : base("adv__cliente", "id_cliente") {
-    }
+    public RepoCliente() : base("adv__cliente", "id_cliente") { }
 
-    public override string ComandoCantidad() {
-        return "SELECT COUNT(id_cliente) FROM adv__cliente;";
-    }
-
-    public override string ComandoAdicionar(Cliente objeto) {
+    protected override string GenerarComandoAdicionar(Cliente objeto) {
         return $"INSERT INTO adv__cliente (numero, razon_social, id_contacto) VALUES ('{objeto.Numero}', '{objeto.RazonSocial}', '{objeto.IdContacto}');";
     }
 
-    public override string ComandoEditar(Cliente objeto) {
+    protected override string GenerarComandoEditar(Cliente objeto) {
         return $"UPDATE adv__cliente SET numero='{objeto.Numero}', razon_social='{objeto.RazonSocial}', id_contacto='{objeto.IdContacto}' WHERE id_cliente='{objeto.Id}';";
     }
 
-    public override string ComandoEliminar(long id) {
+    protected override string GenerarComandoEliminar(long id) {
         return $"DELETE FROM adv__cliente WHERE id_cliente={id};";
     }
 
-    public override string ComandoObtener(FiltroBusquedaCliente criterio, string dato) {
+    protected override string GenerarComandoObtener(FiltroBusquedaCliente criterio, string dato) {
         string? comando;
 
         switch (criterio) {
@@ -45,7 +40,7 @@ public class RepoCliente : RepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente>,
         return comando;
     }
 
-    public override Cliente MapearEntidad(MySqlDataReader lectorDatos) {
+    protected override Cliente MapearEntidad(MySqlDataReader lectorDatos) {
         return new Cliente(
             lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_cliente")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("numero")),
@@ -54,9 +49,5 @@ public class RepoCliente : RepoEntidadBaseDatos<Cliente, FiltroBusquedaCliente>,
                 ? idContacto
                 : 0
         );
-    }
-
-    public override string ComandoExiste(string dato) {
-        return $"SELECT * FROM adv__cliente WHERE numero='{dato}';";
     }
 }

@@ -81,7 +81,7 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? Salir;
+    
 
     public void Inicializar() {
         // Propiedades
@@ -91,8 +91,8 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         fieldTipoMovimiento.SelectedIndexChanged += delegate { 
             ActualizarCamposAlmacenes(); 
         };
-        btnCerrar.Click += delegate(object? sender, EventArgs args) { 
-            Salir?.Invoke(sender, args); 
+        btnCerrar.Click += delegate(object? sender, EventArgs args) {
+            Close();
         };
         btnAdicionarTipoMovimiento.Click += delegate(object? sender, EventArgs args) {
             RegistrarTipoMovimiento?.Invoke(sender, args);
@@ -106,7 +106,7 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
             else
                 RegistrarDatos?.Invoke(sender, args);
         };
-        btnSalir.Click += delegate(object? sender, EventArgs args) { Salir?.Invoke(sender, args); };
+        btnSalir.Click += delegate(object? sender, EventArgs args) { Close(); };
 
         // Enlace de scanner
         UtilesServidorScanner.Servidor.DatosRecibidos += ProcesarDatosScanner;

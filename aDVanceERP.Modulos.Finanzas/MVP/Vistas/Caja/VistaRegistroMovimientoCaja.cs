@@ -68,7 +68,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             }
         }
 
-        public event EventHandler? Salir;
+
         public event EventHandler? RegistrarDatos;
         public event EventHandler? EditarDatos;
         public event EventHandler? EliminarDatos;
@@ -80,7 +80,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
 
             // Eventos            
             btnCerrar.Click += delegate (object? sender, EventArgs args) {
-                Salir?.Invoke(sender, args);
+                Close();
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
@@ -88,8 +88,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 else
                     RegistrarDatos?.Invoke(sender, args);
             };
-            btnSalir.Click += delegate (object? sender, EventArgs args) { 
-                Salir?.Invoke(sender, args); 
+            btnSalir.Click += delegate (object? sender, EventArgs args) {
+                Close();
             };
         }
 

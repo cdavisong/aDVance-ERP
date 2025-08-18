@@ -16,5 +16,5 @@ public interface IRepoEntidadBaseDatos<En, Fb> : IRepoBase<En>
     long Adicionar(En objeto);
     bool Editar(En objeto, long nuevoId = 0);
     bool Eliminar(long id);    
-    bool Existe(string dato);
+    bool Existe(long id);
 }
