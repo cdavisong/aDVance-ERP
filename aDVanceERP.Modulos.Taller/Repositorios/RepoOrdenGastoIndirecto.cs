@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Repositorios.BD;
+﻿using aDVanceERP.Core.Infraestructura.Globales;
+using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Taller.Modelos;
 
 using MySql.Data.MySqlClient;
@@ -81,6 +82,28 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 Total = lectorDatos.GetDecimal("total"),
                 FechaRegistro = lectorDatos.GetDateTime("fecha_registro")
             };
+        }
+
+        public bool EsDinamico(OrdenGastoIndirecto gasto, out string formula) {
+            var consulta = $"""
+                SELECT COUNT(*) FROM adv__orden_gasto_indirecto gi
+                JOIN adv__gasto_dinamico gd ON gi.id_orden_gasto_indirecto = gd.id_orden_gasto_indirecto
+                WHERE gi.id_orden_gasto_indirecto = {gasto.Id};
+                """;
+            var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consulta);
+
+            if (cantidad > 0) {
+                var consultaFormula = $"""
+                    SELECT gd.formula FROM adv__orden_gasto_indirecto gi
+                    JOIN adv__gasto_dinamico gd ON gi.id_orden_gasto_indirecto = gd.id_orden_gasto_indirecto
+                    WHERE gi.id_orden_gasto_indirecto = {gasto.Id};
+                    """;
+                formula = ContextoBaseDatos.EjecutarConsultaEscalar<string>(consultaFormula);
+                return true;
+            } else {
+                formula = string.Empty;
+                return false;
+            }
         }
     }
 }

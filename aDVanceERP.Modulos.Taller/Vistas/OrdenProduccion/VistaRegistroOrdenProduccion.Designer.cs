@@ -140,6 +140,9 @@
             layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna.UI2.WinForms.Guna2Button();
             btnAbrirActualizarOrdenProduccion = new Guna.UI2.WinForms.Guna2Button();
+            menuGastoIndirecto = new ContextMenuStrip(components);
+            btnInsertarGastoNormal = new ToolStripMenuItem();
+            btnInsertarGastoDinamico = new ToolStripMenuItem();
             layoutVista.SuspendLayout();
             layoutTituloAlmacenProducto.SuspendLayout();
             layoutTitulo.SuspendLayout();
@@ -162,6 +165,7 @@
             layoutCostoTotalProduccion.SuspendLayout();
             layoutCostosTotales.SuspendLayout();
             layoutBotones.SuspendLayout();
+            menuGastoIndirecto.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -443,7 +447,7 @@
             fieldTituloMargenGananciaDeseado.Name = "fieldTituloMargenGananciaDeseado";
             fieldTituloMargenGananciaDeseado.Size = new Size(210, 39);
             fieldTituloMargenGananciaDeseado.TabIndex = 7;
-            fieldTituloMargenGananciaDeseado.Text = "Márgen de ganancia deseado";
+            fieldTituloMargenGananciaDeseado.Text = "Márgen de utilidad";
             fieldTituloMargenGananciaDeseado.TextAlign = ContentAlignment.MiddleRight;
             // 
             // fieldMargenGananciaDeseado
@@ -760,6 +764,7 @@
             // 
             btnAdicionarGastoIndirecto.Animated = true;
             btnAdicionarGastoIndirecto.BorderRadius = 16;
+            btnAdicionarGastoIndirecto.ContextMenuStrip = menuGastoIndirecto;
             btnAdicionarGastoIndirecto.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnAdicionarGastoIndirecto.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnAdicionarGastoIndirecto.CustomizableEdges = customizableEdges13;
@@ -1646,6 +1651,37 @@
             btnAbrirActualizarOrdenProduccion.TabIndex = 15;
             btnAbrirActualizarOrdenProduccion.Text = "Abrir orden de producción";
             // 
+            // menuGastoIndirecto
+            // 
+            menuGastoIndirecto.BackColor = Color.White;
+            menuGastoIndirecto.Items.AddRange(new ToolStripItem[] { btnInsertarGastoNormal, btnInsertarGastoDinamico });
+            menuGastoIndirecto.Name = "menuGastoIndirecto";
+            menuGastoIndirecto.Size = new Size(237, 78);
+            // 
+            // btnInsertarGastoNormal
+            // 
+            btnInsertarGastoNormal.BackColor = Color.White;
+            btnInsertarGastoNormal.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point,  0);
+            btnInsertarGastoNormal.Image = (Image) resources.GetObject("btnInsertarGastoNormal.Image");
+            btnInsertarGastoNormal.ImageAlign = ContentAlignment.MiddleLeft;
+            btnInsertarGastoNormal.ImageScaling = ToolStripItemImageScaling.None;
+            btnInsertarGastoNormal.Name = "btnInsertarGastoNormal";
+            btnInsertarGastoNormal.Size = new Size(236, 26);
+            btnInsertarGastoNormal.Text = "Insertar gasto normal";
+            btnInsertarGastoNormal.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // btnInsertarGastoDinamico
+            // 
+            btnInsertarGastoDinamico.BackColor = Color.White;
+            btnInsertarGastoDinamico.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point,  0);
+            btnInsertarGastoDinamico.Image = (Image) resources.GetObject("btnInsertarGastoDinamico.Image");
+            btnInsertarGastoDinamico.ImageAlign = ContentAlignment.MiddleLeft;
+            btnInsertarGastoDinamico.ImageScaling = ToolStripItemImageScaling.None;
+            btnInsertarGastoDinamico.Name = "btnInsertarGastoDinamico";
+            btnInsertarGastoDinamico.Size = new Size(236, 26);
+            btnInsertarGastoDinamico.Text = "Insertar gasto dinámico";
+            btnInsertarGastoDinamico.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // VistaRegistroOrdenProduccion
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -1680,6 +1716,7 @@
             layoutCostoTotalProduccion.ResumeLayout(false);
             layoutCostosTotales.ResumeLayout(false);
             layoutBotones.ResumeLayout(false);
+            menuGastoIndirecto.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1766,5 +1803,8 @@
         private Guna.UI2.WinForms.Guna2ComboBox fieldNombreAlmacenDestino;
         private Label fieldTituloAlmacenMateriasPrimas;
         private Guna.UI2.WinForms.Guna2ComboBox fieldNombreAlmacenMateriales;
+        private ContextMenuStrip menuGastoIndirecto;
+        private ToolStripMenuItem btnInsertarGastoNormal;
+        private ToolStripMenuItem btnInsertarGastoDinamico;
     }
 }

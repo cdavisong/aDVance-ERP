@@ -31,6 +31,7 @@ namespace aDVanceERP.Modulos.Taller.Interfaces {
         void CargarConceptosGastosIndirectos(string[] conceptosGastosIndirectos);
         void AdicionarMateriaPrima(string nombreAlmacen = "", string nombre = "", decimal cantidad = 0m);
         void AdicionarActividadProduccion(string nombre = "", decimal cantidad = 0m);
-        void AdicionarGastoIndirecto(string concepto = "", decimal cantidad = 0m);
+        void InsertarGastoIndirectoNormal(string concepto = "", decimal cantidad = 0m);
+        void InsertarGastoIndirectoDinamico(string concepto = "", decimal cantidad = 0m, string ecuacion = "");
     }
 }

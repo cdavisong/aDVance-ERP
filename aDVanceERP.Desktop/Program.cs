@@ -18,9 +18,6 @@ internal static class Program {
     /// </summary>
     [STAThread]
     private static void Main() {
-        // Ejecutar el patch si es necesario
-        EjecutarParcheBD();
-
         // Configuración de la aplicación
         ApplicationConfiguration.Initialize();
         Application.Run((Form) new PresentadorPrincipal().Vista);

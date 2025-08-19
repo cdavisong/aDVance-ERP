@@ -3,6 +3,7 @@ using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Repositorios;
+
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
@@ -10,23 +11,23 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
         public PresentadorRegistroOrdenProduccion(IVistaRegistroOrdenProduccion vista) : base(vista) {
         }
 
-        public override void PopularVistaDesdeObjeto(Modelos.OrdenProduccion objeto) {
+        public override void PopularVistaDesdeObjeto(Modelos.OrdenProduccion entidad) {
             Vista.ModoEdicionDatos = true;
-            Vista.Id = objeto.Id;
-            Vista.NombreProductoTerminado = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
-            Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
-            Vista.NumeroOrden = objeto.NumeroOrden;
-            Vista.FechaApertura = objeto.FechaApertura;
-            Vista.Cantidad = objeto.Cantidad;
-            Vista.MargenGanancia = objeto.MargenGanancia;
-            Vista.Observaciones = objeto.Observaciones;
+            Vista.Id = entidad.Id;
+            Vista.NombreProductoTerminado = UtilesProducto.ObtenerNombreProducto(entidad.IdProducto).Result ?? string.Empty;
+            Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacen) ?? string.Empty;
+            Vista.NumeroOrden = entidad.NumeroOrden;
+            Vista.FechaApertura = entidad.FechaApertura;
+            Vista.Cantidad = entidad.Cantidad;
+            Vista.MargenGanancia = entidad.MargenGanancia;
+            Vista.Observaciones = entidad.Observaciones;
 
-            if (objeto.Estado == EstadoOrdenProduccion.Cerrada)
+            if (entidad.Estado == EstadoOrdenProduccion.Cerrada)
                 Vista.Habilitada = false;
 
             // Popular materias primas
             using (var repoMateriaPrima = new RepoOrdenMateriaPrima()) {
-                var materiasPrimas = repoMateriaPrima.Buscar(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, objeto.Id.ToString()).resultados;
+                var materiasPrimas = repoMateriaPrima.Buscar(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, entidad.Id.ToString()).resultados;
                 foreach (var materiaPrima in materiasPrimas) {
                     Vista.AdicionarMateriaPrima(
                         UtilesAlmacen.ObtenerNombreAlmacen(materiaPrima.IdAlmacen) ?? string.Empty,
@@ -36,20 +37,37 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             }
             // Popular actividades de producción
             using (var repoActividadProduccion = new RepoOrdenActividadProduccion()) {
-                var actividadesProduccion = repoActividadProduccion.Buscar(FiltroBusquedaOrdenActividadProduccion.OrdenProduccion, objeto.Id.ToString()).resultados;
+                var actividadesProduccion = repoActividadProduccion.Buscar(FiltroBusquedaOrdenActividadProduccion.OrdenProduccion, entidad.Id.ToString()).resultados;
                 foreach (var actividad in actividadesProduccion) {
                     Vista.AdicionarActividadProduccion(actividad.Nombre, actividad.Cantidad);
                 }
             }
-            // Popular gastos indirectos
+            //TODO: Popular gastos indirectos
             using (var repoGastoIndirecto = new RepoOrdenGastoIndirecto()) {
-                var gastosIndirectos = repoGastoIndirecto.Buscar(FiltroBusquedaOrdenGastoIndirecto.OrdenProduccion, objeto.Id.ToString()).resultados;
-                foreach (var gasto in gastosIndirectos) {
-                    Vista.AdicionarGastoIndirecto(gasto.Concepto, gasto.Cantidad);
+                using (var repoGastoDinamico = new RepoOrdenGastoDinamico()) {
+                    var gastosIndirectos = repoGastoIndirecto.Buscar(FiltroBusquedaOrdenGastoIndirecto.OrdenProduccion, entidad.Id.ToString()).resultados;
+
+                    foreach (var gasto in gastosIndirectos) {
+                        var tuplaGasto = new string[] {
+                        gasto.Concepto,
+                        gasto.Cantidad.ToString(CultureInfo.InvariantCulture),
+                        gasto.Monto.ToString(CultureInfo.InvariantCulture)
+                    };
+
+                    // Verificar si hay una fórmula asociada
+                    var gastoDinamico = repoGastoDinamico.Buscar(FiltroBusquedaOrdenGastoDinamico.IdOrdenGastoIndirecto, gasto.Id.ToString()).resultados.FirstOrDefault();
+
+                    if (gastoDinamico != null) {
+                        tuplaGasto = tuplaGasto.Concat([gastoDinamico.Formula]).ToArray();
+
+                        Vista.InsertarGastoIndirectoDinamico(tuplaGasto[0], decimal.Parse(tuplaGasto[1], CultureInfo.InvariantCulture), tuplaGasto[3]);
+                    } else
+                        Vista.InsertarGastoIndirectoNormal(tuplaGasto[0], decimal.Parse(tuplaGasto[1], CultureInfo.InvariantCulture));
+                    }
                 }
             }
 
-            Entidad = objeto;
+            Entidad = entidad;
         }
 
         protected override void RegistroAuxiliar(RepoOrdenProduccion datosObjeto, long id) {
@@ -74,12 +92,12 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                         costoUnitario * cantidad
                         );
 
-                    if (materiaPrimaExistente != null ) {
+                    if (materiaPrimaExistente != null) {
                         materiaPrima.Cantidad = decimal.TryParse(tuplaMateriaPrima[2], NumberStyles.Any, CultureInfo.InvariantCulture, out cantidad) ? cantidad : 0m;
                         materiaPrima.CostoUnitario = decimal.TryParse(tuplaMateriaPrima[3], NumberStyles.Any, CultureInfo.InvariantCulture, out costoUnitario) ? costoUnitario : 0m;
                         materiaPrima.Total = costoUnitario * cantidad;
                         datosObjeto.Editar(materiaPrima);
-                    } else 
+                    } else
                         datosObjeto.Adicionar(materiaPrima);
                 }
             }
@@ -110,25 +128,43 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
         }
 
         private void RegistrarEditarGastosIndirectos(long idOrdenProduccion) {
-            using (var datosObjeto = new RepoOrdenGastoIndirecto()) {
-                foreach (var tuplaGastoIndirecto in Vista.GastosIndirectos) {
-                    var criterioBusqueda = $"{idOrdenProduccion};{tuplaGastoIndirecto[0]}";
-                    var gastoIndirectoExistente = datosObjeto.Buscar(FiltroBusquedaOrdenGastoIndirecto.Concepto, criterioBusqueda).resultados.FirstOrDefault();
-                    var gastoIndirecto = gastoIndirectoExistente ?? new OrdenGastoIndirecto(0,
-                        idOrdenProduccion,
-                        tuplaGastoIndirecto[0],
-                        decimal.TryParse(tuplaGastoIndirecto[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0m,
-                        decimal.TryParse(tuplaGastoIndirecto[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0m,
-                        monto * cantidad
-                        );
+            using (var entidadGastoIndirecto = new RepoOrdenGastoIndirecto()) {
+                using (var entidadGastoDinamico = new RepoOrdenGastoDinamico()) {
+                    foreach (var tuplaGastoIndirecto in Vista.GastosIndirectos) {
+                        var criterioBusqueda = $"{idOrdenProduccion};{tuplaGastoIndirecto[0]}";
+                        var gastoIndirectoExistente = entidadGastoIndirecto.Buscar(FiltroBusquedaOrdenGastoIndirecto.Concepto, criterioBusqueda).resultados.FirstOrDefault();
+                        var gastoIndirecto = gastoIndirectoExistente ?? new OrdenGastoIndirecto(0,
+                            idOrdenProduccion,
+                            tuplaGastoIndirecto[0],
+                            decimal.TryParse(tuplaGastoIndirecto[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) ? cantidad : 0m,
+                            decimal.TryParse(tuplaGastoIndirecto[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0m,
+                            monto * cantidad
+                            );
 
-                    if (gastoIndirectoExistente != null) {
-                        gastoIndirecto.Cantidad = decimal.TryParse(tuplaGastoIndirecto[1], NumberStyles.Any, CultureInfo.InvariantCulture, out cantidad) ? cantidad : 0m;
-                        gastoIndirecto.Monto = decimal.TryParse(tuplaGastoIndirecto[2], NumberStyles.Any, CultureInfo.InvariantCulture, out monto) ? monto : 0m;
-                        gastoIndirecto.Total = monto * cantidad;
-                        datosObjeto.Editar(gastoIndirecto);
-                    } else 
-                        datosObjeto.Adicionar(gastoIndirecto);
+                        if (gastoIndirectoExistente != null) {
+                            gastoIndirecto.Cantidad = decimal.TryParse(tuplaGastoIndirecto[1], NumberStyles.Any, CultureInfo.InvariantCulture, out cantidad) ? cantidad : 0m;
+                            gastoIndirecto.Monto = decimal.TryParse(tuplaGastoIndirecto[2], NumberStyles.Any, CultureInfo.InvariantCulture, out monto) ? monto : 0m;
+                            gastoIndirecto.Total = monto * cantidad;
+                            entidadGastoIndirecto.Editar(gastoIndirecto);
+                        } else
+                            gastoIndirecto.Id = entidadGastoIndirecto.Adicionar(gastoIndirecto);
+
+                        // Verificar e insertar tambien los gastos dinamicos
+                        if (tuplaGastoIndirecto.Length > 3) {
+                            var gastoDinamicoExistente = entidadGastoDinamico.Buscar(FiltroBusquedaOrdenGastoDinamico.IdOrdenGastoIndirecto, gastoIndirecto.Id.ToString()).resultados.FirstOrDefault();
+                            var gastoDinamico = gastoDinamicoExistente ?? new OrdenGastoDinamico(0,
+                                gastoIndirecto.Id,
+                                tuplaGastoIndirecto[3]
+                                );
+
+                            if (gastoDinamicoExistente != null) {
+                                gastoDinamico.Formula = tuplaGastoIndirecto[3];
+                                entidadGastoDinamico.Editar(gastoDinamico);
+                            } else {
+                                gastoDinamico.Id = entidadGastoDinamico.Adicionar(gastoDinamico);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -140,7 +176,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                 Vista.FechaApertura,
                 DateTime.MinValue,
                 UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
-                UtilesProducto.ObtenerIdProducto(Vista.NombreProductoTerminado).Result,                
+                UtilesProducto.ObtenerIdProducto(Vista.NombreProductoTerminado).Result,
                 Vista.Cantidad,
                 EstadoOrdenProduccion.Abierta,
                 Vista.Observaciones,

@@ -7,7 +7,9 @@ using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Repositorios;
+using aDVanceERP.Modulos.Taller.Servicios;
 
+using System.Data;
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
@@ -37,7 +39,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 fieldCantidadGastoIndirecto.ReadOnly = !value;
                 btnAbrirActualizarOrdenProduccion.Visible = value;
 
-                _habilitada = value; 
+                _habilitada = value;
             }
         }
 
@@ -144,7 +146,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         public event EventHandler? MateriaPrimaEliminada;
         public event EventHandler? ActividadProduccionEliminada;
         public event EventHandler? GastoIndirectoEliminado;
-        
+
 
         public void Inicializar() {
             // Vistas
@@ -253,11 +255,19 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldCantidadGastoIndirecto.KeyDown += delegate (object? sender, KeyEventArgs args) {
                 if (args.KeyCode == Keys.Enter) {
                     args.SuppressKeyPress = true;
-                    AdicionarGastoIndirecto();
+                    InsertarGastoIndirectoNormal();
                 }
             };
             btnAdicionarGastoIndirecto.Click += delegate (object? sender, EventArgs args) {
-                AdicionarGastoIndirecto();
+                btnAdicionarGastoIndirecto.ContextMenuStrip?.Show(btnAdicionarGastoIndirecto, new Point(
+                    btnAdicionarGastoIndirecto.Width - btnAdicionarGastoIndirecto.ContextMenuStrip.Width,
+                    45));
+            };
+            btnInsertarGastoNormal.Click += delegate (object? sender, EventArgs args) {
+                InsertarGastoIndirectoNormal();
+            };
+            btnInsertarGastoDinamico.Click += delegate (object? sender, EventArgs args) {
+                InsertarGastoIndirectoDinamico();
             };
             GastoIndirectoEliminado += delegate (object? sender, EventArgs args) {
                 ActualizarTuplasGastosIndirectos();
@@ -267,7 +277,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
             fieldNombreAlmacenMateriales.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
                 CargarNombresMateriasPrimas(UtilesProducto.ObtenerNombresProductos(
-                    UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacenMateriales).Result, 
+                    UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacenMateriales).Result,
                     "MateriaPrima").Result);
             };
             fieldNombreAlmacenDestino.SelectedIndexChanged += delegate (object? sender, EventArgs args) {
@@ -379,7 +389,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     CentroNotificaciones.Mostrar($"No se encontró la materia prima '{adNombre}'.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
                     return;
                 }
-                
+
                 var stockProducto = UtilesProducto.ObtenerStockProducto(adNombre, adNombreAlmacen).Result;
                 var cantidadAcumulada = MateriasPrimas
                     .Where(p => p[0].Equals(adNombre))
@@ -445,7 +455,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 CentroNotificaciones.Mostrar("Debe ingresar un nombre válido para la actividad de producción.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
         }
 
-        public void AdicionarGastoIndirecto(string concepto = "", decimal cantidad = 0) {
+        public void InsertarGastoIndirectoNormal(string concepto = "", decimal cantidad = 0) {
             var adConcepto = string.IsNullOrEmpty(concepto) ? fieldConceptoGastoIndirecto.Text : concepto;
 
             if (!string.IsNullOrEmpty(adConcepto)) {
@@ -465,6 +475,61 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 var tuplaGastoIndirecto = tuplaGastoIndirectoExistente
                     ?? [adConcepto, "0", adMonto <= 0 ? "1.00" : adMonto.ToString("N2", CultureInfo.InvariantCulture)];
                 tuplaGastoIndirecto[1] = adCantidadTotal.ToString("N2", CultureInfo.InvariantCulture);
+
+                if (tuplaGastoIndirectoExistente == null)
+                    GastosIndirectos.Add(tuplaGastoIndirecto);
+
+                fieldConceptoGastoIndirecto.Text = string.Empty;
+                fieldCantidadGastoIndirecto.Text = string.Empty;
+
+                ActualizarTuplasGastosIndirectos();
+
+                fieldConceptoGastoIndirecto.Focus();
+            } else
+                CentroNotificaciones.Mostrar("Debe ingresar un concepto válido para el gasto indirecto.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
+        }
+
+        public void InsertarGastoIndirectoDinamico(string concepto = "", decimal cantidad = 0, string ecuacion = "") {
+            var adConcepto = string.IsNullOrEmpty(concepto) ? fieldConceptoGastoIndirecto.Text : concepto;
+            var adEcuacion = string.IsNullOrEmpty(ecuacion) ? string.Empty : ecuacion;
+
+            if (string.IsNullOrEmpty(concepto) || string.IsNullOrEmpty(ecuacion)) {
+                var conceptosValidos = new List<string> {
+                    "Costo total en materiales",
+                    "Costo total en actividades"
+                };
+
+                conceptosValidos.AddRange(GastosIndirectos.Select(g => g[0]));
+
+                var vistaRegistroGastoDinamico = new VistaRegistroGastoDinamico(conceptosValidos);
+
+                vistaRegistroGastoDinamico.Location = new Point((Screen.PrimaryScreen?.Bounds.Right ?? 0) - vistaRegistroGastoDinamico.Width, VariablesGlobales.AlturaBarraTituloPredeterminada);
+                vistaRegistroGastoDinamico.Size = new Size(vistaRegistroGastoDinamico.Size.Width, Size.Height + 10);
+                vistaRegistroGastoDinamico.RegistrarDatos += delegate (object? sender, EventArgs args) {
+                    adEcuacion = vistaRegistroGastoDinamico.Ecuacion;
+                };
+
+                vistaRegistroGastoDinamico.ShowDialog();
+            }
+
+            if (!string.IsNullOrEmpty(adConcepto)) {
+                var cantidadAcumulada = GastosIndirectos
+                    .Where(p => p[0].Equals(adConcepto))
+                    .Sum(p => decimal.TryParse(p[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var cant) ? cant : 0m);
+                var adCantidad = cantidad > 0 ? cantidad : decimal.TryParse(fieldCantidadGastoIndirecto.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cant) ? cant : 0m;
+                var adCantidadTotal = adCantidad + cantidadAcumulada;
+
+                if (adCantidad <= 0) {
+                    CentroNotificaciones.Mostrar("La cantidad del gasto indirecto debe ser mayor a cero.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
+                    return;
+                }
+
+                var tuplaGastoIndirectoExistente = GastosIndirectos.FirstOrDefault(p => p[0].Equals(adConcepto));
+                var tuplaGastoIndirecto = tuplaGastoIndirectoExistente ?? new string[4];
+                tuplaGastoIndirecto[0] = adConcepto;
+                tuplaGastoIndirecto[1] = adCantidad.ToString("N2", CultureInfo.InvariantCulture);
+                tuplaGastoIndirecto[2] = "0.00"; // El monto se calculará dinámicamente
+                tuplaGastoIndirecto[3] = adEcuacion; // Almacenar la ecuación en la posición 3
 
                 if (tuplaGastoIndirectoExistente == null)
                     GastosIndirectos.Add(tuplaGastoIndirecto);
@@ -499,7 +564,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldCostoTotalActividadesProduccion.Text = "0.00";
             fieldMontoTotalGastosIndirectos.Text = "0.00";
             fieldCostoTotalProduccion.Text = "0.00";
-            fieldPrecioUnitarioProducto.Text = "0.00";            
+            fieldPrecioUnitarioProducto.Text = "0.00";
             fieldNombreMateriaPrima.Text = string.Empty;
             fieldCantidadMateriaPrima.Text = string.Empty;
             fieldNombreActividadProduccion.Text = string.Empty;
@@ -561,7 +626,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
                     using (var datosObjeto = new RepoOrdenMateriaPrima()) {
                         var materiaPrimaExistente = datosObjeto.Buscar(
-                            FiltroBusquedaOrdenMateriaPrima.Producto, 
+                            FiltroBusquedaOrdenMateriaPrima.Producto,
                             $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{UtilesProducto.ObtenerIdProducto(materiaPrima?[0]).Result.ToString()}").resultados.FirstOrDefault();
 
                         if (materiaPrimaExistente != null)
@@ -608,7 +673,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 tuplaOrdenActividadProduccion.NombreActividadProduccion = actividadProduccion[0];
                 tuplaOrdenActividadProduccion.Cantidad = actividadProduccion[1];
                 tuplaOrdenActividadProduccion.CostoActividad = actividadProduccion[2];
-                tuplaOrdenActividadProduccion.Dimensiones = new Size(contenedorVistasActividadesProduccion.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada);                
+                tuplaOrdenActividadProduccion.Dimensiones = new Size(contenedorVistasActividadesProduccion.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada);
                 tuplaOrdenActividadProduccion.CostoActividadModificado += delegate (object? sender, EventArgs args) {
                     actividadProduccion = sender as string[];
 
@@ -624,7 +689,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
                     using (var datosObjeto = new RepoOrdenActividadProduccion()) {
                         var actividadProduccionExistente = datosObjeto.Buscar(
-                            FiltroBusquedaOrdenActividadProduccion.Nombre, 
+                            FiltroBusquedaOrdenActividadProduccion.Nombre,
                             $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{actividadProduccion?[0]}").resultados.FirstOrDefault();
 
                         if (actividadProduccionExistente != null)
@@ -688,7 +753,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
                     using (var datosObjeto = new RepoOrdenGastoIndirecto()) {
                         var gastoIndirectoExistente = datosObjeto.Buscar(
-                            FiltroBusquedaOrdenGastoIndirecto.Concepto, 
+                            FiltroBusquedaOrdenGastoIndirecto.Concepto,
                             $"{(Id == 0 ? UtilesBD.ObtenerUltimoIdTabla("orden_produccion") + 1 : Id)};{gastoIndirecto?[0]}").resultados.FirstOrDefault();
 
                         if (gastoIndirectoExistente != null)
@@ -716,19 +781,74 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         }
 
         private void ActualizarCostoTotalGastosIndirectos() {
-            var montoTotal = GastosIndirectos
-                .Sum(p => decimal.TryParse(p[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) && decimal.TryParse(p[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? cantidad * monto : 0m);
+            decimal montoTotal = 0;
+
+            foreach (var gasto in GastosIndirectos) {
+                if (gasto.Length > 3 && !string.IsNullOrEmpty(gasto[3])) {
+                    // Es un gasto dinámico - calcular el monto basado en la ecuación
+                    decimal montoDinamico = CalcularGastoDinamico(gasto[3]);
+
+                    // Actualizar el monto en la tupla correspondiente
+                    gasto[2] = montoDinamico.ToString("N2", CultureInfo.InvariantCulture);
+
+                    var vistaTupla = VistasGastosIndirectos?.Obtener($"vistaTuplaVistaTuplaOrdenGastoIndirecto{GastosIndirectos.IndexOf(gasto)}") as VistaTuplaOrdenGastoIndirecto;
+                    
+                    if (vistaTupla != null) {
+                        vistaTupla.Monto = gasto[2];
+                    }
+
+                    montoTotal += montoDinamico * decimal.Parse(gasto[1], NumberStyles.Any, CultureInfo.InvariantCulture);
+                } else {
+                    // Gasto normal
+                    montoTotal += decimal.Parse(gasto[1], NumberStyles.Any, CultureInfo.InvariantCulture) * decimal.Parse(gasto[2], NumberStyles.Any, CultureInfo.InvariantCulture);
+                }
+            }
 
             fieldMontoTotalGastosIndirectos.Text = montoTotal.ToString("N2", CultureInfo.InvariantCulture);
 
             ActualizarCostoTotalProduccion();
         }
 
+        private decimal CalcularGastoDinamico(string ecuacion) {
+            try {
+                // Reemplazar variables con sus valores actuales
+                string formula = ecuacion;
+
+                // Reemplazar "Costo total en materiales" con el valor actual
+                formula = formula.Replace("CostoTotalEnMateriales",
+                    fieldCostoTotalMateriales.Text.Replace(",", ""));
+
+                // Reemplazar "Costo total en actividades" con el valor actual
+                formula = formula.Replace("CostoTotalEnActividades",
+                    fieldCostoTotalActividadesProduccion.Text.Replace(",", ""));
+
+                // Reemplazar otros gastos indirectos si están en la ecuación
+                foreach (var gasto in GastosIndirectos) {
+                    var gastoSplit = gasto[0].Split(" ");
+                    var gastoSinEspacios = string.Join("", gastoSplit.Select(
+                            palabra => char.ToUpper(palabra[0]) + palabra.Substring(1).ToLower())
+                        );
+
+                    if (formula.Contains(gastoSinEspacios)) {
+                        formula = formula.Replace(gastoSinEspacios,
+                            gasto[2].Replace(",", ""));
+                    }
+                }
+
+                // Calcular el resultado usando DataTable.Compute
+                var result = new DataTable().Compute(formula, null);
+                return Convert.ToDecimal(result);
+            } catch {
+                // En caso de error en el cálculo, devolver 0
+                return 0m;
+            }
+        }
+
         private void ActualizarCostoTotalProduccion() {
             var costoTotalMateriales = decimal.TryParse(fieldCostoTotalMateriales.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var costoMat) ? costoMat : 0m;
             var costoTotalActividades = decimal.TryParse(fieldCostoTotalActividadesProduccion.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var costoAct) ? costoAct : 0m;
             var montoTotalGastosIndirectos = decimal.TryParse(fieldMontoTotalGastosIndirectos.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var montoGast) ? montoGast : 0m;
-            
+
             fieldCostoTotalProduccion.Text = (costoTotalMateriales + costoTotalActividades + montoTotalGastosIndirectos).ToString("N2", CultureInfo.InvariantCulture);
 
             ActualizarPrecioUnitarioProducto();
