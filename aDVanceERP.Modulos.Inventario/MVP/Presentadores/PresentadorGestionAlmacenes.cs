@@ -1,8 +1,10 @@
-﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+﻿using aDVanceERP.Core.Documentos.Interfaces;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Modulos.Inventario.Documentos.Almacen;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
@@ -13,10 +15,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTuplaAlmacen, IVistaGestionAlmacenes,
     IVistaTuplaAlmacen, Almacen, RepoAlmacen, FiltroBusquedaAlmacen> {
     private ControladorArchivosAndroid _androidFileManager;
+    private DocInventarioAlmacen _docInventarioAlmacen;
     private bool _dispositivoConectado;
 
     public PresentadorGestionAlmacenes(IVistaGestionAlmacenes vista) : base(vista) {
         _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
+        _docInventarioAlmacen = new DocInventarioAlmacen();
     }
 
     protected override PresentadorTuplaAlmacen ObtenerValoresTupla(Almacen objeto) {
@@ -27,6 +31,7 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         presentadorTupla.Vista.Direccion = objeto.Direccion;
         presentadorTupla.Vista.Notas = objeto.Notas;
         presentadorTupla.Vista.MostrarBotonExportarProductos = _dispositivoConectado;
+        presentadorTupla.Vista.ExportarDocumentoInventario += OnExportarDocumento;
         presentadorTupla.Vista.DescargarProductos += OnDescargarProductos;
 
         return presentadorTupla;
@@ -36,6 +41,10 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         _dispositivoConectado = VerificarConexionDispositivo();
 
         base.ActualizarResultadosBusqueda();
+    }
+
+    private void OnExportarDocumento(object? sender, (int id, FormatoDocumento formato) e) {
+        _docInventarioAlmacen.GenerarDocumentoConParametros(e.formato, e.id);
     }
 
     private void OnDescargarProductos(object? sender, EventArgs e) {

@@ -219,7 +219,7 @@ public class ValidadorFormulas {
         var sinOperadores = Regex.Replace(formula, @"[\d+\-*\/\s().,]", " ");
 
         // Extraer palabras (nombres de variables)
-        return sinOperadores.Split([' '], StringSplitOptions.RemoveEmptyEntries)
+        return sinOperadores.Split([" "], StringSplitOptions.RemoveEmptyEntries)
                             .Distinct()
                             .ToList();
     }
