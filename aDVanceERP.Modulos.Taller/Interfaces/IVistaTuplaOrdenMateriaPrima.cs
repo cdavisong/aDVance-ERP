@@ -3,6 +3,7 @@
 namespace aDVanceERP.Modulos.Taller.Interfaces {
     internal interface IVistaTuplaOrdenMateriaPrima : IVistaTupla {
         string IdOrdenMateriaPrima { get; set; }
+        string NombreAlmacen { get; set; }
         string NombreMateriaPrima { get; set; }
         string PrecioUnitario { get; set; }
         string Cantidad { get; set; }

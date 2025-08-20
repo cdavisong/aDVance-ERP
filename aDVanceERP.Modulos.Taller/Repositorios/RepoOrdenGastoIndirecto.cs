@@ -47,6 +47,10 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
 
         protected override string GenerarComandoEliminar(long id) {
             return $"""
+                -- Eliminar gastos dinamicos asociados si existen
+                DELETE FROM adv__orden_gasto_dinamico
+                WHERE id_orden_gasto_indirecto = {id};
+
                 DELETE FROM adv__orden_gasto_indirecto 
                 WHERE id_orden_gasto_indirecto = {id};
                 """;

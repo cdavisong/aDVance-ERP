@@ -7,7 +7,6 @@ using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Repositorios;
-using aDVanceERP.Modulos.Taller.Servicios;
 
 using System.Data;
 using System.Globalization;
@@ -255,7 +254,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             fieldCantidadGastoIndirecto.KeyDown += delegate (object? sender, KeyEventArgs args) {
                 if (args.KeyCode == Keys.Enter) {
                     args.SuppressKeyPress = true;
-                    InsertarGastoIndirectoNormal();
+                    btnAdicionarGastoIndirecto.ContextMenuStrip?.Show(btnAdicionarGastoIndirecto, new Point(
+                    btnAdicionarGastoIndirecto.Width - btnAdicionarGastoIndirecto.ContextMenuStrip.Width,
+                    45));
                 }
             };
             btnAdicionarGastoIndirecto.Click += delegate (object? sender, EventArgs args) {
@@ -392,8 +393,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
                 var stockProducto = UtilesProducto.ObtenerStockProducto(adNombre, adNombreAlmacen).Result;
                 var cantidadAcumulada = MateriasPrimas
-                    .Where(p => p[0].Equals(adNombre))
-                    .Sum(p => decimal.TryParse(p[1], NumberStyles.Any, CultureInfo.InvariantCulture, out var cant) ? cant : 0m);
+                    .Where(p => p[1].Equals(adNombre))
+                    .Sum(p => decimal.TryParse(p[2], NumberStyles.Any, CultureInfo.InvariantCulture, out var cant) ? cant : 0m);
                 var adCantidad = cantidad > 0 ? cantidad : decimal.TryParse(fieldCantidadMateriaPrima.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cant) ? cant : 0m;
                 var adCantidadTotal = adCantidad + cantidadAcumulada;
 
@@ -403,7 +404,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 }
 
                 var adPrecio = UtilesProducto.ObtenerPrecioCompra(idProducto).Result;
-                var tuplaMateriaPrimaExistente = MateriasPrimas.FirstOrDefault(p => p[0].Equals(adNombre));
+                var tuplaMateriaPrimaExistente = MateriasPrimas.FirstOrDefault(p => p[1].Equals(adNombre));
                 var tuplaMateriaPrima = tuplaMateriaPrimaExistente
                     ?? [adNombreAlmacen, adNombre, "0", adPrecio.ToString("N2", CultureInfo.InvariantCulture)];
                 tuplaMateriaPrima[2] = adCantidadTotal.ToString("N2", CultureInfo.InvariantCulture);
@@ -607,6 +608,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                 var tuplaOrdenMateriaPrima = new VistaTuplaOrdenMateriaPrima();
 
                 tuplaOrdenMateriaPrima.Habilitada = Habilitada;
+                tuplaOrdenMateriaPrima.NombreAlmacen = materiaPrima[0];
                 tuplaOrdenMateriaPrima.NombreMateriaPrima = materiaPrima[1];
                 tuplaOrdenMateriaPrima.Cantidad = materiaPrima[2];
                 tuplaOrdenMateriaPrima.PrecioUnitario = materiaPrima[3];
@@ -617,7 +619,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     if (materiaPrima == null || materiaPrima.Length < 4)
                         return;
 
-                    MateriasPrimas[MateriasPrimas.FindIndex(p => p[1].Equals(materiaPrima?[0]))] = materiaPrima;
+                    MateriasPrimas[MateriasPrimas.FindIndex(p => p[1].Equals(materiaPrima?[1]))] = materiaPrima;
 
                     ActualizarCostoTotalMateriales();
                 };
@@ -633,7 +635,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                             datosObjeto.Eliminar(materiaPrimaExistente.Id);
                     }
 
-                    MateriasPrimas.RemoveAt(MateriasPrimas.FindIndex(p => p[1].Equals(materiaPrima?[0])));
+                    MateriasPrimas.RemoveAt(MateriasPrimas.FindIndex(p => p[1].Equals(materiaPrima?[1])));
                     MateriaPrimaEliminada?.Invoke(materiaPrima, args);
                 };
 
@@ -659,7 +661,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
             fieldCostoTotalMateriales.Text = costoTotal.ToString("N2", CultureInfo.InvariantCulture);
 
-            ActualizarCostoTotalProduccion();
+            ActualizarCostoTotalGastosIndirectos();
         }
 
         private void ActualizarTuplasActividadesProduccion() {
@@ -723,7 +725,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
             fieldCostoTotalActividadesProduccion.Text = costoTotal.ToString("N2", CultureInfo.InvariantCulture);
 
-            ActualizarCostoTotalProduccion();
+
+            ActualizarCostoTotalGastosIndirectos();
         }
 
         private void ActualizarTuplasGastosIndirectos() {
@@ -731,7 +734,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
             for (int i = 0; i < GastosIndirectos.Count; i++) {
                 var gastoIndirecto = GastosIndirectos[i];
-                var tuplaOrdenGastoIndirecto = new VistaTuplaOrdenGastoIndirecto();
+                var tuplaOrdenGastoIndirecto = new VistaTuplaOrdenGastoIndirecto(gastoIndirecto.Length > 3);
 
                 tuplaOrdenGastoIndirecto.Habilitada = Habilitada;
                 tuplaOrdenGastoIndirecto.ConceptoGasto = gastoIndirecto[0];

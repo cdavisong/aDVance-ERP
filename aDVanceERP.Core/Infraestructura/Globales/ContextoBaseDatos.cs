@@ -3,71 +3,48 @@ using aDVanceERP.Core.Modelos.BD;
 
 using MySql.Data.MySqlClient;
 
+using System.Data;
+
 namespace aDVanceERP.Core.Infraestructura.Globales;
 
 public static class ContextoBaseDatos {
-    private static MySqlConnection? _conexion = null;
+    private static readonly ConfiguracionBaseDatos _configuracion = ConfiguracionBaseDatos.Default;
+    private static readonly object _lockObject = new();
 
-    static ContextoBaseDatos() {
-        EsConfiguracionCargada = false;
-        Configuracion = ConfiguracionBaseDatos.Default;
-    }
+    public static bool EsConfiguracionCargada { get; private set; }
 
-    public static bool EsConfiguracionCargada { get; set; }
+    public static ConfiguracionBaseDatos Configuracion => _configuracion;
 
-    public static ConfiguracionBaseDatos Configuracion { get; }
-
-    public static MySqlConnection Conexion {
-        get {
-            if (!EsConfiguracionCargada) {
-                throw new InvalidOperationException("La configuración de la base de datos no ha sido cargada.");
-            }
-            if (_conexion == null) {
-                _conexion = new MySqlConnection(Configuracion.ToStringConexion());
-            }
-
-            return _conexion;
-        }
-    }
-
-    public static bool AbrirConexion() {
-        if (!EsConfiguracionCargada) {
+    public static bool AbrirConexion(MySqlConnection conexion) {
+        if (!EsConfiguracionCargada)
             throw new InvalidOperationException("La configuración de la base de datos no ha sido cargada.");
-        }
-        try {
-            if (Conexion.State == System.Data.ConnectionState.Open) {
-                return true; // La conexión ya está abierta
-            } else
-                Conexion.Open();
 
+        if (conexion.State == ConnectionState.Open)
+            return true;
+
+        try {
+            conexion.Open();
             return true;
         } catch (MySqlException ex) {
             throw new InvalidOperationException("Error al abrir la conexión a la base de datos.", ex);
         }
     }
 
-    public static void CerrarConexion() {
-        if (_conexion != null && _conexion.State == System.Data.ConnectionState.Open) {
-            _conexion.Close();
+    public static void CerrarConexion(MySqlConnection conexion) {
+        if (conexion?.State == ConnectionState.Open) {
+            conexion.Close();
         }
     }
 
-    #region Métodos de ejecución de consultas en la base de datos
+    #region Métodos optimizados de ejecución de consultas
 
-    public static MySqlCommand CrearComando(string consulta) {
-        if (!EsConfiguracionCargada) {
-            throw new InvalidOperationException("La configuración de la base de datos no ha sido cargada.");
-        }
+    public static MySqlCommand CrearComando(string consulta, Dictionary<string, object>? parametros = null) {
+        ValidarConfiguracionCargada();
 
-        AbrirConexion();
+        var conexion = new MySqlConnection(_configuracion.ToStringConexion());
+        AbrirConexion(conexion);
 
-        var comando = new MySqlCommand(consulta, Conexion);
-
-        return comando;
-    }
-
-    public static MySqlCommand CrearComando(string consulta, Dictionary<string, object>? parametros) {
-        var comando = CrearComando(consulta);
+        var comando = new MySqlCommand(consulta, conexion);
 
         if (parametros != null) {
             foreach (var parametro in parametros) {
@@ -79,62 +56,87 @@ public static class ContextoBaseDatos {
     }
 
     public static IEnumerable<T> EjecutarConsulta<T>(string consulta, Dictionary<string, object>? parametros, Func<MySqlDataReader, T> mapeador) {
-        if (!EsConfiguracionCargada) {
-            throw new InvalidOperationException("La configuración de la base de datos no ha sido cargada.");
-        }
+        ValidarConfiguracionCargada();
 
         using var comando = CrearComando(consulta, parametros);
         using var lectorDatos = comando.ExecuteReader();
 
-        var resultados = new List<T>();
-
-        while (lectorDatos.Read())
+        while (lectorDatos.Read()) {
             yield return mapeador(lectorDatos);
+        }
 
-        CerrarConexion();
+        CerrarConexion(comando.Connection);
     }
 
-    public static T EjecutarConsultaEscalar<T>(string consulta, Dictionary<string, object>? parametros = null, Func<MySqlDataReader, T>? mapeador = null) {
-        if (!EsConfiguracionCargada) {
-            throw new InvalidOperationException("La configuración de la base de datos no ha sido cargada.");
+    public static async IAsyncEnumerable<T> EjecutarConsultaAsync<T>(string consulta, Dictionary<string, object>? parametros, Func<MySqlDataReader, T> mapeador) {
+        ValidarConfiguracionCargada();
+
+        using var comando = CrearComando(consulta, parametros);
+        using var lectorDatos = await comando.ExecuteReaderAsync();
+
+        while (await lectorDatos.ReadAsync()) {
+            yield return mapeador((MySqlDataReader) lectorDatos);
         }
+
+        CerrarConexion(comando.Connection);
+    }
+
+    public static T? EjecutarConsultaEscalar<T>(string consulta, Dictionary<string, object>? parametros = null) {
+        ValidarConfiguracionCargada();
 
         using var comando = CrearComando(consulta, parametros);
         var resultado = comando.ExecuteScalar();
 
-        if (resultado == null || resultado == DBNull.Value) {
-            return default!;
-        }
+        CerrarConexion(comando.Connection);
 
-        if (mapeador != null && resultado is MySqlDataReader lectorDatos) {
-            return mapeador(lectorDatos);
-        }
-
-        CerrarConexion();
-
-        return (T) Convert.ChangeType(resultado, typeof(T));
+        return resultado == null || resultado == DBNull.Value
+            ? default
+            : (T) Convert.ChangeType(resultado, typeof(T));
     }
 
-    public static void EjecutarComandoNoQuery(string consulta, Dictionary<string, object>? parametros, MySqlTransaction? transaccion = null) {
-        if (!EsConfiguracionCargada) {
-            throw new InvalidOperationException("La configuración de la base de datos no ha sido cargada.");
-        }
+    public static async Task<T?> EjecutarConsultaEscalarAsync<T>(string consulta, Dictionary<string, object>? parametros = null) {
+        ValidarConfiguracionCargada();
+
+        using var comando = CrearComando(consulta, parametros);
+        var resultado = await comando.ExecuteScalarAsync();
+
+        CerrarConexion(comando.Connection);
+
+        return resultado == null || resultado == DBNull.Value
+            ? default
+            : (T) Convert.ChangeType(resultado, typeof(T));
+    }
+
+    public static int EjecutarComandoNoQuery(string consulta, Dictionary<string, object>? parametros, MySqlTransaction? transaccion = null) {
+        ValidarConfiguracionCargada();
 
         using var comando = CrearComando(consulta, parametros);
 
         if (transaccion != null)
             comando.Transaction = transaccion;
 
-        comando.ExecuteNonQuery();
+        var filasAfectadas = comando.ExecuteNonQuery();
+        CerrarConexion(comando.Connection);
 
-        if (transaccion == null)
-            CerrarConexion();
+        return filasAfectadas;
+    }
+
+    public static async Task<int> EjecutarComandoNoQueryAsync(string consulta, Dictionary<string, object>? parametros, MySqlTransaction? transaccion = null) {
+        ValidarConfiguracionCargada();
+
+        using var comando = CrearComando(consulta, parametros);
+
+        if (transaccion != null)
+            comando.Transaction = transaccion;
+
+        var filasAfectadas = await comando.ExecuteNonQueryAsync();
+        CerrarConexion(comando.Connection);
+
+        return filasAfectadas;
     }
 
     public static long EjecutarComandoInsert(string consulta, Dictionary<string, object> parametros, MySqlTransaction? transaccion = null) {
-        if (!EsConfiguracionCargada) {
-            throw new InvalidOperationException("La configuración de la base de datos no ha sido cargada.");
-        }
+        ValidarConfiguracionCargada();
 
         using var comando = CrearComando(consulta, parametros);
 
@@ -142,11 +144,25 @@ public static class ContextoBaseDatos {
             comando.Transaction = transaccion;
 
         comando.ExecuteNonQuery();
-
         var idInsertado = comando.LastInsertedId;
 
-        if (transaccion == null)
-            CerrarConexion();
+        CerrarConexion(comando.Connection);
+
+        return idInsertado;
+    }
+
+    public static async Task<long> EjecutarComandoInsertAsync(string consulta, Dictionary<string, object> parametros, MySqlTransaction? transaccion = null) {
+        ValidarConfiguracionCargada();
+
+        using var comando = CrearComando(consulta, parametros);
+
+        if (transaccion != null)
+            comando.Transaction = transaccion;
+
+        await comando.ExecuteNonQueryAsync();
+        var idInsertado = comando.LastInsertedId;
+
+        CerrarConexion(comando.Connection);
 
         return idInsertado;
     }
@@ -154,26 +170,44 @@ public static class ContextoBaseDatos {
     #endregion
 
     public static void ActualizarConfiguracion(ConfiguracionBaseDatos configuracion) {
-        if (configuracion == null) {
+        if (configuracion == null)
             throw new ArgumentNullException(nameof(configuracion), "La configuración de la base de datos no puede ser nula.");
+
+        lock (_lockObject) {
+            _configuracion.Servidor = configuracion.Servidor;
+            _configuracion.BaseDatos = configuracion.BaseDatos;
+            _configuracion.Usuario = configuracion.Usuario;
+            _configuracion.Password = configuracion.Password;
+            _configuracion.RecordarConfiguracion = configuracion.RecordarConfiguracion;
+
+            // Validar la nueva configuración
+            ValidarConexion();
+
+            EsConfiguracionCargada = true;
         }
+    }
 
-        Configuracion.Servidor = configuracion.Servidor;
-        Configuracion.BaseDatos = configuracion.BaseDatos;
-        Configuracion.Usuario = configuracion.Usuario;
-        Configuracion.Password = configuracion.Password;
-        Configuracion.RecordarConfiguracion = configuracion.RecordarConfiguracion;
+    private static void ValidarConfiguracionCargada() {
+        if (!EsConfiguracionCargada)
+            throw new InvalidOperationException("La configuración de la base de datos no ha sido cargada.");
+    }
 
-        // Crear una nueva conexión para verificar que la configuración es válida:
-        using (var connection = new MySqlConnection(Configuracion.ToStringConexion())) {
-            try {
-                connection.Open();
-                // Si la conexión se abre correctamente, la configuración es válida.
-            } catch (MySqlException ex) {
-                throw new InvalidOperationException("Error al conectar a la base de datos con la nueva configuración.", ex);
-            }
+    private static void ValidarConexion() {
+        using var connection = new MySqlConnection(_configuracion.ToStringConexion());
+        try {
+            connection.Open();
+        } catch (MySqlException ex) {
+            throw new InvalidOperationException("Error al conectar a la base de datos con la nueva configuración.", ex);
         }
+    }
 
-        EsConfiguracionCargada = true;
+    // Método para obtener una conexión reutilizable (opcional, para transacciones)
+    public static MySqlConnection ObtenerConexion() {
+        ValidarConfiguracionCargada();
+
+        var conexion = new MySqlConnection(_configuracion.ToStringConexion());
+        AbrirConexion(conexion);
+
+        return conexion;
     }
 }

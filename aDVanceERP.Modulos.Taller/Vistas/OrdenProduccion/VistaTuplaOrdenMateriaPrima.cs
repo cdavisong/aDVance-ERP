@@ -33,6 +33,8 @@ public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateria
 
     public string IdOrdenMateriaPrima { get; set; }
 
+    public string NombreAlmacen { get; set; }
+
     public string NombreMateriaPrima {
         get => fieldNombreProducto.Text;
         set {
@@ -78,7 +80,7 @@ public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateria
         fieldCantidad.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
         btnEliminar.Click += delegate(object? sender, EventArgs e) {
-            EliminarDatosTupla?.Invoke(new[] { NombreMateriaPrima, Cantidad, PrecioUnitario }, e);
+            EliminarDatosTupla?.Invoke(new[] { NombreAlmacen, NombreMateriaPrima, Cantidad, PrecioUnitario }, e);
         };
     }
 
@@ -104,7 +106,7 @@ public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateria
             return;
 
         PrecioUnitario = monto.ToString("N2", CultureInfo.InvariantCulture);
-        PrecioUnitarioModificado?.Invoke(new[] { NombreMateriaPrima, Cantidad, PrecioUnitario },
+        PrecioUnitarioModificado?.Invoke(new[] { NombreAlmacen, NombreMateriaPrima, Cantidad, PrecioUnitario },
             EventArgs.Empty); // Dispara el evento para notificar que se ha modificado el monto
     }
 }

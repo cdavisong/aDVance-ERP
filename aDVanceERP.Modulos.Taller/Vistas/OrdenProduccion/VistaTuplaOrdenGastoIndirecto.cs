@@ -7,9 +7,12 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 public partial class VistaTuplaOrdenGastoIndirecto : Form, IVistaTuplaOrdenGastoIndirecto {
     private bool _habilitada = true;
 
-    public VistaTuplaOrdenGastoIndirecto() {
+    public VistaTuplaOrdenGastoIndirecto(bool gastoDinamico = false) {
         InitializeComponent();
         Inicializar();
+
+        // Habilitar segun el tipo de gasto
+        fieldMonto.Enabled = !gastoDinamico;
     }
 
     public bool Habilitada {

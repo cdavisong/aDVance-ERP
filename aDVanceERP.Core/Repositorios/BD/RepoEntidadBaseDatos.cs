@@ -29,7 +29,7 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
             { "@id", id }
         };
 
-        return ContextoBaseDatos.EjecutarConsultaEscalar(consulta, parametros, MapearEntidad);
+        return (En?) ContextoBaseDatos.EjecutarConsulta(consulta, parametros, MapearEntidad);
     }
 
     public IEnumerable<En> ObtenerTodos() {
