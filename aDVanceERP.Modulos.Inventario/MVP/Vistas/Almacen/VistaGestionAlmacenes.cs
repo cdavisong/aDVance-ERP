@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
+﻿using aDVanceERP.Core.Documentos.Interfaces;
+using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
@@ -7,6 +8,7 @@ using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 
@@ -75,6 +77,8 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
 
     public bool DispositivoConectado { get; private set; }
 
+    public event EventHandler<FormatoDocumento>? ExportarDocumentoInventario;
+
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
     public event EventHandler? MostrarPaginaAnterior;
@@ -111,6 +115,11 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
             Ocultar();
         };
+        btnExportarInventarioAlmacenes.Click += delegate {
+            btnExportarInventarioAlmacenes.ContextMenuStrip?.Show(btnExportarInventarioAlmacenes, new Point(0, 40));
+        };
+        btnExportarPdf.Click += delegate { ExportarDocumentoInventario?.Invoke(this, FormatoDocumento.PDF); };
+        btnExportarXlsx.Click += delegate { ExportarDocumentoInventario?.Invoke(this,FormatoDocumento.Excel); };
         btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
         btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = 1;

@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.Utiles;
-using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
+
 using System.Globalization;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento; 
@@ -44,8 +44,8 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
     }
 
     public DateTime Fecha {
-        get => DateTime.Now;
-        set { }
+        get => fieldFecha.Value;
+        set => fieldFecha.Value = value;
     }
 
     public decimal CantidadMovida {
@@ -61,9 +61,12 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
     public bool ModoEdicionDatos {
         get => _modoEdicion;
         set {
-            fieldSubtitulo.Text = value
-                ? $"Visualización del registro con fecha {Fecha:yyyy-MM-dd}"
-                : $"Registro con fecha {Fecha:yyyy-MM-dd}";
+            fieldSubtitulo.Text = value 
+                ? "Detalles y actualización" 
+                : "Registro";
+            btnRegistrar.Text = value 
+                ? "Actualizar movimiento" 
+                : "Registrar movimiento";
             fieldNombreProducto.ReadOnly = value;
             fieldTipoMovimiento.Enabled = !value;
             btnAdicionarTipoMovimiento.Enabled = !value;
@@ -71,7 +74,6 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
             fieldNombreAlmacenOrigen.Enabled = !value;
             fieldNombreAlmacenDestino.Enabled = !value;
             fieldCantidadMovida.ReadOnly = value;
-            btnRegistrar.Visible = !value;
             _modoEdicion = value;
         }
     }

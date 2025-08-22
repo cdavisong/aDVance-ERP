@@ -147,9 +147,6 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
 
             ActualizarMontoInversion();
         };
-        btnExportarInventarioAlmacenes.Click += delegate {
-            UtilesReportes.GenerarReporteInventarioAlmacenes();
-        };
         btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = 1;
             MostrarPrimeraPagina?.Invoke(sender, e);

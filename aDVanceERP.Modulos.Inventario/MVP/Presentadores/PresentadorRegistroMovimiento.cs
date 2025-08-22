@@ -58,7 +58,6 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
             }
         }
 
-        var fechaOk = Vista.Fecha >= DateTime.Today;
         var cantidadOk = Vista.CantidadMovida > 0;
 
         if (efectoMovimiento.Equals("Descarga") || efectoMovimiento.Equals("Transferencia")) {
@@ -78,13 +77,11 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
             CentroNotificaciones.Mostrar("Debe especificar un tipo de movimiento válido para el movimiento de productos, por favor, corrija los datos entrados", TipoNotificacion.Advertencia);
         if (!noCompraventaOk)
             CentroNotificaciones.Mostrar("Las operaciones de compraventa no están permitidas directamente desde la sección de movimientos de inventario. Para registrar compras o ventas diríjase al módulo correspondiente", TipoNotificacion.Advertencia);
-        if (!fechaOk)
-            CentroNotificaciones.Mostrar("No se puede registrar un movimiento con una fecha inferior a la fecha del día de hoy", TipoNotificacion.Advertencia);
         if (!cantidadOk)
             CentroNotificaciones.Mostrar("La cantidad de productos a mover en una operación de carga, descarga o transferencia debe ser mayor que 0, corrija los datos entrados", TipoNotificacion.Advertencia);
 
 
-        return nombreProductoOk && tipoMovimientoOk && noCompraventaOk && fechaOk && cantidadOk;
+        return nombreProductoOk && tipoMovimientoOk && noCompraventaOk && cantidadOk;
     }
 
     protected override void RegistroAuxiliar(RepoMovimiento datosMovimiento, long id) {

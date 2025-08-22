@@ -21,6 +21,8 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
     public PresentadorGestionAlmacenes(IVistaGestionAlmacenes vista) : base(vista) {
         _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
         _docInventarioAlmacen = new DocInventarioAlmacen();
+
+        vista.ExportarDocumentoInventario += OnExportarDocumentoInventarioAlmacenes;
     }
 
     protected override PresentadorTuplaAlmacen ObtenerValoresTupla(Almacen objeto) {
@@ -31,7 +33,7 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         presentadorTupla.Vista.Direccion = objeto.Direccion;
         presentadorTupla.Vista.Notas = objeto.Notas;
         presentadorTupla.Vista.MostrarBotonExportarProductos = _dispositivoConectado;
-        presentadorTupla.Vista.ExportarDocumentoInventario += OnExportarDocumento;
+        presentadorTupla.Vista.ExportarDocumentoInventario += OnExportarDocumentoInventarioAlmacen;
         presentadorTupla.Vista.DescargarProductos += OnDescargarProductos;
 
         return presentadorTupla;
@@ -43,8 +45,12 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         base.ActualizarResultadosBusqueda();
     }
 
-    private void OnExportarDocumento(object? sender, (int id, FormatoDocumento formato) e) {
+    private void OnExportarDocumentoInventarioAlmacen(object? sender, (int id, FormatoDocumento formato) e) {
         _docInventarioAlmacen.GenerarDocumentoConParametros(e.formato, e.id);
+    }
+
+    private void OnExportarDocumentoInventarioAlmacenes(object? sender, FormatoDocumento e) {
+        _docInventarioAlmacen.GenerarDocumento(true, e);
     }
 
     private void OnDescargarProductos(object? sender, EventArgs e) {
