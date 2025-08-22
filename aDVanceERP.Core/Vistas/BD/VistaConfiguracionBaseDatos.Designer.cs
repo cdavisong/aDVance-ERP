@@ -88,7 +88,7 @@ namespace aDVanceERP.Core.Vistas.BD {
             // 
             // layoutVista
             // 
-            layoutVista.BackColor = Color.FromArgb(  250,   250,   250);
+            layoutVista.BackColor = Color.FromArgb(250, 250, 250);
             layoutVista.ColumnCount = 3;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -172,7 +172,7 @@ namespace aDVanceERP.Core.Vistas.BD {
             fieldDireccionServidor.Font = new Font("Segoe UI", 11.25F);
             fieldDireccionServidor.ForeColor = Color.Black;
             fieldDireccionServidor.HoverState.BorderColor = Color.SandyBrown;
-            fieldDireccionServidor.IconLeft = (Image) resources.GetObject("fieldDireccionServidor.IconLeft");
+            fieldDireccionServidor.IconLeft = (Image)resources.GetObject("fieldDireccionServidor.IconLeft");
             fieldDireccionServidor.IconLeftOffset = new Point(10, 0);
             fieldDireccionServidor.Location = new Point(25, 225);
             fieldDireccionServidor.Margin = new Padding(5);
@@ -203,7 +203,7 @@ namespace aDVanceERP.Core.Vistas.BD {
             fieldNombreBd.Font = new Font("Segoe UI", 11.25F);
             fieldNombreBd.ForeColor = Color.Black;
             fieldNombreBd.HoverState.BorderColor = Color.SandyBrown;
-            fieldNombreBd.IconLeft = (Image) resources.GetObject("fieldNombreBd.IconLeft");
+            fieldNombreBd.IconLeft = (Image)resources.GetObject("fieldNombreBd.IconLeft");
             fieldNombreBd.IconLeftOffset = new Point(10, 0);
             fieldNombreBd.IconRightOffset = new Point(10, 0);
             fieldNombreBd.Location = new Point(25, 280);
@@ -343,13 +343,13 @@ namespace aDVanceERP.Core.Vistas.BD {
             fieldNombreUsuario.Font = new Font("Segoe UI", 11.25F);
             fieldNombreUsuario.ForeColor = Color.Black;
             fieldNombreUsuario.HoverState.BorderColor = Color.SandyBrown;
-            fieldNombreUsuario.IconLeft = (Image) resources.GetObject("fieldNombreUsuario.IconLeft");
+            fieldNombreUsuario.IconLeft = (Image)resources.GetObject("fieldNombreUsuario.IconLeft");
             fieldNombreUsuario.IconLeftOffset = new Point(10, 0);
             fieldNombreUsuario.IconRightOffset = new Point(10, 0);
             fieldNombreUsuario.Location = new Point(25, 335);
             fieldNombreUsuario.Margin = new Padding(5);
             fieldNombreUsuario.Name = "fieldNombreUsuario";
-            fieldNombreUsuario.PasswordChar = '●';
+            fieldNombreUsuario.PasswordChar = '\0';
             fieldNombreUsuario.PlaceholderForeColor = Color.DimGray;
             fieldNombreUsuario.PlaceholderText = "Nombre de usuario";
             fieldNombreUsuario.SelectedText = "";
@@ -357,7 +357,6 @@ namespace aDVanceERP.Core.Vistas.BD {
             fieldNombreUsuario.Size = new Size(448, 35);
             fieldNombreUsuario.TabIndex = 26;
             fieldNombreUsuario.TextOffset = new Point(5, 0);
-            fieldNombreUsuario.UseSystemPasswordChar = true;
             // 
             // fieldPassword
             // 
@@ -376,7 +375,7 @@ namespace aDVanceERP.Core.Vistas.BD {
             fieldPassword.Font = new Font("Segoe UI", 11.25F);
             fieldPassword.ForeColor = Color.Black;
             fieldPassword.HoverState.BorderColor = Color.SandyBrown;
-            fieldPassword.IconLeft = (Image) resources.GetObject("fieldPassword.IconLeft");
+            fieldPassword.IconLeft = (Image)resources.GetObject("fieldPassword.IconLeft");
             fieldPassword.IconLeftOffset = new Point(10, 0);
             fieldPassword.IconRight = Properties.Resources.closed_eye_20px;
             fieldPassword.IconRightOffset = new Point(10, 0);
@@ -406,7 +405,7 @@ namespace aDVanceERP.Core.Vistas.BD {
             infoIcon.TargetControl = layoutHelp;
             infoIcon.Text = "i";
             // 
-            // VistaConfServidorMySQL
+            // VistaConfiguracionBaseDatos
             // 
             AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(500, 685);
@@ -414,7 +413,7 @@ namespace aDVanceERP.Core.Vistas.BD {
             Font = new Font("Segoe UI", 10.8F);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 5, 4, 5);
-            Name = "VistaConfServidorMySQL";
+            Name = "VistaConfiguracionBaseDatos";
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.Manual;

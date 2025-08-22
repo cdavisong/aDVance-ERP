@@ -62,10 +62,10 @@ public partial class VistaConfiguracionBaseDatos : Form, IVistaConfServidorMySQL
 
     public void Inicializar() {
         // Conectar eventos
-        fieldNombreBd.IconRightClick += delegate {
-            fieldNombreBd.UseSystemPasswordChar = !fieldNombreBd.UseSystemPasswordChar;
-            fieldNombreBd.PasswordChar = fieldNombreBd.UseSystemPasswordChar ? '●' : char.MinValue;
-            fieldNombreBd.IconRight = fieldNombreBd.UseSystemPasswordChar ? Resources.closed_eye_20px : Resources.eye_20px;
+        fieldPassword.IconRightClick += delegate {
+            fieldPassword.UseSystemPasswordChar = !fieldPassword.UseSystemPasswordChar;
+            fieldPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
+            fieldPassword.IconRight = fieldPassword.UseSystemPasswordChar ? Resources.closed_eye_20px : Resources.eye_20px;
         };
         btnValidarConexion.Click += delegate(object? sender, EventArgs e) {
             AlmacenarConfiguracion?.Invoke(sender,
