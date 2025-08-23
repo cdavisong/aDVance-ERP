@@ -14,7 +14,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
         public override void PopularVistaDesdeObjeto(Modelos.OrdenProduccion entidad) {
             Vista.ModoEdicionDatos = true;
             Vista.Id = entidad.Id;
-            Vista.NombreProductoTerminado = UtilesProducto.ObtenerNombreProducto(entidad.IdProducto).Result ?? string.Empty;
+            Vista.NombreProductoTerminado = entidad.NombreProducto ?? string.Empty;
             Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacen) ?? string.Empty;
             Vista.NumeroOrden = entidad.NumeroOrden;
             Vista.FechaApertura = entidad.FechaApertura;
@@ -70,12 +70,12 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             Entidad = entidad;
         }
 
-        protected override void RegistroAuxiliar(RepoOrdenProduccion datosObjeto, long id) {
+        protected override void RegistroAuxiliar(RepoOrdenProduccion repoEntidad, long id) {
             RegistrarEditarMateriasPrimasOrden(id);
             RegistrarEditarActividadesProduccionOrden(id);
             RegistrarEditarGastosIndirectos(id);
 
-            base.RegistroAuxiliar(datosObjeto, id);
+            base.RegistroAuxiliar(repoEntidad, id);
         }
 
         public void RegistrarEditarMateriasPrimasOrden(long idOrdenProduccion) {
@@ -176,7 +176,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                 Vista.FechaApertura,
                 DateTime.MinValue,
                 UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
-                UtilesProducto.ObtenerIdProducto(Vista.NombreProductoTerminado).Result,
+                Vista.NombreProductoTerminado,
                 Vista.Cantidad,
                 EstadoOrdenProduccion.Abierta,
                 Vista.Observaciones,

@@ -74,7 +74,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
                         long.Parse(tupla.Vista.Id),
                         tupla.Vista.Nombre,
                         !tupla.Vista.Activo,
-                        tupla.Objeto.IdContacto
+                        tupla.Entidad.IdContacto
                     );
 
                 // 3. Actualizar el mensajero 1 vez por tupla

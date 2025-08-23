@@ -20,18 +20,18 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
 
         public event EventHandler<Modelos.OrdenProduccion> OrdenProduccionCerrada;
 
-        protected override PresentadortuplaOrdenProduccion ObtenerValoresTupla(Modelos.OrdenProduccion objeto) {
-            var presentadorTupla = new PresentadortuplaOrdenProduccion(new VistaTuplaOrdenProduccion(), objeto);
+        protected override PresentadortuplaOrdenProduccion ObtenerValoresTupla(Modelos.OrdenProduccion entidad) {
+            var presentadorTupla = new PresentadortuplaOrdenProduccion(new VistaTuplaOrdenProduccion(), entidad);
 
-            presentadorTupla.Vista.Id = objeto.Id.ToString();
-            presentadorTupla.Vista.NumeroOrden = objeto.NumeroOrden;
-            presentadorTupla.Vista.FechaApertura = objeto.FechaApertura.ToString("yyyy-MM-dd");
-            presentadorTupla.Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
-            presentadorTupla.Vista.TotalUnidadesProducidas = objeto.Cantidad.ToString(CultureInfo.InvariantCulture);
-            presentadorTupla.Vista.CostoTotal = objeto.CostoTotal.ToString("N2", CultureInfo.InvariantCulture);
-            presentadorTupla.Vista.PrecioUnitario = objeto.PrecioUnitario.ToString("N2", CultureInfo.InvariantCulture);
-            presentadorTupla.Vista.Estado = (int) objeto.Estado;
-            presentadorTupla.Vista.FechaCierre = objeto.FechaCierre.HasValue ? !objeto.FechaCierre.Equals(DateTime.MinValue) ? objeto.FechaCierre.Value.ToString("yyyy-MM-dd") : "-" : "-";
+            presentadorTupla.Vista.Id = entidad.Id.ToString();
+            presentadorTupla.Vista.NumeroOrden = entidad.NumeroOrden;
+            presentadorTupla.Vista.FechaApertura = entidad.FechaApertura.ToString("yyyy-MM-dd");
+            presentadorTupla.Vista.NombreProducto = entidad.NombreProducto;
+            presentadorTupla.Vista.TotalUnidadesProducidas = entidad.Cantidad.ToString(CultureInfo.InvariantCulture);
+            presentadorTupla.Vista.CostoTotal = entidad.CostoTotal.ToString("N2", CultureInfo.InvariantCulture);
+            presentadorTupla.Vista.PrecioUnitario = entidad.PrecioUnitario.ToString("N2", CultureInfo.InvariantCulture);
+            presentadorTupla.Vista.Estado = (int) entidad.Estado;
+            presentadorTupla.Vista.FechaCierre = entidad.FechaCierre.HasValue ? !entidad.FechaCierre.Equals(DateTime.MinValue) ? entidad.FechaCierre.Value.ToString("yyyy-MM-dd") : "-" : "-";
             presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnCierreOrdenProduccion;
             presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnCierreOrdenProduccion;
 
@@ -42,43 +42,14 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
                 foreach (var tupla in _tuplasEntidades) {
                     if (tupla.TuplaSeleccionada) {
-                        tupla.Objeto.Estado = EstadoOrdenProduccion.Cerrada;
-                        tupla.Objeto.FechaCierre = DateTime.Now;
+                        tupla.Entidad.Estado = EstadoOrdenProduccion.Cerrada;
+                        tupla.Entidad.FechaCierre = DateTime.Now;
 
                         // Editar la orden de producción
-                        RepositorioEntidad.Editar(tupla.Objeto);
-
-                        // Actualizar el costo unitario de producción en el producto correspondiente
-                        UtilesProducto.ActualizarCostoProduccionUnitario(tupla.Objeto.IdProducto, tupla.Objeto.PrecioUnitario);
-
-                        // Disminuir el cantidad de materiales utilizados en la orden de producción
-                        using (var datosObjeto = new RepoOrdenMateriaPrima()) {
-                            var materiasPrimas = datosObjeto.Buscar(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, tupla.Objeto.Id.ToString()).resultados;
-
-                            if (materiasPrimas != null) {
-                                foreach (var materiaPrima in materiasPrimas) {
-                                    UtilesMovimiento.ModificarInventario(
-                                        materiaPrima.IdProducto,
-                                        materiaPrima.IdAlmacen,
-                                        0,
-                                        materiaPrima.Cantidad,
-                                        UtilesProducto.ObtenerCostoUnitario(materiaPrima.IdProducto).Result
-                                    );
-                                }
-                            }
-                        }
-
-                        // Aumentar el cantidad del producto terminado en el almacén seleccionado
-                        UtilesMovimiento.ModificarInventario(
-                            tupla.Objeto.IdProducto,
-                            0,
-                            tupla.Objeto.IdAlmacen,
-                            tupla.Objeto.Cantidad,
-                            UtilesProducto.ObtenerCostoUnitario(tupla.Objeto.IdProducto).Result
-                        );
+                        RepositorioEntidad.Editar(tupla.Entidad);
 
                         // Invocar evento de cierre para la orden de produccion y registrar los movimientos correspondientes
-                        OrdenProduccionCerrada?.Invoke(this, tupla.Objeto);
+                        OrdenProduccionCerrada?.Invoke(this, tupla.Entidad);
 
                         break;
                     }
@@ -101,7 +72,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
                 foreach (var tupla in _tuplasEntidades) {
                     if (tupla.TuplaSeleccionada) {
-                        var ordenProduccion = tupla.Objeto;
+                        var ordenProduccion = tupla.Entidad;
 
                         if (ordenProduccion != null && ordenProduccion.Estado != EstadoOrdenProduccion.Cerrada) {
                             Vista.HabilitarBtnCierreOrdenProduccion = true;

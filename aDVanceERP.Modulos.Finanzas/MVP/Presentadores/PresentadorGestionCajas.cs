@@ -46,11 +46,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
         private void CerrarCajaSeleccionada(object? sender, EventArgs e) {
             foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
-                    tupla.Objeto.FechaCierre = DateTime.Now;
-                    tupla.Objeto.Estado = EstadoCaja.Cerrada;
+                    tupla.Entidad.FechaCierre = DateTime.Now;
+                    tupla.Entidad.Estado = EstadoCaja.Cerrada;
 
                     // Editar la venta del producto
-                    RepositorioEntidad.Editar(tupla.Objeto);
+                    RepositorioEntidad.Editar(tupla.Entidad);
 
                     break;
                 }
@@ -63,8 +63,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             var tuplaSeleccionada = _tuplasEntidades.Where(t => t.TuplaSeleccionada).FirstOrDefault();
 
             // 2. Actualizar la visibilidad de botones            
-            Vista.HabilitarBtnCierreCaja = tuplaSeleccionada != null && tuplaSeleccionada.Objeto.Estado == EstadoCaja.Abierta;
-            Vista.HabilitarBtnRegistroMovimientoCaja = tuplaSeleccionada != null && tuplaSeleccionada.Objeto.Estado == EstadoCaja.Abierta;
+            Vista.HabilitarBtnCierreCaja = tuplaSeleccionada != null && tuplaSeleccionada.Entidad.Estado == EstadoCaja.Abierta;
+            Vista.HabilitarBtnRegistroMovimientoCaja = tuplaSeleccionada != null && tuplaSeleccionada.Entidad.Estado == EstadoCaja.Abierta;
         }
     }
 }

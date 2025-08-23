@@ -11,7 +11,7 @@ public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresen
     private bool disposedValue;
 
     protected PresentadorTuplaBase(Vt vista, O objeto) : base(vista) {
-        Objeto = objeto ?? throw new ArgumentNullException(nameof(objeto));
+        Entidad = objeto ?? throw new ArgumentNullException(nameof(objeto));
 
         // Suscribir a eventos de la vista
         Vista.TuplaSeleccionada += OnTuplaSeleccionada;
@@ -33,7 +33,7 @@ public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresen
         }
     }
 
-    public O Objeto { get; private set; }
+    public O Entidad { get; private set; }
 
     public event EventHandler? ObjetoSeleccionado;
     public event EventHandler? ObjetoDeseleccionado;
@@ -45,11 +45,11 @@ public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresen
     }
 
     private void OnEditarDatosTupla(object? sender, EventArgs e) {
-        EditarObjeto?.Invoke(Objeto, e);
+        EditarObjeto?.Invoke(Entidad, e);
     }
 
     private void OnEliminarDatosTupla(object? sender, EventArgs e) {
-        EliminarObjeto?.Invoke(Objeto, e);
+        EliminarObjeto?.Invoke(Entidad, e);
     }
 
     protected virtual void Dispose(bool disposing) {

@@ -35,11 +35,11 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
 
         foreach (var tupla in _tuplasEntidades)
             if (tupla.TuplaSeleccionada) {
-                if (tupla.Objeto.IdRolUsuario != 0) {
-                    tupla.Objeto.Aprobado = true;
+                if (tupla.Entidad.IdRolUsuario != 0) {
+                    tupla.Entidad.Aprobado = true;
 
                     // Editar la cuenta de usuario
-                    RepositorioEntidad.Editar(tupla.Objeto);
+                    RepositorioEntidad.Editar(tupla.Entidad);
                 }
                 else {
                     usuariosRol0++;
@@ -68,7 +68,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
         if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
             foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
-                    if (!tupla.Objeto.Aprobado) {
+                    if (!tupla.Entidad.Aprobado) {
                         Vista.HabilitarBtnAprobacionSolicitudCuenta = true;
                     }
                     else {

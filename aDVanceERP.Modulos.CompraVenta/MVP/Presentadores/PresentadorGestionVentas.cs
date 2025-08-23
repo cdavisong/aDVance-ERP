@@ -58,10 +58,10 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
     private void OnConfirmarEntregaAriculos(object? sender, EventArgs e) {
         foreach (var tupla in _tuplasEntidades)
             if (tupla.TuplaSeleccionada) {
-                tupla.Objeto.EstadoEntrega = "Completada";
+                tupla.Entidad.EstadoEntrega = "Completada";
 
                 // Editar la venta del producto
-                RepositorioEntidad.Editar(tupla.Objeto);
+                RepositorioEntidad.Editar(tupla.Entidad);
 
                 // Actualizar el seguimiento de entrega
                 using (var datosSeguimiento = new RepoSeguimientoEntrega()) {
@@ -85,7 +85,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
             foreach (var tupla in _tuplasEntidades)
                 if (tupla.TuplaSeleccionada) {
-                    if (!tupla.Objeto.EstadoEntrega.Equals("Completada")) {
+                    if (!tupla.Entidad.EstadoEntrega.Equals("Completada")) {
                         Vista.HabilitarBtnConfirmarEntrega = true;
                     }
                     else {

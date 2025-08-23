@@ -15,7 +15,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                     numero_orden,
                     fecha_apertura,
                     id_almacen,
-                    id_producto,
+                    nombre_producto,
                     cantidad,
                     estado,
                     observaciones,
@@ -27,7 +27,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                     '{objeto.NumeroOrden}',
                     '{objeto.FechaApertura.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}',
                     {objeto.IdAlmacen},
-                    {objeto.IdProducto},
+                    '{objeto.NombreProducto}',
                     {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     '{objeto.Estado}',
                     '{objeto.Observaciones?.Replace("'", "''") ?? string.Empty}',
@@ -45,7 +45,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                     numero_orden = '{objeto.NumeroOrden}',
                     fecha_apertura = '{objeto.FechaApertura.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)}',
                     id_almacen = {objeto.IdAlmacen},
-                    id_producto = {objeto.IdProducto},
+                    nombre_producto = '{objeto.NombreProducto}',
                     cantidad = {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
                     estado = '{objeto.Estado}',
                     observaciones = '{objeto.Observaciones?.Replace("'", "''") ?? string.Empty}',
@@ -76,7 +76,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 FiltroBusquedaOrdenProduccion.NumeroOrden =>
                     $"SELECT * FROM adv__orden_produccion WHERE numero_orden LIKE '%{dato}%';",
                 FiltroBusquedaOrdenProduccion.Producto =>
-                    $"SELECT * FROM adv__orden_produccion WHERE id_producto = {dato};",
+                    $"SELECT * FROM adv__orden_produccion WHERE nombre_producto = {dato};",
                 FiltroBusquedaOrdenProduccion.Estado =>
                     $"SELECT * FROM adv__orden_produccion WHERE estado = '{dato}';",
                 FiltroBusquedaOrdenProduccion.FechaApertura =>
@@ -95,7 +95,7 @@ namespace aDVanceERP.Modulos.Taller.Repositorios
                 FechaCierre = lectorDatos.IsDBNull(lectorDatos.GetOrdinal("fecha_cierre")) ?
                     null : lectorDatos.GetDateTime("fecha_cierre"),
                 IdAlmacen = lectorDatos.GetInt64("id_almacen"),
-                IdProducto = lectorDatos.GetInt64("id_producto"),
+                NombreProducto = lectorDatos.GetString("nombre_producto") ?? string.Empty,
                 Cantidad = lectorDatos.GetDecimal("cantidad"),
                 Estado = (EstadoOrdenProduccion) Enum.Parse(
                     typeof(EstadoOrdenProduccion),

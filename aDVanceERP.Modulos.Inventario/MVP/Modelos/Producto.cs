@@ -32,14 +32,14 @@ public class Producto : IEntidadBaseDatos {
     public long Id { get; set; }
     public CategoriaProducto Categoria { get; set; }
     public string Nombre { get; set; }
-    public string? Codigo { get; }
+    public string? Codigo { get; set; }
     public long IdDetalleProducto { get; set; }
     public long IdProveedor { get; set; }
     public long IdTipoMateriaPrima { get; set; } = 0; // Solo para materias primas
     public bool EsVendible { get; set; } = true;
-    public decimal PrecioCompra { get; }
-    public decimal CostoProduccionUnitario { get; } = 0.0m; // Solo para productos terminados
-    public decimal PrecioVentaBase { get; }
+    public decimal PrecioCompra { get; set; }
+    public decimal CostoProduccionUnitario { get; set; } = 0.0m; // Solo para productos terminados
+    public decimal PrecioVentaBase { get; set; }
 }
 
 public enum FiltroBusquedaProducto {

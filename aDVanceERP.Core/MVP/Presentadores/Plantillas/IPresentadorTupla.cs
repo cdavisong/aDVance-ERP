@@ -8,7 +8,7 @@ public interface IPresentadorTupla<Vt, O> : IPresentadorBase<Vt>, IDisposable
     where O : class, IEntidadBase, new() {
     bool TuplaSeleccionada { get; set; }
     Vt Vista { get; }
-    O Objeto { get; }
+    O Entidad { get; }
 
     event EventHandler? ObjetoSeleccionado;
     event EventHandler? ObjetoDeseleccionado;

@@ -12,6 +12,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private void InicializarVistaGestionOrdenesProduccion() {
             _gestionOrdenesProduccion = new PresentadorGestionOrdenesProduccion(new VistaGestionOrdenesProduccion());
+            _gestionOrdenesProduccion.OrdenProduccionCerrada += RegistrarNuevoProducto;
             _gestionOrdenesProduccion.OrdenProduccionCerrada += RegistrarMovimientosOrdenProduccionCerrada;
             _gestionOrdenesProduccion.EditarObjeto += MostrarVistaEdicionOrdenProduccion;
             _gestionOrdenesProduccion.Vista.RegistrarDatos += MostrarVistaRegistroOrdenProduccion;
@@ -31,7 +32,47 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionOrdenesProduccion.ActualizarResultadosBusqueda();
         }
 
+        private void RegistrarNuevoProducto(object? sender, OrdenProduccion e) {
+            using (var repoProducto = new RepoProducto()) {
+                var productoExistente = repoProducto.Buscar(FiltroBusquedaProducto.Nombre, e.NombreProducto);
+
+                if (productoExistente.cantidad > 0)
+                    return;
+
+                var idDetalleProducto = 0L;
+
+                using (var repoDetalleProducto = new RepoDetalleProducto()) {
+                    var detalleProducto = new DetalleProducto() {
+                        Id = 0,
+                        IdUnidadMedida = UtilesUnidadMedida.ObtenerIdUnidadMedida("Unidad").Result,
+                        Descripcion = "No hay descripción disponible"
+                    };
+
+                    idDetalleProducto = repoDetalleProducto.Adicionar(detalleProducto);
+                }
+
+                var producto = new Producto() {
+                    Id = 0,
+                    Categoria = CategoriaProducto.ProductoTerminado,
+                    Nombre = e.NombreProducto,
+                    Codigo = UtilesCodigoBarras.GenerarEan13(e.NombreProducto),
+                    IdDetalleProducto = idDetalleProducto,
+                    IdProveedor = 0,
+                    PrecioCompra = 0,
+                    CostoProduccionUnitario = e.PrecioUnitario,
+                    PrecioVentaBase = e.PrecioUnitario
+                };
+
+                repoProducto.Adicionar(producto);
+            }
+        }
+
         private void RegistrarMovimientosOrdenProduccionCerrada(object? sender, OrdenProduccion e) {
+            var idProducto = UtilesProducto.ObtenerIdProducto(e.NombreProducto).Result;
+
+            // Actualizar el costo unitario de producción en el producto correspondiente
+            UtilesProducto.ActualizarCostoProduccionUnitario(idProducto, e.PrecioUnitario);
+
             // Movimiento de materiales utilizados en la orden de producción
             using (var datosObjeto = new RepoOrdenMateriaPrima()) {
                 var materiasPrimas = datosObjeto.Buscar(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, e.Id.ToString()).resultados;
@@ -48,16 +89,25 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                                 materiaPrima.Cantidad,
                                 UtilesMovimiento.ObtenerIdTipoMovimiento("Gasto material")
                             ));
+
+                            // Disminuir el cantidad de materiales utilizados en la orden de producción
+                            UtilesMovimiento.ModificarInventario(
+                                materiaPrima.IdProducto,
+                                materiaPrima.IdAlmacen,
+                                0,
+                                materiaPrima.Cantidad,
+                                UtilesProducto.ObtenerCostoUnitario(materiaPrima.IdProducto).Result
+                            );
                         }
                     }
                 }
             }
 
             // Movimiento generado por la orden de producción
-            using (var datosMovimiento = new RepoMovimiento()) {
-                datosMovimiento.Adicionar(new Movimiento(
+            using (var repoMovimiento = new RepoMovimiento()) {
+                repoMovimiento.Adicionar(new Movimiento(
                     0,
-                    e.IdProducto,
+                    idProducto,
                     0,
                     e.IdAlmacen,
                     e.FechaCierre ?? DateTime.Now,
@@ -65,6 +115,15 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                     UtilesMovimiento.ObtenerIdTipoMovimiento("Producción")
                 ));
             }
+
+            // Aumentar el cantidad del producto terminado en el almacén seleccionado
+            UtilesMovimiento.ModificarInventario(
+                idProducto,
+                0,
+                e.IdAlmacen,
+                e.Cantidad,
+                UtilesProducto.ObtenerCostoUnitario(idProducto).Result
+            );
         }
     }
 }
