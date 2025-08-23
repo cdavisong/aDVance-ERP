@@ -38,10 +38,13 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
+        var nombreRepetido = UtilesProducto.ObtenerIdProducto(Vista.Nombre).Result > 0;
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
         var codigoOk = !string.IsNullOrEmpty(Vista.Codigo);
         var unidadMedidaOk = !string.IsNullOrEmpty(Vista.UnidadMedida);
 
+        if (nombreRepetido)
+            CentroNotificaciones.Mostrar("Ye existe un producto con el mismo nombre registrado en el sistema, los nombres de producto deben ser únicos.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!nombreOk)
             CentroNotificaciones.Mostrar("El campo de nombre es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!codigoOk)
@@ -49,7 +52,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         if (!unidadMedidaOk)
             CentroNotificaciones.Mostrar("El campo de unidad de medida es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
 
-        return nombreOk && codigoOk && unidadMedidaOk;
+        return !nombreRepetido && nombreOk && codigoOk && unidadMedidaOk;
     }
 
     protected override void RegistroAuxiliar(RepoProducto datosProducto, long id) {
