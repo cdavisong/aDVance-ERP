@@ -36,6 +36,7 @@
   <ItemGroup>
     <Folder Include="Controladores\" />
     <Folder Include="Modelos\Interfaces\" />
+    <Folder Include="Modelos\Modulos\Finanzas\" />
     <Folder Include="Presentadores\Interfaces\" />
     <Folder Include="Servicios\Interfaces\" />
   </ItemGroup>
