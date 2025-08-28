@@ -194,7 +194,7 @@
             // 
             btnAdicionarTipoMateriaPrima.Animated = true;
             btnAdicionarTipoMateriaPrima.BorderRadius = 18;
-            btnAdicionarTipoMateriaPrima.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnAdicionarTipoMateriaPrima.CustomImages.Image = (Image)resources.GetObject("resource.Image");
             btnAdicionarTipoMateriaPrima.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnAdicionarTipoMateriaPrima.CustomizableEdges = customizableEdges3;
             btnAdicionarTipoMateriaPrima.DialogResult = DialogResult.Cancel;
@@ -212,7 +212,7 @@
             // 
             btnEliminarTipoMateriaPrima.Animated = true;
             btnEliminarTipoMateriaPrima.BorderRadius = 18;
-            btnEliminarTipoMateriaPrima.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnEliminarTipoMateriaPrima.CustomImages.Image = (Image)resources.GetObject("resource.Image1");
             btnEliminarTipoMateriaPrima.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnEliminarTipoMateriaPrima.CustomizableEdges = customizableEdges5;
             btnEliminarTipoMateriaPrima.DialogResult = DialogResult.Cancel;
@@ -277,7 +277,7 @@
             // 
             btnEliminarUnidadMedida.Animated = true;
             btnEliminarUnidadMedida.BorderRadius = 18;
-            btnEliminarUnidadMedida.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
+            btnEliminarUnidadMedida.CustomImages.Image = (Image)resources.GetObject("resource.Image2");
             btnEliminarUnidadMedida.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnEliminarUnidadMedida.CustomizableEdges = customizableEdges7;
             btnEliminarUnidadMedida.DialogResult = DialogResult.Cancel;
@@ -295,7 +295,7 @@
             // 
             btnAdicionarUnidadMedida.Animated = true;
             btnAdicionarUnidadMedida.BorderRadius = 18;
-            btnAdicionarUnidadMedida.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
+            btnAdicionarUnidadMedida.CustomImages.Image = (Image)resources.GetObject("resource.Image3");
             btnAdicionarUnidadMedida.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnAdicionarUnidadMedida.CustomizableEdges = customizableEdges9;
             btnAdicionarUnidadMedida.DialogResult = DialogResult.Cancel;
@@ -369,7 +369,7 @@
             fieldPrecioVentaBase.ForeColor = Color.Black;
             fieldPrecioVentaBase.HoverState.BorderColor = Color.SandyBrown;
             fieldPrecioVentaBase.IconLeftOffset = new Point(10, 0);
-            fieldPrecioVentaBase.IconRight = (Image) resources.GetObject("fieldPrecioVentaBase.IconRight");
+            fieldPrecioVentaBase.IconRight = (Image)resources.GetObject("fieldPrecioVentaBase.IconRight");
             fieldPrecioVentaBase.IconRightOffset = new Point(6, 0);
             fieldPrecioVentaBase.IconRightSize = new Size(12, 12);
             fieldPrecioVentaBase.Location = new Point(290, 3);
@@ -434,7 +434,7 @@
             fieldCostoUnitario.ForeColor = Color.Black;
             fieldCostoUnitario.HoverState.BorderColor = Color.SandyBrown;
             fieldCostoUnitario.IconLeftOffset = new Point(10, 0);
-            fieldCostoUnitario.IconRight = (Image) resources.GetObject("fieldCostoUnitario.IconRight");
+            fieldCostoUnitario.IconRight = (Image)resources.GetObject("fieldCostoUnitario.IconRight");
             fieldCostoUnitario.IconRightOffset = new Point(6, 0);
             fieldCostoUnitario.IconRightSize = new Size(12, 12);
             fieldCostoUnitario.Location = new Point(290, 3);
@@ -469,7 +469,7 @@
             fieldTituloPrecios.Dock = DockStyle.Fill;
             fieldTituloPrecios.Font = new Font("Segoe UI", 11.25F);
             fieldTituloPrecios.ForeColor = Color.DimGray;
-            fieldTituloPrecios.Image = (Image) resources.GetObject("fieldTituloPrecios.Image");
+            fieldTituloPrecios.Image = (Image)resources.GetObject("fieldTituloPrecios.Image");
             fieldTituloPrecios.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTituloPrecios.ImeMode = ImeMode.NoControl;
             fieldTituloPrecios.Location = new Point(15, 255);
@@ -483,7 +483,7 @@
             // separador1
             // 
             separador1.Dock = DockStyle.Fill;
-            separador1.FillColor = Color.FromArgb(  208,   197,   188);
+            separador1.FillColor = Color.FromArgb(208, 197, 188);
             separador1.Location = new Point(3, 108);
             separador1.Name = "separador1";
             separador1.Size = new Size(411, 14);
@@ -494,7 +494,7 @@
             fieldTituloUnidadMedida.Dock = DockStyle.Fill;
             fieldTituloUnidadMedida.Font = new Font("Segoe UI", 11.25F);
             fieldTituloUnidadMedida.ForeColor = Color.DimGray;
-            fieldTituloUnidadMedida.Image = (Image) resources.GetObject("fieldTituloUnidadMedida.Image");
+            fieldTituloUnidadMedida.Image = (Image)resources.GetObject("fieldTituloUnidadMedida.Image");
             fieldTituloUnidadMedida.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTituloUnidadMedida.ImeMode = ImeMode.NoControl;
             fieldTituloUnidadMedida.Location = new Point(15, 5);
@@ -527,7 +527,7 @@
             fieldTituloNombreAlmacen.Dock = DockStyle.Fill;
             fieldTituloNombreAlmacen.Font = new Font("Segoe UI", 11.25F);
             fieldTituloNombreAlmacen.ForeColor = Color.DimGray;
-            fieldTituloNombreAlmacen.Image = (Image) resources.GetObject("fieldTituloNombreAlmacen.Image");
+            fieldTituloNombreAlmacen.Image = (Image)resources.GetObject("fieldTituloNombreAlmacen.Image");
             fieldTituloNombreAlmacen.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTituloNombreAlmacen.ImeMode = ImeMode.NoControl;
             fieldTituloNombreAlmacen.Location = new Point(15, 5);
@@ -543,7 +543,7 @@
             fieldTituloStockInicial.Dock = DockStyle.Fill;
             fieldTituloStockInicial.Font = new Font("Segoe UI", 11.25F);
             fieldTituloStockInicial.ForeColor = Color.DimGray;
-            fieldTituloStockInicial.Image = (Image) resources.GetObject("fieldTituloStockInicial.Image");
+            fieldTituloStockInicial.Image = (Image)resources.GetObject("fieldTituloStockInicial.Image");
             fieldTituloStockInicial.ImageAlign = ContentAlignment.MiddleLeft;
             fieldTituloStockInicial.ImeMode = ImeMode.NoControl;
             fieldTituloStockInicial.Location = new Point(235, 5);
@@ -575,7 +575,7 @@
             // fieldAbreviaturaUnidadMedida
             // 
             fieldAbreviaturaUnidadMedida.Dock = DockStyle.Fill;
-            fieldAbreviaturaUnidadMedida.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point,  0);
+            fieldAbreviaturaUnidadMedida.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             fieldAbreviaturaUnidadMedida.ForeColor = Color.Black;
             fieldAbreviaturaUnidadMedida.ImeMode = ImeMode.NoControl;
             fieldAbreviaturaUnidadMedida.Location = new Point(369, 3);
@@ -644,7 +644,7 @@
             // separador2
             // 
             separador2.Dock = DockStyle.Fill;
-            separador2.FillColor = Color.FromArgb(  208,   197,   188);
+            separador2.FillColor = Color.FromArgb(208, 197, 188);
             separador2.Location = new Point(3, 233);
             separador2.Name = "separador2";
             separador2.Size = new Size(411, 14);
@@ -653,7 +653,7 @@
             // separador3
             // 
             separador3.Dock = DockStyle.Fill;
-            separador3.FillColor = Color.FromArgb(  208,   197,   188);
+            separador3.FillColor = Color.FromArgb(208, 197, 188);
             separador3.Location = new Point(3, 370);
             separador3.Name = "separador3";
             separador3.Size = new Size(411, 14);

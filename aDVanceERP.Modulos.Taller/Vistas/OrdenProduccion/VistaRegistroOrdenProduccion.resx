@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema
+    Microsoft ResX Schema 
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-
+    
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -228,21 +228,21 @@
   </metadata>
   <data name="btnInsertarGastoNormal.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAABSSURBVDhP7dQxDYBAEEXBqVCCCHzgAT04oKDECk4QAbnuct1lKQjZaXfzys8fDJgxtYdeI1Zc
-        uLG1D712nFhwvBGslVgGYzIYl8G4Ml3h+fqGBy+xFkbuJhVbAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAFJJREFUOE/t
+        1DENgEAQRcGpUIIIfOABPTigoMQKThABue5y3WUpCNlpd/PKzx8MmDG1h14jVly4sbUPvXacWHC8EayV
+        WAZjMhiXwbgyXeH5+oYHL7EWRu4mFVsAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="btnInsertarGastoDinamico.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAFjSURBVDhP1ZK/K4VhFMc/+REpGZSBiV1RJmWRDXEzCYvBP8B6h1t+DjYGKZOYrBYGC+p2hcFI
-        yoCUQRiUH536PnU8vdz3zeRb3zrn+z7nvOc5zxf+M6qBFqAtBevj4oBKYAo4BT4z8CxuZLCJdoFHYBbo
-        A3pUsOmmWZY24LSmuJmhADwArU7rVvGM01alJTbxuAAmIm1cxSNO2wHegAqnJaIuFoC8GnY67Qi4cXkm
-        bKhhg9OugKLLM+FAj+TxCqxHWmpcAycurwK6gBywIFpselmYWd+BLaeZ0c+1hjvgXrH5ttmdS0TwYLCM
-        mb7kzGz2CRYy2l5/fflpHexVPuiKjSui1/qjHt+wD7wAtcoXdc0lxUOixabZt7lQXANMAo3KO4APYDsc
-        UOEtsCaOiiG3b/PhsF3LRn7Wnp5kj3bXMPOVx4A94BI4drsL+POjJMGsYT+zBt42h2ls8xNsCm/sYT/Z
-        Fy2fcrjLT0OjAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAWNJREFUOE/V
+        kr8rhWEUxz/5ESkZlIGJXVEmZZENcTMJi8E/wHqHW34ONgYpk5isFgYL6naFwUjKgJRBGJQfnfo+dTy9
+        3PfN5FvfOuf7Pue85znPF/4zqoEWoC0F6+PigEpgCjgFPjPwLG5ksIl2gUdgFugDelSw6aZZljbgtKa4
+        maEAPACtTutW8YzTVqUlNvG4ACYibVzFI07bAd6ACqcloi4WgLwadjrtCLhxeSZsqGGD066Aossz4UCP
+        5PEKrEdaalwDJy6vArqAHLAgWmx6WZhZ34Etp5nRz7WGO+Besfm22Z1LRPBgsIyZvuTMbPYJFjLaXn99
+        +Wkd7FU+6IqNK6LX+qMe37APvAC1yhd1zSXFQ6LFptm3uVBcA0wCjco7gA9gOxxQ4S2wJo6KIbdv8+Gw
+        XctGftaenmSPdtcw85XHgD3gEjh2uwv486MkwaxhP7MG3jaHaWzzE2wKb+xhP9kXLZ9yuMtPQ6MAAAAA
+        SUVORK5CYII=
 </value>
   </data>
   <data name="resource.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
