@@ -532,19 +532,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             // layoutEncabezadosTabla
             // 
             layoutEncabezadosTabla.BackColor = Color.WhiteSmoke;
-            layoutEncabezadosTabla.ColumnCount = 12;
+            layoutEncabezadosTabla.ColumnCount = 11;
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 130F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             layoutEncabezadosTabla.Controls.Add(fieldTituloMonto, 5, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloCantidadProductos, 4, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
@@ -568,7 +568,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloMonto.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloMonto.ForeColor = Color.Black;
             fieldTituloMonto.ImeMode = ImeMode.NoControl;
-            fieldTituloMonto.Location = new Point(631, 1);
+            fieldTituloMonto.Location = new Point(797, 1);
             fieldTituloMonto.Margin = new Padding(1);
             fieldTituloMonto.Name = "fieldTituloMonto";
             fieldTituloMonto.Size = new Size(128, 56);
@@ -582,7 +582,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloCantidadProductos.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloCantidadProductos.ForeColor = Color.Black;
             fieldTituloCantidadProductos.ImeMode = ImeMode.NoControl;
-            fieldTituloCantidadProductos.Location = new Point(521, 1);
+            fieldTituloCantidadProductos.Location = new Point(687, 1);
             fieldTituloCantidadProductos.Margin = new Padding(1);
             fieldTituloCantidadProductos.Name = "fieldTituloCantidadProductos";
             fieldTituloCantidadProductos.Size = new Size(108, 56);
@@ -613,7 +613,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloNombreCliente.Location = new Point(301, 1);
             fieldTituloNombreCliente.Margin = new Padding(1);
             fieldTituloNombreCliente.Name = "fieldTituloNombreCliente";
-            fieldTituloNombreCliente.Size = new Size(218, 56);
+            fieldTituloNombreCliente.Size = new Size(384, 56);
             fieldTituloNombreCliente.TabIndex = 15;
             fieldTituloNombreCliente.Text = "Cliente";
             fieldTituloNombreCliente.TextAlign = ContentAlignment.MiddleCenter;
@@ -652,7 +652,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloEstadoEntrega.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloEstadoEntrega.ForeColor = Color.Black;
             fieldTituloEstadoEntrega.ImeMode = ImeMode.NoControl;
-            fieldTituloEstadoEntrega.Location = new Point(761, 1);
+            fieldTituloEstadoEntrega.Location = new Point(927, 1);
             fieldTituloEstadoEntrega.Margin = new Padding(1);
             fieldTituloEstadoEntrega.Name = "fieldTituloEstadoEntrega";
             fieldTituloEstadoEntrega.Size = new Size(118, 56);
@@ -666,7 +666,7 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta {
             fieldTituloEstadoPago.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloEstadoPago.ForeColor = Color.Black;
             fieldTituloEstadoPago.ImeMode = ImeMode.NoControl;
-            fieldTituloEstadoPago.Location = new Point(881, 1);
+            fieldTituloEstadoPago.Location = new Point(1047, 1);
             fieldTituloEstadoPago.Margin = new Padding(1);
             fieldTituloEstadoPago.Name = "fieldTituloEstadoPago";
             fieldTituloEstadoPago.Size = new Size(118, 56);
