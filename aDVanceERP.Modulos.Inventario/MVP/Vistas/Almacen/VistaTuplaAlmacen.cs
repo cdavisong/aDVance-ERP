@@ -43,11 +43,11 @@ public partial class VistaTuplaAlmacen : Form, IVistaTuplaAlmacen {
         }
     }
 
-    public string Notas {
-        get => fieldNotas.Text;
+    public string Descripcion {
+        get => fieldDescripcion.Text;
         set {
-            fieldNotas.Text = value;
-            fieldNotas.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
+            fieldDescripcion.Text = value;
+            fieldDescripcion.Margin = new Padding(1, value?.Length > 43 ? 10 : 1, 1, 1);
         }
     }
 
@@ -73,7 +73,7 @@ public partial class VistaTuplaAlmacen : Form, IVistaTuplaAlmacen {
         fieldId.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldNombre.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
         fieldDireccion.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
-        fieldNotas.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
+        fieldDescripcion.Click += delegate (object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
         btnExportarDocumentoInventario.Click += delegate {
             btnExportarDocumentoInventario.ContextMenuStrip?.Show(btnExportarDocumentoInventario, new Point(0, 40));

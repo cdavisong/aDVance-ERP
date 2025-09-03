@@ -5,7 +5,7 @@ using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor.Plantillas;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor;
 
 public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
     private int _paginaActual = 1;

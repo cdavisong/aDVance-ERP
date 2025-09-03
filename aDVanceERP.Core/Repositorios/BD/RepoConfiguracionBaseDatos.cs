@@ -13,8 +13,8 @@ namespace aDVanceERP.Core.Repositorios.BD {
             _directorioRaiz = ".\\settings";
         }
 
-        public ConfiguracionBaseDatos? ObtenerPorId(object? id) {
-            var rutaArchivo = Path.Combine(_directorioRaiz, id == null ? NombreArchivo : id?.ToString());
+        public ConfiguracionBaseDatos? ObtenerPorId(long id) {
+            var rutaArchivo = Path.Combine(_directorioRaiz, id <= 0 ? NombreArchivo : id.ToString());
 
             if (File.Exists(rutaArchivo)) {
                 var contenido = File.ReadAllText(rutaArchivo);
@@ -36,7 +36,7 @@ namespace aDVanceERP.Core.Repositorios.BD {
             return _configuraciones.FirstOrDefault() ?? new ConfiguracionBaseDatos();
         }
 
-        public IEnumerable<ConfiguracionBaseDatos> ObtenerTodos() {
+        public List<ConfiguracionBaseDatos> ObtenerTodos() {
             var rutaArchivo = Path.Combine(_directorioRaiz, NombreArchivo);
 
             if (File.Exists(rutaArchivo)) {

@@ -23,18 +23,18 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
 
     #region Obtención de datos y búsqueda de entidades
 
-    public En? ObtenerPorId(object? id) {
+    public En? ObtenerPorId(long id) {
         var consulta = $"SELECT * FROM {NombreTabla} WHERE {ColumnaId} = @id LIMIT 1";
         var parametros = new Dictionary<string, object> {
             { "@id", id }
         };
 
-        return (En?) ContextoBaseDatos.EjecutarConsulta(consulta, parametros, MapearEntidad);
+        return ContextoBaseDatos.EjecutarConsulta(consulta, parametros, MapearEntidad).FirstOrDefault();
     }
 
-    public IEnumerable<En> ObtenerTodos() {
+    public List<En> ObtenerTodos() {
         var consulta = $"SELECT * FROM {NombreTabla}";
-        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, null, MapearEntidad);
+        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, null, MapearEntidad).ToList();
 
         _cacheEntidades.Clear();
         _cacheEntidades.AddRange(resultados);
@@ -42,7 +42,7 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
         return resultados;
     }
 
-    public (int cantidad, IEnumerable<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0) {
+    public (int cantidad, List<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0) {
         _cacheEntidades.Clear();
 
         consulta = string.IsNullOrEmpty(consulta) ? GenerarComandoObtener(default, string.Empty) : consulta;
@@ -59,12 +59,12 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
         }
 
         var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consulta.Replace("*", $"COUNT(*)"));
-        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, new Dictionary<string, object>(), MapearEntidad);
+        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, new Dictionary<string, object>(), MapearEntidad).ToList();
 
         return (cantidad, resultados);
     }
 
-    public (int cantidad, IEnumerable<En> resultados) Buscar(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0) {
+    public (int cantidad, List<En> resultados) Buscar(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0) {
         var comando = GenerarComandoObtener(filtroBusqueda, criterio);
 
         return Buscar(comando, limite, desplazamiento);

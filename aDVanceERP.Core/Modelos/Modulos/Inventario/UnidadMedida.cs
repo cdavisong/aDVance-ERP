@@ -1,10 +1,9 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
-namespace aDVanceERP.Core.MVP.Modelos;
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario;
 
 public class UnidadMedida : IEntidadBaseDatos {
     public UnidadMedida() {
-        Id = 0;
         Nombre = string.Empty;
         Abreviatura = string.Empty;
         Descripcion = string.Empty;

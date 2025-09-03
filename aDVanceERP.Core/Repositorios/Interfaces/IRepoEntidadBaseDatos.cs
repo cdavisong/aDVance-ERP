@@ -7,8 +7,8 @@ public interface IRepoEntidadBaseDatos<En, Fb> : IRepoBase<En>
     where Fb : Enum {
     #region Obtención de datos y búsqueda de entidades
 
-    (int cantidad, IEnumerable<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0);
-    (int cantidad, IEnumerable<En> resultados) Buscar(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0);
+    (int cantidad, List<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0);
+    (int cantidad, List<En> resultados) Buscar(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0);
 
     #endregion
 

@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas; 
+namespace aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 
 public interface IRepoVista : IDisposable {
     List<IVistaBase>? Vistas { get; }

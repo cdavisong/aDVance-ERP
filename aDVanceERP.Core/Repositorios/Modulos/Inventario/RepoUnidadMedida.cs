@@ -1,10 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.Repositorios.BD;
+
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
+namespace aDVanceERP.Core.Repositorios.Modulos.Inventario;
 
-public class RepoUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusquedaUnidadMedida>, IRepoUnidadMedida {
+public class RepoUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusquedaUnidadMedida> {
     public RepoUnidadMedida() : base("adv__unidad_medida", "id_unidad_medida") { }
 
     protected override string GenerarComandoAdicionar(UnidadMedida objeto) {
@@ -43,13 +44,28 @@ public class RepoUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusqued
                 WHERE id_unidad_medida = {id};
                 """;
     }
-    
+
     protected override string GenerarComandoObtener(FiltroBusquedaUnidadMedida criterio, string dato) {
         var comando = criterio switch {
-            FiltroBusquedaUnidadMedida.Todos => "SELECT * FROM adv__unidad_medida;",
-            FiltroBusquedaUnidadMedida.Id => $"SELECT * FROM adv__unidad_medida WHERE id_unidad_medida = {dato};",
-            FiltroBusquedaUnidadMedida.Nombre => $"SELECT * FROM adv__unidad_medida WHERE nombre LIKE '%{dato}%';",
-            FiltroBusquedaUnidadMedida.Abreviatura => $"SELECT * FROM adv__unidad_medida WHERE abreviatura LIKE '%{dato}%';",
+            FiltroBusquedaUnidadMedida.Todos => """
+                SELECT * 
+                FROM adv__unidad_medida;
+                """,
+            FiltroBusquedaUnidadMedida.Id => $"""
+                SELECT * 
+                FROM adv__unidad_medida 
+                WHERE id_unidad_medida = {dato};
+                """,
+            FiltroBusquedaUnidadMedida.Nombre => $"""
+                SELECT * 
+                FROM adv__unidad_medida 
+                WHERE nombre LIKE '%{dato}%';
+                """,
+            FiltroBusquedaUnidadMedida.Abreviatura => $"""
+                SELECT * 
+                FROM adv__unidad_medida 
+                WHERE abreviatura LIKE '%{dato}%'; 
+                """,
             _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
         };
 
@@ -64,5 +80,11 @@ public class RepoUnidadMedida : RepoEntidadBaseDatos<UnidadMedida, FiltroBusqued
             lectorDatos.GetString("descripcion")
         );
     }
+
+    #region STATIC
+
+    public static RepoUnidadMedida Instancia = new RepoUnidadMedida();
+
+    #endregion
 }
 

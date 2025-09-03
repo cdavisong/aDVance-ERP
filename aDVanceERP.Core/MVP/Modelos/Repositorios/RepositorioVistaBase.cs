@@ -3,7 +3,7 @@ using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Core.MVP.Modelos.Repositorios; 
+namespace aDVanceERP.Core.MVP.Modelos.Repositorios;
 
 public sealed class RepositorioVistaBase : IRepoVista {
     private readonly Panel _contenedorVistas;

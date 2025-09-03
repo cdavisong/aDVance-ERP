@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
 public partial class PresentadorContenedorModulos {
     private PresentadorGestionMovimientos? _gestionMovimientos;

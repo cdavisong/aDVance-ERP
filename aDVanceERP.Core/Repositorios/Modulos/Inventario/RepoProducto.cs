@@ -1,14 +1,13 @@
-﻿using aDVanceERP.Core.Repositorios.BD;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.Repositorios.BD;
 
 using MySql.Data.MySqlClient;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Inventario.Repositorios;
+namespace aDVanceERP.Core.Repositorios.Modulos.Inventario;
 
-public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProducto>, IRepoProducto {
+public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProducto> {
     public RepoProducto() : base("adv__producto", "id_producto") { }
 
     protected override string GenerarComandoAdicionar(Producto objeto) {
@@ -44,17 +43,17 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
         return $"""
                 UPDATE adv__producto
                 SET
-                    codigo='{objeto.Codigo}',
-                    categoria='{objeto.Categoria}',
-                    nombre='{objeto.Nombre}',
-                    id_detalle_producto={objeto.IdDetalleProducto},
-                    id_proveedor={objeto.IdProveedor},
-                    id_tipo_materia_prima={objeto.IdTipoMateriaPrima},
-                    es_vendible='{(objeto.EsVendible ? 1 : 0)}',
-                    precio_compra={objeto.PrecioCompra.ToString(CultureInfo.InvariantCulture)},
-                    costo_produccion_unitario={objeto.CostoProduccionUnitario.ToString(CultureInfo.InvariantCulture)},
-                    precio_venta_base={objeto.PrecioVentaBase.ToString(CultureInfo.InvariantCulture)}
-                WHERE id_producto={objeto.Id};
+                    codigo = '{objeto.Codigo}',
+                    categoria = '{objeto.Categoria}',
+                    nombre = '{objeto.Nombre}',
+                    id_detalle_producto = {objeto.IdDetalleProducto},
+                    id_proveedor = {objeto.IdProveedor},
+                    id_tipo_materia_prima = {objeto.IdTipoMateriaPrima},
+                    es_vendible = '{(objeto.EsVendible ? 1 : 0)}',
+                    precio_compra = {objeto.PrecioCompra.ToString(CultureInfo.InvariantCulture)},
+                    costo_produccion_unitario = {objeto.CostoProduccionUnitario.ToString(CultureInfo.InvariantCulture)},
+                    precio_venta_base = {objeto.PrecioVentaBase.ToString(CultureInfo.InvariantCulture)}
+                WHERE id_producto = {objeto.Id};
                 """;
     }
 
@@ -64,11 +63,11 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
             WHERE id_detalle_producto = (
                 SELECT id_detalle_producto 
                 FROM adv__producto 
-                WHERE id_producto={id}
+                WHERE id_producto = {id}
             );
 
             DELETE FROM adv__producto 
-            WHERE id_producto={id};
+            WHERE id_producto = {id};
             """;
     }
 
@@ -86,8 +85,8 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
         var aplicarFiltroCategoria = datoMultiple.Length > 2 && !todasLasCategorias;
 
         // Partes adicionales de la consulta
-        const string comandoAdicionalSelect = ", ta.cantidad, a.nombre AS nombre_almacen";
-        const string comandoAdicionalJoin = "JOIN adv__inventario ta ON t.id_producto = ta.id_producto JOIN adv__almacen a ON ta.id_almacen = a.id_almacen ";
+        const string comandoAdicionalSelect = ", i.cantidad, a.nombre AS nombre_almacen";
+        const string comandoAdicionalJoin = "JOIN adv__inventario i ON p.id_producto = i.id_producto JOIN adv__almacen a ON i.id_almacen = a.id_almacen ";
 
         // Construcción de condiciones WHERE
         var condiciones = new List<string>();
@@ -96,45 +95,55 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
             condiciones.Add($"a.nombre = '{datoMultiple[0]}'");
 
         if (aplicarFiltroCategoria)
-            condiciones.Add($"t.categoria = '{(CategoriaProducto) int.Parse(datoMultiple[1])}'");
+            condiciones.Add($"p.categoria = '{(CategoriaProducto)int.Parse(datoMultiple[1])}'");
 
         string whereClause = condiciones.Count > 0 ? $"WHERE {string.Join(" AND ", condiciones)}" : "";
 
         switch (criterio) {
             case FiltroBusquedaProducto.Id:
-                comando = $"SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
-                         $"FROM adv__producto t " +
-                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
-                         $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
-                         $"t.id_producto='{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}';";
+                comando = $"""
+                         SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)}
+                         FROM adv__producto p
+                         {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}
+                         {(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}
+                         p.id_producto = '{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}';
+                         """;
                 break;
             case FiltroBusquedaProducto.Codigo:
-                comando = $"SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
-                         $"FROM adv__producto t " +
-                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
-                         $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
-                         $"LOWER(t.codigo) LIKE LOWER('%{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}%');";
+                comando = $"""
+                         SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)}
+                         FROM adv__producto p
+                         {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}
+                         {(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}
+                         LOWER(p.codigo) LIKE LOWER('%{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}%');
+                         """;
                 break;
             case FiltroBusquedaProducto.Nombre:
-                comando = $"SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
-                         $"FROM adv__producto t " +
-                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
-                         $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
-                         $"LOWER(t.nombre) LIKE LOWER('%{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}%');";
+                comando = $"""
+                         SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)}
+                         FROM adv__producto p
+                         {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}
+                         {(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}
+                         LOWER(p.nombre) LIKE LOWER('%{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}%');
+                         """;
                 break;
             case FiltroBusquedaProducto.Descripcion:
-                comando = $"SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
-                         $"FROM adv__producto t " +
-                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
-                         $"JOIN adv__detalle_producto dp ON t.id_detalle_producto = dp.id_detalle_producto " +
-                         $"{(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}" +
-                         $"LOWER(dp.descripcion) LIKE LOWER('%{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}%');";
+                comando = $"""
+                         SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)}
+                         FROM adv__producto p
+                         {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}
+                         JOIN adv__detalle_producto dp ON p.id_detalle_producto = dp.id_detalle_producto
+                         {(condiciones.Count > 0 ? whereClause + " AND " : "WHERE ")}
+                         LOWER(dp.descripcion) LIKE LOWER('%{(datoMultiple.Length > (aplicarFiltroCategoria ? 2 : 1) ? datoMultiple[2] : dato)}%');
+                         """;
                 break;
             default:
-                comando = $"SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)} " +
-                         $"FROM adv__producto t " +
-                         $"{(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}" +
-                         $"{whereClause};";
+                comando = $"""
+                         SELECT *{(aplicarFiltroAlmacen ? comandoAdicionalSelect : string.Empty)}
+                         FROM adv__producto p
+                         {(aplicarFiltroAlmacen ? comandoAdicionalJoin : string.Empty)}
+                         {whereClause};
+                         """;
                 break;
         }
 
@@ -144,7 +153,7 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
     protected override Producto MapearEntidad(MySqlDataReader lectorDatos) {
         return new Producto(
             id: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_producto")),
-            categoria: (CategoriaProducto) Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
+            categoria: (CategoriaProducto)Enum.Parse(typeof(CategoriaProducto), lectorDatos.GetValue(lectorDatos.GetOrdinal("categoria")).ToString()),
             nombre: lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
             codigo: lectorDatos.GetString(lectorDatos.GetOrdinal("codigo")),
             idDetalleProducto: lectorDatos.GetInt32(lectorDatos.GetOrdinal("id_detalle_producto")),
@@ -156,4 +165,10 @@ public class RepoProducto : RepoEntidadBaseDatos<Producto, FiltroBusquedaProduct
             precioVentaBase: lectorDatos.GetDecimal(lectorDatos.GetOrdinal("precio_venta_base"))
         );
     }
+
+    #region STATIC
+
+    public static RepoProducto Instancia = new RepoProducto();
+
+    #endregion
 }

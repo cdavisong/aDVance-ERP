@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario;
 
 public class ProductoProveedor : IEntidadBaseDatos {
     public ProductoProveedor() { }
@@ -12,12 +12,11 @@ public class ProductoProveedor : IEntidadBaseDatos {
         PrecioVenta = precioVenta;
     }
 
+    public long Id { get; set; }
     public long IdProducto { get; set; }
     public long IdProveedor { get; set; }
     public decimal PrecioAdquisicion { get; }
     public decimal PrecioVenta { get; }
-
-    public long Id { get; set; }
 }
 
 public enum FiltroBusquedaProductoProveedor {

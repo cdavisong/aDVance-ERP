@@ -1,10 +1,9 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos;
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario;
 
 public class TipoMateriaPrima : IEntidadBaseDatos {
     public TipoMateriaPrima() {
-        Id = 0;
         Nombre = string.Empty;
         Descripcion = string.Empty;
     }

@@ -47,6 +47,15 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
         set => fieldCodigo.Text = value;
     }
 
+    public DateTime FechaUltimoMovimiento {
+        get => fieldFechaUltimoMovimiento.Text.Equals("-")
+            ? DateTime.MinValue
+            : DateTime.ParseExact(fieldFechaUltimoMovimiento.Text, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        set => fieldFechaUltimoMovimiento.Text = value.Equals(DateTime.MinValue) 
+            ? "-"
+            : value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+    }
+
     public string Nombre {
         get => fieldNombre.Text;
         set => fieldNombre.Text = value;
@@ -98,7 +107,7 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
         get => layoutVista.BackColor;
         set => layoutVista.BackColor = value;
     }
-
+    
     public event EventHandler? TuplaSeleccionada;
     public event EventHandler? MovimientoPositivoStock;
     public event EventHandler? MovimientoNegativoStock;

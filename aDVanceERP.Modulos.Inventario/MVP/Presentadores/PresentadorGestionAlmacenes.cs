@@ -1,14 +1,14 @@
 ﻿using aDVanceERP.Core.Documentos.Interfaces;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.Documentos.Almacen;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
-using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
@@ -25,13 +25,13 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         vista.ExportarDocumentoInventario += OnExportarDocumentoInventarioAlmacenes;
     }
 
-    protected override PresentadorTuplaAlmacen ObtenerValoresTupla(Almacen objeto) {
-        var presentadorTupla = new PresentadorTuplaAlmacen(new VistaTuplaAlmacen(), objeto);
+    protected override PresentadorTuplaAlmacen ObtenerValoresTupla(Almacen entidad) {
+        var presentadorTupla = new PresentadorTuplaAlmacen(new VistaTuplaAlmacen(), entidad);
 
-        presentadorTupla.Vista.Id = objeto.Id.ToString();
-        presentadorTupla.Vista.Nombre = objeto.Nombre;
-        presentadorTupla.Vista.Direccion = objeto.Direccion;
-        presentadorTupla.Vista.Notas = objeto.Notas;
+        presentadorTupla.Vista.Id = entidad.Id.ToString();
+        presentadorTupla.Vista.Nombre = entidad.Nombre;
+        presentadorTupla.Vista.Direccion = entidad.Direccion;
+        presentadorTupla.Vista.Descripcion = entidad.Descripcion;
         presentadorTupla.Vista.MostrarBotonExportarProductos = _dispositivoConectado;
         presentadorTupla.Vista.ExportarDocumentoInventario += OnExportarDocumentoInventarioAlmacen;
         presentadorTupla.Vista.DescargarProductos += OnDescargarProductos;

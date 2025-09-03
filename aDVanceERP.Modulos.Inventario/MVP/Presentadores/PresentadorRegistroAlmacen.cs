@@ -1,23 +1,23 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Presentadores;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
+using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
-using aDVanceERP.Modulos.Inventario.Repositorios;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistroAlmacen, Almacen, RepoAlmacen, FiltroBusquedaAlmacen> {
     public PresentadorRegistroAlmacen(IVistaRegistroAlmacen vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Almacen objeto) {
+    public override void PopularVistaDesdeObjeto(Almacen entidad) {
         Vista.ModoEdicionDatos = true;
-        Vista.Nombre = objeto.Nombre ?? string.Empty;
-        Vista.Direccion = objeto.Direccion ?? string.Empty;
-        Vista.AutorizoVenta = objeto.AutorizoVenta;
-        Vista.Notas = objeto.Notas ?? string.Empty;
+        Vista.Nombre = entidad.Nombre ?? string.Empty;
+        Vista.Direccion = entidad.Direccion ?? string.Empty;
+        Vista.AutorizoVenta = true;
+        Vista.Descripcion = entidad.Descripcion ?? string.Empty;
         Vista.ModoEdicionDatos = true;
 
-        Entidad = objeto;
+        Entidad = entidad;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
@@ -35,12 +35,16 @@ public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistro
             return null;
         }
 
+        //TODO: Trabajar en los campos que faltan para adicionar en el almacen
         return new Almacen(
             Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre ?? string.Empty,
+            Vista.Descripcion ?? string.Empty,
             Vista.Direccion ?? string.Empty,
-            Vista.AutorizoVenta,
-            Vista.Notas ?? string.Empty
+            0, 
+            TipoAlmacen.Principal,
+            true,
+            null
         );
     }
 }

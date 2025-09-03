@@ -1,12 +1,11 @@
-﻿using aDVanceERP.Core.Repositorios.BD;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.Repositorios.BD;
 
 using MySql.Data.MySqlClient;
 
-namespace aDVanceERP.Modulos.Inventario.Repositorios;
+namespace aDVanceERP.Core.Repositorios.Modulos.Inventario;
 
-public class RepoTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, FiltroBusquedaTipoMateriaPrima>, IRepoTipoMateriaPrima {
+public class RepoTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, FiltroBusquedaTipoMateriaPrima> {
     public RepoTipoMateriaPrima() : base("adv__tipo_materia_prima", "id_tipo_materia_prima") { }
 
     protected override string GenerarComandoAdicionar(TipoMateriaPrima objeto) {
@@ -45,11 +44,19 @@ public class RepoTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filtr
 
     protected override string GenerarComandoObtener(FiltroBusquedaTipoMateriaPrima criterio, string dato) {
         return criterio switch {
-            FiltroBusquedaTipoMateriaPrima.Todos => "SELECT * FROM adv__tipo_materia_prima;",
-            FiltroBusquedaTipoMateriaPrima.Id => $"SELECT * FROM adv__tipo_materia_prima WHERE id_tipo_materia_prima = {dato};",
+            FiltroBusquedaTipoMateriaPrima.Todos => """
+                SELECT * 
+                FROM adv__tipo_materia_prima;
+                """,
+            FiltroBusquedaTipoMateriaPrima.Id => $"""
+                SELECT * 
+                FROM adv__tipo_materia_prima 
+                WHERE id_tipo_materia_prima = {dato};
+                """,
             FiltroBusquedaTipoMateriaPrima.Nombre => $"""
-                SELECT * FROM adv__tipo_materia_prima 
-                WHERE nombre LIKE '%{dato}%';
+                SELECT * 
+                FROM adv__tipo_materia_prima 
+                WHERE LOWER(nombre) LIKE LOWER('%{dato}%');
                 """,
             _ => throw new ArgumentOutOfRangeException(nameof(criterio), criterio, null)
         };
@@ -62,4 +69,10 @@ public class RepoTipoMateriaPrima : RepoEntidadBaseDatos<TipoMateriaPrima, Filtr
             lectorDatos.GetString("descripcion")
         );
     }
+
+    #region STATIC
+
+    public static RepoTipoMateriaPrima Instancia = new RepoTipoMateriaPrima();
+
+    #endregion
 }

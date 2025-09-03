@@ -1,10 +1,10 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
-using aDVanceERP.Modulos.Inventario.Repositorios;
 using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
+using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 

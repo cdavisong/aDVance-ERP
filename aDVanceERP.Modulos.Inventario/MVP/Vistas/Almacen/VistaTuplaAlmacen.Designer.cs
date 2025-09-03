@@ -29,28 +29,28 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
         private void InitializeComponent() {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(VistaTuplaAlmacen));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutVista = new TableLayoutPanel();
             btnEliminar = new Guna2Button();
             fieldId = new Label();
             btnEditar = new Guna2Button();
-            fieldNotas = new Label();
+            fieldDescripcion = new Label();
             btnExportarProductos = new Guna2Button();
             btnExportarDocumentoInventario = new Guna2Button();
-            fieldDireccion = new Label();
-            fieldNombre = new Label();
             menuFormatoDocumento = new ContextMenuStrip(components);
             btnExportarPdf = new ToolStripMenuItem();
             btnExportarXlsx = new ToolStripMenuItem();
+            fieldDireccion = new Label();
+            fieldNombre = new Label();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             menuFormatoDocumento.SuspendLayout();
@@ -94,7 +94,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             layoutVista.Controls.Add(btnEliminar, 8, 0);
             layoutVista.Controls.Add(fieldId, 0, 0);
             layoutVista.Controls.Add(btnEditar, 7, 0);
-            layoutVista.Controls.Add(fieldNotas, 3, 0);
+            layoutVista.Controls.Add(fieldDescripcion, 3, 0);
             layoutVista.Controls.Add(btnExportarProductos, 5, 0);
             layoutVista.Controls.Add(btnExportarDocumentoInventario, 6, 0);
             layoutVista.Controls.Add(fieldDireccion, 2, 0);
@@ -117,7 +117,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEliminar.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage");
             btnEliminar.CustomImages.Image = (Image)resources.GetObject("resource.Image");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEliminar.CustomizableEdges = customizableEdges9;
+            btnEliminar.CustomizableEdges = customizableEdges1;
             btnEliminar.Dock = DockStyle.Fill;
             btnEliminar.FillColor = Color.White;
             btnEliminar.Font = new Font("Segoe UI", 9.75F);
@@ -127,7 +127,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEliminar.HoverState.ForeColor = Color.White;
             btnEliminar.Location = new Point(1204, 3);
             btnEliminar.Name = "btnEliminar";
-            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             btnEliminar.Size = new Size(34, 35);
             btnEliminar.TabIndex = 11;
             // 
@@ -154,7 +154,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEditar.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage1");
             btnEditar.CustomImages.Image = (Image)resources.GetObject("resource.Image1");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnEditar.CustomizableEdges = customizableEdges11;
+            btnEditar.CustomizableEdges = customizableEdges3;
             btnEditar.Dock = DockStyle.Fill;
             btnEditar.FillColor = Color.White;
             btnEditar.Font = new Font("Segoe UI", 9.75F);
@@ -163,23 +163,23 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEditar.HoverState.FillColor = Color.PeachPuff;
             btnEditar.Location = new Point(1164, 3);
             btnEditar.Name = "btnEditar";
-            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnEditar.Size = new Size(34, 35);
             btnEditar.TabIndex = 9;
             // 
-            // fieldNotas
+            // fieldDescripcion
             // 
-            fieldNotas.Dock = DockStyle.Fill;
-            fieldNotas.Font = new Font("Segoe UI", 11.25F);
-            fieldNotas.ForeColor = Color.DimGray;
-            fieldNotas.ImeMode = ImeMode.NoControl;
-            fieldNotas.Location = new Point(581, 1);
-            fieldNotas.Margin = new Padding(1);
-            fieldNotas.Name = "fieldNotas";
-            fieldNotas.Size = new Size(298, 39);
-            fieldNotas.TabIndex = 14;
-            fieldNotas.Text = "notas";
-            fieldNotas.TextAlign = ContentAlignment.MiddleLeft;
+            fieldDescripcion.Dock = DockStyle.Fill;
+            fieldDescripcion.Font = new Font("Segoe UI", 11.25F);
+            fieldDescripcion.ForeColor = Color.DimGray;
+            fieldDescripcion.ImeMode = ImeMode.NoControl;
+            fieldDescripcion.Location = new Point(581, 1);
+            fieldDescripcion.Margin = new Padding(1);
+            fieldDescripcion.Name = "fieldDescripcion";
+            fieldDescripcion.Size = new Size(298, 39);
+            fieldDescripcion.TabIndex = 14;
+            fieldDescripcion.Text = "descripcion";
+            fieldDescripcion.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnExportarProductos
             // 
@@ -190,7 +190,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnExportarProductos.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage2");
             btnExportarProductos.CustomImages.Image = (Image)resources.GetObject("resource.Image2");
             btnExportarProductos.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnExportarProductos.CustomizableEdges = customizableEdges13;
+            btnExportarProductos.CustomizableEdges = customizableEdges5;
             btnExportarProductos.Dock = DockStyle.Fill;
             btnExportarProductos.FillColor = Color.White;
             btnExportarProductos.Font = new Font("Segoe UI", 9.75F);
@@ -199,7 +199,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnExportarProductos.HoverState.FillColor = Color.PeachPuff;
             btnExportarProductos.Location = new Point(1084, 3);
             btnExportarProductos.Name = "btnExportarProductos";
-            btnExportarProductos.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            btnExportarProductos.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnExportarProductos.Size = new Size(34, 35);
             btnExportarProductos.TabIndex = 15;
             // 
@@ -213,7 +213,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnExportarDocumentoInventario.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage3");
             btnExportarDocumentoInventario.CustomImages.Image = (Image)resources.GetObject("resource.Image3");
             btnExportarDocumentoInventario.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnExportarDocumentoInventario.CustomizableEdges = customizableEdges15;
+            btnExportarDocumentoInventario.CustomizableEdges = customizableEdges7;
             btnExportarDocumentoInventario.Dock = DockStyle.Fill;
             btnExportarDocumentoInventario.FillColor = Color.White;
             btnExportarDocumentoInventario.Font = new Font("Segoe UI", 9.75F);
@@ -222,9 +222,40 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnExportarDocumentoInventario.HoverState.FillColor = Color.PeachPuff;
             btnExportarDocumentoInventario.Location = new Point(1124, 3);
             btnExportarDocumentoInventario.Name = "btnExportarDocumentoInventario";
-            btnExportarDocumentoInventario.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnExportarDocumentoInventario.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnExportarDocumentoInventario.Size = new Size(34, 35);
             btnExportarDocumentoInventario.TabIndex = 16;
+            // 
+            // menuFormatoDocumento
+            // 
+            menuFormatoDocumento.BackColor = Color.White;
+            menuFormatoDocumento.Items.AddRange(new ToolStripItem[] { btnExportarPdf, btnExportarXlsx });
+            menuFormatoDocumento.Name = "menuGastoIndirecto";
+            menuFormatoDocumento.Size = new Size(114, 56);
+            // 
+            // btnExportarPdf
+            // 
+            btnExportarPdf.BackColor = Color.White;
+            btnExportarPdf.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnExportarPdf.Image = (Image)resources.GetObject("btnExportarPdf.Image");
+            btnExportarPdf.ImageAlign = ContentAlignment.MiddleLeft;
+            btnExportarPdf.ImageScaling = ToolStripItemImageScaling.None;
+            btnExportarPdf.Name = "btnExportarPdf";
+            btnExportarPdf.Size = new Size(113, 26);
+            btnExportarPdf.Text = "PDF";
+            btnExportarPdf.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // btnExportarXlsx
+            // 
+            btnExportarXlsx.BackColor = Color.White;
+            btnExportarXlsx.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnExportarXlsx.Image = (Image)resources.GetObject("btnExportarXlsx.Image");
+            btnExportarXlsx.ImageAlign = ContentAlignment.MiddleLeft;
+            btnExportarXlsx.ImageScaling = ToolStripItemImageScaling.None;
+            btnExportarXlsx.Name = "btnExportarXlsx";
+            btnExportarXlsx.Size = new Size(113, 26);
+            btnExportarXlsx.Text = "XLSX";
+            btnExportarXlsx.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // fieldDireccion
             // 
@@ -255,37 +286,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldNombre.Text = "nombre";
             fieldNombre.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // menuFormatoDocumento
-            // 
-            menuFormatoDocumento.BackColor = Color.White;
-            menuFormatoDocumento.Items.AddRange(new ToolStripItem[] { btnExportarPdf, btnExportarXlsx });
-            menuFormatoDocumento.Name = "menuGastoIndirecto";
-            menuFormatoDocumento.Size = new Size(185, 78);
-            // 
-            // btnExportarPdf
-            // 
-            btnExportarPdf.BackColor = Color.White;
-            btnExportarPdf.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnExportarPdf.Image = (Image)resources.GetObject("btnExportarPdf.Image");
-            btnExportarPdf.ImageAlign = ContentAlignment.MiddleLeft;
-            btnExportarPdf.ImageScaling = ToolStripItemImageScaling.None;
-            btnExportarPdf.Name = "btnExportarPdf";
-            btnExportarPdf.Size = new Size(184, 26);
-            btnExportarPdf.Text = "PDF";
-            btnExportarPdf.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // btnExportarXlsx
-            // 
-            btnExportarXlsx.BackColor = Color.White;
-            btnExportarXlsx.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnExportarXlsx.Image = (Image)resources.GetObject("btnExportarXlsx.Image");
-            btnExportarXlsx.ImageAlign = ContentAlignment.MiddleLeft;
-            btnExportarXlsx.ImageScaling = ToolStripItemImageScaling.None;
-            btnExportarXlsx.Name = "btnExportarXlsx";
-            btnExportarXlsx.Size = new Size(184, 26);
-            btnExportarXlsx.Text = "XLSX";
-            btnExportarXlsx.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // VistaTuplaAlmacen
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -315,7 +315,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
         private Label fieldNombre;
         private Label fieldId;
         private Guna2Button btnEditar;
-        private Label fieldNotas;
+        private Label fieldDescripcion;
         private Label fieldDireccion;
         private Guna2Button btnExportarProductos;
         private Guna2Button btnExportarDocumentoInventario;

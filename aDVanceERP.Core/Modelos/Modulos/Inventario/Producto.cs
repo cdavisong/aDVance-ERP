@@ -1,12 +1,6 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
-
-public enum CategoriaProducto {
-    Mercancia,
-    ProductoTerminado,
-    MateriaPrima
-}
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario;
 
 public class Producto : IEntidadBaseDatos {
     public Producto() {

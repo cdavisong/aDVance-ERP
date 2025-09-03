@@ -30,3 +30,17 @@ public sealed class Almacen : IEntidadBaseDatos {
     public bool Estado { get; set; } //  Indicador de actividad (activo/inactivo) para control operativo
     public CoordenadasGeograficas? Coordenadas { get; set; } // Para optimizar enrutamiento en cadenas de suministro
 }
+
+public enum FiltroBusquedaAlmacen {
+    Todos,
+    Id,
+    Nombre
+}
+
+public static class UtilesBusquedaAlmacen {
+    public static object[] FiltroBusquedaAlmacen = {
+        "Todos los almacenes",
+        "Identificador de BD",
+        "Nombre del almacén"
+    };
+}

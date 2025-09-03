@@ -5,7 +5,7 @@ using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria; 
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria;
 
 public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBancarias {
     private int _paginaActual = 1;

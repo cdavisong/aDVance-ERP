@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Modulos.Inventario.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto {
     public partial class VistaRegistroProductoP1 : Form {

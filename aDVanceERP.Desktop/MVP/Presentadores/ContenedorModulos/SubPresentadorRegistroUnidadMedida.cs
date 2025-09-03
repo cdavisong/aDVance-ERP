@@ -1,6 +1,7 @@
 ﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.MVP.Vistas.UnidadMedida;
+using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 

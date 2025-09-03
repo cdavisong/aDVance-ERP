@@ -5,7 +5,7 @@ using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
 using Guna.UI2.WinForms;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.Principal; 
+namespace aDVanceERP.Desktop.MVP.Vistas.Principal;
 
 public partial class VistaPrincipal : Form, IVistaPrincipal {
     public VistaPrincipal() {

@@ -1,17 +1,9 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
-
-public enum EfectoMovimiento {
-    Ninguno,
-    Carga,
-    Descarga,
-    Transferencia
-}
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario;
 
 public class TipoMovimiento : IEntidadBaseDatos {
     public TipoMovimiento() {
-        Id = 0;
         Nombre = string.Empty;
         Efecto = EfectoMovimiento.Ninguno;
     }
@@ -22,10 +14,9 @@ public class TipoMovimiento : IEntidadBaseDatos {
         Efecto = efecto;
     }
 
+    public long Id { get; set; }
     public string Nombre { get; set; }
     public EfectoMovimiento Efecto { get; set; }
-
-    public long Id { get; set; }
 }
 
 public enum FiltroBusquedaTipoMovimiento {

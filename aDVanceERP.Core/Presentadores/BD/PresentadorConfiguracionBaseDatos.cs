@@ -13,7 +13,7 @@ namespace aDVanceERP.Core.Presentadores.BD {
         public event EventHandler? ConfiguracionCargada;
 
         public void CargarConfiguracion() {
-            var config = Repositorio.ObtenerPorId(null);
+            var config = Repositorio.ObtenerPorId(0);
 
             if (config != null) {
                 Vista.NombreDireccionServidor = config.Servidor;

@@ -40,7 +40,7 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         set => fieldAutorizoVentaProductos.Checked = value;
     }
 
-    public string Notas {
+    public string Descripcion {
         get => fieldNotas.Text;
         set => fieldNotas.Text = value;
     }
@@ -81,7 +81,7 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         Nombre = string.Empty;
         Direccion = string.Empty;
         AutorizoVenta = false;
-        Notas = string.Empty;
+        Descripcion = string.Empty;
         ModoEdicionDatos = false;
     }
 

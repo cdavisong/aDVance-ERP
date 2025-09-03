@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Modelos; 
+namespace aDVanceERP.Core.Modelos.Modulos.Inventario;
 
 public class Movimiento : IEntidadBaseDatos {
     public Movimiento() { }

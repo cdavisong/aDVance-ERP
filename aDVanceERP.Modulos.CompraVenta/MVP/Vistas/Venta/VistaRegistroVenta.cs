@@ -10,7 +10,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 
 public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGestionDetallesCompraventaProductos {
     private bool _modoEdicion;
