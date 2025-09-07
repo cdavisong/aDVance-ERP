@@ -156,7 +156,6 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
         fieldFiltroBusqueda.Items.Clear();
         fieldFiltroBusqueda.Items.AddRange(criteriosBusqueda);
-        
         fieldFiltroBusqueda.SelectedIndex = 0;
     }
 

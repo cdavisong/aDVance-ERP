@@ -200,9 +200,9 @@ public partial class VistaTuplaVenta : Form, IVistaTuplaVenta {
 
     private Color ObtenerColorTupla() {
         if (EstadoPago?.Equals("Pendiente") ?? false)
-            return VariablesGlobales.ColorPagoPendienteTupla;
+            return VariablesGlobales.ColorErrorTupla;
         else if (EstadoEntrega?.Equals("Pendiente") ?? false)
-            return VariablesGlobales.ColorEntregaPendienteTupla;
+            return VariablesGlobales.ColorAdvertenciaTupla;
 
         return BackColor;
     }

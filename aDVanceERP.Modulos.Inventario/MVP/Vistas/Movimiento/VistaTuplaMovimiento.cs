@@ -1,5 +1,7 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 using aDVanceERP.Modulos.Inventario.Properties;
 
@@ -52,9 +54,23 @@ public partial class VistaTuplaMovimiento : Form, IVistaTuplaMovimiento {
         }
     }
 
+    public string SaldoInicial {
+        get => fieldSaldoInicial.Text;
+        set => fieldSaldoInicial.Text = value;
+    }
+
     public string CantidadMovida {
         get => fieldCantidadMovida.Text;
         set => fieldCantidadMovida.Text = value;
+    }
+
+    public string SaldoFinal {
+        get => fieldSaldoFinal.Text;
+        set { 
+            fieldSaldoFinal.Text = value;
+
+            //ColorFondoTupla = ObtenerColorTupla();
+        }
     }
 
     public string TipoMovimiento {
@@ -142,5 +158,17 @@ public partial class VistaTuplaMovimiento : Form, IVistaTuplaMovimiento {
                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto(
                                   "MOD_INVENTARIO_MOVIMIENTOS_TODOS")
                               || UtilesCuentaUsuario.PermisosUsuario.ContienePermisoExacto("MOD_INVENTARIO_TODOS");
+    }
+
+    private Color ObtenerColorTupla() {
+        var producto = RepoProducto.Instancia.Buscar(FiltroBusquedaProducto.Nombre, NombreProducto).resultados.FirstOrDefault(p => p.Nombre.Equals(NombreProducto));
+        var inventarioProducto = producto != null ? RepoInventario.Instancia.Buscar(FiltroBusquedaInventario.IdProducto, producto.Id.ToString()).resultados : null;
+        var saldoRealProducto = inventarioProducto != null && inventarioProducto.Any() ? inventarioProducto.Sum(i => i.Cantidad) : 0.0m;
+        var saldoFinalDecimal = decimal.TryParse(SaldoFinal, out var saldoFinal) ? saldoFinal : 0.0m;
+
+        if (saldoRealProducto.CompareTo(saldoFinalDecimal) != 0)
+            return VariablesGlobales.ColorErrorTupla;
+
+        return BackColor;
     }
 }

@@ -68,6 +68,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloAlmacenDestino = new Label();
             fieldTituloAlmacenOrigen = new Label();
             fieldTituloId = new Label();
+            fieldTituloSaldoInicial = new Label();
             layoutTitulo = new TableLayoutPanel();
             btnCerrar = new Guna2Button();
             fieldTitulo = new Label();
@@ -83,6 +84,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldPaginaActual = new Label();
             fieldPaginasTotales = new Label();
             separador1 = new Guna2Separator();
+            fieldTituloSaldoFinal = new Label();
             layoutVista.SuspendLayout();
             layoutHerramientas.SuspendLayout();
             panelDatosComplementariosBusqueda.SuspendLayout();
@@ -318,26 +320,29 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             // layoutEncabezadosTabla
             // 
             layoutEncabezadosTabla.BackColor = Color.WhiteSmoke;
-            layoutEncabezadosTabla.ColumnCount = 12;
+            layoutEncabezadosTabla.ColumnCount = 13;
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 160F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
-            layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutEncabezadosTabla.Controls.Add(fieldTituloNombreProducto, 0, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloFecha, 7, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTituloMotivo, 6, 0);
-            layoutEncabezadosTabla.Controls.Add(fieldTitulaCantidadMovida, 5, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloFecha, 9, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloMotivo, 8, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTitulaCantidadMovida, 6, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloAlmacenDestino, 4, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloAlmacenOrigen, 2, 0);
             layoutEncabezadosTabla.Controls.Add(fieldTituloId, 0, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloSaldoInicial, 5, 0);
+            layoutEncabezadosTabla.Controls.Add(fieldTituloSaldoFinal, 7, 0);
             layoutEncabezadosTabla.Dock = DockStyle.Fill;
             layoutEncabezadosTabla.Location = new Point(50, 265);
             layoutEncabezadosTabla.Margin = new Padding(0, 0, 0, 2);
@@ -356,7 +361,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloNombreProducto.Location = new Point(61, 1);
             fieldTituloNombreProducto.Margin = new Padding(1);
             fieldTituloNombreProducto.Name = "fieldTituloNombreProducto";
-            fieldTituloNombreProducto.Size = new Size(218, 56);
+            fieldTituloNombreProducto.Size = new Size(214, 56);
             fieldTituloNombreProducto.TabIndex = 16;
             fieldTituloNombreProducto.Text = "Producto";
             fieldTituloNombreProducto.TextAlign = ContentAlignment.MiddleCenter;
@@ -367,7 +372,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloFecha.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloFecha.ForeColor = Color.Black;
             fieldTituloFecha.ImeMode = ImeMode.NoControl;
-            fieldTituloFecha.Location = new Point(891, 1);
+            fieldTituloFecha.Location = new Point(1047, 1);
             fieldTituloFecha.Margin = new Padding(1);
             fieldTituloFecha.Name = "fieldTituloFecha";
             fieldTituloFecha.Size = new Size(118, 56);
@@ -381,10 +386,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloMotivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloMotivo.ForeColor = Color.Black;
             fieldTituloMotivo.ImeMode = ImeMode.NoControl;
-            fieldTituloMotivo.Location = new Point(671, 1);
+            fieldTituloMotivo.Location = new Point(887, 1);
             fieldTituloMotivo.Margin = new Padding(1);
             fieldTituloMotivo.Name = "fieldTituloMotivo";
-            fieldTituloMotivo.Size = new Size(218, 56);
+            fieldTituloMotivo.Size = new Size(158, 56);
             fieldTituloMotivo.TabIndex = 15;
             fieldTituloMotivo.Text = "Tipo de movimiento";
             fieldTituloMotivo.TextAlign = ContentAlignment.MiddleCenter;
@@ -395,12 +400,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTitulaCantidadMovida.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTitulaCantidadMovida.ForeColor = Color.Black;
             fieldTitulaCantidadMovida.ImeMode = ImeMode.NoControl;
-            fieldTitulaCantidadMovida.Location = new Point(561, 1);
+            fieldTitulaCantidadMovida.Location = new Point(667, 1);
             fieldTitulaCantidadMovida.Margin = new Padding(1);
             fieldTitulaCantidadMovida.Name = "fieldTitulaCantidadMovida";
             fieldTitulaCantidadMovida.Size = new Size(108, 56);
             fieldTitulaCantidadMovida.TabIndex = 15;
-            fieldTitulaCantidadMovida.Text = "Cantidad\r\nmovida";
+            fieldTitulaCantidadMovida.Text = "Cantidad movida";
             fieldTitulaCantidadMovida.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // fieldTituloAlmacenDestino
@@ -409,7 +414,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloAlmacenDestino.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloAlmacenDestino.ForeColor = Color.Black;
             fieldTituloAlmacenDestino.ImeMode = ImeMode.NoControl;
-            fieldTituloAlmacenDestino.Location = new Point(441, 1);
+            fieldTituloAlmacenDestino.Location = new Point(437, 1);
             fieldTituloAlmacenDestino.Margin = new Padding(1);
             fieldTituloAlmacenDestino.Name = "fieldTituloAlmacenDestino";
             fieldTituloAlmacenDestino.Size = new Size(118, 56);
@@ -423,7 +428,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloAlmacenOrigen.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             fieldTituloAlmacenOrigen.ForeColor = Color.Black;
             fieldTituloAlmacenOrigen.ImeMode = ImeMode.NoControl;
-            fieldTituloAlmacenOrigen.Location = new Point(281, 1);
+            fieldTituloAlmacenOrigen.Location = new Point(277, 1);
             fieldTituloAlmacenOrigen.Margin = new Padding(1);
             fieldTituloAlmacenOrigen.Name = "fieldTituloAlmacenOrigen";
             fieldTituloAlmacenOrigen.Size = new Size(118, 56);
@@ -444,6 +449,20 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             fieldTituloId.TabIndex = 14;
             fieldTituloId.Text = "Id";
             fieldTituloId.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // fieldTituloSaldoInicial
+            // 
+            fieldTituloSaldoInicial.Dock = DockStyle.Fill;
+            fieldTituloSaldoInicial.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldTituloSaldoInicial.ForeColor = Color.Black;
+            fieldTituloSaldoInicial.ImeMode = ImeMode.NoControl;
+            fieldTituloSaldoInicial.Location = new Point(557, 1);
+            fieldTituloSaldoInicial.Margin = new Padding(1);
+            fieldTituloSaldoInicial.Name = "fieldTituloSaldoInicial";
+            fieldTituloSaldoInicial.Size = new Size(108, 56);
+            fieldTituloSaldoInicial.TabIndex = 17;
+            fieldTituloSaldoInicial.Text = "Saldo inicial";
+            fieldTituloSaldoInicial.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // layoutTitulo
             // 
@@ -717,6 +736,20 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
             separador1.Size = new Size(1280, 14);
             separador1.TabIndex = 34;
             // 
+            // fieldTituloSaldoFinal
+            // 
+            fieldTituloSaldoFinal.Dock = DockStyle.Fill;
+            fieldTituloSaldoFinal.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            fieldTituloSaldoFinal.ForeColor = Color.Black;
+            fieldTituloSaldoFinal.ImeMode = ImeMode.NoControl;
+            fieldTituloSaldoFinal.Location = new Point(777, 1);
+            fieldTituloSaldoFinal.Margin = new Padding(1);
+            fieldTituloSaldoFinal.Name = "fieldTituloSaldoFinal";
+            fieldTituloSaldoFinal.Size = new Size(108, 56);
+            fieldTituloSaldoFinal.TabIndex = 18;
+            fieldTituloSaldoFinal.Text = "Saldo final";
+            fieldTituloSaldoFinal.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // VistaGestionMovimientos
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -778,5 +811,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento {
         private Panel panelDatosComplementariosBusqueda;
         private Guna2DateTimePicker fieldDatoBusquedaFecha;
         private Guna2TextBox fieldDatoBusqueda;
+        private Label fieldTituloSaldoInicial;
+        private Label fieldTituloSaldoFinal;
     }
 }

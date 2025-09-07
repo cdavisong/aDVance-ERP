@@ -21,7 +21,9 @@ public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorT
         presentadorTupla.Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenOrigen) ?? string.Empty;
         presentadorTupla.Vista.ActualizarIconoStock(tipoMovimiento.Efecto);
         presentadorTupla.Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenDestino) ?? string.Empty;
+        presentadorTupla.Vista.SaldoInicial = entidad.SaldoInicial.ToString("N2", CultureInfo.InvariantCulture);
         presentadorTupla.Vista.CantidadMovida = entidad.CantidadMovida.ToString("N2", CultureInfo.InvariantCulture);
+        presentadorTupla.Vista.SaldoFinal = entidad.SaldoFinal.ToString("N2", CultureInfo.InvariantCulture);
         presentadorTupla.Vista.TipoMovimiento = tipoMovimiento?.Nombre ?? string.Empty;
         presentadorTupla.Vista.Fecha = entidad.FechaCreacion.ToString("yyyy-MM-dd");
 

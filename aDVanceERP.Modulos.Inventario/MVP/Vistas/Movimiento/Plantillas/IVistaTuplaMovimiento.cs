@@ -8,7 +8,9 @@ public interface IVistaTuplaMovimiento : IVistaTupla {
     string NombreProducto { get; set; }
     string NombreAlmacenOrigen { get; set; }
     string NombreAlmacenDestino { get; set; }
+    string SaldoInicial { get; set; }
     string CantidadMovida { get; set; }
+    string SaldoFinal { get; set; }
     string TipoMovimiento { get; set; }
     string Fecha { get; set; }
 
