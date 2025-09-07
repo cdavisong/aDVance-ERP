@@ -171,7 +171,7 @@ public class RepoInventario : RepoEntidadBaseDatos<Modelos.Modulos.Inventario.In
                       cantidad = cantidad + @Cantidad,
                       valor_total = valor_total + (@Cantidad * @CostoUnitario),
                       costo_promedio = valor_total / cantidad
-                    WHERE id_producto = @IdProducto AND id_almacen = @IdAlmacenOrigen;
+                    WHERE id_producto = @IdProducto AND id_almacen = @IdAlmacenDestino;
                     """;
                 parametros.Add("@Cantidad", cantidad);
                 parametros.Add("@CostoUnitario", costoUnitario);

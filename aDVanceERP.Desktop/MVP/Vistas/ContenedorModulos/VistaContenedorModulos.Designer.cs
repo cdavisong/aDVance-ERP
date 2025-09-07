@@ -26,15 +26,15 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaContenedorModulos));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -156,7 +156,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnInicio.ImageSize = new Size(24, 24);
             btnInicio.Location = new Point(3, 3);
             btnInicio.Name = "btnInicio";
-            btnInicio.ShadowDecoration.CustomizableEdges = customizableEdges17;
+            btnInicio.ShadowDecoration.CustomizableEdges = customizableEdges25;
             btnInicio.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnInicio.Size = new Size(44, 44);
             btnInicio.TabIndex = 0;
@@ -174,7 +174,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnEstadisticas.ImageSize = new Size(24, 24);
             btnEstadisticas.Location = new Point(3, 53);
             btnEstadisticas.Name = "btnEstadisticas";
-            btnEstadisticas.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnEstadisticas.ShadowDecoration.CustomizableEdges = customizableEdges26;
             btnEstadisticas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnEstadisticas.Size = new Size(44, 44);
             btnEstadisticas.TabIndex = 1;
@@ -192,7 +192,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloContactos.ImageSize = new Size(24, 24);
             btnModuloContactos.Location = new Point(3, 103);
             btnModuloContactos.Name = "btnModuloContactos";
-            btnModuloContactos.ShadowDecoration.CustomizableEdges = customizableEdges19;
+            btnModuloContactos.ShadowDecoration.CustomizableEdges = customizableEdges27;
             btnModuloContactos.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloContactos.Size = new Size(44, 44);
             btnModuloContactos.TabIndex = 3;
@@ -210,7 +210,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloFinanzas.ImageSize = new Size(24, 24);
             btnModuloFinanzas.Location = new Point(3, 153);
             btnModuloFinanzas.Name = "btnModuloFinanzas";
-            btnModuloFinanzas.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnModuloFinanzas.ShadowDecoration.CustomizableEdges = customizableEdges28;
             btnModuloFinanzas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloFinanzas.Size = new Size(44, 44);
             btnModuloFinanzas.TabIndex = 5;
@@ -228,7 +228,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloInventario.ImageSize = new Size(24, 24);
             btnModuloInventario.Location = new Point(3, 203);
             btnModuloInventario.Name = "btnModuloInventario";
-            btnModuloInventario.ShadowDecoration.CustomizableEdges = customizableEdges21;
+            btnModuloInventario.ShadowDecoration.CustomizableEdges = customizableEdges29;
             btnModuloInventario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloInventario.Size = new Size(44, 44);
             btnModuloInventario.TabIndex = 2;
@@ -246,7 +246,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloTaller.ImageSize = new Size(24, 24);
             btnModuloTaller.Location = new Point(3, 253);
             btnModuloTaller.Name = "btnModuloTaller";
-            btnModuloTaller.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            btnModuloTaller.ShadowDecoration.CustomizableEdges = customizableEdges30;
             btnModuloTaller.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloTaller.Size = new Size(44, 44);
             btnModuloTaller.TabIndex = 7;
@@ -264,7 +264,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloVentas.ImageSize = new Size(24, 24);
             btnModuloVentas.Location = new Point(3, 303);
             btnModuloVentas.Name = "btnModuloVentas";
-            btnModuloVentas.ShadowDecoration.CustomizableEdges = customizableEdges23;
+            btnModuloVentas.ShadowDecoration.CustomizableEdges = customizableEdges31;
             btnModuloVentas.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloVentas.Size = new Size(44, 44);
             btnModuloVentas.TabIndex = 4;
@@ -282,7 +282,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloSeguridad.ImageSize = new Size(24, 24);
             btnModuloSeguridad.Location = new Point(3, 353);
             btnModuloSeguridad.Name = "btnModuloSeguridad";
-            btnModuloSeguridad.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            btnModuloSeguridad.ShadowDecoration.CustomizableEdges = customizableEdges32;
             btnModuloSeguridad.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnModuloSeguridad.Size = new Size(44, 44);
             btnModuloSeguridad.TabIndex = 6;
@@ -374,6 +374,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             fieldEmpresa2.BackgroundImage = Properties.Resources.empresa2;
             fieldEmpresa2.BackgroundImageLayout = ImageLayout.Center;
             fieldEmpresa2.Dock = DockStyle.Fill;
+            fieldEmpresa2.Image = (Image) resources.GetObject("fieldEmpresa2.Image");
             fieldEmpresa2.Location = new Point(420, 0);
             fieldEmpresa2.Margin = new Padding(0);
             fieldEmpresa2.Name = "fieldEmpresa2";
@@ -383,9 +384,9 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             // 
             // fieldEmpresa3
             // 
-            fieldEmpresa3.BackgroundImage = Properties.Resources.empresa3;
             fieldEmpresa3.BackgroundImageLayout = ImageLayout.Center;
             fieldEmpresa3.Dock = DockStyle.Fill;
+            fieldEmpresa3.Image = (Image) resources.GetObject("fieldEmpresa3.Image");
             fieldEmpresa3.Location = new Point(600, 0);
             fieldEmpresa3.Margin = new Padding(0);
             fieldEmpresa3.Name = "fieldEmpresa3";

@@ -6,10 +6,10 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <StartupObject>aDVanceERP.Desktop.Program</StartupObject>
-    <ApplicationIcon>icons8_erp_system.ico</ApplicationIcon>
+    <ApplicationIcon>adv.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="icons8_erp_system.ico" />
+    <Content Include="adv.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\aDVanceERP.Core.Mensajes\aDVanceERP.Core.Mensajes.csproj" />

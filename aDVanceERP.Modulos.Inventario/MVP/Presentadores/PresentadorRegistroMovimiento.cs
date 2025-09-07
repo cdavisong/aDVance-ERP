@@ -108,7 +108,7 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
         var inventario = RepoInventario.Instancia.Buscar(FiltroBusquedaInventario.IdProducto, producto.Id.ToString()).resultados.FirstOrDefault(i => i.IdAlmacen.Equals(almacenOrigen?.Id));
         var costoUnitario = producto.Categoria == CategoriaProducto.ProductoTerminado ? producto.CostoProduccionUnitario : producto.PrecioCompra;
         var tipoMovimiento = RepoTipoMovimiento.Instancia.Buscar(FiltroBusquedaTipoMovimiento.Nombre, Vista.TipoMovimiento).resultados.FirstOrDefault(tm => tm.Nombre.Equals(Vista.TipoMovimiento));
-        var saldoFinal = inventario.Cantidad + (Vista.CantidadMovida * (tipoMovimiento?.Efecto == EfectoMovimiento.Carga ? 1 : -1));
+        var saldoFinal = inventario?.Cantidad ?? 0 + (Vista.CantidadMovida * (tipoMovimiento?.Efecto == EfectoMovimiento.Carga ? 1 : -1));
 
         return new Movimiento(
             Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
