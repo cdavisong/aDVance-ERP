@@ -38,10 +38,11 @@ public static class ContextoBaseDatos {
 
     #region Métodos optimizados de ejecución de consultas
 
-    public static MySqlCommand CrearComando(string consulta, Dictionary<string, object>? parametros = null) {
+    public static MySqlCommand CrearComando(string consulta, Dictionary<string, object>? parametros = null, MySqlConnection? conexion = null) {
         ValidarConfiguracionCargada();
 
-        var conexion = new MySqlConnection(_configuracion.ToStringConexion());
+        conexion = conexion ?? new MySqlConnection(_configuracion.ToStringConexion());
+
         AbrirConexion(conexion);
 
         var comando = new MySqlCommand(consulta, conexion);
@@ -55,90 +56,98 @@ public static class ContextoBaseDatos {
         return comando;
     }
 
-    public static IEnumerable<T> EjecutarConsulta<T>(string consulta, Dictionary<string, object>? parametros, Func<MySqlDataReader, T> mapeador) {
+    public static IEnumerable<T> EjecutarConsulta<T>(string consulta, Dictionary<string, object>? parametros, Func<MySqlDataReader, T> mapeador, MySqlConnection? conexion = null) {
         ValidarConfiguracionCargada();
 
-        using var comando = CrearComando(consulta, parametros);
+        using var comando = CrearComando(consulta, parametros, conexion);
         using var lectorDatos = comando.ExecuteReader();
 
         while (lectorDatos.Read()) {
             yield return mapeador(lectorDatos);
         }
 
-        CerrarConexion(comando.Connection);
+        if (conexion == null)
+            CerrarConexion(comando.Connection);
     }
 
-    public static async IAsyncEnumerable<T> EjecutarConsultaAsync<T>(string consulta, Dictionary<string, object>? parametros, Func<MySqlDataReader, T> mapeador) {
+    public static async IAsyncEnumerable<T> EjecutarConsultaAsync<T>(string consulta, Dictionary<string, object>? parametros, Func<MySqlDataReader, T> mapeador, MySqlConnection? conexion = null) {
         ValidarConfiguracionCargada();
 
-        using var comando = CrearComando(consulta, parametros);
+        using var comando = CrearComando(consulta, parametros, conexion);
         using var lectorDatos = await comando.ExecuteReaderAsync();
 
         while (await lectorDatos.ReadAsync()) {
             yield return mapeador((MySqlDataReader) lectorDatos);
         }
 
-        CerrarConexion(comando.Connection);
+        if (conexion == null)
+            CerrarConexion(comando.Connection);
     }
 
-    public static T? EjecutarConsultaEscalar<T>(string consulta, Dictionary<string, object>? parametros = null) {
+    public static T? EjecutarConsultaEscalar<T>(string consulta, Dictionary<string, object>? parametros = null, MySqlConnection? conexion = null) {
         ValidarConfiguracionCargada();
 
-        using var comando = CrearComando(consulta, parametros);
+        using var comando = CrearComando(consulta, parametros, conexion);
         var resultado = comando.ExecuteScalar();
 
-        CerrarConexion(comando.Connection);
+        if (conexion == null)
+            CerrarConexion(comando.Connection);
 
         return resultado == null || resultado == DBNull.Value
             ? default
             : (T) Convert.ChangeType(resultado, typeof(T));
     }
 
-    public static async Task<T?> EjecutarConsultaEscalarAsync<T>(string consulta, Dictionary<string, object>? parametros = null) {
+    public static async Task<T?> EjecutarConsultaEscalarAsync<T>(string consulta, Dictionary<string, object>? parametros = null, MySqlConnection? conexion = null) {
         ValidarConfiguracionCargada();
 
-        using var comando = CrearComando(consulta, parametros);
+        using var comando = CrearComando(consulta, parametros, conexion);
         var resultado = await comando.ExecuteScalarAsync();
 
-        CerrarConexion(comando.Connection);
+        if (conexion == null)
+            CerrarConexion(comando.Connection);
 
         return resultado == null || resultado == DBNull.Value
             ? default
             : (T) Convert.ChangeType(resultado, typeof(T));
     }
 
-    public static int EjecutarComandoNoQuery(string consulta, Dictionary<string, object>? parametros, MySqlTransaction? transaccion = null) {
+    public static int EjecutarComandoNoQuery(string consulta, Dictionary<string, object>? parametros, MySqlConnection? conexion = null, MySqlTransaction ? transaccion = null) {
         ValidarConfiguracionCargada();
 
-        using var comando = CrearComando(consulta, parametros);
+        using var comando = CrearComando(consulta, parametros, conexion);
 
         if (transaccion != null)
             comando.Transaction = transaccion;
 
         var filasAfectadas = comando.ExecuteNonQuery();
-        CerrarConexion(comando.Connection);
+
+        if (conexion == null)
+            CerrarConexion(comando.Connection);
 
         return filasAfectadas;
     }
 
-    public static async Task<int> EjecutarComandoNoQueryAsync(string consulta, Dictionary<string, object>? parametros, MySqlTransaction? transaccion = null) {
+    public static async Task<int> EjecutarComandoNoQueryAsync(string consulta, Dictionary<string, object>? parametros, MySqlConnection? conexion = null, MySqlTransaction ? transaccion = null) {
         ValidarConfiguracionCargada();
 
-        using var comando = CrearComando(consulta, parametros);
+        using var comando = CrearComando(consulta, parametros, conexion);
 
         if (transaccion != null)
             comando.Transaction = transaccion;
 
         var filasAfectadas = await comando.ExecuteNonQueryAsync();
-        CerrarConexion(comando.Connection);
+
+        if (conexion == null)
+            CerrarConexion(comando.Connection);
 
         return filasAfectadas;
     }
 
-    public static long EjecutarComandoInsert(string consulta, Dictionary<string, object> parametros, MySqlTransaction? transaccion = null) {
+    public static long EjecutarComandoInsert(string consulta, Dictionary<string, object> parametros, MySqlConnection? conexion = null, MySqlTransaction ? transaccion = null) {
         ValidarConfiguracionCargada();
 
-        using var comando = CrearComando(consulta, parametros);
+        using var comando = CrearComando(consulta, parametros, conexion);
 
         if (transaccion != null)
             comando.Transaction = transaccion;
@@ -146,15 +155,16 @@ public static class ContextoBaseDatos {
         comando.ExecuteNonQuery();
         var idInsertado = comando.LastInsertedId;
 
-        CerrarConexion(comando.Connection);
+        if (conexion == null)
+            CerrarConexion(comando.Connection);
 
         return idInsertado;
     }
 
-    public static async Task<long> EjecutarComandoInsertAsync(string consulta, Dictionary<string, object> parametros, MySqlTransaction? transaccion = null) {
+    public static async Task<long> EjecutarComandoInsertAsync(string consulta, Dictionary<string, object> parametros, MySqlConnection? conexion = null, MySqlTransaction ? transaccion = null) {
         ValidarConfiguracionCargada();
 
-        using var comando = CrearComando(consulta, parametros);
+        using var comando = CrearComando(consulta, parametros, conexion);
 
         if (transaccion != null)
             comando.Transaction = transaccion;
@@ -162,7 +172,8 @@ public static class ContextoBaseDatos {
         await comando.ExecuteNonQueryAsync();
         var idInsertado = comando.LastInsertedId;
 
-        CerrarConexion(comando.Connection);
+        if (conexion == null)
+            CerrarConexion(comando.Connection);
 
         return idInsertado;
     }
@@ -206,6 +217,7 @@ public static class ContextoBaseDatos {
         ValidarConfiguracionCargada();
 
         var conexion = new MySqlConnection(_configuracion.ToStringConexion());
+
         AbrirConexion(conexion);
 
         return conexion;

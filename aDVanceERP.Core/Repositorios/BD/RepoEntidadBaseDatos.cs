@@ -1,6 +1,7 @@
 ﻿using aDVanceERP.Core.Infraestructura.Globales;
 using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.Repositorios.Interfaces;
+
 using MySql.Data.MySqlClient;
 
 namespace aDVanceERP.Core.Repositorios.BD;
@@ -45,22 +46,26 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
     public (int cantidad, List<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0) {
         _cacheEntidades.Clear();
 
-        consulta = string.IsNullOrEmpty(consulta) ? GenerarComandoObtener(default, string.Empty) : consulta;
+        var consultaResultados = string.IsNullOrEmpty(consulta) ? GenerarComandoObtener(default, string.Empty) : consulta; 
         var consultaCantidad = consulta.Replace("*", $"COUNT(*)");
 
         // Agregar LIMIT y OFFSET si es necesario (antes del ;)
         if (limite > 0) {
-            consulta = consulta.TrimEnd(';'); // Eliminar el ; si existe
-            consulta += $" LIMIT {limite}";
+            consultaResultados = consultaResultados.TrimEnd(';'); // Eliminar el ; si existe
+            consultaResultados += $" LIMIT {limite}";
 
             if (desplazamiento > 0)
-                consulta += $" OFFSET {desplazamiento}";
+                consultaResultados += $" OFFSET {desplazamiento}";
 
-            consulta += ";"; // Agregar el ; al final
+            consultaResultados += ";"; // Agregar el ; al final
         }
 
-        var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consultaCantidad);
-        var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, new Dictionary<string, object>(), MapearEntidad).ToList();
+        var conexion = ContextoBaseDatos.ObtenerConexion();
+        var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consultaCantidad, null, conexion);
+        var resultados = ContextoBaseDatos.EjecutarConsulta(consultaResultados, new Dictionary<string, object>(), MapearEntidad, conexion).ToList();
+
+        // Cerrar la conexion
+        ContextoBaseDatos.CerrarConexion(conexion);
 
         return (cantidad, resultados);
     }
