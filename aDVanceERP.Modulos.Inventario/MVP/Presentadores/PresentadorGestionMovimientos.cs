@@ -19,7 +19,7 @@ public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorT
         presentadorTupla.Vista.Id = entidad.Id.ToString();
         presentadorTupla.Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(entidad.IdProducto).Result ?? string.Empty;
         presentadorTupla.Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenOrigen) ?? string.Empty;
-        presentadorTupla.Vista.ActualizarIconoStock(tipoMovimiento.Efecto);
+        presentadorTupla.Vista.ActualizarIconoStock(tipoMovimiento?.Efecto ?? EfectoMovimiento.Ninguno);
         presentadorTupla.Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenDestino) ?? string.Empty;
         presentadorTupla.Vista.SaldoInicial = entidad.SaldoInicial.ToString("N2", CultureInfo.InvariantCulture);
         presentadorTupla.Vista.CantidadMovida = entidad.CantidadMovida.ToString("N2", CultureInfo.InvariantCulture);

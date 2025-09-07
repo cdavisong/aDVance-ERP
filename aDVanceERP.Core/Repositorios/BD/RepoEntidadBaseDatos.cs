@@ -46,6 +46,7 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
         _cacheEntidades.Clear();
 
         consulta = string.IsNullOrEmpty(consulta) ? GenerarComandoObtener(default, string.Empty) : consulta;
+        var consultaCantidad = consulta.Replace("*", $"COUNT(*)");
 
         // Agregar LIMIT y OFFSET si es necesario (antes del ;)
         if (limite > 0) {
@@ -58,7 +59,7 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
             consulta += ";"; // Agregar el ; al final
         }
 
-        var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consulta.Replace("*", $"COUNT(*)"));
+        var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consultaCantidad);
         var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, new Dictionary<string, object>(), MapearEntidad).ToList();
 
         return (cantidad, resultados);
