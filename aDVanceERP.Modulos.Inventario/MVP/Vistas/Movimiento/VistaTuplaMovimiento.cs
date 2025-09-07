@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Seguridad.Utiles;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 using aDVanceERP.Modulos.Inventario.Properties;
 
@@ -95,11 +96,11 @@ public partial class VistaTuplaMovimiento : Form, IVistaTuplaMovimiento {
         btnEliminar.Click += delegate(object? sender, EventArgs e) { EliminarDatosTupla?.Invoke(this, e); };
     }
 
-    public void ActualizarIconoStock(string tipoMovimiento) {
-        fieldIcono.BackgroundImage = tipoMovimiento switch {
-            "Carga" => Resources.load_cargo_20px,
-            "Descarga" => Resources.unload_cargo_20px,
-            "Transferencia" => Resources.transfer_20px,
+    public void ActualizarIconoStock(EfectoMovimiento efecto) {
+        fieldIcono.BackgroundImage = efecto switch {
+            EfectoMovimiento.Carga => Resources.load_cargo_20px,
+            EfectoMovimiento.Descarga => Resources.unload_cargo_20px,
+            EfectoMovimiento.Transferencia => Resources.transfer_20px,
             _ => fieldIcono.BackgroundImage
         };
     }

@@ -21,7 +21,7 @@ public interface IVistaRegistroProducto : IVistaRegistro {
     decimal CostoProduccionUnitario { get; set; }
     decimal PrecioVentaBase { get; set; }
     string? NombreAlmacen { get; set; }
-    decimal StockInicial { get; set; }
+    decimal CantidadInicial { get; set; }
 
     event EventHandler? RegistrarUnidadMedida;
     event EventHandler? RegistrarTipoMateriaPrima;

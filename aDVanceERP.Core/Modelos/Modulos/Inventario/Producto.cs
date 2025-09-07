@@ -41,7 +41,8 @@ public enum FiltroBusquedaProducto {
     Id,
     Codigo,
     Nombre,
-    Descripcion
+    Descripcion,
+    Inactivos
 }
 
 public static class UtilesBusquedaProducto {
@@ -50,7 +51,8 @@ public static class UtilesBusquedaProducto {
         "Identificador de BD",
         "Código del producto",
         "Nombre del producto",
-        "Descripción del producto"
+        "Descripción del producto",
+        "Productos inactivos"
     };
 }
 

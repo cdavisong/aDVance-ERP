@@ -51,7 +51,7 @@ public class RepoTipoMovimiento : RepoEntidadBaseDatos<TipoMovimiento, FiltroBus
                 break;
             case FiltroBusquedaTipoMovimiento.Nombre:
                 comando = $"""
-                    SELECT * '
+                    SELECT *
                     FROM adv__tipo_movimiento 
                     WHERE LOWER(nombre) LIKE LOWER('%{dato}%');
                     """;
@@ -71,7 +71,7 @@ public class RepoTipoMovimiento : RepoEntidadBaseDatos<TipoMovimiento, FiltroBus
         return new TipoMovimiento(
             lectorDatos.GetInt64(lectorDatos.GetOrdinal("id_tipo_movimiento")),
             lectorDatos.GetString(lectorDatos.GetOrdinal("nombre")),
-            (EfectoMovimiento)lectorDatos.GetInt32(lectorDatos.GetOrdinal("efecto"))
+            (EfectoMovimiento)Enum.Parse(typeof(EfectoMovimiento), lectorDatos.GetValue(lectorDatos.GetOrdinal("efecto")).ToString())
         );
     }
 

@@ -4,6 +4,7 @@ using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
+using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
@@ -157,29 +158,40 @@ public partial class PresentadorContenedorModulos {
         }
     }
 
-    private static void RegistrarMovimientoVentaProducto(DetalleVentaProducto detalleVentaProducto,
-        IReadOnlyList<string> producto) {
+    private static void RegistrarMovimientoVentaProducto(DetalleVentaProducto detalleVentaProducto, IReadOnlyList<string> datosProducto) {
+        var producto = RepoProducto.Instancia.ObtenerPorId(detalleVentaProducto.IdProducto);
+        var almacenOrigen = RepoAlmacen.Instancia.ObtenerPorId(long.Parse(datosProducto[5]));
+        var inventarioProducto = RepoInventario.Instancia.Buscar(FiltroBusquedaInventario.IdProducto, producto.Id.ToString()).resultados.FirstOrDefault(i => i.IdAlmacen.Equals(almacenOrigen.Id));
+        var tipoMovimientoProducto = RepoTipoMovimiento.Instancia.Buscar(FiltroBusquedaTipoMovimiento.Nombre, "Venta").resultados.FirstOrDefault();
+        var saldoFinalProducto = inventarioProducto.Cantidad + (detalleVentaProducto.Cantidad * (tipoMovimientoProducto?.Efecto == EfectoMovimiento.Carga ? 1 : -1));
+
         using (var datosMovimiento = new RepoMovimiento()) {
             datosMovimiento.Adicionar(new Movimiento(
                 0,
                 detalleVentaProducto.IdProducto,
-                long.Parse(producto[5]),
+                detalleVentaProducto.PrecioCompraVigente,
+                detalleVentaProducto.PrecioCompraVigente * detalleVentaProducto.Cantidad,
+                almacenOrigen.Id,
                 0,
                 DateTime.Now,
+                EstadoMovimiento.Completado,
+                DateTime.MinValue,
+                inventarioProducto?.Cantidad ?? 0,
                 detalleVentaProducto.Cantidad,
-                UtilesMovimiento.ObtenerIdTipoMovimiento("Venta")
+                saldoFinalProducto,
+                tipoMovimientoProducto?.Id ?? 0,
+                UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0
             ));
         }
     }
 
     private static void ModificarStockVentaProducto(DetalleVentaProducto detalleVentaProducto,
         IReadOnlyList<string> producto) {
-        UtilesMovimiento.ModificarInventario(
+        RepoInventario.Instancia.ModificarInventario(
             detalleVentaProducto.IdProducto,
             long.Parse(producto[5]),
             0,
-            detalleVentaProducto.Cantidad,
-            UtilesProducto.ObtenerCostoUnitario(detalleVentaProducto.IdProducto).Result
+            detalleVentaProducto.Cantidad
         );
     }
 }

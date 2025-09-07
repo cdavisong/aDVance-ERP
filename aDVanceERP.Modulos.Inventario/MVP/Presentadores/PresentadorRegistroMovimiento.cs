@@ -3,6 +3,7 @@ using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
+using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
@@ -13,42 +14,48 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
 
     public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Movimiento objeto) {
-        Vista.ModoEdicionDatos = true;
-        Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
-        Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
-        Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
-        Vista.Fecha = objeto.Fecha;
-        Vista.CantidadMovida = objeto.CantidadMovida;
-        Vista.TipoMovimiento = UtilesMovimiento.ObtenerNombreTipoMovimiento(objeto.IdTipoMovimiento) ?? string.Empty;
+    public override void PopularVistaDesdeObjeto(Movimiento entidad) {
+        var tipoMovimiento = RepoTipoMovimiento.Instancia.ObtenerPorId(entidad.IdTipoMovimiento);
 
-        Entidad = objeto;
+        Vista.ModoEdicionDatos = true;
+        Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(entidad.IdProducto).Result ?? string.Empty;
+        Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenOrigen) ?? string.Empty;
+        Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenDestino) ?? string.Empty;
+        Vista.Fecha = entidad.Fecha;
+        Vista.CantidadMovida = entidad.CantidadMovida;
+        Vista.TipoMovimiento = tipoMovimiento?.Nombre ?? string.Empty;
+
+        Entidad = entidad;
     }
 
     protected override bool RegistroEdicionDatosAutorizado() {
         var nombreProductoOk = !string.IsNullOrEmpty(Vista.NombreProducto);
         var tipoMovimientoOk = !string.IsNullOrEmpty(Vista.TipoMovimiento);
         var noCompraventaOk = !(Vista.TipoMovimiento.Equals("Compra") || Vista.TipoMovimiento.Equals("Venta"));
-        
-        var efectoMovimiento = UtilesMovimiento.ObtenerEfectoTipoMovimiento(UtilesMovimiento.ObtenerIdTipoMovimiento(Vista.TipoMovimiento));
+        var tipoMovimiento = RepoTipoMovimiento.Instancia.Buscar(FiltroBusquedaTipoMovimiento.Nombre, Vista.TipoMovimiento).resultados.FirstOrDefault(tm => tm.Nombre.Equals(Vista.TipoMovimiento));
+        var transferenciaAlmacenesIguales = Vista.NombreAlmacenOrigen?.Equals(Vista?.NombreAlmacenDestino) ?? false;
 
-        if (!string.IsNullOrEmpty(efectoMovimiento)) {
-            switch (efectoMovimiento) {
-                case "Carga":
+        if (tipoMovimiento != null) {
+            switch (tipoMovimiento.Efecto) {
+                case EfectoMovimiento.Carga:
                     if (string.IsNullOrEmpty(Vista.NombreAlmacenDestino) || Vista.NombreAlmacenDestino.Equals("Ninguno")) {
                         CentroNotificaciones.Mostrar("Debe especificar un almacén de destino para la operación de carga solicitada", TipoNotificacion.Advertencia);
                         return false;
                     }
                     break;
-                case "Descarga":
+                case EfectoMovimiento.Descarga:
                     if (string.IsNullOrEmpty(Vista.NombreAlmacenOrigen) || Vista.NombreAlmacenOrigen.Equals("Ninguno")) {
                         CentroNotificaciones.Mostrar("Debe especificar un almacén de origen para la operación de descarga solicitada", TipoNotificacion.Advertencia);
                         return false;
                     }
                     break;
-                case "Transferencia":
+                case EfectoMovimiento.Transferencia:
                     if (string.IsNullOrEmpty(Vista.NombreAlmacenOrigen) || string.IsNullOrEmpty(Vista.NombreAlmacenDestino) || Vista.NombreAlmacenOrigen.Equals("Ninguno") || Vista.NombreAlmacenDestino.Equals("Ninguno")) {
                         CentroNotificaciones.Mostrar("Debe especificar un almacén de origen y un destino para la operación de transferencia solicitada", TipoNotificacion.Advertencia);
+                        return false;
+                    }
+                    if (transferenciaAlmacenesIguales) {
+                        CentroNotificaciones.Mostrar("Error al especificar el origen o destino del producto, ambos almacenes deben tener distinta nomenclatura. Verifique los datos.", TipoNotificacion.Error);
                         return false;
                     }
                     break;
@@ -60,7 +67,7 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
 
         var cantidadOk = Vista.CantidadMovida > 0;
 
-        if (efectoMovimiento.Equals("Descarga") || efectoMovimiento.Equals("Transferencia")) {
+        if (tipoMovimiento?.Efecto == EfectoMovimiento.Descarga || tipoMovimiento?.Efecto == EfectoMovimiento.Transferencia) {
             if (!string.IsNullOrEmpty(Vista.NombreAlmacenOrigen)) {
                 var cantidadInicialOrigen = UtilesProducto.ObtenerStockProducto(Vista.NombreProducto, Vista.NombreAlmacenOrigen).Result;
 
@@ -84,27 +91,40 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
         return nombreProductoOk && tipoMovimientoOk && noCompraventaOk && cantidadOk;
     }
 
-    protected override void RegistroAuxiliar(RepoMovimiento datosMovimiento, long id) {
-        var idProducto = UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result;
-
+    protected override void RegistroAuxiliar(RepoMovimiento repoMovimiento, long id) {
         if (Entidad != null)
-            UtilesMovimiento.ModificarInventario(
-                idProducto,
-                UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen).Result,
-                UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
-                Vista.CantidadMovida,
-                UtilesProducto.ObtenerCostoUnitario(idProducto).Result);
+            RepoInventario.Instancia.ModificarInventario(
+                Vista.NombreProducto,
+                Vista.NombreAlmacenOrigen,
+                Vista.NombreAlmacenDestino,
+                Vista.CantidadMovida
+            );
     }
 
     protected override Movimiento? ObtenerEntidadDesdeVista() {
+        var producto = RepoProducto.Instancia.Buscar(FiltroBusquedaProducto.Nombre, Vista.NombreProducto).resultados.FirstOrDefault(p => p.Nombre.Equals(Vista.NombreProducto));
+        var almacenOrigen = RepoAlmacen.Instancia.Buscar(FiltroBusquedaAlmacen.Nombre, Vista.NombreAlmacenOrigen).resultados.FirstOrDefault(a => a.Nombre.Equals(Vista.NombreAlmacenOrigen));
+        var almacenDestino = RepoAlmacen.Instancia.Buscar(FiltroBusquedaAlmacen.Nombre, Vista.NombreAlmacenDestino).resultados.FirstOrDefault(a => a.Nombre.Equals(Vista.NombreAlmacenDestino));
+        var inventario = RepoInventario.Instancia.Buscar(FiltroBusquedaInventario.IdProducto, producto.Id.ToString()).resultados.FirstOrDefault(i => i.IdAlmacen.Equals(almacenOrigen?.Id));
+        var costoUnitario = producto.Categoria == CategoriaProducto.ProductoTerminado ? producto.CostoProduccionUnitario : producto.PrecioCompra;
+        var tipoMovimiento = RepoTipoMovimiento.Instancia.Buscar(FiltroBusquedaTipoMovimiento.Nombre, Vista.TipoMovimiento).resultados.FirstOrDefault(tm => tm.Nombre.Equals(Vista.TipoMovimiento));
+        var saldoFinal = inventario.Cantidad + (Vista.CantidadMovida * (tipoMovimiento?.Efecto == EfectoMovimiento.Carga ? 1 : -1));
+
         return new Movimiento(
             Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
-            UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result,
-            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenOrigen).Result,
-            UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacenDestino).Result,
+            producto?.Id ?? throw  new ArgumentNullException("El producto especificado no es válido"),
+            costoUnitario,
+            costoUnitario * Vista.CantidadMovida,
+            almacenOrigen?.Id ?? 0,
+            almacenDestino?.Id ?? 0,
             Vista.Fecha,
+            EstadoMovimiento.Pendiente,
+            DateTime.MinValue,
+            inventario?.Cantidad ?? 0,
             Vista.CantidadMovida,
-            UtilesMovimiento.ObtenerIdTipoMovimiento(Vista.TipoMovimiento)
+            saldoFinal,
+            tipoMovimiento?.Id ?? 0,
+            UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0
         );
     }
 }

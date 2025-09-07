@@ -14,7 +14,7 @@ public class PresentadorContenedorEstadisticas : PresentadorBase<IVistaContenedo
 
     internal async void RefrescarEstadísticas() {
         Vista.CantidadProductosRegistrados = await UtilesProducto.ObtenerStockTotalProductos();
-        Vista.MontoInversionProductos = await UtilesProducto.ObtenerMontoInvertidoEnProductos();
+        //Vista.MontoInversionProductos = await UtilesProducto.ObtenerMontoInvertidoEnProductos();
         Vista.CantidadProductosVendidos = UtilesVenta.ObtenerTotalProductosVendidosHoy();
         Vista.MontoVentaProductosVendidos = UtilesVenta.ObtenerValorBrutoVentaDia(DateTime.Now);
         Vista.MontoGananciaTotalNegocio = UtilesVenta.ObtenerValorGananciaTotalNegocio();

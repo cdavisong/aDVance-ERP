@@ -101,7 +101,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         set => P2UmPreciosStock.NombreAlmacen = value;
     }
 
-    public decimal StockInicial {
+    public decimal CantidadInicial {
         get => P2UmPreciosStock.StockInicial;
         set => P2UmPreciosStock.StockInicial = value;
     }

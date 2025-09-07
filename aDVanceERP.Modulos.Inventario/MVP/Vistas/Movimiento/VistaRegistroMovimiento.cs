@@ -1,4 +1,6 @@
-﻿using aDVanceERP.Core.Utiles.Datos;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.Repositorios.Modulos.Inventario;
+using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
 using System.Globalization;
@@ -151,14 +153,14 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
     }
 
     public void ActualizarCamposAlmacenes() {
-        var idTipoMovimiento = UtilesMovimiento.ObtenerIdTipoMovimiento(TipoMovimiento);
-                
-        if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Carga")) {
+        var tipoMovimiento = RepoTipoMovimiento.Instancia.Buscar(FiltroBusquedaTipoMovimiento.Nombre, TipoMovimiento).resultados.FirstOrDefault(tm => tm.Nombre.Equals(TipoMovimiento));
+
+        if (tipoMovimiento?.Efecto == EfectoMovimiento.Carga) {
             fieldNombreAlmacenOrigen.SelectedIndex = 0;
             fieldNombreAlmacenOrigen.Enabled = false;
             fieldNombreAlmacenDestino.Enabled = !ModoEdicionDatos;
         }
-        else if (UtilesMovimiento.ObtenerEfectoTipoMovimiento(idTipoMovimiento).Equals("Descarga")) {
+        else if (tipoMovimiento?.Efecto == EfectoMovimiento.Descarga) {
             fieldNombreAlmacenDestino.SelectedIndex = 0;
             fieldNombreAlmacenDestino.Enabled = false;
             fieldNombreAlmacenOrigen.Enabled = !ModoEdicionDatos;

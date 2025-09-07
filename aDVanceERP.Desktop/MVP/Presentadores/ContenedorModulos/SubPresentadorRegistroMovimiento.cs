@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
@@ -35,20 +36,22 @@ public partial class PresentadorContenedorModulos {
     private async Task InicializarVistaRegistroMovimiento(string? signo, string? nombreAlmacen) {
         await InicializarVistaRegistroMovimiento();
 
+        var tiposMovimiento = RepoTipoMovimiento.Instancia.Buscar(FiltroBusquedaTipoMovimiento.Todos, string.Empty).resultados;
+
         Signo = signo ?? string.Empty;
 
         if (_registroMovimiento != null) {
-            if (string.IsNullOrEmpty(signo)) {
-                _registroMovimiento.Vista.CargarTiposMovimientos(UtilesMovimiento.ObtenerNombresTiposMovimientos());
-            }
-            else {
-                _registroMovimiento.Vista.CargarTiposMovimientos(
-                    UtilesMovimiento.ObtenerNombresTiposMovimientos(signo));
+            _registroMovimiento.Vista.CargarTiposMovimientos(
+                    Signo.Equals("+")
+                        ? tiposMovimiento.Where(tm => tm.Efecto == EfectoMovimiento.Carga).Select(tm => tm.Nombre).ToArray()
+                        : Signo.Equals("-")
+                            ? tiposMovimiento.Where(tm => tm.Efecto == EfectoMovimiento.Descarga).Select(tm => tm.Nombre).ToArray()
+                            : tiposMovimiento.Select(tm => tm.Nombre).ToArray()
+                );
 
-                if (nombreAlmacen != null && !nombreAlmacen.Equals("-")) {
-                    _registroMovimiento.Vista.NombreAlmacenOrigen = signo.Equals("-") ? nombreAlmacen : "Ninguno";
-                    _registroMovimiento.Vista.NombreAlmacenDestino = signo.Equals("+") ? nombreAlmacen : "Ninguno";
-                }
+            if (nombreAlmacen != null && !nombreAlmacen.Equals("-")) {
+                _registroMovimiento.Vista.NombreAlmacenOrigen = Signo.Equals("-") ? nombreAlmacen : "Ninguno";
+                _registroMovimiento.Vista.NombreAlmacenDestino = Signo.Equals("+") ? nombreAlmacen : "Ninguno";
             }
         }
     }

@@ -437,24 +437,6 @@ public static class UtilesProducto {
         }
     }
 
-    public static async Task<decimal> ObtenerMontoInvertidoEnProductos(long idAlmacen = 0) {
-        var query = $"""
-                 SELECT
-                    SUM(CAST(dcp.precio_compra AS DECIMAL(10,2)) * CAST(dcp.cantidad AS DECIMAL(10,2))) AS monto_invertido
-                 FROM adv__detalle_compra_producto dcp
-                 JOIN adv__compra p ON dcp.id_compra = p.id_compra
-                 {(idAlmacen != 0 ? "WHERE p.id_almacen = @IdAlmacen" : "")};
-                 """;
-        var parametros = idAlmacen != 0 ? new[] {
-        new MySqlParameter("@IdAlmacen", idAlmacen)
-    } : null;
-
-        return await EjecutarConsultaEscalar(query,
-            lector => lector.IsDBNull(lector.GetOrdinal("monto_invertido"))
-                ? 0
-                : lector.GetDecimal(lector.GetOrdinal("monto_invertido")), parametros);
-    }
-
     public static async Task<bool> PuedeEliminarProducto(long idProducto) {
         const string queryVentas = """
                                    SELECT

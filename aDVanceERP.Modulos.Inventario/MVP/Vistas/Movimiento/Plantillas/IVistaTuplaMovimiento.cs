@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas; 
 
@@ -11,5 +12,5 @@ public interface IVistaTuplaMovimiento : IVistaTupla {
     string TipoMovimiento { get; set; }
     string Fecha { get; set; }
 
-    void ActualizarIconoStock(string tipoMovimiento);
+    void ActualizarIconoStock(EfectoMovimiento efecto);
 }

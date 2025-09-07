@@ -68,20 +68,18 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
             else if (Entidad?.IdDetalleProducto != 0)
                 datos.Editar(detalleProducto);
             else {
+                // Editar producto para modificar Id de los detalles
                 Entidad.IdDetalleProducto = datos.Adicionar(detalleProducto);
+                datosProducto.Editar(Entidad);
 
-                // Stock inicial del producto
-                UtilesMovimiento.ModificarInventario(
-                    Entidad.Id,
-                    0,
-                    UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
-                    Vista.StockInicial,
-                    UtilesProducto.ObtenerCostoUnitario(Entidad.Id).Result
+                // Cantidad inicial del producto
+                RepoInventario.Instancia.ModificarInventario(
+                    Entidad.Nombre,
+                    string.Empty,
+                    Vista.NombreAlmacen,
+                    Vista.CantidadInicial
                 );
             }
-
-            // Editar producto para modificar Id de los detalles
-            datosProducto.Editar(Entidad);
         }
     }
 

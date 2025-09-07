@@ -7,7 +7,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 public interface IVistaGestionProductos : IVistaContenedor, IGestorDatos, IBuscadorDatos<FiltroBusquedaProducto>,
     IGestorTablaDatos {
     string? NombreAlmacen { get; }
-    string ValorBrutoInversion { get; }
+    decimal ValorTotalInventario { get; }
+    bool MostrarBtnHabilitarDeshabilitarProducto { get; set; }
+
+    event EventHandler? HabilitarDeshabilitarProducto;
 
     void CargarNombresAlmacenes(object[] nombresAlmacenes);
 }

@@ -12,17 +12,18 @@ public class PresentadorGestionMovimientos : PresentadorGestionBase<PresentadorT
     , IVistaTuplaMovimiento, Movimiento, RepoMovimiento, FiltroBusquedaMovimiento> {
     public PresentadorGestionMovimientos(IVistaGestionMovimientos vista) : base(vista) { }
 
-    protected override PresentadorTuplaMovimiento ObtenerValoresTupla(Movimiento objeto) {
-        var presentadorTupla = new PresentadorTuplaMovimiento(new VistaTuplaMovimiento(), objeto);
+    protected override PresentadorTuplaMovimiento ObtenerValoresTupla(Movimiento entidad) {
+        var presentadorTupla = new PresentadorTuplaMovimiento(new VistaTuplaMovimiento(), entidad);
+        var tipoMovimiento = RepoTipoMovimiento.Instancia.ObtenerPorId(entidad.IdTipoMovimiento);
 
-        presentadorTupla.Vista.Id = objeto.Id.ToString();
-        presentadorTupla.Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(objeto.IdProducto).Result ?? string.Empty;
-        presentadorTupla.Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenOrigen) ?? string.Empty;
-        presentadorTupla.Vista.ActualizarIconoStock(UtilesMovimiento.ObtenerEfectoTipoMovimiento(objeto.IdTipoMovimiento));
-        presentadorTupla.Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacenDestino) ?? string.Empty;
-        presentadorTupla.Vista.CantidadMovida = objeto.CantidadMovida.ToString("N2", CultureInfo.InvariantCulture);
-        presentadorTupla.Vista.TipoMovimiento = UtilesMovimiento.ObtenerNombreTipoMovimiento(objeto.IdTipoMovimiento) ?? string.Empty;
-        presentadorTupla.Vista.Fecha = objeto.Fecha.ToString("yyyy-MM-dd");
+        presentadorTupla.Vista.Id = entidad.Id.ToString();
+        presentadorTupla.Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(entidad.IdProducto).Result ?? string.Empty;
+        presentadorTupla.Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenOrigen) ?? string.Empty;
+        presentadorTupla.Vista.ActualizarIconoStock(tipoMovimiento.Efecto);
+        presentadorTupla.Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenDestino) ?? string.Empty;
+        presentadorTupla.Vista.CantidadMovida = entidad.CantidadMovida.ToString("N2", CultureInfo.InvariantCulture);
+        presentadorTupla.Vista.TipoMovimiento = tipoMovimiento?.Nombre ?? string.Empty;
+        presentadorTupla.Vista.Fecha = entidad.FechaCreacion.ToString("yyyy-MM-dd");
 
         return presentadorTupla;
     }

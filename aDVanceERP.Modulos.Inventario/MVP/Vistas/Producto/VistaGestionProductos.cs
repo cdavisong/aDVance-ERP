@@ -2,9 +2,9 @@
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
-using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
@@ -55,12 +55,17 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         set => fieldDatoBusqueda.Text = value;
     }
 
-    public string ValorBrutoInversion {
-        get => fieldValorBrutoInversion.Text;
+    public decimal ValorTotalInventario {
+        get => decimal.TryParse(fieldValorTotalInventario.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal valorTotal) ? valorTotal : 0m;
         set {
-            layoutValorBrutoInversion.Visible = !value.Equals("0.00");
-            fieldValorBrutoInversion.Text = value;
+            layoutValorBrutoInversion.Visible = value > 0;
+            fieldValorTotalInventario.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }
+    }
+
+    public bool MostrarBtnHabilitarDeshabilitarProducto {
+        get => btnHabilitarDeshabilitarProducto.Visible;
+        set => btnHabilitarDeshabilitarProducto.Visible = value;
     }
 
     public int AlturaContenedorVistas {
@@ -89,7 +94,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     }
 
     public IRepoVista? Vistas { get; private set; }
-
+    
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
     public event EventHandler? MostrarPaginaAnterior;
@@ -101,6 +106,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
     public event EventHandler? BuscarDatos;
+    public event EventHandler? HabilitarDeshabilitarProducto;
 
     public void Inicializar() {
         // Variables locales
@@ -112,18 +118,18 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
                 BuscarDatos?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
 
-            ActualizarMontoInversion();
+            ActualizarValorTotalInventario();
         };
         fieldCriterioCategoriaProducto.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
             if (Categoria > -1)
                 BuscarDatos?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
             else SincronizarDatos?.Invoke(sender, e);
 
-            ActualizarMontoInversion();
+            ActualizarValorTotalInventario();
         };
         fieldFiltroBusqueda.SelectedIndexChanged += delegate {
             fieldDatoBusqueda.Text = string.Empty;
-            fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0;
+            fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0 && fieldFiltroBusqueda.SelectedIndex != 5;
             fieldDatoBusqueda.Focus();
 
             BuscarDatos?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } },
@@ -144,7 +150,10 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         btnRegistrar.Click += delegate (object? sender, EventArgs e) {
             RegistrarDatos?.Invoke(sender, e);
 
-            ActualizarMontoInversion();
+            ActualizarValorTotalInventario();
+        };
+        btnHabilitarDeshabilitarProducto.Click += delegate (object? sender, EventArgs e) {
+            HabilitarDeshabilitarProducto?.Invoke(sender, e);
         };
         btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = 1;
@@ -173,7 +182,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         btnSincronizarDatos.Click += delegate (object? sender, EventArgs e) {
             SincronizarDatos?.Invoke(sender, e);
 
-            ActualizarMontoInversion();
+            ActualizarValorTotalInventario();
         };
         contenedorVistas.Resize += delegate {
             AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty);
@@ -204,6 +213,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
+        MostrarBtnHabilitarDeshabilitarProducto = false;
 
         fieldNombreAlmacen.SelectedIndex = 0;
         fieldFiltroBusqueda.SelectedIndex = 0;
@@ -218,10 +228,9 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         //...
     }
 
-    private async void ActualizarMontoInversion() {
-        ValorBrutoInversion =
-            (await UtilesProducto.ObtenerMontoInvertidoEnProductos(await UtilesAlmacen.ObtenerIdAlmacen(NombreAlmacen)))
-            .ToString("N2", CultureInfo.InvariantCulture);
+    private void ActualizarValorTotalInventario() {
+        ValorTotalInventario = RepoProducto.Instancia.ObtenerValorTotalBruto(
+            RepoAlmacen.Instancia.Buscar(FiltroBusquedaAlmacen.Nombre, NombreAlmacen).resultados.FirstOrDefault()?.Id ?? 0);
     }
 
     private void VerificarPermisos() {

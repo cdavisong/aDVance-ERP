@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+﻿using aDVanceERP.Core.Infraestructura.Globales;
+using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.Repositorios.BD;
 
 using MySql.Data.MySqlClient;
@@ -77,6 +78,24 @@ public class RepoDetalleProducto : RepoEntidadBaseDatos<DetalleProducto, FiltroB
     #region STATIC
 
     public static RepoDetalleProducto Instancia = new RepoDetalleProducto();
+
+    public static void HabilitarDeshabilitarProducto(long idDetalleProducto) {
+        var consulta = $"""
+            UPDATE adv__detalle_producto
+            SET
+                activo = CASE
+                    WHEN activo = 0 THEN 1
+                    WHEN activo = 1 THEN 0
+                    ELSE 0
+                END
+            WHERE id_detalle_producto = @IdDetalleProducto;
+            """;
+        var parametros = new Dictionary<string, object>() {
+            { "@IdDetalleProducto", idDetalleProducto }
+        };
+
+        ContextoBaseDatos.EjecutarComandoNoQuery(consulta, parametros);
+    }
 
     #endregion
 }

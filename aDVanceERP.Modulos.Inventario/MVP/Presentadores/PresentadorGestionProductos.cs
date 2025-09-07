@@ -8,7 +8,12 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
 public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTuplaProducto, IVistaGestionProductos,
     IVistaTuplaProducto, Producto, RepoProducto, FiltroBusquedaProducto> {
-    public PresentadorGestionProductos(IVistaGestionProductos vista) : base(vista) { }
+    public PresentadorGestionProductos(IVistaGestionProductos vista) : base(vista) {
+        vista.HabilitarDeshabilitarProducto += IntercambiarHabilitacionProducto;
+        vista.EditarDatos += delegate {
+            Vista.MostrarBtnHabilitarDeshabilitarProducto = false;
+        };
+    }
 
     public event EventHandler? MovimientoPositivoStock;
     public event EventHandler? MovimientoNegativoStock;
@@ -45,7 +50,41 @@ public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTup
 
             MovimientoNegativoStock?.Invoke(objetoNeg, EventArgs.Empty);
         };
+        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnHabilitacionProducto;
+        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnHabilitacionProducto;
 
         return presentadorTupla;
+    }
+
+    public override void ActualizarResultadosBusqueda() {
+        // Cambiar la visibilidad de los botones
+        Vista.MostrarBtnHabilitarDeshabilitarProducto = false;
+
+        base.ActualizarResultadosBusqueda();
+    }
+
+    private void IntercambiarHabilitacionProducto(object? sender, EventArgs e) {
+        // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
+        var tuplasSeleccionadas = _tuplasEntidades.Where(t => t.TuplaSeleccionada).ToList();
+
+        if (!tuplasSeleccionadas.Any()) {
+            Vista.MostrarBtnHabilitarDeshabilitarProducto = false;
+            return;
+        }
+
+        // 2. Mover la instancia de RepoDetalleProducto fuera del bucle
+        using (var repoDetalleProducto = new RepoDetalleProducto()) {
+            foreach (var tupla in tuplasSeleccionadas) {
+                // 3. Actualizar el producto 1 vez por tupla
+                RepoDetalleProducto.HabilitarDeshabilitarProducto(tupla.Entidad.Id);
+            }
+        }
+
+        Vista.MostrarBtnHabilitarDeshabilitarProducto = false;
+        ActualizarResultadosBusqueda();
+    }
+
+    private void CambiarVisibilidadBtnHabilitacionProducto(object? sender, EventArgs e) {
+        Vista.MostrarBtnHabilitarDeshabilitarProducto = _tuplasEntidades.Any(t => t.TuplaSeleccionada);
     }
 }

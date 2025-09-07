@@ -1,5 +1,6 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
+using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 
 using aDVanceERP.Modulos.Taller.Modelos;
@@ -69,35 +70,49 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         }
 
         private void RegistrarMovimientosOrdenProduccionCerrada(object? sender, OrdenProduccion e) {
-            var idProducto = UtilesProducto.ObtenerIdProducto(e.NombreProducto).Result;
+            var producto = RepoProducto.Instancia.Buscar(FiltroBusquedaProducto.Nombre, e.NombreProducto).resultados.FirstOrDefault(p => p.Nombre.Equals(e.NombreProducto));
+            var almacenDestino = RepoAlmacen.Instancia.ObtenerPorId(e.IdAlmacen);
+            var inventarioProducto = RepoInventario.Instancia.Buscar(FiltroBusquedaInventario.IdProducto, producto.Id.ToString()).resultados.FirstOrDefault(i => i.IdAlmacen.Equals(e.IdAlmacen));
+            var tipoMovimientoProducto = RepoTipoMovimiento.Instancia.Buscar(FiltroBusquedaTipoMovimiento.Nombre, "Gasto material").resultados.FirstOrDefault();
+            var saldoFinalProducto = inventarioProducto.Cantidad + (e.Cantidad * (tipoMovimientoProducto?.Efecto == EfectoMovimiento.Carga ? 1 : -1));
 
             // Actualizar el costo unitario de producción en el producto correspondiente
-            UtilesProducto.ActualizarCostoProduccionUnitario(idProducto, e.PrecioUnitario);
+            UtilesProducto.ActualizarCostoProduccionUnitario(producto?.Id ?? 0, e.PrecioUnitario);
 
             // Movimiento de materiales utilizados en la orden de producción
-            using (var datosObjeto = new RepoOrdenMateriaPrima()) {
-                var materiasPrimas = datosObjeto.Buscar(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, e.Id.ToString()).resultados;
+            using (var repoOrdenMateriaPrima = new RepoOrdenMateriaPrima()) {
+                var materiasPrimas = repoOrdenMateriaPrima.Buscar(FiltroBusquedaOrdenMateriaPrima.OrdenProduccion, e.Id.ToString()).resultados;
 
                 if (materiasPrimas != null && materiasPrimas.Count() > 0) {
-                    using (var datosMovimiento = new RepoMovimiento()) {
+                    using (var repoMovimiento = new RepoMovimiento()) {
                         foreach (var materiaPrima in materiasPrimas) {
-                            datosMovimiento.Adicionar(new Movimiento(
+                            var inventarioMateriaPrima = RepoInventario.Instancia.Buscar(FiltroBusquedaInventario.IdProducto, materiaPrima.IdProducto.ToString()).resultados.FirstOrDefault(i => i.IdAlmacen.Equals(materiaPrima.IdAlmacen));
+                            var tipoMovimientoMateriaPrima = RepoTipoMovimiento.Instancia.Buscar(FiltroBusquedaTipoMovimiento.Nombre, "Gasto material").resultados.FirstOrDefault();
+                            var saldoFinalMateriaPrima = inventarioMateriaPrima.Cantidad + (materiaPrima.Cantidad * (tipoMovimientoMateriaPrima?.Efecto == EfectoMovimiento.Carga ? 1 : -1));
+
+                            repoMovimiento.Adicionar(new Movimiento(
                                 0,
                                 materiaPrima.IdProducto,
+                                materiaPrima.CostoUnitario,
+                                materiaPrima.CostoUnitario * materiaPrima.Cantidad,
                                 materiaPrima.IdAlmacen,
                                 0,
                                 materiaPrima.FechaRegistro,
+                                EstadoMovimiento.Completado,
+                                DateTime.MinValue,
+                                inventarioMateriaPrima?.Cantidad ?? 0,
                                 materiaPrima.Cantidad,
-                                UtilesMovimiento.ObtenerIdTipoMovimiento("Gasto material")
+                                saldoFinalMateriaPrima,
+                                tipoMovimientoMateriaPrima?.Id ?? 0,
+                                UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0
                             ));
 
                             // Disminuir el cantidad de materiales utilizados en la orden de producción
-                            UtilesMovimiento.ModificarInventario(
+                            RepoInventario.Instancia.ModificarInventario(
                                 materiaPrima.IdProducto,
                                 materiaPrima.IdAlmacen,
                                 0,
-                                materiaPrima.Cantidad,
-                                UtilesProducto.ObtenerCostoUnitario(materiaPrima.IdProducto).Result
+                                materiaPrima.Cantidad
                             );
                         }
                     }
@@ -108,22 +123,28 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             using (var repoMovimiento = new RepoMovimiento()) {
                 repoMovimiento.Adicionar(new Movimiento(
                     0,
-                    idProducto,
+                    producto.Id,
+                    e.PrecioUnitario,
+                    e.CostoTotal,
                     0,
                     e.IdAlmacen,
                     e.FechaCierre ?? DateTime.Now,
+                    EstadoMovimiento.Completado,
+                    DateTime.MinValue,
+                    inventarioProducto?.Cantidad ?? 0,
                     e.Cantidad,
-                    UtilesMovimiento.ObtenerIdTipoMovimiento("Producción")
+                    saldoFinalProducto,
+                    tipoMovimientoProducto?.Id ?? 0,
+                    UtilesCuentaUsuario.UsuarioAutenticado?.Id ?? 0
                 ));
             }
 
             // Aumentar el cantidad del producto terminado en el almacén seleccionado
-            UtilesMovimiento.ModificarInventario(
-                idProducto,
+            RepoInventario.Instancia.ModificarInventario(
+                producto.Id,
                 0,
                 e.IdAlmacen,
-                e.Cantidad,
-                UtilesProducto.ObtenerCostoUnitario(idProducto).Result
+                e.Cantidad
             );
         }
     }
