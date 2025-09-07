@@ -2,18 +2,20 @@
 using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.Repositorios.Interfaces;
 
+using Microsoft.Extensions.Caching.Memory;
+
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 namespace aDVanceERP.Core.Repositorios.BD;
 
 public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, Fb>
     where En : class, IEntidadBaseDatos, new()
     where Fb : Enum {
-    private List<En> _cacheEntidades;
+    private readonly MemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
+    private readonly TimeSpan _cacheDuration = TimeSpan.FromMinutes(5);
 
     protected RepoEntidadBaseDatos(string nombreTabla, string columnaId) {
-        _cacheEntidades = new List<En>();
-
         NombreTabla = nombreTabla;
         ColumnaId = columnaId;
     }
@@ -25,50 +27,85 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
     #region Obtención de datos y búsqueda de entidades
 
     public En? ObtenerPorId(long id) {
-        var consulta = $"SELECT * FROM {NombreTabla} WHERE {ColumnaId} = @id LIMIT 1";
-        var parametros = new Dictionary<string, object> {
-            { "@id", id }
-        };
+        var cacheKey = $"{NombreTabla}_Id_{id}";
 
-        return ContextoBaseDatos.EjecutarConsulta(consulta, parametros, MapearEntidad).FirstOrDefault();
+        if (_cache.TryGetValue(cacheKey, out En? cachedEntity))
+            return cachedEntity;
+
+        var consulta = $"SELECT * FROM {NombreTabla} WHERE {ColumnaId} = @id LIMIT 1";
+        var parametros = new Dictionary<string, object> { { "@id", id } };
+
+        var entidad = ContextoBaseDatos.EjecutarConsulta(consulta, parametros, MapearEntidad).FirstOrDefault();
+
+        if (entidad != null)
+            _cache.Set(cacheKey, entidad, _cacheDuration);
+
+        return entidad;
     }
 
     public List<En> ObtenerTodos() {
         var consulta = $"SELECT * FROM {NombreTabla}";
         var resultados = ContextoBaseDatos.EjecutarConsulta(consulta, null, MapearEntidad).ToList();
 
-        _cacheEntidades.Clear();
-        _cacheEntidades.AddRange(resultados);
-
         return resultados;
     }
 
     public (int cantidad, List<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0) {
-        _cacheEntidades.Clear();
+        // Manejar consultas vacías o nulas
+        if (string.IsNullOrEmpty(consulta))
+            consulta = $"SELECT * FROM {NombreTabla}";
 
-        var consultaResultados = string.IsNullOrEmpty(consulta) ? GenerarComandoObtener(default, string.Empty) : consulta; 
-        var consultaCantidad = consulta.Replace("*", $"COUNT(*)");
+        var consultaCantidad = GenerarConsultaConteo(consulta);
+        var consultaResultados = string.IsNullOrEmpty(consulta) ? GenerarComandoObtener(default, string.Empty) : consulta;
+        var parametros = new Dictionary<string, object>();
 
-        // Agregar LIMIT y OFFSET si es necesario (antes del ;)
         if (limite > 0) {
-            consultaResultados = consultaResultados.TrimEnd(';'); // Eliminar el ; si existe
-            consultaResultados += $" LIMIT {limite}";
+            consultaResultados = consultaResultados.TrimEnd(';');
+            consultaResultados += " LIMIT @limite OFFSET @desplazamiento;";
 
-            if (desplazamiento > 0)
-                consultaResultados += $" OFFSET {desplazamiento}";
-
-            consultaResultados += ";"; // Agregar el ; al final
+            parametros.Add("@limite", limite);
+            parametros.Add("@desplazamiento", desplazamiento);
         }
 
-        var conexion = ContextoBaseDatos.ObtenerConexion();
-        var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consultaCantidad, null, conexion);
-        var resultados = ContextoBaseDatos.EjecutarConsulta(consultaResultados, new Dictionary<string, object>(), MapearEntidad, conexion).ToList();
+        int cantidad;
+        List<En> resultados;
 
-        // Cerrar la conexion
-        ContextoBaseDatos.CerrarConexion(conexion);
+        using (var conexion = ContextoBaseDatos.ObtenerConexionOptimizada()) {
+            conexion.Open();
+
+            cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consultaCantidad, null, conexion);
+            resultados = ContextoBaseDatos.EjecutarConsulta(consultaResultados, parametros, MapearEntidad, conexion).ToList();
+
+            conexion.Close();
+        }         
 
         return (cantidad, resultados);
     }
+
+    //public (int cantidad, List<En> resultados) Buscar(string? consulta = "", int limite = 0, int desplazamiento = 0) {
+    //    var consultaResultados = string.IsNullOrEmpty(consulta) ? GenerarComandoObtener(default, string.Empty) : consulta; 
+    //    var consultaCantidad = consulta.Replace("*", $"COUNT(*)");
+
+    //    // Agregar LIMIT y OFFSET si es necesario (antes del ;)
+    //    if (limite > 0) {
+    //        consultaResultados = consultaResultados.TrimEnd(';'); // Eliminar el ; si existe
+    //        consultaResultados += $" LIMIT {limite}";
+
+    //        if (desplazamiento > 0)
+    //            consultaResultados += $" OFFSET {desplazamiento}";
+
+    //        consultaResultados += ";"; // Agregar el ; al final
+    //    }
+
+    //    var conexion = ContextoBaseDatos.ObtenerConexion();
+    //    var cantidad = ContextoBaseDatos.EjecutarConsultaEscalar<int>(consultaCantidad, null, conexion);
+    //    var resultados = ContextoBaseDatos.EjecutarConsulta(consultaResultados, new Dictionary<string, object>(), MapearEntidad, conexion).ToList();
+
+    //    // Cerrar la conexion
+    //    ContextoBaseDatos.CerrarConexion(conexion);
+
+    //    return (cantidad, resultados);
+    //}
 
     public (int cantidad, List<En> resultados) Buscar(Fb? filtroBusqueda, string? criterio, int limite = 0, int desplazamiento = 0) {
         var comando = GenerarComandoObtener(filtroBusqueda, criterio);
@@ -126,13 +163,22 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
 
     #endregion
 
+    #region Auxiliares
+
+    private string GenerarConsultaConteo(string consultaOriginal) {
+        var regex = new Regex(@"SELECT\s+\*\s+FROM", RegexOptions.IgnoreCase);
+
+        return regex.Replace(consultaOriginal, "SELECT COUNT(*) FROM");
+    }
+
+    #endregion
+
     public void Dispose() {
         Dispose(true);
         GC.SuppressFinalize(this);
     }
 
     protected virtual void Dispose(bool disposing) {
-        if (disposing) _cacheEntidades?.Clear();
     }
 
     ~RepoEntidadBaseDatos() {

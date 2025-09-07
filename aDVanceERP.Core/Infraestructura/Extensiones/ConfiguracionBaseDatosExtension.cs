@@ -15,8 +15,18 @@ namespace aDVanceERP.Core.Infraestructura.Extensiones {
             if (string.IsNullOrWhiteSpace(conf.Usuario)) {
                 throw new ArgumentException("El nombre de usuario no puede estar vacío.", nameof(conf.Usuario));
             }
+
             // Password can be empty, depending on the server configuration
-            return $"Server={conf.Servidor};Database={conf.BaseDatos};User ID={conf.Usuario};Password={conf.Password};Pooling=true;MinPoolSize=0;MaxPoolSize=100;Connection Timeout=30;";
+            return $"""
+                Server = {conf.Servidor};
+                Database = {conf.BaseDatos};
+                User ID = {conf.Usuario};
+                Password = {conf.Password};
+                Pooling = true;
+                MinPoolSize = 10;
+                MaxPoolSize = 100;
+                Connection Timeout = 30;
+                """;
         }
     }
 }
