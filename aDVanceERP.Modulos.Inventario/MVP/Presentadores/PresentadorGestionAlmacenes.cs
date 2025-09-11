@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.Documentos.Interfaces;
+﻿using aDVanceERP.Core.Controladores;
+using aDVanceERP.Core.Documentos.Interfaces;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Presentadores;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Utiles.Datos;
@@ -39,7 +39,7 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         return presentadorTupla;
     }
 
-    public new void ActualizarResultadosBusqueda() {
+    public override void ActualizarResultadosBusqueda() {
         _dispositivoConectado = VerificarConexionDispositivo();
 
         base.ActualizarResultadosBusqueda();

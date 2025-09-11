@@ -1,8 +1,7 @@
 ﻿using System.Globalization;
-
+using aDVanceERP.Core.Controladores;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Modelos;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
@@ -316,6 +315,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     }
 
     public void Mostrar() {
+        Habilitada = true;
         VerificarPermisos();
         VerificarConexionDispositivo();
         BringToFront();
@@ -323,6 +323,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     }
 
     public void Restaurar() {
+        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
         HabilitarBtnConfirmarEntrega = false;
@@ -332,6 +333,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     }
 
     public void Ocultar() {
+        Habilitada = false;
         Hide();
     }
 
