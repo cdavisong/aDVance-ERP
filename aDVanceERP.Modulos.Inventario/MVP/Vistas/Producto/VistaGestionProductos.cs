@@ -139,10 +139,15 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
-        fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
+        fieldDatoBusqueda.KeyDown += delegate(object? sender, KeyEventArgs args) {
+            if (args.KeyCode != Keys.Enter)
+                return;
+
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, e);
-            else SincronizarDatos?.Invoke(sender, e);
+                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), DatoBusqueda } }, args);
+            else SincronizarDatos?.Invoke(sender, args);
+
+            args.SuppressKeyPress = true;
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
             Ocultar();

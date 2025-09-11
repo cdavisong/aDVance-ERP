@@ -68,11 +68,13 @@ public abstract class PresentadorRegistroBase<Vr, En, Re, Fb> : PresentadorBase<
 
         DatosRegistradosActualizados?.Invoke(sender, e);
         Salir?.Invoke(sender, e);
+
         Vista.Ocultar();
     }
 
     private void OnSalir(object? sender, EventArgs e) {
         Salir?.Invoke(sender, e);
+
         Vista.Ocultar();
     }
 

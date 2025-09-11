@@ -21,6 +21,8 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
     protected PresentadorGestionBase(Vg vista) : base(vista) {
         _tuplasEntidades = new List<Pt>();
 
+        (Vista as Control).VisibleChanged += OnMostrarOcultarVista;
+
         Vista.BuscarDatos += OnBuscarDatos;
         Vista.AlturaContenedorTuplasModificada += OnAlturaContenedorTuplasModificada;
         Vista.SincronizarDatos += OnSincronizarDatos;
@@ -98,9 +100,9 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
     }
 
     private void DeseleccionarTuplas(IVistaTupla vista) {
-        _tuplasEntidades.ForEach(tupla => { 
-            if (!tupla.Vista.Equals(vista)) 
-                tupla.TuplaSeleccionada = false; 
+        _tuplasEntidades.ForEach(tupla => {
+            if (!tupla.Vista.Equals(vista))
+                tupla.TuplaSeleccionada = false;
         });
     }
 
@@ -128,6 +130,9 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
     }
 
     private void OnBuscarDatos(object? sender, EventArgs e) {
+        if (!Vista.Habilitada)
+            return;
+
         if (sender is not object[] objetoSplit || objetoSplit.Length < 2)
             return;
 
@@ -151,9 +156,15 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
         ActualizarResultadosBusqueda();
     }
 
+    private void OnMostrarOcultarVista(object? sender, EventArgs e) {
+        Vista.Habilitada = false;
+    }
+
     protected virtual void Dispose(bool disposing) {
         if (!disposedValue) {
             if (disposing) {
+                (Vista as Control).VisibleChanged -= OnMostrarOcultarVista;
+
                 Vista.BuscarDatos -= OnBuscarDatos;
                 Vista.AlturaContenedorTuplasModificada -= OnAlturaContenedorTuplasModificada;
                 Vista.SincronizarDatos -= OnSincronizarDatos;

@@ -97,10 +97,15 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
-        fieldDatoBusqueda.TextChanged += delegate (object? sender, EventArgs e) {
+        fieldDatoBusqueda.KeyDown += delegate(object? sender, KeyEventArgs args) {
+            if (args.KeyCode != Keys.Enter)
+                return;
+
             if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, DatoBusqueda }, e);
-            else SincronizarDatos?.Invoke(sender, e);
+                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, DatoBusqueda }, args);
+            else SincronizarDatos?.Invoke(sender, args);
+
+            args.SuppressKeyPress = true;
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
             Ocultar();
