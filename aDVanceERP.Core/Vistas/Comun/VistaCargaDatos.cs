@@ -60,6 +60,9 @@ namespace aDVanceERP.Core.Vistas.Comun {
             TopMost = true; // Asegurar que esté siempre visible
 
             _timerIconoCarga.Start();
+
+            // Ejecutar eventos pendientes
+            Application.DoEvents();
         }
 
         public void Ocultar() {
