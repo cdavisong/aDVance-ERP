@@ -1,8 +1,9 @@
-﻿using aDVanceERP.Core.MVP.Modelos;
+﻿using aDVanceERP.Core.Modelos.Modulos.Finanzas;
 using HtmlAgilityPack;
 using System.Globalization;
 
-namespace aDVanceERP.Core.Utiles {
+namespace aDVanceERP.Core.Utiles
+{
     public static class UtilesCambioMoneda {
         private static readonly ScraperDivisas _scraper = new ScraperDivisas();
 

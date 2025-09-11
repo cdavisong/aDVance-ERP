@@ -1,4 +1,4 @@
-﻿namespace aDVanceERP.Core.MVP.Modelos {
+﻿namespace aDVanceERP.Core.Modelos.Modulos.Finanzas {
     public class TasaCambio {
         public string? NombreDivisa { get; set; }
         public decimal Valor { get; set; }
@@ -17,11 +17,5 @@
                 _ => "→"
             };
         }
-    }
-
-    public enum DireccionCambio {
-        Neutral,
-        Aumento,
-        Disminucion
     }
 }

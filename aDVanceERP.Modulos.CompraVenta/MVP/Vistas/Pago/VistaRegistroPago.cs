@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Modelos;
+using aDVanceERP.Core.Modelos.Modulos.Finanzas;
 using aDVanceERP.Core.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
 using aDVanceERP.Core.Utiles;
