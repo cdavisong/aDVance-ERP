@@ -31,12 +31,12 @@
             fieldTextoCarga = new Label();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) fieldIconoCarga).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)fieldIconoCarga).BeginInit();
             SuspendLayout();
             // 
             // formatoBase
             // 
-            formatoBase.AnimationType = Guna.UI2.WinForms.Guna2BorderlessForm.AnimateWindowType.AW_HOR_NEGATIVE;
+            formatoBase.BorderRadius = 16;
             formatoBase.ContainerControl = this;
             formatoBase.DockIndicatorTransparencyValue = 0.6D;
             formatoBase.DragForm = false;
@@ -117,7 +117,7 @@
             Text = "VistaCargaDatos";
             layoutBase.ResumeLayout(false);
             layoutDistribucion.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) fieldIconoCarga).EndInit();
+            ((System.ComponentModel.ISupportInitialize)fieldIconoCarga).EndInit();
             ResumeLayout(false);
         }
 

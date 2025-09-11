@@ -45,7 +45,7 @@ namespace aDVanceERP.Core.Vistas.Comun {
         public void Inicializar() {
             _timerIconoCarga = new System.Windows.Forms.Timer();
             _timerIconoCarga.Interval = 42;
-            _timerIconoCarga.Tick += ActualizarIconoCarga;
+            _timerIconoCarga.Tick += Actualizar;
         }
 
         public void Mostrar() {
@@ -84,20 +84,28 @@ namespace aDVanceERP.Core.Vistas.Comun {
 
         public void Cerrar() {
             _timerIconoCarga.Stop();
-            _timerIconoCarga.Tick -= ActualizarIconoCarga;
+            _timerIconoCarga.Tick -= Actualizar;
             Close();
         }
 
-        private void ActualizarIconoCarga(object? sender, EventArgs e) {
+        private void Actualizar(object? sender, EventArgs e) {
+            ActualizarIconoCarga();
+            ActualizarTextoProgreso();
+        }
+
+        private void ActualizarIconoCarga() {
+            if (fieldIconoCarga != null && fieldIconoCarga.InvokeRequired) {
+                fieldIconoCarga.Invoke(new Action(ActualizarIconoCarga));
+                return;
+            }
+
             _iconoActual = _iconoActual == 8 ? 1 : ++_iconoActual;
 
             var numeroImagen = _iconoActual;
             var nombreImagen = _icono.Replace("X", numeroImagen.ToString());
             var imagen = (Image)Resources.ResourceManager.GetObject(nombreImagen);
 
-            Invoke(new Action(() => {
-                fieldIconoCarga.BackgroundImage = imagen;
-            }));
+            fieldIconoCarga.BackgroundImage = imagen;
         }
 
         private void ActualizarTextoProgreso() {
