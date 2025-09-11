@@ -44,7 +44,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
         return presentadorTupla;
     }
 
-    public override void ActualizarResultadosBusqueda() {
+    public new void ActualizarResultadosBusqueda() {
         // Cambiar la visibilidad de los botones de confirmación
         Vista.HabilitarBtnConfirmarEntrega = false;
         Vista.HabilitarBtnConfirmarPagos = false;

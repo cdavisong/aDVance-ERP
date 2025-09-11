@@ -173,13 +173,11 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         }
 
         public void Mostrar() {
-            Habilitada = true;
             BringToFront();
             Show();
         }
 
         public void Restaurar() {
-            Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
             HabilitarBtnCierreOrdenProduccion = false;
@@ -189,7 +187,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
         }
 
         public void Ocultar() {
-            Habilitada = false;
             Hide();
         }
 

@@ -39,7 +39,7 @@ public class PresentadorGestionAlmacenes : PresentadorGestionBase<PresentadorTup
         return presentadorTupla;
     }
 
-    public override void ActualizarResultadosBusqueda() {
+    public new void ActualizarResultadosBusqueda() {
         _dispositivoConectado = VerificarConexionDispositivo();
 
         base.ActualizarResultadosBusqueda();

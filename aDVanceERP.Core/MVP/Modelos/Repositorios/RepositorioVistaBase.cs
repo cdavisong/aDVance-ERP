@@ -84,7 +84,6 @@ public sealed class RepositorioVistaBase : IRepoVista {
     public void Mostrar(string nombre) {
         var vista = Obtener(nombre);
         if (vista != null) {
-            vista.Habilitada = true;
             vista.Mostrar();
             VistaActual = vista;
         }
@@ -93,7 +92,6 @@ public sealed class RepositorioVistaBase : IRepoVista {
     public void Restaurar(string nombre) {
         var vista = Obtener(nombre);
         if (vista != null) {
-            vista.Habilitada = true;
             vista.Restaurar();
         }
     }
@@ -106,13 +104,11 @@ public sealed class RepositorioVistaBase : IRepoVista {
                 if (Vistas != null)
                     foreach (var vista in Vistas) {
                         vista.Ocultar();
-                        vista.Habilitada = true;
                     }
             }
             else {
                 if (VistaActual != null) {
                     VistaActual.Ocultar();
-                    VistaActual.Habilitada = true;
                 }
             }
         }

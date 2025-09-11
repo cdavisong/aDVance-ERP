@@ -143,14 +143,12 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
     }
 
     public void Mostrar() {
-        Habilitada = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
-        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
 
@@ -158,7 +156,6 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
     }
 
     public void Ocultar() {
-        Habilitada = false;
         Hide();
     }
 

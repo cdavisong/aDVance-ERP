@@ -165,14 +165,12 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     }
 
     public void Mostrar() {
-        Habilitada = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
-        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
 
@@ -180,7 +178,6 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     }
 
     public void Ocultar() {
-        Habilitada = false;
         Hide();
     }
 

@@ -208,14 +208,12 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     }
 
     public void Mostrar() {
-        Habilitada = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
-        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
         MostrarBtnHabilitarDeshabilitarProducto = false;
@@ -225,7 +223,6 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     }
 
     public void Ocultar() {
-        Habilitada = false;
         Hide();
     }
 

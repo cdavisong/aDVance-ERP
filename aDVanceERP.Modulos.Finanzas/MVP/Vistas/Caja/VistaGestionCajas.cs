@@ -183,13 +183,11 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         }
 
         public void Mostrar() {
-            Habilitada = true;
             BringToFront();
             Show();
         }
 
         public void Restaurar() {
-            Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
             HabilitarBtnRegistroMovimientoCaja = false;
@@ -199,7 +197,6 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         }
 
         public void Ocultar() {
-            Habilitada = false;
             Hide();
         }
 

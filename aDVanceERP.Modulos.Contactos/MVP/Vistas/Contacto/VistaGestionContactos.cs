@@ -143,14 +143,12 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
     }
 
     public void Mostrar() {
-        Habilitada = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
-        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
 

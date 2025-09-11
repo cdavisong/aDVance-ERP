@@ -31,7 +31,7 @@
             fieldTextoCarga = new Label();
             layoutBase.SuspendLayout();
             layoutDistribucion.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)fieldIconoCarga).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) fieldIconoCarga).BeginInit();
             SuspendLayout();
             // 
             // formatoBase
@@ -113,11 +113,11 @@
             Controls.Add(layoutBase);
             FormBorderStyle = FormBorderStyle.None;
             Name = "VistaCargaDatos";
-            StartPosition = FormStartPosition.Manual;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "VistaCargaDatos";
             layoutBase.ResumeLayout(false);
             layoutDistribucion.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)fieldIconoCarga).EndInit();
+            ((System.ComponentModel.ISupportInitialize) fieldIconoCarga).EndInit();
             ResumeLayout(false);
         }
 

@@ -56,7 +56,7 @@ public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTup
         return presentadorTupla;
     }
 
-    public override void ActualizarResultadosBusqueda() {
+    public new void ActualizarResultadosBusqueda() {
         // Cambiar la visibilidad de los botones
         Vista.MostrarBtnHabilitarDeshabilitarProducto = false;
 

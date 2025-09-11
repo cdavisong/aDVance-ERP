@@ -26,6 +26,7 @@ public partial class PresentadorContenedorModulos {
             "V");
 
         // Estado de habilitacion de la vista gestionable.
+        //TODO: Implementar esto para todas las vistas de registro.
         var formRegistro = _registroAlmacen?.Vista as Form;
 
         if (formRegistro != null && _gestionAlmacenes != null)

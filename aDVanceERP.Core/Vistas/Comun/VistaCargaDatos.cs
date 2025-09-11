@@ -4,12 +4,17 @@ using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.Vistas.Comun {
     public partial class VistaCargaDatos : Form, IVistaBase {
+        private string _textoProgreso = "Filtrando resultados de búsqueda...";
         private const string _icono = "pX_48px";
         private int _iconoActual = 1;
         private System.Windows.Forms.Timer _timerIconoCarga;
 
         public VistaCargaDatos() {
             InitializeComponent();
+
+            // Configurar double buffering para evitar parpadeo
+            DoubleBuffered = true;
+
             Inicializar();
         }
 
@@ -28,6 +33,15 @@ namespace aDVanceERP.Core.Vistas.Comun {
             set => Size = value;
         }
 
+        public string TextoProgreso {
+            get => _textoProgreso;
+            set {
+                _textoProgreso = value;
+
+                ActualizarTextoProgreso();
+            }
+        }
+
         public void Inicializar() {
             _timerIconoCarga = new System.Windows.Forms.Timer();
             _timerIconoCarga.Interval = 42;
@@ -35,16 +49,30 @@ namespace aDVanceERP.Core.Vistas.Comun {
         }
 
         public void Mostrar() {
+            if (InvokeRequired) {
+                Invoke(new Action(Mostrar));
+                return;
+            }
+
             Show();
             BringToFront();
+
+            TopMost = true; // Asegurar que esté siempre visible
 
             _timerIconoCarga.Start();
         }
 
         public void Ocultar() {
+            if (InvokeRequired) {
+                Invoke(new Action(Ocultar));
+                return;
+            }
+
             _timerIconoCarga.Stop();
 
-            Invoke(Hide);
+            Hide();
+
+            TopMost = false;
         }
 
         public void Restaurar() {
@@ -67,6 +95,15 @@ namespace aDVanceERP.Core.Vistas.Comun {
             Invoke(new Action(() => {
                 fieldIconoCarga.BackgroundImage = imagen;
             }));
+        }
+
+        private void ActualizarTextoProgreso() {
+            if (fieldTextoCarga != null && fieldTextoCarga.InvokeRequired) {
+                fieldTextoCarga.Invoke(new Action(ActualizarTextoProgreso));
+                return;
+            }
+
+            fieldTextoCarga.Text = _textoProgreso;
         }
     }
 }

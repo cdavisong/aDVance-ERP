@@ -4,6 +4,7 @@ using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Repositorios.Interfaces;
 using aDVanceERP.Core.Utiles;
+using aDVanceERP.Core.Vistas.Comun;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
 
@@ -15,17 +16,22 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
     where Re : class, IRepoEntidadBaseDatos<En, Fb>, new()
     where En : class, IEntidadBaseDatos, new()
     where Fb : Enum {
+    protected readonly VistaCargaDatos _cargaDatos;
     protected readonly List<Pt> _tuplasEntidades;
     private bool disposedValue;
 
     protected PresentadorGestionBase(Vg vista) : base(vista) {
+        _cargaDatos = new VistaCargaDatos();
         _tuplasEntidades = new List<Pt>();
 
         (Vista as Control).VisibleChanged += OnMostrarOcultarVista;
 
+        Vista.Habilitada = false;
         Vista.BuscarDatos += OnBuscarDatos;
         Vista.AlturaContenedorTuplasModificada += OnAlturaContenedorTuplasModificada;
         Vista.SincronizarDatos += OnSincronizarDatos;
+
+        CargaDatosCompletada += (sender, completed) => { _cargaDatos.Ocultar(); };
     }
 
     public Re RepositorioEntidad => new();
@@ -34,6 +40,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
     public IEnumerable<Pt> TuplasSeleccionadas => _tuplasEntidades.Where(t => t.TuplaSeleccionada);
 
     public event EventHandler? EditarObjeto;
+    public event EventHandler<bool>? CargaDatosCompletada;
 
     public void BusquedaEntidades(Fb filtroBusqueda, string? criterioBusqueda) {
         FiltroBusqueda = filtroBusqueda;
@@ -44,7 +51,10 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
         Vista.PaginaActual = 1;
     }
 
-    public virtual void ActualizarResultadosBusqueda() {
+    public async void ActualizarResultadosBusqueda() {
+        if (!Vista.Habilitada)
+            return;
+
         try {
             if (Vista.TuplasMaximasContenedor == 0) return;
 
@@ -62,39 +72,57 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
             VariablesGlobales.CoordenadaYUltimaTupla = 0;
 
             var incremento = (Vista.PaginaActual - 1) * Vista.TuplasMaximasContenedor;
-            var datos = RepositorioEntidad.Buscar(FiltroBusqueda, CriterioBusqueda, Vista.TuplasMaximasContenedor, incremento);
+
+            // Ejecutar la búsqueda en un hilo separado
+            var datos = await Task.Run(() =>
+                RepositorioEntidad.Buscar(FiltroBusqueda, CriterioBusqueda, Vista.TuplasMaximasContenedor, incremento));
+
             var entidades = datos.resultados.ToList();
             var calculoPaginas = datos.cantidad / Vista.TuplasMaximasContenedor;
             var entero = datos.cantidad % Vista.TuplasMaximasContenedor == 0;
 
             Vista.PaginasTotales = calculoPaginas < 1 ? 1 : entero ? calculoPaginas : calculoPaginas + 1;
 
-            for (var i = 0; i < entidades.Count && i < Vista.TuplasMaximasContenedor; i++)
-                AdicionarTuplaObjeto(entidades[i]);
-        }
-        catch (Exception ex) {
-            //TODO: Manejar la excepción (por ejemplo, mostrar un mensaje al usuario)
+            _cargaDatos.Mostrar();
+
+            // Procesar las tuplas de forma asíncrona
+            await Task.Run(() => {
+                for (var i = 0; i < entidades.Count && i < Vista.TuplasMaximasContenedor; i++) {
+                    var entidad = entidades[i];
+                    (Vista as Control)?.Invoke(() => {
+                        AdicionarTuplaEntidad(entidad);
+                    });
+
+                    // Pequeña pausa para permitir que la UI se actualice
+                    Thread.Sleep(10);
+                }
+            });
+
+            CargaDatosCompletada?.Invoke(this, true);
+        } catch (Exception ex) {
             Console.WriteLine($"Error al refrescar la lista de objetos: {ex.Message}");
         }
     }
 
-    protected virtual void AdicionarTuplaObjeto(En objeto) {
-        var presentadorTupla = ObtenerValoresTupla(objeto);
-        if (presentadorTupla == null) return;
+    protected virtual void AdicionarTuplaEntidad(En objeto) {
+        (Vista as Control)?.Invoke(() => {
+            var presentadorTupla = ObtenerValoresTupla(objeto);
+            if (presentadorTupla == null) return;
 
-        presentadorTupla.ObjetoSeleccionado += OnObjetoSeleccionado;
-        presentadorTupla.EditarObjeto += OnEditarObjeto;
-        presentadorTupla.EliminarObjeto += OnEliminarObjeto;
+            presentadorTupla.ObjetoSeleccionado += OnObjetoSeleccionado;
+            presentadorTupla.EditarObjeto += OnEditarObjeto;
+            presentadorTupla.EliminarObjeto += OnEliminarObjeto;
 
-        _tuplasEntidades.Add(presentadorTupla);
+            _tuplasEntidades.Add(presentadorTupla);
 
-        Vista.Vistas?.Registrar(
-            $"vistaTupla{objeto.GetType().Name}{objeto.Id}",
-            presentadorTupla.Vista,
-            new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-            new Size(0, VariablesGlobales.AlturaTuplaPredeterminada), "H");
+            Vista.Vistas?.Registrar(
+                $"vistaTupla{objeto.GetType().Name}{objeto.Id}",
+                presentadorTupla.Vista,
+                new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
+                new Size(0, VariablesGlobales.AlturaTuplaPredeterminada), "H");
 
-        presentadorTupla.Vista.Mostrar();
+            presentadorTupla.Vista.Mostrar();
+        });
 
         VariablesGlobales.CoordenadaYUltimaTupla += VariablesGlobales.AlturaTuplaPredeterminada;
     }
@@ -123,20 +151,16 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
                 Vista.PaginaActual = 1;
 
                 ActualizarResultadosBusqueda();
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 throw new Exception($"Error al eliminar el objeto: {ex.Message}");
             }
     }
 
     private void OnBuscarDatos(object? sender, EventArgs e) {
-        if (!Vista.Habilitada)
-            return;
-
         if (sender is not object[] objetoSplit || objetoSplit.Length < 2)
             return;
 
-        var criterioBusqueda = (Fb)objetoSplit[0];
+        var criterioBusqueda = (Fb) objetoSplit[0];
         var datoBusqueda = objetoSplit[1] is string[] datosBusquedaMultiple
             ? string.Join(";", datosBusquedaMultiple)
             : objetoSplit[1].ToString();
@@ -157,7 +181,12 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
     }
 
     private void OnMostrarOcultarVista(object? sender, EventArgs e) {
-        Vista.Habilitada = false;
+        var vista = (Vista as Control);
+
+        if (vista == null)
+            return;
+
+        Vista.Habilitada = vista.Visible;
     }
 
     protected virtual void Dispose(bool disposing) {

@@ -316,7 +316,6 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     }
 
     public void Mostrar() {
-        Habilitada = true;
         VerificarPermisos();
         VerificarConexionDispositivo();
         BringToFront();
@@ -324,7 +323,6 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     }
 
     public void Restaurar() {
-        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
         HabilitarBtnConfirmarEntrega = false;
@@ -334,7 +332,6 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     }
 
     public void Ocultar() {
-        Habilitada = false;
         Hide();
     }
 
