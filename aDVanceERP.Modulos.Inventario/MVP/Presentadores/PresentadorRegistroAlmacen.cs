@@ -1,15 +1,15 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistroAlmacen, Almacen, RepoAlmacen, FiltroBusquedaAlmacen> {
+public class PresentadorRegistroAlmacen : PresentadorVistaRegistro<IVistaRegistroAlmacen, Almacen, RepoAlmacen, FiltroBusquedaAlmacen> {
     public PresentadorRegistroAlmacen(IVistaRegistroAlmacen vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Almacen entidad) {
+    public override void PopularVistaDesdeEntidad(Almacen entidad) {
         Vista.ModoEdicionDatos = true;
         Vista.Nombre = entidad.Nombre ?? string.Empty;
         Vista.Direccion = entidad.Direccion ?? string.Empty;
@@ -20,7 +20,7 @@ public class PresentadorRegistroAlmacen : PresentadorRegistroBase<IVistaRegistro
         Entidad = entidad;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
 
         if (!nombreOk)

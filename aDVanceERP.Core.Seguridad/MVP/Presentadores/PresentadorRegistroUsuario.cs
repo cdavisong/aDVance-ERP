@@ -1,15 +1,15 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
-public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistroUsuario, CuentaUsuario,
+public class PresentadorRegistroUsuario : PresentadorVistaRegistro<IVistaRegistroUsuario, CuentaUsuario,
     RepoCuentaUsuario, FiltroBusquedaCuentaUsuario> {
     public PresentadorRegistroUsuario(IVistaRegistroUsuario vista) : base(vista) {
         vista.RegistrarEntidad += delegate(object? sender, EventArgs args) {
@@ -23,7 +23,7 @@ public class PresentadorRegistroUsuario : PresentadorRegistroBase<IVistaRegistro
     public event EventHandler? UsuarioRegistrado;
     public event EventHandler? MostrarVistaAutenticacionUsuario;
 
-    public override void PopularVistaDesdeObjeto(CuentaUsuario objeto) {
+    public override void PopularVistaDesdeEntidad(CuentaUsuario objeto) {
         throw new NotImplementedException();
     }
 

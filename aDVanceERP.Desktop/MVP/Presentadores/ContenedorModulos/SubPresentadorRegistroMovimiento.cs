@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
         _registroMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
         _registroMovimiento.Vista.RegistrarTipoMovimiento += MostrarVistaRegistroTipoMovimiento;
         _registroMovimiento.Vista.EliminarTipoMovimiento += EliminarTipoMovimiento;
-        _registroMovimiento.DatosRegistradosActualizados += delegate {
+        _registroMovimiento.EntidadRegistradaActualizada += delegate {
             if (_gestionMovimientos == null)
                 return;
 
@@ -83,7 +83,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Movimiento movimiento) {
             if (_registroMovimiento != null) {
-                _registroMovimiento.PopularVistaDesdeObjeto(movimiento);
+                _registroMovimiento.PopularVistaDesdeEntidad(movimiento);
                 _registroMovimiento.Vista.Mostrar();
             }
         }

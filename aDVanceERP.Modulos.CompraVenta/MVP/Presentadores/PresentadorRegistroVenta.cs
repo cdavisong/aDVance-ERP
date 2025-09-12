@@ -1,17 +1,17 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class
-    PresentadorRegistroVenta : PresentadorRegistroBase<IVistaRegistroVenta, Venta, RepoVenta, FiltroBusquedaVenta> {
+    PresentadorRegistroVenta : PresentadorVistaRegistro<IVistaRegistroVenta, Venta, RepoVenta, FiltroBusquedaVenta> {
     public PresentadorRegistroVenta(IVistaRegistroVenta vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Venta objeto) {
+    public override void PopularVistaDesdeEntidad(Venta objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.RazonSocialCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
         Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;

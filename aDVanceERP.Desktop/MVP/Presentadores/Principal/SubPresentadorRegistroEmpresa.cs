@@ -19,7 +19,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                     CentroNotificaciones.Mostrar("En la nueva versión es necesario registrar los datos de la empresa, reinicie la aplicación y tómese unos minutos para rellenar los datos necesarios", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
                 }
             };
-            _registroEmpresa.DatosRegistradosActualizados += delegate {
+            _registroEmpresa.EntidadRegistradaActualizada += delegate {
                 _isRegistroEmpresa = true;
             };            
         }
@@ -39,7 +39,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
 
             if (_empresa != null) {
                 if (_registroEmpresa != null) {
-                    _registroEmpresa.PopularVistaDesdeObjeto(_empresa);
+                    _registroEmpresa.PopularVistaDesdeEntidad(_empresa);
                     _registroEmpresa.Vista.Mostrar();
                 }
             }

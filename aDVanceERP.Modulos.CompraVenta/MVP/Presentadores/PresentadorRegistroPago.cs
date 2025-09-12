@@ -1,19 +1,19 @@
 ﻿using System.Globalization;
 
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
 public class
-    PresentadorRegistroPago : PresentadorRegistroBase<IVistaRegistroPago, Pago, RepoPago, FiltroBusquedaPago> {
+    PresentadorRegistroPago : PresentadorVistaRegistro<IVistaRegistroPago, Pago, RepoPago, FiltroBusquedaPago> {
     public PresentadorRegistroPago(IVistaRegistroPago vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Pago objeto) {
+    public override void PopularVistaDesdeEntidad(Pago objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.IdVenta = objeto.IdVenta;
         Vista.Total = objeto.Monto;
@@ -31,7 +31,7 @@ public class
         Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var indice = 1;
 
         foreach (var pago in Vista.Pagos) {
@@ -48,27 +48,27 @@ public class
         return true;
     }
 
-    protected override void RegistrarDatosObjeto(object? sender, EventArgs e) {
+    protected override void OnRegistrarEntidad(object? sender, EventArgs e) {
         RegistrarEditarRepoPagos(sender, e);
     }
 
-    protected override void EditarDatosObjeto(object? sender, EventArgs e) {
+    protected override void OnEditarEntidad(object? sender, EventArgs e) {
         RegistrarEditarRepoPagos(sender, e);
     }
 
     private void RegistrarEditarRepoPagos(object? sender, EventArgs e) {
         var objetosVista = ObtenerObjetosDesdeVista();
         
-        if (!RegistroEdicionDatosAutorizado())
+        if (!EntidadCorrecta())
             return;
         
         foreach (var objeto in objetosVista) {
             if (Vista.ModoEdicionDatos && objeto.Id != 0)
-                DatosObjeto.Editar(Entidad);
+                Repositorio.Editar(Entidad);
             else if (objeto.Id != 0)
-                DatosObjeto.Editar(Entidad);
+                Repositorio.Editar(Entidad);
             else
-                objeto.Id = DatosObjeto.Adicionar(objeto);            
+                objeto.Id = Repositorio.Adicionar(objeto);            
         };
 
         InvokeDatosRegistradosActualizados(objetosVista, e);

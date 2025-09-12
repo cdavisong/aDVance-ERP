@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
         _registroContacto = new PresentadorRegistroContacto(new VistaRegistroContacto());
         _registroContacto.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroContacto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroContacto.DatosRegistradosActualizados += delegate {
+        _registroContacto.EntidadRegistradaActualizada += delegate {
             if (_gestionContactos == null)
                 return;
 
@@ -37,7 +37,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Contacto contacto) {
             if (_registroContacto != null) {
-                _registroContacto.PopularVistaDesdeObjeto(contacto);
+                _registroContacto.PopularVistaDesdeEntidad(contacto);
                 _registroContacto.Vista.Mostrar();
             }
         }

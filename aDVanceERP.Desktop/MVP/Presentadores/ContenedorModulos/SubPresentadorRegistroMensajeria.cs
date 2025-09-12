@@ -17,7 +17,7 @@ public partial class PresentadorContenedorModulos {
         _registroMensajeria.Vista.CargarNombresMensajeros(await UtilesMensajero.ObtenerNombresMensajeros());
         _registroMensajeria.Vista.CargarTiposEntrega();
         _registroMensajeria.Vista.CargarRazonesSocialesClientes(UtilesCliente.ObtenerRazonesSocialesClientes());
-        _registroMensajeria.DatosRegistradosActualizados += delegate {
+        _registroMensajeria.EntidadRegistradaActualizada += delegate {
             if (_registroVentaProducto == null) 
                 return;
 
@@ -52,7 +52,7 @@ public partial class PresentadorContenedorModulos {
                     var seguimientoEntrega = datosSeguimientoEntrega.Buscar(FiltroBusquedaSeguimientoEntrega.IdVenta, venta.Id.ToString()).resultados.FirstOrDefault();
 
                     if (seguimientoEntrega != null) {
-                        _registroMensajeria.PopularVistaDesdeObjeto(seguimientoEntrega);
+                        _registroMensajeria.PopularVistaDesdeEntidad(seguimientoEntrega);
                         _registroMensajeria.Vista.RazonSocialCliente = _registroVentaProducto.Vista.RazonSocialCliente;
                         _registroMensajeria.Vista.PopularProductosVenta(_registroVentaProducto.Vista.Productos);
                         _registroMensajeria.Vista.Mostrar();

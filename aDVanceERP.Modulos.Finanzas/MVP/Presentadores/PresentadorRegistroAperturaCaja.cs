@@ -1,15 +1,16 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
-    public class PresentadorRegistroAperturaCaja : PresentadorRegistroBase<IVistaRegistroAperturaCaja, Caja, RepoCaja, FiltroBusquedaCaja> {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores
+{
+    public class PresentadorRegistroAperturaCaja : PresentadorVistaRegistro<IVistaRegistroAperturaCaja, Caja, RepoCaja, FiltroBusquedaCaja> {
         public PresentadorRegistroAperturaCaja(IVistaRegistroAperturaCaja vista) 
             : base(vista) { }
 
-        public override void PopularVistaDesdeObjeto(Caja objeto) {
+        public override void PopularVistaDesdeEntidad(Caja objeto) {
             Vista.ModoEdicionDatos = true;
             Vista.Fecha = objeto.FechaApertura;
             Vista.SaldoInicial = objeto.SaldoInicial;

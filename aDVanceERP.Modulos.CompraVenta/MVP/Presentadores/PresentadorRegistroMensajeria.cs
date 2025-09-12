@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
@@ -7,11 +7,11 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
-public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegistroMensajeria, SeguimientoEntrega, RepoSeguimientoEntrega, FiltroBusquedaSeguimientoEntrega> {
+public class PresentadorRegistroMensajeria : PresentadorVistaRegistro<IVistaRegistroMensajeria, SeguimientoEntrega, RepoSeguimientoEntrega, FiltroBusquedaSeguimientoEntrega> {
     public PresentadorRegistroMensajeria(IVistaRegistroMensajeria vista) : base(vista) {
     }
 
-    public override async void PopularVistaDesdeObjeto(SeguimientoEntrega objeto) {
+    public override async void PopularVistaDesdeEntidad(SeguimientoEntrega objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.NombreMensajero = await UtilesMensajero.ObtenerNombreMensajero(objeto.IdMensajero);
 
@@ -29,7 +29,7 @@ public class PresentadorRegistroMensajeria : PresentadorRegistroBase<IVistaRegis
         Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var nombreMensajeroOk = !string.IsNullOrEmpty(Vista.NombreMensajero) && !Vista.NombreMensajero.Equals("Ninguno");
         var tipoEntregaOk = !string.IsNullOrEmpty(Vista.TipoEntrega) && !Vista.TipoEntrega.Equals("Presencial");
         var razonSocialValida = UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente) != 0;

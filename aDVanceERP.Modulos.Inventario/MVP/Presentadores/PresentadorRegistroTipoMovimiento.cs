@@ -1,15 +1,15 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaRegistroTipoMovimiento, TipoMovimiento, RepoTipoMovimiento, FiltroBusquedaTipoMovimiento> {
+public class PresentadorRegistroTipoMovimiento : PresentadorVistaRegistro<IVistaRegistroTipoMovimiento, TipoMovimiento, RepoTipoMovimiento, FiltroBusquedaTipoMovimiento> {
     public PresentadorRegistroTipoMovimiento(IVistaRegistroTipoMovimiento vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(TipoMovimiento objeto) {
+    public override void PopularVistaDesdeEntidad(TipoMovimiento objeto) {
         Vista.Nombre = objeto.Nombre;
         Vista.Efecto = objeto.Efecto.ToString();
         Vista.ModoEdicionDatos = true;
@@ -17,7 +17,7 @@ public class PresentadorRegistroTipoMovimiento : PresentadorRegistroBase<IVistaR
         Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
         var efectoOk = !string.IsNullOrEmpty(Vista.Efecto) && !Vista.Efecto.Equals("Ninguno");
 

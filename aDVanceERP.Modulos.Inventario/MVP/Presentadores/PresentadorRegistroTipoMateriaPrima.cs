@@ -1,15 +1,15 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroTipoMateriaPrima : PresentadorRegistroBase<IVistaRegistroTipoMateriaPrima, TipoMateriaPrima, RepoTipoMateriaPrima, FiltroBusquedaTipoMateriaPrima> {
+public class PresentadorRegistroTipoMateriaPrima : PresentadorVistaRegistro<IVistaRegistroTipoMateriaPrima, TipoMateriaPrima, RepoTipoMateriaPrima, FiltroBusquedaTipoMateriaPrima> {
     public PresentadorRegistroTipoMateriaPrima(IVistaRegistroTipoMateriaPrima vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(TipoMateriaPrima objeto) {
+    public override void PopularVistaDesdeEntidad(TipoMateriaPrima objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.Nombre = objeto.Nombre;
         Vista.Descripcion = objeto.Descripcion ?? string.Empty;
@@ -17,7 +17,7 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorRegistroBase<IVist
         Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
 
         if (!nombreOk)

@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
@@ -9,12 +9,12 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegistroMovimiento, Movimiento,
+public class PresentadorRegistroMovimiento : PresentadorVistaRegistro<IVistaRegistroMovimiento, Movimiento,
     RepoMovimiento, FiltroBusquedaMovimiento> {
 
     public PresentadorRegistroMovimiento(IVistaRegistroMovimiento vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Movimiento entidad) {
+    public override void PopularVistaDesdeEntidad(Movimiento entidad) {
         var tipoMovimiento = RepoTipoMovimiento.Instancia.ObtenerPorId(entidad.IdTipoMovimiento);
 
         Vista.ModoEdicionDatos = true;
@@ -28,7 +28,7 @@ public class PresentadorRegistroMovimiento : PresentadorRegistroBase<IVistaRegis
         Entidad = entidad;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var nombreProductoOk = !string.IsNullOrEmpty(Vista.NombreProducto);
         var tipoMovimientoOk = !string.IsNullOrEmpty(Vista.TipoMovimiento);
         var noCompraventaOk = !(Vista.TipoMovimiento.Equals("Compra") || Vista.TipoMovimiento.Equals("Venta"));

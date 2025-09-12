@@ -25,7 +25,7 @@ public partial class PresentadorContenedorModulos {
         _registroProducto.Vista.RegistrarTipoMateriaPrima += MostrarVistaRegistroTipoMateriaPrima;
         _registroProducto.Vista.EliminarUnidadMedida += EliminarUnidadMedida;
         _registroProducto.Vista.EliminarTipoMateriaPrima += EliminarTipoMateriaPrima;
-        _registroProducto.DatosRegistradosActualizados += delegate {
+        _registroProducto.EntidadRegistradaActualizada += delegate {
             if (_gestionProductos == null)
                 return;
 
@@ -59,7 +59,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Producto producto) {
             if (_registroProducto != null) {
-                _registroProducto.PopularVistaDesdeObjeto(producto);
+                _registroProducto.PopularVistaDesdeEntidad(producto);
                 _registroProducto.Vista.Mostrar();
             }
         }

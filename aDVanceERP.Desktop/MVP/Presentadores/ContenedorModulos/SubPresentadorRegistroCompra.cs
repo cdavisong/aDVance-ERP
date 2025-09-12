@@ -29,7 +29,7 @@ public partial class PresentadorContenedorModulos {
             _registroCompraProducto.Vista.CargarRazonesSocialesProveedores(UtilesProveedor.ObtenerRazonesSocialesProveedores());
             _registroCompraProducto.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes());
             _registroCompraProducto.Vista.CargarNombresProductos(await UtilesProducto.ObtenerNombresProductos());
-            _registroCompraProducto.DatosRegistradosActualizados += delegate {
+            _registroCompraProducto.EntidadRegistradaActualizada += delegate {
                 ProductosCompra = _registroCompraProducto.Vista.Productos;
 
                 RegistrarDetallesCompraProducto();
@@ -74,7 +74,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Compra compra) {
             if (_registroCompraProducto != null) {
-                _registroCompraProducto.PopularVistaDesdeObjeto(compra);
+                _registroCompraProducto.PopularVistaDesdeEntidad(compra);
                 _registroCompraProducto.Vista.Mostrar();
             }
         }

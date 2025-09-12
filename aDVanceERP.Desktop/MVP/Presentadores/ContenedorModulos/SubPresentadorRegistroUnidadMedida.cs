@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
         _registroUnidadMedida = new PresentadorRegistroUnidadMedida(new VistaRegistroUnidadMedida());
         _registroUnidadMedida.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroUnidadMedida.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroUnidadMedida.DatosRegistradosActualizados += delegate {
+        _registroUnidadMedida.EntidadRegistradaActualizada += delegate {
             _registroProducto?.Vista.CargarUnidadesMedida(UtilesUnidadMedida.ObtenerUnidadesMedida());
         };
 

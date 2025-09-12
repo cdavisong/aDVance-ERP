@@ -27,7 +27,7 @@ public partial class PresentadorContenedorModulos {
             _registroVentaProducto.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroVentaProducto.Vista.CargarNombresAlmacenes(UtilesAlmacen.ObtenerNombresAlmacenes(true));
             _registroVentaProducto.Vista.IdTipoEntrega = await UtilesEntrega.ObtenerIdTipoEntrega("Presencial");
-            _registroVentaProducto.DatosRegistradosActualizados += delegate {
+            _registroVentaProducto.EntidadRegistradaActualizada += delegate {
                 ProductosVenta = _registroVentaProducto.Vista.Productos;
 
                 RegistrarDetallesVentaProducto();
@@ -113,7 +113,7 @@ public partial class PresentadorContenedorModulos {
                 MostrarVistaEdicionMensajeria(sender, e);
             };
 
-            _registroVentaProducto.PopularVistaDesdeObjeto(venta);
+            _registroVentaProducto.PopularVistaDesdeEntidad(venta);
             _registroVentaProducto.Vista.Mostrar();
         }
 

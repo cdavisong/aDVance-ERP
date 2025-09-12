@@ -1,19 +1,19 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
-public class PresentadorRegistroDetallePagoTransferencia : PresentadorRegistroBase<IVistaRegistroDetallePagoTransferencia, DetallePagoTransferencia, RepoDetallePagoTransferencia, FiltroBusquedaDetallePagoTransferencia> {
+public class PresentadorRegistroDetallePagoTransferencia : PresentadorVistaRegistro<IVistaRegistroDetallePagoTransferencia, DetallePagoTransferencia, RepoDetallePagoTransferencia, FiltroBusquedaDetallePagoTransferencia> {
     public PresentadorRegistroDetallePagoTransferencia(IVistaRegistroDetallePagoTransferencia vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(DetallePagoTransferencia objeto) {
+    public override void PopularVistaDesdeEntidad(DetallePagoTransferencia objeto) {
         throw new NotImplementedException();
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var aliasOk = !string.IsNullOrEmpty(Vista.Alias);
         var numeroTelefonoOk = !string.IsNullOrEmpty(Vista.NumeroConfirmacion); ;
         var numeroTransaccionOk = !string.IsNullOrEmpty(Vista.NumeroTransaccion);

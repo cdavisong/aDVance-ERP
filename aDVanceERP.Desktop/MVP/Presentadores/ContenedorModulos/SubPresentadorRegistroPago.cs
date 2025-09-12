@@ -25,7 +25,7 @@ public partial class PresentadorContenedorModulos {
 
             Transferencia = Array.Empty<string>();
         };
-        _registroPago.DatosRegistradosActualizados += delegate (object? sender, EventArgs args) {
+        _registroPago.EntidadRegistradaActualizada += delegate (object? sender, EventArgs args) {
             if (_registroVentaProducto == null)
                 return;
 
@@ -58,7 +58,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Venta venta) {
             if (_registroPago != null && _registroVentaProducto != null) {
-                _registroPago.PopularVistaDesdeObjeto(new Pago(0, venta.Id, string.Empty, venta.Total));
+                _registroPago.PopularVistaDesdeEntidad(new Pago(0, venta.Id, string.Empty, venta.Total));
                 _registroPago.Vista.EfectuarTransferencia += delegate {
                     MostrarVistaEdicionDetallePagoTransferencia(sender, e);
                 };

@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
         _registroAlmacen = new PresentadorRegistroAlmacen(new VistaRegistroAlmacen());
         _registroAlmacen.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroAlmacen.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroAlmacen.DatosRegistradosActualizados += delegate {
+        _registroAlmacen.EntidadRegistradaActualizada += delegate {
             if (_gestionAlmacenes == null)
                 return;
 
@@ -47,7 +47,7 @@ public partial class PresentadorContenedorModulos {
     private void MostrarVistaEdicionAlmacen(object? sender, EventArgs e) {
         if (sender is Almacen almacen) {
             if (_registroAlmacen != null) {
-                _registroAlmacen.PopularVistaDesdeObjeto(almacen);
+                _registroAlmacen.PopularVistaDesdeEntidad(almacen);
                 _registroAlmacen.Vista.Mostrar();
             }
         }

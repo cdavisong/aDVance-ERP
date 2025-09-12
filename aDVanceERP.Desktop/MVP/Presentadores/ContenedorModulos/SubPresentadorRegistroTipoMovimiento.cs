@@ -15,7 +15,7 @@ public partial class PresentadorContenedorModulos {
         _registroTipoMovimiento = new PresentadorRegistroTipoMovimiento(new VistaRegistroTipoMovimiento());
         _registroTipoMovimiento.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroTipoMovimiento.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroTipoMovimiento.DatosRegistradosActualizados += delegate {
+        _registroTipoMovimiento.EntidadRegistradaActualizada += delegate {
             _registroMovimiento?.Vista.CargarTiposMovimientos(tiposMovimiento.Select(tm => tm.Nombre).ToArray());
         };
 

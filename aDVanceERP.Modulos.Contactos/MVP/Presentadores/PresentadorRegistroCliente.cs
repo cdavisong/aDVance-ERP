@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
@@ -7,10 +7,10 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente.Plantillas;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores;
 
-public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistroCliente, Cliente, RepoCliente, FiltroBusquedaCliente> {
+public class PresentadorRegistroCliente : PresentadorVistaRegistro<IVistaRegistroCliente, Cliente, RepoCliente, FiltroBusquedaCliente> {
     public PresentadorRegistroCliente(IVistaRegistroCliente vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Cliente objeto) {
+    public override void PopularVistaDesdeEntidad(Cliente objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.RazonSocial = objeto.RazonSocial;
         Vista.Numero = objeto.Numero;
@@ -27,7 +27,7 @@ public class PresentadorRegistroCliente : PresentadorRegistroBase<IVistaRegistro
         Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result > 0 && !Vista.ModoEdicionDatos;
         var nombreOk = !string.IsNullOrEmpty(Vista.RazonSocial) && !nombreEncontrado;
         var telefonoOk = !string.IsNullOrEmpty(Vista.TelefonoMovil);

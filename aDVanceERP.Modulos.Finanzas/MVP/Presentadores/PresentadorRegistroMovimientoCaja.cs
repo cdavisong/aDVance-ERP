@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
@@ -7,10 +7,10 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 
-public class PresentadorRegistroMovimientoCaja : PresentadorRegistroBase<IVIstaRegistroMovimientoCaja, MovimientoCaja, RepoMovimientoCaja, FiltroBusquedaMovimientoCaja> {
+public class PresentadorRegistroMovimientoCaja : PresentadorVistaRegistro<IVIstaRegistroMovimientoCaja, MovimientoCaja, RepoMovimientoCaja, FiltroBusquedaMovimientoCaja> {
     public PresentadorRegistroMovimientoCaja(IVIstaRegistroMovimientoCaja vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(MovimientoCaja objeto) {
+    public override void PopularVistaDesdeEntidad(MovimientoCaja objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.Fecha = objeto.Fecha;
         Vista.Monto = objeto.Monto;

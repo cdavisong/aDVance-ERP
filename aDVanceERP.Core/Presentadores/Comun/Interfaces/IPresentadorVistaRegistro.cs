@@ -1,17 +1,18 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
-using aDVanceERP.Core.Presentadores.Comun.Interfaces;
 using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 
-namespace aDVanceERP.Core.MVP.Presentadores.Plantillas;
+namespace aDVanceERP.Core.Presentadores.Comun.Interfaces;
 
-public interface IPresentadorRegistro<Vr, Re, En, Fb> : IPresentadorVistaBase<Vr>
+public interface IPresentadorVistaRegistro<Vr, Re, En, Fb> : IPresentadorVistaBase<Vr>
     where Vr : class, IVistaRegistro
     where Re : class, IRepoEntidadBaseDatos<En, Fb>, new()
     where En : class, IEntidadBaseDatos, new()
-    where Fb : Enum {
-    Re DatosObjeto { get; }
+    where Fb : Enum
+{
+    En? Entidad { get; }
+    Re Repositorio { get; }
 
-    event EventHandler? DatosRegistradosActualizados;
+    event EventHandler? EntidadRegistradaActualizada;
     event EventHandler? Salir;
 }

@@ -14,7 +14,7 @@ public partial class PresentadorContenedorModulos {
         _registroCuentaUsuario.Vista.CargarRolesUsuarios(UtilesRolUsuario.ObtenerNombresRolesUsuarios());
         _registroCuentaUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCuentaUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCuentaUsuario.DatosRegistradosActualizados += delegate {
+        _registroCuentaUsuario.EntidadRegistradaActualizada += delegate {
             if (_gestionCuentasUsuarios == null)
                 return;
 
@@ -41,7 +41,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is CuentaUsuario cuentaUsuario) {
             if (_registroCuentaUsuario != null) {
-                _registroCuentaUsuario.PopularVistaDesdeObjeto(cuentaUsuario);
+                _registroCuentaUsuario.PopularVistaDesdeEntidad(cuentaUsuario);
                 _registroCuentaUsuario.Vista.Mostrar();
             }
         }

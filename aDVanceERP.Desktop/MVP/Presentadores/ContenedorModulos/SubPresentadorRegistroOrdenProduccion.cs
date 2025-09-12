@@ -11,7 +11,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
         private void InicializarVistaRegistroOrdenProduccion() {
             _registroOrdenProduccion = new PresentadorRegistroOrdenProduccion(new VistaRegistroOrdenProduccion());
-            _registroOrdenProduccion.DatosRegistradosActualizados += delegate {
+            _registroOrdenProduccion.EntidadRegistradaActualizada += delegate {
                 if (_gestionOrdenesProduccion == null)
                     return;
 
@@ -41,7 +41,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
                     _registroOrdenProduccion.Vista.Restaurar();                    
                     _registroOrdenProduccion.Vista.Mostrar();
-                    _registroOrdenProduccion.PopularVistaDesdeObjeto(ordenProduccion);
+                    _registroOrdenProduccion.PopularVistaDesdeEntidad(ordenProduccion);
                 }
             }
         }

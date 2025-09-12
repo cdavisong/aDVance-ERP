@@ -22,7 +22,7 @@ public partial class PresentadorContenedorModulos {
             _registroRolUsuario.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
             _registroRolUsuario.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
             _registroRolUsuario.Vista.CargarNombresModulos(UtilesModulo.ObtenerNombresModulos());
-            _registroRolUsuario.DatosRegistradosActualizados += delegate {
+            _registroRolUsuario.EntidadRegistradaActualizada += delegate {
                 Permisos = _registroRolUsuario.Vista.Permisos;
 
                 RegistrarEditarPermisosRol(UtilesRolUsuario.ObtenerIdRolUsuario(_registroRolUsuario.Vista.NombreRolUsuario!).Result);
@@ -54,7 +54,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is RolUsuario rolUsuario) {
             if (_registroRolUsuario != null) {
-                _registroRolUsuario.PopularVistaDesdeObjeto(rolUsuario);
+                _registroRolUsuario.PopularVistaDesdeEntidad(rolUsuario);
                 _registroRolUsuario.Vista.Mostrar();
             }
         }

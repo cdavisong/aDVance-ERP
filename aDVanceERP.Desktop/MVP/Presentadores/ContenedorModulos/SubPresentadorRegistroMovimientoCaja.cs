@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
         _registroMovimientoCaja = new PresentadorRegistroMovimientoCaja(new VistaRegistroMovimientoCaja());
         _registroMovimientoCaja.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroMovimientoCaja.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroMovimientoCaja.DatosRegistradosActualizados += delegate {
+        _registroMovimientoCaja.EntidadRegistradaActualizada += delegate {
             if (_gestionCajas == null)
                 return;
 
@@ -39,7 +39,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is MovimientoCaja movimientoCaja) {
             if (_registroMovimientoCaja != null) {
-                _registroMovimientoCaja.PopularVistaDesdeObjeto(movimientoCaja);
+                _registroMovimientoCaja.PopularVistaDesdeEntidad(movimientoCaja);
                 _registroMovimientoCaja.Vista.Mostrar();
             }
         }

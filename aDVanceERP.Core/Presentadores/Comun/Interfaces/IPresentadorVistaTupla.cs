@@ -3,12 +3,11 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Core.Presentadores.Comun.Interfaces;
 
-public interface IPresentadorVistaTupla<Vt, Eb> : IPresentadorVistaBase<Vt>
+public interface IPresentadorVistaTupla<Vt, En> : IPresentadorVistaBase<Vt>
     where Vt : class, IVistaTupla
-    where Eb : class, IEntidadBaseDatos, new()
-{
-   
-    Eb Entidad { get; }
+    where En : class, IEntidadBaseDatos, new() {
+
+    En Entidad { get; }
 
     bool EstadoSeleccion { get; set; }
 

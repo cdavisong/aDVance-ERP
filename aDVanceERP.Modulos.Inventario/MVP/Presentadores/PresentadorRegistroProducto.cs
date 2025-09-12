@@ -1,17 +1,17 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistroProducto, Producto, RepoProducto,
+public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegistroProducto, Producto, RepoProducto,
     FiltroBusquedaProducto> {
     public PresentadorRegistroProducto(IVistaRegistroProducto vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(Producto objeto) {
+    public override void PopularVistaDesdeEntidad(Producto objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.CategoriaProducto = objeto.Categoria;
         Vista.Nombre = objeto.Nombre ?? string.Empty;
@@ -37,7 +37,7 @@ public class PresentadorRegistroProducto : PresentadorRegistroBase<IVistaRegistr
         Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var nombreRepetido = UtilesProducto.ObtenerIdProducto(Vista.Nombre).Result > 0;
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
         var codigoOk = !string.IsNullOrEmpty(Vista.Codigo);

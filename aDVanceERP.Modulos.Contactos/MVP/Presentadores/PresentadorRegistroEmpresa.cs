@@ -1,17 +1,18 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
-using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
+﻿using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 using aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa.Plantillas;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Contactos.Properties;
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Presentadores.Comun;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
-    public class PresentadorRegistroEmpresa : PresentadorRegistroBase<IVistaRegistroEmpresa, Empresa, RepoEmpresa, FiltroBusquedaEmpresa> {
+namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
+{
+    public class PresentadorRegistroEmpresa : PresentadorVistaRegistro<IVistaRegistroEmpresa, Empresa, RepoEmpresa, FiltroBusquedaEmpresa> {
         public PresentadorRegistroEmpresa(IVistaRegistroEmpresa vista) : base(vista) {
         }
 
-        public override void PopularVistaDesdeObjeto(Empresa objeto) {
+        public override void PopularVistaDesdeEntidad(Empresa objeto) {
             Vista.ModoEdicionDatos = true;
             Vista.Logotipo = objeto.Logotipo ?? Resources.logoF_96px;
             Vista.Nombre = objeto.Nombre ?? string.Empty;
@@ -30,7 +31,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores {
             Entidad = objeto;
         }
 
-        protected override bool RegistroEdicionDatosAutorizado() {
+        protected override bool EntidadCorrecta() {
             var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicionDatos;
             var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
 

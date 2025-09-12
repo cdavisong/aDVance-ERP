@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
@@ -6,12 +6,13 @@ using aDVanceERP.Modulos.Taller.Repositorios;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
-    public class PresentadorRegistroOrdenProduccion : PresentadorRegistroBase<IVistaRegistroOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, FiltroBusquedaOrdenProduccion> {
+namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion
+{
+    public class PresentadorRegistroOrdenProduccion : PresentadorVistaRegistro<IVistaRegistroOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, FiltroBusquedaOrdenProduccion> {
         public PresentadorRegistroOrdenProduccion(IVistaRegistroOrdenProduccion vista) : base(vista) {
         }
 
-        public override void PopularVistaDesdeObjeto(Modelos.OrdenProduccion entidad) {
+        public override void PopularVistaDesdeEntidad(Modelos.OrdenProduccion entidad) {
             Vista.ModoEdicionDatos = true;
             Vista.Id = entidad.Id;
             Vista.NombreProductoTerminado = entidad.NombreProducto ?? string.Empty;

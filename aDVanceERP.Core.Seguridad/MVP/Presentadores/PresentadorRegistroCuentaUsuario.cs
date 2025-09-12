@@ -1,16 +1,16 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Modelos.Repositorios;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 using aDVanceERP.Core.Seguridad.Utiles;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Presentadores; 
+namespace aDVanceERP.Core.Seguridad.MVP.Presentadores;
 
-public class PresentadorRegistroCuentaUsuario : PresentadorRegistroBase<IVistaRegistroCuentaUsuario, CuentaUsuario,
+public class PresentadorRegistroCuentaUsuario : PresentadorVistaRegistro<IVistaRegistroCuentaUsuario, CuentaUsuario,
     RepoCuentaUsuario, FiltroBusquedaCuentaUsuario> {
     public PresentadorRegistroCuentaUsuario(IVistaRegistroCuentaUsuario vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(CuentaUsuario objeto) {
+    public override void PopularVistaDesdeEntidad(CuentaUsuario objeto) {
         Vista.NombreUsuario = objeto.Nombre;
         Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
         Vista.ModoEdicionDatos = true;

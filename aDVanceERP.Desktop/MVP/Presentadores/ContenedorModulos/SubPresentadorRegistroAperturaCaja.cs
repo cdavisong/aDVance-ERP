@@ -15,7 +15,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _registroAperturaCaja = new PresentadorRegistroAperturaCaja(new VistaRegistroAperturaCaja());
             _registroAperturaCaja.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
             _registroAperturaCaja.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-            _registroAperturaCaja.DatosRegistradosActualizados += delegate {
+            _registroAperturaCaja.EntidadRegistradaActualizada += delegate {
                 if (_gestionCajas == null)
                     return;
 
@@ -45,7 +45,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
 
             if (sender is Caja caja) {
                 if (_registroAperturaCaja != null) {
-                    _registroAperturaCaja.PopularVistaDesdeObjeto(caja);
+                    _registroAperturaCaja.PopularVistaDesdeEntidad(caja);
                     _registroAperturaCaja.Vista.Mostrar();
                 }
             }

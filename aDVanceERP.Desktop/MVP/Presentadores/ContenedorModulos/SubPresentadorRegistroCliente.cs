@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
         _registroCliente = new PresentadorRegistroCliente(new VistaRegistroCliente());
         _registroCliente.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCliente.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCliente.DatosRegistradosActualizados += delegate {
+        _registroCliente.EntidadRegistradaActualizada += delegate {
             if (_gestionClientes == null)
                 return;
 
@@ -27,7 +27,7 @@ public partial class PresentadorContenedorModulos {
         if (_registroCliente == null)
             return;
 
-        _registroCliente.DatosRegistradosActualizados += delegate {
+        _registroCliente.EntidadRegistradaActualizada += delegate {
             if (_registroMensajeria == null)
                 return;
 
@@ -44,7 +44,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is Cliente cliente) {
             if (_registroCliente != null) {
-                _registroCliente.PopularVistaDesdeObjeto(cliente);
+                _registroCliente.PopularVistaDesdeEntidad(cliente);
                 _registroCliente.Vista.Mostrar();
             }
         }

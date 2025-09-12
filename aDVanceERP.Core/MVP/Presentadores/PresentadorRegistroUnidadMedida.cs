@@ -1,13 +1,14 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Vistas.UnidadMedida.Plantillas;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
 
-public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaRegistroUnidadMedida, UnidadMedida, RepoUnidadMedida, FiltroBusquedaUnidadMedida> {
+public class PresentadorRegistroUnidadMedida : PresentadorVistaRegistro<IVistaRegistroUnidadMedida, UnidadMedida, RepoUnidadMedida, FiltroBusquedaUnidadMedida> {
     public PresentadorRegistroUnidadMedida(IVistaRegistroUnidadMedida vista) : base(vista) { }
 
-    public override void PopularVistaDesdeObjeto(UnidadMedida objeto) {
+    public override void PopularVistaDesdeEntidad(UnidadMedida objeto) {
         Vista.ModoEdicionDatos = true;
         Vista.Nombre = objeto.Nombre;
         Vista.Abreviatura = objeto.Abreviatura;
@@ -16,7 +17,7 @@ public class PresentadorRegistroUnidadMedida : PresentadorRegistroBase<IVistaReg
         Entidad = objeto;
     }
 
-    protected override bool RegistroEdicionDatosAutorizado() {
+    protected override bool EntidadCorrecta() {
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
         var abreviaturaOk = !string.IsNullOrEmpty(Vista.Abreviatura);
 

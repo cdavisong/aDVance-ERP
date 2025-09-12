@@ -14,7 +14,7 @@ public partial class PresentadorContenedorModulos {
         _registroCuentaBancaria.Vista.CargarNombresContactos(UtilesContacto.ObtenerNombresContactos());
         _registroCuentaBancaria.Vista.EstablecerCoordenadasVistaRegistro(Vista.Dimensiones);
         _registroCuentaBancaria.Vista.EstablecerDimensionesVistaRegistro(Vista.Dimensiones.Height);
-        _registroCuentaBancaria.DatosRegistradosActualizados += delegate {
+        _registroCuentaBancaria.EntidadRegistradaActualizada += delegate {
             if (_gestionCuentasBancarias == null)
                 return;
 
@@ -37,7 +37,7 @@ public partial class PresentadorContenedorModulos {
 
         if (sender is CuentaBancaria cuentaBancaria) {
             if (_registroCuentaBancaria != null) {
-                _registroCuentaBancaria.PopularVistaDesdeObjeto(cuentaBancaria);
+                _registroCuentaBancaria.PopularVistaDesdeEntidad(cuentaBancaria);
                 _registroCuentaBancaria.Vista.Mostrar();
             }
         }
