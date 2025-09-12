@@ -1,11 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Vistas.BD;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad; 
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad;
 
-public partial class PresentadorContenedorSeguridad : PresentadorBase<IVistaContenedorSeguridad> {
+public partial class PresentadorContenedorSeguridad : PresentadorVistaBase<IVistaContenedorSeguridad> {
     private VistaConfiguracionBaseDatos? _vistaConfiguracionBaseDatos;
 
     public PresentadorContenedorSeguridad(IVistaPrincipal vistaPrincipal, IVistaContenedorSeguridad vista) :

@@ -4,11 +4,18 @@ using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Core.Vistas.BD;
 
-namespace aDVanceERP.Core.Presentadores.BD {
-    public class PresentadorConfiguracionBaseDatos : PresentadorBase<VistaConfiguracionBaseDatos, RepoConfiguracionBaseDatos, ConfiguracionBaseDatos> {
-        public PresentadorConfiguracionBaseDatos(VistaConfiguracionBaseDatos vista, RepoConfiguracionBaseDatos repositorio) : base(vista, repositorio) {
+namespace aDVanceERP.Core.Presentadores.BD
+{
+    public class PresentadorConfiguracionBaseDatos : PresentadorVistaBase<VistaConfiguracionBaseDatos> {
+        private readonly RepoConfiguracionBaseDatos _repositorio;
+
+        public PresentadorConfiguracionBaseDatos(VistaConfiguracionBaseDatos vista, RepoConfiguracionBaseDatos repositorio) : base(vista) {
+            _repositorio = repositorio;
+
             Vista.AlmacenarConfiguracion += OnAlmacenarConfiguracion;
         }
+
+        public RepoConfiguracionBaseDatos Repositorio => _repositorio;
 
         public event EventHandler? ConfiguracionCargada;
 

@@ -1,11 +1,12 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
 
-public abstract class PresentadorRegistroBase<Vr, En, Re, Fb> : PresentadorBase<Vr>, IPresentadorRegistro<Vr, Re, En, Fb>
+public abstract class PresentadorRegistroBase<Vr, En, Re, Fb> : PresentadorVistaBase<Vr>, IPresentadorRegistro<Vr, Re, En, Fb>
     where Vr : class, IVistaRegistro
     where Re : class, IRepoEntidadBaseDatos<En, Fb>, new()
     where En : class, IEntidadBaseDatos, new()

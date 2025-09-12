@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas.Plantillas;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorEstadisticas; 
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorEstadisticas;
 
-public class PresentadorContenedorEstadisticas : PresentadorBase<IVistaContenedorEstadisticas> {
+public class PresentadorContenedorEstadisticas : PresentadorVistaBase<IVistaContenedorEstadisticas> {
     public PresentadorContenedorEstadisticas(IVistaContenedorEstadisticas vista) : base(vista) {
         vista.FechaEstadsticasModificada += delegate(object? sender, EventArgs args) {
             if (sender is DateTime fecha)

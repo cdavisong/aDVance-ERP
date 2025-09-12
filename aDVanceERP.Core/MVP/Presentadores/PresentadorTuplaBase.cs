@@ -1,11 +1,12 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles;
 
-namespace aDVanceERP.Core.MVP.Presentadores; 
+namespace aDVanceERP.Core.MVP.Presentadores;
 
-public abstract class PresentadorTuplaBase<Vt, O> : PresentadorBase<Vt>, IPresentadorTupla<Vt, O>
+public abstract class PresentadorTuplaBase<Vt, O> : PresentadorVistaBase<Vt>, IPresentadorTupla<Vt, O>
     where Vt : class, IVistaTupla
     where O : class, IEntidadBase, new() {
     private bool disposedValue;

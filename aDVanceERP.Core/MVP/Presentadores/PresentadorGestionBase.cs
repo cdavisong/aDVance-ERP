@@ -2,17 +2,18 @@
 using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Vistas.Comun;
 
 namespace aDVanceERP.Core.MVP.Presentadores;
 
-public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : PresentadorBase<Vg>,
+public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : PresentadorVistaBase<Vg>,
     IPresentadorGestion<Vg, Re, En, Fb>
     where Pt : IPresentadorTupla<Vt, En>
     where Vg : class, IVistaContenedor, IGestorEntidades, IBuscadorEntidades<Fb>, INavegadorTuplasEntidades
-    where Vt : IVistaTupla
+    where Vt : class, IVistaTupla
     where Re : class, IRepoEntidadBaseDatos<En, Fb>, new()
     where En : class, IEntidadBaseDatos, new()
     where Fb : Enum {

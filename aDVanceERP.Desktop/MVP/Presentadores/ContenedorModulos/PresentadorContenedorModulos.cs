@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
-namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
+namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos : PresentadorBase<IVistaContenedorModulos> {
+public partial class PresentadorContenedorModulos : PresentadorVistaBase<IVistaContenedorModulos> {
     public PresentadorContenedorModulos(IVistaPrincipal vistaPrincipal, IVistaContenedorModulos vista) : base(vista) {
         VistaPrincipal = vistaPrincipal;
 

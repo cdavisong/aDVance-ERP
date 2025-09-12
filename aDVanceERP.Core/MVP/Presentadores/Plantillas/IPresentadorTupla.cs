@@ -1,10 +1,11 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Presentadores.Comun.Interfaces;
 
-namespace aDVanceERP.Core.MVP.Presentadores.Plantillas; 
+namespace aDVanceERP.Core.MVP.Presentadores.Plantillas;
 
-public interface IPresentadorTupla<Vt, O> : IPresentadorBase<Vt>, IDisposable
-    where Vt : IVistaTupla
+public interface IPresentadorTupla<Vt, O> : IPresentadorVistaBase<Vt>, IDisposable
+    where Vt : class, IVistaTupla
     where O : class, IEntidadBase, new() {
     bool TuplaSeleccionada { get; set; }
     Vt Vista { get; }
