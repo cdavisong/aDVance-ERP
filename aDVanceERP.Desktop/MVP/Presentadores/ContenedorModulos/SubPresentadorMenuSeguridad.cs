@@ -11,7 +11,7 @@ public partial class PresentadorContenedorModulos {
         _menuSeguridad.Vista.VerCuentasUsuarios += MostrarVistaGestionCuentasUsuarios;
         _menuSeguridad.Vista.VerRolesUsuarios += MostrarVistaGestionRolesUsuarios;
         _menuSeguridad.Vista.CambioMenu += delegate { 
-            Vista.Vistas?.Ocultar(true); 
+            Vista.Vistas?.OcultarTodos(); 
         };
 
         VistaPrincipal.Menus.Registrar("vistaMenuSeguridad", _menuSeguridad.Vista);

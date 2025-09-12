@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
         _menuFinanzas = new PresentadorMenuFinanzas(new VistaMenuFinanzas());
         _menuFinanzas.Vista.VerCuentas += MostrarVistaGestionCuentasBancarias;
         _menuFinanzas.Vista.VerCajas += MostrarVistaGestionCajas;
-        _menuFinanzas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
+        _menuFinanzas.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
 
         VistaPrincipal.Menus.Registrar("vistaMenuFinanzas", _menuFinanzas.Vista);
     }

@@ -72,6 +72,6 @@ public partial class PresentadorPrincipal {
         if (_contenedorModulos == null)
             return;
 
-        _contenedorModulos.Vista.Vistas?.Cerrar(true);
+        _contenedorModulos.Vista.Vistas?.CerrarTodos();
     }
 }

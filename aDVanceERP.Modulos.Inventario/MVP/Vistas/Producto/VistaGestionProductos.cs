@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
+
 using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
@@ -93,7 +93,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         }
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
     
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -110,7 +110,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         fieldNombreAlmacen.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
@@ -208,12 +208,14 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     }
 
     public void Mostrar() {
+        Habilitada = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
+        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
         MostrarBtnHabilitarDeshabilitarProducto = false;
@@ -223,6 +225,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     }
 
     public void Ocultar() {
+        Habilitada = false;
         Hide();
     }
 

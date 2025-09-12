@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas;
@@ -35,13 +34,13 @@ public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad 
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
     
 
     public void Inicializar() {
         // Propiedades locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
     }
 
     public void Mostrar() {
@@ -61,6 +60,6 @@ public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad 
     }
 
     public void Cerrar() {
-        Vistas?.Cerrar();
+        Vistas?.CerrarTodos();
     }
 }

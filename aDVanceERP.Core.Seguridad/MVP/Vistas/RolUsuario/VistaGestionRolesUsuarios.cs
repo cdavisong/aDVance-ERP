@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Seguridad.MVP.Modelos;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
 using aDVanceERP.Core.Utiles;
@@ -67,7 +66,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
         }
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -83,7 +82,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         fieldFiltroBusqueda.SelectedIndexChanged += delegate {

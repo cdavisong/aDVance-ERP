@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
@@ -45,7 +44,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     //    set => btnModuloAdministracion.Visible = value;
     //}
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
     public event EventHandler? MostrarVistaInicio;
     public event EventHandler? MostrarVistaEstadisticas;
@@ -60,7 +59,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
 
     public void Inicializar() {
         // Propiedades locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
         btnInicio.Checked = true;
 
         // Eventos
@@ -243,7 +242,7 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     }
 
     public void Restaurar() {
-        Vistas.Ocultar(true);
+        Vistas?.OcultarTodos();
     }
 
     public void Ocultar() {
@@ -253,6 +252,6 @@ public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     }
 
     public void Cerrar() {
-        Vistas.Cerrar();
+        Vistas?.CerrarTodos();
     }
 }

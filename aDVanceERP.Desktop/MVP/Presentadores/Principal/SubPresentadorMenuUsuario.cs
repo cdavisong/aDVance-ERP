@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Seguridad.MVP.Presentadores;
+﻿using aDVanceERP.Core.Modelos.Comun;
+using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Menu;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
@@ -14,7 +15,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
             };
             _menuUsuario.Vista.CerrarSesion += MostrarVistaContenedorSeguridad;
             _menuUsuario.Vista.CerrarSesion += delegate {
-                Vista.Menus.Ocultar(true);
+                Vista.Menus.OcultarTodos();
                 _contenedorModulos?.Vista.Ocultar();
             };
 
@@ -22,7 +23,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 _menuUsuario.Vista,
                 new Point(Vista.Dimensiones.Width - _menuUsuario.Vista.Dimensiones.Width - 150, 0),
                 _menuUsuario.Vista.Dimensiones,
-                "NONE");
+                TipoRedimensionadoVista.Ninguno);
         }
 
         private void MostrarVistaMenuUsuario(object? sender, EventArgs e) {

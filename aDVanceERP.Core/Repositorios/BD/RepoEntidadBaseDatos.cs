@@ -1,7 +1,6 @@
 ﻿using aDVanceERP.Core.Infraestructura.Globales;
 using aDVanceERP.Core.Modelos.Comun.Interfaces;
-using aDVanceERP.Core.Repositorios.Interfaces;
-
+using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 
 using MySql.Data.MySqlClient;
@@ -26,8 +25,8 @@ public abstract class RepoEntidadBaseDatos<En, Fb> : IRepoEntidadBaseDatos<En, F
 
     #region Obtención de datos y búsqueda de entidades
 
-    public En? ObtenerPorId(long id) {
-        var cacheKey = $"{NombreTabla}_Id_{id}";
+    public En? ObtenerPorId(object id) {
+        var cacheKey = $"{NombreTabla}_Id_{id.ToString()}";
 
         if (_cache.TryGetValue(cacheKey, out En? cachedEntity))
             return cachedEntity;

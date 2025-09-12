@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
@@ -84,7 +83,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
         }
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -102,7 +101,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
 
     public void Inicializar() {
         // Vistas
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         btnDescargar.Click += delegate {
@@ -218,12 +217,14 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
     }
 
     public void Mostrar() {
+        Habilitada = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
+        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
 
@@ -231,6 +232,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
     }
 
     public void Ocultar() {
+        Habilitada = false;
         Hide();
     }
 

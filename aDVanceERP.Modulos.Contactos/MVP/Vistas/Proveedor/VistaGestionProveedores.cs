@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
@@ -68,7 +67,7 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
         }
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -84,7 +83,7 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         fieldFiltroBusqueda.SelectedIndexChanged += delegate {
@@ -143,12 +142,14 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
     }
 
     public void Mostrar() {
+        Habilitada = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
+        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
 
@@ -156,6 +157,7 @@ public partial class VistaGestionProveedores : Form, IVistaGestionProveedores {
     }
 
     public void Ocultar() {
+        Habilitada = false;
         Hide();
     }
 

@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario.Plantillas;
@@ -25,7 +25,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -78,7 +78,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
 
     public void Inicializar() {
         Permisos = new List<string[]>();
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) {
@@ -170,7 +170,8 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
                 $"vistaTupla{tuplaPermisoRol.GetType().Name}{i}",
                 tuplaPermisoRol,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-                new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
+                new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 
+                TipoRedimensionadoVista.Ninguno);
             tuplaPermisoRol.Mostrar();
 
             // Incremento de la útima coordenada Y de la tupla

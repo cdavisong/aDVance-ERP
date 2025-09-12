@@ -1,5 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
@@ -13,9 +12,9 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         Inicializar();
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
-    public IRepoVista Menus { get; private set; }
+    public RepoVistaBase? Menus { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -64,8 +63,8 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         };
 
         // Repositorios
-        Vistas = new RepositorioVistaBase(contenedorVistas);
-        Menus = new RepositorioVistaBase(contenedorMenus);
+        Vistas = new RepoVistaBase(contenedorVistas);
+        Menus = new RepoVistaBase(contenedorMenus);
 
         // Eventos        
         btnNotificaciones.Click += delegate(object? sender, EventArgs args) {
@@ -98,6 +97,6 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
     }
 
     public void Cerrar() {
-        Vistas.Cerrar(true);
+        Vistas?.CerrarTodos();
     }
 }

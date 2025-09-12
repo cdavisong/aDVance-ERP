@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Repositorios.Interfaces;
+﻿using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Modelos.Repositorios.Plantillas
 {

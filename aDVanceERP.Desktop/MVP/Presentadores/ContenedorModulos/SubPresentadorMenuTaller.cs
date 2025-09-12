@@ -8,7 +8,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
         private void InicializarVistaMenuTaller() {
             _menuTaller = new PresentadorMenuTaller(new VistaMenuTaller());
             _menuTaller.Vista.VerOrdenesProduccion += MostrarVistaGestionOrdenesProduccion;
-            _menuTaller.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
+            _menuTaller.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
 
             VistaPrincipal.Menus.Registrar("vistaMenuTaller", _menuTaller.Vista);
         }

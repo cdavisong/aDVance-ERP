@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
         _menuCompraventas = new PresentadorMenuCompraventas(new VistaMenuCompraventas());
         _menuCompraventas.Vista.VerCompras += MostrarVistaGestionCompras;
         _menuCompraventas.Vista.VerVentas += MostrarVistaGestionVentas;
-        _menuCompraventas.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
+        _menuCompraventas.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
 
         VistaPrincipal.Menus.Registrar("vistaMenuCompraventas", _menuCompraventas.Vista);
     }

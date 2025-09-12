@@ -1,10 +1,11 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Utiles;
+
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
+{
     public partial class VistaGestionCajas : Form, IVistaGestionCajas {
         private int _paginaActual = 1;
         private int _paginasTotales = 1;
@@ -74,7 +75,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => btnCierreCaja.Visible = value;
         }
 
-        public IRepoVista Vistas { get; private set; }
+        public RepoVistaBase? Vistas { get; private set; }
 
         public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? MostrarPrimeraPagina;
@@ -92,7 +93,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
 
         public void Inicializar() {
             // Variables locales
-            Vistas = new RepositorioVistaBase(contenedorVistas);
+            Vistas = new RepoVistaBase(contenedorVistas);
 
             // Eventos
             fieldFiltroBusqueda.SelectedIndexChanged += delegate {
@@ -183,11 +184,13 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         }
 
         public void Mostrar() {
+            Habilitada = true;
             BringToFront();
             Show();
         }
 
         public void Restaurar() {
+            Habilitada = true;
             PaginaActual = 1;
             PaginasTotales = 1;
             HabilitarBtnRegistroMovimientoCaja = false;
@@ -197,6 +200,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         }
 
         public void Ocultar() {
+            Habilitada = false;
             Hide();
         }
 

@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Modelos.Comun;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
@@ -11,7 +11,8 @@ using aDVanceERP.Modulos.Taller.Repositorios;
 using System.Data;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
+namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
+{
     public partial class VistaRegistroOrdenProduccion : Form, IVistaRegistroOrdenProduccion {
         private bool _habilitada;
         private bool _modoEdicion;
@@ -130,13 +131,13 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
             }
         }
 
-        public IRepoVista? VistasMateriaPrima { get; private set; }
+        public RepoVistaBase? VistasMateriaPrima { get; private set; }
         public List<string[]> MateriasPrimas { get; private set; } = new List<string[]>();
 
-        public IRepoVista? VistasActividadProduccion { get; private set; }
+        public RepoVistaBase? VistasActividadProduccion { get; private set; }
         public List<string[]> ActividadesProduccion { get; private set; } = new List<string[]>();
 
-        public IRepoVista? VistasGastosIndirectos { get; private set; }
+        public RepoVistaBase? VistasGastosIndirectos { get; private set; }
         public List<string[]> GastosIndirectos { get; private set; } = new List<string[]>();
 
         public event EventHandler? RegistrarDatos;
@@ -149,9 +150,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
         public void Inicializar() {
             // Vistas
-            VistasMateriaPrima = new RepositorioVistaBase(contenedorVistasMateriaPrima);
-            VistasActividadProduccion = new RepositorioVistaBase(contenedorVistasActividadesProduccion);
-            VistasGastosIndirectos = new RepositorioVistaBase(contenedorVistasGastosIndirectos);
+            VistasMateriaPrima = new RepoVistaBase(contenedorVistasMateriaPrima);
+            VistasActividadProduccion = new RepoVistaBase(contenedorVistasActividadesProduccion);
+            VistasGastosIndirectos = new RepoVistaBase(contenedorVistasGastosIndirectos);
 
             // Eventos
             #region Materias primas
@@ -644,7 +645,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     $"vistaTupla{tuplaOrdenMateriaPrima.GetType().Name}{i}",
                     tuplaOrdenMateriaPrima,
                     new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-                    new Size(contenedorVistasMateriaPrima.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
+                    new Size(contenedorVistasMateriaPrima.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 
+                    TipoRedimensionadoVista.Ninguno);
                 tuplaOrdenMateriaPrima.Mostrar();
 
                 // Incremento de la útima coordenada Y de la tupla
@@ -707,7 +709,8 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     $"vistaTupla{tuplaOrdenActividadProduccion.GetType().Name}{i}",
                     tuplaOrdenActividadProduccion,
                     new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-                    new Size(contenedorVistasActividadesProduccion.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
+                    new Size(contenedorVistasActividadesProduccion.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 
+                    TipoRedimensionadoVista.Ninguno);
 
                 tuplaOrdenActividadProduccion.Mostrar();
 
@@ -772,7 +775,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     $"vistaTupla{tuplaOrdenGastoIndirecto.GetType().Name}{i}",
                     tuplaOrdenGastoIndirecto,
                     new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-                    new Size(contenedorVistasGastosIndirectos.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
+                    new Size(contenedorVistasGastosIndirectos.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), TipoRedimensionadoVista.Ninguno);
                 tuplaOrdenGastoIndirecto.Mostrar();
 
                 // Incremento de la útima coordenada Y de la tupla
@@ -794,7 +797,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
                     // Actualizar el monto en la tupla correspondiente
                     gasto[2] = montoDinamico.ToString("N2", CultureInfo.InvariantCulture);
 
-                    var vistaTupla = VistasGastosIndirectos?.Obtener($"vistaTuplaVistaTuplaOrdenGastoIndirecto{GastosIndirectos.IndexOf(gasto)}") as VistaTuplaOrdenGastoIndirecto;
+                    var vistaTupla = VistasGastosIndirectos?.ObtenerPorId($"vistaTuplaVistaTuplaOrdenGastoIndirecto{GastosIndirectos.IndexOf(gasto)}") as VistaTuplaOrdenGastoIndirecto;
                     
                     if (vistaTupla != null) {
                         vistaTupla.Monto = gasto[2];

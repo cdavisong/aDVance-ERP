@@ -11,7 +11,7 @@ public partial class PresentadorContenedorModulos {
         _menuInventario.Vista.VerProductos += MostrarVistaGestionProductos;
         _menuInventario.Vista.VerMovimientos += MostrarVistaGestionMovimientos;
         _menuInventario.Vista.VerAlmacenes += MostrarVistaGestionAlmacenes;
-        _menuInventario.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
+        _menuInventario.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
 
         VistaPrincipal.Menus.Registrar("vistaMenuInventario", _menuInventario.Vista);
     }

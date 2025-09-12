@@ -1,8 +1,9 @@
-﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
+﻿using aDVanceERP.Core.Modelos.Comun;
+using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
-using aDVanceERP.Core.Repositorios.Interfaces;
+using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Vistas.Comun;
 
@@ -58,7 +59,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
         try {
             if (Vista.TuplasMaximasContenedor == 0) return;
 
-            Vista.Vistas?.Cerrar(true);
+            Vista.Vistas?.CerrarTodos();
 
             // Desuscribir eventos del presentador de tuplas
             foreach (var presentadorTupla in _tuplasEntidades) {
@@ -119,7 +120,8 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
                 $"vistaTupla{objeto.GetType().Name}{objeto.Id}",
                 presentadorTupla.Vista,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-                new Size(0, VariablesGlobales.AlturaTuplaPredeterminada), "H");
+                new Size(0, VariablesGlobales.AlturaTuplaPredeterminada),
+                TipoRedimensionadoVista.Horizontal);
 
             presentadorTupla.Vista.Mostrar();
         });

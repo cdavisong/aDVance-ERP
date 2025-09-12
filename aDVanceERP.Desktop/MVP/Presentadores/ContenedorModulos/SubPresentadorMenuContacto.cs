@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
         _menuContacto.Vista.VerMensajeros += MostrarVistaGestionMensajeros;
         _menuContacto.Vista.VerClientes += MostrarVistaGestionClientes;
         _menuContacto.Vista.VerContactos += MostrarVistaGestionContactos;
-        _menuContacto.Vista.CambioMenu += delegate { Vista.Vistas?.Ocultar(true); };
+        _menuContacto.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
 
         VistaPrincipal.Menus.Registrar("vistaMenuContacto", _menuContacto.Vista);
     }

@@ -1,9 +1,9 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Modelos.Plantillas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
+
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
@@ -69,7 +69,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         }
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
     FiltroBusquedaMovimiento IBuscadorDatos<FiltroBusquedaMovimiento>.FiltroBusqueda => throw new NotImplementedException();
 
@@ -87,7 +87,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         fieldFiltroBusqueda.SelectedIndexChanged += delegate {
@@ -165,12 +165,14 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     }
 
     public void Mostrar() {
+        Habilitada = true;
         VerificarPermisos();
         BringToFront();
         Show();
     }
 
     public void Restaurar() {
+        Habilitada = true;
         PaginaActual = 1;
         PaginasTotales = 1;
 
@@ -178,6 +180,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     }
 
     public void Ocultar() {
+        Habilitada = false;
         Hide();
     }
 

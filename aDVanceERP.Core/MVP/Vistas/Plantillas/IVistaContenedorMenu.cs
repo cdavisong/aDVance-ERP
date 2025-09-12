@@ -1,7 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 
 namespace aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 public interface IVistaContenedorMenu : IVistaContenedor {
-    IRepoVista Menus { get; }
+    RepoVistaBase Menus { get; }
 }

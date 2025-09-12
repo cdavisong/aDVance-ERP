@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Modelos.Comun;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
@@ -30,7 +30,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -98,7 +98,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
     public void Inicializar() {
         Productos = new List<string[]>();
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) {
@@ -269,7 +269,8 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
                 $"vistaTupla{tuplaDetallesVentaProducto.GetType().Name}{i}",
                 tuplaDetallesVentaProducto,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-                new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
+                new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 
+                TipoRedimensionadoVista.Ninguno);
             tuplaDetallesVentaProducto.Mostrar();
 
             // Incremento de la útima coordenada Y de la tupla

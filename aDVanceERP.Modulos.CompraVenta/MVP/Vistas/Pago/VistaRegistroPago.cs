@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
 
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Modelos.Comun;
 using aDVanceERP.Core.Modelos.Modulos.Finanzas;
-using aDVanceERP.Core.MVP.Modelos.Repositorios;
-using aDVanceERP.Core.MVP.Modelos.Repositorios.Plantillas;
+using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
@@ -28,7 +28,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public IRepoVista? Vistas { get; private set; }
+    public RepoVistaBase? Vistas { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -113,7 +113,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
     public void Inicializar() {
         Pagos = new List<string[]>();
-        Vistas = new RepositorioVistaBase(contenedorVistas);
+        Vistas = new RepoVistaBase(contenedorVistas);
 
         CargarTiposMoneda(Enum.GetNames(typeof(TipoMoneda)));
         CargarMetodosPago();
@@ -258,7 +258,8 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
                 $"vistaTupla{tuplaPago.GetType().Name}{i}",
                 tuplaPago,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
-                new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), "N");
+                new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 
+                TipoRedimensionadoVista.Ninguno);
             tuplaPago.Mostrar();
 
             // Incremento de la útima coordenada Y de la tupla

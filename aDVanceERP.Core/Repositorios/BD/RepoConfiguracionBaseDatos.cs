@@ -1,7 +1,8 @@
 ﻿using aDVanceERP.Core.Modelos.BD;
-using aDVanceERP.Core.Repositorios.Interfaces;
+using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 
-namespace aDVanceERP.Core.Repositorios.BD {
+namespace aDVanceERP.Core.Repositorios.BD
+{
     public class RepoConfiguracionBaseDatos : IRepoConfiguracionBaseDatos<ConfiguracionBaseDatos> {
         private const string NombreArchivo = "confServidorMySQL.json";
 
@@ -13,8 +14,8 @@ namespace aDVanceERP.Core.Repositorios.BD {
             _directorioRaiz = ".\\settings";
         }
 
-        public ConfiguracionBaseDatos? ObtenerPorId(long id) {
-            var rutaArchivo = Path.Combine(_directorioRaiz, id <= 0 ? NombreArchivo : id.ToString());
+        public ConfiguracionBaseDatos? ObtenerPorId(object id) {
+            var rutaArchivo = Path.Combine(_directorioRaiz, (long.TryParse(id.ToString(), out long result) ? result : 0m) <= 0 ? NombreArchivo : id.ToString());
 
             if (File.Exists(rutaArchivo)) {
                 var contenido = File.ReadAllText(rutaArchivo);

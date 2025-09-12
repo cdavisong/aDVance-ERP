@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
+﻿using aDVanceERP.Core.Modelos.Comun;
+using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Desktop.Utiles;
 using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
@@ -23,7 +24,7 @@ public partial class PresentadorContenedorModulos {
             _registroAlmacen.Vista, 
             new Point(Vista.Dimensiones.Width - _registroAlmacen.Vista.Dimensiones.Width - 40, -10),
             _registroAlmacen.Vista.Dimensiones,
-            "V");
+            TipoRedimensionadoVista.Vertical);
 
         // Estado de habilitacion de la vista gestionable.
         //TODO: Implementar esto para todas las vistas de registro.
