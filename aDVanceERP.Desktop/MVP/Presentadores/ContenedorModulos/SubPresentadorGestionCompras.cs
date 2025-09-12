@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionCompras?.Vista == null)
             return;
 
-        _gestionCompras.Vista.CargarCriteriosBusqueda(UtilesBusquedaCompra.FiltroBusquedaCompra);
+        _gestionCompras.Vista.CargarFiltrosBusqueda(UtilesBusquedaCompra.FiltroBusquedaCompra);
         _gestionCompras.Vista.Restaurar();
         _gestionCompras.Vista.Mostrar();
 

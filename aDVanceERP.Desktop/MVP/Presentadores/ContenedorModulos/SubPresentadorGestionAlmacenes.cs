@@ -21,6 +21,6 @@ public partial class PresentadorContenedorModulos {
                 
         _gestionAlmacenes.Vista.Restaurar();
         _gestionAlmacenes.Vista.Mostrar();
-        _gestionAlmacenes.Vista.CargarCriteriosBusqueda(UtilesBusquedaAlmacen.FiltroBusquedaAlmacen);
+        _gestionAlmacenes.Vista.CargarFiltrosBusqueda(UtilesBusquedaAlmacen.FiltroBusquedaAlmacen);
     }
 }

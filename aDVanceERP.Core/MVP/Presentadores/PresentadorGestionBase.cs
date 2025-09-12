@@ -1,6 +1,5 @@
 ﻿using aDVanceERP.Core.Modelos.Comun;
 using aDVanceERP.Core.Modelos.Comun.Interfaces;
-using aDVanceERP.Core.MVP.Modelos.Plantillas;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Repositorios.Comun.Interfaces;
@@ -12,7 +11,7 @@ namespace aDVanceERP.Core.MVP.Presentadores;
 public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : PresentadorBase<Vg>,
     IPresentadorGestion<Vg, Re, En, Fb>
     where Pt : IPresentadorTupla<Vt, En>
-    where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorDatos<Fb>, IGestorTablaDatos
+    where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorEntidades<Fb>, IGestorTablaDatos
     where Vt : IVistaTupla
     where Re : class, IRepoEntidadBaseDatos<En, Fb>, new()
     where En : class, IEntidadBaseDatos, new()
@@ -28,7 +27,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
         (Vista as Control).VisibleChanged += OnMostrarOcultarVista;
 
         Vista.Habilitada = false;
-        Vista.BuscarDatos += OnBuscarDatos;
+        Vista.BuscarEntidades += OnBuscarDatos;
         Vista.AlturaContenedorTuplasModificada += OnAlturaContenedorTuplasModificada;
         Vista.SincronizarDatos += OnSincronizarDatos;
 
@@ -196,7 +195,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
             if (disposing) {
                 (Vista as Control).VisibleChanged -= OnMostrarOcultarVista;
 
-                Vista.BuscarDatos -= OnBuscarDatos;
+                Vista.BuscarEntidades -= OnBuscarDatos;
                 Vista.AlturaContenedorTuplasModificada -= OnAlturaContenedorTuplasModificada;
                 Vista.SincronizarDatos -= OnSincronizarDatos;
             }

@@ -20,7 +20,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if (_gestionCajas?.Vista == null)
                 return;
 
-            _gestionCajas.Vista.CargarCriteriosBusqueda(UtilesBusquedaCaja.FiltroBusquedaCaja);
+            _gestionCajas.Vista.CargarFiltrosBusqueda(UtilesBusquedaCaja.FiltroBusquedaCaja);
             _gestionCajas.Vista.Restaurar();
             _gestionCajas.Vista.Mostrar();
 

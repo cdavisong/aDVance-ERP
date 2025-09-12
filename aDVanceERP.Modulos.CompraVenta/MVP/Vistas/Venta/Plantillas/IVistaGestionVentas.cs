@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-public interface IVistaGestionVentas : IVistaContenedor, IGestorDatos, IBuscadorDatos<FiltroBusquedaVenta>,
+public interface IVistaGestionVentas : IVistaContenedor, IGestorDatos, IBuscadorEntidades<FiltroBusquedaVenta>,
     IGestorTablaDatos {
     string FormatoReporte { get; }
     bool HabilitarBtnConfirmarEntrega { get; set; }

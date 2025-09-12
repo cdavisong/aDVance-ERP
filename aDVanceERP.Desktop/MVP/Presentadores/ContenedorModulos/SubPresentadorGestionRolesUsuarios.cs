@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionRolesUsuarios?.Vista == null)
             return;
 
-        _gestionRolesUsuarios.Vista.CargarCriteriosBusqueda(UtilesBusquedaRolUsuario.FiltroBusquedaBusquedaRolUsuario);
+        _gestionRolesUsuarios.Vista.CargarFiltrosBusqueda(UtilesBusquedaRolUsuario.FiltroBusquedaBusquedaRolUsuario);
         _gestionRolesUsuarios.Vista.Restaurar();
         _gestionRolesUsuarios.Vista.Mostrar();
 

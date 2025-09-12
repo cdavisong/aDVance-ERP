@@ -38,7 +38,7 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         set => fieldFiltroBusqueda.SelectedIndex = (int)value;
     }
 
-    public string? DatoBusqueda {
+    public string? CriterioBusqueda {
         get => fieldDatoBusqueda.Text;
         set => fieldDatoBusqueda.Text = value;
     }
@@ -80,7 +80,7 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? BuscarDatos;
+    public event EventHandler? BuscarEntidades;
 
     public void Inicializar() {
         // Variables locales
@@ -92,15 +92,15 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
             fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
+            BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
             HabilitarBotonesPaginacion();
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
-            if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, DatoBusqueda }, e);
+            if (!string.IsNullOrEmpty(CriterioBusqueda))
+                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, e);
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
@@ -135,7 +135,7 @@ public partial class VistaGestionContactos : Form, IVistaGestionContactos {
         contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
     }
 
-    public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+    public void CargarFiltrosBusqueda(object[] criteriosBusqueda) {
         fieldFiltroBusqueda.Items.Clear();
         fieldFiltroBusqueda.Items.AddRange(criteriosBusqueda);
         

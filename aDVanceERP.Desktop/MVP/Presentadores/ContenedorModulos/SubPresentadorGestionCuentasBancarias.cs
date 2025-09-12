@@ -21,7 +21,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionCuentasBancarias?.Vista == null)
             return;
 
-        _gestionCuentasBancarias.Vista.CargarCriteriosBusqueda(UtilesBusquedaCuentaBancaria.FiltroBusquedaCuentaBancaria);
+        _gestionCuentasBancarias.Vista.CargarFiltrosBusqueda(UtilesBusquedaCuentaBancaria.FiltroBusquedaCuentaBancaria);
         _gestionCuentasBancarias.Vista.Restaurar();
         _gestionCuentasBancarias.Vista.Mostrar();
 

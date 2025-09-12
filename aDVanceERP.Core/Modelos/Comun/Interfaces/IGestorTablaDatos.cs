@@ -1,6 +1,7 @@
-﻿namespace aDVanceERP.Core.MVP.Modelos.Plantillas; 
+﻿namespace aDVanceERP.Core.Modelos.Comun.Interfaces;
 
-public interface IGestorTablaDatos {
+public interface IGestorTablaDatos
+{
     int PaginaActual { get; set; }
     int PaginasTotales { get; set; }
 

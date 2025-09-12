@@ -36,7 +36,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
         set => fieldFiltroBusqueda.SelectedIndex = (int) value;
     }
 
-    public string? DatoBusqueda {
+    public string? CriterioBusqueda {
         get => fieldDatoBusqueda.Text;
         set => fieldDatoBusqueda.Text = value;
     }
@@ -78,7 +78,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
     public event EventHandler? RegistrarDatos;
     public event EventHandler? EditarDatos;
     public event EventHandler? EliminarDatos;
-    public event EventHandler? BuscarDatos;
+    public event EventHandler? BuscarEntidades;
 
     public void Inicializar() {
         // Variables locales
@@ -90,7 +90,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
             fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarDatos?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
+            BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -100,8 +100,8 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
             if (args.KeyCode != Keys.Enter)
                 return;
 
-            if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, DatoBusqueda }, args);
+            if (!string.IsNullOrEmpty(CriterioBusqueda))
+                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, args);
             else SincronizarDatos?.Invoke(sender, args);
 
             args.SuppressKeyPress = true;
@@ -138,7 +138,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
         contenedorVistas.Resize += delegate { AlturaContenedorTuplasModificada?.Invoke(this, EventArgs.Empty); };
     }
 
-    public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+    public void CargarFiltrosBusqueda(object[] criteriosBusqueda) {
         fieldFiltroBusqueda.Items.Clear();
         fieldFiltroBusqueda.Items.AddRange(criteriosBusqueda);
 

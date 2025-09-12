@@ -62,7 +62,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         set => fieldFiltroBusqueda.SelectedIndex = (int) value;
     }
 
-    public string? DatoBusqueda {
+    public string? CriterioBusqueda {
         get => fieldDatoBusqueda.Text;
         set => fieldDatoBusqueda.Text = value;
     }
@@ -116,7 +116,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     public event EventHandler? EliminarDatos;
     public event EventHandler? DescargarReporte;
     public event EventHandler? ImprimirReporte;
-    public event EventHandler? BuscarDatos;
+    public event EventHandler? BuscarEntidades;
 
     public void Inicializar() {
         // Vistas
@@ -171,7 +171,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                                              fieldFiltroBusqueda.SelectedIndex != 0;
 
             if (FiltroBusqueda != FiltroBusquedaVenta.Fecha)
-                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
+                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -181,14 +181,14 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
             if (args.KeyCode != Keys.Enter)
                 return;
 
-            if (!string.IsNullOrEmpty(DatoBusqueda))
-                BuscarDatos?.Invoke(new object[] { FiltroBusqueda, DatoBusqueda }, args);
+            if (!string.IsNullOrEmpty(CriterioBusqueda))
+                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, args);
             else SincronizarDatos?.Invoke(sender, args);
 
             args.SuppressKeyPress = true;
         };
         fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-            BuscarDatos?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
+            BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
                 e);
         };
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
@@ -306,7 +306,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         ;
     }
 
-    public void CargarCriteriosBusqueda(object[] criteriosBusqueda) {
+    public void CargarFiltrosBusqueda(object[] criteriosBusqueda) {
         fieldFiltroBusqueda.Items.Clear();
         fieldFiltroBusqueda.Items.AddRange(criteriosBusqueda);
 

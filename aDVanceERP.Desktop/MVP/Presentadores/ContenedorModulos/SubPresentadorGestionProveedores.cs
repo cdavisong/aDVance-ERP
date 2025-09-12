@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionProveedores == null)
             return;
 
-        _gestionProveedores.Vista.CargarCriteriosBusqueda(UtilesBusquedaProveedor.FiltroBusquedaProveedor);
+        _gestionProveedores.Vista.CargarFiltrosBusqueda(UtilesBusquedaProveedor.FiltroBusquedaProveedor);
         _gestionProveedores.Vista.Restaurar();
         _gestionProveedores.Vista.Mostrar();
 

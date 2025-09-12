@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
         if (_gestionMovimientos?.Vista == null)
             return;
 
-        _gestionMovimientos.Vista.CargarCriteriosBusqueda(UtilesBusquedaMovimiento.FiltroBusquedaMovimiento);
+        _gestionMovimientos.Vista.CargarFiltrosBusqueda(UtilesBusquedaMovimiento.FiltroBusquedaMovimiento);
         _gestionMovimientos.Vista.Restaurar();
         _gestionMovimientos.Vista.Mostrar();
 

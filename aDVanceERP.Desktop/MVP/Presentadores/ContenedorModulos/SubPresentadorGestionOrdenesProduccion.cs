@@ -27,7 +27,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             if (_gestionOrdenesProduccion?.Vista == null)
                 return;
 
-            _gestionOrdenesProduccion.Vista.CargarCriteriosBusqueda(UtilesBusquedaOrdenProduccion.FiltroBusquedaOrdenProduccion);
+            _gestionOrdenesProduccion.Vista.CargarFiltrosBusqueda(UtilesBusquedaOrdenProduccion.FiltroBusquedaOrdenProduccion);
             _gestionOrdenesProduccion.Vista.Restaurar();
             _gestionOrdenesProduccion.Vista.Mostrar();
 

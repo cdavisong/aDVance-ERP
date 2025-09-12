@@ -1,9 +1,10 @@
-﻿using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas {
-    public interface IVistaGestionCajas : IVistaContenedor, IGestorDatos, IBuscadorDatos<FiltroBusquedaCaja>, IGestorTablaDatos {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas
+{
+    public interface IVistaGestionCajas : IVistaContenedor, IGestorDatos, IBuscadorEntidades<FiltroBusquedaCaja>, IGestorTablaDatos {
         bool HabilitarBtnRegistroMovimientoCaja { get; set; }
         bool HabilitarBtnCierreCaja { get; set; }
 

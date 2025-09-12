@@ -1,10 +1,10 @@
-﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Modelos.Plantillas;
+﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
+using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
-public interface IVistaGestionProductos : IVistaContenedor, IGestorDatos, IBuscadorDatos<FiltroBusquedaProducto>,
+public interface IVistaGestionProductos : IVistaContenedor, IGestorDatos, IBuscadorEntidades<FiltroBusquedaProducto>,
     IGestorTablaDatos {
     string? NombreAlmacen { get; }
     decimal ValorTotalInventario { get; }
