@@ -3,6 +3,7 @@ using aDVanceERP.Core.Modelos.Comun.Interfaces;
 using aDVanceERP.Core.MVP.Presentadores.Plantillas;
 using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Presentadores.Comun;
+using aDVanceERP.Core.Presentadores.Comun.Interfaces;
 using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Vistas.Comun;
@@ -11,7 +12,7 @@ namespace aDVanceERP.Core.MVP.Presentadores;
 
 public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : PresentadorVistaBase<Vg>,
     IPresentadorGestion<Vg, Re, En, Fb>
-    where Pt : IPresentadorTupla<Vt, En>
+    where Pt : IPresentadorVistaTupla<Vt, En>
     where Vg : class, IVistaContenedor, IGestorEntidades, IBuscadorEntidades<Fb>, INavegadorTuplasEntidades
     where Vt : class, IVistaTupla
     where Re : class, IRepoEntidadBaseDatos<En, Fb>, new()
@@ -38,7 +39,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
     public Re RepositorioEntidad => new();
     public Fb? FiltroBusqueda { get; protected set; }
     public string? CriterioBusqueda { get; protected set; }
-    public IEnumerable<Pt> TuplasSeleccionadas => _tuplasEntidades.Where(t => t.TuplaSeleccionada);
+    public IEnumerable<Pt> TuplasSeleccionadas => _tuplasEntidades.Where(t => t.EstadoSeleccion);
 
     public event EventHandler? EditarObjeto;
     public event EventHandler<bool>? CargaDatosCompletada;
@@ -63,9 +64,9 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
 
             // Desuscribir eventos del presentador de tuplas
             foreach (var presentadorTupla in _tuplasEntidades) {
-                presentadorTupla.ObjetoSeleccionado -= OnObjetoSeleccionado;
-                presentadorTupla.EditarObjeto -= OnEditarObjeto;
-                presentadorTupla.EliminarObjeto -= OnEliminarObjeto;
+                presentadorTupla.EntidadSeleccionada -= OnObjetoSeleccionado;
+                presentadorTupla.EditarEntidad -= OnEditarObjeto;
+                presentadorTupla.EliminarEntidad -= OnEliminarObjeto;
                 presentadorTupla.Dispose();
             }
             _tuplasEntidades.Clear();
@@ -110,9 +111,9 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
             var presentadorTupla = ObtenerValoresTupla(objeto);
             if (presentadorTupla == null) return;
 
-            presentadorTupla.ObjetoSeleccionado += OnObjetoSeleccionado;
-            presentadorTupla.EditarObjeto += OnEditarObjeto;
-            presentadorTupla.EliminarObjeto += OnEliminarObjeto;
+            presentadorTupla.EntidadSeleccionada += OnObjetoSeleccionado;
+            presentadorTupla.EditarEntidad += OnEditarObjeto;
+            presentadorTupla.EliminarEntidad += OnEliminarObjeto;
 
             _tuplasEntidades.Add(presentadorTupla);
 
@@ -132,7 +133,7 @@ public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : Presentad
     private void DeseleccionarTuplas(IVistaTupla vista) {
         _tuplasEntidades.ForEach(tupla => {
             if (!tupla.Vista.Equals(vista))
-                tupla.TuplaSeleccionada = false;
+                tupla.EstadoSeleccion = false;
         });
     }
 

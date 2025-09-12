@@ -24,8 +24,8 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
         presentadorTupla.Vista.NombreUsuario = objeto.Nombre;
         presentadorTupla.Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
         presentadorTupla.Vista.EstadoCuentaUsuario = objeto.Aprobado ? "Activa" : "Esperando aprobación";
-        presentadorTupla.ObjetoSeleccionado += OnCambioSeleccionObjeto;
-        presentadorTupla.ObjetoDeseleccionado += OnCambioSeleccionObjeto;
+        presentadorTupla.EntidadSeleccionada += OnCambioSeleccionObjeto;
+        presentadorTupla.EntidadDeseleccionada += OnCambioSeleccionObjeto;
 
         return presentadorTupla;
     }
@@ -34,7 +34,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
         var usuariosRol0 = 0;
 
         foreach (var tupla in _tuplasEntidades)
-            if (tupla.TuplaSeleccionada) {
+            if (tupla.EstadoSeleccion) {
                 if (tupla.Entidad.IdRolUsuario != 0) {
                     tupla.Entidad.Aprobado = true;
 
@@ -65,9 +65,9 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
     }
 
     private void OnCambioSeleccionObjeto(object? sender, EventArgs e) {
-        if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+        if (_tuplasEntidades.Any(t => t.EstadoSeleccion)) {
             foreach (var tupla in _tuplasEntidades)
-                if (tupla.TuplaSeleccionada) {
+                if (tupla.EstadoSeleccion) {
                     if (!tupla.Entidad.Aprobado) {
                         Vista.HabilitarBtnAprobacionSolicitudCuenta = true;
                     }

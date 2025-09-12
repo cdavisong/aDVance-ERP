@@ -1,9 +1,9 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorTuplaAlmacen : PresentadorTuplaBase<IVistaTuplaAlmacen, Almacen> {
+public class PresentadorTuplaAlmacen : PresentadorVistaTupla<IVistaTuplaAlmacen, Almacen> {
     public PresentadorTuplaAlmacen(IVistaTuplaAlmacen vista, Almacen objeto) : base(vista, objeto) { }
 }

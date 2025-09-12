@@ -50,8 +50,8 @@ public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTup
 
             MovimientoNegativoStock?.Invoke(objetoNeg, EventArgs.Empty);
         };
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnHabilitacionProducto;
-        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnHabilitacionProducto;
+        presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBtnHabilitacionProducto;
+        presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBtnHabilitacionProducto;
 
         return presentadorTupla;
     }
@@ -65,7 +65,7 @@ public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTup
 
     private void IntercambiarHabilitacionProducto(object? sender, EventArgs e) {
         // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
-        var tuplasSeleccionadas = _tuplasEntidades.Where(t => t.TuplaSeleccionada).ToList();
+        var tuplasSeleccionadas = _tuplasEntidades.Where(t => t.EstadoSeleccion).ToList();
 
         if (!tuplasSeleccionadas.Any()) {
             Vista.MostrarBtnHabilitarDeshabilitarProducto = false;
@@ -85,6 +85,6 @@ public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTup
     }
 
     private void CambiarVisibilidadBtnHabilitacionProducto(object? sender, EventArgs e) {
-        Vista.MostrarBtnHabilitarDeshabilitarProducto = _tuplasEntidades.Any(t => t.TuplaSeleccionada);
+        Vista.MostrarBtnHabilitarDeshabilitarProducto = _tuplasEntidades.Any(t => t.EstadoSeleccion);
     }
 }

@@ -32,16 +32,16 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             presentadorTupla.Vista.PrecioUnitario = entidad.PrecioUnitario.ToString("N2", CultureInfo.InvariantCulture);
             presentadorTupla.Vista.Estado = (int) entidad.Estado;
             presentadorTupla.Vista.FechaCierre = entidad.FechaCierre.HasValue ? !entidad.FechaCierre.Equals(DateTime.MinValue) ? entidad.FechaCierre.Value.ToString("yyyy-MM-dd") : "-" : "-";
-            presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnCierreOrdenProduccion;
-            presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnCierreOrdenProduccion;
+            presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBtnCierreOrdenProduccion;
+            presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBtnCierreOrdenProduccion;
 
             return presentadorTupla;
         }
 
         private void OnCerrarOrdenProduccionSeleccionada(object? sender, EventArgs e) {
-            if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+            if (_tuplasEntidades.Any(t => t.EstadoSeleccion)) {
                 foreach (var tupla in _tuplasEntidades) {
-                    if (tupla.TuplaSeleccionada) {
+                    if (tupla.EstadoSeleccion) {
                         tupla.Entidad.Estado = EstadoOrdenProduccion.Cerrada;
                         tupla.Entidad.FechaCierre = DateTime.Now;
 
@@ -69,9 +69,9 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
         }
 
         private void CambiarVisibilidadBtnCierreOrdenProduccion(object? sender, EventArgs e) {
-            if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+            if (_tuplasEntidades.Any(t => t.EstadoSeleccion)) {
                 foreach (var tupla in _tuplasEntidades) {
-                    if (tupla.TuplaSeleccionada) {
+                    if (tupla.EstadoSeleccion) {
                         var ordenProduccion = tupla.Entidad;
 
                         if (ordenProduccion != null && ordenProduccion.Estado != EstadoOrdenProduccion.Cerrada) {

@@ -36,10 +36,10 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
             pagosVenta.Count == 0 || pagosVenta.Any(p => !p.Split('|')[5].Equals("Confirmado"))
                 ? "Pendiente"
                 : "Confirmado";
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnConfirmarEntrega;
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnConfirmarPagos;
-        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnConfirmarEntrega;
-        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnConfirmarPagos;
+        presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBtnConfirmarEntrega;
+        presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBtnConfirmarPagos;
+        presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBtnConfirmarEntrega;
+        presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBtnConfirmarPagos;
 
         return presentadorTupla;
     }
@@ -57,7 +57,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
 
     private void OnConfirmarEntregaAriculos(object? sender, EventArgs e) {
         foreach (var tupla in _tuplasEntidades)
-            if (tupla.TuplaSeleccionada) {
+            if (tupla.EstadoSeleccion) {
                 tupla.Entidad.EstadoEntrega = "Completada";
 
                 // Editar la venta del producto
@@ -82,9 +82,9 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
     }
 
     private void CambiarVisibilidadBtnConfirmarEntrega(object? sender, EventArgs e) {
-        if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+        if (_tuplasEntidades.Any(t => t.EstadoSeleccion)) {
             foreach (var tupla in _tuplasEntidades)
-                if (tupla.TuplaSeleccionada) {
+                if (tupla.EstadoSeleccion) {
                     if (!tupla.Entidad.EstadoEntrega.Equals("Completada")) {
                         Vista.HabilitarBtnConfirmarEntrega = true;
                     }
@@ -100,9 +100,9 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
     }
 
     private void CambiarVisibilidadBtnConfirmarPagos(object? sender, EventArgs e) {
-        if (_tuplasEntidades.Any(t => t.TuplaSeleccionada)) {
+        if (_tuplasEntidades.Any(t => t.EstadoSeleccion)) {
             foreach (var tupla in _tuplasEntidades)
-                if (tupla.TuplaSeleccionada) {
+                if (tupla.EstadoSeleccion) {
                     if (!tupla.Vista.EstadoPago.Equals("Confirmado")) {
                         Vista.HabilitarBtnConfirmarPagos = true;
                     }

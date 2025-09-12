@@ -29,8 +29,8 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
             presentadorTupla.Vista.FechaCierre = objeto.FechaCierre != DateTime.MinValue ? objeto.FechaCierre.ToString("yyyy-MM-dd HH:mm") : "-";
             presentadorTupla.Vista.Estado = (int) objeto.Estado;
             presentadorTupla.Vista.NombreUsuario = UtilesCuentaUsuario.ObtenerNombreCuentaUsuario(objeto.IdCuentaUsuario) ?? string.Empty;
-            presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBotones;
-            presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBotones;
+            presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBotones;
+            presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBotones;
             
             return presentadorTupla;
         }
@@ -45,7 +45,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
 
         private void CerrarCajaSeleccionada(object? sender, EventArgs e) {
             foreach (var tupla in _tuplasEntidades)
-                if (tupla.TuplaSeleccionada) {
+                if (tupla.EstadoSeleccion) {
                     tupla.Entidad.FechaCierre = DateTime.Now;
                     tupla.Entidad.Estado = EstadoCaja.Cerrada;
 
@@ -60,7 +60,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
 
         private void CambiarVisibilidadBotones(object? sender, EventArgs e) {
             // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
-            var tuplaSeleccionada = _tuplasEntidades.Where(t => t.TuplaSeleccionada).FirstOrDefault();
+            var tuplaSeleccionada = _tuplasEntidades.Where(t => t.EstadoSeleccion).FirstOrDefault();
 
             // 2. Actualizar la visibilidad de botones            
             Vista.HabilitarBtnCierreCaja = tuplaSeleccionada != null && tuplaSeleccionada.Entidad.Estado == EstadoCaja.Abierta;

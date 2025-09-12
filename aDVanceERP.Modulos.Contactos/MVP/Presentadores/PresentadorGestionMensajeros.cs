@@ -45,8 +45,8 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
         }
 
         presentadorTupla.Vista.Activo = objeto.Activo;
-        presentadorTupla.ObjetoSeleccionado += CambiarVisibilidadBtnHabilitacionMensajero;
-        presentadorTupla.ObjetoDeseleccionado += CambiarVisibilidadBtnHabilitacionMensajero;
+        presentadorTupla.EntidadSeleccionada += CambiarVisibilidadBtnHabilitacionMensajero;
+        presentadorTupla.EntidadDeseleccionada += CambiarVisibilidadBtnHabilitacionMensajero;
 
         return presentadorTupla;
     }
@@ -60,7 +60,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
 
     private void IntercambiarHabilitacionMensajero(object? sender, EventArgs e) {
         // 1. Filtrar primero las tuplas seleccionadas para evitar procesamiento innecesario
-        var tuplasSeleccionadas = _tuplasEntidades.Where(t => t.TuplaSeleccionada).ToList();
+        var tuplasSeleccionadas = _tuplasEntidades.Where(t => t.EstadoSeleccion).ToList();
 
         if (!tuplasSeleccionadas.Any()) {
             Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
@@ -87,6 +87,6 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
     }
 
     private void CambiarVisibilidadBtnHabilitacionMensajero(object? sender, EventArgs e) {
-        Vista.MostrarBtnHabilitarDeshabilitarMensajero = _tuplasEntidades.Any(t => t.TuplaSeleccionada);
+        Vista.MostrarBtnHabilitarDeshabilitarMensajero = _tuplasEntidades.Any(t => t.EstadoSeleccion);
     }
 }
