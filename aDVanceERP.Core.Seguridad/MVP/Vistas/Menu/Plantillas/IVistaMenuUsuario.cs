@@ -1,6 +1,7 @@
-﻿using aDVanceERP.Core.Vistas.Interfaces;
+﻿using aDVanceERP.Core.Vistas.Comun.Interfaces;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu.Plantillas {
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu.Plantillas
+{
     public interface IVistaMenuUsuario : IVistaBase {
         string? NombreUsuario { get; set; }
         Image? LogotipoEmpresa { get; set; }

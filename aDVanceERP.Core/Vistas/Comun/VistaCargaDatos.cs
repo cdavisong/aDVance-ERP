@@ -1,6 +1,6 @@
 ﻿
 using aDVanceERP.Core.Properties;
-using aDVanceERP.Core.Vistas.Interfaces;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 
 namespace aDVanceERP.Core.Vistas.Comun {
     public partial class VistaCargaDatos : Form, IVistaBase {

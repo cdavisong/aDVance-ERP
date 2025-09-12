@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
 
-namespace aDVanceERP.Core.Vistas.Interfaces; 
+namespace aDVanceERP.Core.Vistas.Comun.Interfaces;
 
 public interface IVistaBase : IEntidadBase {
     bool Habilitada { get; set; }

@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.Utiles;
-using aDVanceERP.Core.Vistas.Interfaces;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 
 namespace aDVanceERP.Desktop.Utiles;
 

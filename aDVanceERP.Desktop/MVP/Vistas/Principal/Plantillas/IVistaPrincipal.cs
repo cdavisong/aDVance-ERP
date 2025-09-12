@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Vistas.Interfaces;
+﻿using aDVanceERP.Core.Vistas.Comun.Interfaces;
 using Guna.UI2.WinForms;
 
 namespace aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;

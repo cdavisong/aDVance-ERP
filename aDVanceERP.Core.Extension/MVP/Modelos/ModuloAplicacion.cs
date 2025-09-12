@@ -11,10 +11,9 @@ public class ModuloAplicacion : IEntidadBaseDatos {
         Version = version;
     }
 
+    public long Id { get; set; }
     public string? Nombre { get; }
     public string? Version { get; }
-
-    public long Id { get; set; }
 }
 
 public enum FiltroBusquedaModuloAplicacion {

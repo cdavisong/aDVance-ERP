@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.Vistas.Interfaces;
+﻿using aDVanceERP.Core.Vistas.Comun.Interfaces;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima.Plantillas;
 

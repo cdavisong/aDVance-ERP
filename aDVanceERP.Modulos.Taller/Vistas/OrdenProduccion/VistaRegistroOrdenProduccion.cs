@@ -3,7 +3,7 @@ using aDVanceERP.Core.Modelos.Comun;
 using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
-using aDVanceERP.Core.Vistas.Interfaces;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Repositorios;

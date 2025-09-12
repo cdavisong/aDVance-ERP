@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using aDVanceERP.Core.Modelos.Comun;
 using aDVanceERP.Core.Repositorios.Comun.Interfaces;
-using aDVanceERP.Core.Vistas.Interfaces;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 
 namespace aDVanceERP.Core.Repositorios.Comun;
 

@@ -3,7 +3,7 @@ using aDVanceERP.Core.Modelos.BD;
 using aDVanceERP.Core.Presentadores.BD;
 using aDVanceERP.Core.Properties;
 using aDVanceERP.Core.Repositorios.BD;
-using aDVanceERP.Core.Vistas.Interfaces;
+using aDVanceERP.Core.Vistas.BD.Interfaces;
 
 namespace aDVanceERP.Core.Vistas.BD;
 

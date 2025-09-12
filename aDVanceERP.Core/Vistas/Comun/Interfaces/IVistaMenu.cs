@@ -1,4 +1,4 @@
-﻿namespace aDVanceERP.Core.Vistas.Interfaces;
+﻿namespace aDVanceERP.Core.Vistas.Comun.Interfaces;
 
 public interface IVistaMenu : IVistaBase {
     event EventHandler? CambioMenu;

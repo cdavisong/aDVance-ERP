@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.Modelos.Comun;
-using aDVanceERP.Core.Vistas.Interfaces;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 
 namespace aDVanceERP.Core.Repositorios.Comun.Interfaces;
 

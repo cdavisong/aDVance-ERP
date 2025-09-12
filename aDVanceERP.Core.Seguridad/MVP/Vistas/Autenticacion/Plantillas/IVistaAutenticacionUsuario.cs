@@ -1,8 +1,7 @@
 ﻿using System.Security;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 
-using aDVanceERP.Core.Vistas.Interfaces;
-
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion.Plantillas;
 
 public interface IVistaAutenticacionUsuario : IVistaBase {
     string NombreUsuario { get; }
