@@ -10,7 +10,7 @@ public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTup
     IVistaTuplaProducto, Producto, RepoProducto, FiltroBusquedaProducto> {
     public PresentadorGestionProductos(IVistaGestionProductos vista) : base(vista) {
         vista.HabilitarDeshabilitarProducto += IntercambiarHabilitacionProducto;
-        vista.EditarDatos += delegate {
+        vista.EditarEntidad += delegate {
             Vista.MostrarBtnHabilitarDeshabilitarProducto = false;
         };
     }

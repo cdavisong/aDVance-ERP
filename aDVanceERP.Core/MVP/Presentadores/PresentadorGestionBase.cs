@@ -11,7 +11,7 @@ namespace aDVanceERP.Core.MVP.Presentadores;
 public abstract class PresentadorGestionBase<Pt, Vg, Vt, En, Re, Fb> : PresentadorBase<Vg>,
     IPresentadorGestion<Vg, Re, En, Fb>
     where Pt : IPresentadorTupla<Vt, En>
-    where Vg : class, IVistaContenedor, IGestorDatos, IBuscadorEntidades<Fb>, IGestorTablaDatos
+    where Vg : class, IVistaContenedor, IGestorEntidades, IBuscadorEntidades<Fb>, IGestorTablaDatos
     where Vt : IVistaTupla
     where Re : class, IRepoEntidadBaseDatos<En, Fb>, new()
     where En : class, IEntidadBaseDatos, new()

@@ -80,9 +80,9 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     public event EventHandler? MostrarUltimaPagina;
     public event EventHandler? SincronizarDatos;
     
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
-    public event EventHandler? EliminarDatos;
+    public event EventHandler? RegistrarEntidad;
+    public event EventHandler? EditarEntidad;
+    public event EventHandler? EliminarEntidad;
     public event EventHandler? BuscarEntidades;
 
     public void Inicializar() {
@@ -129,7 +129,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
             Ocultar();
         };
-        btnRegistrar.Click += delegate(object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
+        btnRegistrar.Click += delegate(object? sender, EventArgs e) { RegistrarEntidad?.Invoke(sender, e); };
         btnPrimeraPagina.Click += delegate(object? sender, EventArgs e) {
             PaginaActual = 1;
             MostrarPrimeraPagina?.Invoke(sender, e);

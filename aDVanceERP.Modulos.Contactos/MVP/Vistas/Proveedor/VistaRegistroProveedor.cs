@@ -71,9 +71,9 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
         }
     }
 
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
-    public event EventHandler? EliminarDatos;
+    public event EventHandler? RegistrarEntidad;
+    public event EventHandler? EditarEntidad;
+    public event EventHandler? EliminarEntidad;
     
 
     public void Inicializar() {
@@ -81,9 +81,9 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
         btnCerrar.Click += delegate(object? sender, EventArgs args) { Close(); };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
             if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+                EditarEntidad?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                RegistrarEntidad?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) { Close(); };
     }

@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
     private void InicializarVistaGestionAlmacenes() {
         _gestionAlmacenes = new PresentadorGestionAlmacenes(new VistaGestionAlmacenes());
         _gestionAlmacenes.EditarObjeto += MostrarVistaEdicionAlmacen;
-        _gestionAlmacenes.Vista.RegistrarDatos += MostrarVistaRegistroAlmacen;
+        _gestionAlmacenes.Vista.RegistrarEntidad += MostrarVistaRegistroAlmacen;
 
         Vista.Vistas?.Registrar("vistaGestionAlmacenes", _gestionAlmacenes.Vista);
     }

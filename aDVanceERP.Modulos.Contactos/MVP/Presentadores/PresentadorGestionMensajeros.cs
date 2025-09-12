@@ -10,7 +10,7 @@ public class PresentadorGestionMensajeros : PresentadorGestionBase<PresentadorTu
     IVistaTuplaMensajero, Mensajero, RepoMensajero, FiltroBusquedaMensajero> {
     public PresentadorGestionMensajeros(IVistaGestionMensajeros vista) : base(vista) {
         vista.HabilitarDeshabilitarMensajero += IntercambiarHabilitacionMensajero;
-        vista.EditarDatos += delegate {
+        vista.EditarEntidad += delegate {
             Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
         };
     }

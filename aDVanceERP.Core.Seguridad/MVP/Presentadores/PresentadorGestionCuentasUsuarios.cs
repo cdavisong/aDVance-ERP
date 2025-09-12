@@ -14,7 +14,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
     FiltroBusquedaCuentaUsuario> {
     public PresentadorGestionCuentasUsuarios(IVistaGestionCuentasUsuarios vista) : base(vista) {
         vista.AprobarSolicitudCuenta += OnAprobarSolicitudCuentaUsuario;
-        vista.EditarDatos += OnEditarDatos;
+        vista.EditarEntidad += OnEditarDatos;
     }
 
     protected override PresentadorTuplaCuentaUsuario ObtenerValoresTupla(CuentaUsuario objeto) {
@@ -84,7 +84,7 @@ public class PresentadorGestionCuentasUsuarios : PresentadorGestionBase<Presenta
 
     protected override void Dispose(bool disposing) {
         Vista.AprobarSolicitudCuenta -= OnAprobarSolicitudCuentaUsuario;
-        Vista.EditarDatos -= OnEditarDatos;
+        Vista.EditarEntidad -= OnEditarDatos;
 
         base.Dispose(disposing);
     }

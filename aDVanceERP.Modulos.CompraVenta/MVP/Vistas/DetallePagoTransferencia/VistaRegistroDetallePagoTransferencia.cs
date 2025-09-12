@@ -65,9 +65,9 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
         }
     }
 
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
-    public event EventHandler? EliminarDatos;
+    public event EventHandler? RegistrarEntidad;
+    public event EventHandler? EditarEntidad;
+    public event EventHandler? EliminarEntidad;
 
 
     public void Inicializar() {
@@ -107,7 +107,7 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
             if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+                EditarEntidad?.Invoke(sender, args);
             else
                 Close();
         };

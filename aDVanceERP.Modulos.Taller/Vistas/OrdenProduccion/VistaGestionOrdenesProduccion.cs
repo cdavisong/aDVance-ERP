@@ -78,9 +78,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
         public event EventHandler? MostrarUltimaPagina;
         public event EventHandler? SincronizarDatos;
         
-        public event EventHandler? RegistrarDatos;
-        public event EventHandler? EditarDatos;
-        public event EventHandler? EliminarDatos;
+        public event EventHandler? RegistrarEntidad;
+        public event EventHandler? EditarEntidad;
+        public event EventHandler? EliminarEntidad;
         public event EventHandler? BuscarEntidades;
         public event EventHandler? CerrarOrdenProduccionSeleccionada;
 
@@ -131,7 +131,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 CerrarOrdenProduccionSeleccionada?.Invoke(sender, e);
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
-                RegistrarDatos?.Invoke(sender, e);
+                RegistrarEntidad?.Invoke(sender, e);
             };
             btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
                 PaginaActual = 1;

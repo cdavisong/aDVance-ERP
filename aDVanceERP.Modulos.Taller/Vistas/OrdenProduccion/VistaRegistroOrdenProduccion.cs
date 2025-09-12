@@ -140,9 +140,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
         public RepoVistaBase? VistasGastosIndirectos { get; private set; }
         public List<string[]> GastosIndirectos { get; private set; } = new List<string[]>();
 
-        public event EventHandler? RegistrarDatos;
-        public event EventHandler? EditarDatos;
-        public event EventHandler? EliminarDatos;
+        public event EventHandler? RegistrarEntidad;
+        public event EventHandler? EditarEntidad;
+        public event EventHandler? EliminarEntidad;
         public event EventHandler? MateriaPrimaEliminada;
         public event EventHandler? ActividadProduccionEliminada;
         public event EventHandler? GastoIndirectoEliminado;
@@ -318,9 +318,9 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
             };
             btnAbrirActualizarOrdenProduccion.Click += delegate (object? sender, EventArgs args) {
                 if (ModoEdicionDatos)
-                    EditarDatos?.Invoke(sender, args);
+                    EditarEntidad?.Invoke(sender, args);
                 else
-                    RegistrarDatos?.Invoke(sender, args);
+                    RegistrarEntidad?.Invoke(sender, args);
             };
             btnSalir.Click += delegate (object? sender, EventArgs args) {
                 Ocultar();

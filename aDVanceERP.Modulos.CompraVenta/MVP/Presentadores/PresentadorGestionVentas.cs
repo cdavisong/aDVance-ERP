@@ -12,7 +12,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
     IVistaTuplaVenta, Venta, RepoVenta, FiltroBusquedaVenta> {
     public PresentadorGestionVentas(IVistaGestionVentas vista) : base(vista) {
         vista.ConfirmarEntrega += OnConfirmarEntregaAriculos;
-        vista.EditarDatos += delegate {
+        vista.EditarEntidad += delegate {
             Vista.HabilitarBtnConfirmarEntrega = false;
             Vista.HabilitarBtnConfirmarPagos = false;
         };

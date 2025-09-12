@@ -12,7 +12,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
         public PresentadorGestionCajas(IVistaGestionCajas vista) 
             : base(vista) {
             vista.CerrarCajaSeleccionada += CerrarCajaSeleccionada;
-            vista.EditarDatos += delegate {
+            vista.EditarEntidad += delegate {
                 Vista.HabilitarBtnRegistroMovimientoCaja = false;
                 Vista.HabilitarBtnCierreCaja = false;
             };

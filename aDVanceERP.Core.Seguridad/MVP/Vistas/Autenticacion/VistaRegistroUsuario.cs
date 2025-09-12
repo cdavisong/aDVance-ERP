@@ -52,9 +52,9 @@ public partial class VistaRegistroUsuario : Form, IVistaRegistroUsuario {
 
     public bool ModoEdicionDatos { get; set; }
 
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
-    public event EventHandler? EliminarDatos;
+    public event EventHandler? RegistrarEntidad;
+    public event EventHandler? EditarEntidad;
+    public event EventHandler? EliminarEntidad;
     public event EventHandler? AutenticarUsuario;
     
 
@@ -71,7 +71,7 @@ public partial class VistaRegistroUsuario : Form, IVistaRegistroUsuario {
             fieldConfirmarPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
         };
         btnRegistrarCuentaUsuario.Click += delegate(object? sender, EventArgs e) { 
-            RegistrarDatos?.Invoke(sender, e); 
+            RegistrarEntidad?.Invoke(sender, e); 
         };
         btnRegresarAutenticar.Click += delegate(object? sender, EventArgs e) {
             AutenticarUsuario?.Invoke(sender, e);

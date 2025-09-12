@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
     private async void InicializarVistaGestionMovimientos() {
         _gestionMovimientos = new PresentadorGestionMovimientos(new VistaGestionMovimientos());
         _gestionMovimientos.EditarObjeto += MostrarVistaEdicionMovimiento;
-        _gestionMovimientos.Vista.RegistrarDatos += MostrarVistaRegistroMovimiento;
+        _gestionMovimientos.Vista.RegistrarEntidad += MostrarVistaRegistroMovimiento;
 
         if (Vista.Vistas != null)
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionMovimientos", _gestionMovimientos.Vista));

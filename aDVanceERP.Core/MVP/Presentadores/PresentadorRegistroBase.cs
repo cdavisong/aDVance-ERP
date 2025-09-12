@@ -17,8 +17,8 @@ public abstract class PresentadorRegistroBase<Vr, En, Re, Fb> : PresentadorBase<
         //if (vista != null && vista is Form vistaForm)
         //    vistaForm.TopMost = true; // Asegurar que la ventana esté siempre al frente
 
-        Vista.RegistrarDatos += RegistrarDatosObjeto;
-        Vista.EditarDatos += EditarDatosObjeto;
+        Vista.RegistrarEntidad += RegistrarDatosObjeto;
+        Vista.EditarEntidad += EditarDatosObjeto;
     }
 
     protected En? Entidad { get; set; } // Objeto que se va a registrar o editar
@@ -91,8 +91,8 @@ public abstract class PresentadorRegistroBase<Vr, En, Re, Fb> : PresentadorBase<
             if (Vista is IDisposable disposableVista)
                 disposableVista.Dispose();
 
-        Vista.RegistrarDatos -= RegistrarDatosObjeto;
-        Vista.EditarDatos -= EditarDatosObjeto;
+        Vista.RegistrarEntidad -= RegistrarDatosObjeto;
+        Vista.EditarEntidad -= EditarDatosObjeto;
 
         _disposed = true;
     }

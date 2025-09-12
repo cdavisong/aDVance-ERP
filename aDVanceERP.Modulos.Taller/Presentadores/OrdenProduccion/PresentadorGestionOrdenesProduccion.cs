@@ -13,7 +13,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
     public class PresentadorGestionOrdenesProduccion : PresentadorGestionBase<PresentadortuplaOrdenProduccion, IVistaGestionOrdenesProduccion, IVistaTuplaOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, FiltroBusquedaOrdenProduccion> {
         public PresentadorGestionOrdenesProduccion(IVistaGestionOrdenesProduccion vista) : base(vista) {
             vista.CerrarOrdenProduccionSeleccionada += OnCerrarOrdenProduccionSeleccionada;
-            vista.EditarDatos += delegate {
+            vista.EditarEntidad += delegate {
                 Vista.HabilitarBtnCierreOrdenProduccion = false;
             };
         }

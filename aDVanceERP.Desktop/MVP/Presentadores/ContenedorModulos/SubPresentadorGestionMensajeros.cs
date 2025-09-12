@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
     private async void InicializarVistaGestionMensajeros() {
         _gestionMensajeros = new PresentadorGestionMensajeros(new VistaGestionMensajeros());
         _gestionMensajeros.EditarObjeto += MostrarVistaEdicionMensajero;
-        _gestionMensajeros.Vista.RegistrarDatos += MostrarVistaRegistroMensajero;
+        _gestionMensajeros.Vista.RegistrarEntidad += MostrarVistaRegistroMensajero;
 
         if (Vista.Vistas != null)
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionMensajeros", _gestionMensajeros.Vista));

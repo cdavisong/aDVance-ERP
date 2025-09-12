@@ -80,10 +80,10 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
     public event EventHandler? MostrarUltimaPagina;
     public event EventHandler? SincronizarDatos;
 
-    public event EventHandler? RegistrarDatos;
+    public event EventHandler? RegistrarEntidad;
     public event EventHandler? AprobarSolicitudCuenta;
-    public event EventHandler? EditarDatos;
-    public event EventHandler? EliminarDatos;
+    public event EventHandler? EditarEntidad;
+    public event EventHandler? EliminarEntidad;
     public event EventHandler? BuscarEntidades;
 
 
@@ -116,7 +116,7 @@ public partial class VistaGestionCuentasUsuarios : Form, IVistaGestionCuentasUsu
         btnCerrar.Click += delegate (object? sender, EventArgs e) {
             Ocultar();
         };
-        btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarDatos?.Invoke(sender, e); };
+        btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarEntidad?.Invoke(sender, e); };
         btnAprobarCuentaUsuario.Click += delegate (object? sender, EventArgs e) {
             btnAprobarCuentaUsuario.Hide();
             AprobarSolicitudCuenta?.Invoke(sender, e);

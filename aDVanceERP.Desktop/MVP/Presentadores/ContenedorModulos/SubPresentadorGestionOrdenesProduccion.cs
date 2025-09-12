@@ -17,7 +17,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionOrdenesProduccion.OrdenProduccionCerrada += RegistrarNuevoProducto;
             _gestionOrdenesProduccion.OrdenProduccionCerrada += RegistrarMovimientosOrdenProduccionCerrada;
             _gestionOrdenesProduccion.EditarObjeto += MostrarVistaEdicionOrdenProduccion;
-            _gestionOrdenesProduccion.Vista.RegistrarDatos += MostrarVistaRegistroOrdenProduccion;
+            _gestionOrdenesProduccion.Vista.RegistrarEntidad += MostrarVistaRegistroOrdenProduccion;
 
             if (Vista.Vistas != null)
                 Vista.Vistas?.Registrar("vistaGestionOrdenesProduccion", _gestionOrdenesProduccion.Vista);

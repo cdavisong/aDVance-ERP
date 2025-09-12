@@ -120,11 +120,11 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
 
     public event EventHandler? RegistrarUnidadMedida;
     public event EventHandler? RegistrarTipoMateriaPrima;
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
+    public event EventHandler? RegistrarEntidad;
+    public event EventHandler? EditarEntidad;
     public event EventHandler? EliminarUnidadMedida;
     public event EventHandler? EliminarTipoMateriaPrima;
-    public event EventHandler? EliminarDatos;
+    public event EventHandler? EliminarEntidad;
     
 
     private void InicializarVistas() {
@@ -172,9 +172,9 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
             if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+                EditarEntidad?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                RegistrarEntidad?.Invoke(sender, args);
         };
         btnSiguiente.Click += delegate (object? sender, EventArgs args) {
             if (_paginaActual < 2)

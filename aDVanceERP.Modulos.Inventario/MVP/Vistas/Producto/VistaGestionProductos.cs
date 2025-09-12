@@ -102,9 +102,9 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     public event EventHandler? MostrarUltimaPagina;
     public event EventHandler? SincronizarDatos;
     
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
-    public event EventHandler? EliminarDatos;
+    public event EventHandler? RegistrarEntidad;
+    public event EventHandler? EditarEntidad;
+    public event EventHandler? EliminarEntidad;
     public event EventHandler? BuscarEntidades;
     public event EventHandler? HabilitarDeshabilitarProducto;
 
@@ -153,7 +153,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             Ocultar();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs e) {
-            RegistrarDatos?.Invoke(sender, e);
+            RegistrarEntidad?.Invoke(sender, e);
 
             ActualizarValorTotalInventario();
         };

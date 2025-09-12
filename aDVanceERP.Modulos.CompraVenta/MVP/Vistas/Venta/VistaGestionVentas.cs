@@ -108,12 +108,12 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
     public event EventHandler? MostrarPaginaSiguiente;
     public event EventHandler? MostrarUltimaPagina;
     public event EventHandler? SincronizarDatos;
-    public event EventHandler? RegistrarDatos;
+    public event EventHandler? RegistrarEntidad;
     public event EventHandler<string>? ImportarVentasArchivo;
     public event EventHandler? ConfirmarEntrega;
     public event EventHandler? ConfirmarPagos;
-    public event EventHandler? EditarDatos;
-    public event EventHandler? EliminarDatos;
+    public event EventHandler? EditarEntidad;
+    public event EventHandler? EliminarEntidad;
     public event EventHandler? DescargarReporte;
     public event EventHandler? ImprimirReporte;
     public event EventHandler? BuscarEntidades;
@@ -202,7 +202,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
                 return;
             }
 
-            RegistrarDatos?.Invoke(sender, e);
+            RegistrarEntidad?.Invoke(sender, e);
         };
         btnImportarArchivoVentas.Click += delegate (object? sender, EventArgs e) {
             // Comprobar la existencia de una caja abierta  antes de importar ventas

@@ -3,6 +3,6 @@ using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.MVP.Vistas.Plantillas;
 
-public interface IVistaRegistro : IVistaBase, IGestorDatos {
+public interface IVistaRegistro : IVistaBase, IGestorEntidades {
     bool ModoEdicionDatos { get; set; }
 }

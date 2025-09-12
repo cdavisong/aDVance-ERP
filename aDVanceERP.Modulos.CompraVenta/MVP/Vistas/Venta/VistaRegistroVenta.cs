@@ -154,9 +154,9 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     public event EventHandler? ProductoEliminado;
     public event EventHandler? EfectuarPago;
     public event EventHandler? AsignarMensajeria;
-    public event EventHandler? RegistrarDatos;
-    public event EventHandler? EditarDatos;
-    public event EventHandler? EliminarDatos;
+    public event EventHandler? RegistrarEntidad;
+    public event EventHandler? EditarEntidad;
+    public event EventHandler? EliminarEntidad;
     
 
     public void Inicializar() {
@@ -208,9 +208,9 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
             if (ModoEdicionDatos)
-                EditarDatos?.Invoke(sender, args);
+                EditarEntidad?.Invoke(sender, args);
             else
-                RegistrarDatos?.Invoke(sender, args);
+                RegistrarEntidad?.Invoke(sender, args);
         };
         btnSalir.Click += delegate(object? sender, EventArgs args) {
             Close();

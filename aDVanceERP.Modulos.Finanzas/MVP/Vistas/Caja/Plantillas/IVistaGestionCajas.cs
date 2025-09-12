@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas
 {
-    public interface IVistaGestionCajas : IVistaContenedor, IGestorDatos, IBuscadorEntidades<FiltroBusquedaCaja>, IGestorTablaDatos {
+    public interface IVistaGestionCajas : IVistaContenedor, IGestorEntidades, IBuscadorEntidades<FiltroBusquedaCaja>, IGestorTablaDatos {
         bool HabilitarBtnRegistroMovimientoCaja { get; set; }
         bool HabilitarBtnCierreCaja { get; set; }
 

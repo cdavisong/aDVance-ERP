@@ -4,7 +4,7 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
-public interface IVistaGestionProductos : IVistaContenedor, IGestorDatos, IBuscadorEntidades<FiltroBusquedaProducto>,
+public interface IVistaGestionProductos : IVistaContenedor, IGestorEntidades, IBuscadorEntidades<FiltroBusquedaProducto>,
     IGestorTablaDatos {
     string? NombreAlmacen { get; }
     decimal ValorTotalInventario { get; }

@@ -4,5 +4,5 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas;
 
-public interface IVistaGestionContactos : IVistaContenedor, IGestorDatos, IBuscadorEntidades<FiltroBusquedaContacto>,
+public interface IVistaGestionContactos : IVistaContenedor, IGestorEntidades, IBuscadorEntidades<FiltroBusquedaContacto>,
     IGestorTablaDatos { }

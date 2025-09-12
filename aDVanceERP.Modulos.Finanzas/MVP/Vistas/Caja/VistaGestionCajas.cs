@@ -84,9 +84,9 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
         public event EventHandler? MostrarUltimaPagina;
         public event EventHandler? SincronizarDatos;
         
-        public event EventHandler? RegistrarDatos;
-        public event EventHandler? EditarDatos;
-        public event EventHandler? EliminarDatos;
+        public event EventHandler? RegistrarEntidad;
+        public event EventHandler? EditarEntidad;
+        public event EventHandler? EliminarEntidad;
         public event EventHandler? BuscarEntidades;
         public event EventHandler? RegistrarMovimientoCajaSeleccionada;
         public event EventHandler? CerrarCajaSeleccionada;
@@ -136,7 +136,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
                     e);
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
-                RegistrarDatos?.Invoke(sender, e);
+                RegistrarEntidad?.Invoke(sender, e);
             };
             btnRegistrarMovimientoCaja.Click += delegate (object? sender, EventArgs e) {
                 RegistrarMovimientoCajaSeleccionada?.Invoke(sender, e);

@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
     private async void InicializarVistaGestionProveedores() {
         _gestionProveedores = new PresentadorGestionProveedores(new VistaGestionProveedores());
         _gestionProveedores.EditarObjeto += MostrarVistaEdicionProveedor;
-        _gestionProveedores.Vista.RegistrarDatos += MostrarVistaRegistroProveedor;
+        _gestionProveedores.Vista.RegistrarEntidad += MostrarVistaRegistroProveedor;
 
         if (Vista.Vistas != null)
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionProveedores", _gestionProveedores.Vista));

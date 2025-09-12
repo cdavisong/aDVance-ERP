@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
     private async void InicializarVistaGestionCuentasUsuarios() {
         _gestionCuentasUsuarios = new PresentadorGestionCuentasUsuarios(new VistaGestionCuentasUsuarios());
         _gestionCuentasUsuarios.EditarObjeto += MostrarVistaEdicionCuentaUsuario;
-        _gestionCuentasUsuarios.Vista.RegistrarDatos += MostrarVistaRegistroCuentaUsuario;
+        _gestionCuentasUsuarios.Vista.RegistrarEntidad += MostrarVistaRegistroCuentaUsuario;
 
         if (Vista.Vistas != null)
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasUsuarios", _gestionCuentasUsuarios.Vista));

@@ -3,6 +3,6 @@ using aDVanceERP.Core.MVP.Vistas.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Pago.Plantillas;
 
-public interface IVistaGestionPagos : IVistaContenedor, IGestorDatos {
+public interface IVistaGestionPagos : IVistaContenedor, IGestorEntidades {
     void AdicionarPago(long id, long idVenta, string metodoPago, decimal monto);
 }

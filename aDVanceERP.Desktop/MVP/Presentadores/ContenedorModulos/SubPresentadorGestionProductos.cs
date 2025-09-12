@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
         _gestionProductos.MovimientoPositivoStock += MostrarVistaRegistroMovimiento;
         _gestionProductos.MovimientoNegativoStock += MostrarVistaRegistroMovimiento;
         _gestionProductos.EditarObjeto += MostrarVistaEdicionProducto;
-        _gestionProductos.Vista.RegistrarDatos += MostrarVistaRegistroProducto;
+        _gestionProductos.Vista.RegistrarEntidad += MostrarVistaRegistroProducto;
 
         if (Vista.Vistas != null)
             await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionProductos", _gestionProductos.Vista));
