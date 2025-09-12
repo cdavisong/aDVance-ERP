@@ -68,7 +68,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion
                 }
             }
 
-            Entidad = entidad;
+            _entidad = entidad;
         }
 
         protected override void RegistroAuxiliar(RepoOrdenProduccion repoEntidad, long id) {

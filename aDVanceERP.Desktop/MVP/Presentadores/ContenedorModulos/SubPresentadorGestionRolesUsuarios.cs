@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionRolesUsuarios() {
         _gestionRolesUsuarios = new PresentadorGestionRolesUsuarios(new VistaGestionRolesUsuarios());
-        _gestionRolesUsuarios.EditarObjeto += MostrarVistaEdicionRolUsuario;
+        _gestionRolesUsuarios.EditarEntidad += MostrarVistaEdicionRolUsuario;
         _gestionRolesUsuarios.Vista.RegistrarEntidad += MostrarVistaRegistroRolUsuario;
 
         if (Vista.Vistas != null)

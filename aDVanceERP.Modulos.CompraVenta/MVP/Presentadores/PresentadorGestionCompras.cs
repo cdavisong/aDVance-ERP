@@ -1,14 +1,14 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
-public class PresentadorGestionCompras : PresentadorGestionBase<PresentadorTuplaCompra, IVistaGestionCompras, IVistaTuplaCompra, Compra, RepoCompra, FiltroBusquedaCompra> {
+public class PresentadorGestionCompras : PresentadorVistaGestion<PresentadorTuplaCompra, IVistaGestionCompras, IVistaTuplaCompra, Compra, RepoCompra, FiltroBusquedaCompra> {
     public PresentadorGestionCompras(IVistaGestionCompras vista) : base(vista) { }
 
     protected override PresentadorTuplaCompra ObtenerValoresTupla(Compra objeto) {

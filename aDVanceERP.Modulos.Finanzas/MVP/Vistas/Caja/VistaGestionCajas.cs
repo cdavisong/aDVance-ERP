@@ -87,7 +87,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
         public event EventHandler? RegistrarEntidad;
         public event EventHandler? EditarEntidad;
         public event EventHandler? EliminarEntidad;
-        public event EventHandler? BuscarEntidades;
+        public event EventHandler<(FiltroBusquedaCaja, string?)>? BuscarEntidades;
         public event EventHandler? RegistrarMovimientoCajaSeleccionada;
         public event EventHandler? CerrarCajaSeleccionada;
 
@@ -115,7 +115,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
 
                 if (FiltroBusqueda != FiltroBusquedaCaja.FechaApertura &&
                     FiltroBusqueda != FiltroBusquedaCaja.FechaCierre)
-                    BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
+                    BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Empty));
 
                 // Ir a la primera página al cambiar el criterio de búsqueda
                 PaginaActual = 1;
@@ -126,14 +126,13 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja
                     return;
 
                 if (!string.IsNullOrEmpty(CriterioBusqueda))
-                    BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, args);
+                    BuscarEntidades?.Invoke(this, (FiltroBusqueda, CriterioBusqueda));
                 else SincronizarDatos?.Invoke(sender, args);
 
                 args.SuppressKeyPress = true;
             };
             fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
-                    e);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd")));
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs e) {
                 RegistrarEntidad?.Invoke(sender, e);

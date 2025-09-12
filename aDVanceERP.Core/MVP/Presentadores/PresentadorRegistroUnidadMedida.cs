@@ -14,7 +14,7 @@ public class PresentadorRegistroUnidadMedida : PresentadorVistaRegistro<IVistaRe
         Vista.Abreviatura = objeto.Abreviatura;
         Vista.Descripcion = objeto.Descripcion ?? string.Empty; // Asegurar que no sea null
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

@@ -79,7 +79,7 @@ public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBa
     public event EventHandler? RegistrarEntidad;
     public event EventHandler? EditarEntidad;
     public event EventHandler? EliminarEntidad;
-    public event EventHandler? BuscarEntidades;
+    public event EventHandler<(FiltroBusquedaCuentaBancaria, string?)>? BuscarEntidades;
 
     public void Inicializar() {
         // Variables locales
@@ -91,7 +91,7 @@ public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBa
             fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
+            BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Empty));
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -99,7 +99,7 @@ public partial class VistaGestionCuentasBancarias : Form, IVistaGestionCuentasBa
         };
         fieldDatoBusqueda.TextChanged += delegate(object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(CriterioBusqueda))
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, e);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, CriterioBusqueda));
             else SincronizarDatos?.Invoke(sender, e);
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {

@@ -22,7 +22,7 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
             }
         }
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

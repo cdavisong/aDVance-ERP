@@ -24,7 +24,7 @@ public class PresentadorRegistroCliente : PresentadorVistaRegistro<IVistaRegistr
             }
         }
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

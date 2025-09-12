@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionCuentasUsuarios() {
         _gestionCuentasUsuarios = new PresentadorGestionCuentasUsuarios(new VistaGestionCuentasUsuarios());
-        _gestionCuentasUsuarios.EditarObjeto += MostrarVistaEdicionCuentaUsuario;
+        _gestionCuentasUsuarios.EditarEntidad += MostrarVistaEdicionCuentaUsuario;
         _gestionCuentasUsuarios.Vista.RegistrarEntidad += MostrarVistaRegistroCuentaUsuario;
 
         if (Vista.Vistas != null)

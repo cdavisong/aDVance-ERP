@@ -12,8 +12,8 @@ public abstract class PresentadorVistaRegistro<Vr, En, Re, Fb> : PresentadorVist
     where Fb : Enum {
     private bool _disposed; // Para evitar llamadas redundantes a Dispose
 
-    private En? _entidad;
-    private Re _repositorio;
+    protected En? _entidad;
+    protected Re _repositorio;
 
     protected PresentadorVistaRegistro(Vr vista) : base(vista) {
         _entidad = null;
@@ -23,7 +23,7 @@ public abstract class PresentadorVistaRegistro<Vr, En, Re, Fb> : PresentadorVist
         Vista.EditarEntidad += OnEditarEntidad;
     }
 
-    protected En? Entidad => _entidad;
+    public En? Entidad => _entidad;
 
     public Re Repositorio => _repositorio;
 

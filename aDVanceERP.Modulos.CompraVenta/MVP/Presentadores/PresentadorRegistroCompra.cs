@@ -23,7 +23,7 @@ public class
             ((IVistaGestionDetallesCompraventaProductos)Vista).AdicionarProducto(Vista.NombreAlmacen, productoSplit[0],
                 productoSplit[1]);
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override Compra? ObtenerEntidadDesdeVista() {

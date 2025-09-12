@@ -85,7 +85,7 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
     public event EventHandler? RegistrarEntidad;
     public event EventHandler? EditarEntidad;
     public event EventHandler? EliminarEntidad;
-    public event EventHandler? BuscarEntidades;
+    public event EventHandler<(FiltroBusquedaMensajero, string?)>? BuscarEntidades;
     public event EventHandler? HabilitarDeshabilitarMensajero;
 
     public void Inicializar() {
@@ -98,7 +98,7 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
             fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
+            BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Empty));
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -109,7 +109,7 @@ public partial class VistaGestionMensajeros : Form, IVistaGestionMensajeros {
                 return;
 
             if (!string.IsNullOrEmpty(CriterioBusqueda))
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, args);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, CriterioBusqueda));
             else SincronizarDatos?.Invoke(sender, args);
 
             args.SuppressKeyPress = true;

@@ -14,7 +14,7 @@ public class PresentadorRegistroTipoMovimiento : PresentadorVistaRegistro<IVista
         Vista.Efecto = objeto.Efecto.ToString();
         Vista.ModoEdicionDatos = true;
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

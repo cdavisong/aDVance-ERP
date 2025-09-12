@@ -20,7 +20,7 @@ public class PresentadorRegistroContacto : PresentadorVistaRegistro<IVistaRegist
         Vista.Direccion = objeto.Direccion ?? string.Empty;
         Vista.Notas = objeto.Notas ?? string.Empty;
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

@@ -18,7 +18,7 @@ public class PresentadorRegistroCuentaBancaria : PresentadorVistaRegistro<IVista
         Vista.NombrePropietario = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
         Vista.ModoEdicionDatos = true;
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

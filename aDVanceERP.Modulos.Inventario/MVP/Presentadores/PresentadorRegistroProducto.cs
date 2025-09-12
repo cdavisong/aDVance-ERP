@@ -34,7 +34,7 @@ public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegist
         Vista.PrecioVentaBase = objeto.PrecioVentaBase;
         Vista.ModoEdicionDatos = true;
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

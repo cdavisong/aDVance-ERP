@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionMensajeros() {
         _gestionMensajeros = new PresentadorGestionMensajeros(new VistaGestionMensajeros());
-        _gestionMensajeros.EditarObjeto += MostrarVistaEdicionMensajero;
+        _gestionMensajeros.EditarEntidad += MostrarVistaEdicionMensajero;
         _gestionMensajeros.Vista.RegistrarEntidad += MostrarVistaRegistroMensajero;
 
         if (Vista.Vistas != null)

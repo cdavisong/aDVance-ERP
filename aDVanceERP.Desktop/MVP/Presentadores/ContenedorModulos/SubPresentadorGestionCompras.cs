@@ -9,7 +9,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionCompras() {
         _gestionCompras = new PresentadorGestionCompras(new VistaGestionCompras());
-        _gestionCompras.EditarObjeto += MostrarVistaEdicionCompraProducto;
+        _gestionCompras.EditarEntidad += MostrarVistaEdicionCompraProducto;
         _gestionCompras.Vista.RegistrarEntidad += MostrarVistaRegistroCompraProducto;
 
         if (Vista.Vistas != null)

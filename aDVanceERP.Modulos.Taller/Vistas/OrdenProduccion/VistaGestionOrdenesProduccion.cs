@@ -81,7 +81,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
         public event EventHandler? RegistrarEntidad;
         public event EventHandler? EditarEntidad;
         public event EventHandler? EliminarEntidad;
-        public event EventHandler? BuscarEntidades;
+        public event EventHandler<(FiltroBusquedaOrdenProduccion, string?)>? BuscarEntidades;
         public event EventHandler? CerrarOrdenProduccionSeleccionada;
 
         public void Inicializar() {
@@ -107,7 +107,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
                 if (FiltroBusqueda != FiltroBusquedaOrdenProduccion.FechaApertura &&
                     FiltroBusqueda != FiltroBusquedaOrdenProduccion.FechaCierre)
-                    BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
+                    BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Empty));
 
                 // Ir a la primera página al cambiar el criterio de búsqueda
                 PaginaActual = 1;
@@ -118,14 +118,13 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                     return;
 
                 if (!string.IsNullOrEmpty(CriterioBusqueda))
-                    BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, args);
+                    BuscarEntidades?.Invoke(this, (FiltroBusqueda, CriterioBusqueda));
                 else SincronizarDatos?.Invoke(sender, args);
 
                 args.SuppressKeyPress = true;
             };
             fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
-                    e);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd")));
             };
             btnCerrarOrdenProduccion.Click += delegate (object? sender, EventArgs e) {
                 CerrarOrdenProduccionSeleccionada?.Invoke(sender, e);

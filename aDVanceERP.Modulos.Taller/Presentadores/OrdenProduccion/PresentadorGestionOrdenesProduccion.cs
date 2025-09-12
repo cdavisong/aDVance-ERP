@@ -1,6 +1,6 @@
 ﻿
 using aDVanceERP.Core.Mensajes.Utiles;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
@@ -9,8 +9,9 @@ using aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
-    public class PresentadorGestionOrdenesProduccion : PresentadorGestionBase<PresentadortuplaOrdenProduccion, IVistaGestionOrdenesProduccion, IVistaTuplaOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, FiltroBusquedaOrdenProduccion> {
+namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion
+{
+    public class PresentadorGestionOrdenesProduccion : PresentadorVistaGestion<PresentadortuplaOrdenProduccion, IVistaGestionOrdenesProduccion, IVistaTuplaOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, FiltroBusquedaOrdenProduccion> {
         public PresentadorGestionOrdenesProduccion(IVistaGestionOrdenesProduccion vista) : base(vista) {
             vista.CerrarOrdenProduccionSeleccionada += OnCerrarOrdenProduccionSeleccionada;
             vista.EditarEntidad += delegate {
@@ -46,7 +47,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
                         tupla.Entidad.FechaCierre = DateTime.Now;
 
                         // Editar la orden de producción
-                        RepositorioEntidad.Editar(tupla.Entidad);
+                        Repositorio.Editar(tupla.Entidad);
 
                         // Invocar evento de cierre para la orden de produccion y registrar los movimientos correspondientes
                         OrdenProduccionCerrada?.Invoke(this, tupla.Entidad);

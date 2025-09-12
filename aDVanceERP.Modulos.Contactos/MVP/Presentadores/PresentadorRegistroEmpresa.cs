@@ -28,7 +28,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
                 }
             }
 
-            Entidad = objeto;
+            _entidad = objeto;
         }
 
         protected override bool EntidadCorrecta() {

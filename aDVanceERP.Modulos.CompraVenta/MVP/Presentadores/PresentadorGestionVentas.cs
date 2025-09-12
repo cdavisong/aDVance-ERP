@@ -1,14 +1,14 @@
 ﻿using System.Globalization;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 using aDVanceERP.Modulos.CompraVenta.MVP.Modelos.Repositorios;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta;
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Presentadores;
 
-public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaVenta, IVistaGestionVentas,
+public class PresentadorGestionVentas : PresentadorVistaGestion<PresentadorTuplaVenta, IVistaGestionVentas,
     IVistaTuplaVenta, Venta, RepoVenta, FiltroBusquedaVenta> {
     public PresentadorGestionVentas(IVistaGestionVentas vista) : base(vista) {
         vista.ConfirmarEntrega += OnConfirmarEntregaAriculos;
@@ -61,7 +61,7 @@ public class PresentadorGestionVentas : PresentadorGestionBase<PresentadorTuplaV
                 tupla.Entidad.EstadoEntrega = "Completada";
 
                 // Editar la venta del producto
-                RepositorioEntidad.Editar(tupla.Entidad);
+                Repositorio.Editar(tupla.Entidad);
 
                 // Actualizar el seguimiento de entrega
                 using (var datosSeguimiento = new RepoSeguimientoEntrega()) {

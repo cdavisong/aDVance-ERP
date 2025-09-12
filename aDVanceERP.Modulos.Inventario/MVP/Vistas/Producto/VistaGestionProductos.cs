@@ -105,7 +105,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
     public event EventHandler? RegistrarEntidad;
     public event EventHandler? EditarEntidad;
     public event EventHandler? EliminarEntidad;
-    public event EventHandler? BuscarEntidades;
+    public event EventHandler<(FiltroBusquedaProducto, string?)>? BuscarEntidades;
     public event EventHandler? HabilitarDeshabilitarProducto;
 
     public void Inicializar() {
@@ -115,14 +115,14 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
         // Eventos
         fieldNombreAlmacen.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
             if (!string.IsNullOrEmpty(NombreAlmacen))
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), CriterioBusqueda } }, e);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Join(';', NombreAlmacen, Categoria.ToString(), CriterioBusqueda)));
             else SincronizarDatos?.Invoke(sender, e);
 
             ActualizarValorTotalInventario();
         };
         fieldCriterioCategoriaProducto.SelectedIndexChanged += delegate (object? sender, EventArgs e) {
             if (Categoria > -1)
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), CriterioBusqueda } }, e);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Join(';', NombreAlmacen, Categoria.ToString(), CriterioBusqueda)));
             else SincronizarDatos?.Invoke(sender, e);
 
             ActualizarValorTotalInventario();
@@ -132,8 +132,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
             fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0 && fieldFiltroBusqueda.SelectedIndex != 5;
             fieldDatoBusqueda.Focus();
 
-            BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), CriterioBusqueda } },
-                EventArgs.Empty);
+            BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Join(';', NombreAlmacen, Categoria.ToString(), CriterioBusqueda)));
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -144,7 +143,7 @@ public partial class VistaGestionProductos : Form, IVistaGestionProductos {
                 return;
 
             if (!string.IsNullOrEmpty(CriterioBusqueda))
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, new[] { NombreAlmacen, Categoria.ToString(), CriterioBusqueda } }, args);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Join(';', NombreAlmacen, Categoria.ToString(), CriterioBusqueda)));
             else SincronizarDatos?.Invoke(sender, args);
 
             args.SuppressKeyPress = true;

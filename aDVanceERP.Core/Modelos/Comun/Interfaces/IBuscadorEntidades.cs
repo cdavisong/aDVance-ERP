@@ -6,7 +6,7 @@ public interface IBuscadorEntidades<Fb>
     string? CriterioBusqueda { get; }
 
 
-    event EventHandler? BuscarEntidades;
+    event EventHandler<(Fb, string?)>? BuscarEntidades;
 
     void CargarFiltrosBusqueda(object[] filtrosBusqueda);
 }

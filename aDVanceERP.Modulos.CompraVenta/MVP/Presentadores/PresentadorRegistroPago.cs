@@ -28,7 +28,7 @@ public class
                 decimal.TryParse(pagoSplit[3], NumberStyles.Any, CultureInfo.InvariantCulture, out var monto) ? monto : 0.00m);
         }
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

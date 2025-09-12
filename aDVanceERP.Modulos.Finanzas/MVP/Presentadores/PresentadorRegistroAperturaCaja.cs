@@ -15,7 +15,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores
             Vista.Fecha = objeto.FechaApertura;
             Vista.SaldoInicial = objeto.SaldoInicial;
 
-            Entidad = objeto;
+            _entidad = objeto;
         }
 
         protected override Caja ObtenerEntidadDesdeVista() {

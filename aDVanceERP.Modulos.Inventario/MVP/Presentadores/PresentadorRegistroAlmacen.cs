@@ -17,7 +17,7 @@ public class PresentadorRegistroAlmacen : PresentadorVistaRegistro<IVistaRegistr
         Vista.Descripcion = entidad.Descripcion ?? string.Empty;
         Vista.ModoEdicionDatos = true;
 
-        Entidad = entidad;
+        _entidad = entidad;
     }
 
     protected override bool EntidadCorrecta() {

@@ -26,7 +26,7 @@ public class
 
         Vista.IdTipoEntrega = objeto.IdTipoEntrega;
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override Venta? ObtenerEntidadDesdeVista() {

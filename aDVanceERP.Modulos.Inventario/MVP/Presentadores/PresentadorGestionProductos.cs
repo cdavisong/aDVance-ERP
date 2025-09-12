@@ -1,12 +1,12 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Presentadores;
+using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Presentadores;
 
-public class PresentadorGestionProductos : PresentadorGestionBase<PresentadorTuplaProducto, IVistaGestionProductos,
+public class PresentadorGestionProductos : PresentadorVistaGestion<PresentadorTuplaProducto, IVistaGestionProductos,
     IVistaTuplaProducto, Producto, RepoProducto, FiltroBusquedaProducto> {
     public PresentadorGestionProductos(IVistaGestionProductos vista) : base(vista) {
         vista.HabilitarDeshabilitarProducto += IntercambiarHabilitacionProducto;

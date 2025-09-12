@@ -18,7 +18,7 @@ public class PresentadorRegistroMovimientoCaja : PresentadorVistaRegistro<IVIsta
         Vista.Concepto = objeto.Concepto ?? string.Empty;
         Vista.Observaciones = objeto.Observaciones;
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override MovimientoCaja? ObtenerEntidadDesdeVista() {

@@ -25,7 +25,7 @@ public class PresentadorRegistroMovimiento : PresentadorVistaRegistro<IVistaRegi
         Vista.CantidadMovida = entidad.CantidadMovida;
         Vista.TipoMovimiento = tipoMovimiento?.Nombre ?? string.Empty;
 
-        Entidad = entidad;
+        _entidad = entidad;
     }
 
     protected override bool EntidadCorrecta() {

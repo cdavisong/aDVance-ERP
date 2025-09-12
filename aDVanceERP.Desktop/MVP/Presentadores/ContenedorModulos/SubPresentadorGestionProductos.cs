@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
         _gestionProductos = new PresentadorGestionProductos(new VistaGestionProductos());
         _gestionProductos.MovimientoPositivoStock += MostrarVistaRegistroMovimiento;
         _gestionProductos.MovimientoNegativoStock += MostrarVistaRegistroMovimiento;
-        _gestionProductos.EditarObjeto += MostrarVistaEdicionProducto;
+        _gestionProductos.EditarEntidad += MostrarVistaEdicionProducto;
         _gestionProductos.Vista.RegistrarEntidad += MostrarVistaRegistroProducto;
 
         if (Vista.Vistas != null)

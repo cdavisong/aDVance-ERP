@@ -71,8 +71,6 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
 
     public RepoVistaBase? Vistas { get; private set; }
 
-    FiltroBusquedaMovimiento IBuscadorEntidades<FiltroBusquedaMovimiento>.FiltroBusqueda => throw new NotImplementedException();
-
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
     public event EventHandler? MostrarPaginaAnterior;
@@ -83,7 +81,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
     public event EventHandler? RegistrarEntidad;
     public event EventHandler? EditarEntidad;
     public event EventHandler? EliminarEntidad;
-    public event EventHandler? BuscarEntidades;
+    public event EventHandler<(FiltroBusquedaMovimiento, string?)>? BuscarEntidades;
 
     public void Inicializar() {
         // Variables locales
@@ -106,7 +104,7 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
                                              fieldFiltroBusqueda.SelectedIndex != 0;
 
             if (FiltroBusqueda != FiltroBusquedaMovimiento.Fecha)
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Empty));
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -117,14 +115,13 @@ public partial class VistaGestionMovimientos : Form, IVistaGestionMovimientos {
                 return;
 
             if (!string.IsNullOrEmpty(CriterioBusqueda))
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, args);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, CriterioBusqueda));
             else SincronizarDatos?.Invoke(sender, args);
 
             args.SuppressKeyPress = true;
         };
         fieldDatoBusquedaFecha.ValueChanged += delegate (object? sender, EventArgs e) {
-            BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd") },
-                e);
+            BuscarEntidades?.Invoke(this, (FiltroBusqueda, fieldDatoBusquedaFecha.Value.ToString("yyyy-MM-dd")));
         };
         btnCerrar.Click += delegate(object? sender, EventArgs e) {
             Ocultar();

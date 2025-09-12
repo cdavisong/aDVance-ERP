@@ -14,7 +14,7 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorVistaRegistro<IVis
         Vista.Nombre = objeto.Nombre;
         Vista.Descripcion = objeto.Descripcion ?? string.Empty;
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

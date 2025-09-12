@@ -20,7 +20,7 @@ public class PresentadorRegistroRolUsuario : PresentadorVistaRegistro<IVistaRegi
         foreach (var permisoRol in permisosRoles) 
             ((IVistaGestionPermisos)Vista).AdicionarPermisoRol(permisoRol);
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override RolUsuario? ObtenerEntidadDesdeVista() {

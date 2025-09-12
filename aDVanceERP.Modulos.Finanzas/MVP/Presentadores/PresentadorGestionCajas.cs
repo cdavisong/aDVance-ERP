@@ -1,4 +1,4 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
+﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
@@ -7,8 +7,9 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja.Plantillas;
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
-    public class PresentadorGestionCajas : PresentadorGestionBase<PresentadorTuplaCaja, IVistaGestionCajas, IVistaTuplaCaja, Caja, RepoCaja, FiltroBusquedaCaja> {
+namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores
+{
+    public class PresentadorGestionCajas : PresentadorVistaGestion<PresentadorTuplaCaja, IVistaGestionCajas, IVistaTuplaCaja, Caja, RepoCaja, FiltroBusquedaCaja> {
         public PresentadorGestionCajas(IVistaGestionCajas vista) 
             : base(vista) {
             vista.CerrarCajaSeleccionada += CerrarCajaSeleccionada;
@@ -50,7 +51,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores {
                     tupla.Entidad.Estado = EstadoCaja.Cerrada;
 
                     // Editar la venta del producto
-                    RepositorioEntidad.Editar(tupla.Entidad);
+                    Repositorio.Editar(tupla.Entidad);
 
                     break;
                 }

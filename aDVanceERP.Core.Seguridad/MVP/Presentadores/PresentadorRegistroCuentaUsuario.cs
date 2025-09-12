@@ -15,7 +15,7 @@ public class PresentadorRegistroCuentaUsuario : PresentadorVistaRegistro<IVistaR
         Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
         Vista.ModoEdicionDatos = true;
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override CuentaUsuario? ObtenerEntidadDesdeVista() {

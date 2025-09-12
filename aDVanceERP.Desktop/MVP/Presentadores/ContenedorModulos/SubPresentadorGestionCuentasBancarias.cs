@@ -10,7 +10,7 @@ public partial class PresentadorContenedorModulos {
     private async void InicializarVistaGestionCuentasBancarias() {
         _gestionCuentasBancarias = new PresentadorGestionCuentasBancarias(new VistaGestionCuentasBancarias());
         _gestionCuentasBancarias.MostrarQrTupla += MostrarVistaQR;
-        _gestionCuentasBancarias.EditarObjeto += MostrarVistaEdicionCuentaBancaria;
+        _gestionCuentasBancarias.EditarEntidad += MostrarVistaEdicionCuentaBancaria;
         _gestionCuentasBancarias.Vista.RegistrarEntidad += MostrarVistaRegistroCuentaBancaria;
 
         if (Vista.Vistas != null)

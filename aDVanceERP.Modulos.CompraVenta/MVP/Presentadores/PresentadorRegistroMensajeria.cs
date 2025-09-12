@@ -26,7 +26,7 @@ public class PresentadorRegistroMensajeria : PresentadorVistaRegistro<IVistaRegi
             Vista.Observaciones = objeto.Observaciones;
         }
 
-        Entidad = objeto;
+        _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {

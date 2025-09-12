@@ -19,7 +19,7 @@ public partial class PresentadorContenedorModulos {
 
     private async void InicializarVistaGestionVentas() {
         _gestionVentas = new PresentadorGestionVentas(new VistaGestionVentas());
-        _gestionVentas.EditarObjeto += OnMostrarVistaEdicionVentaProducto;
+        _gestionVentas.EditarEntidad += OnMostrarVistaEdicionVentaProducto;
         _gestionVentas.Vista.RegistrarEntidad += OnMostrarVistaRegistroVentaProducto;
         _gestionVentas.Vista.ImportarVentasArchivo += OnImportarVentasArchivo;
         _gestionVentas.Vista.ConfirmarPagos += OnConfirmarPagosVenta;

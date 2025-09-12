@@ -78,7 +78,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
     public event EventHandler? RegistrarEntidad;
     public event EventHandler? EditarEntidad;
     public event EventHandler? EliminarEntidad;
-    public event EventHandler? BuscarEntidades;
+    public event EventHandler<(FiltroBusquedaRolUsuario, string?)>? BuscarEntidades;
 
     public void Inicializar() {
         // Variables locales
@@ -90,7 +90,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
             fieldDatoBusqueda.Visible = fieldFiltroBusqueda.SelectedIndex != 0;
             fieldDatoBusqueda.Focus();
 
-            BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, string.Empty }, EventArgs.Empty);
+            BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Empty));
 
             // Ir a la primera página al cambiar el criterio de búsqueda
             PaginaActual = 1;
@@ -101,7 +101,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
                 return;
 
             if (!string.IsNullOrEmpty(CriterioBusqueda))
-                BuscarEntidades?.Invoke(new object[] { FiltroBusqueda, CriterioBusqueda }, args);
+                BuscarEntidades?.Invoke(this, (FiltroBusqueda, string.Empty));
             else SincronizarDatos?.Invoke(sender, args);
 
             args.SuppressKeyPress = true;
