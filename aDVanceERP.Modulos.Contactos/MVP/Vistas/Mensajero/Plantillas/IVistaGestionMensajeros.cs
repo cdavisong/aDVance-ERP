@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Modelos;
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
 public interface IVistaGestionMensajeros : IVistaContenedor, IGestorEntidades, IBuscadorEntidades<FiltroBusquedaMensajero>,
-    IGestorTablaDatos {
+    INavegadorTuplasEntidades {
     bool MostrarBtnHabilitarDeshabilitarMensajero { get; set; }
 
     event EventHandler? HabilitarDeshabilitarMensajero;

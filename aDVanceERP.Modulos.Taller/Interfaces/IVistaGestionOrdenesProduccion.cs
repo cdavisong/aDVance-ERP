@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Taller.Modelos;
 
 namespace aDVanceERP.Modulos.Taller.Interfaces
 {
-    public interface IVistaGestionOrdenesProduccion : IVistaContenedor, IGestorEntidades, IBuscadorEntidades<FiltroBusquedaOrdenProduccion>, IGestorTablaDatos {
+    public interface IVistaGestionOrdenesProduccion : IVistaContenedor, IGestorEntidades, IBuscadorEntidades<FiltroBusquedaOrdenProduccion>, INavegadorTuplasEntidades {
         bool HabilitarBtnCierreOrdenProduccion { get; set; }
 
         event EventHandler? CerrarOrdenProduccionSeleccionada;

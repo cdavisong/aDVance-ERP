@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Modelos;
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Venta.Plantillas;
 
 public interface IVistaGestionVentas : IVistaContenedor, IGestorEntidades, IBuscadorEntidades<FiltroBusquedaVenta>,
-    IGestorTablaDatos {
+    INavegadorTuplasEntidades {
     string FormatoReporte { get; }
     bool HabilitarBtnConfirmarEntrega { get; set; }
     bool HabilitarBtnConfirmarPagos { get; set; }

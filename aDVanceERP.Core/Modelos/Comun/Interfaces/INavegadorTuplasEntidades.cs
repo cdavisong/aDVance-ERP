@@ -1,7 +1,6 @@
 ﻿namespace aDVanceERP.Core.Modelos.Comun.Interfaces;
 
-public interface IGestorTablaDatos
-{
+public interface INavegadorTuplasEntidades {
     int PaginaActual { get; set; }
     int PaginasTotales { get; set; }
 
