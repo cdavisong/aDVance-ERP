@@ -1,9 +1,6 @@
 using System.Diagnostics;
-
-using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Infraestructura.Extensiones;
 using aDVanceERP.Core.Infraestructura.Globales;
-using aDVanceERP.Core.Utiles;
 using aDVanceERP.Desktop.MVP.Presentadores.Principal;
 
 using MySql.Data.MySqlClient;

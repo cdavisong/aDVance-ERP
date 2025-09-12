@@ -1,7 +1,4 @@
-﻿using aDVanceERP.Core.Excepciones;
-using aDVanceERP.Core.Infraestructura.Extensiones;
-using aDVanceERP.Core.Infraestructura.Globales;
-using aDVanceERP.Core.Repositorios.BD;
+﻿using aDVanceERP.Core.Repositorios.BD;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos.Repositorios.Plantillas;
 
 using MySql.Data.MySqlClient;

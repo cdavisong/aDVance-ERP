@@ -1,8 +1,6 @@
-﻿using System.CodeDom;
+﻿using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
 
-using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
-
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero;
 
 public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
     private bool _modoEdicion;

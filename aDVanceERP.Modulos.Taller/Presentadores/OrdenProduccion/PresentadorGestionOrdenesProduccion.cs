@@ -1,7 +1,6 @@
 ﻿
 using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Presentadores.Comun;
-using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Repositorios;
@@ -9,8 +8,7 @@ using aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion
-{
+namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
     public class PresentadorGestionOrdenesProduccion : PresentadorVistaGestion<PresentadortuplaOrdenProduccion, IVistaGestionOrdenesProduccion, IVistaTuplaOrdenProduccion, Modelos.OrdenProduccion, RepoOrdenProduccion, FiltroBusquedaOrdenProduccion> {
         public PresentadorGestionOrdenesProduccion(IVistaGestionOrdenesProduccion vista) : base(vista) {
             vista.CerrarOrdenProduccionSeleccionada += OnCerrarOrdenProduccionSeleccionada;

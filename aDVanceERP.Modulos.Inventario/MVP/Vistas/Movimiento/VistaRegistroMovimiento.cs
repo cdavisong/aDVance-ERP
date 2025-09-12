@@ -1,11 +1,10 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
 using aDVanceERP.Core.Repositorios.Modulos.Inventario;
-using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
 using System.Globalization;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 
 public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
     private bool _modoEdicion;

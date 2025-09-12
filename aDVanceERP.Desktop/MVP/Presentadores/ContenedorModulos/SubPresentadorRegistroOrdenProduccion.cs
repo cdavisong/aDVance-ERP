@@ -3,8 +3,6 @@ using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion;
 using aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 
-using System.Runtime.CompilerServices;
-
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
     public partial class PresentadorContenedorModulos {
         private PresentadorRegistroOrdenProduccion? _registroOrdenProduccion;
