@@ -12,7 +12,7 @@ public class PresentadorRegistroMensajeria : PresentadorVistaRegistro<IVistaRegi
     }
 
     public override async void PopularVistaDesdeEntidad(SeguimientoEntrega objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.NombreMensajero = await UtilesMensajero.ObtenerNombreMensajero(objeto.IdMensajero);
 
         using (var datosVenta = new RepoVenta()) {
@@ -50,7 +50,7 @@ public class PresentadorRegistroMensajeria : PresentadorVistaRegistro<IVistaRegi
 
     protected override SeguimientoEntrega? ObtenerEntidadDesdeVista() {
         return new SeguimientoEntrega(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.IdVenta,
             UtilesMensajero.ObtenerIdMensajero(Vista.NombreMensajero).Result,
             DateTime.Now,

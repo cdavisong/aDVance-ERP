@@ -13,7 +13,7 @@ public class PresentadorRegistroCuentaUsuario : PresentadorVistaRegistro<IVistaR
     public override void PopularVistaDesdeEntidad(CuentaUsuario objeto) {
         Vista.NombreUsuario = objeto.Nombre;
         Vista.NombreRolUsuario = UtilesRolUsuario.ObtenerNombreRolUsuario(objeto.IdRolUsuario);
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
 
         _entidad = objeto;
     }
@@ -22,7 +22,7 @@ public class PresentadorRegistroCuentaUsuario : PresentadorVistaRegistro<IVistaR
         var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
 
         return new CuentaUsuario(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.NombreUsuario,
             passwordSeguro.hash,
             passwordSeguro.salt,

@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu.Plantillas;
 
 public interface IVistaMenuVentas : IVistaMenu {
     event EventHandler? VerCompras;

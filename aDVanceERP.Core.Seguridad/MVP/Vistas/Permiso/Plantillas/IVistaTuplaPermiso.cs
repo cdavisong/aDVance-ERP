@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
 
 public interface IVistaTuplaPermiso : IVistaTupla {
     string? IdPermiso { get; set; }

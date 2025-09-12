@@ -16,7 +16,7 @@ public class PresentadorRegistroCuentaBancaria : PresentadorVistaRegistro<IVista
         Vista.NumeroTarjeta = objeto.NumeroTarjeta ?? string.Empty;
         Vista.Moneda = objeto.Moneda.ToString();
         Vista.NombrePropietario = UtilesContacto.ObtenerNombreContacto(objeto.IdContacto) ?? string.Empty;
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
 
         _entidad = objeto;
     }
@@ -38,7 +38,7 @@ public class PresentadorRegistroCuentaBancaria : PresentadorVistaRegistro<IVista
 
     protected override CuentaBancaria? ObtenerEntidadDesdeVista() {
         return new CuentaBancaria(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.Alias,
             Vista.NumeroTarjeta,
             (TipoMoneda)Enum.Parse(typeof(TipoMoneda), Vista.Moneda),

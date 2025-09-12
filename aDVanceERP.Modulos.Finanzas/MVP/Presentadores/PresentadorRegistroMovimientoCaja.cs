@@ -11,7 +11,7 @@ public class PresentadorRegistroMovimientoCaja : PresentadorVistaRegistro<IVIsta
     public PresentadorRegistroMovimientoCaja(IVIstaRegistroMovimientoCaja vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(MovimientoCaja objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.Fecha = objeto.Fecha;
         Vista.Monto = objeto.Monto;
         Vista.TipoMovimiento = objeto.Tipo.ToString();
@@ -23,7 +23,7 @@ public class PresentadorRegistroMovimientoCaja : PresentadorVistaRegistro<IVIsta
 
     protected override MovimientoCaja? ObtenerEntidadDesdeVista() {
         return new MovimientoCaja(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             UtilesCaja.ObtenerIdCajaActiva(),
             Vista.Fecha,
             Vista.Monto,

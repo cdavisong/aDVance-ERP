@@ -106,7 +106,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         set => P2UmPreciosStock.StockInicial = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -171,7 +171,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
                 RetrocederPagina();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -297,7 +297,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         P1DatosGenerales.Restaurar();
         P2UmPreciosStock.Restaurar();
 
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {

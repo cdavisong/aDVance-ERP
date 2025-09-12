@@ -12,7 +12,7 @@ public class
     public PresentadorRegistroVenta(IVistaRegistroVenta vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Venta objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.RazonSocialCliente = UtilesCliente.ObtenerRazonSocialCliente(objeto.IdCliente) ?? string.Empty;
         Vista.NombreAlmacen = UtilesAlmacen.ObtenerNombreAlmacen(objeto.IdAlmacen) ?? string.Empty;
         Vista.Direccion = objeto.DireccionEntrega;
@@ -31,7 +31,7 @@ public class
 
     protected override Venta? ObtenerEntidadDesdeVista() {
         return new Venta(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             DateTime.Now,
             UtilesAlmacen.ObtenerIdAlmacen(Vista.NombreAlmacen).Result,
             UtilesCliente.ObtenerIdCliente(Vista.RazonSocialCliente),

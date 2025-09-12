@@ -32,7 +32,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set {
                 _fechaMovimiento = value;
 
-                fieldSubtitulo.Text = ModoEdicionDatos ?
+                fieldSubtitulo.Text = ModoEdicion ?
                     $"Detalles de movimiento con fecha {value:yyyy-MM-dd}" :
                     $"Movimiento de efectivo en caja con fecha {value:yyyy-MM-dd}";
             }
@@ -60,7 +60,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => fieldObservaciones.Text = value;
         }
 
-        public bool ModoEdicionDatos {
+        public bool ModoEdicion {
             get => _modoEdicion;
             set {
                 btnRegistrar.Text = value ? "Actualizar movimiento" : "Registrar movimiento";
@@ -75,7 +75,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
 
         public void Inicializar() {
             // Configuración de la ventana
-            if (!ModoEdicionDatos)
+            if (!ModoEdicion)
                 Fecha = DateTime.Now;
 
             // Eventos            
@@ -83,7 +83,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 Close();
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
+                if (ModoEdicion)
                     EditarEntidad?.Invoke(sender, args);
                 else
                     RegistrarEntidad?.Invoke(sender, args);
@@ -103,7 +103,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             TipoMovimiento = string.Empty;
             Concepto = string.Empty;
             Observaciones = string.Empty;
-            ModoEdicionDatos = false;
+            ModoEdicion = false;
         }
 
         public void Ocultar() {

@@ -50,7 +50,7 @@ public partial class VistaRegistroUsuario : Form, IVistaRegistroUsuario {
         set => fieldAceptacionTerminosServicio.Checked = value;
     }
 
-    public bool ModoEdicionDatos { get; set; }
+    public bool ModoEdicion { get; set; }
 
     public event EventHandler? RegistrarEntidad;
     public event EventHandler? EditarEntidad;

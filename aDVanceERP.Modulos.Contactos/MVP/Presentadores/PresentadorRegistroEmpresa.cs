@@ -13,7 +13,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
         }
 
         public override void PopularVistaDesdeEntidad(Empresa objeto) {
-            Vista.ModoEdicionDatos = true;
+            Vista.ModoEdicion = true;
             Vista.Logotipo = objeto.Logotipo ?? Resources.logoF_96px;
             Vista.Nombre = objeto.Nombre ?? string.Empty;
 
@@ -32,7 +32,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
         }
 
         protected override bool EntidadCorrecta() {
-            var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicionDatos;
+            var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicion;
             var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
 
             if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
@@ -75,7 +75,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
                 contacto.Direccion = Vista.Direccion;
                 contacto.Notas = "Nuestra empresa";
 
-                if (Vista.ModoEdicionDatos && contacto.Id != 0)
+                if (Vista.ModoEdicion && contacto.Id != 0)
                     datosContacto.Editar(contacto);
                 else if (contacto.Id != 0)
                     datosContacto.Editar(contacto);
@@ -107,7 +107,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
                             telefonos.Add(telefonoMovil);
                         }
                     } else {
-                        if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                        if (Vista.ModoEdicion && indiceTelefonoMovil != -1) {
                             datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
                             telefonos.RemoveAt(indiceTelefonoMovil);
                         }
@@ -128,14 +128,14 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
                             telefonos.Add(telefonoFijo);
                         }
                     } else {
-                        if (Vista.ModoEdicionDatos && indiceTelefonoFijo != -1) {
+                        if (Vista.ModoEdicion && indiceTelefonoFijo != -1) {
                             datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoFijo].Id);
                             telefonos.RemoveAt(indiceTelefonoFijo);
                         }
                     }
 
                     foreach (var telefono in telefonos)
-                        if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                        if (Vista.ModoEdicion && telefono.Id != 0)
                             datosTelefonoContacto.Editar(telefono);
                         else if (telefono.Id != 0)
                             datosTelefonoContacto.Editar(telefono);
@@ -147,7 +147,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
 
         protected override Empresa? ObtenerEntidadDesdeVista() {
             return new Empresa(
-                Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+                Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
                 Vista.Logotipo,
                 Vista.Nombre,
                 UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result

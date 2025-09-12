@@ -1,8 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
-
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 using Guna.UI2.WinForms;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas; 
+namespace aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
 public interface IVistaPrincipal : IVistaContenedorMenu {
     Guna2CirclePictureBox BtnSubmenuUsuario { get; }

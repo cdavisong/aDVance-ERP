@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas; 
+namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
 
 public interface IVistaContenedorModulos : IVistaContenedor {
     //bool BtnModuloAdministracionVisible { get; set; }

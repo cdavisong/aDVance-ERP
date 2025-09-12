@@ -11,7 +11,7 @@ public class PresentadorRegistroCliente : PresentadorVistaRegistro<IVistaRegistr
     public PresentadorRegistroCliente(IVistaRegistroCliente vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Cliente objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.RazonSocial = objeto.RazonSocial;
         Vista.Numero = objeto.Numero;
 
@@ -28,7 +28,7 @@ public class PresentadorRegistroCliente : PresentadorVistaRegistro<IVistaRegistr
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result > 0 && !Vista.ModoEdicionDatos;
+        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result > 0 && !Vista.ModoEdicion;
         var nombreOk = !string.IsNullOrEmpty(Vista.RazonSocial) && !nombreEncontrado;
         var telefonoOk = !string.IsNullOrEmpty(Vista.TelefonoMovil);
         var direccionOk = !string.IsNullOrEmpty(Vista.Direccion);
@@ -64,7 +64,7 @@ public class PresentadorRegistroCliente : PresentadorVistaRegistro<IVistaRegistr
             contacto.Direccion = Vista.Direccion;
             contacto.Notas = "Cliente";
 
-            if (Vista.ModoEdicionDatos && contacto.Id != 0)
+            if (Vista.ModoEdicion && contacto.Id != 0)
                 datosContacto.Editar(contacto);
             else if (contacto.Id != 0)
                 datosContacto.Editar(contacto);
@@ -96,14 +96,14 @@ public class PresentadorRegistroCliente : PresentadorVistaRegistro<IVistaRegistr
                         telefonos.Add(telefonoMovil);
                     }
                 } else {
-                    if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                    if (Vista.ModoEdicion && indiceTelefonoMovil != -1) {
                         datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
                         telefonos.RemoveAt(indiceTelefonoMovil);
                     }
                 }
 
                 foreach (var telefono in telefonos)
-                    if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                    if (Vista.ModoEdicion && telefono.Id != 0)
                         datosTelefonoContacto.Editar(telefono);
                     else if (telefono.Id != 0)
                         datosTelefonoContacto.Editar(telefono);
@@ -115,7 +115,7 @@ public class PresentadorRegistroCliente : PresentadorVistaRegistro<IVistaRegistr
 
     protected override Cliente? ObtenerEntidadDesdeVista() {
         return new Cliente(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.Numero,
             Vista.RazonSocial,
             UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result

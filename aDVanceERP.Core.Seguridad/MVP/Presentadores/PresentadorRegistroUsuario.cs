@@ -49,7 +49,7 @@ public class PresentadorRegistroUsuario : PresentadorVistaRegistro<IVistaRegistr
         var passwordSeguro = UtilesPassword.HashPassword(Vista.Password);
 
         return new CuentaUsuario(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.NombreUsuario,
             passwordSeguro.hash,
             passwordSeguro.salt,

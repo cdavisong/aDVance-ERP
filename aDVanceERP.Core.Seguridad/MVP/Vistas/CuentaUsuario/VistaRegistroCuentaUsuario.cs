@@ -56,7 +56,7 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
         set => fieldNombreRolUsuario.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             if (value) {
@@ -79,7 +79,7 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) { Close(); };
         fieldPassword.IconRightClick += delegate {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 return;
 
             // fieldPassword
@@ -92,9 +92,9 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
             fieldConfirmarPassword.PasswordChar = fieldPassword.UseSystemPasswordChar ? '●' : char.MinValue;
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos && fieldPassword.Text.Equals("test-password1"))
+            if (ModoEdicion && fieldPassword.Text.Equals("test-password1"))
                 Close();
-            else if (ModoEdicionDatos)
+            else if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -119,7 +119,7 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
         NombreUsuario = string.Empty;
         fieldPassword.Text = string.Empty;
         fieldConfirmarPassword.Text = string.Empty;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {

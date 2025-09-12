@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Documentos.Interfaces;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 
 public interface IVistaTuplaAlmacen : IVistaTupla {
     string Id { get; set; }

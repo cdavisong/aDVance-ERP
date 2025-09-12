@@ -17,7 +17,7 @@ public class PresentadorRegistroMovimiento : PresentadorVistaRegistro<IVistaRegi
     public override void PopularVistaDesdeEntidad(Movimiento entidad) {
         var tipoMovimiento = RepoTipoMovimiento.Instancia.ObtenerPorId(entidad.IdTipoMovimiento);
 
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.NombreProducto = UtilesProducto.ObtenerNombreProducto(entidad.IdProducto).Result ?? string.Empty;
         Vista.NombreAlmacenOrigen = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenOrigen) ?? string.Empty;
         Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacenDestino) ?? string.Empty;
@@ -111,7 +111,7 @@ public class PresentadorRegistroMovimiento : PresentadorVistaRegistro<IVistaRegi
         var saldoFinal = inventario?.Cantidad ?? 0 + (Vista.CantidadMovida * (tipoMovimiento?.Efecto == EfectoMovimiento.Carga ? 1 : -1));
 
         return new Movimiento(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             producto?.Id ?? throw  new ArgumentNullException("El producto especificado no es válido"),
             costoUnitario,
             costoUnitario * Vista.CantidadMovida,

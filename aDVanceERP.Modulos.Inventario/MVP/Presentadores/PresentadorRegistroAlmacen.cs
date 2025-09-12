@@ -10,12 +10,12 @@ public class PresentadorRegistroAlmacen : PresentadorVistaRegistro<IVistaRegistr
     public PresentadorRegistroAlmacen(IVistaRegistroAlmacen vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Almacen entidad) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.Nombre = entidad.Nombre ?? string.Empty;
         Vista.Direccion = entidad.Direccion ?? string.Empty;
         Vista.AutorizoVenta = true;
         Vista.Descripcion = entidad.Descripcion ?? string.Empty;
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
 
         _entidad = entidad;
     }
@@ -37,7 +37,7 @@ public class PresentadorRegistroAlmacen : PresentadorVistaRegistro<IVistaRegistr
 
         //TODO: Trabajar en los campos que faltan para adicionar en el almacen
         return new Almacen(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre ?? string.Empty,
             Vista.Descripcion ?? string.Empty,
             Vista.Direccion ?? string.Empty,

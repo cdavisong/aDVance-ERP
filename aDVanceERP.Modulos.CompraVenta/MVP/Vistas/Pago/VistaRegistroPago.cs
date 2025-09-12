@@ -61,7 +61,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
     public List<string[]>? Pagos { get; private set; }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -75,7 +75,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         set {
             _total = value;
 
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 Suma = value;
 
             ActualizarPendiente();
@@ -159,7 +159,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             ActualizarSuma();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -217,7 +217,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
     }
 
     public void Restaurar() {
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
@@ -243,7 +243,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
             tuplaPago.MetodoPago = pago[2];
             tuplaPago.Monto = pago[3];
-            tuplaPago.Habilitada = !ModoEdicionDatos;
+            tuplaPago.Habilitada = !ModoEdicion;
             tuplaPago.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                 pago = sender as string[];
 
@@ -283,7 +283,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
         Pendiente = pendiente < 0 ? 0 : pendiente;
 
-        if (!ModoEdicionDatos)
+        if (!ModoEdicion)
             btnRegistrar.Enabled = Pendiente == 0;
 
         ActualizarDevolucion();

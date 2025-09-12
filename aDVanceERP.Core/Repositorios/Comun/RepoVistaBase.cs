@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using aDVanceERP.Core.Modelos.Comun;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 using aDVanceERP.Core.Vistas.Interfaces;
 using DocumentFormat.OpenXml.Office2010.Excel;

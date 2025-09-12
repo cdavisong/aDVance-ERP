@@ -12,7 +12,7 @@ public class PresentadorRegistroContacto : PresentadorVistaRegistro<IVistaRegist
     public PresentadorRegistroContacto(IVistaRegistroContacto vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Contacto objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.Nombre = objeto.Nombre ?? string.Empty;
         Vista.TelefonoMovil = UtilesTelefonoContacto.ObtenerTelefonoContacto(objeto.Id, true) ?? string.Empty;
         Vista.TelefonoFijo = UtilesTelefonoContacto.ObtenerTelefonoContacto(objeto.Id, false) ?? string.Empty;
@@ -24,7 +24,7 @@ public class PresentadorRegistroContacto : PresentadorVistaRegistro<IVistaRegist
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicionDatos;
+        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicion;
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
 
         if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
@@ -58,7 +58,7 @@ public class PresentadorRegistroContacto : PresentadorVistaRegistro<IVistaRegist
 
     protected override Contacto? ObtenerEntidadDesdeVista() {
         return new Contacto(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre,
             Vista.CorreoElectronico,
             Vista.Direccion,
@@ -91,7 +91,7 @@ public class PresentadorRegistroContacto : PresentadorVistaRegistro<IVistaRegist
                     telefonos.Add(telefonoMovil);
                 }
             } else {
-                if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                if (Vista.ModoEdicion && indiceTelefonoMovil != -1) {
                     datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
                     telefonos.RemoveAt(indiceTelefonoMovil);
                 }
@@ -112,14 +112,14 @@ public class PresentadorRegistroContacto : PresentadorVistaRegistro<IVistaRegist
                     telefonos.Add(telefonoFijo);
                 }
             } else {
-                if (Vista.ModoEdicionDatos && indiceTelefonoFijo != -1) {
+                if (Vista.ModoEdicion && indiceTelefonoFijo != -1) {
                     datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoFijo].Id);
                     telefonos.RemoveAt(indiceTelefonoFijo);
                 }
             }
 
             foreach (var telefono in telefonos)
-                if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                if (Vista.ModoEdicion && telefono.Id != 0)
                     datosTelefonoContacto.Editar(telefono);
                 else if (telefono.Id != 0)
                     datosTelefonoContacto.Editar(telefono);

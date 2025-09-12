@@ -12,7 +12,7 @@ public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegist
     public PresentadorRegistroProducto(IVistaRegistroProducto vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Producto objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.CategoriaProducto = objeto.Categoria;
         Vista.Nombre = objeto.Nombre ?? string.Empty;
         Vista.Codigo = objeto.Codigo ?? string.Empty;
@@ -32,7 +32,7 @@ public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegist
         Vista.CostoProduccionUnitario = objeto.CostoProduccionUnitario;
         Vista.PrecioCompra = objeto.PrecioCompra;
         Vista.PrecioVentaBase = objeto.PrecioVentaBase;
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
 
         _entidad = objeto;
     }
@@ -63,7 +63,7 @@ public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegist
 
         // Registrar detalles del producto
         using (var datos = new RepoDetalleProducto()) {
-            if (Vista.ModoEdicionDatos && Entidad?.IdDetalleProducto != 0)
+            if (Vista.ModoEdicion && Entidad?.IdDetalleProducto != 0)
                 datos.Editar(detalleProducto);
             else if (Entidad?.IdDetalleProducto != 0)
                 datos.Editar(detalleProducto);
@@ -85,7 +85,7 @@ public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegist
 
     protected override Producto? ObtenerEntidadDesdeVista() {
         return new Producto(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.CategoriaProducto,
             Vista.Nombre,
             Vista.Codigo,

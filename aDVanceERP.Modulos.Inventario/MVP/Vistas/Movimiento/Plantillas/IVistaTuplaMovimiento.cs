@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Modelos.Modulos.Inventario;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas; 
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento.Plantillas;
 
 public interface IVistaTuplaMovimiento : IVistaTupla {
     string Id { get; set; }

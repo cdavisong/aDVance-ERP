@@ -49,7 +49,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
     public RepoVistaBase? Vistas { get; private set; }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -98,7 +98,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
             var idTipoEntregaPresencial = UtilesEntrega.ObtenerIdTipoEntrega("Presencial").Result;
 
-            if (ModoEdicionDatos && value.Equals(idTipoEntregaPresencial))
+            if (ModoEdicion && value.Equals(idTipoEntregaPresencial))
                 btnAsignarMensajeria.Enabled = false;
         }
     }
@@ -110,7 +110,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         set {
             _pagoEfectuado = value;
 
-            if (!ModoEdicionDatos) {
+            if (!ModoEdicion) {
                 fieldNombreProducto.ReadOnly = value;
                 fieldCantidad.ReadOnly = value;
                 btnEfectuarPago.Enabled = !value;
@@ -125,7 +125,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         set {
             _mensajeriaConfigurada = value;
 
-            if (!ModoEdicionDatos) {
+            if (!ModoEdicion) {
                 if (TipoEntrega == "Mensajería (sin fondo)") {
                     fieldNombreProducto.ReadOnly = true;
                     fieldCantidad.ReadOnly = true;
@@ -207,7 +207,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             AsignarMensajeria?.Invoke(sender, args);
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -243,7 +243,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString("N2", CultureInfo.InvariantCulture) : cantidad;
             var stockProducto = await UtilesProducto.ObtenerStockProducto(adNombreProducto, adNombreAlmacen);
 
-            if (!ModoEdicionDatos) {
+            if (!ModoEdicion) {
                 // Verificar ID y cantidad del producto
                 if (idProducto == 0 || stockProducto == 0) {
                     CentroNotificaciones.Mostrar($"El producto {adNombreProducto} no existe o no tiene cantidad disponible en el almacén {adNombreAlmacen}. Rectifique los datos.", TipoNotificacion.Advertencia);
@@ -335,7 +335,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             tuplaDetallesVentaProducto.NombreProducto = producto[1];
             tuplaDetallesVentaProducto.PrecioCompraventaFinal = producto[3];
             tuplaDetallesVentaProducto.Cantidad = producto[4];
-            tuplaDetallesVentaProducto.Habilitada = !ModoEdicionDatos;
+            tuplaDetallesVentaProducto.Habilitada = !ModoEdicion;
             tuplaDetallesVentaProducto.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
                 if (sender is not IVistaTuplaDetalleCompraventaProducto vista)
                     return;
@@ -403,7 +403,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         NombreProducto = string.Empty;
         fieldNombreProducto.AutoCompleteCustomSource.Clear();
         Total = 0;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
 
         fieldNombreProducto.Focus();
     }

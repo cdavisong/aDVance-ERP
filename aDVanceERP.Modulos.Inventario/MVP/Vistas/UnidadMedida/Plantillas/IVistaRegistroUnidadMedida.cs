@@ -1,6 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida.Plantillas {
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida.Plantillas
+{
     public interface IVistaRegistroUnidadMedida : IVistaRegistro {
         string Nombre { get; set; }
         string Abreviatura { get; set; }

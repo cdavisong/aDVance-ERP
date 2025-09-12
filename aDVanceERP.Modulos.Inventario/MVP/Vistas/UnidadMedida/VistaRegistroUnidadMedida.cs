@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.UnidadMedida.Plantillas;
+﻿using aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida.Plantillas;
 
-namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida {
     public partial class VistaRegistroUnidadMedida : Form, IVistaRegistroUnidadMedida {
         private bool _modoEdicion;
 
@@ -39,7 +39,7 @@ namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
             set => fieldDescripcion.Text = value;
         }
 
-        public bool ModoEdicionDatos {
+        public bool ModoEdicion {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -59,7 +59,7 @@ namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
                 Close();
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
+                if (ModoEdicion)
                     EditarEntidad?.Invoke(sender, args);
                 else
                     RegistrarEntidad?.Invoke(sender, args);
@@ -78,7 +78,7 @@ namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
             Nombre = string.Empty;
             Abreviatura = string.Empty;
             Descripcion = string.Empty;
-            ModoEdicionDatos = false;
+            ModoEdicion = false;
         }
 
         public void Ocultar() {

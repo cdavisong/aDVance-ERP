@@ -12,7 +12,7 @@ public class PresentadorRegistroTipoMovimiento : PresentadorVistaRegistro<IVista
     public override void PopularVistaDesdeEntidad(TipoMovimiento objeto) {
         Vista.Nombre = objeto.Nombre;
         Vista.Efecto = objeto.Efecto.ToString();
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
 
         _entidad = objeto;
     }
@@ -31,7 +31,7 @@ public class PresentadorRegistroTipoMovimiento : PresentadorVistaRegistro<IVista
 
     protected override TipoMovimiento? ObtenerEntidadDesdeVista() {
         return new TipoMovimiento(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre,
             (EfectoMovimiento)(Enum.TryParse(typeof(EfectoMovimiento), Vista.Efecto, out var efecto)
                 ? efecto

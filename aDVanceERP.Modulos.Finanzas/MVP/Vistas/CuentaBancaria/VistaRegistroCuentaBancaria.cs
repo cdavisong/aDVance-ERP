@@ -46,7 +46,7 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
         set => fieldNombrePropietario.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -67,7 +67,7 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
         btnCerrar.Click += delegate(object? sender, EventArgs args) { Close(); };
         fieldNumeroCuenta.TextChanged += AgregarEspaciosNumeroCuenta;
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -99,7 +99,7 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
         fieldTipoMoneda.SelectedIndex = -1;
         NombrePropietario = string.Empty;
         fieldNombrePropietario.SelectedIndex = -1;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {

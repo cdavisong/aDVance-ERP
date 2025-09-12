@@ -58,7 +58,7 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
         }
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldTelefonoMovil.ReadOnly = value;
@@ -80,7 +80,7 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
         // Eventos
         btnCerrar.Click += delegate(object? sender, EventArgs args) { Close(); };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -100,7 +100,7 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
         TelefonoFijo = string.Empty;
         CorreoElectronico = string.Empty;
         Direccion = string.Empty;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {

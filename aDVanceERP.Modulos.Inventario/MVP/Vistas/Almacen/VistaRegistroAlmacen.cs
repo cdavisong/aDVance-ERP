@@ -45,7 +45,7 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         set => fieldNotas.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -62,7 +62,7 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
     public void Inicializar() {
         // Eventos
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -82,7 +82,7 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         Direccion = string.Empty;
         AutorizoVenta = false;
         Descripcion = string.Empty;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {

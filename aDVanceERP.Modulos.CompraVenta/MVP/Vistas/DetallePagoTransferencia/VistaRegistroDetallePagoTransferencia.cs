@@ -56,7 +56,7 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
         set => fieldCodigoQr.BackgroundImage = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -106,7 +106,7 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
                 : NumeroConfirmacion;
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 Close();
@@ -154,7 +154,7 @@ public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistr
         RecordarNumeroConfirmacion = false;
         separador1.Visible = false;
         layoutQrDatos.Visible = false;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {

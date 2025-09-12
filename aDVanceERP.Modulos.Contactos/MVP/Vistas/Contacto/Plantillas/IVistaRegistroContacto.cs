@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas; 
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas;
 
 public interface IVistaRegistroContacto : IVistaRegistro {
     string Nombre { get; set; }

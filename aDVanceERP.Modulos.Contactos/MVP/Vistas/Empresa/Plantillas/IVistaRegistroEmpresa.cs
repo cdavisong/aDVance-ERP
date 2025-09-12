@@ -1,6 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa.Plantillas {
+namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa.Plantillas
+{
     public interface IVistaRegistroEmpresa : IVistaRegistro {
         Image? Logotipo { get; set; }
         string Nombre { get; set; }

@@ -14,7 +14,7 @@ public class
     public PresentadorRegistroPago(IVistaRegistroPago vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Pago objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.IdVenta = objeto.IdVenta;
         Vista.Total = objeto.Monto;
 
@@ -63,7 +63,7 @@ public class
             return;
         
         foreach (var objeto in objetosVista) {
-            if (Vista.ModoEdicionDatos && objeto.Id != 0)
+            if (Vista.ModoEdicion && objeto.Id != 0)
                 Repositorio.Editar(Entidad);
             else if (objeto.Id != 0)
                 Repositorio.Editar(Entidad);

@@ -47,7 +47,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         set => Size = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -138,7 +138,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             ActualizarTotal();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -178,7 +178,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         var idProducto = await UtilesProducto.ObtenerIdProducto(adNombreProducto);
         var adCantidad = string.IsNullOrEmpty(cantidad) ? Cantidad.ToString("N2", CultureInfo.InvariantCulture) : cantidad;
 
-        if (!ModoEdicionDatos) {
+        if (!ModoEdicion) {
             // Verificar ID del producto
             if (idProducto == 0) {
                 NombreProducto = string.Empty;
@@ -243,7 +243,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             tuplaDetallesVentaProducto.NombreProducto = producto[1];
             tuplaDetallesVentaProducto.PrecioCompraventaFinal = producto[2];
             tuplaDetallesVentaProducto.Cantidad = producto[3];
-            tuplaDetallesVentaProducto.Habilitada = !ModoEdicionDatos;
+            tuplaDetallesVentaProducto.Habilitada = !ModoEdicion;
             tuplaDetallesVentaProducto.PrecioCompraventaModificado += delegate (object? sender, EventArgs args) {
                 if (sender is not IVistaTuplaDetalleCompraventaProducto vista)
                     return;
@@ -310,7 +310,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         fieldNombreAlmacen.SelectedIndex = 0;
         fieldNombreProducto.AutoCompleteCustomSource.Clear();
         Total = 0;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {

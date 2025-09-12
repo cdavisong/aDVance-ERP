@@ -32,7 +32,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set {
                 _fechaApertura = value;
                 
-                fieldSubtitulo.Text = ModoEdicionDatos ?
+                fieldSubtitulo.Text = ModoEdicion ?
                     $"Detalles de apertura en fecha {value:yyyy-MM-dd}" : 
                     $"Apertura en fecha {value:yyyy-MM-dd}";
             }
@@ -45,7 +45,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
             set => fieldMontoInicial.Text = value.ToString("N2", CultureInfo.InvariantCulture);
         }        
 
-        public bool ModoEdicionDatos {
+        public bool ModoEdicion {
             get => _modoEdicion;
             set {
                 btnRegistrar.Text = value ? "Actualizar apertura" : "Abrir caja";
@@ -60,7 +60,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
 
         public void Inicializar() {
             // Configuración de la ventana
-            if (!ModoEdicionDatos)
+            if (!ModoEdicion)
                 Fecha = DateTime.Now;
 
             // Eventos
@@ -68,7 +68,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
                 Close();
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
+                if (ModoEdicion)
                     EditarEntidad?.Invoke(sender, args);
                 else
                     RegistrarEntidad?.Invoke(sender, args);
@@ -84,7 +84,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
         }
 
         public void Restaurar() {
-            ModoEdicionDatos = false;
+            ModoEdicion = false;
         }
 
         public void Ocultar() {

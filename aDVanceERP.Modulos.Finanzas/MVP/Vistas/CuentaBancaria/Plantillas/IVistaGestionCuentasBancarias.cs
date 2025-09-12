@@ -1,5 +1,5 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
+using aDVanceERP.Core.Vistas.Interfaces;
 using aDVanceERP.Modulos.Finanzas.MVP.Modelos;
 
 namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria.Plantillas;

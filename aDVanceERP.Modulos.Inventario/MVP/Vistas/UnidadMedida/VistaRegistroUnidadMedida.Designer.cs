@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-namespace aDVanceERP.Core.MVP.Vistas.UnidadMedida {
+namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida {
     partial class VistaRegistroUnidadMedida {
         /// <summary>
         /// Required designer variable.

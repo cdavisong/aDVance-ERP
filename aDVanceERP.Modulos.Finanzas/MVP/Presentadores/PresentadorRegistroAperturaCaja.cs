@@ -11,7 +11,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores
             : base(vista) { }
 
         public override void PopularVistaDesdeEntidad(Caja objeto) {
-            Vista.ModoEdicionDatos = true;
+            Vista.ModoEdicion = true;
             Vista.Fecha = objeto.FechaApertura;
             Vista.SaldoInicial = objeto.SaldoInicial;
 
@@ -20,7 +20,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores
 
         protected override Caja ObtenerEntidadDesdeVista() {
             return new Caja(
-                Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+                Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
                 Vista.Fecha,
                 Vista.SaldoInicial,
                 Vista.SaldoInicial,

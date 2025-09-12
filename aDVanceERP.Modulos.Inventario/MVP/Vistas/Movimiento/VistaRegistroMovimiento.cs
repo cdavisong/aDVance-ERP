@@ -60,7 +60,7 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         set => fieldTipoMovimiento.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value 
@@ -89,7 +89,7 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
 
     public void Inicializar() {
         // Propiedades
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
 
         // Eventos
         fieldTipoMovimiento.SelectedIndexChanged += delegate { 
@@ -105,7 +105,7 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
             EliminarTipoMovimiento?.Invoke(TipoMovimiento, args);
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -158,16 +158,16 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         if (tipoMovimiento?.Efecto == EfectoMovimiento.Carga) {
             fieldNombreAlmacenOrigen.SelectedIndex = 0;
             fieldNombreAlmacenOrigen.Enabled = false;
-            fieldNombreAlmacenDestino.Enabled = !ModoEdicionDatos;
+            fieldNombreAlmacenDestino.Enabled = !ModoEdicion;
         }
         else if (tipoMovimiento?.Efecto == EfectoMovimiento.Descarga) {
             fieldNombreAlmacenDestino.SelectedIndex = 0;
             fieldNombreAlmacenDestino.Enabled = false;
-            fieldNombreAlmacenOrigen.Enabled = !ModoEdicionDatos;
+            fieldNombreAlmacenOrigen.Enabled = !ModoEdicion;
         }
         else {
-            fieldNombreAlmacenOrigen.Enabled = !ModoEdicionDatos;
-            fieldNombreAlmacenDestino.Enabled = !ModoEdicionDatos;
+            fieldNombreAlmacenOrigen.Enabled = !ModoEdicion;
+            fieldNombreAlmacenDestino.Enabled = !ModoEdicion;
         }
     }
 
@@ -186,7 +186,7 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
         TipoMovimiento = string.Empty;
         fieldTipoMovimiento.SelectedIndex = 0;
         Fecha = DateTime.Now;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {

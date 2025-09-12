@@ -11,7 +11,7 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
     public PresentadorRegistroMensajero(IVistaRegistroMensajero vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Mensajero objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.Nombre = objeto.Nombre;
 
         using (var datosContacto = new RepoContacto()) {
@@ -26,7 +26,7 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicionDatos;
+        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicion;
         var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
         var telefonoOk = !string.IsNullOrEmpty(Vista.TelefonoMovil);
 
@@ -58,7 +58,7 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
             contacto.Nombre = Vista.Nombre;
             contacto.Notas = "Mensajero";
 
-            if (Vista.ModoEdicionDatos && contacto.Id != 0)
+            if (Vista.ModoEdicion && contacto.Id != 0)
                 datosContacto.Editar(contacto);
             else if (contacto.Id != 0)
                 datosContacto.Editar(contacto);
@@ -90,14 +90,14 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
                         telefonos.Add(telefonoMovil);
                     }
                 } else {
-                    if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                    if (Vista.ModoEdicion && indiceTelefonoMovil != -1) {
                         datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
                         telefonos.RemoveAt(indiceTelefonoMovil);
                     }
                 }
 
                 foreach (var telefono in telefonos)
-                    if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                    if (Vista.ModoEdicion && telefono.Id != 0)
                         datosTelefonoContacto.Editar(telefono);
                     else if (telefono.Id != 0)
                         datosTelefonoContacto.Editar(telefono);
@@ -109,7 +109,7 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
 
     protected override Mensajero? ObtenerEntidadDesdeVista() {
         return new Mensajero(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre,
             true,
             UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result

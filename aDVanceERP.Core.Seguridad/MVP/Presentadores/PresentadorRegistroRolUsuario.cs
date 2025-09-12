@@ -12,7 +12,7 @@ public class PresentadorRegistroRolUsuario : PresentadorVistaRegistro<IVistaRegi
     public PresentadorRegistroRolUsuario(IVistaRegistroRolUsuario vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(RolUsuario objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.NombreRolUsuario = objeto.Nombre;        
 
         var permisosRoles = UtilesRolUsuario.ObtenerPermisosDeRol(objeto.Id);
@@ -25,7 +25,7 @@ public class PresentadorRegistroRolUsuario : PresentadorVistaRegistro<IVistaRegi
 
     protected override RolUsuario? ObtenerEntidadDesdeVista() {
         return new RolUsuario(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.NombreRolUsuario
         );
     }

@@ -10,7 +10,7 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorVistaRegistro<IVis
     public PresentadorRegistroTipoMateriaPrima(IVistaRegistroTipoMateriaPrima vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(TipoMateriaPrima objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.Nombre = objeto.Nombre;
         Vista.Descripcion = objeto.Descripcion ?? string.Empty;
 
@@ -28,7 +28,7 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorVistaRegistro<IVis
 
     protected override TipoMateriaPrima? ObtenerEntidadDesdeVista() {
         return new TipoMateriaPrima(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.Nombre,
             string.IsNullOrEmpty(Vista.Descripcion) ? null : Vista.Descripcion
         );

@@ -1,5 +1,5 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas; 
+namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas;
 
 public interface IVistaContenedorSeguridad : IVistaContenedor { }

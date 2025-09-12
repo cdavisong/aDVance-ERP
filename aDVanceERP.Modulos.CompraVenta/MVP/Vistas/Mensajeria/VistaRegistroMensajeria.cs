@@ -69,7 +69,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         set => fieldResumenEntrega.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             btnAdicionarMensajero.Enabled = !value;
@@ -122,7 +122,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
             ActualizarResumenEntrega();
         };
         btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -202,7 +202,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         DescripcionTipoEntrega = "...";
         Direccion = string.Empty;
         ResumenEntrega = "...";
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {
@@ -244,7 +244,7 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
         // Actualizar el resúmen de entrega
         ResumenEntrega = resumenHtml;
 
-        if (ModoEdicionDatos)
+        if (ModoEdicion)
             return;
 
         // Verificar si la entrega es válida

@@ -13,7 +13,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion
         }
 
         public override void PopularVistaDesdeEntidad(Modelos.OrdenProduccion entidad) {
-            Vista.ModoEdicionDatos = true;
+            Vista.ModoEdicion = true;
             Vista.Id = entidad.Id;
             Vista.NombreProductoTerminado = entidad.NombreProducto ?? string.Empty;
             Vista.NombreAlmacenDestino = UtilesAlmacen.ObtenerNombreAlmacen(entidad.IdAlmacen) ?? string.Empty;
@@ -172,7 +172,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion
 
         protected override Modelos.OrdenProduccion? ObtenerEntidadDesdeVista() {
             return new Modelos.OrdenProduccion(
-                Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+                Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
                 Vista.NumeroOrden,
                 Vista.FechaApertura,
                 DateTime.MinValue,

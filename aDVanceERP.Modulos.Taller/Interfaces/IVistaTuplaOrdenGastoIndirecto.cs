@@ -1,6 +1,7 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Modulos.Taller.Interfaces {
+namespace aDVanceERP.Modulos.Taller.Interfaces
+{
     public interface IVistaTuplaOrdenGastoIndirecto : IVistaTupla {
         string IdOrdenGastoIndirecto { get; set; }
         string ConceptoGasto { get; set; }

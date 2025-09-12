@@ -1,8 +1,8 @@
-﻿using aDVanceERP.Core.MVP.Presentadores;
-using aDVanceERP.Core.MVP.Vistas.UnidadMedida;
-using aDVanceERP.Core.Repositorios.Modulos.Inventario;
+﻿using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 using aDVanceERP.Core.Utiles.Datos;
 using aDVanceERP.Desktop.Utiles;
+using aDVanceERP.Modulos.Inventario.MVP.Presentadores;
+using aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 

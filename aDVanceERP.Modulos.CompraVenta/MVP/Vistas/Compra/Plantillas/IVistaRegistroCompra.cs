@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas; 
+namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra.Plantillas;
 
 public interface IVistaRegistroCompra : IVistaRegistro {
     string? RazonSocialProveedor { get; set; }

@@ -58,7 +58,7 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
         set => fieldNotas.Text = value;
     }
 
-    public bool ModoEdicionDatos {
+    public bool ModoEdicion {
         get => _modoEdicion;
         set {
             fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -78,7 +78,7 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
             Close(); 
         };
         btnRegistrar.Click += delegate(object? sender, EventArgs args) {
-            if (ModoEdicionDatos)
+            if (ModoEdicion)
                 EditarEntidad?.Invoke(sender, args);
             else
                 RegistrarEntidad?.Invoke(sender, args);
@@ -100,7 +100,7 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
         CorreoElectronico = string.Empty;
         Direccion = string.Empty;
         Notas = string.Empty;
-        ModoEdicionDatos = false;
+        ModoEdicion = false;
     }
 
     public void Ocultar() {

@@ -34,7 +34,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima {
             set => fieldDescripcion.Text = value;
         }
 
-        public bool ModoEdicionDatos {
+        public bool ModoEdicion {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -54,7 +54,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima {
                 Close();
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
+                if (ModoEdicion)
                     EditarEntidad?.Invoke(sender, args);
                 else
                     RegistrarEntidad?.Invoke(sender, args);
@@ -72,7 +72,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima {
         public void Restaurar() {
             Nombre = string.Empty;
             Descripcion = string.Empty;
-            ModoEdicionDatos = false;
+            ModoEdicion = false;
         }
 
         public void Ocultar() {

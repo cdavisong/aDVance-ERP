@@ -1,9 +1,9 @@
 ﻿using aDVanceERP.Core.Mensajes.Utiles;
 using aDVanceERP.Core.Modelos.Comun;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Utiles.Datos;
+using aDVanceERP.Core.Vistas.Interfaces;
 using aDVanceERP.Modulos.Taller.Interfaces;
 using aDVanceERP.Modulos.Taller.Modelos;
 using aDVanceERP.Modulos.Taller.Repositorios;
@@ -53,7 +53,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
             set => Size = value;
         }
 
-        public bool ModoEdicionDatos {
+        public bool ModoEdicion {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -317,7 +317,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 ActualizarPrecioUnitarioProducto();
             };
             btnAbrirActualizarOrdenProduccion.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
+                if (ModoEdicion)
                     EditarEntidad?.Invoke(sender, args);
                 else
                     RegistrarEntidad?.Invoke(sender, args);
@@ -399,7 +399,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 var adCantidad = cantidad > 0 ? cantidad : decimal.TryParse(fieldCantidadMateriaPrima.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cant) ? cant : 0m;
                 var adCantidadTotal = adCantidad + cantidadAcumulada;
 
-                if (!ModoEdicionDatos && stockProducto < adCantidadTotal) {
+                if (!ModoEdicion && stockProducto < adCantidadTotal) {
                     CentroNotificaciones.Mostrar($"No hay suficiente cantidad de la materia prima '{adNombre}' para satisfacer la demanda de fabricación especificada. Stock actual: {stockProducto}.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Error);
                     return;
                 }
@@ -556,7 +556,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
         }
 
         public void Restaurar() {
-            ModoEdicionDatos = false;
+            ModoEdicion = false;
             fieldNombreProductoTerminado.Text = string.Empty;
             fieldNombreAlmacenDestino.SelectedIndex = -1;
             fieldCantidadProducir.Text = string.Empty;

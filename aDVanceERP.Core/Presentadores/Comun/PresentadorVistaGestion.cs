@@ -1,10 +1,10 @@
 ﻿using aDVanceERP.Core.Modelos.Comun;
 using aDVanceERP.Core.Modelos.Comun.Interfaces;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Presentadores.Comun.Interfaces;
 using aDVanceERP.Core.Repositorios.Comun.Interfaces;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Vistas.Comun;
+using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.Presentadores.Comun;
 

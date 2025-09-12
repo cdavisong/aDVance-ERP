@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Modelos.Comun.Interfaces;
-using aDVanceERP.Core.MVP.Vistas.Plantillas;
 using aDVanceERP.Core.Presentadores.Comun.Interfaces;
 using aDVanceERP.Core.Repositorios.Comun.Interfaces;
+using aDVanceERP.Core.Vistas.Interfaces;
 
 namespace aDVanceERP.Core.Presentadores.Comun;
 
@@ -57,7 +57,7 @@ public abstract class PresentadorVistaRegistro<Vr, En, Re, Fb> : PresentadorVist
         if (_entidad == null)
             return;
 
-        if (Vista.ModoEdicionDatos && _entidad.Id != 0)
+        if (Vista.ModoEdicion && _entidad.Id != 0)
             Repositorio.Editar(_entidad);
         else if (_entidad.Id != 0)
             Repositorio.Editar(_entidad);

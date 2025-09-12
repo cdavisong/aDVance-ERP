@@ -1,6 +1,6 @@
-﻿using aDVanceERP.Core.MVP.Vistas.Plantillas;
+﻿using aDVanceERP.Core.Vistas.Interfaces;
 
-namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas; 
+namespace aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario.Plantillas;
 
 public interface IVistaTuplaCuentaUsuario : IVistaTupla {
     string? Id { get; set; }

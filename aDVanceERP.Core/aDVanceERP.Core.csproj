@@ -41,9 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modelos\Interfaces\" />
-    <Folder Include="MVP\Modelos\Plantillas\" />
-    <Folder Include="MVP\Modelos\Repositorios\Plantillas\" />
-    <Folder Include="MVP\Presentadores\Plantillas\" />
     <Folder Include="Servicios\Interfaces\" />
   </ItemGroup>
 </Project>

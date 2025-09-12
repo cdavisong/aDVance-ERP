@@ -11,7 +11,7 @@ public class PresentadorRegistroProveedor : PresentadorVistaRegistro<IVistaRegis
     public PresentadorRegistroProveedor(IVistaRegistroProveedor vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(Proveedor objeto) {
-        Vista.ModoEdicionDatos = true;
+        Vista.ModoEdicion = true;
         Vista.RazonSocial = objeto.RazonSocial ?? string.Empty;
         Vista.NumeroIdentificacionTributaria = objeto.NumeroIdentificacionTributaria ?? string.Empty;
 
@@ -30,7 +30,7 @@ public class PresentadorRegistroProveedor : PresentadorVistaRegistro<IVistaRegis
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result > 0 && !Vista.ModoEdicionDatos;
+        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result > 0 && !Vista.ModoEdicion;
         var nombreOk = !string.IsNullOrEmpty(Vista.RazonSocial) && !nombreEncontrado;
 
         if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
@@ -73,7 +73,7 @@ public class PresentadorRegistroProveedor : PresentadorVistaRegistro<IVistaRegis
             contacto.Direccion = Vista.Direccion;
             contacto.Notas = "Proveedor";
 
-            if (Vista.ModoEdicionDatos && contacto.Id != 0)
+            if (Vista.ModoEdicion && contacto.Id != 0)
                 datosContacto.Editar(contacto);
             else if (contacto.Id != 0)
                 datosContacto.Editar(contacto);
@@ -105,7 +105,7 @@ public class PresentadorRegistroProveedor : PresentadorVistaRegistro<IVistaRegis
                         telefonos.Add(telefonoMovil);
                     }
                 } else {
-                    if (Vista.ModoEdicionDatos && indiceTelefonoMovil != -1) {
+                    if (Vista.ModoEdicion && indiceTelefonoMovil != -1) {
                         datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoMovil].Id);
                         telefonos.RemoveAt(indiceTelefonoMovil);
                     }
@@ -126,14 +126,14 @@ public class PresentadorRegistroProveedor : PresentadorVistaRegistro<IVistaRegis
                         telefonos.Add(telefonoFijo);
                     }
                 } else {
-                    if (Vista.ModoEdicionDatos && indiceTelefonoFijo != -1) {
+                    if (Vista.ModoEdicion && indiceTelefonoFijo != -1) {
                         datosTelefonoContacto.Eliminar(telefonos[indiceTelefonoFijo].Id);
                         telefonos.RemoveAt(indiceTelefonoFijo);
                     }
                 }
 
                 foreach (var telefono in telefonos)
-                    if (Vista.ModoEdicionDatos && telefono.Id != 0)
+                    if (Vista.ModoEdicion && telefono.Id != 0)
                         datosTelefonoContacto.Editar(telefono);
                     else if (telefono.Id != 0)
                         datosTelefonoContacto.Editar(telefono);
@@ -145,7 +145,7 @@ public class PresentadorRegistroProveedor : PresentadorVistaRegistro<IVistaRegis
 
     protected override Proveedor? ObtenerEntidadDesdeVista() {
         return new Proveedor(
-            Vista.ModoEdicionDatos && Entidad != null ? Entidad.Id : 0,
+            Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.RazonSocial,
             Vista.NumeroIdentificacionTributaria,
             UtilesContacto.ObtenerIdContacto(Vista.RazonSocial).Result

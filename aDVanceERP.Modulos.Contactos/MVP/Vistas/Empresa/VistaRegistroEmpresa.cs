@@ -70,7 +70,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
             }
         }
 
-        public bool ModoEdicionDatos {
+        public bool ModoEdicion {
             get => _modoEdicion;
             set {
                 fieldSubtitulo.Text = value ? "Detalles y actualización" : "Registro";
@@ -96,7 +96,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
                     Logotipo = Image.FromFile(buscadorImagen.FileName);
             };
             btnRegistrar.Click += delegate (object? sender, EventArgs args) {
-                if (ModoEdicionDatos)
+                if (ModoEdicion)
                     EditarEntidad?.Invoke(sender, args);
                 else
                     RegistrarEntidad?.Invoke(sender, args);
@@ -117,7 +117,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
             TelefonoFijo = string.Empty;
             CorreoElectronico = string.Empty;
             Direccion = string.Empty;
-            ModoEdicionDatos = false;
+            ModoEdicion = false;
         }
 
         public void Ocultar() {
