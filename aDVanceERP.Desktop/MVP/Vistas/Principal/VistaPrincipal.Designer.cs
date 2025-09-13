@@ -49,7 +49,7 @@
             contenedorMenus = new Panel();
             fieldTitulo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             btnCerrar = new Guna.UI2.WinForms.Guna2ControlBox();
-            btnSubMenuUsuario = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            btnMenuUsuario = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             btnMaximizarRestaurar = new Guna.UI2.WinForms.Guna2ControlBox();
             layoutBarraEstado = new TableLayoutPanel();
             panelPiePagina = new Panel();
@@ -59,7 +59,7 @@
             layoutBarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) fieldIcono).BeginInit();
             contenedorMenus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) btnSubMenuUsuario).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) btnMenuUsuario).BeginInit();
             layoutBarraEstado.SuspendLayout();
             SuspendLayout();
             // 
@@ -185,7 +185,7 @@
             layoutBarraTitulo.Controls.Add(fieldIcono, 0, 0);
             layoutBarraTitulo.Controls.Add(contenedorMenus, 1, 0);
             layoutBarraTitulo.Controls.Add(btnCerrar, 7, 0);
-            layoutBarraTitulo.Controls.Add(btnSubMenuUsuario, 4, 0);
+            layoutBarraTitulo.Controls.Add(btnMenuUsuario, 4, 0);
             layoutBarraTitulo.Controls.Add(btnMaximizarRestaurar, 6, 0);
             layoutBarraTitulo.Dock = DockStyle.Fill;
             layoutBarraTitulo.Location = new Point(0, 0);
@@ -264,21 +264,21 @@
             // 
             // btnSubMenuUsuario
             // 
-            btnSubMenuUsuario.BackgroundImageLayout = ImageLayout.Center;
-            btnSubMenuUsuario.Cursor = Cursors.Hand;
-            btnSubMenuUsuario.Dock = DockStyle.Fill;
-            btnSubMenuUsuario.Image = (Image) resources.GetObject("btnSubMenuUsuario.Image");
-            btnSubMenuUsuario.ImageRotate = 0F;
-            btnSubMenuUsuario.Location = new Point(1157, 1);
-            btnSubMenuUsuario.Margin = new Padding(1);
-            btnSubMenuUsuario.Name = "btnSubMenuUsuario";
-            btnSubMenuUsuario.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            btnSubMenuUsuario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            btnSubMenuUsuario.Size = new Size(48, 51);
-            btnSubMenuUsuario.SizeMode = PictureBoxSizeMode.CenterImage;
-            btnSubMenuUsuario.TabIndex = 0;
-            btnSubMenuUsuario.TabStop = false;
-            btnSubMenuUsuario.Visible = false;
+            btnMenuUsuario.BackgroundImageLayout = ImageLayout.Center;
+            btnMenuUsuario.Cursor = Cursors.Hand;
+            btnMenuUsuario.Dock = DockStyle.Fill;
+            btnMenuUsuario.Image = (Image) resources.GetObject("btnSubMenuUsuario.Image");
+            btnMenuUsuario.ImageRotate = 0F;
+            btnMenuUsuario.Location = new Point(1157, 1);
+            btnMenuUsuario.Margin = new Padding(1);
+            btnMenuUsuario.Name = "btnSubMenuUsuario";
+            btnMenuUsuario.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnMenuUsuario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
+            btnMenuUsuario.Size = new Size(48, 51);
+            btnMenuUsuario.SizeMode = PictureBoxSizeMode.CenterImage;
+            btnMenuUsuario.TabIndex = 0;
+            btnMenuUsuario.TabStop = false;
+            btnMenuUsuario.Visible = false;
             // 
             // btnMaximizarRestaurar
             // 
@@ -353,7 +353,7 @@
             ((System.ComponentModel.ISupportInitialize) fieldIcono).EndInit();
             contenedorMenus.ResumeLayout(false);
             contenedorMenus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) btnSubMenuUsuario).EndInit();
+            ((System.ComponentModel.ISupportInitialize) btnMenuUsuario).EndInit();
             layoutBarraEstado.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -375,7 +375,7 @@
         private Guna.UI2.WinForms.Guna2ControlBox btnMaximizarRestaurar;
         private Guna.UI2.WinForms.Guna2Button btnNotificaciones;
         private Guna.UI2.WinForms.Guna2Button btnMensajes;
-        private Guna.UI2.WinForms.Guna2CirclePictureBox btnSubMenuUsuario;
+        private Guna.UI2.WinForms.Guna2CirclePictureBox btnMenuUsuario;
         private Guna.UI2.WinForms.Guna2HtmlLabel fieldTitulo;
         private Panel panelPiePagina;
     }

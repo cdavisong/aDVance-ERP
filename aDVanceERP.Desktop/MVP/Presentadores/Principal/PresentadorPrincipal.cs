@@ -21,7 +21,7 @@ public partial class PresentadorPrincipal {
         Vista.Mostrar();
 
         // Eventos
-        Vista.SubMenuUsuario += MostrarVistaMenuUsuario;
+        Vista.VerMenuUsuario += MostrarVistaMenuUsuario;
 
         #region Menu de usuario
 

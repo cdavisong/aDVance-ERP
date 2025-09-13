@@ -13,6 +13,8 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos;
 public partial class VistaContenedorModulos : Form, IVistaContenedorModulos {
     public VistaContenedorModulos() {
         InitializeComponent();
+
+
         Inicializar();
     }
 

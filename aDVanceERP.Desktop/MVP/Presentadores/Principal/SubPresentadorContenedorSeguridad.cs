@@ -40,7 +40,7 @@ public partial class PresentadorPrincipal {
         _contenedorSeguridad.Vista.Mostrar();
 
         // Mostrar el botón de sub-menu para usuarios
-        Vista.BtnSubmenuUsuarioDisponible = false;
+        Vista.MenuUsuarioVisible = false;
     }
 
     private void ActualizarRepoEmpresa() {

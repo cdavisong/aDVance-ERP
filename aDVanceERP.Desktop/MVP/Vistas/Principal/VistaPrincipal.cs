@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Utiles;
-using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
-
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
+using aDVanceERP.Desktop.Properties;
 using Guna.UI2.WinForms;
 
 namespace aDVanceERP.Desktop.MVP.Vistas.Principal;
@@ -9,12 +9,40 @@ namespace aDVanceERP.Desktop.MVP.Vistas.Principal;
 public partial class VistaPrincipal : Form, IVistaPrincipal {
     public VistaPrincipal() {
         InitializeComponent();
+
+        Titulo = Resources.TituloAplicacion.Replace("[version]", $"{Program.Version}-beta");
+        BarraTitulo = new RepoVistaBase(barraTitulo);
+        PanelCentral = new PanelCentralVistaPrincipal(this, panelCentral);
+        BarraEstado = new BarraEstadoVistaPrincipal(this, barraEstado);
+
         Inicializar();
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public string Titulo {
+        get => fieldTitulo.Text;
+        private set => fieldTitulo.Text = value;
+    }
 
-    public RepoVistaBase? Menus { get; private set; }
+    public bool MenuUsuarioVisible {
+        get => btnMenuUsuario.Visible;
+        set {
+            btnMenuUsuario.Visible = value;
+            //TODO: btnMensajes.Visible = value; 
+            //TODO: btnNotificaciones.Visible = value;
+        }
+    }
+
+    #region Barra de título
+
+    public RepoVistaBase BarraTitulo { get; private set; }
+    public Guna2Button BtnNotificaciones => btnNotificaciones;
+    public Guna2Button BtnMensajes => btnMensajes;
+    public Guna2CirclePictureBox BtnMenuUsuario => btnMenuUsuario;
+
+    #endregion
+
+    public RepoVistaBase PanelCentral { get; private set; }
+    public RepoVistaBase BarraEstado { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -31,31 +59,14 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
         set => Size = value;
     }
 
-    public int AlturaContenedorVistas {
-        get => contenedorVistas.Height;
+    public string Nombre {
+        get => Name;
+        private set => Name = value;
     }
 
-    public int TuplasMaximasContenedor {
-        get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
-    }
-
-    public Guna2CirclePictureBox BtnSubmenuUsuario {
-        get => btnSubMenuUsuario;
-    }
-
-    public bool BtnSubmenuUsuarioDisponible {
-        get => btnSubMenuUsuario.Visible;
-        set {
-            btnSubMenuUsuario.Visible = value;
-            //TODO: btnMensajes.Visible = value; 
-            //TODO: btnNotificaciones.Visible = value;
-        }
-    }
-
-    public event EventHandler? VerNotificaciones;
+    public event EventHandler? VerMenuUsuario;
     public event EventHandler? VerMensajes;
-    public event EventHandler? SubMenuUsuario;
-    
+    public event EventHandler? VerNotificaciones;
 
     public void Inicializar() {
         FormClosing += delegate {
@@ -64,24 +75,18 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
 
         // Repositorios
         Vistas = new RepoVistaBase(contenedorVistas);
-        Menus = new RepoVistaBase(contenedorMenus);
+        BarraTitulo = new RepoVistaBase(contenedorMenus);
 
         // Eventos        
-        btnNotificaciones.Click += delegate(object? sender, EventArgs args) {
-            VerNotificaciones?.Invoke(sender, args);
-        };
-        btnMensajes.Click += delegate(object? sender, EventArgs args) { 
-            VerMensajes?.Invoke(sender, args); };
-        btnSubMenuUsuario.Click += delegate(object? sender, EventArgs args) { 
-            SubMenuUsuario?.Invoke(sender, args); 
-        };
-        Resize += delegate { };
-        FormClosing += delegate(object? sender, FormClosingEventArgs args) {
-            
-        };
+        btnNotificaciones.Click += (sender, e) => VerNotificaciones?.Invoke(this, EventArgs.Empty);
+        btnMensajes.Click += (sender, e) => VerMensajes?.Invoke(this, EventArgs.Empty);
+        btnMenuUsuario.Click += (sender, e) => VerMenuUsuario?.Invoke(this, EventArgs.Empty);
+        btnMinimizar.Click += (sender, e) => Ocultar();
+        btnRestaurar.Click += (sender, e) => Restaurar();
+        btnCerrar.Click += (sender, e) => Close();
     }
 
-    public void Mostrar() {        
+    public void Mostrar() {
         BringToFront();
         Show();
 
