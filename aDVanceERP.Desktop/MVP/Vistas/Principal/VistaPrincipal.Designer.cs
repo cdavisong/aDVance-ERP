@@ -24,11 +24,11 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaPrincipal));
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -46,19 +46,19 @@
             layoutBarraTitulo = new TableLayoutPanel();
             btnMinimizar = new Guna.UI2.WinForms.Guna2ControlBox();
             fieldIcono = new PictureBox();
-            contenedorMenus = new Panel();
+            barraTitulo = new Panel();
             fieldTitulo = new Guna.UI2.WinForms.Guna2HtmlLabel();
             btnCerrar = new Guna.UI2.WinForms.Guna2ControlBox();
             btnMenuUsuario = new Guna.UI2.WinForms.Guna2CirclePictureBox();
             btnMaximizarRestaurar = new Guna.UI2.WinForms.Guna2ControlBox();
             layoutBarraEstado = new TableLayoutPanel();
-            panelPiePagina = new Panel();
-            contenedorVistas = new Panel();
+            barraEstado = new Panel();
+            panelCentral = new Panel();
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             layoutBarraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) fieldIcono).BeginInit();
-            contenedorMenus.SuspendLayout();
+            barraTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) btnMenuUsuario).BeginInit();
             layoutBarraEstado.SuspendLayout();
             SuspendLayout();
@@ -85,9 +85,9 @@
             btnMensajes.Animated = true;
             btnMensajes.BackgroundImageLayout = ImageLayout.Center;
             btnMensajes.Cursor = Cursors.Hand;
-            btnMensajes.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
+            btnMensajes.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnMensajes.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnMensajes.CustomizableEdges = customizableEdges14;
+            btnMensajes.CustomizableEdges = customizableEdges12;
             btnMensajes.Dock = DockStyle.Fill;
             btnMensajes.FillColor = Color.WhiteSmoke;
             btnMensajes.Font = new Font("Segoe UI", 9F);
@@ -95,7 +95,7 @@
             btnMensajes.Location = new Point(1107, 1);
             btnMensajes.Margin = new Padding(1);
             btnMensajes.Name = "btnMensajes";
-            btnMensajes.ShadowDecoration.CustomizableEdges = customizableEdges15;
+            btnMensajes.ShadowDecoration.CustomizableEdges = customizableEdges13;
             btnMensajes.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnMensajes.Size = new Size(48, 51);
             btnMensajes.TabIndex = 1;
@@ -117,9 +117,9 @@
             btnNotificaciones.Animated = true;
             btnNotificaciones.BackgroundImageLayout = ImageLayout.Center;
             btnNotificaciones.Cursor = Cursors.Hand;
-            btnNotificaciones.CustomImages.Image = (Image) resources.GetObject("resource.Image");
+            btnNotificaciones.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnNotificaciones.CustomImages.ImageAlign = HorizontalAlignment.Center;
-            btnNotificaciones.CustomizableEdges = customizableEdges12;
+            btnNotificaciones.CustomizableEdges = customizableEdges14;
             btnNotificaciones.Dock = DockStyle.Fill;
             btnNotificaciones.FillColor = Color.WhiteSmoke;
             btnNotificaciones.Font = new Font("Segoe UI", 9F);
@@ -127,7 +127,7 @@
             btnNotificaciones.Location = new Point(1057, 1);
             btnNotificaciones.Margin = new Padding(1);
             btnNotificaciones.Name = "btnNotificaciones";
-            btnNotificaciones.ShadowDecoration.CustomizableEdges = customizableEdges13;
+            btnNotificaciones.ShadowDecoration.CustomizableEdges = customizableEdges15;
             btnNotificaciones.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnNotificaciones.Size = new Size(48, 51);
             btnNotificaciones.TabIndex = 1;
@@ -155,7 +155,7 @@
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutVista.Controls.Add(layoutBarraTitulo, 0, 0);
             layoutVista.Controls.Add(layoutBarraEstado, 0, 2);
-            layoutVista.Controls.Add(contenedorVistas, 0, 1);
+            layoutVista.Controls.Add(panelCentral, 0, 1);
             layoutVista.Dock = DockStyle.Fill;
             layoutVista.Location = new Point(1, 1);
             layoutVista.Margin = new Padding(1);
@@ -183,7 +183,7 @@
             layoutBarraTitulo.Controls.Add(btnMensajes, 3, 0);
             layoutBarraTitulo.Controls.Add(btnMinimizar, 5, 0);
             layoutBarraTitulo.Controls.Add(fieldIcono, 0, 0);
-            layoutBarraTitulo.Controls.Add(contenedorMenus, 1, 0);
+            layoutBarraTitulo.Controls.Add(barraTitulo, 1, 0);
             layoutBarraTitulo.Controls.Add(btnCerrar, 7, 0);
             layoutBarraTitulo.Controls.Add(btnMenuUsuario, 4, 0);
             layoutBarraTitulo.Controls.Add(btnMaximizarRestaurar, 6, 0);
@@ -223,15 +223,15 @@
             fieldIcono.TabIndex = 0;
             fieldIcono.TabStop = false;
             // 
-            // contenedorMenus
+            // barraTitulo
             // 
-            contenedorMenus.Controls.Add(fieldTitulo);
-            contenedorMenus.Dock = DockStyle.Top;
-            contenedorMenus.Location = new Point(50, 0);
-            contenedorMenus.Margin = new Padding(0);
-            contenedorMenus.Name = "contenedorMenus";
-            contenedorMenus.Size = new Size(1006, 49);
-            contenedorMenus.TabIndex = 1;
+            barraTitulo.Controls.Add(fieldTitulo);
+            barraTitulo.Dock = DockStyle.Top;
+            barraTitulo.Location = new Point(50, 0);
+            barraTitulo.Margin = new Padding(0);
+            barraTitulo.Name = "barraTitulo";
+            barraTitulo.Size = new Size(1006, 49);
+            barraTitulo.TabIndex = 1;
             // 
             // fieldTitulo
             // 
@@ -262,16 +262,16 @@
             btnCerrar.Size = new Size(48, 51);
             btnCerrar.TabIndex = 2;
             // 
-            // btnSubMenuUsuario
+            // btnMenuUsuario
             // 
             btnMenuUsuario.BackgroundImageLayout = ImageLayout.Center;
             btnMenuUsuario.Cursor = Cursors.Hand;
             btnMenuUsuario.Dock = DockStyle.Fill;
-            btnMenuUsuario.Image = (Image) resources.GetObject("btnSubMenuUsuario.Image");
+            btnMenuUsuario.Image = (Image) resources.GetObject("btnMenuUsuario.Image");
             btnMenuUsuario.ImageRotate = 0F;
             btnMenuUsuario.Location = new Point(1157, 1);
             btnMenuUsuario.Margin = new Padding(1);
-            btnMenuUsuario.Name = "btnSubMenuUsuario";
+            btnMenuUsuario.Name = "btnMenuUsuario";
             btnMenuUsuario.ShadowDecoration.CustomizableEdges = customizableEdges20;
             btnMenuUsuario.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             btnMenuUsuario.Size = new Size(48, 51);
@@ -300,7 +300,7 @@
             layoutBarraEstado.BackColor = Color.White;
             layoutBarraEstado.ColumnCount = 1;
             layoutBarraEstado.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            layoutBarraEstado.Controls.Add(panelPiePagina, 0, 0);
+            layoutBarraEstado.Controls.Add(barraEstado, 0, 0);
             layoutBarraEstado.Dock = DockStyle.Fill;
             layoutBarraEstado.Font = new Font("Segoe UI", 9.75F);
             layoutBarraEstado.ForeColor = Color.White;
@@ -313,24 +313,24 @@
             layoutBarraEstado.Size = new Size(1356, 24);
             layoutBarraEstado.TabIndex = 1;
             // 
-            // panelPiePagina
+            // barraEstado
             // 
-            panelPiePagina.Dock = DockStyle.Fill;
-            panelPiePagina.Location = new Point(10, 0);
-            panelPiePagina.Margin = new Padding(10, 0, 0, 0);
-            panelPiePagina.Name = "panelPiePagina";
-            panelPiePagina.Size = new Size(1346, 24);
-            panelPiePagina.TabIndex = 0;
+            barraEstado.Dock = DockStyle.Fill;
+            barraEstado.Location = new Point(10, 0);
+            barraEstado.Margin = new Padding(10, 0, 0, 0);
+            barraEstado.Name = "barraEstado";
+            barraEstado.Size = new Size(1346, 24);
+            barraEstado.TabIndex = 0;
             // 
-            // contenedorVistas
+            // panelCentral
             // 
-            contenedorVistas.BackColor = Color.White;
-            contenedorVistas.Dock = DockStyle.Fill;
-            contenedorVistas.Location = new Point(0, 55);
-            contenedorVistas.Margin = new Padding(0);
-            contenedorVistas.Name = "contenedorVistas";
-            contenedorVistas.Size = new Size(1356, 603);
-            contenedorVistas.TabIndex = 2;
+            panelCentral.BackColor = Color.White;
+            panelCentral.Dock = DockStyle.Fill;
+            panelCentral.Location = new Point(0, 55);
+            panelCentral.Margin = new Padding(0);
+            panelCentral.Name = "panelCentral";
+            panelCentral.Size = new Size(1356, 603);
+            panelCentral.TabIndex = 2;
             // 
             // VistaPrincipal
             // 
@@ -351,8 +351,8 @@
             layoutVista.ResumeLayout(false);
             layoutBarraTitulo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) fieldIcono).EndInit();
-            contenedorMenus.ResumeLayout(false);
-            contenedorMenus.PerformLayout();
+            barraTitulo.ResumeLayout(false);
+            barraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize) btnMenuUsuario).EndInit();
             layoutBarraEstado.ResumeLayout(false);
             ResumeLayout(false);
@@ -368,15 +368,15 @@
         private TableLayoutPanel layoutBarraTitulo;
         private TableLayoutPanel layoutBarraEstado;
         private PictureBox fieldIcono;
-        private Panel contenedorMenus;
+        private Panel barraTitulo;
         private Guna.UI2.WinForms.Guna2ControlBox btnCerrar;
-        private Panel contenedorVistas;
+        private Panel panelCentral;
         private Guna.UI2.WinForms.Guna2ControlBox btnMinimizar;
         private Guna.UI2.WinForms.Guna2ControlBox btnMaximizarRestaurar;
         private Guna.UI2.WinForms.Guna2Button btnNotificaciones;
         private Guna.UI2.WinForms.Guna2Button btnMensajes;
         private Guna.UI2.WinForms.Guna2CirclePictureBox btnMenuUsuario;
         private Guna.UI2.WinForms.Guna2HtmlLabel fieldTitulo;
-        private Panel panelPiePagina;
+        private Panel barraEstado;
     }
 }

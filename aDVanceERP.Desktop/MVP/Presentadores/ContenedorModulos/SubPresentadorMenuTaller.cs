@@ -10,7 +10,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _menuTaller.Vista.VerOrdenesProduccion += MostrarVistaGestionOrdenesProduccion;
             _menuTaller.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
 
-            VistaPrincipal.Menus.Registrar("vistaMenuTaller", _menuTaller.Vista);
+            VistaPrincipal.BarraTitulo.Registrar("vistaMenuTaller", _menuTaller.Vista);
         }
 
         private void MostrarVistaMenuTaller(object? sender, EventArgs e) {

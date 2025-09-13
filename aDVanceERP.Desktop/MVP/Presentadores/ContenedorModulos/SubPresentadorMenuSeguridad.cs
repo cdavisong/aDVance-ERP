@@ -14,7 +14,7 @@ public partial class PresentadorContenedorModulos {
             Vista.Vistas?.OcultarTodos(); 
         };
 
-        VistaPrincipal.Menus.Registrar("vistaMenuSeguridad", _menuSeguridad.Vista);
+        VistaPrincipal.BarraTitulo.Registrar("vistaMenuSeguridad", _menuSeguridad.Vista);
     }
 
     private void MostrarVistaMenuSeguridad(object? sender, EventArgs e) {

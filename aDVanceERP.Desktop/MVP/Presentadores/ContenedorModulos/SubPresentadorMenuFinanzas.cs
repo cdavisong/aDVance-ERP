@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
         _menuFinanzas.Vista.VerCajas += MostrarVistaGestionCajas;
         _menuFinanzas.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
 
-        VistaPrincipal.Menus.Registrar("vistaMenuFinanzas", _menuFinanzas.Vista);
+        VistaPrincipal.BarraTitulo.Registrar("vistaMenuFinanzas", _menuFinanzas.Vista);
     }
 
     private void MostrarVistaMenuFinanzas(object? sender, EventArgs e) {

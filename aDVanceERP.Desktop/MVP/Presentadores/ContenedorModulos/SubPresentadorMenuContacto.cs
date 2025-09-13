@@ -14,7 +14,7 @@ public partial class PresentadorContenedorModulos {
         _menuContacto.Vista.VerContactos += MostrarVistaGestionContactos;
         _menuContacto.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
 
-        VistaPrincipal.Menus.Registrar("vistaMenuContacto", _menuContacto.Vista);
+        VistaPrincipal.BarraTitulo.Registrar("vistaMenuContacto", _menuContacto.Vista);
     }
 
     private void MostrarVistaMenuContacto(object? sender, EventArgs e) {

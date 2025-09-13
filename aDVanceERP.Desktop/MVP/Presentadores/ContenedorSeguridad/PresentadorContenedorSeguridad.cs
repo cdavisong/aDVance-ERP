@@ -1,7 +1,7 @@
 ﻿using aDVanceERP.Core.Presentadores.Comun;
 using aDVanceERP.Core.Vistas.BD;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas;
-using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad;
 

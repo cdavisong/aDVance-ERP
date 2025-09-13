@@ -15,11 +15,11 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
             };
             _menuUsuario.Vista.CerrarSesion += MostrarVistaContenedorSeguridad;
             _menuUsuario.Vista.CerrarSesion += delegate {
-                Vista.Menus.OcultarTodos();
+                Vista.BarraTitulo.OcultarTodos();
                 _contenedorModulos?.Vista.Ocultar();
             };
 
-            Vista.Vistas?.Registrar("menuUsuario", 
+            Vista.PanelCentral?.Registrar("menuUsuario", 
                 _menuUsuario.Vista,
                 new Point(Vista.Dimensiones.Width - _menuUsuario.Vista.Dimensiones.Width - 150, 0),
                 _menuUsuario.Vista.Dimensiones,

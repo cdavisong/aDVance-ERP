@@ -13,7 +13,7 @@ public partial class PresentadorContenedorModulos {
         _menuInventario.Vista.VerAlmacenes += MostrarVistaGestionAlmacenes;
         _menuInventario.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
 
-        VistaPrincipal.Menus.Registrar("vistaMenuInventario", _menuInventario.Vista);
+        VistaPrincipal.BarraTitulo.Registrar("vistaMenuInventario", _menuInventario.Vista);
     }
 
     private void MostrarVistaMenuInventario(object? sender, EventArgs e) {

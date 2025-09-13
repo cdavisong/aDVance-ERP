@@ -1,6 +1,6 @@
 ﻿using aDVanceERP.Core.Presentadores.Comun;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 using aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
-using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 

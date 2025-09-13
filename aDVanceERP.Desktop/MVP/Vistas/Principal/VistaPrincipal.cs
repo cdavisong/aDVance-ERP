@@ -1,5 +1,4 @@
 ﻿using aDVanceERP.Core.Repositorios.Comun;
-using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Vistas.Comun.Interfaces;
 using aDVanceERP.Desktop.Properties;
 using Guna.UI2.WinForms;
@@ -12,8 +11,8 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
 
         Titulo = Resources.TituloAplicacion.Replace("[version]", $"{Program.Version}-beta");
         BarraTitulo = new RepoVistaBase(barraTitulo);
-        PanelCentral = new PanelCentralVistaPrincipal(this, panelCentral);
-        BarraEstado = new BarraEstadoVistaPrincipal(this, barraEstado);
+        PanelCentral = new RepoVistaBase(panelCentral);
+        BarraEstado = new RepoVistaBase(barraEstado);
 
         Inicializar();
     }
@@ -73,17 +72,18 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
             Cerrar();
         };
 
-        // Repositorios
-        Vistas = new RepoVistaBase(contenedorVistas);
-        BarraTitulo = new RepoVistaBase(contenedorMenus);
-
         // Eventos        
         btnNotificaciones.Click += (sender, e) => VerNotificaciones?.Invoke(this, EventArgs.Empty);
         btnMensajes.Click += (sender, e) => VerMensajes?.Invoke(this, EventArgs.Empty);
         btnMenuUsuario.Click += (sender, e) => VerMenuUsuario?.Invoke(this, EventArgs.Empty);
         btnMinimizar.Click += (sender, e) => Ocultar();
-        btnRestaurar.Click += (sender, e) => Restaurar();
         btnCerrar.Click += (sender, e) => Close();
+    }
+
+    public void ModificarVisibilidadBotonesBarraTitulo(bool visible) {
+        btnNotificaciones.Visible = visible;
+        btnMensajes.Visible = visible;
+        btnMenuUsuario.Visible = visible;
     }
 
     public void Mostrar() {
@@ -98,10 +98,12 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
     }
 
     public void Restaurar() {
-        throw new NotImplementedException();
+        //...
     }
 
     public void Cerrar() {
-        Vistas?.CerrarTodos();
+        BarraTitulo?.CerrarTodos();
+        PanelCentral?.CerrarTodos();
+        BarraEstado?.CerrarTodos();
     }
 }

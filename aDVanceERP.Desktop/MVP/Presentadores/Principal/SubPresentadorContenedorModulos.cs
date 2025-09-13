@@ -8,9 +8,9 @@ public partial class PresentadorPrincipal {
 
     private void InicializarVistaContenedorModulos() {
         _contenedorModulos = new PresentadorContenedorModulos(Vista, new VistaContenedorModulos());
-        _contenedorModulos.Vista.CambioModulo += delegate { Vista.Menus.OcultarTodos(); };
+        _contenedorModulos.Vista.CambioModulo += delegate { Vista.BarraTitulo.OcultarTodos(); };
 
-        Vista.Vistas?.Registrar("vistaContenedorModulos", _contenedorModulos.Vista);
+        Vista.PanelCentral?.Registrar("vistaContenedorModulos", _contenedorModulos.Vista);
     }
 
     private void MostrarVistaContenedorModulos(object? sender, EventArgs e) {

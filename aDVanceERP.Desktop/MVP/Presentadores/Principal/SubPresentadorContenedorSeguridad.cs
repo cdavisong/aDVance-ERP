@@ -29,7 +29,7 @@ public partial class PresentadorPrincipal {
             } else return;
         };
 
-        Vista.Vistas?.Registrar("vistaContenedorSeguridad", _contenedorSeguridad.Vista);
+        Vista.PanelCentral?.Registrar("vistaContenedorSeguridad", _contenedorSeguridad.Vista);
     }
 
     private void MostrarVistaContenedorSeguridad(object? sender, EventArgs e) {

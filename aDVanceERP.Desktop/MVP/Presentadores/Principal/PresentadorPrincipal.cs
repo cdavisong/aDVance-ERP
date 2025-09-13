@@ -1,9 +1,10 @@
 ﻿using aDVanceERP.Core.Excepciones;
 using aDVanceERP.Core.Mensajes.MVP.Modelos;
 using aDVanceERP.Core.Mensajes.Utiles;
+using aDVanceERP.Core.Presentadores.Comun.Interfaces;
 using aDVanceERP.Core.Seguridad.Utiles;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 using aDVanceERP.Desktop.MVP.Vistas.Principal;
-using aDVanceERP.Desktop.MVP.Vistas.Principal.Plantillas;
 using aDVanceERP.Modulos.CompraVenta;
 using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
@@ -13,7 +14,7 @@ using aDVanceERP.Modulos.Taller;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal;
 
-public partial class PresentadorPrincipal {
+public partial class PresentadorPrincipal : IPresentadorVistaPrincipal<IVistaPrincipal> {
     private Empresa? _empresa;
 
     public PresentadorPrincipal() {
