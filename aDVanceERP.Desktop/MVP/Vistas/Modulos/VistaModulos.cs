@@ -2,7 +2,6 @@
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
 using aDVanceERP.Core.Vistas.Comun.Interfaces;
-using aDVanceERP.Desktop.Properties;
 using aDVanceERP.Modulos.CompraVenta;
 using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Finanzas;
@@ -17,8 +16,7 @@ public partial class VistaModulos : Form, IVistaModulos {
 
         NombreVista = nameof(VistaModulos);
         PanelCentral = new RepoVistaBase(panelCentral);
-        MensajePortada = Resources.MensajePortada.Replace("[version]", $"{Program.Version}-beta");
-
+        
         Inicializar();
     }
 

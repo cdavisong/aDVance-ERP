@@ -142,81 +142,81 @@
   <data name="MensajePortada" xml:space="preserve">
     <value>&lt;!DOCTYPE html&gt;
 &lt;html lang="es"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;style&gt;
-        body {
-            font-family: Segoe UI, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-        .header {
-            color: #FFFFFF;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        .logo {
-            font-family: Segoe UI, sans-serif;
-            font-size: 24px;
-        }
-        .dv {
-            color: Gray;
-            font-weight: bold;
-        }
-        .advance {
-            color: #333333;
-            font-weight: bold;
-        }
-        .erp {
-            background-color: Firebrick;
-            color: white;
-            font-weight: bold;
-            padding: 2px;
-        }
-        .version {
-            color: Gray;
-            font-size: 10px;
-        }
-        .welcome-text {
-            margin-top: 20px;
-            font-size: 24px;
-        }
-        .description {
-            margin-top: 10px;
-            font-size: 16px;
-        }
-.trust-section {
-    margin-top: 40px;
-    padding: 20px;
-}
-.trust-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333333;
-}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div class="header"&gt;
-        &lt;div class="logo"&gt;
-            &lt;span class="advance"&gt;a&lt;/span&gt;&lt;span class="dv"&gt;DV&lt;/span&gt;&lt;span class="advance"&gt;ance&lt;/span&gt; &lt;span class="erp"&gt;ERP&lt;/span&gt; &lt;span class="version"&gt;[version]&lt;/span&gt;  
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="welcome-text"&gt;
-        &lt;p&gt;¡Estamos encantados de tenerte aquí!&lt;/p&gt;
-        &lt;p&gt;La solución integral para la gestión de tus recursos empresariales comienza ahora.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div class="description"&gt;
-        &lt;p&gt;Con aDVance ERP, optimiza tus procesos, mejora la eficiencia y lleva tu negocio al siguiente nivel.&lt;/p&gt;
-        &lt;p&gt;Explora nuestras funcionalidades y descubre cómo podemos ayudarte a alcanzar el éxito.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div class=""trust-section""&gt;
-        &lt;div class=""trust-title""&gt;Estas empresas confían en nosotros. Únete a la familia!&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;p&gt;&lt;/p&gt;
-&lt;/body&gt;
+	&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt;
+	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+	&lt;style&gt;
+		body {
+			font-family: Segoe UI, sans-serif;
+			text-align: center;
+			padding: 10px;
+		}
+		.header {
+			color: #FFFFFF;
+			padding: 20px;
+			border-radius: 8px;
+		}
+		.logo {
+			font-family: Segoe UI, sans-serif;
+			font-size: 24px; /* Tamaño de fuente ajustado */
+		}
+		.dv {
+			color: Gray;
+			font-weight: bold;
+		}
+		.advance {
+			color: #333333;
+			font-weight: bold;
+		}
+		.erp {
+			background-color: Firebrick;
+			color: white;
+			font-weight: bold;
+			padding: 2px;
+		}
+		.version {
+			color: Gray;
+			font-size: 10px;
+		}
+		.welcome-text {
+			margin-top: 20px;
+			font-size: 24px;
+		}
+		.description {
+			margin-top: 10px;
+			font-size: 16px;
+		}
+		.trust-section {
+			margin-top: 40px;
+			padding: 20px;
+		}
+		.trust-title {
+			font-size: 20px;
+			font-weight: bold;
+			margin-bottom: 20px;
+			color: #333333;
+		}
+	&lt;/style&gt;
+	&lt;/head&gt;
+	&lt;body&gt;
+		&lt;div class="header"&gt;
+			&lt;div class="logo"&gt;
+				&lt;span class="advance"&gt;a&lt;/span&gt;&lt;span class="dv"&gt;DV&lt;/span&gt;&lt;span class="advance"&gt;ance&lt;/span&gt; &lt;span class="erp"&gt;ERP&lt;/span&gt; &lt;span class="version"&gt;[version]&lt;/span&gt;  
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;div class="welcome-text"&gt;
+			&lt;p&gt;Hola [user], ¡Estamos encantados de tenerte aquí!&lt;/p&gt;
+			&lt;p&gt;La solución integral para la gestión de tus recursos empresariales comienza ahora.&lt;/p&gt;
+		&lt;/div&gt;
+		&lt;div class="description"&gt;
+			&lt;p&gt;Con aDVance ERP, optimiza tus procesos, mejora la eficiencia y lleva tu negocio al siguiente nivel.&lt;/p&gt;
+			&lt;p&gt;Explora nuestras funcionalidades y descubre cómo podemos ayudarte a alcanzar el éxito.&lt;/p&gt;
+		&lt;/div&gt;
+
+		&lt;div class="trust-section"&gt;
+			&lt;div class="trust-title"&gt;Estas empresas confían en nosotros. Únete a la familia!&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/body&gt;
 &lt;/html&gt;</value>
   </data>
   <data name="TituloAplicacion" xml:space="preserve">

@@ -6,7 +6,7 @@ public interface IVistaModulos : IVistaBase {
     FlowLayoutPanel PanelMenuLateral { get; }
     RepoVistaBase PanelCentral { get; }
 
-    string MensajePortada { get; }
+    string MensajePortada { get; set; }
 
     event EventHandler? MostrarVistaInicio;
     event EventHandler? MostrarVistaEstadisticas;

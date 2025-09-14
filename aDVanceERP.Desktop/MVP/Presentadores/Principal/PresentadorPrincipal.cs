@@ -13,7 +13,7 @@ using aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad;
 using aDVanceERP.Desktop.MVP.Vistas.Modulos;
 using aDVanceERP.Desktop.MVP.Vistas.Principal;
 using aDVanceERP.Desktop.MVP.Vistas.Seguridad;
-
+using aDVanceERP.Desktop.Properties;
 using aDVanceERP.Modulos.CompraVenta;
 using aDVanceERP.Modulos.Contactos;
 using aDVanceERP.Modulos.Contactos.MVP.Modelos;
@@ -111,7 +111,9 @@ public partial class PresentadorPrincipal : IPresentadorVistaPrincipal<IVistaPri
         }
         else return;
 
-
+        Modulos.Vista.MensajePortada = Resources.MensajePortada
+            .Replace("[version]", $"{Program.Version}-beta")
+            .Replace("[user]", UtilesCuentaUsuario.UsuarioAutenticado?.Nombre ?? "invitado");
     }
 
     private void OnSesionCerrada(string obj) {
