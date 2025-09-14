@@ -14,7 +14,15 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
 
     public VistaRegistroRolUsuario() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroRolUsuario);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public int AlturaContenedorVistas {
@@ -25,7 +33,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public RepoVistaBase? PanelCentral { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -78,7 +86,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
 
     public void Inicializar() {
         Permisos = new List<string[]>();
-        Vistas = new RepoVistaBase(contenedorVistas);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) {
@@ -156,7 +164,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
             var permiso = Permisos[i];
             var tuplaPermisoRol = new VistaTuplaPermiso();
 
-            tuplaPermisoRol.IdPermiso = permiso[0];
+            tuplaPermisoRol.Id = permiso[0];
             tuplaPermisoRol.NombrePermiso = permiso[1];
             tuplaPermisoRol.EliminarDatosTupla += delegate (object? sender, EventArgs args) {
                 permiso = sender as string[];
@@ -166,8 +174,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
             };
 
             // Registro y muestra
-            Vistas?.Registrar(
-                $"vistaTupla{tuplaPermisoRol.GetType().Name}{i}",
+            PanelCentral?.Registrar(
                 tuplaPermisoRol,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                 new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 

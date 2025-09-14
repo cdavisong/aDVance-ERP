@@ -8,7 +8,15 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
 
         public VistaRegistroEmpresa() {
             InitializeComponent();
+
+            NombreVista = nameof(VistaRegistroEmpresa);
+
             Inicializar();
+        }
+
+        public string NombreVista {
+            get => Name;
+            private set => Name = value;
         }
 
         public bool Habilitada {
@@ -33,7 +41,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
                 var logotipo = value.ObtenerRecorteImagen100x100();
 
                 using (var g = Graphics.FromImage(imagen)) {
-                    g.Clear(Color.White);
+                    g.Clear(System.Drawing.Color.White);
                     g.DrawImage(logotipo, 0, 0, 100, 100);
                     g.DrawImage(Resources.mascara, 0, 0, 100, 100);
                 }
@@ -42,7 +50,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
             }
         }
 
-        public string Nombre {
+        public string NombreEmpresa {
             get => fieldNombre.Text;
             set => fieldNombre.Text = value;
         }
@@ -112,7 +120,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Empresa {
         }
 
         public void Restaurar() {
-            Nombre = string.Empty;
+            NombreEmpresa = string.Empty;
             TelefonoMovil = string.Empty;
             TelefonoFijo = string.Empty;
             CorreoElectronico = string.Empty;

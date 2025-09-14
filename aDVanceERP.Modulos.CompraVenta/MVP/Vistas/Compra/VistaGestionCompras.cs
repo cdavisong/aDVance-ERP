@@ -15,7 +15,15 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
 
     public VistaGestionCompras() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaGestionCompras);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -83,7 +91,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
         }
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public RepoVistaBase? PanelCentral { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -101,7 +109,7 @@ public partial class VistaGestionCompras : Form, IVistaGestionCompras {
 
     public void Inicializar() {
         // Vistas
-        Vistas = new RepoVistaBase(contenedorVistas);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         btnDescargar.Click += delegate {

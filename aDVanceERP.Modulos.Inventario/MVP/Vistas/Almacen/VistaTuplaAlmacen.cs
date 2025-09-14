@@ -10,6 +10,11 @@ public partial class VistaTuplaAlmacen : Form, IVistaTuplaAlmacen {
         Inicializar();
     }
 
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
+    }
+
     public bool Habilitada {
         get => Enabled;
         set => Enabled = value;
@@ -30,7 +35,7 @@ public partial class VistaTuplaAlmacen : Form, IVistaTuplaAlmacen {
         set => fieldId.Text = value;
     }
 
-    public string Nombre {
+    public string NombreAlmacen {
         get => fieldNombre.Text;
         set => fieldNombre.Text = value;
     }

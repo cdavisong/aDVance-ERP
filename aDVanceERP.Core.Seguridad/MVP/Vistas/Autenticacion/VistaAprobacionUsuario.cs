@@ -5,7 +5,15 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion;
 public partial class VistaAprobacionUsuario : Form, IVistaAprobacionUsuario {
     public VistaAprobacionUsuario() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaAprobacionUsuario);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

@@ -2,7 +2,8 @@
 
 namespace aDVanceERP.Core.Vistas.Comun.Interfaces;
 
-public interface IVistaBase : IEntidadBase {
+public interface IVistaBase : IEntidadBase, IDisposable {
+    string NombreVista { get; }
     bool Habilitada { get; set; }
     Point Coordenadas { get; set; }
     Size Dimensiones { get; set; }

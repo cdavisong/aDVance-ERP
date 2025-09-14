@@ -13,7 +13,15 @@ public partial class VistaGestionClientes : Form, IVistaGestionClientes {
 
     public VistaGestionClientes() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaGestionClientes);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -68,7 +76,7 @@ public partial class VistaGestionClientes : Form, IVistaGestionClientes {
         }
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public RepoVistaBase? PanelCentral { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -84,7 +92,7 @@ public partial class VistaGestionClientes : Form, IVistaGestionClientes {
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepoVistaBase(contenedorVistas);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         fieldFiltroBusqueda.SelectedIndexChanged += delegate {

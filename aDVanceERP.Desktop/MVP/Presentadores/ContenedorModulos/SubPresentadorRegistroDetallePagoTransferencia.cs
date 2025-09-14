@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroDetallePagoTransferencia? _registroDetallePagoTransferencia;
 
     private string[]? Transferencia { get; set; } = Array.Empty<string>();

@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorGestionProductos? _gestionProductos;
 
     private async void InicializarVistaGestionProductos() {
@@ -15,8 +15,7 @@ public partial class PresentadorContenedorModulos {
         _gestionProductos.EditarEntidad += MostrarVistaEdicionProducto;
         _gestionProductos.Vista.RegistrarEntidad += MostrarVistaRegistroProducto;
 
-        if (Vista.Vistas != null)
-            await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionProductos", _gestionProductos.Vista));
+        Vista.PanelCentral.Registrar(_gestionProductos.Vista);
     }
 
     private void MostrarVistaGestionProductos(object? sender, EventArgs e) {

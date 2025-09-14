@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Cliente;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroCliente? _registroCliente;
 
     private void InicializarVistaRegistroCliente() {

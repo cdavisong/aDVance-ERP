@@ -9,6 +9,7 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
     public VistaPrincipal() {
         InitializeComponent();
 
+        NombreVista = nameof(VistaPrincipal);
         Titulo = Resources.TituloAplicacion.Replace("[version]", $"{Program.Version}-beta");
         BarraTitulo = new RepoVistaBase(barraTitulo);
         PanelCentral = new RepoVistaBase(panelCentral);
@@ -20,15 +21,6 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
     public string Titulo {
         get => fieldTitulo.Text;
         private set => fieldTitulo.Text = value;
-    }
-
-    public bool MenuUsuarioVisible {
-        get => btnMenuUsuario.Visible;
-        set {
-            btnMenuUsuario.Visible = value;
-            //TODO: btnMensajes.Visible = value; 
-            //TODO: btnNotificaciones.Visible = value;
-        }
     }
 
     #region Barra de título
@@ -43,6 +35,11 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
     public RepoVistaBase PanelCentral { get; private set; }
     public RepoVistaBase BarraEstado { get; private set; }
 
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
+    }
+
     public bool Habilitada {
         get => Enabled;
         set => Enabled = value;
@@ -56,11 +53,6 @@ public partial class VistaPrincipal : Form, IVistaPrincipal {
     public Size Dimensiones {
         get => Size;
         set => Size = value;
-    }
-
-    public string Nombre {
-        get => Name;
-        private set => Name = value;
     }
 
     public event EventHandler? VerMenuUsuario;

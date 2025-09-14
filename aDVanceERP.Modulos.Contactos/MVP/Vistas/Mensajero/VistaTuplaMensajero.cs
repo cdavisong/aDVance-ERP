@@ -9,7 +9,15 @@ public partial class VistaTuplaMensajero : Form, IVistaTuplaMensajero {
 
     public VistaTuplaMensajero() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaMensajero);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -32,7 +40,7 @@ public partial class VistaTuplaMensajero : Form, IVistaTuplaMensajero {
         set => fieldId.Text = value;
     }
 
-    public string Nombre {
+    public string NombreMensajero {
         get => fieldNombre.Text;
         set => fieldNombre.Text = value;
     }

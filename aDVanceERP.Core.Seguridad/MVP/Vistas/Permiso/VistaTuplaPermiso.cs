@@ -7,7 +7,15 @@ public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
 
     public VistaTuplaPermiso() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaPermiso);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -25,7 +33,7 @@ public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
         set => Size = value;
     }
 
-    public string? IdPermiso {
+    public string? Id {
         get => _idPermiso;
         set => _idPermiso = value ?? string.Empty;
     }
@@ -50,7 +58,7 @@ public partial class VistaTuplaPermiso : Form, IVistaTuplaPermiso {
         fieldNombrePermiso.Click += delegate(object? sender, EventArgs e) { TuplaSeleccionada?.Invoke(this, e); };
 
         btnEliminar.Click += delegate(object? sender, EventArgs e) {
-            EliminarDatosTupla?.Invoke(new[] { IdPermiso ?? string.Empty, NombrePermiso ?? string.Empty }, e);
+            EliminarDatosTupla?.Invoke(new[] { Id ?? string.Empty, NombrePermiso ?? string.Empty }, e);
         };
     }
 

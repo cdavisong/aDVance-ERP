@@ -11,14 +11,14 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorVistaRegistro<IVis
 
     public override void PopularVistaDesdeEntidad(TipoMateriaPrima objeto) {
         Vista.ModoEdicion = true;
-        Vista.Nombre = objeto.Nombre;
+        Vista.NombreTipoMateriaPrima = objeto.Nombre;
         Vista.Descripcion = objeto.Descripcion ?? string.Empty;
 
         _entidad = objeto;
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
+        var nombreOk = !string.IsNullOrEmpty(Vista.NombreTipoMateriaPrima);
 
         if (!nombreOk)
             CentroNotificaciones.Mostrar("El campo de nombre es obligatorio para el tipo de materia prima, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
@@ -29,7 +29,7 @@ public class PresentadorRegistroTipoMateriaPrima : PresentadorVistaRegistro<IVis
     protected override TipoMateriaPrima? ObtenerEntidadDesdeVista() {
         return new TipoMateriaPrima(
             Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
-            Vista.Nombre,
+            Vista.NombreTipoMateriaPrima,
             string.IsNullOrEmpty(Vista.Descripcion) ? null : Vista.Descripcion
         );
     }

@@ -5,7 +5,6 @@ namespace aDVanceERP.Core.Vistas.Comun.Interfaces;
 
 public interface IVistaPrincipal : IVistaBase {
     string Titulo { get; }
-    bool MenuUsuarioVisible { get; set; }
 
     #region Barra de título
 

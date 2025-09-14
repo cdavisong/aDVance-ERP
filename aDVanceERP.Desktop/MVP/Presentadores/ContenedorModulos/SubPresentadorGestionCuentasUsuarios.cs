@@ -4,7 +4,7 @@ using aDVanceERP.Core.Seguridad.MVP.Vistas.CuentaUsuario;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorGestionCuentasUsuarios? _gestionCuentasUsuarios;
 
     private async void InicializarVistaGestionCuentasUsuarios() {
@@ -12,8 +12,7 @@ public partial class PresentadorContenedorModulos {
         _gestionCuentasUsuarios.EditarEntidad += MostrarVistaEdicionCuentaUsuario;
         _gestionCuentasUsuarios.Vista.RegistrarEntidad += MostrarVistaRegistroCuentaUsuario;
 
-        if (Vista.Vistas != null)
-            await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasUsuarios", _gestionCuentasUsuarios.Vista));
+        Vista.PanelCentral.Registrar(_gestionCuentasUsuarios.Vista);
     }
 
     private  void MostrarVistaGestionCuentasUsuarios(object? sender, EventArgs e) {

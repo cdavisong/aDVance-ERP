@@ -7,7 +7,15 @@ public partial class VistaTuplaPago : Form, IVistaTuplaPago {
 
     public VistaTuplaPago() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaPago);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Indice}";
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -27,6 +35,8 @@ public partial class VistaTuplaPago : Form, IVistaTuplaPago {
         get => Size;
         set => Size = value;
     }
+
+    public int Indice { get; set; }
 
     public string MetodoPago {
         get => fieldMetodoPago.Text;

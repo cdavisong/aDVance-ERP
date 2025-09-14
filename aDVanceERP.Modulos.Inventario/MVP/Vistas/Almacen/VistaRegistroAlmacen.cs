@@ -10,6 +10,11 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         Inicializar();
     }
 
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
+    }
+
     public bool Habilitada {
         get => Enabled;
         set => Enabled = value;
@@ -25,7 +30,7 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
         set => Size = value;
     }
 
-    public string Nombre {
+    public string NombreAlmacen {
         get => fieldNombre.Text;
         set => fieldNombre.Text = value;
     }
@@ -78,7 +83,7 @@ public partial class VistaRegistroAlmacen : Form, IVistaRegistroAlmacen {
     }
 
     public void Restaurar() {
-        Nombre = string.Empty;
+        NombreAlmacen = string.Empty;
         Direccion = string.Empty;
         AutorizoVenta = false;
         Descripcion = string.Empty;

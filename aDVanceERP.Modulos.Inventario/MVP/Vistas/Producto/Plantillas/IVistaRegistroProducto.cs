@@ -6,7 +6,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Producto.Plantillas;
 public interface IVistaRegistroProducto : IVistaRegistro {
     // P1 : Datos generales
     CategoriaProducto CategoriaProducto { get; set; }
-    string Nombre { get; set; }
+    string NombreProducto { get; set; }
     string Codigo { get; set; }
     string Descripcion { get; set; }
 

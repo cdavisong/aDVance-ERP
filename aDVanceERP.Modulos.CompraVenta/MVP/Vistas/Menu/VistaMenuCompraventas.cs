@@ -6,7 +6,15 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Menu;
 public partial class VistaMenuCompraventas : Form, IVistaMenuVentas {
     public VistaMenuCompraventas() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaMenuCompraventas);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

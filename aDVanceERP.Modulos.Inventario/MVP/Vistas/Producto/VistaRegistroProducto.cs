@@ -12,8 +12,16 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
 
     public VistaRegistroProducto() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroProducto);
+
         InicializarVistas();
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -36,7 +44,7 @@ public partial class VistaRegistroProducto : Form, IVistaRegistroProducto {
         set => P1DatosGenerales.CategoriaProducto = value;
     }
 
-    public string Nombre {
+    public string NombreProducto {
         get => P1DatosGenerales.Nombre;
         set => P1DatosGenerales.Nombre = value;
     }

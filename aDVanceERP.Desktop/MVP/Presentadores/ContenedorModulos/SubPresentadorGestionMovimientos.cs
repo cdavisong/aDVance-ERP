@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorGestionMovimientos? _gestionMovimientos;
 
     private async void InicializarVistaGestionMovimientos() {
@@ -12,8 +12,7 @@ public partial class PresentadorContenedorModulos {
         _gestionMovimientos.EditarEntidad += MostrarVistaEdicionMovimiento;
         _gestionMovimientos.Vista.RegistrarEntidad += MostrarVistaRegistroMovimiento;
 
-        if (Vista.Vistas != null)
-            await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionMovimientos", _gestionMovimientos.Vista));
+        Vista.PanelCentral.Registrar(_gestionMovimientos.Vista);
     }
 
     private void MostrarVistaGestionMovimientos(object? sender, EventArgs e) {

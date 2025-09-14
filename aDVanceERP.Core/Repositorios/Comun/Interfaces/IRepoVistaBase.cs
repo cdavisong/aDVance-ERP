@@ -8,8 +8,8 @@ public interface IRepoVistaBase<Vb> : IRepoBase<IVistaBase>
     Dictionary<string, Vb>? Vistas { get; }
     Vb? VistaActual { get; }
 
-    void Registrar(string nombre, Vb vista);
-    void Registrar(string nombre, IVistaBase vista, Point coordenadas, Size dimensiones, TipoRedimensionadoVista tipoRedimensionado);
+    void Registrar(Vb vista);
+    void Registrar(IVistaBase vista, Point coordenadas, Size dimensiones, TipoRedimensionadoVista tipoRedimensionado);
 
     void Inicializar(string nombre);
     void Mostrar(string nombre);

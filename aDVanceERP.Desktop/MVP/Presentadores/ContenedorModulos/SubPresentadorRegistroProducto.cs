@@ -8,7 +8,7 @@ using aDVanceERP.Core.Repositorios.Modulos.Inventario;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroProducto? _registroProducto;
 
     private void InicializarVistaRegistroProducto() {

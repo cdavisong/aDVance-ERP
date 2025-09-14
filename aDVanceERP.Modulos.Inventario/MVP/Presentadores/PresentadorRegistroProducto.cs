@@ -14,7 +14,7 @@ public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegist
     public override void PopularVistaDesdeEntidad(Producto objeto) {
         Vista.ModoEdicion = true;
         Vista.CategoriaProducto = objeto.Categoria;
-        Vista.Nombre = objeto.Nombre ?? string.Empty;
+        Vista.NombreProducto = objeto.Nombre ?? string.Empty;
         Vista.Codigo = objeto.Codigo ?? string.Empty;
         Vista.RazonSocialProveedor = UtilesProveedor.ObtenerRazonSocialProveedor(objeto.IdProveedor) ?? string.Empty;
         Vista.EsVendible = objeto.EsVendible;
@@ -38,13 +38,13 @@ public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegist
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreRepetido = UtilesProducto.ObtenerIdProducto(Vista.Nombre).Result > 0;
-        var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
+        var nombreRepetido = !Vista.ModoEdicion && UtilesProducto.ObtenerIdProducto(Vista.NombreProducto).Result > 0;
+        var nombreOk = !string.IsNullOrEmpty(Vista.NombreProducto) && !nombreRepetido;
         var codigoOk = !string.IsNullOrEmpty(Vista.Codigo);
         var unidadMedidaOk = !string.IsNullOrEmpty(Vista.UnidadMedida);
 
         if (nombreRepetido)
-            CentroNotificaciones.Mostrar("Ye existe un producto con el mismo nombre registrado en el sistema, los nombres de producto deben ser únicos.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
+            CentroNotificaciones.Mostrar("Ye existe un producto con el mismo nombre registrado en el sistema, los nombres de productos deben ser únicos.", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!nombreOk)
             CentroNotificaciones.Mostrar("El campo de nombre es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
         if (!codigoOk)
@@ -52,7 +52,7 @@ public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegist
         if (!unidadMedidaOk)
             CentroNotificaciones.Mostrar("El campo de unidad de medida es obligatorio para el producto, por favor, corrija los datos entrados", Core.Mensajes.MVP.Modelos.TipoNotificacion.Advertencia);
 
-        return !nombreRepetido && nombreOk && codigoOk && unidadMedidaOk;
+        return nombreOk && codigoOk && unidadMedidaOk;
     }
 
     protected override void RegistroAuxiliar(RepoProducto datosProducto, long id) {
@@ -87,7 +87,7 @@ public class PresentadorRegistroProducto : PresentadorVistaRegistro<IVistaRegist
         return new Producto(
             Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
             Vista.CategoriaProducto,
-            Vista.Nombre,
+            Vista.NombreProducto,
             Vista.Codigo,
             Entidad?.IdDetalleProducto ?? 0,
             UtilesProveedor.ObtenerIdProveedor(Vista.RazonSocialProveedor).Result,

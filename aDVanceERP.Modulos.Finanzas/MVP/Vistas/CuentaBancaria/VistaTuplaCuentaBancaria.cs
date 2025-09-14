@@ -7,7 +7,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria;
 public partial class VistaTuplaCuentaBancaria : Form, IVistaTuplaCuentaBancaria {
     public VistaTuplaCuentaBancaria() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaCuentaBancaria);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
     }
 
     public bool Habilitada {

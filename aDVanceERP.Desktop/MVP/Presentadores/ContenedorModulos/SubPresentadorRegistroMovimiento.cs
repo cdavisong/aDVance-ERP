@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroMovimiento? _registroMovimiento;
 
     private string? Signo { get; set; }

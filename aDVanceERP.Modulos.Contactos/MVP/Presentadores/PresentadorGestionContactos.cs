@@ -14,7 +14,7 @@ public class PresentadorGestionContactos : PresentadorVistaGestion<PresentadorTu
         var presentadorTupla = new PresentadorTuplaContacto(new VistaTuplaContacto(), objeto);
 
         presentadorTupla.Vista.Id = objeto.Id.ToString();
-        presentadorTupla.Vista.Nombre = objeto.Nombre ?? string.Empty;
+        presentadorTupla.Vista.NombreContacto = objeto.Nombre ?? string.Empty;
 
         using (var datosTelefonoContacto = new RepoTelefonoContacto()) {
             var telefonosContacto =

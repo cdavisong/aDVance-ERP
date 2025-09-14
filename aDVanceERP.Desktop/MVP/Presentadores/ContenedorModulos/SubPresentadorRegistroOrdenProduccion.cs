@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion;
 using aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos {
+    public partial class PresentadorModulos {
         private PresentadorRegistroOrdenProduccion? _registroOrdenProduccion;
 
         private void InicializarVistaRegistroOrdenProduccion() {
@@ -16,8 +16,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
                 _gestionOrdenesProduccion.ActualizarResultadosBusqueda();
             };
 
-            if (Vista.Vistas != null)
-                Vista.Vistas?.Registrar("vistaRegistroOrdenProduccion", _registroOrdenProduccion.Vista);
+            Vista.PanelCentral.Registrar(_registroOrdenProduccion.Vista);
         }
 
         private void MostrarVistaRegistroOrdenProduccion(object? sender, EventArgs e) {

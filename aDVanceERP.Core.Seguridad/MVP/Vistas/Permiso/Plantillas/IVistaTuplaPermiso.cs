@@ -3,6 +3,6 @@
 namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Permiso.Plantillas;
 
 public interface IVistaTuplaPermiso : IVistaTupla {
-    string? IdPermiso { get; set; }
+    string? Id { get; set; }
     string? NombrePermiso { get; set; }
 }

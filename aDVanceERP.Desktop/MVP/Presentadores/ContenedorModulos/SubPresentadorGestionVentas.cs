@@ -13,7 +13,7 @@ using System.Globalization;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorGestionVentas? _gestionVentas;
     private ControladorArchivosAndroid _androidFileManager;
 
@@ -25,8 +25,7 @@ public partial class PresentadorContenedorModulos {
         _gestionVentas.Vista.ConfirmarPagos += OnConfirmarPagosVenta;
         _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
 
-        if (Vista.Vistas != null)
-            await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionVentas", _gestionVentas.Vista));
+        Vista.PanelCentral.Registrar(_gestionVentas.Vista);
     }
 
     private void MostrarVistaGestionVentas(object? sender, EventArgs e) {

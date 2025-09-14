@@ -25,7 +25,15 @@ public partial class VistaNotificacion : Form, IVistaNotificacion {
         _notificacion = notificacion;
 
         InitializeComponent();
+
+        NombreVista = nameof(VistaNotificacion);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

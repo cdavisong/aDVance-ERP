@@ -1,14 +1,23 @@
 ﻿using aDVanceERP.Core.Repositorios.Comun;
 using aDVanceERP.Core.Seguridad.Utiles;
 using aDVanceERP.Core.Utiles;
-using aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas;
+using aDVanceERP.Core.Vistas.Comun.Interfaces;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad;
+namespace aDVanceERP.Desktop.MVP.Vistas.Seguridad;
 
-public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad {
-    public VistaContenedorSeguridad() {
+public partial class VistaSeguridad : Form, IVistaSeguridad {
+    public VistaSeguridad() {
         InitializeComponent();
+
+        PanelCentral = new RepoVistaBase(contenedorVistas);
+        NombreVista = nameof(VistaSeguridad);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -34,13 +43,10 @@ public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad 
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
-
-    
+    public RepoVistaBase PanelCentral { get; private set; }
 
     public void Inicializar() {
-        // Propiedades locales
-        Vistas = new RepoVistaBase(contenedorVistas);
+                
     }
 
     public void Mostrar() {
@@ -49,7 +55,7 @@ public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad 
     }
 
     public void Restaurar() {
-        Vistas?.Restaurar("vistaAutenticacionUsuario");
+        PanelCentral?.Restaurar("vistaAutenticacionUsuario");
 
         // Restablecer el usuario autenticado
         UtilesCuentaUsuario.UsuarioAutenticado = null;
@@ -60,6 +66,6 @@ public partial class VistaContenedorSeguridad : Form, IVistaContenedorSeguridad 
     }
 
     public void Cerrar() {
-        Vistas?.CerrarTodos();
+        PanelCentral?.CerrarTodos();
     }
 }

@@ -42,28 +42,39 @@ public sealed class RepoVistaBase : IRepoVistaBase<IVistaBase> {
         return Vistas?.Values.ToList() ?? new List<IVistaBase>();
     }
 
-    public void Registrar(string nombre, IVistaBase vista) {
-        Registrar(nombre, vista, new Point(0, 0), _contenedorVistas.Size, TipoRedimensionadoVista.Completo);
+    public void Registrar(IVistaBase vista) {
+        Registrar(vista, new Point(0, 0), _contenedorVistas.Size, TipoRedimensionadoVista.Completo);
     }
 
-    public void Registrar(string nombre, IVistaBase vista, Point coordenadas, Size dimensiones, TipoRedimensionadoVista tipoRedimensionado) {
-        var form = (vista as Form);
+    public void Registrar(IVistaBase vista, Point coordenadas, Size dimensiones, TipoRedimensionadoVista tipoRedimensionado) {
+        SuspendRedraw();
 
-        if (form != null) {
-            form.Location = coordenadas;
-            form.Name = nombre;
-            form.Size = dimensiones;
-            form.Tag = tipoRedimensionado;
-            form.TopLevel = false;
-            form.Visible = false;
+        try {
+            if (vista == null) {
+                throw new ArgumentNullException(nameof(vista));
+            }
+            else if (Vistas.ContainsKey(vista.NombreVista)) {
+                throw new ArgumentException($"La vista con el nombre '{vista.NombreVista}' ya está registrada en el contenedor.");
+            }
+            else if (vista is Control control) {
+                control.Location = coordenadas;
+                control.Name = vista.NombreVista;
+                control.Size = dimensiones;
+                control.Tag = tipoRedimensionado;
+                control.Visible = false;
 
-            _contenedorVistas.Controls.Add(form);
+                if (control is Form form)
+                    form.TopLevel = false;
+
+                _contenedorVistas.Controls.Add(control);
+            }
+            else throw new ArgumentException($"La vista debe ser un Control. Tipo actual: {vista.GetType().Name}");
+
+            Vistas.Add(vista.NombreVista, vista);
         }
-        else
-            throw new ArgumentException("Error en el registro de la vista en el contenedor. Sólo se admiten vistas del tipo Form.", nameof(vista));
-
-        // Agregar la vista la diccionario.
-        Vistas.Add(nombre, vista);
+        finally {
+            ResumeRedraw();
+        }
 
         // Actualiza las dimensiones de las vistas por primera vez
         OnRedimensionarContenedorVistas(vista, EventArgs.Empty);

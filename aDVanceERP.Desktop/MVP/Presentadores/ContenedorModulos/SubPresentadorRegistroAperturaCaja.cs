@@ -8,7 +8,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Presentadores;
 using aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos {
+    public partial class PresentadorModulos {
         private PresentadorRegistroAperturaCaja? _registroAperturaCaja;
 
         private void InicializarVistaRegistroAperturaCaja() {

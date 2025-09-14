@@ -4,7 +4,7 @@ using aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorGestionRolesUsuarios? _gestionRolesUsuarios;
 
     private async void InicializarVistaGestionRolesUsuarios() {
@@ -12,8 +12,7 @@ public partial class PresentadorContenedorModulos {
         _gestionRolesUsuarios.EditarEntidad += MostrarVistaEdicionRolUsuario;
         _gestionRolesUsuarios.Vista.RegistrarEntidad += MostrarVistaRegistroRolUsuario;
 
-        if (Vista.Vistas != null)
-            await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionRolesUsuarios", _gestionRolesUsuarios.Vista));
+        Vista.PanelCentral.Registrar(_gestionRolesUsuarios.Vista);
     }
 
     private void MostrarVistaGestionRolesUsuarios(object? sender, EventArgs e) {

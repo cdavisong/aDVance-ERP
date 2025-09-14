@@ -11,7 +11,15 @@ public partial class VistaRegistroCuentaUsuario : Form, IVistaRegistroCuentaUsua
 
     public VistaRegistroCuentaUsuario() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroCuentaUsuario);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

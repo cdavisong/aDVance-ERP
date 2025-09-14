@@ -21,7 +21,15 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
         public VistaRegistroOrdenProduccion() {
             InitializeComponent();
+
+            NombreVista = nameof(VistaRegistroOrdenProduccion);
+
             Inicializar();
+        }
+
+        public string NombreVista {
+            get => Name;
+            private set => Name = value;
         }
 
         public bool Habilitada {
@@ -608,6 +616,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 var materiaPrima = MateriasPrimas[i];
                 var tuplaOrdenMateriaPrima = new VistaTuplaOrdenMateriaPrima();
 
+                tuplaOrdenMateriaPrima.Indice = i;
                 tuplaOrdenMateriaPrima.Habilitada = Habilitada;
                 tuplaOrdenMateriaPrima.NombreAlmacen = materiaPrima[0];
                 tuplaOrdenMateriaPrima.NombreMateriaPrima = materiaPrima[1];
@@ -642,7 +651,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
                 // Registro y muestra
                 VistasMateriaPrima?.Registrar(
-                    $"vistaTupla{tuplaOrdenMateriaPrima.GetType().Name}{i}",
                     tuplaOrdenMateriaPrima,
                     new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                     new Size(contenedorVistasMateriaPrima.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 
@@ -673,6 +681,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
                 var actividadProduccion = ActividadesProduccion[i];
                 var tuplaOrdenActividadProduccion = new VistaTuplaOrdenActividadProduccion();
 
+                tuplaOrdenActividadProduccion.Indice = i;
                 tuplaOrdenActividadProduccion.Habilitada = Habilitada;
                 tuplaOrdenActividadProduccion.NombreActividadProduccion = actividadProduccion[0];
                 tuplaOrdenActividadProduccion.Cantidad = actividadProduccion[1];
@@ -706,7 +715,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
                 // Registro y muestra
                 VistasActividadProduccion?.Registrar(
-                    $"vistaTupla{tuplaOrdenActividadProduccion.GetType().Name}{i}",
                     tuplaOrdenActividadProduccion,
                     new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                     new Size(contenedorVistasActividadesProduccion.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 
@@ -772,7 +780,6 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
                 // Registro y muestra
                 VistasGastosIndirectos?.Registrar(
-                    $"vistaTupla{tuplaOrdenGastoIndirecto.GetType().Name}{i}",
                     tuplaOrdenGastoIndirecto,
                     new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                     new Size(contenedorVistasGastosIndirectos.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), TipoRedimensionadoVista.Ninguno);

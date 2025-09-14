@@ -11,7 +11,15 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
         public VistaGestionOrdenesProduccion() {
             InitializeComponent();
+
+            NombreVista = nameof(VistaGestionOrdenesProduccion);
+
             Inicializar();
+        }
+
+        public string NombreVista {
+            get => Name;
+            private set => Name = value;
         }
 
         public bool Habilitada {
@@ -69,7 +77,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
             }
         }
 
-        public RepoVistaBase? Vistas { get; private set; }
+        public RepoVistaBase? PanelCentral { get; private set; }
 
         public event EventHandler? AlturaContenedorTuplasModificada;
         public event EventHandler? MostrarPrimeraPagina;
@@ -86,7 +94,7 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion
 
         public void Inicializar() {
             // Variables locales
-            Vistas = new RepoVistaBase(contenedorVistas);
+            PanelCentral = new RepoVistaBase(contenedorVistas);
 
             // Eventos
             fieldFiltroBusqueda.SelectedIndexChanged += delegate {

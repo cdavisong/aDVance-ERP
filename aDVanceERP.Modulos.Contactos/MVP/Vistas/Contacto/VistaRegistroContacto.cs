@@ -7,7 +7,15 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
 
     public VistaRegistroContacto() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroContacto);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -25,7 +33,7 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
         set => Size = value;
     }
 
-    public string Nombre {
+    public string NombreContacto {
         get => fieldNombreUsuario.Text;
         set => fieldNombreUsuario.Text = value;
     }
@@ -94,7 +102,7 @@ public partial class VistaRegistroContacto : Form, IVistaRegistroContacto {
     }
 
     public void Restaurar() {
-        Nombre = string.Empty;
+        NombreContacto = string.Empty;
         TelefonoMovil = string.Empty;
         TelefonoFijo = string.Empty;
         CorreoElectronico = string.Empty;

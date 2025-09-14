@@ -7,7 +7,15 @@ public partial class VistaRegistroProveedor : Form, IVistaRegistroProveedor {
 
     public VistaRegistroProveedor() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroProveedor);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

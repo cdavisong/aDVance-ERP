@@ -10,7 +10,15 @@ public partial class VistaRegistroMensajeria : Form, IVistaRegistroMensajeria {
 
     public VistaRegistroMensajeria() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroMensajeria);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

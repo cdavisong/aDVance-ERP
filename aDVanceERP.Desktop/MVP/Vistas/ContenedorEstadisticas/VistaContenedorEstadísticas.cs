@@ -11,7 +11,15 @@ public partial class VistaContenedorEstadísticas : Form, IVistaContenedorEstadi
 
     public VistaContenedorEstadísticas() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaContenedorEstadísticas);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

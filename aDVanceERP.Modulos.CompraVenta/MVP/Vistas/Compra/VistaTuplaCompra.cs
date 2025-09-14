@@ -6,7 +6,15 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
 public partial class VistaTuplaCompra : Form, IVistaTuplaCompra {
     public VistaTuplaCompra() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaCompra);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
     }
 
     public bool Habilitada {

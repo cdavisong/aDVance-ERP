@@ -14,7 +14,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
 
         public VistaTuplaCaja() {
             InitializeComponent();
+
+            NombreVista = nameof(VistaTuplaCaja);
+
             Inicializar();
+        }
+
+        public string NombreVista {
+            get => $"{Name}{Id}";
+            private set => Name = value;
         }
 
         public bool Habilitada {

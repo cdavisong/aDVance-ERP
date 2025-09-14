@@ -3,7 +3,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorMenuContacto? _menuContacto;
 
     private void InicializarVistaMenuContacto() {
@@ -12,9 +12,9 @@ public partial class PresentadorContenedorModulos {
         _menuContacto.Vista.VerMensajeros += MostrarVistaGestionMensajeros;
         _menuContacto.Vista.VerClientes += MostrarVistaGestionClientes;
         _menuContacto.Vista.VerContactos += MostrarVistaGestionContactos;
-        _menuContacto.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
+        _menuContacto.Vista.CambioMenu += delegate { Vista.PanelCentral?.OcultarTodos(); };
 
-        VistaPrincipal.BarraTitulo.Registrar("vistaMenuContacto", _menuContacto.Vista);
+        VistaPrincipal.BarraTitulo.Registrar(_menuContacto.Vista);
     }
 
     private void MostrarVistaMenuContacto(object? sender, EventArgs e) {

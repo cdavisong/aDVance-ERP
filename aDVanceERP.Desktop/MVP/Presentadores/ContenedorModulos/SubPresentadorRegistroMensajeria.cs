@@ -7,7 +7,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Mensajeria;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroMensajeria? _registroMensajeria;
 
     private async void InicializarVistaRegistroMensajeria() {

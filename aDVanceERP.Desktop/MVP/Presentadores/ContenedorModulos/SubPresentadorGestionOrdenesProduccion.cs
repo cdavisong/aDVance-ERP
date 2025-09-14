@@ -9,7 +9,7 @@ using aDVanceERP.Modulos.Taller.Repositorios;
 using aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
-    public partial class PresentadorContenedorModulos {
+    public partial class PresentadorModulos {
         private PresentadorGestionOrdenesProduccion? _gestionOrdenesProduccion;
 
         private void InicializarVistaGestionOrdenesProduccion() {
@@ -19,8 +19,7 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos {
             _gestionOrdenesProduccion.EditarEntidad += MostrarVistaEdicionOrdenProduccion;
             _gestionOrdenesProduccion.Vista.RegistrarEntidad += MostrarVistaRegistroOrdenProduccion;
 
-            if (Vista.Vistas != null)
-                Vista.Vistas?.Registrar("vistaGestionOrdenesProduccion", _gestionOrdenesProduccion.Vista);
+            Vista.PanelCentral.Registrar(_gestionOrdenesProduccion.Vista);
         }
 
         private void MostrarVistaGestionOrdenesProduccion(object? sender, EventArgs e) {

@@ -17,7 +17,15 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
     public VistaRegistroPago() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroPago);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public int AlturaContenedorVistas {
@@ -28,7 +36,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public RepoVistaBase? PanelCentral { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -113,7 +121,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
     public void Inicializar() {
         Pagos = new List<string[]>();
-        Vistas = new RepoVistaBase(contenedorVistas);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         CargarTiposMoneda(Enum.GetNames(typeof(TipoMoneda)));
         CargarMetodosPago();
@@ -241,6 +249,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             var pago = Pagos[i];
             var tuplaPago = new VistaTuplaPago();
 
+            tuplaPago.Indice = i;
             tuplaPago.MetodoPago = pago[2];
             tuplaPago.Monto = pago[3];
             tuplaPago.Habilitada = !ModoEdicion;
@@ -254,8 +263,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
             };
 
             // Registro y muestra
-            Vistas?.Registrar(
-                $"vistaTupla{tuplaPago.GetType().Name}{i}",
+            PanelCentral?.Registrar(
                 tuplaPago,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                 new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 

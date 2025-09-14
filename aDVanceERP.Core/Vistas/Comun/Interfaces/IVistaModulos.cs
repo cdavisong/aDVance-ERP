@@ -1,9 +1,12 @@
-﻿using aDVanceERP.Core.Vistas.Comun.Interfaces;
+﻿using aDVanceERP.Core.Repositorios.Comun;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos.Plantillas;
+namespace aDVanceERP.Core.Vistas.Comun.Interfaces;
 
-public interface IVistaContenedorModulos : IVistaContenedor {
-    //bool BtnModuloAdministracionVisible { get; set; }
+public interface IVistaModulos : IVistaBase {
+    FlowLayoutPanel PanelMenuLateral { get; }
+    RepoVistaBase PanelCentral { get; }
+
+    string MensajePortada { get; }
 
     event EventHandler? MostrarVistaInicio;
     event EventHandler? MostrarVistaEstadisticas;

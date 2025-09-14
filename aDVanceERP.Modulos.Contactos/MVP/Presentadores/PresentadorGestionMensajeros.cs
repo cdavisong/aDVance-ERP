@@ -19,7 +19,7 @@ public class PresentadorGestionMensajeros : PresentadorVistaGestion<PresentadorT
         var presentadorTupla = new PresentadorTuplaMensajero(new VistaTuplaMensajero(), objeto);
 
         presentadorTupla.Vista.Id = objeto.Id.ToString();
-        presentadorTupla.Vista.Nombre = objeto.Nombre;
+        presentadorTupla.Vista.NombreMensajero = objeto.Nombre;
 
         using (var datosContacto = new RepoContacto()) {
             var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
@@ -72,7 +72,7 @@ public class PresentadorGestionMensajeros : PresentadorVistaGestion<PresentadorT
             foreach (var tupla in tuplasSeleccionadas) {
                 var mensajero = new Mensajero(
                         long.Parse(tupla.Vista.Id),
-                        tupla.Vista.Nombre,
+                        tupla.Vista.NombreMensajero,
                         !tupla.Vista.Activo,
                         tupla.Entidad.IdContacto
                     );

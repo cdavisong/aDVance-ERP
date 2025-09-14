@@ -13,7 +13,7 @@ public class PresentadorRegistroContacto : PresentadorVistaRegistro<IVistaRegist
 
     public override void PopularVistaDesdeEntidad(Contacto objeto) {
         Vista.ModoEdicion = true;
-        Vista.Nombre = objeto.Nombre ?? string.Empty;
+        Vista.NombreContacto = objeto.Nombre ?? string.Empty;
         Vista.TelefonoMovil = UtilesTelefonoContacto.ObtenerTelefonoContacto(objeto.Id, true) ?? string.Empty;
         Vista.TelefonoFijo = UtilesTelefonoContacto.ObtenerTelefonoContacto(objeto.Id, false) ?? string.Empty;
         Vista.CorreoElectronico = objeto.DireccionCorreoElectronico ?? string.Empty;
@@ -24,8 +24,8 @@ public class PresentadorRegistroContacto : PresentadorVistaRegistro<IVistaRegist
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicion;
-        var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
+        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.NombreContacto).Result > 0 && !Vista.ModoEdicion;
+        var nombreOk = !string.IsNullOrEmpty(Vista.NombreContacto) && !nombreEncontrado;
 
         if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
             var noLetrasTelefonosOk = !Vista.TelefonoMovil.Replace(" ", "").Any(char.IsLetter);
@@ -59,7 +59,7 @@ public class PresentadorRegistroContacto : PresentadorVistaRegistro<IVistaRegist
     protected override Contacto? ObtenerEntidadDesdeVista() {
         return new Contacto(
             Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
-            Vista.Nombre,
+            Vista.NombreContacto,
             Vista.CorreoElectronico,
             Vista.Direccion,
             Vista.Notas

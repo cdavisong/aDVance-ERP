@@ -14,7 +14,15 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
     public VistaRegistroCompra() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroCompra);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public DateTime Fecha {
@@ -30,7 +38,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public RepoVistaBase? PanelCentral { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -98,7 +106,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
 
     public void Inicializar() {
         Productos = new List<string[]>();
-        Vistas = new RepoVistaBase(contenedorVistas);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) {
@@ -265,8 +273,7 @@ public partial class VistaRegistroCompra : Form, IVistaRegistroCompra, IVistaGes
             };
 
             // Registro y muestra
-            Vistas?.Registrar(
-                $"vistaTupla{tuplaDetallesVentaProducto.GetType().Name}{i}",
+            PanelCentral?.Registrar(
                 tuplaDetallesVentaProducto,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                 new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada), 

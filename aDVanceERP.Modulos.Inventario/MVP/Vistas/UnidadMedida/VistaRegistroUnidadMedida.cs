@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida.Plantillas;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida {
     public partial class VistaRegistroUnidadMedida : Form, IVistaRegistroUnidadMedida {
@@ -6,7 +7,15 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida {
 
         public VistaRegistroUnidadMedida() {
             InitializeComponent();
+
+            NombreVista = nameof(VistaRegistroUnidadMedida);
+
             Inicializar();
+        }
+
+        public string NombreVista {
+            get => Name;
+            private set => Name = value;
         }
 
         public bool Habilitada {
@@ -24,7 +33,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida {
             set => Size = value;
         }
 
-        public string Nombre {
+        public string NombreUnidadMedida {
             get => fieldNombre.Text;
             set => fieldNombre.Text = value;
         }
@@ -75,7 +84,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida {
         }
 
         public void Restaurar() {
-            Nombre = string.Empty;
+            NombreVista = string.Empty;
             Abreviatura = string.Empty;
             Descripcion = string.Empty;
             ModoEdicion = false;

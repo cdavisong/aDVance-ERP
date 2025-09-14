@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorGestionAlmacenes? _gestionAlmacenes;
 
     private void InicializarVistaGestionAlmacenes() {
@@ -12,7 +12,7 @@ public partial class PresentadorContenedorModulos {
         _gestionAlmacenes.EditarEntidad += MostrarVistaEdicionAlmacen;
         _gestionAlmacenes.Vista.RegistrarEntidad += MostrarVistaRegistroAlmacen;
 
-        Vista.Vistas?.Registrar("vistaGestionAlmacenes", _gestionAlmacenes.Vista);
+        Vista.PanelCentral.Registrar(_gestionAlmacenes.Vista);
     }
 
     private void MostrarVistaGestionAlmacenes(object? sender, EventArgs e) {

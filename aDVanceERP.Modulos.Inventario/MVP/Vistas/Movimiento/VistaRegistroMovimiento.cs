@@ -11,7 +11,15 @@ public partial class VistaRegistroMovimiento : Form, IVistaRegistroMovimiento {
 
     public VistaRegistroMovimiento() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroMovimiento);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

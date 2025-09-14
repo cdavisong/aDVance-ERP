@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero.Plantillas;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero;
 
@@ -7,7 +8,15 @@ public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
 
     public VistaRegistroMensajero() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroMensajero);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -25,7 +34,7 @@ public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
         set => Size = value;
     }
 
-    public string Nombre {
+    public string NombreMensajero {
         get => fieldNombre.Text;
         set => fieldNombre.Text = value;
     }
@@ -72,7 +81,7 @@ public partial class VistaRegistroMensajero : Form, IVistaRegistroMensajero {
     }
 
     public void Restaurar() {
-        Nombre = string.Empty;
+        NombreMensajero = string.Empty;
         TelefonoMovil = string.Empty;
         ModoEdicion = false;
     }

@@ -5,7 +5,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroProveedor? _registroProveedor;
 
     private void InicializarVistaRegistroProveedor() {

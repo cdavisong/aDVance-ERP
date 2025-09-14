@@ -3,7 +3,7 @@
 namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto.Plantillas;
 
 public interface IVistaRegistroContacto : IVistaRegistro {
-    string Nombre { get; set; }
+    string NombreContacto { get; set; }
     string TelefonoMovil { get; set; }
     string TelefonoFijo { get; set; }
     string CorreoElectronico { get; set; }

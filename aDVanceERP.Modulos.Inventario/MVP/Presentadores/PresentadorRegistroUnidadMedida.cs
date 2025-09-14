@@ -10,7 +10,7 @@ public class PresentadorRegistroUnidadMedida : PresentadorVistaRegistro<IVistaRe
 
     public override void PopularVistaDesdeEntidad(UnidadMedida objeto) {
         Vista.ModoEdicion = true;
-        Vista.Nombre = objeto.Nombre;
+        Vista.NombreUnidadMedida = objeto.Nombre;
         Vista.Abreviatura = objeto.Abreviatura;
         Vista.Descripcion = objeto.Descripcion ?? string.Empty; // Asegurar que no sea null
 
@@ -18,7 +18,7 @@ public class PresentadorRegistroUnidadMedida : PresentadorVistaRegistro<IVistaRe
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
+        var nombreOk = !string.IsNullOrEmpty(Vista.NombreUnidadMedida);
         var abreviaturaOk = !string.IsNullOrEmpty(Vista.Abreviatura);
 
         return nombreOk && abreviaturaOk;
@@ -27,7 +27,7 @@ public class PresentadorRegistroUnidadMedida : PresentadorVistaRegistro<IVistaRe
     protected override UnidadMedida? ObtenerEntidadDesdeVista() {
         return new UnidadMedida(
             Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
-            Vista.Nombre,
+            Vista.NombreUnidadMedida,
             Vista.Abreviatura,
             string.IsNullOrEmpty(Vista.Descripcion) ? null : Vista.Descripcion
         );

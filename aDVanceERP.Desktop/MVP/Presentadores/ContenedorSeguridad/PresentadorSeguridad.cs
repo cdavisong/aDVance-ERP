@@ -1,16 +1,15 @@
-﻿using aDVanceERP.Core.Presentadores.Comun;
+﻿using aDVanceERP.Core.Presentadores.Comun.Interfaces;
 using aDVanceERP.Core.Vistas.BD;
 using aDVanceERP.Core.Vistas.Comun.Interfaces;
-using aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad.Plantillas;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad;
 
-public partial class PresentadorContenedorSeguridad : PresentadorVistaBase<IVistaContenedorSeguridad> {
+public partial class PresentadorSeguridad : IPresentadorVistaSeguridad<IVistaSeguridad> {
     private VistaConfiguracionBaseDatos? _vistaConfiguracionBaseDatos;
 
-    public PresentadorContenedorSeguridad(IVistaPrincipal vistaPrincipal, IVistaContenedorSeguridad vista) :
-        base(vista) {
+    public PresentadorSeguridad(IVistaPrincipal vistaPrincipal, IVistaSeguridad vistaSeguridad) {
         VistaPrincipal = vistaPrincipal;
+        Vista = vistaSeguridad;
 
         // Eventos
         #region Gestión de conexión a la base de datos
@@ -24,7 +23,7 @@ public partial class PresentadorContenedorSeguridad : PresentadorVistaBase<IVist
             MostrarVistaAutenticacionUsuario("first-login", EventArgs.Empty);
         };
 
-        Vista.Vistas?.Registrar("vistaConfiguracionBaseDatos", _vistaConfiguracionBaseDatos);
+        Vista.PanelCentral.Registrar(_vistaConfiguracionBaseDatos);
 
         #endregion
         #region Gestión de autenticación y registro primario de usuarios
@@ -39,9 +38,11 @@ public partial class PresentadorContenedorSeguridad : PresentadorVistaBase<IVist
         _vistaConfiguracionBaseDatos.Mostrar();
     }
 
-    private IVistaPrincipal VistaPrincipal { get; }
+    public IVistaPrincipal VistaPrincipal { get; }
 
-    public override void Dispose() {
-        //...
+    public IVistaSeguridad Vista { get; }
+
+    public void Dispose() {
+        Vista.Dispose();
     }
 }

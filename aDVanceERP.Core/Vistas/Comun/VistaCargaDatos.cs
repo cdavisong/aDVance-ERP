@@ -7,15 +7,20 @@ namespace aDVanceERP.Core.Vistas.Comun {
         private string _textoProgreso = "Filtrando resultados de búsqueda...";
         private const string _icono = "pX_48px";
         private int _iconoActual = 1;
-        private System.Windows.Forms.Timer _timerIconoCarga;
+        private System.Windows.Forms.Timer _timerIconoCarga = new System.Windows.Forms.Timer();
 
         public VistaCargaDatos() {
             InitializeComponent();
 
-            // Configurar double buffering para evitar parpadeo
+            NombreVista = nameof(VistaCargaDatos);
             DoubleBuffered = true;
 
             Inicializar();
+        }
+
+        public string NombreVista {
+            get => Name;
+            private set => Name = value;
         }
 
         public bool Habilitada {
@@ -43,7 +48,6 @@ namespace aDVanceERP.Core.Vistas.Comun {
         }
 
         public void Inicializar() {
-            _timerIconoCarga = new System.Windows.Forms.Timer();
             _timerIconoCarga.Interval = 42;
             _timerIconoCarga.Tick += Actualizar;
         }

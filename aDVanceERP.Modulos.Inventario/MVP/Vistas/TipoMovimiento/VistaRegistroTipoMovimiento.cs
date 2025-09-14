@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento.Plantillas;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento; 
 
@@ -7,7 +8,15 @@ public partial class VistaRegistroTipoMovimiento : Form, IVistaRegistroTipoMovim
 
     public VistaRegistroTipoMovimiento() {
         InitializeComponent();
+
+
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -25,7 +34,7 @@ public partial class VistaRegistroTipoMovimiento : Form, IVistaRegistroTipoMovim
         set => Size = value;
     }
 
-    public string Nombre {
+    public string NombreTipoMovimiento {
         get => fieldNombre.Text;
         set => fieldNombre.Text = value;
     }
@@ -67,7 +76,7 @@ public partial class VistaRegistroTipoMovimiento : Form, IVistaRegistroTipoMovim
     }
 
     public void Restaurar() {
-        Nombre = string.Empty;
+        NombreTipoMovimiento = string.Empty;
         Efecto = string.Empty;
         fieldEfecto.SelectedIndex = -1;
         ModoEdicion = false;

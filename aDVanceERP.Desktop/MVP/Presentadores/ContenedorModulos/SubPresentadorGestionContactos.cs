@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorGestionContactos? _gestionContactos;
 
     private async void InicializarVistaGestionContactos() {
@@ -12,8 +12,7 @@ public partial class PresentadorContenedorModulos {
         _gestionContactos.EditarEntidad += MostrarVistaEdicionContacto;
         _gestionContactos.Vista.RegistrarEntidad += MostrarVistaRegistroContacto;
 
-        if (Vista.Vistas != null)
-            await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionContactos", _gestionContactos.Vista));
+        Vista.PanelCentral.Registrar(_gestionContactos.Vista);
     }
 
     private void MostrarVistaGestionContactos(object? sender, EventArgs e) {

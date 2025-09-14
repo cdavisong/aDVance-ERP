@@ -6,7 +6,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Menu;
 public partial class VistaMenuFinanzas : Form, IVistaMenuFinanzas {
     public VistaMenuFinanzas() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaMenuFinanzas);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

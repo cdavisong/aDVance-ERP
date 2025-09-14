@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroCuentaBancaria? _registroCuentaBancaria;
 
     private void InicializarVistaRegistroCuentaBancaria() {

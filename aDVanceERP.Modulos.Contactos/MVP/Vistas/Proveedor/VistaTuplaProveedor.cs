@@ -6,7 +6,15 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Proveedor;
 public partial class VistaTuplaProveedor : Form, IVistaTuplaProveedor {
     public VistaTuplaProveedor() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaProveedor);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
     }
 
     public bool Habilitada {

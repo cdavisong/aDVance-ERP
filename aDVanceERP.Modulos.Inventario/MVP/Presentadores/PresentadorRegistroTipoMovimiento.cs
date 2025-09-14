@@ -10,7 +10,7 @@ public class PresentadorRegistroTipoMovimiento : PresentadorVistaRegistro<IVista
     public PresentadorRegistroTipoMovimiento(IVistaRegistroTipoMovimiento vista) : base(vista) { }
 
     public override void PopularVistaDesdeEntidad(TipoMovimiento objeto) {
-        Vista.Nombre = objeto.Nombre;
+        Vista.NombreTipoMovimiento = objeto.Nombre;
         Vista.Efecto = objeto.Efecto.ToString();
         Vista.ModoEdicion = true;
 
@@ -18,7 +18,7 @@ public class PresentadorRegistroTipoMovimiento : PresentadorVistaRegistro<IVista
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreOk = !string.IsNullOrEmpty(Vista.Nombre);
+        var nombreOk = !string.IsNullOrEmpty(Vista.NombreTipoMovimiento);
         var efectoOk = !string.IsNullOrEmpty(Vista.Efecto) && !Vista.Efecto.Equals("Ninguno");
 
         if (!nombreOk)
@@ -32,7 +32,7 @@ public class PresentadorRegistroTipoMovimiento : PresentadorVistaRegistro<IVista
     protected override TipoMovimiento? ObtenerEntidadDesdeVista() {
         return new TipoMovimiento(
             Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
-            Vista.Nombre,
+            Vista.NombreTipoMovimiento,
             (EfectoMovimiento)(Enum.TryParse(typeof(EfectoMovimiento), Vista.Efecto, out var efecto)
                 ? efecto
                 : default(EfectoMovimiento))

@@ -8,7 +8,15 @@ public partial class VistaTuplaOrdenActividadProduccion : Form, IVistaTuplaOrden
 
     public VistaTuplaOrdenActividadProduccion() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaOrdenActividadProduccion);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Indice}";
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -31,7 +39,7 @@ public partial class VistaTuplaOrdenActividadProduccion : Form, IVistaTuplaOrden
         set => Size = value;
     }
 
-    public string IdOrdenActividadProduccion { get; set; }
+    public int Indice { get; set; }
 
     public string NombreActividadProduccion {
         get => fieldNombreActividad.Text;

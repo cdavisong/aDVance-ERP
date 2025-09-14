@@ -13,8 +13,15 @@ public partial class VistaConfiguracionBaseDatos : Form, IVistaConfServidorMySQL
     public VistaConfiguracionBaseDatos() {
         InitializeComponent();
 
+        NombreVista = nameof(VistaConfiguracionBaseDatos);
+
         _presentador = new PresentadorConfiguracionBaseDatos(this, new RepoConfiguracionBaseDatos());
         _presentador.ConfiguracionCargada += (s, e) => ConfiguracionCargada?.Invoke(s, e);
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.CuentaBancaria;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorGestionCuentasBancarias? _gestionCuentasBancarias;
 
     private async void InicializarVistaGestionCuentasBancarias() {
@@ -13,8 +13,7 @@ public partial class PresentadorContenedorModulos {
         _gestionCuentasBancarias.EditarEntidad += MostrarVistaEdicionCuentaBancaria;
         _gestionCuentasBancarias.Vista.RegistrarEntidad += MostrarVistaRegistroCuentaBancaria;
 
-        if (Vista.Vistas != null)
-            await Task.Run(() => Vista.Vistas?.Registrar("vistaGestionCuentasBancarias", _gestionCuentasBancarias.Vista));
+        Vista.PanelCentral.Registrar(_gestionCuentasBancarias.Vista);
     }
 
     private void MostrarVistaGestionCuentasBancarias(object? sender, EventArgs e) {

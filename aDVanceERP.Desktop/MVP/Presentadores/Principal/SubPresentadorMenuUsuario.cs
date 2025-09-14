@@ -1,4 +1,5 @@
-﻿using aDVanceERP.Core.Modelos.Comun;
+﻿using aDVanceERP.Core.Eventos;
+using aDVanceERP.Core.Modelos.Comun;
 using aDVanceERP.Core.Seguridad.MVP.Presentadores;
 using aDVanceERP.Core.Seguridad.MVP.Vistas.Menu;
 
@@ -13,20 +14,18 @@ namespace aDVanceERP.Desktop.MVP.Presentadores.Principal {
                 MostrarVistaEdicionEmpresa(sender, e);
                 ActualizarRepoEmpresa();
             };
-            _menuUsuario.Vista.CerrarSesion += MostrarVistaContenedorSeguridad;
             _menuUsuario.Vista.CerrarSesion += delegate {
-                Vista.BarraTitulo.OcultarTodos();
-                _contenedorModulos?.Vista.Ocultar();
+                AgregadorEventos.Publicar("EventoSesionCerrada", "");
             };
 
-            Vista.PanelCentral?.Registrar("menuUsuario", 
+            Vista.PanelCentral?.Registrar(
                 _menuUsuario.Vista,
                 new Point(Vista.Dimensiones.Width - _menuUsuario.Vista.Dimensiones.Width - 150, 0),
                 _menuUsuario.Vista.Dimensiones,
                 TipoRedimensionadoVista.Ninguno);
         }
 
-        private void MostrarVistaMenuUsuario(object? sender, EventArgs e) {
+        private void OnVerMenuUsuario(object? sender, EventArgs e) {
             if (_menuUsuario == null)
                 return;
 

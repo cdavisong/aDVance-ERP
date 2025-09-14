@@ -3,7 +3,7 @@ using aDVanceERP.Core.Seguridad.MVP.Vistas.Menu;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorMenuSeguridad? _menuSeguridad;
 
     private void InicializarVistaMenuSeguridad() {
@@ -11,10 +11,10 @@ public partial class PresentadorContenedorModulos {
         _menuSeguridad.Vista.VerCuentasUsuarios += MostrarVistaGestionCuentasUsuarios;
         _menuSeguridad.Vista.VerRolesUsuarios += MostrarVistaGestionRolesUsuarios;
         _menuSeguridad.Vista.CambioMenu += delegate { 
-            Vista.Vistas?.OcultarTodos(); 
+            Vista.PanelCentral?.OcultarTodos(); 
         };
 
-        VistaPrincipal.BarraTitulo.Registrar("vistaMenuSeguridad", _menuSeguridad.Vista);
+        VistaPrincipal.BarraTitulo.Registrar(_menuSeguridad.Vista);
     }
 
     private void MostrarVistaMenuSeguridad(object? sender, EventArgs e) {

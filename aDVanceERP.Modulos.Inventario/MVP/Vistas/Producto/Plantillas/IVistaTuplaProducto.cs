@@ -7,7 +7,7 @@ public interface IVistaTuplaProducto : IVistaTupla {
     string NombreAlmacen { get; set; }
     string Codigo { get; set; }
     DateTime FechaUltimoMovimiento { get; set; }
-    string Nombre { get; set; }
+    string NombreProducto { get; set; }
     string Descripcion { get; set; }
     decimal CostoUnitario { get; set; }
     decimal PrecioVentaBase { get; set; }

@@ -3,7 +3,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Menu;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorMenuInventario? _menuInventario;
 
     private void InicializarVistaMenuInventario() {
@@ -11,9 +11,9 @@ public partial class PresentadorContenedorModulos {
         _menuInventario.Vista.VerProductos += MostrarVistaGestionProductos;
         _menuInventario.Vista.VerMovimientos += MostrarVistaGestionMovimientos;
         _menuInventario.Vista.VerAlmacenes += MostrarVistaGestionAlmacenes;
-        _menuInventario.Vista.CambioMenu += delegate { Vista.Vistas?.OcultarTodos(); };
+        _menuInventario.Vista.CambioMenu += delegate { Vista.PanelCentral?.OcultarTodos(); };
 
-        VistaPrincipal.BarraTitulo.Registrar("vistaMenuInventario", _menuInventario.Vista);
+        VistaPrincipal.BarraTitulo.Registrar(_menuInventario.Vista);
     }
 
     private void MostrarVistaMenuInventario(object? sender, EventArgs e) {

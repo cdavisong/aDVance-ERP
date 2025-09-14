@@ -5,7 +5,15 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.RolUsuario;
 public partial class VistaTuplaRolUsuario : Form, IVistaTuplaRolUsuario {
     public VistaTuplaRolUsuario() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaRolUsuario);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
     }
 
     public bool Habilitada {

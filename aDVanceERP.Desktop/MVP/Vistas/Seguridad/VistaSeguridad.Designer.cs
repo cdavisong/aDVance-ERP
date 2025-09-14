@@ -1,5 +1,5 @@
-﻿namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorSeguridad {
-    partial class VistaContenedorSeguridad {
+﻿namespace aDVanceERP.Desktop.MVP.Vistas.Seguridad {
+    partial class VistaSeguridad {
         /// <summary>
         /// Required designer variable.
         /// </summary>

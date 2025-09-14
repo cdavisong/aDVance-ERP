@@ -3,7 +3,7 @@ using aDVanceERP.Core.Seguridad.MVP.Vistas.Autenticacion;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorSeguridad; 
 
-public partial class PresentadorContenedorSeguridad {
+public partial class PresentadorSeguridad {
     private PresentadorRegistroUsuario? _registroUsuario;
 
     private void InicializarVistaRegistroUsuario() {
@@ -12,7 +12,7 @@ public partial class PresentadorContenedorSeguridad {
         _registroUsuario.UsuarioRegistrado += MostrarVistaAutenticacionUsuario;
         _registroUsuario.EntidadRegistradaActualizada += MostrarVistaAprobacionUsuario;
 
-        Vista.Vistas?.Registrar("vistaRegistroUsuario", _registroUsuario.Vista);
+        Vista.PanelCentral.Registrar(_registroUsuario.Vista);
     }
 
     private void MostrarVistaRegistroUsuario(object? sender, EventArgs e) {

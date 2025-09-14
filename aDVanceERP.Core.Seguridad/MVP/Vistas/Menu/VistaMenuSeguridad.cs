@@ -5,7 +5,15 @@ namespace aDVanceERP.Core.Seguridad.MVP.Vistas.Menu;
 public partial class VistaMenuSeguridad : Form, IVistaMenuSeguridad {
     public VistaMenuSeguridad() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaMenuSeguridad);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

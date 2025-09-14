@@ -10,7 +10,15 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Movimiento;
 public partial class VistaTuplaMovimiento : Form, IVistaTuplaMovimiento {
     public VistaTuplaMovimiento() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaMovimiento);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
     }
 
     public bool Habilitada {

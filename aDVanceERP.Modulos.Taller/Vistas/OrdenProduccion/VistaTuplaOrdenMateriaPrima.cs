@@ -8,7 +8,15 @@ public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateria
 
     public VistaTuplaOrdenMateriaPrima() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaOrdenMateriaPrima);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Indice}";
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -31,7 +39,7 @@ public partial class VistaTuplaOrdenMateriaPrima : Form, IVistaTuplaOrdenMateria
         set => Size = value;
     }
 
-    public string IdOrdenMateriaPrima { get; set; }
+    public int Indice { get; set; }
 
     public string NombreAlmacen { get; set; }
 

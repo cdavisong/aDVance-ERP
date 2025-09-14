@@ -6,7 +6,15 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Contacto;
 public partial class VistaTuplaContacto : Form, IVistaTuplaContacto {
     public VistaTuplaContacto() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaContacto);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -29,7 +37,7 @@ public partial class VistaTuplaContacto : Form, IVistaTuplaContacto {
         set => fieldId.Text = value;
     }
 
-    public string Nombre {
+    public string NombreContacto {
         get => fieldNombre.Text;
         set => fieldNombre.Text = value;
     }

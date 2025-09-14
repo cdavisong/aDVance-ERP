@@ -3,7 +3,7 @@ using aDVanceERP.Desktop.MVP.Vistas.ContenedorEstadisticas;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorContenedorEstadisticas? _contenedorEstadisticas;
 
     private async void InicializarVistaContenedorEstadisticas() {
@@ -15,8 +15,8 @@ public partial class PresentadorContenedorModulos {
             Vista.PresionarBotonModulo(6, EventArgs.Empty);
         };
 
-        if (Vista.Vistas != null)
-            await Task.Run(() => Vista.Vistas?.Registrar("vistaContenedorEstadisticas", _contenedorEstadisticas.Vista));
+        if (Vista.PanelCentral != null)
+            await Task.Run(() => Vista.PanelCentral.Registrar(_contenedorEstadisticas.Vista));
     }
 
     private void MostrarVistaContenedorEstadisticas(object? sender, EventArgs e) {

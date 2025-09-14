@@ -1,7 +1,7 @@
 ﻿using Guna.UI2.WinForms;
 
-namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
-    partial class VistaContenedorModulos {
+namespace aDVanceERP.Desktop.MVP.Vistas.Modulos {
+    partial class VistaModulos {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -34,7 +34,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaContenedorModulos));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaModulos));
             formatoBase = new Guna2BorderlessForm(components);
             layoutBase = new TableLayoutPanel();
             layoutDistribucion = new TableLayoutPanel();
@@ -48,7 +48,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             btnModuloTaller = new Guna2CircleButton();
             btnModuloVentas = new Guna2CircleButton();
             btnModuloSeguridad = new Guna2CircleButton();
-            contenedorVistas = new Panel();
+            panelCentral = new Panel();
             layoutMensajeBienvenida = new TableLayoutPanel();
             panelMensajeBienvenida = new Panel();
             fieldTextoBienvenida = new Guna2HtmlLabel();
@@ -60,7 +60,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             layoutDistribucion.SuspendLayout();
             layoutMenuLateral.SuspendLayout();
             layoutModulos.SuspendLayout();
-            contenedorVistas.SuspendLayout();
+            panelCentral.SuspendLayout();
             layoutMensajeBienvenida.SuspendLayout();
             panelMensajeBienvenida.SuspendLayout();
             layoutLogotipos.SuspendLayout();
@@ -98,7 +98,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             layoutDistribucion.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             layoutDistribucion.Controls.Add(layoutMenuLateral, 0, 0);
-            layoutDistribucion.Controls.Add(contenedorVistas, 1, 0);
+            layoutDistribucion.Controls.Add(panelCentral, 1, 0);
             layoutDistribucion.Dock = DockStyle.Fill;
             layoutDistribucion.Location = new Point(0, 0);
             layoutDistribucion.Margin = new Padding(0);
@@ -289,13 +289,13 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             // 
             // contenedorVistas
             // 
-            contenedorVistas.Controls.Add(layoutMensajeBienvenida);
-            contenedorVistas.Dock = DockStyle.Fill;
-            contenedorVistas.Location = new Point(50, 10);
-            contenedorVistas.Margin = new Padding(0, 10, 0, 0);
-            contenedorVistas.Name = "contenedorVistas";
-            contenedorVistas.Size = new Size(1306, 598);
-            contenedorVistas.TabIndex = 1;
+            panelCentral.Controls.Add(layoutMensajeBienvenida);
+            panelCentral.Dock = DockStyle.Fill;
+            panelCentral.Location = new Point(50, 10);
+            panelCentral.Margin = new Padding(0, 10, 0, 0);
+            panelCentral.Name = "contenedorVistas";
+            panelCentral.Size = new Size(1306, 598);
+            panelCentral.TabIndex = 1;
             // 
             // layoutMensajeBienvenida
             // 
@@ -413,7 +413,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
             layoutDistribucion.ResumeLayout(false);
             layoutMenuLateral.ResumeLayout(false);
             layoutModulos.ResumeLayout(false);
-            contenedorVistas.ResumeLayout(false);
+            panelCentral.ResumeLayout(false);
             layoutMensajeBienvenida.ResumeLayout(false);
             panelMensajeBienvenida.ResumeLayout(false);
             layoutLogotipos.ResumeLayout(false);
@@ -430,7 +430,7 @@ namespace aDVanceERP.Desktop.MVP.Vistas.ContenedorModulos {
         private TableLayoutPanel layoutDistribucion;
         private TableLayoutPanel layoutMenuLateral;
         private FlowLayoutPanel layoutModulos;
-        private Panel contenedorVistas;
+        private Panel panelCentral;
         private Guna2CircleButton btnInicio;
         private Guna2CircleButton btnEstadisticas;
         private Guna2CircleButton btnModuloInventario;

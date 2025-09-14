@@ -6,7 +6,15 @@ namespace aDVanceERP.Modulos.Taller.Vistas.Menu;
 public partial class VistaMenuTaller : Form, IVistaMenuTaller {
     public VistaMenuTaller() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaMenuTaller);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

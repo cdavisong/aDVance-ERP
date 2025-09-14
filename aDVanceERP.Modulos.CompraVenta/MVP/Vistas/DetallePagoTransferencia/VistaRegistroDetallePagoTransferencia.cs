@@ -9,13 +9,19 @@ namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetallePagoTransferencia;
 
 public partial class VistaRegistroDetallePagoTransferencia : Form, IVistaRegistroDetallePagoTransferencia {
     private bool _modoEdicion;
-    private string _numeroTarjeta;
+    private string _numeroTarjeta = "0000 0000 0000 0000";
 
     public VistaRegistroDetallePagoTransferencia() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroDetallePagoTransferencia);
+
         Inicializar();
     }
-
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
+    }
     public bool Habilitada {
         get => Enabled;
         set => Enabled = value;

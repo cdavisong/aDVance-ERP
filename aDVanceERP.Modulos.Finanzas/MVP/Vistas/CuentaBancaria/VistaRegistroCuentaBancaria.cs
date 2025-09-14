@@ -8,7 +8,15 @@ public partial class VistaRegistroCuentaBancaria : Form, IVistaRegistroCuentaBan
 
     public VistaRegistroCuentaBancaria() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroCuentaBancaria);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

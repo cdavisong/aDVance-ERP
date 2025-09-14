@@ -15,7 +15,7 @@ using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.Compra;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroCompra? _registroCompraProducto;
     private long _proximoIdCompra = 0;
 

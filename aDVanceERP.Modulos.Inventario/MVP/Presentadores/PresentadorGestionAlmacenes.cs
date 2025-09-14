@@ -29,7 +29,7 @@ public class PresentadorGestionAlmacenes : PresentadorVistaGestion<PresentadorTu
         var presentadorTupla = new PresentadorTuplaAlmacen(new VistaTuplaAlmacen(), entidad);
 
         presentadorTupla.Vista.Id = entidad.Id.ToString();
-        presentadorTupla.Vista.Nombre = entidad.Nombre;
+        presentadorTupla.Vista.NombreAlmacen = entidad.Nombre;
         presentadorTupla.Vista.Direccion = entidad.Direccion;
         presentadorTupla.Vista.Descripcion = entidad.Descripcion;
         presentadorTupla.Vista.MostrarBotonExportarProductos = _dispositivoConectado;

@@ -30,7 +30,7 @@ public class PresentadorGestionProductos : PresentadorVistaGestion<PresentadorTu
         presentadorTupla.Vista.NombreAlmacen = string.IsNullOrEmpty(Vista.NombreAlmacen) || Vista.NombreAlmacen.Contains("Todos")
             ? "-"
             : Vista.NombreAlmacen;
-        presentadorTupla.Vista.Nombre = entidad.Nombre ?? string.Empty;
+        presentadorTupla.Vista.NombreProducto = entidad.Nombre ?? string.Empty;
         presentadorTupla.Vista.Descripcion = detalleProducto?.Descripcion ?? "No hay descripción disponible";
         presentadorTupla.Vista.CostoUnitario = entidad.Categoria == CategoriaProducto.ProductoTerminado ? entidad.CostoProduccionUnitario : entidad.PrecioCompra;
         presentadorTupla.Vista.PrecioVentaBase = entidad.PrecioVentaBase;

@@ -3,7 +3,7 @@
 namespace aDVanceERP.Modulos.Taller.Interfaces
 {
     public interface IVistaTuplaOrdenGastoIndirecto : IVistaTupla {
-        string IdOrdenGastoIndirecto { get; set; }
+        int Indice { get; set; }
         string ConceptoGasto { get; set; }
         string Monto { get; set; }
         string Cantidad { get; set; }

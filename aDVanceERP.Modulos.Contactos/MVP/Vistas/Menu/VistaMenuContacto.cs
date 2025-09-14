@@ -6,7 +6,15 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Vistas.Menu;
 public partial class VistaMenuContacto : Form, IVistaMenuContacto {
     public VistaMenuContacto() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaMenuContacto);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {

@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Contactos.MVP.Vistas.Mensajero;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroMensajero? _registroMensajero;
 
     private Task InicializarVistaRegistroMensajero() {
@@ -34,7 +34,7 @@ public partial class PresentadorContenedorModulos {
                 return;
 
             _registroMensajeria.Vista.CargarNombresMensajeros(UtilesMensajero.ObtenerNombresMensajeros().Result);
-            _registroMensajeria.Vista.NombreMensajero = _registroMensajero.Vista.Nombre;
+            _registroMensajeria.Vista.NombreMensajero = _registroMensajero.Vista.NombreMensajero;
         };
 
         _registroMensajero.Vista.Mostrar();

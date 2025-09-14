@@ -8,7 +8,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.QR;
 public partial class VistaQR : Form, IVistaQR {
     public VistaQR() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaQR);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -30,8 +38,6 @@ public partial class VistaQR : Form, IVistaQR {
         get => fieldCodigoQr.BackgroundImage;
         set => fieldCodigoQr.BackgroundImage = value;
     }
-
-    
 
     public void Inicializar() {
         // Eventos

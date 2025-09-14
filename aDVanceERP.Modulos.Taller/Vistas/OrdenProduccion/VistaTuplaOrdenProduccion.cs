@@ -10,7 +10,15 @@ namespace aDVanceERP.Modulos.Taller.Vistas.OrdenProduccion {
 
         public VistaTuplaOrdenProduccion() {
             InitializeComponent();
+
+            NombreVista = nameof(VistaTuplaOrdenProduccion);
+
             Inicializar();
+        }
+
+        public string NombreVista {
+            get => $"{Name}{Id}";
+            private set => Name = value;
         }
 
         public bool Habilitada {

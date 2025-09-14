@@ -11,7 +11,7 @@ using aDVanceERP.Desktop.Utiles;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroRolUsuario? _registroRolUsuario;
 
     private List<string[]>? Permisos { get; set; } = new();

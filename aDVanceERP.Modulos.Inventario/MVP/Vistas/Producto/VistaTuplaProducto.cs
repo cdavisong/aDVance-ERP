@@ -14,7 +14,15 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
 
     public VistaTuplaProducto() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaProducto);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Id}";
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -56,7 +64,7 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
             : value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
     }
 
-    public string Nombre {
+    public string NombreProducto {
         get => fieldNombre.Text;
         set => fieldNombre.Text = value;
     }
@@ -137,7 +145,7 @@ public partial class VistaTuplaProducto : Form, IVistaTuplaProducto {
                 EliminarDatosTupla?.Invoke(this, e);
             else
                 CentroNotificaciones.Mostrar(
-                    $"No se puede eliminar el producto {Nombre}, existen registros de movimientos asociados al mismo y podría dañar la integridad y trazabilidad de los datos.",
+                    $"No se puede eliminar el producto {NombreProducto}, existen registros de movimientos asociados al mismo y podría dañar la integridad y trazabilidad de los datos.",
                     TipoNotificacion.Advertencia);
         };
     }

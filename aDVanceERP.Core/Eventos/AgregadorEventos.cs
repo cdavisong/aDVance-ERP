@@ -1,28 +1,47 @@
-﻿using aDVanceERP.Core.Eventos.Interfaces;
+﻿using System.Text.Json;
 
-namespace aDVanceERP.Core.Eventos {
-    public class AgregadorEventos : IAgregadorEventos {
-        private readonly Dictionary<Type, List<Delegate>> _handlers = new();
+namespace aDVanceERP.Core.Eventos;
 
-        public void Suscribir<TEvento>(Action<TEvento> handler) where TEvento : EventoBase {
-            if (!_handlers.ContainsKey(typeof(TEvento))) {
-                _handlers[typeof(TEvento)] = new List<Delegate>();
-            }
+public static class AgregadorEventos {
+    private static readonly Dictionary<string, List<Action<string>>> _suscriptores =
+        new Dictionary<string, List<Action<string>>>();
 
-            _handlers[typeof(TEvento)].Add(handler);
+    // Suscribe un manejador a un tipo de evento
+    public static void Subscribir(string eventType, Action<string> handler) {
+        if (!_suscriptores.ContainsKey(eventType)) {
+            _suscriptores[eventType] = new List<Action<string>>();
         }
-        public void Desuscribir<TEvento>(Action<TEvento> handler) where TEvento : EventoBase {
-            if (_handlers.TryGetValue(typeof(TEvento), out var handlers)) {
-                handlers.Remove(handler);
-            }
-        }
+        _suscriptores[eventType].Add(handler);
+    }
 
-        public void Publicar<TEvento>(TEvento @event) where TEvento : EventoBase {
-            if (_handlers.TryGetValue(typeof(TEvento), out var handlers)) {
-                foreach (var handler in handlers.ToList()) {
-                    ((Action<TEvento>) handler)(@event);
+    // Desuscribe un manejador
+    public static void Desuscribir(string eventType, Action<string> handler) {
+        if (_suscriptores.ContainsKey(eventType)) {
+            _suscriptores[eventType].Remove(handler);
+        }
+    }
+
+    // Publica un evento con un payload (datos en JSON)
+    public static void Publicar(string eventType, string jsonPayload) {
+        if (_suscriptores.ContainsKey(eventType)) {
+            foreach (var handler in _suscriptores[eventType]) {
+                try {
+                    handler(jsonPayload);
+                }
+                catch (Exception ex) {
+                    Console.WriteLine($"Error manejando el evento {eventType}: {ex.Message}");
                 }
             }
         }
+    }
+
+    // Helper para serializar el payload a JSON
+    public static string SerializarPayload(object data) {
+        return JsonSerializer.Serialize(data);
+    }
+
+    // Helper para deserializar el JSON a un tipo específico
+    public static T DeserializarPayload<T>(string json) {
+        return JsonSerializer.Deserialize<T>(json)!;
     }
 }

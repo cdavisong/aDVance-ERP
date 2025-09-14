@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroTipoMateriaPrima? _registroTipoMateriaPrima;
 
     private Task InicializarVistaRegistroTipoMateriaPrima() {

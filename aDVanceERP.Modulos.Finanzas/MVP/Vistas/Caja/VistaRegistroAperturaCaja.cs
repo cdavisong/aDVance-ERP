@@ -9,7 +9,15 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Vistas.Caja {
 
         public VistaRegistroAperturaCaja() {
             InitializeComponent();
+
+            NombreVista = nameof(VistaRegistroAperturaCaja);
+
             Inicializar();
+        }
+
+        public string NombreVista {
+            get => Name;
+            private set => Name = value;
         }
 
         public bool Habilitada {

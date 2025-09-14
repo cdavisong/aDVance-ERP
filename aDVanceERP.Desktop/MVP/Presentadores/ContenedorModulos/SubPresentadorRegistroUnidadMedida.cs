@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.UnidadMedida;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroUnidadMedida? _registroUnidadMedida;
 
     private Task InicializarVistaRegistroUnidadMedida() {

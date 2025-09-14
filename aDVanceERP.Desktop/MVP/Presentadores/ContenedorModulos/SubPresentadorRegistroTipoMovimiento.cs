@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMovimiento;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos;
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroTipoMovimiento? _registroTipoMovimiento;
 
     private Task InicializarVistaRegistroTipoMovimiento() {

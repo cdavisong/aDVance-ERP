@@ -4,7 +4,7 @@ using aDVanceERP.Modulos.Finanzas.MVP.Vistas.QR;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorQR? _qr;
 
     private void InicializarVistaQR() {

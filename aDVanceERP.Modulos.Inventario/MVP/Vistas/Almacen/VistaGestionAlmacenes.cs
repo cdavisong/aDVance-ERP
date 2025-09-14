@@ -14,7 +14,15 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
 
     public VistaGestionAlmacenes() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaGestionAlmacenes);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -69,7 +77,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         }
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public RepoVistaBase? PanelCentral { get; private set; }
 
     public bool DispositivoConectado { get; private set; }
 
@@ -89,7 +97,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepoVistaBase(contenedorVistas);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         fieldFiltroBusqueda.SelectedIndexChanged += delegate {

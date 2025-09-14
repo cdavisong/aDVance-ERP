@@ -9,10 +9,18 @@ public partial class VistaTuplaOrdenGastoIndirecto : Form, IVistaTuplaOrdenGasto
 
     public VistaTuplaOrdenGastoIndirecto(bool gastoDinamico = false) {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaOrdenGastoIndirecto);
+
         Inicializar();
 
         // Habilitar segun el tipo de gasto
         fieldMonto.Enabled = !gastoDinamico;
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Indice}";
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -35,7 +43,7 @@ public partial class VistaTuplaOrdenGastoIndirecto : Form, IVistaTuplaOrdenGasto
         set => Size = value;
     }
 
-    public string IdOrdenGastoIndirecto { get; set; }
+    public int Indice { get; set; }
 
     public string ConceptoGasto {
         get => fieldConceptoGasto.Text;

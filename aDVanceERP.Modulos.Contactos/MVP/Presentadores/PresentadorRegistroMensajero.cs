@@ -12,7 +12,7 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
 
     public override void PopularVistaDesdeEntidad(Mensajero objeto) {
         Vista.ModoEdicion = true;
-        Vista.Nombre = objeto.Nombre;
+        Vista.NombreMensajero = objeto.Nombre;
 
         using (var datosContacto = new RepoContacto()) {
             var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
@@ -26,8 +26,8 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
     }
 
     protected override bool EntidadCorrecta() {
-        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicion;
-        var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
+        var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.NombreMensajero).Result > 0 && !Vista.ModoEdicion;
+        var nombreOk = !string.IsNullOrEmpty(Vista.NombreMensajero) && !nombreEncontrado;
         var telefonoOk = !string.IsNullOrEmpty(Vista.TelefonoMovil);
 
         if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
@@ -55,7 +55,7 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
             var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, (Entidad?.IdContacto ?? 0).ToString()).resultados.FirstOrDefault() ??
                 new Contacto();
 
-            contacto.Nombre = Vista.Nombre;
+            contacto.Nombre = Vista.NombreMensajero;
             contacto.Notas = "Mensajero";
 
             if (Vista.ModoEdicion && contacto.Id != 0)
@@ -110,9 +110,9 @@ public class PresentadorRegistroMensajero : PresentadorVistaRegistro<IVistaRegis
     protected override Mensajero? ObtenerEntidadDesdeVista() {
         return new Mensajero(
             Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
-            Vista.Nombre,
+            Vista.NombreMensajero,
             true,
-            UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result
+            UtilesContacto.ObtenerIdContacto(Vista.NombreMensajero).Result
         );
     }
 }

@@ -11,7 +11,15 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
 
     public VistaGestionRolesUsuarios() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaGestionRolesUsuarios);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -66,7 +74,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
         }
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public RepoVistaBase? PanelCentral { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -82,7 +90,7 @@ public partial class VistaGestionRolesUsuarios : Form, IVistaGestionRolesUsuario
 
     public void Inicializar() {
         // Variables locales
-        Vistas = new RepoVistaBase(contenedorVistas);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         fieldFiltroBusqueda.SelectedIndexChanged += delegate {

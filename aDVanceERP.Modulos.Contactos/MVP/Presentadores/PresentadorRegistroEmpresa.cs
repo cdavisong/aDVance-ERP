@@ -15,7 +15,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
         public override void PopularVistaDesdeEntidad(Empresa objeto) {
             Vista.ModoEdicion = true;
             Vista.Logotipo = objeto.Logotipo ?? Resources.logoF_96px;
-            Vista.Nombre = objeto.Nombre ?? string.Empty;
+            Vista.NombreEmpresa = objeto.Nombre ?? string.Empty;
 
             using (var datosContacto = new RepoContacto()) {
                 var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, objeto.IdContacto.ToString()).resultados.FirstOrDefault();
@@ -32,8 +32,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
         }
 
         protected override bool EntidadCorrecta() {
-            var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result > 0 && !Vista.ModoEdicion;
-            var nombreOk = !string.IsNullOrEmpty(Vista.Nombre) && !nombreEncontrado;
+            var nombreEncontrado = UtilesContacto.ObtenerIdContacto(Vista.NombreEmpresa).Result > 0 && !Vista.ModoEdicion;
+            var nombreOk = !string.IsNullOrEmpty(Vista.NombreEmpresa) && !nombreEncontrado;
 
             if (!string.IsNullOrEmpty(Vista.TelefonoMovil)) {
                 var noLetrasTelefonosOk = !Vista.TelefonoMovil.Replace(" ", "").Any(char.IsLetter);
@@ -70,7 +70,7 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
                 var contacto = datosContacto.Buscar(FiltroBusquedaContacto.Id, (Entidad?.IdContacto ?? 0).ToString()).resultados.FirstOrDefault() ??
                     new Contacto();
 
-                contacto.Nombre = Vista.Nombre;
+                contacto.Nombre = Vista.NombreEmpresa;
                 contacto.DireccionCorreoElectronico = Vista.CorreoElectronico;
                 contacto.Direccion = Vista.Direccion;
                 contacto.Notas = "Nuestra empresa";
@@ -149,8 +149,8 @@ namespace aDVanceERP.Modulos.Contactos.MVP.Presentadores
             return new Empresa(
                 Vista.ModoEdicion && Entidad != null ? Entidad.Id : 0,
                 Vista.Logotipo,
-                Vista.Nombre,
-                UtilesContacto.ObtenerIdContacto(Vista.Nombre).Result
+                Vista.NombreEmpresa,
+                UtilesContacto.ObtenerIdContacto(Vista.NombreEmpresa).Result
             );
         }
     }

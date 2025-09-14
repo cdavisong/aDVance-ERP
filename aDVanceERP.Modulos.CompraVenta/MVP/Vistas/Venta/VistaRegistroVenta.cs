@@ -21,7 +21,15 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
     public VistaRegistroVenta() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaRegistroVenta);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -47,7 +55,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public RepoVistaBase? PanelCentral { get; private set; }
 
     public bool ModoEdicion {
         get => _modoEdicion;
@@ -161,7 +169,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
 
     public void Inicializar() {
         Productos = new List<string[]>();
-        Vistas = new RepoVistaBase(contenedorVistas);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         // Eventos            
         btnCerrar.Click += delegate(object? sender, EventArgs args) {
@@ -331,6 +339,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             var producto = Productos[i];
             var tuplaDetallesVentaProducto = new VistaTuplaDetalleCompraventaProducto();
 
+            tuplaDetallesVentaProducto.Indice = i;
             tuplaDetallesVentaProducto.IdProducto = producto[0];
             tuplaDetallesVentaProducto.NombreProducto = producto[1];
             tuplaDetallesVentaProducto.PrecioCompraventaFinal = producto[3];
@@ -357,8 +366,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
             };
 
             // Registro y muestra
-            Vistas?.Registrar(
-                $"vistaTupla{tuplaDetallesVentaProducto.GetType().Name}{i}",
+            PanelCentral?.Registrar(
                 tuplaDetallesVentaProducto,
                 new Point(0, VariablesGlobales.CoordenadaYUltimaTupla),
                 new Size(contenedorVistas.Width - 20, VariablesGlobales.AlturaTuplaPredeterminada),

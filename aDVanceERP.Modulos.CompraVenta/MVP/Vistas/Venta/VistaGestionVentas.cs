@@ -20,9 +20,17 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
 
     public VistaGestionVentas() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaGestionVentas);
+
         Inicializar();
 
         _androidFileManager = new ControladorArchivosAndroid(Application.StartupPath);
+    }
+
+    public string NombreVista {
+        get => Name;
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -100,7 +108,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
         }
     }
 
-    public RepoVistaBase? Vistas { get; private set; }
+    public RepoVistaBase? PanelCentral { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -120,7 +128,7 @@ public partial class VistaGestionVentas : Form, IVistaGestionVentas {
 
     public void Inicializar() {
         // Vistas
-        Vistas = new RepoVistaBase(contenedorVistas);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         // Eventos
         btnDescargar.Click += delegate {

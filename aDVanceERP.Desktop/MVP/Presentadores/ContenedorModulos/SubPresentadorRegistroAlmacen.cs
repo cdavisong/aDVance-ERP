@@ -6,7 +6,7 @@ using aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen;
 
 namespace aDVanceERP.Desktop.MVP.Presentadores.ContenedorModulos; 
 
-public partial class PresentadorContenedorModulos {
+public partial class PresentadorModulos {
     private PresentadorRegistroAlmacen? _registroAlmacen;
 
     private void InicializarVistaRegistroAlmacen() {
@@ -20,7 +20,7 @@ public partial class PresentadorContenedorModulos {
             _gestionAlmacenes.ActualizarResultadosBusqueda();
         };
 
-        Vista.Vistas?.Registrar("vistaRegistroAlmacen", 
+        Vista.PanelCentral.Registrar(
             _registroAlmacen.Vista, 
             new Point(Vista.Dimensiones.Width - _registroAlmacen.Vista.Dimensiones.Width - 40, -10),
             _registroAlmacen.Vista.Dimensiones,

@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+
 using aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto.Plantillas;
 
 namespace aDVanceERP.Modulos.CompraVenta.MVP.Vistas.DetalleCompraventaProducto; 
@@ -8,7 +9,15 @@ public partial class VistaTuplaDetalleCompraventaProducto : Form, IVistaTuplaDet
 
     public VistaTuplaDetalleCompraventaProducto() {
         InitializeComponent();
+
+        NombreVista = nameof(VistaTuplaDetalleCompraventaProducto);
+
         Inicializar();
+    }
+
+    public string NombreVista {
+        get => $"{Name}{Indice}";
+        private set => Name = value;
     }
 
     public bool Habilitada {
@@ -29,6 +38,8 @@ public partial class VistaTuplaDetalleCompraventaProducto : Form, IVistaTuplaDet
         get => Size;
         set => Size = value;
     }
+
+    public int Indice { get; set; }
 
     public string IdProducto { get; set; }
 

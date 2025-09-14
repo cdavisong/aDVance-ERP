@@ -1,4 +1,5 @@
 ﻿using aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima.Plantillas;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima {
     public partial class VistaRegistroTipoMateriaPrima : Form, IVistaRegistroTipoMateriaPrima {
@@ -6,7 +7,15 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima {
 
         public VistaRegistroTipoMateriaPrima() {
             InitializeComponent();
+
+            NombreVista = nameof(VistaRegistroTipoMateriaPrima);
+
             Inicializar();
+        }
+
+        public string NombreVista {
+            get => Name;
+            private set => Name = value;
         }
 
         public bool Habilitada {
@@ -24,7 +33,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima {
             set => Size = value;
         }
 
-        public string Nombre {
+        public string NombreTipoMateriaPrima {
             get => fieldNombre.Text;
             set => fieldNombre.Text = value;
         }
@@ -70,7 +79,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.TipoMateriaPrima {
         }
 
         public void Restaurar() {
-            Nombre = string.Empty;
+            NombreTipoMateriaPrima = string.Empty;
             Descripcion = string.Empty;
             ModoEdicion = false;
         }
