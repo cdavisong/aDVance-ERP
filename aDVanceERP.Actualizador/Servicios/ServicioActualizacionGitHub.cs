@@ -131,14 +131,19 @@ public class ServicioActualizacionGitHub : IServicioActualizacion {
             }
 
             if (File.Exists(instaladorPath)) {
+                ProcessStartInfo startInfo = new ProcessStartInfo {
+                    FileName = instaladorPath,
+                    WorkingDirectory = Path.GetDirectoryName(instaladorPath)
+                };
+
                 // Ejecutar el instalador
-                Process instaladorProcess = Process.Start(instaladorPath);
+                var instaladorProcess = Process.Start(startInfo);
 
                 // Esperar a que el instalador termine
-                instaladorProcess.WaitForExit();
+                instaladorProcess?.WaitForExit();
 
                 // Verificar si la instalación fue exitosa
-                if (instaladorProcess.ExitCode != 0) {
+                if (instaladorProcess?.ExitCode != 0) {
                     throw new Exception($"El instalador falló con código de error: {instaladorProcess.ExitCode}");
                 }
             } else {
