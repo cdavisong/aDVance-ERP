@@ -1,8 +1,12 @@
 ﻿using aDVanceERP.Actualizador.Interfaces;
 using aDVanceERP.Actualizador.Modelos;
+
 using Newtonsoft.Json;
-using System;
+
+using System.ComponentModel;
 using System.Diagnostics;
+using System.IO.Compression;
+using System.Reflection;
 
 namespace aDVanceERP.Actualizador.Servicios;
 
@@ -91,29 +95,147 @@ public class ServicioActualizacionGitHub : IServicioActualizacion {
         }
     }
 
-    public void AplicarActualizacion(string rutaDescargaActualizacion) {
+    public void AplicarActualizacion(string rutaDescargaActualizacion, IProgress<double> progreso = null) {
         if (!File.Exists(rutaDescargaActualizacion))
             throw new FileNotFoundException("Archivo de actualización no encontrado");
 
         try {
-            var currentExe = Process.GetCurrentProcess().MainModule.FileName;
-            var tempExe = Path.Combine(Path.GetTempPath(), Path.GetFileName(currentExe) + ".old");
+            // Cerrar la aplicación si aún está activa
+            var procesoApp = Process.GetProcessesByName("aDVanceERP.Desktop").FirstOrDefault();
+            if (procesoApp != null) {
+                procesoApp.Kill();
+                procesoApp.WaitForExit(5000); // Esperar hasta 5 segundos a que cierre
+            }
 
-            // Mover el ejecutable actual a temporal
-            File.Move(currentExe, tempExe);
+            // Obtener el directorio de destino (directorio actual de la aplicación)
+            string directorioDestino = AppDomain.CurrentDomain.BaseDirectory;
+            string directorioTemporal = Path.Combine(Path.GetTempPath(), "aDVanceERP_Update");
 
-            // Copiar el nuevo ejecutable
-            File.Copy(rutaDescargaActualizacion, currentExe);
+            // Limpiar directorio temporal si existe
+            if (Directory.Exists(directorioTemporal)) {
+                Directory.Delete(directorioTemporal, true);
+            }
+            Directory.CreateDirectory(directorioTemporal);
 
-            // Programar eliminación del archivo temporal
-            File.Delete(tempExe);
+            // Descomprimir el archivo ZIP
+            progreso?.Report(10);
+            DescomprimirArchivo(rutaDescargaActualizacion, directorioTemporal, progreso);
+
+            // Buscar y ejecutar el instalador
+            progreso?.Report(90);
+            string instaladorPath = Path.Combine(directorioTemporal, "aDVanceINSTALL.Desktop.exe");
+
+            if (!File.Exists(instaladorPath)) {
+                // Buscar recursivamente en todos los directorios
+                instaladorPath = BuscarArchivoRecursivamente(directorioTemporal, "aDVanceINSTALL.Desktop.exe");
+            }
+
+            if (File.Exists(instaladorPath)) {
+                // Ejecutar el instalador
+                Process instaladorProcess = Process.Start(instaladorPath);
+
+                // Esperar a que el instalador termine
+                instaladorProcess.WaitForExit();
+
+                // Verificar si la instalación fue exitosa
+                if (instaladorProcess.ExitCode != 0) {
+                    throw new Exception($"El instalador falló con código de error: {instaladorProcess.ExitCode}");
+                }
+            } else {
+                throw new FileNotFoundException("No se encontró el instalador aDVanceINSTALL.Desktop.exe en el paquete de actualización");
+            }
+
+            // Limpiar archivos temporales
+            progreso?.Report(95);
+            LimpiarArchivosTemporales(rutaDescargaActualizacion, directorioTemporal);
 
             // Reiniciar la aplicación
-            Process.Start(currentExe);
+            progreso?.Report(100);
+            string appPath = Path.Combine(directorioDestino, "aDVanceERP.Desktop.exe");
+
+            if (File.Exists(appPath)) {
+                Process.Start(appPath);
+            } else {
+                throw new FileNotFoundException("No se pudo encontrar la aplicación principal después de la actualización");
+            }
+
             Application.Exit();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new Exception("Error al aplicar la actualización", ex);
+        }
+    }
+
+    private void DescomprimirArchivo(string archivoZip, string directorioDestino, IProgress<double> progreso) {
+        using (ZipArchive archive = ZipFile.OpenRead(archivoZip)) {
+            int totalArchivos = archive.Entries.Count;
+            int archivosProcesados = 0;
+
+            foreach (ZipArchiveEntry entry in archive.Entries) {
+                try {
+                    // Ignorar directorios
+                    if (string.IsNullOrEmpty(entry.Name))
+                        continue;
+
+                    string destinoCompleto = Path.Combine(directorioDestino, entry.FullName);
+                    string directorio = Path.GetDirectoryName(destinoCompleto);
+
+                    // Crear directorio si no existe
+                    if (!Directory.Exists(directorio)) {
+                        Directory.CreateDirectory(directorio);
+                    }
+
+                    // Extraer archivo
+                    entry.ExtractToFile(destinoCompleto, true);
+
+                    archivosProcesados++;
+                    double porcentaje = 10 + (80.0 * archivosProcesados / totalArchivos);
+                    progreso?.Report(porcentaje);
+                } catch (Exception ex) {
+                    // Loggear error pero continuar con otros archivos
+                    Console.WriteLine($"Error al extraer {entry.FullName}: {ex.Message}");
+                }
+            }
+        }
+    }
+
+    private string BuscarArchivoRecursivamente(string directorio, string nombreArchivo) {
+        try {
+            // Buscar en el directorio actual
+            string[] archivos = Directory.GetFiles(directorio, nombreArchivo, SearchOption.TopDirectoryOnly);
+            if (archivos.Length > 0)
+                return archivos[0];
+
+            // Buscar recursivamente en subdirectorios
+            archivos = Directory.GetFiles(directorio, nombreArchivo, SearchOption.AllDirectories);
+            if (archivos.Length > 0)
+                return archivos[0];
+        } catch (Exception ex) {
+            Console.WriteLine($"Error buscando archivo: {ex.Message}");
+        }
+
+        return null;
+    }
+
+    private void LimpiarArchivosTemporales(string archivoDescarga, string directorioTemporal) {
+        try {
+            // Eliminar archivo descargado
+            if (File.Exists(archivoDescarga)) {
+                File.Delete(archivoDescarga);
+            }
+
+            // Eliminar directorio temporal después de un breve delay
+            Task.Delay(1000).ContinueWith(t =>
+            {
+                try {
+                    if (Directory.Exists(directorioTemporal)) {
+                        Directory.Delete(directorioTemporal, true);
+                    }
+                } catch {
+                    // Ignorar errores de limpieza
+                }
+            });
+        } catch {
+            // Ignorar errores de limpieza
         }
     }
 }

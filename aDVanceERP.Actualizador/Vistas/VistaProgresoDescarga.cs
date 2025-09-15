@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using aDVanceERP.Actualizador.Componentes;
+
+using System.Runtime.InteropServices;
 
 namespace aDVanceERP.Actualizador.Vistas {
     public partial class VistaProgresoDescarga : Form {
@@ -10,7 +12,7 @@ namespace aDVanceERP.Actualizador.Vistas {
             EstablecerColorBarraProgreso(fieldBarraProgreso, Color.Firebrick);
         }
 
-        private void EstablecerColorBarraProgreso(ProgressBar pBar, Color newColor) {
+        private void EstablecerColorBarraProgreso(CustomProgressBar pBar, Color newColor) {
             SendMessage(pBar.Handle, 1040, newColor.ToArgb(), IntPtr.Zero);
         }
 
@@ -21,6 +23,7 @@ namespace aDVanceERP.Actualizador.Vistas {
             }
 
             fieldBarraProgreso.Value = (int) percentage;
+            fieldInfo.Text = $"Descargando archivos necesarios...{(int) percentage}%";
         }
 
         public void UpdateStatus(string status) {

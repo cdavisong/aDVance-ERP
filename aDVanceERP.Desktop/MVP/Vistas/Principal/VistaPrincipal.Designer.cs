@@ -57,9 +57,9 @@
             layoutBase.SuspendLayout();
             layoutVista.SuspendLayout();
             layoutBarraTitulo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)fieldIcono).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) fieldIcono).BeginInit();
             barraTitulo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)btnMenuUsuario).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) btnMenuUsuario).BeginInit();
             layoutBarraEstado.SuspendLayout();
             SuspendLayout();
             // 
@@ -72,10 +72,10 @@
             // 
             // notificacionMensajes
             // 
-            notificacionMensajes.BorderColor = Color.FromArgb(2, 52, 107);
+            notificacionMensajes.BorderColor = Color.FromArgb(  2,   52,   107);
             notificacionMensajes.BorderRadius = 12;
             notificacionMensajes.BorderThickness = 0;
-            notificacionMensajes.FillColor = Color.FromArgb(2, 52, 107);
+            notificacionMensajes.FillColor = Color.FromArgb(  2,   52,   107);
             notificacionMensajes.Size = new Size(24, 24);
             notificacionMensajes.TargetControl = btnMensajes;
             notificacionMensajes.Visible = false;
@@ -85,7 +85,7 @@
             btnMensajes.Animated = true;
             btnMensajes.BackgroundImageLayout = ImageLayout.Center;
             btnMensajes.Cursor = Cursors.Hand;
-            btnMensajes.CustomImages.Image = (Image)resources.GetObject("resource.Image1");
+            btnMensajes.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnMensajes.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnMensajes.CustomizableEdges = customizableEdges3;
             btnMensajes.Dock = DockStyle.Fill;
@@ -104,10 +104,10 @@
             // 
             // notificacionesModulos
             // 
-            notificacionesModulos.BorderColor = Color.FromArgb(2, 52, 107);
+            notificacionesModulos.BorderColor = Color.FromArgb(  2,   52,   107);
             notificacionesModulos.BorderRadius = 12;
             notificacionesModulos.BorderThickness = 0;
-            notificacionesModulos.FillColor = Color.FromArgb(2, 52, 107);
+            notificacionesModulos.FillColor = Color.FromArgb(  2,   52,   107);
             notificacionesModulos.Size = new Size(24, 24);
             notificacionesModulos.TargetControl = btnNotificaciones;
             notificacionesModulos.Visible = false;
@@ -117,7 +117,7 @@
             btnNotificaciones.Animated = true;
             btnNotificaciones.BackgroundImageLayout = ImageLayout.Center;
             btnNotificaciones.Cursor = Cursors.Hand;
-            btnNotificaciones.CustomImages.Image = (Image)resources.GetObject("resource.Image");
+            btnNotificaciones.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnNotificaciones.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnNotificaciones.CustomizableEdges = customizableEdges1;
             btnNotificaciones.Dock = DockStyle.Fill;
@@ -213,7 +213,7 @@
             // 
             // fieldIcono
             // 
-            fieldIcono.BackgroundImage = (Image)resources.GetObject("fieldIcono.BackgroundImage");
+            fieldIcono.BackgroundImage = (Image) resources.GetObject("fieldIcono.BackgroundImage");
             fieldIcono.BackgroundImageLayout = ImageLayout.Center;
             fieldIcono.Dock = DockStyle.Fill;
             fieldIcono.Location = new Point(3, 3);
@@ -242,6 +242,7 @@
             fieldTitulo.Name = "fieldTitulo";
             fieldTitulo.Size = new Size(1006, 49);
             fieldTitulo.TabIndex = 0;
+            fieldTitulo.Text = null;
             fieldTitulo.TextAlignment = ContentAlignment.MiddleLeft;
             fieldTitulo.UseGdiPlusTextRendering = true;
             // 
@@ -251,7 +252,7 @@
             btnCerrar.CustomizableEdges = customizableEdges7;
             btnCerrar.Dock = DockStyle.Fill;
             btnCerrar.FillColor = Color.WhiteSmoke;
-            btnCerrar.HoverState.FillColor = Color.FromArgb(192, 0, 0);
+            btnCerrar.HoverState.FillColor = Color.FromArgb(  192,   0,   0);
             btnCerrar.HoverState.IconColor = Color.White;
             btnCerrar.IconColor = Color.Black;
             btnCerrar.Location = new Point(1307, 1);
@@ -266,7 +267,7 @@
             btnMenuUsuario.BackgroundImageLayout = ImageLayout.Center;
             btnMenuUsuario.Cursor = Cursors.Hand;
             btnMenuUsuario.Dock = DockStyle.Fill;
-            btnMenuUsuario.Image = (Image)resources.GetObject("btnMenuUsuario.Image");
+            btnMenuUsuario.Image = (Image) resources.GetObject("btnMenuUsuario.Image");
             btnMenuUsuario.ImageRotate = 0F;
             btnMenuUsuario.Location = new Point(1157, 1);
             btnMenuUsuario.Margin = new Padding(1);
@@ -340,7 +341,7 @@
             DoubleBuffered = true;
             Font = new Font("Segoe UI", 11.25F);
             FormBorderStyle = FormBorderStyle.None;
-            Icon = (Icon)resources.GetObject("$this.Icon");
+            Icon = (Icon) resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
             Name = "VistaPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
@@ -349,10 +350,10 @@
             layoutBase.ResumeLayout(false);
             layoutVista.ResumeLayout(false);
             layoutBarraTitulo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)fieldIcono).EndInit();
+            ((System.ComponentModel.ISupportInitialize) fieldIcono).EndInit();
             barraTitulo.ResumeLayout(false);
             barraTitulo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)btnMenuUsuario).EndInit();
+            ((System.ComponentModel.ISupportInitialize) btnMenuUsuario).EndInit();
             layoutBarraEstado.ResumeLayout(false);
             ResumeLayout(false);
         }

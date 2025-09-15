@@ -5,8 +5,8 @@ using aDVanceERP.Actualizador.Vistas;
 
 namespace aDVanceERP.Actualizador {
     internal static class Program {
-        static IServicioActualizacion _updateService;
-        static string _currentVersion = "0.0.0.0";
+        public static string CurrentVersion = "0.0.0.1";
+        static IServicioActualizacion? _updateService;        
 
         const string PropietarioRepositorio = "cdavisong";
         const string NombreRepositorio = "aDVance-ERP";
@@ -14,6 +14,11 @@ namespace aDVanceERP.Actualizador {
         static void ShowUpdateDialog(InfoActualizacion updateInfo) {
             ApplicationConfiguration.Initialize();
             Application.Run(new VistaNotificadorActualizacion(_updateService, updateInfo));
+        }
+
+        static void ShowUpdateDialog(string message) {
+            ApplicationConfiguration.Initialize();
+            Application.Run(new VistaNotificadorActualizacion(message));
         }
 
         /// <summary>
@@ -25,7 +30,7 @@ namespace aDVanceERP.Actualizador {
             if (File.Exists(@".\app.ver"))
                 using (var fs = new FileStream(@".\app.ver", FileMode.Open)) {
                     using (var sr = new StreamReader(fs)) {
-                        _currentVersion = sr.ReadToEnd().Trim();
+                        CurrentVersion = sr.ReadToEnd().Trim();
                     }
                 }
 
@@ -33,12 +38,14 @@ namespace aDVanceERP.Actualizador {
             _updateService = new ServicioActualizacionGitHub(PropietarioRepositorio, NombreRepositorio);
 
             try {
-                var updateInfo = _updateService.ComprobarActualizaciones(_currentVersion, true).Result;
+                var updateInfo = _updateService.ComprobarActualizaciones(CurrentVersion, true).Result;
 
-                if (updateInfo.ActualizacionDisponible) {
+                if (updateInfo.ActualizacionDisponible)
                     ShowUpdateDialog(updateInfo);
-                } 
-            } catch (Exception) { }
+                else ShowUpdateDialog("no-actualizaciones");
+            } catch (Exception ex) {
+                ShowUpdateDialog($"no-conexion|{ex.Message}");
+            }
         }
     }
 }

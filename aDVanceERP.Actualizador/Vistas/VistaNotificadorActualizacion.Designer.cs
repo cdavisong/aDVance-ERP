@@ -24,20 +24,21 @@
         /// </summary>
         private void InitializeComponent() {
             components = new System.ComponentModel.Container();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VistaNotificadorActualizacion));
             formatoBase = new Guna.UI2.WinForms.Guna2BorderlessForm(components);
             layoutDistribucion = new TableLayoutPanel();
-            layoutBotones = new TableLayoutPanel();
-            btnActualizar = new Guna.UI2.WinForms.Guna2Button();
             panelCentral = new Panel();
             fieldTexto = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            layoutBotones = new TableLayoutPanel();
             btnSalir = new Guna.UI2.WinForms.Guna2Button();
+            btnActualizar = new Guna.UI2.WinForms.Guna2Button();
             layoutDistribucion.SuspendLayout();
-            layoutBotones.SuspendLayout();
             panelCentral.SuspendLayout();
+            layoutBotones.SuspendLayout();
             SuspendLayout();
             // 
             // formatoBase
@@ -68,43 +69,8 @@
             layoutDistribucion.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutDistribucion.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
             layoutDistribucion.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutDistribucion.Size = new Size(800, 450);
+            layoutDistribucion.Size = new Size(800, 460);
             layoutDistribucion.TabIndex = 1;
-            // 
-            // layoutBotones
-            // 
-            layoutBotones.BackColor = Color.White;
-            layoutBotones.ColumnCount = 3;
-            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
-            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 200F));
-            layoutBotones.Controls.Add(btnSalir, 2, 0);
-            layoutBotones.Controls.Add(btnActualizar, 1, 0);
-            layoutBotones.Dock = DockStyle.Fill;
-            layoutBotones.Location = new Point(23, 385);
-            layoutBotones.Margin = new Padding(3, 0, 0, 0);
-            layoutBotones.Name = "layoutBotones";
-            layoutBotones.RowCount = 1;
-            layoutBotones.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            layoutBotones.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutBotones.Size = new Size(757, 45);
-            layoutBotones.TabIndex = 11;
-            // 
-            // btnActualizar
-            // 
-            btnActualizar.Animated = true;
-            btnActualizar.BorderRadius = 18;
-            btnActualizar.CustomizableEdges = customizableEdges3;
-            btnActualizar.Dock = DockStyle.Fill;
-            btnActualizar.FillColor = Color.PeachPuff;
-            btnActualizar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnActualizar.ForeColor = Color.Black;
-            btnActualizar.Location = new Point(260, 3);
-            btnActualizar.Name = "btnActualizar";
-            btnActualizar.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            btnActualizar.Size = new Size(294, 39);
-            btnActualizar.TabIndex = 15;
-            btnActualizar.Text = "Actualizar ahora";
             // 
             // panelCentral
             // 
@@ -114,7 +80,7 @@
             panelCentral.Location = new Point(20, 20);
             panelCentral.Margin = new Padding(0);
             panelCentral.Name = "panelCentral";
-            panelCentral.Size = new Size(760, 345);
+            panelCentral.Size = new Size(760, 355);
             panelCentral.TabIndex = 12;
             // 
             // fieldTexto
@@ -128,6 +94,25 @@
             fieldTexto.Size = new Size(760, 1);
             fieldTexto.TabIndex = 2;
             fieldTexto.Text = null;
+            // 
+            // layoutBotones
+            // 
+            layoutBotones.BackColor = Color.White;
+            layoutBotones.ColumnCount = 3;
+            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            layoutBotones.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 200F));
+            layoutBotones.Controls.Add(btnSalir, 2, 0);
+            layoutBotones.Controls.Add(btnActualizar, 1, 0);
+            layoutBotones.Dock = DockStyle.Fill;
+            layoutBotones.Location = new Point(23, 395);
+            layoutBotones.Margin = new Padding(3, 0, 0, 0);
+            layoutBotones.Name = "layoutBotones";
+            layoutBotones.RowCount = 1;
+            layoutBotones.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            layoutBotones.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            layoutBotones.Size = new Size(757, 45);
+            layoutBotones.TabIndex = 11;
             // 
             // btnSalir
             // 
@@ -150,21 +135,36 @@
             btnSalir.TabIndex = 14;
             btnSalir.Text = "Salir";
             // 
+            // btnActualizar
+            // 
+            btnActualizar.Animated = true;
+            btnActualizar.BorderRadius = 18;
+            btnActualizar.CustomizableEdges = customizableEdges3;
+            btnActualizar.Dock = DockStyle.Fill;
+            btnActualizar.FillColor = Color.PeachPuff;
+            btnActualizar.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            btnActualizar.ForeColor = Color.Black;
+            btnActualizar.Location = new Point(260, 3);
+            btnActualizar.Name = "btnActualizar";
+            btnActualizar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            btnActualizar.Size = new Size(294, 39);
+            btnActualizar.TabIndex = 15;
+            btnActualizar.Text = "Actualizar ahora";
+            // 
             // VistaNotificadorActualizacion
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 460);
             Controls.Add(layoutDistribucion);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon) resources.GetObject("$this.Icon");
             Name = "VistaNotificadorActualizacion";
-            ShowIcon = false;
-            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "VistaNotificadorActualizacion";
             layoutDistribucion.ResumeLayout(false);
-            layoutBotones.ResumeLayout(false);
             panelCentral.ResumeLayout(false);
+            layoutBotones.ResumeLayout(false);
             ResumeLayout(false);
         }
 

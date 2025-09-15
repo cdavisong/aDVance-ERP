@@ -52,9 +52,9 @@
             layoutDistribucion.Margin = new Padding(0);
             layoutDistribucion.Name = "layoutDistribucion";
             layoutDistribucion.RowCount = 3;
-            layoutDistribucion.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            layoutDistribucion.RowStyles.Add(new RowStyle(SizeType.Percent, 30F));
             layoutDistribucion.RowStyles.Add(new RowStyle(SizeType.Absolute, 45F));
-            layoutDistribucion.RowStyles.Add(new RowStyle(SizeType.Percent, 80F));
+            layoutDistribucion.RowStyles.Add(new RowStyle(SizeType.Percent, 70F));
             layoutDistribucion.Size = new Size(599, 365);
             layoutDistribucion.TabIndex = 3;
             // 
@@ -64,10 +64,10 @@
             fieldInfo.BackColor = Color.White;
             fieldInfo.Dock = DockStyle.Fill;
             fieldInfo.Font = new Font("Segoe UI", 11.25F);
-            fieldInfo.Location = new Point(10, 119);
+            fieldInfo.Location = new Point(10, 151);
             fieldInfo.Margin = new Padding(10, 10, 30, 10);
             fieldInfo.Name = "fieldInfo";
-            fieldInfo.Size = new Size(559, 236);
+            fieldInfo.Size = new Size(559, 204);
             fieldInfo.TabIndex = 4;
             fieldInfo.Text = "Preparando la descarga...";
             fieldInfo.UseGdiPlusTextRendering = true;
@@ -81,17 +81,17 @@
             fieldTitulo.Location = new Point(10, 10);
             fieldTitulo.Margin = new Padding(10, 10, 30, 10);
             fieldTitulo.Name = "fieldTitulo";
-            fieldTitulo.Size = new Size(559, 44);
+            fieldTitulo.Size = new Size(559, 76);
             fieldTitulo.TabIndex = 3;
             fieldTitulo.Text = "<h3>Descargando aDVance ERP</h3>";
             fieldTitulo.UseGdiPlusTextRendering = true;
             // 
-            // barraProgreso
+            // fieldBarraProgreso
             // 
             fieldBarraProgreso.Dock = DockStyle.Fill;
-            fieldBarraProgreso.Location = new Point(10, 64);
+            fieldBarraProgreso.Location = new Point(10, 96);
             fieldBarraProgreso.Margin = new Padding(10, 0, 30, 0);
-            fieldBarraProgreso.Name = "barraProgreso";
+            fieldBarraProgreso.Name = "fieldBarraProgreso";
             fieldBarraProgreso.Size = new Size(559, 45);
             fieldBarraProgreso.TabIndex = 5;
             // 

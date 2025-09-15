@@ -22,6 +22,8 @@ using aDVanceERP.Modulos.Finanzas;
 using aDVanceERP.Modulos.Inventario;
 using aDVanceERP.Modulos.Taller;
 
+using System.Diagnostics;
+
 namespace aDVanceERP.Desktop.MVP.Presentadores.Principal;
 
 public partial class PresentadorPrincipal : IPresentadorVistaPrincipal<IVistaPrincipal> {
@@ -38,7 +40,7 @@ public partial class PresentadorPrincipal : IPresentadorVistaPrincipal<IVistaPri
         Vista.PanelCentral.Registrar(Modulos.Vista);
 
         // Eventos de la vista principal
-        ((Form)Vista).Shown += OnVistaPrincipalMostrada;
+        ((Form) Vista).Shown += OnVistaPrincipalMostrada;
         Vista.VerMenuUsuario += OnVerMenuUsuario;
 
         // Eventos de seguridad
@@ -84,6 +86,19 @@ public partial class PresentadorPrincipal : IPresentadorVistaPrincipal<IVistaPri
     }
 
     private void OnVistaPrincipalMostrada(object? sender, EventArgs e) {
+        // Verificar actualizaciones
+        if (File.Exists(@".\Actualizador.exe")) {
+            // Ejecutar el instalador
+            Process ActualizadorProcess = Process.Start(@".\Actualizador.exe");
+
+            // Esperar a que el instalador termine
+            ActualizadorProcess.WaitForExit();
+
+            // Verificar si la instalación fue exitosa
+            if (ActualizadorProcess.ExitCode != 0)
+                CentroNotificaciones.Mostrar($"El actualizador de la aplicación falló con código de error: {ActualizadorProcess.ExitCode}", TipoNotificacion.Error);
+        }
+
         Vista.BarraTitulo.OcultarTodos();
         Vista.ModificarVisibilidadBotonesBarraTitulo(false);
         Vista.PanelCentral.Mostrar(nameof(VistaSeguridad));
@@ -108,8 +123,7 @@ public partial class PresentadorPrincipal : IPresentadorVistaPrincipal<IVistaPri
                 _menuUsuario.Vista.NombreUsuario = UtilesCuentaUsuario.UsuarioAutenticado?.Nombre;
 
             ActualizarRepoEmpresa();
-        }
-        else return;
+        } else return;
 
         Modulos.Vista.MensajePortada = Resources.MensajePortada
             .Replace("[version]", $"{Program.Version}-beta")

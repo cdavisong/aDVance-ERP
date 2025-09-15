@@ -6,6 +6,16 @@ namespace aDVanceERP.Actualizador.Vistas {
         private readonly IServicioActualizacion _updateService;
         private readonly InfoActualizacion _updateInfo;
 
+        public VistaNotificadorActualizacion(string mensaje) {
+            InitializeComponent();
+
+            btnActualizar.Visible = false;
+
+            // Eventos de la vista
+            Load += (s, e) => OnVistaCargada(mensaje, EventArgs.Empty);
+            btnSalir.Click += delegate { Close(); };
+        }
+
         public VistaNotificadorActualizacion(IServicioActualizacion updateService, InfoActualizacion updateInfo) {
             InitializeComponent();
 
@@ -18,13 +28,28 @@ namespace aDVanceERP.Actualizador.Vistas {
                 btnActualizar.Enabled = false;
                 await Actualizar();
             };
+            btnSalir.Click += delegate { Close(); };
         }
 
         private void OnVistaCargada(object? sender, EventArgs e) {
-            // Configurar el texto HTML con la información de la actualización
-            var htmlContent = GenerateUpdateHtmlContent();
+            // Obtener mensaje
+            var mensaje = sender as string;
+            var mensajeMultiple = mensaje?.Split('|');
 
-            fieldTexto.Text = htmlContent;
+            if (!string.IsNullOrEmpty(mensaje) && mensajeMultiple?.Length > 1)
+                mensaje = mensajeMultiple[0];
+
+            if (string.IsNullOrEmpty(mensaje))
+                fieldTexto.Text = GenerateUpdateHtmlContent();
+            else switch (mensaje) {
+                    case "no-actualizaciones":
+                        fieldTexto.Text = GenerateNoUpdatesNotification();
+                        break;
+                    case "no-conexion":
+                        if (mensajeMultiple?.Length > 1)
+                            fieldTexto.Text = GenerateErrorNotification(mensajeMultiple[1]);
+                        break;
+                }
         }
 
         private string GenerateUpdateHtmlContent() {
@@ -147,6 +172,9 @@ namespace aDVanceERP.Actualizador.Vistas {
             
             <div class='welcome-text'>
                 <p>¡Nueva actualización disponible!</p>
+            </div>
+
+            <div class='description>
                 <p>Mantén tu sistema al día con las últimas mejoras.</p>
             </div>
             
@@ -155,7 +183,7 @@ namespace aDVanceERP.Actualizador.Vistas {
                     <table class='info-table'>
                         <tr>
                             <td class='info-label'>Versión Actual:</td>
-                            <td class='info-value'>{Application.ProductVersion}</td>
+                            <td class='info-value'>v{Program.CurrentVersion}</td>
                         </tr>
                         <tr>
                             <td class='info-label'>Nueva Versión:</td>
@@ -188,64 +216,180 @@ namespace aDVanceERP.Actualizador.Vistas {
         </html>";
         }
 
-        private void ShowNoUpdatesNotification() {
-            fieldTexto.Text = @"
-                <div style='font-family: Segoe UI, sans-serif; text-align: center; padding: 10px;'>
-                    <div style='color: #FFFFFF; padding: 20px; border-radius: 8px;'>
-                        <div style='font-family: Segoe UI, sans-serif; font-size: 24px;'>
-                            <span style='color: #333333; font-weight: bold;'>a</span>
-                            <span style='color: Gray; font-weight: bold;'>DV</span>
-                            <span style='color: #333333; font-weight: bold;'>ance</span>
-                            <span style='background-color: Firebrick; color: white; font-weight: bold; padding: 2px;'> ERP</span>
-                            <span style='color: Gray; font-size: 10px;'> v" + Application.ProductVersion + @"</span>
-                        </div>
+        private string GenerateNoUpdatesNotification() {
+            return @"
+            <!DOCTYPE html>
+            <html lang='es'>
+            <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <style>
+                body {
+                    font-family: Segoe UI, sans-serif;
+                    text-align: center;
+                    padding: 10px;
+                    margin: 0;
+                    line-height: 1.4;
+                }
+                .header {
+                    color: #FFFFFF;
+                    padding: 5px 0;
+                    border-radius: 8px;
+                    margin-bottom: 15px;
+                }
+                .logo {
+                    font-family: Segoe UI, sans-serif;
+                    font-size: 24px;
+                    line-height: 1.2;
+                }
+                .dv {
+                    color: Gray;
+                    font-weight: bold;
+                }
+                .advance {
+                    color: #333333;
+                    font-weight: bold;
+                }
+                .erp {
+                    background-color: Firebrick;
+                    color: white;
+                    font-weight: bold;
+                    padding: 2px 4px;
+                }
+                .version {
+                    color: Gray;
+                    font-size: 10px;
+                    vertical-align: super;
+                }
+                .welcome-text {
+                    margin-top: 20px;
+                    font-size: 24px;
+                    line-height: 1.3;
+                    color: #27ae60;
+                }
+                .description {
+                    margin-top: 10px;
+                    font-size: 16px;
+                    line-height: 1.4;
+                    color: #333333;
+                }
+                .trust-section {
+                    margin-top: 25px;
+                    padding: 15px;
+                }
+                .trust-title {
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                    color: #333333;
+                }
+            </style>
+            </head>
+            <body>
+                <div class='header'>
+                    <div class='logo'>
+                        <span class='advance'>a</span><span class='dv'>DV</span><span class='advance'>ance</span> <span class='erp'>ERP</span> <span class='version'>v" + Program.CurrentVersion + @"</span>
                     </div>
+                </div>
                 
-                    <div style='margin-top: 30px; font-size: 24px; color: #27ae60;'>
-                        <p>¡Tu aplicación está actualizada!</p>
-                    </div>
+                <div class='welcome-text'>
+                    <p>¡Tu aplicación está actualizada!</p>
+                </div>
                 
-                    <div style='margin-top: 20px; font-size: 16px; color: #333333;'>
-                        <p>No hay actualizaciones disponibles en este momento.</p>
-                        <p>Estás utilizando la versión más reciente de aDVance ERP.</p>
-                    </div>
+                <div class='description'>
+                    <p>No hay actualizaciones disponibles en este momento.</p>
+                    <p>Estás utilizando la versión más reciente de aDVance ERP.</p>
+                </div>
                 
-                    <div style='margin-top: 40px; padding: 20px;'>
-                        <div style='font-size: 18px; font-weight: bold; margin-bottom: 15px; color: #333333;'>
-                            Gracias por confiar en nosotros
-                        </div>
-                        <p style='color: Gray; font-style: italic;'>
-                            Continuamos trabajando para mejorar tu experiencia.
-                        </p>
-                    </div>
-                </div>";
+                <div class='trust-section'>
+                    <div class='trust-title'>Gracias por confiar en nosotros</div>
+                    <p style='color: Gray; font-style: italic;'>Continuamos trabajando para mejorar tu experiencia.</p>
+                </div>
+            </body>
+            </html>";
         }
 
-        private void ShowErrorNotification(string errorMessage) {
-            fieldTexto.Text = @"
-                <div style='font-family: Segoe UI, sans-serif; text-align: center; padding: 10px;'>
-                    <div style='color: #FFFFFF; padding: 20px; border-radius: 8px;'>
-                        <div style='font-family: Segoe UI, sans-serif; font-size: 24px;'>
-                            <span style='color: #333333; font-weight: bold;'>a</span>
-                            <span style='color: Gray; font-weight: bold;'>DV</span>
-                            <span style='color: #333333; font-weight: bold;'>ance</span>
-                            <span style='background-color: Firebrick; color: white; font-weight: bold; padding: 2px;'> ERP</span>
-                        </div>
+        private string GenerateErrorNotification(string errorMessage) {
+            return @"
+            <!DOCTYPE html>
+            <html lang='es'>
+            <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <style>
+                body {
+                    font-family: Segoe UI, sans-serif;
+                    text-align: center;
+                    padding: 10px;
+                    margin: 0;
+                    line-height: 1.4;
+                }
+                .header {
+                    color: #FFFFFF;
+                    padding: 5px 0;
+                    border-radius: 8px;
+                    margin-bottom: 15px;
+                }
+                .logo {
+                    font-family: Segoe UI, sans-serif;
+                    font-size: 24px;
+                    line-height: 1.2;
+                }
+                .dv {
+                    color: Gray;
+                    font-weight: bold;
+                }
+                .advance {
+                    color: #333333;
+                    font-weight: bold;
+                }
+                .erp {
+                    background-color: Firebrick;
+                    color: white;
+                    font-weight: bold;
+                    padding: 2px 4px;
+                }
+                .error-text {
+                    margin-top: 20px;
+                    font-size: 24px;
+                    line-height: 1.3;
+                    color: #e74c3c;
+                }
+                .description {
+                    margin-top: 10px;
+                    font-size: 16px;
+                    line-height: 1.4;
+                    color: #333333;
+                }
+                .error-details {
+                    margin-top: 15px;
+                    font-size: 14px;
+                    color: Gray;
+                    font-style: italic;
+                }
+            </style>
+            </head>
+            <body>
+                <div class='header'>
+                    <div class='logo'>
+                        <span class='advance'>a</span><span class='dv'>DV</span><span class='advance'>ance</span> <span class='erp'>ERP</span>
                     </div>
+                </div>
                 
-                    <div style='margin-top: 30px; font-size: 24px; color: #e74c3c;'>
-                        <p>Error de conexión</p>
-                    </div>
+                <div class='error-text'>
+                    <p>Error de conexión</p>
+                </div>
                 
-                    <div style='margin-top: 20px; font-size: 16px; color: #333333;'>
-                        <p>No se pudo verificar las actualizaciones.</p>
-                        <p style='color: Gray; font-size: 14px;'>" + errorMessage + @"</p>
-                    </div>
+                <div class='description'>
+                    <p>No se pudo verificar las actualizaciones.</p>
+                </div>
                 
-                    <div style='margin-top: 30px; font-size: 14px; color: #7f8c8d;'>
-                        <p>Por favor, verifica tu conexión a internet e intenta nuevamente.</p>
-                    </div>
-                </div>";
+                <div class='error-details'>
+                    <p>" + errorMessage + @"</p>
+                    <p>Por favor, verifica tu conexión a internet e intenta nuevamente.</p>
+                </div>
+            </body>
+            </html>";
         }
 
 
@@ -292,8 +436,9 @@ namespace aDVanceERP.Actualizador.Vistas {
 
         private async Task Actualizar() {
             try {
-                // Ocultar texto de actualizacion
+                // Ocultar texto de actualizacion e inhabilitar el botón de descarga
                 fieldTexto.Visible = false;
+                btnActualizar.Enabled = false;
 
                 // Mostrar progreso de descarga
                 var progressForm = new VistaProgresoDescarga();
@@ -313,16 +458,20 @@ namespace aDVanceERP.Actualizador.Vistas {
 
                 if (success) {
                     progressForm.UpdateStatus("Aplicando actualización...");
-                    await Task.Delay(1000);
 
-                    panelCentral.Controls.Remove(progressForm);
-                    progressForm.Dispose();
+                    // Usar el nuevo método AplicarActualizacion
+                    var progressAplicar = new Progress<double>(p => {
+                        progressForm.UpdateProgress(p);
+                        progressForm.UpdateStatus($"Aplicando actualización... {p:0}%");
+                    });
 
-                    _updateService.AplicarActualizacion(_updateInfo.UrlDescarga);
+                    _updateService.AplicarActualizacion(_updateInfo.UrlDescarga, progressAplicar);
                 }
             } catch (Exception ex) {
                 MessageBox.Show($"Error durante la actualización: {ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnActualizar.Enabled = true;
+                btnSalir.Enabled = true;
             }
         }
     }
