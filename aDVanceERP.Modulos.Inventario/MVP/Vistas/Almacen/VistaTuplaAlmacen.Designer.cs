@@ -81,22 +81,22 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             // layoutVista
             // 
             layoutVista.BackColor = Color.White;
-            layoutVista.ColumnCount = 9;
+            layoutVista.ColumnCount = 8;
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
-            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
             layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-            layoutVista.Controls.Add(btnEliminar, 8, 0);
+            layoutVista.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            layoutVista.Controls.Add(btnEliminar, 7, 0);
             layoutVista.Controls.Add(fieldId, 0, 0);
-            layoutVista.Controls.Add(btnEditar, 7, 0);
+            layoutVista.Controls.Add(btnEditar, 6, 0);
             layoutVista.Controls.Add(fieldDescripcion, 3, 0);
-            layoutVista.Controls.Add(btnExportarProductos, 5, 0);
-            layoutVista.Controls.Add(btnExportarDocumentoInventario, 6, 0);
+            layoutVista.Controls.Add(btnExportarProductos, 4, 0);
+            layoutVista.Controls.Add(btnExportarDocumentoInventario, 5, 0);
             layoutVista.Controls.Add(fieldDireccion, 2, 0);
             layoutVista.Controls.Add(fieldNombre, 1, 0);
             layoutVista.Dock = DockStyle.Fill;
@@ -114,8 +114,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEliminar.BorderColor = Color.Gainsboro;
             btnEliminar.BorderRadius = 16;
             btnEliminar.BorderThickness = 1;
-            btnEliminar.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage");
-            btnEliminar.CustomImages.Image = (Image)resources.GetObject("resource.Image");
+            btnEliminar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage");
+            btnEliminar.CustomImages.Image = (Image) resources.GetObject("resource.Image");
             btnEliminar.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnEliminar.CustomizableEdges = customizableEdges1;
             btnEliminar.Dock = DockStyle.Fill;
@@ -125,10 +125,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEliminar.HoverState.BorderColor = Color.PeachPuff;
             btnEliminar.HoverState.FillColor = Color.PeachPuff;
             btnEliminar.HoverState.ForeColor = Color.White;
-            btnEliminar.Location = new Point(1204, 3);
+            btnEliminar.Location = new Point(1203, 3);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnEliminar.Size = new Size(34, 35);
+            btnEliminar.Size = new Size(35, 35);
             btnEliminar.TabIndex = 11;
             // 
             // fieldId
@@ -151,8 +151,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEditar.BorderColor = Color.Gainsboro;
             btnEditar.BorderRadius = 16;
             btnEditar.BorderThickness = 1;
-            btnEditar.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage1");
-            btnEditar.CustomImages.Image = (Image)resources.GetObject("resource.Image1");
+            btnEditar.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage1");
+            btnEditar.CustomImages.Image = (Image) resources.GetObject("resource.Image1");
             btnEditar.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnEditar.CustomizableEdges = customizableEdges3;
             btnEditar.Dock = DockStyle.Fill;
@@ -161,7 +161,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnEditar.ForeColor = Color.White;
             btnEditar.HoverState.BorderColor = Color.PeachPuff;
             btnEditar.HoverState.FillColor = Color.PeachPuff;
-            btnEditar.Location = new Point(1164, 3);
+            btnEditar.Location = new Point(1163, 3);
             btnEditar.Name = "btnEditar";
             btnEditar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             btnEditar.Size = new Size(34, 35);
@@ -173,10 +173,10 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldDescripcion.Font = new Font("Segoe UI", 11.25F);
             fieldDescripcion.ForeColor = Color.DimGray;
             fieldDescripcion.ImeMode = ImeMode.NoControl;
-            fieldDescripcion.Location = new Point(581, 1);
+            fieldDescripcion.Location = new Point(649, 1);
             fieldDescripcion.Margin = new Padding(1);
             fieldDescripcion.Name = "fieldDescripcion";
-            fieldDescripcion.Size = new Size(298, 39);
+            fieldDescripcion.Size = new Size(430, 39);
             fieldDescripcion.TabIndex = 14;
             fieldDescripcion.Text = "descripcion";
             fieldDescripcion.TextAlign = ContentAlignment.MiddleLeft;
@@ -187,8 +187,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnExportarProductos.BorderColor = Color.Gainsboro;
             btnExportarProductos.BorderRadius = 16;
             btnExportarProductos.BorderThickness = 1;
-            btnExportarProductos.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage2");
-            btnExportarProductos.CustomImages.Image = (Image)resources.GetObject("resource.Image2");
+            btnExportarProductos.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage2");
+            btnExportarProductos.CustomImages.Image = (Image) resources.GetObject("resource.Image2");
             btnExportarProductos.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnExportarProductos.CustomizableEdges = customizableEdges5;
             btnExportarProductos.Dock = DockStyle.Fill;
@@ -197,7 +197,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnExportarProductos.ForeColor = Color.White;
             btnExportarProductos.HoverState.BorderColor = Color.PeachPuff;
             btnExportarProductos.HoverState.FillColor = Color.PeachPuff;
-            btnExportarProductos.Location = new Point(1084, 3);
+            btnExportarProductos.Location = new Point(1083, 3);
             btnExportarProductos.Name = "btnExportarProductos";
             btnExportarProductos.ShadowDecoration.CustomizableEdges = customizableEdges6;
             btnExportarProductos.Size = new Size(34, 35);
@@ -210,8 +210,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnExportarDocumentoInventario.BorderRadius = 16;
             btnExportarDocumentoInventario.BorderThickness = 1;
             btnExportarDocumentoInventario.ContextMenuStrip = menuFormatoDocumento;
-            btnExportarDocumentoInventario.CustomImages.HoveredImage = (Image)resources.GetObject("resource.HoveredImage3");
-            btnExportarDocumentoInventario.CustomImages.Image = (Image)resources.GetObject("resource.Image3");
+            btnExportarDocumentoInventario.CustomImages.HoveredImage = (Image) resources.GetObject("resource.HoveredImage3");
+            btnExportarDocumentoInventario.CustomImages.Image = (Image) resources.GetObject("resource.Image3");
             btnExportarDocumentoInventario.CustomImages.ImageAlign = HorizontalAlignment.Center;
             btnExportarDocumentoInventario.CustomizableEdges = customizableEdges7;
             btnExportarDocumentoInventario.Dock = DockStyle.Fill;
@@ -220,7 +220,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             btnExportarDocumentoInventario.ForeColor = Color.White;
             btnExportarDocumentoInventario.HoverState.BorderColor = Color.PeachPuff;
             btnExportarDocumentoInventario.HoverState.FillColor = Color.PeachPuff;
-            btnExportarDocumentoInventario.Location = new Point(1124, 3);
+            btnExportarDocumentoInventario.Location = new Point(1123, 3);
             btnExportarDocumentoInventario.Name = "btnExportarDocumentoInventario";
             btnExportarDocumentoInventario.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnExportarDocumentoInventario.Size = new Size(34, 35);
@@ -236,8 +236,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             // btnExportarPdf
             // 
             btnExportarPdf.BackColor = Color.White;
-            btnExportarPdf.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnExportarPdf.Image = (Image)resources.GetObject("btnExportarPdf.Image");
+            btnExportarPdf.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point,  0);
+            btnExportarPdf.Image = (Image) resources.GetObject("btnExportarPdf.Image");
             btnExportarPdf.ImageAlign = ContentAlignment.MiddleLeft;
             btnExportarPdf.ImageScaling = ToolStripItemImageScaling.None;
             btnExportarPdf.Name = "btnExportarPdf";
@@ -248,8 +248,8 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             // btnExportarXlsx
             // 
             btnExportarXlsx.BackColor = Color.White;
-            btnExportarXlsx.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnExportarXlsx.Image = (Image)resources.GetObject("btnExportarXlsx.Image");
+            btnExportarXlsx.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point,  0);
+            btnExportarXlsx.Image = (Image) resources.GetObject("btnExportarXlsx.Image");
             btnExportarXlsx.ImageAlign = ContentAlignment.MiddleLeft;
             btnExportarXlsx.ImageScaling = ToolStripItemImageScaling.None;
             btnExportarXlsx.Name = "btnExportarXlsx";
@@ -264,7 +264,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldDireccion.Font = new Font("Segoe UI", 11.25F);
             fieldDireccion.ForeColor = Color.DimGray;
             fieldDireccion.ImeMode = ImeMode.NoControl;
-            fieldDireccion.Location = new Point(281, 1);
+            fieldDireccion.Location = new Point(349, 1);
             fieldDireccion.Margin = new Padding(1);
             fieldDireccion.Name = "fieldDireccion";
             fieldDireccion.Size = new Size(298, 39);
@@ -281,7 +281,7 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen {
             fieldNombre.Location = new Point(61, 1);
             fieldNombre.Margin = new Padding(1);
             fieldNombre.Name = "fieldNombre";
-            fieldNombre.Size = new Size(218, 39);
+            fieldNombre.Size = new Size(286, 39);
             fieldNombre.TabIndex = 4;
             fieldNombre.Text = "nombre";
             fieldNombre.TextAlign = ContentAlignment.MiddleLeft;

@@ -36,7 +36,7 @@ namespace aDVanceERP.Modulos.Finanzas.MVP.Presentadores
             return presentadorTupla;
         }
 
-        public new void ActualizarResultadosBusqueda() {
+        public override void ActualizarResultadosBusqueda() {
             // Cambiar la visibilidad de los botones 
             Vista.HabilitarBtnRegistroMovimientoCaja = false;
             Vista.HabilitarBtnCierreCaja = false;            

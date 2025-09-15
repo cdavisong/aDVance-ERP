@@ -54,7 +54,7 @@ public abstract class PresentadorVistaGestion<Pt, Vg, Vt, En, Re, Fb> : Presenta
         Vista.PaginaActual = 1;
     }
 
-    public async void ActualizarResultadosBusqueda() {
+    public async virtual void ActualizarResultadosBusqueda() {
         if (!Vista.Habilitada)
             return;
 

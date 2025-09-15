@@ -60,7 +60,7 @@ namespace aDVanceERP.Modulos.Taller.Presentadores.OrdenProduccion {
             }
         }
 
-        public new void ActualizarResultadosBusqueda() {
+        public override void ActualizarResultadosBusqueda() {
             // Cambiar la visibilidad del botón de cierre de orden de producción al refrescar la lista de objetos.
             Vista.HabilitarBtnCierreOrdenProduccion = false;
 

@@ -51,7 +51,7 @@ public class PresentadorGestionMensajeros : PresentadorVistaGestion<PresentadorT
         return presentadorTupla;
     }
 
-    public new void ActualizarResultadosBusqueda() {
+    public override void ActualizarResultadosBusqueda() {
         // Cambiar la visibilidad de los botones
         Vista.MostrarBtnHabilitarDeshabilitarMensajero = false;
 
