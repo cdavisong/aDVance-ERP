@@ -17,6 +17,8 @@ public partial class VistaConfiguracionBaseDatos : Form, IVistaConfServidorMySQL
 
         _presentador = new PresentadorConfiguracionBaseDatos(this, new RepoConfiguracionBaseDatos());
         _presentador.ConfiguracionCargada += (s, e) => ConfiguracionCargada?.Invoke(s, e);
+
+        Inicializar();
     }
 
     public string NombreVista {

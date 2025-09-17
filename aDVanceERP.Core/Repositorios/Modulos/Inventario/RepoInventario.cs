@@ -25,8 +25,8 @@ public class RepoInventario : RepoEntidadBaseDatos<Modelos.Modulos.Inventario.In
             VALUES (
                 {entidad.IdProducto}, 
                 {entidad.IdAlmacen}, 
-                {entidad.Cantidad.ToString("N2", CultureInfo.InvariantCulture)},
-                {entidad.CostoPromedio.ToString("N2", CultureInfo.InvariantCulture)},
+                {entidad.Cantidad.ToString(CultureInfo.InvariantCulture)},
+                {entidad.CostoPromedio.ToString(CultureInfo.InvariantCulture)},
                 {entidad.ValorTotal}
             );
             """;
@@ -38,9 +38,9 @@ public class RepoInventario : RepoEntidadBaseDatos<Modelos.Modulos.Inventario.In
             SET 
                 id_producto = {objeto.IdProducto}, 
                 id_almacen = {objeto.IdAlmacen}, 
-                cantidad = {objeto.Cantidad.ToString("N2", CultureInfo.InvariantCulture)},
-                costo_promedio = {objeto.CostoPromedio.ToString("N4", CultureInfo.InvariantCulture)},
-                valor_total = {objeto.ValorTotal.ToString("N4", CultureInfo.InvariantCulture)}
+                cantidad = {objeto.Cantidad.ToString(CultureInfo.InvariantCulture)},
+                costo_promedio = {objeto.CostoPromedio.ToString(CultureInfo.InvariantCulture)},
+                valor_total = {objeto.ValorTotal.ToString(CultureInfo.InvariantCulture)}
             WHERE id_inventario = {objeto.Id};
             """;
     }

@@ -28,15 +28,15 @@ public class RepoMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMov
                 )
                 VALUES (
                     {objeto.IdProducto},
-                    {objeto.CostoUnitario.ToString("N2", CultureInfo.InvariantCulture)},
+                    {objeto.CostoUnitario.ToString(CultureInfo.InvariantCulture)},
                     {objeto.IdAlmacenOrigen},
                     {objeto.IdAlmacenDestino},
                     '{objeto.FechaCreacion:yyyy-MM-dd HH:mm:ss}',
                     '{objeto.Estado}',
                     '{DateTime.MinValue:yyyy-MM-dd HH:mm:ss}',
-                    {objeto.SaldoInicial.ToString("N2", CultureInfo.InvariantCulture)},
-                    {objeto.CantidadMovida.ToString("N2", CultureInfo.InvariantCulture)},
-                    {objeto.SaldoFinal.ToString("N2", CultureInfo.InvariantCulture)},
+                    {objeto.SaldoInicial.ToString(CultureInfo.InvariantCulture)},
+                    {objeto.CantidadMovida.ToString(CultureInfo.InvariantCulture)},
+                    {objeto.SaldoFinal.ToString(CultureInfo.InvariantCulture)},
                     {objeto.IdTipoMovimiento},
                     {objeto.IdCuentaUsuario}
                 );
@@ -48,15 +48,15 @@ public class RepoMovimiento : RepoEntidadBaseDatos<Movimiento, FiltroBusquedaMov
                 UPDATE adv__movimiento
                 SET
                     id_producto = {objeto.IdProducto},
-                    costo_unitario = {objeto.CostoUnitario.ToString("N2", CultureInfo.InvariantCulture)},
+                    costo_unitario = {objeto.CostoUnitario.ToString(CultureInfo.InvariantCulture)},
                     id_almacen_origen = {objeto.IdAlmacenOrigen},
                     id_almacen_destino = {objeto.IdAlmacenDestino},
                     fecha_creacion = '{objeto.FechaCreacion:yyyy-MM-dd HH:mm:ss}',
                     estado = '{objeto.Estado}',
                     fecha = '{objeto.Fecha:yyyy-MM-dd HH:mm:ss}',
-                    saldo_inicial = {objeto.SaldoInicial.ToString("N2", CultureInfo.InvariantCulture)},
-                    cantidad_movida = {objeto.CantidadMovida.ToString("N2", CultureInfo.InvariantCulture)},
-                    saldo_final = {objeto.SaldoFinal.ToString("N2", CultureInfo.InvariantCulture)},
+                    saldo_inicial = {objeto.SaldoInicial.ToString(CultureInfo.InvariantCulture)},
+                    cantidad_movida = {objeto.CantidadMovida.ToString(CultureInfo.InvariantCulture)},
+                    saldo_final = {objeto.SaldoFinal.ToString(CultureInfo.InvariantCulture)},
                     id_tipo_movimiento = {objeto.IdTipoMovimiento},
                     id_cuenta_usuario = {objeto.IdCuentaUsuario}
                 WHERE id_movimiento = {objeto.Id};
