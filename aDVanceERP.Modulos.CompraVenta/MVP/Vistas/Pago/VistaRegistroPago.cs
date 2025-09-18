@@ -19,6 +19,8 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         InitializeComponent();
 
         NombreVista = nameof(VistaRegistroPago);
+        Pagos = new List<string[]>();
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         Inicializar();
     }
@@ -36,7 +38,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public RepoVistaBase? PanelCentral { get; private set; }
+    public RepoVistaBase PanelCentral { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -67,7 +69,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
         set => fieldMonto.Text = value.ToString("N2", CultureInfo.InvariantCulture);
     }
 
-    public List<string[]>? Pagos { get; private set; }
+    public List<string[]> Pagos { get; private set; }
 
     public bool ModoEdicion {
         get => _modoEdicion;
@@ -120,9 +122,6 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
 
 
     public void Inicializar() {
-        Pagos = new List<string[]>();
-        PanelCentral = new RepoVistaBase(contenedorVistas);
-
         CargarTiposMoneda(Enum.GetNames(typeof(TipoMoneda)));
         CargarMetodosPago();
 
@@ -237,10 +236,7 @@ public partial class VistaRegistroPago : Form, IVistaRegistroPago, IVistaGestion
     }
 
     private void ActualizarTuplasPagos() {
-        foreach (var tupla in contenedorVistas.Controls)
-            if (tupla is IVistaTuplaPago vistaTupla)
-                vistaTupla.Cerrar();
-        contenedorVistas.Controls.Clear();
+        PanelCentral.CerrarTodos();
 
         // Restablecer útima coordenada Y de la tupla
         VariablesGlobales.CoordenadaYUltimaTupla = 0;

@@ -115,6 +115,7 @@ public class ServicioActualizacionGitHub : IServicioActualizacion {
             if (Directory.Exists(directorioTemporal)) {
                 Directory.Delete(directorioTemporal, true);
             }
+
             Directory.CreateDirectory(directorioTemporal);
 
             // Descomprimir el archivo ZIP
@@ -156,13 +157,6 @@ public class ServicioActualizacionGitHub : IServicioActualizacion {
 
             // Reiniciar la aplicación
             progreso?.Report(100);
-            string appPath = Path.Combine(directorioDestino, "aDVanceERP.Desktop.exe");
-
-            if (File.Exists(appPath)) {
-                Process.Start(appPath);
-            } else {
-                throw new FileNotFoundException("No se pudo encontrar la aplicación principal después de la actualización");
-            }
 
             Application.Exit();
         } catch (Exception ex) {

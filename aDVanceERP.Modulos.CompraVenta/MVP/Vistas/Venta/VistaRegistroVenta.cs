@@ -23,6 +23,8 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         InitializeComponent();
 
         NombreVista = nameof(VistaRegistroVenta);
+        Productos = new List<string[]>();
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         Inicializar();
     }
@@ -55,7 +57,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public RepoVistaBase? PanelCentral { get; private set; }
+    public RepoVistaBase PanelCentral { get; private set; }
 
     public bool ModoEdicion {
         get => _modoEdicion;
@@ -83,7 +85,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
         set => fieldNombreProducto.Text = value;
     }
 
-    public List<string[]>? Productos { get; private set; }
+    public List<string[]> Productos { get; private set; }
 
     public decimal Cantidad {
         get => decimal.TryParse(fieldCantidad.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out var cantidad) 
@@ -168,9 +170,6 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     
 
     public void Inicializar() {
-        Productos = new List<string[]>();
-        PanelCentral = new RepoVistaBase(contenedorVistas);
-
         // Eventos            
         btnCerrar.Click += delegate(object? sender, EventArgs args) {
             Close();
@@ -327,10 +326,7 @@ public partial class VistaRegistroVenta : Form, IVistaRegistroVenta, IVistaGesti
     }
 
     private void ActualizarTuplasProductos() {
-        foreach (var tupla in contenedorVistas.Controls)
-            if (tupla is IVistaTuplaDetalleCompraventaProducto vistaTupla)
-                vistaTupla.Cerrar();
-        contenedorVistas.Controls.Clear();
+        PanelCentral.CerrarTodos();
 
         // Restablecer útima coordenada Y de la tupla
         VariablesGlobales.CoordenadaYUltimaTupla = 0;

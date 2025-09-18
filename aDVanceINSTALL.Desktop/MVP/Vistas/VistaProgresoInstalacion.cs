@@ -16,7 +16,8 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
             EstablecerColorBarraProgreso(fieldBarraProgreso, Color.Firebrick);
         }
 
-        public string? DirectorioInstalacion { get; set; }
+        public string? DirectorioActualizador => $@"{Directory.GetParent(DirectorioInstalacion)?.Parent.FullName}\actualizador";
+        public string? DirectorioInstalacion { get; set; }        
 
         private void EstablecerColorBarraProgreso(ProgressBar pBar, Color newColor) {
             SendMessage(pBar.Handle, 1040, newColor.ToArgb(), IntPtr.Zero);
@@ -43,6 +44,7 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
 
         private void InstalarAplicacion(BackgroundWorker worker, DoWorkEventArgs e) {
             worker.ReportProgress(0, "Creando directorios...");
+
             Thread.Sleep(250);
             if (!Directory.Exists(DirectorioInstalacion))
                 Directory.CreateDirectory(DirectorioInstalacion);
@@ -53,9 +55,27 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
                 Directory.CreateDirectory(DirectorioInstalacion);
             }
 
-            worker.ReportProgress(10, "Descomprimiendo archivos...");
+            if (!Directory.Exists(DirectorioActualizador)) {
+                Directory.CreateDirectory(DirectorioActualizador);
+
+                worker.ReportProgress(3, "Instalado el actualizador");
+                Thread.Sleep(500);
+                ExtraerArchivosActualizador("actualizador.zip", DirectorioActualizador, worker);
+
+                worker.ReportProgress(9, "Creando acceso directo...");
+                Thread.Sleep(500);
+                var rutaActualizador = $@"{DirectorioActualizador}\Actualizador.exe";
+                CrearAccesoDirecto(nombreAcceso: "Actualizar aDVance ERP",
+                    rutaEjecutable: rutaActualizador,
+                    argumentos: "--modo-empresa",
+                    directorioTrabajo: Path.GetDirectoryName(rutaActualizador),
+                    descripcion: "Sistema de actualizaciones automáticas de aDVance ERP",
+                    icono: rutaActualizador + ",0");
+            }
+
+            worker.ReportProgress(10, "Instalando la aplicación...");
             Thread.Sleep(500);
-            ExtraerArchivoZip("aplicacion.zip", DirectorioInstalacion, worker);
+            ExtraerArchivosPrograma("aplicacion.zip", DirectorioInstalacion, worker);
 
             worker.ReportProgress(90, "Estableciendo reglas de firewall...");
             Thread.Sleep(350);
@@ -79,7 +99,70 @@ namespace aDVanceINSTALL.Desktop.MVP.Vistas {
             Thread.Sleep(2000);
         }
 
-        private void ExtraerArchivoZip(string archivoZip, string directorioInstalacion, BackgroundWorker worker) {
+        private void ExtraerArchivosActualizador(string archivoZip, string directorioActualizacion, BackgroundWorker worker) {
+            try {
+                // 1. Validar parámetros
+                if (string.IsNullOrWhiteSpace(archivoZip))
+                    throw new ArgumentException("La ruta del archivo ZIP no puede estar vacía");
+
+                if (string.IsNullOrWhiteSpace(directorioActualizacion))
+                    throw new ArgumentException("El directorio de destino no puede estar vacío");
+
+                if (!System.IO.File.Exists(archivoZip))
+                    throw new FileNotFoundException($"El archivo ZIP no existe: {archivoZip}");
+
+                // 2. Abrir el archivo ZIP
+                using (ZipArchive archive = ZipFile.OpenRead(archivoZip)) {
+                    int totalArchivos = archive.Entries.Count;
+                    int archivosProcesados = 0;
+
+                    worker.ReportProgress(4, $"Descomprimiendo {totalArchivos} archivos...");
+                    Thread.Sleep(1000);
+
+                    // 3. Procesar cada entrada en el ZIP
+                    foreach (ZipArchiveEntry entry in archive.Entries) {
+                        if (worker.CancellationPending)
+                            return;
+
+                        try {
+                            string rutaCompleta = Path.Combine(directorioActualizacion, entry.FullName);
+
+                            // Para directorios
+                            if (string.IsNullOrEmpty(entry.Name)) {
+                                Directory.CreateDirectory(rutaCompleta);
+                                continue;
+                            }
+
+                            // Crear directorio padre si no existe
+                            string directorioPadre = Path.GetDirectoryName(rutaCompleta);
+                            if (!Directory.Exists(directorioPadre))
+                                Directory.CreateDirectory(directorioPadre);
+
+                            // Extraer archivo
+                            entry.ExtractToFile(rutaCompleta, overwrite: true);
+
+                            archivosProcesados++;
+                            int porcentaje = (int) ((double) archivosProcesados / totalArchivos * 100);
+
+                            worker.ReportProgress(
+                                4 + (5 * porcentaje / 100),
+                                $"Extrayendo: {entry.Name} ({archivosProcesados}/{totalArchivos})");
+                            Thread.Sleep(250);
+                        } catch (Exception ex) {
+                            worker.ReportProgress(0, $"Error al extraer {entry.FullName}: {ex.Message}");
+                            // Continuar con el siguiente archivo
+                        }
+                    }
+                }
+
+                Thread.Sleep(250);
+            } catch (Exception ex) {
+                worker.ReportProgress(0, $"ERROR CRÍTICO: {ex.Message}");
+                throw; // Relanzar para manejo superior
+            }
+        }
+
+        private void ExtraerArchivosPrograma(string archivoZip, string directorioInstalacion, BackgroundWorker worker) {
             try {
                 // 1. Validar parámetros
                 if (string.IsNullOrWhiteSpace(archivoZip))

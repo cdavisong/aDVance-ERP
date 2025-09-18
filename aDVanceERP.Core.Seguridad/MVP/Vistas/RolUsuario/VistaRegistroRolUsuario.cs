@@ -16,6 +16,8 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
         InitializeComponent();
 
         NombreVista = nameof(VistaRegistroRolUsuario);
+        Permisos = new List<string[]>();
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         Inicializar();
     }
@@ -33,7 +35,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
         get => AlturaContenedorVistas / VariablesGlobales.AlturaTuplaPredeterminada;
     }
 
-    public RepoVistaBase? PanelCentral { get; private set; }
+    public RepoVistaBase PanelCentral { get; private set; }
 
     public bool Habilitada {
         get => Enabled;
@@ -74,7 +76,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
         set => fieldNombrePermiso.Text = value;
     }
 
-    public List<string[]>? Permisos { get; private set; }
+    public List<string[]> Permisos { get; private set; }
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? PermisoAgregado;
@@ -85,9 +87,6 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
 
 
     public void Inicializar() {
-        Permisos = new List<string[]>();
-        PanelCentral = new RepoVistaBase(contenedorVistas);
-
         // Eventos
         btnCerrar.Click += delegate (object? sender, EventArgs args) {
             Close();
@@ -152,10 +151,7 @@ public partial class VistaRegistroRolUsuario : Form, IVistaRegistroRolUsuario, I
     }
 
     private void ActualizarTuplasPermisosRoles() {
-        foreach (var tupla in contenedorVistas.Controls)
-            if (tupla is IVistaTuplaPermiso vistaTupla)
-                vistaTupla.Cerrar();
-        contenedorVistas.Controls.Clear();
+        PanelCentral.CerrarTodos();
 
         // Restablecer útima coordenada Y de la tupla
         VariablesGlobales.CoordenadaYUltimaTupla = 0;
