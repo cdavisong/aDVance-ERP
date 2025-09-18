@@ -123,30 +123,23 @@ namespace aDVanceERP.Desktop.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a &lt;!DOCTYPE html&gt;
         ///&lt;html lang=&quot;es&quot;&gt;
-        ///	&lt;head&gt;
-        ///	&lt;meta charset=&quot;UTF-8&quot;&gt;
-        ///	&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-        ///	&lt;style&gt;
-        ///		body {
-        ///			font-family: Segoe UI, sans-serif;
-        ///			text-align: center;
-        ///			padding: 10px;
-        ///		}
-        ///		.header {
-        ///			color: #FFFFFF;
-        ///			padding: 20px;
-        ///			border-radius: 8px;
-        ///		}
-        ///		.logo {
-        ///			font-family: Segoe UI, sans-serif;
-        ///			font-size: 24px; /* Tamaño de fuente ajustado */
-        ///		}
-        ///		.dv {
-        ///			color: Gray;
-        ///			font-weight: bold;
-        ///		}
-        ///		.advance {
-        ///			col [resto de la cadena truncado]&quot;;.
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;UTF-8&quot;&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+        ///    &lt;style&gt;
+        ///        body {
+        ///            font-family: Segoe UI, sans-serif;
+        ///            text-align: center;
+        ///            padding: 10px;
+        ///        }
+        ///        .header {
+        ///            color: #FFFFFF;
+        ///            padding: 20px;
+        ///            border-radius: 8px;
+        ///        }
+        ///        .logo {
+        ///            font-family: Segoe UI, sans-serif;
+        ///            font-size: 24px; /* [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string MensajePortada {
             get {

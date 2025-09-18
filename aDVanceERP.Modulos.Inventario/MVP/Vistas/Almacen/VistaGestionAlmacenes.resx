@@ -177,6 +177,18 @@
         yeJ+RxuusZwXgsHiZ7+soJviVtFbShTibastagkDecjf5hO58lPZH4Nx8QAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="btnImportarInventarioVersat.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAXpJREFUOE+9
+        1DFIV1EUx/FPOQRme0TQkBEEDeZS0NDQEEGIQ5tzDg0GijVVEA1FY1OJQ0GBqxEuETaEWASBBIIRQVhQ
+        JA0RFVEcOP+4Xv6+hwT94Md997x7vrx73r2H/6C9GMbpykPYXi9u00n8wFu8rvwbT7GtTmrSXdypg6kA
+        fsQ8+uqXG2kGN+tgKoAjeLcZaBvwGPZtBtoE/IZT+dyBPmmDNgFv4Ts+p7/gF6brhaWagFtwGMcLz2ZO
+        Vw3iAz51OTIbOda+x6EaFrqEZZxJnyvGsSI+ifFiHjkXa1joMh4X8yncyNq9yNgBrOS6rRmLMuwv8v6q
+        Bh7MnxDjUsZ24Vn+3V7swENczxqvUw0sv/Al5nACi3iDPVjI8xm+XUOjDlHo8+moaWe8gmu4gKs4gvu5
+        /Vd4hK8YLYEDWM0D+7zFkXgUO3NXsbvI7y+BoWgO9+pgg6KGHWBXRfv6ibXiRjT5bBswFA22vA1N3o0H
+        mKgh/6JoDj2dyR8muXgTtYpYIAAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="btnRegistrar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAGVJREFUOE9j
@@ -258,4 +270,7 @@
         B905KJm2dH5qNJP8EGLiJP8HPgHXVeEtRWEKoAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="fieldImportarArchivo.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>331, 17</value>
+  </metadata>
 </root>

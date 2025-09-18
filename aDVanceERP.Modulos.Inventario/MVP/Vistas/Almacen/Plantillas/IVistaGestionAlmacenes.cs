@@ -7,5 +7,6 @@ namespace aDVanceERP.Modulos.Inventario.MVP.Vistas.Almacen.Plantillas;
 
 public interface IVistaGestionAlmacenes : IVistaContenedor, IGestorEntidades, IBuscadorEntidades<FiltroBusquedaAlmacen>,
     INavegadorTuplasEntidades {
+    event EventHandler<string>? ImportarInventarioVersat;
     event EventHandler<FormatoDocumento>? ExportarDocumentoInventario;
 }

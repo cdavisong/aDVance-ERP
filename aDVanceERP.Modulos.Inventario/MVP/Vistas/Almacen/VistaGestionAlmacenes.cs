@@ -16,6 +16,7 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         InitializeComponent();
 
         NombreVista = nameof(VistaGestionAlmacenes);
+        PanelCentral = new RepoVistaBase(contenedorVistas);
 
         Inicializar();
     }
@@ -77,11 +78,12 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         }
     }
 
-    public RepoVistaBase? PanelCentral { get; private set; }
+    public RepoVistaBase PanelCentral { get; private set; }
 
     public bool DispositivoConectado { get; private set; }
 
     public event EventHandler<FormatoDocumento>? ExportarDocumentoInventario;
+    public event EventHandler<string>? ImportarInventarioVersat;
 
     public event EventHandler? AlturaContenedorTuplasModificada;
     public event EventHandler? MostrarPrimeraPagina;
@@ -96,9 +98,6 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
     public event EventHandler<(FiltroBusquedaAlmacen, string?)>? BuscarEntidades;
 
     public void Inicializar() {
-        // Variables locales
-        PanelCentral = new RepoVistaBase(contenedorVistas);
-
         // Eventos
         fieldFiltroBusqueda.SelectedIndexChanged += delegate {
             fieldDatoBusqueda.Text = string.Empty;
@@ -129,6 +128,15 @@ public partial class VistaGestionAlmacenes : Form, IVistaGestionAlmacenes {
         };
         btnExportarPdf.Click += delegate { ExportarDocumentoInventario?.Invoke(this, FormatoDocumento.PDF); };
         btnExportarXlsx.Click += delegate { ExportarDocumentoInventario?.Invoke(this,FormatoDocumento.Excel); };
+        btnImportarInventarioVersat.Click += delegate {
+            var resultado = fieldImportarArchivo.ShowDialog(this);
+
+            if (resultado == DialogResult.OK) {
+                var rutaArchivo = fieldImportarArchivo.FileName;
+
+                ImportarInventarioVersat?.Invoke(this, rutaArchivo);
+            }
+        };
         btnRegistrar.Click += delegate (object? sender, EventArgs e) { RegistrarEntidad?.Invoke(sender, e); };
         btnPrimeraPagina.Click += delegate (object? sender, EventArgs e) {
             PaginaActual = 1;
